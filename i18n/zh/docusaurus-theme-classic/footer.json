@@ -13,11 +13,11 @@
   },
   "link.item.label.Getting Started": {
     "message": "快速开始",
-    "description": "The label of footer link with label=Getting Started linking to /docs/quick-start"
+    "description": "The label of footer link with label=Getting Started linking to /docs/"
   },
   "link.item.label.Tutorial": {
     "message": "实践教程",
-    "description": "The label of footer link with label=Tutorial linking to /docs/tutorial"
+    "description": "The label of footer link with label=Tutorial linking to /docs/tutorial/helm"
   },
   "link.item.label.Discussions": {
     "message": "讨论组",

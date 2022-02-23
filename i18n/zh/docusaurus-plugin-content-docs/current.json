@@ -3,12 +3,12 @@
     "message": "下一页",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.Tutorial - Basics": {
-    "message": "基础教程",
-    "description": "The label for category Tutorial - Basics in sidebar tutorialSidebar"
+  "sidebar.docs.category.Getting Started": {
+    "message": "快速开始",
+    "description": "The label for category Getting Started in sidebar docs"
   },
-  "sidebar.tutorialSidebar.category.Tutorial - Extras": {
-    "message": "扩展教程",
-    "description": "The label for category Tutorial - Extras in sidebar tutorialSidebar"
+  "sidebar.docs.category.Tutorial": {
+    "message": "实践教程",
+    "description": "The label for category Tutorial in sidebar docs"
   }
 }
