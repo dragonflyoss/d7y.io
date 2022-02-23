@@ -28,22 +28,22 @@ nydus 项目优化了现有的 OCI 镜像标准格式，并以此设计了一个
 
 架构上， nydus 主要包含一个新的镜像格式，和一个负责解析容器镜像的 FUSE 用户态文件系统进程。
 
-![nydus-architecture| center | 768x356](i18n/zh/docusaurus-plugin-content-blog/2020-10-23-announcing-nydus/nydus-architecture.png)
+![nydus-architecture| center | 768x356](nydus-architecture.png)
 
 nydus 能够解析 [FUSE](https://www.kernel.org/doc/html/latest/filesystems/fuse.html) 或者 [virtiofs](https://virtio-fs.gitlab.io/) 协议来支持传统的 [runc 容器](https://github.com/opencontainers/runc)或者 [Kata 容器](https://katacontainers.io/)。容器仓库，[OSS 对象存储](https://www.alibabacloud.com/product/oss)，NAS，以及 Dragonfly 的超级节点和 peer 节点都可以作为 nydus 的镜像数据源。同时， nydus 还可以配置一个本地缓存，从而避免每次启动都从远端数据源拉取数据。
 
 镜像格式方面， nydus 把一个容器镜像分成元数据和数据两层。其中元数据层是一颗[自校验的哈希树](https://en.wikipedia.org/wiki/Merkle_tree)。每个文件和目录都是哈希树中的一个附带哈希值的节点。一个文件节点的哈希值是由文件的数据确定，一个目录节点的哈希值则是由该目录下所有文件和目录的哈希值确定。每个文件的数据被按照固定大小切片并保存到数据层中。数据切片可以在不同文件以及不同镜像中的不同文件共享。
 
-![nydus-format| center | 768x356](i18n/zh/docusaurus-plugin-content-blog/2020-10-23-announcing-nydus/nydus-format.png)
+![nydus-format| center | 768x356](nydus-format.png)
 
 ## Nydus 能为用户带来什么？
 用户如果部署了 nydus 镜像服务，最直观的一个感受就是，容器启动变快了，从以前的明显时间消耗，变成了几乎瞬间就能启动起来。在我们的测试中， nydus 能够把常见镜像的启动时间，从数分钟缩短到数秒钟。
 
-![nydus-performance| center | 768x356](i18n/zh/docusaurus-plugin-content-blog/2020-10-23-announcing-nydus/nydus-performance.png)
+![nydus-performance| center | 768x356](nydus-performance.png)
 
 另外一个不那么明显但也很重要的改进，是 nydus 能够为用户提供容器运行时数据一致性校验。在传统的镜像中，镜像数据会先被解压到本地文件系统，再由容器应用去访问使用。解压前，镜像数据是完整校验的。但是解压之后，镜像数据不再能够被校验。这带来的一个问题就是，如果解压后的镜像数据被无意或者恶意地修改，用户是无法感知的。而 nydus 镜像不会被解压到本地，同时可以对每一次数据访问进行校验，如果数据被篡改，则可以从远端数据源重新拉取。
 
-![nydus-integraty| center | 768x356](i18n/zh/docusaurus-plugin-content-blog/2020-10-23-announcing-nydus/nydus-integrity.png)
+![nydus-integraty| center | 768x356](nydus-integrity.png)
 
 ## 未来规划
 
