@@ -44,6 +44,8 @@ const config = {
         blog: {
           showReadingTime: true,
           editUrl: "https://github.com/dragonflyoss/d7y.io/tree/main/",
+          blogSidebarTitle: 'All posts',
+          blogSidebarCount: 'ALL',
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
