@@ -68,7 +68,7 @@ $ docker run --name dragonfly-supernode --restart=always -d -p 8001:8001 -p 8002
 - -Dsupernode.advertiseIp=172.60.20.44 设置clinet可以访问的supernode ip,这是一个大坑。如果不设置，有可能会导致client无法连接
 supernode，届时，docker pull会走clinet的网络，从真实的registry直接下载镜像
 
-![image.png](i18n/zh/docusaurus-plugin-content-blog/2019-03-25-d7y-dfdaemon/advertiseIp.png)
+![image.png](advertiseIp.png)
 
 #### dfdaemon
 
@@ -116,7 +116,7 @@ docker pull anjia0532/kubeflow-images-public.tensorflow-1.6.0-notebook-gpu:v2018
 ```
 
 可以通过 `iftop` 等软件，查看带宽使用情况判断是否生效，也可以通过查看日志来判断。
-![image.png](i18n/zh/docusaurus-plugin-content-blog/2019-03-25-d7y-dfdaemon/iftop.png)
+![image.png](iftop.png)
 
 但是会经常性的出现 `error pulling image configuration: received unexpected HTTP status: 502 Bad Gateway`
 
