@@ -35,7 +35,7 @@ Dragonfly,但是访问的是公开镜像，本文主要讲解如何下载私有�
 （但是也能解释通，比较绕，dfdaemon本身就是一个伪装成registry，用来加速私有registry，那么登陆信息就应该换成dfdaemon ip，只是示例不太恰当而
 已，对初学者相当不友好倒是真的）
 
-![image.png](i18n/zh/docusaurus-plugin-content-blog/2019-03-30-d7y-private-registry/docs.png)
+![image.png](docs.png)
 
 ### supernode步骤
 
@@ -210,7 +210,7 @@ cat /etc/docker/daemon.json
 遇到的很多坑都是在 [太云-lowzj](https://github.com/lowzj) 帮助下蹚过去的。但是还是觉得，如果文档足够友好，肯定会减少群内被打扰的次数，
 进而节省自己时间的。
 
-![image.png](i18n/zh/docusaurus-plugin-content-blog/2019-03-30-d7y-private-registry/dingtalk_group_chat.png)
+![image.png](dingtalk_group_chat.png)
 
 ### 招聘小广告
 
