@@ -6,36 +6,36 @@ description: 本文介绍如何在Kubernetes上部署Dragonfly，包括supernode
 hide_table_of_contents: false
 ---
 
-# 在Kubernetes上部署Dragonfly
+## 在Kubernetes上部署Dragonfly
 
-
-## 1 说明
+### 1 说明
 
 - `supernode` 组件至少需要两节点部署，hostnetwork，一般部署在管理节点，比如k8s master上。
 - `supernode` 需要使用8001、8002端口。如果跟kube-apiserver部署在一个节点上，需要确保不要有端口冲突。
 - `supernode` 所在节点对网络带宽、磁盘空间、磁盘IO要求较高。
 - `dfdaemon` 组件使用daemonset部署在所有的node节点上，hostnetwork，占用65001端口
-- 需要修改所有node的docker启动参数 ___--registry-mirror http://127.0.0.1:65001___。
+- 需要修改所有node的docker启动参数 `--registry-mirror http://127.0.0.1:65001`。
 
-
-## 2 部署
+### 2 部署
 
 其中 `supernode` 部署在管理节点，`dfget` 和`dfdaemon` 部署在所有的node上面。
 
-### 2.1 supernode
+#### 2.1 supernode
 
 三种部署方式：
+
 - 直接跑docker 容器
 - kubelet管理静态pod
 - deployment部署
 
-> NOTE： 官方提供的镜像是0.2.0，继委自己打了个0.3.0的镜像，这个镜像是基于master分支的。问了一下已经部署上线蜻蜓的去哪儿网和美团的工程师，他们用的是官方的0.2.0镜像。
-
+> NOTE： 官方提供的镜像是0.2.0，继委自己打了个0.3.0的镜像，这个镜像是基于master分支的。问了一下已经部署上线蜻蜓的去哪儿网和美团的工程师，
+> 他们用的是官方的0.2.0镜像。
 
 ##### 2.1.1 docker容器
 
 ```bash
-docker run -d -p 8001:8001 -p 8002:8002 -v /data/log/supernode/:/home/admin/supernode/logs/ -v /data/supernode/repo/:/home/admin/supernode/repo/ hub.c.163.com/hzlilanqing/supernode:0.3.0
+docker run -d -p 8001:8001 -p 8002:8002 -v /data/log/supernode/:/home/admin/supernode/logs/ \
+  -v /data/supernode/repo/:/home/admin/supernode/repo/ hub.c.163.com/hzlilanqing/supernode:0.3.0
 ```
 
 ##### 2.1.2 静态pod
@@ -185,44 +185,42 @@ spec:
 
 ```
 
-#### 2.2 dfget & dfdaemon
+##### 2.2 dfget & dfdaemon
 
-* **Dockerfile**
+- **Dockerfile**
 
-    ```dockerfile
-    FROM debian:7
-     
-    MAINTAINER "hzlilanqing@corp.netease.com"
-    
-    RUN apt-get update && apt-get install -y python wget && \
-        wget http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz  && \
-        tar -zxf df-client_0.2.0_linux_amd64.tar.gz && \
-        cp -R df-client/* /usr/local/bin/ && \
-        rm -rf df-client_0.2.0_linux_amd64.tar.gz df-client
-    
-    COPY ./dragonfly.conf /etc/
-    
-    EXPOSE 65001
-    
-    CMD ["/bin/sh","-c","/usr/local/bin/dfdaemon --registry https://hub.c.163.com"]
-    ```
+```dockerfile
+FROM debian:7
 
-* **dragonfly.conf**
+MAINTAINER "hzlilanqing@corp.netease.com"
 
-    ```ini
+RUN apt-get update && apt-get install -y python wget && \
+    wget http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz  && \
+    tar -zxf df-client_0.2.0_linux_amd64.tar.gz && \
+    cp -R df-client/- /usr/local/bin/ && \
+    rm -rf df-client_0.2.0_linux_amd64.tar.gz df-client
+
+COPY ./dragonfly.conf /etc/
+
+EXPOSE 65001
+
+CMD ["/bin/sh","-c","/usr/local/bin/dfdaemon --registry https://hub.c.163.com"]
+```
+
+- **dragonfly.conf**
+
+```ini
     [node]
     address=<supernode_address>
-    ```
+```
 
-* **构建镜像**
+- **构建镜像**
 
-    ```bash
-    docker build -t dfdaemon:0.2.0 .
-    ```
+```bash
+docker build -t dfdaemon:0.2.0 .
+```
 
 使用daemonset部署，需要使用hostnetwork，占用端口65001，并且需要准备一个configmap将dragonflg.conf挂载到容器的/etc/目录下面：
-
-
 
 ```ini
 ## 这个配置需要是`supernode` 的域名
@@ -278,18 +276,17 @@ spec:
             path: dragonfly.conf
 ```
 
-
-#### 2.3 docker启动参数设置
+##### 2.3 docker启动参数设置
 
 设置启动参数 `registry-mirror`，其中`65001`是`dfdaemon`的服务端口:
 
-* 方法1: 修改`/etc/systemd/system/multi-user.target.wants/docker.service`
+- 方法1: 修改`/etc/systemd/system/multi-user.target.wants/docker.service`
 
     ```bash
     ExecStart=/usr/bin/dockerd -H fd:// --registry-mirror http://127.0.0.1:65001
     ```
 
-* 方法2: 修改`/etc/docker/daemon.json`
+- 方法2: 修改`/etc/docker/daemon.json`
 
     ```json
     {
@@ -297,11 +294,9 @@ spec:
     }
     ```
 
-
-## 附录
+### 附录
 
 完整的部署yaml：
-
 
 ```yaml
 apiVersion: apps/v1
@@ -373,7 +368,7 @@ spec:
           path: /data/supernode/repo/
           type: ""
         name: data
-        
+
 ---
 
 kind: Service
@@ -450,8 +445,6 @@ metadata:
   namespace: kube-system
 ```
 
+### 参考文档
 
-## 参考文档
-
-> 1. https://d7y.io/
-
+> 1. <https://d7y.io/>

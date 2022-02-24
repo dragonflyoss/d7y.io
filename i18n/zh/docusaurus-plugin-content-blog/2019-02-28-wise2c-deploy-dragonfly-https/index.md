@@ -8,18 +8,17 @@ hide_table_of_contents: false
 
 ![611.jpg | center | 827x347](https://camo.githubusercontent.com/3890ebff894a525c0747e1945f991b10b42284b4/68747470733a2f2f6d6d62697a2e717069632e636e2f6d6d62697a5f706e672f4a533266664d4958736962304d564d7a504556414b58763233545070304341463559696253696133313839364e7737654b4f546837777948574c47736e6c4e665a496f366669626961444d6d7176615333716d5657554d323959412f3634303f77785f666d743d706e672674703d7765627026777866726f6d3d352677785f6c617a793d312677785f636f3d31)
 
-# 睿云智合基于 Dragonfly 支持docker proxy https
+## 睿云智合基于 Dragonfly 支持docker proxy https
 
+### 1、部署https harbor
 
-## 1、部署https harbor
-
-https://github.com/goharbor/harbor/blob/master/docs/configure_https.md
+<https://github.com/goharbor/harbor/blob/master/docs/configure_https.md>
 
 ## 2、部署docker_proxy
 
 ### pull images
 
-**pull_images.sh**
+#### pull_images.sh
 
 ```bash
 #!/bin/sh
@@ -39,7 +38,7 @@ function pullImage(){
 pullImage
 ```
 
-**docker_proxy.sh**
+#### docker_proxy.sh
 
 ```bash
 #! /bin/sh
@@ -71,7 +70,10 @@ function dockerDockerProxyRun() {
     if [[ 0 != $(docker ps -a | grep ${containername} | wc -l) ]]; then
         docker rm -f ${containername}
     fi
-    docker run --restart=always --privileged=true --name ${containername} -d -p 0.0.0.0:3128:3128 -v /etc/docker_proxy_nginx/docker_mirror_certs:/ca -v /var/log/docker_proxy_nginx:/var/log/nginx/ -e DRAGONFLY_REGISTRIES="${registry},http://${localhostIp}:65001" -e REGISTRIES="${registry}" -e DNS_SERVER=${DNS_SERVER} ${docker_registry_proxy}
+    docker run --restart=always --privileged=true --name ${containername} -d -p 0.0.0.0:3128:3128 \
+      -v /etc/docker_proxy_nginx/docker_mirror_certs:/ca -v /var/log/docker_proxy_nginx:/var/log/nginx/ \
+      -e DRAGONFLY_REGISTRIES="${registry},http://${localhostIp}:65001" -e REGISTRIES="${registry}" \
+      -e DNS_SERVER=${DNS_SERVER} ${docker_registry_proxy}
 }
 
 changeDockerProxy
@@ -82,11 +84,11 @@ systemctl restart docker
 dockerDockerProxyRun
 ```
 
-## 3、部署dragonfly
+### 3、部署dragonfly
 
-### 部署Supernode
+#### 部署Supernode
 
-**supernode.sh**
+##### supernode.sh
 
 ```bash
 #!/bin/sh
@@ -105,9 +107,9 @@ function superNode() {
 superNode
 ```
 
-### 部署dfclient
+#### 部署dfclient
 
-**dfclient.sh**
+##### dfclient.sh
 
 ```bash
 #!/bin/sh
@@ -136,15 +138,17 @@ function startDfClient() {
     if [[ 0 != $(docker ps -a | grep ${containername} | wc -l) ]]; then
         docker rm -f ${containername}
     fi
-    docker run --name ${containername} --restart=always -d  -p 65001:65001 -v /root/.small-dragonfly:/root/.small-dragonfly -v /etc/dragonfly.conf:/etc/dragonfly.conf  -e dfdaemon_registry=${dfdaemon_registry} -e localhostIp=${localhostIp} ${dfclient}
+    docker run --name ${containername} --restart=always -d  -p 65001:65001 \
+    -v /root/.small-dragonfly:/root/.small-dragonfly -v /etc/dragonfly.conf:/etc/dragonfly.conf  \
+    -e dfdaemon_registry=${dfdaemon_registry} -e localhostIp=${localhostIp} ${dfclient}
 }
 
 startDfClient
 ```
 
-### 最后
+#### 最后
 
-**trust.sh**
+##### trust.sh
 
 ```bash
 #!/bin/sh
@@ -155,18 +159,17 @@ curl http://127.0.0.1:3128/ca.crt >/etc/pki/ca-trust/source/anchors/docker_proxy
 update-ca-trust
 ```
 
-### 测试: 拉取镜像
+#### 测试: 拉取镜像
 
 ```bash
 docker pull x.x.x/library/nginx:latest
 ```
----
 
-原文链接：https://mp.weixin.qq.com/s/95mX8cDox5bmgQ2xGHLPqQ
+原文链接：<https://mp.weixin.qq.com/s/95mX8cDox5bmgQ2xGHLPqQ>
 
 参考：
 
-* https://d7y.io/zh-cn/
-* https://github.com/goharbor/harbor/
-* https://github.com/rpardini/docker-registry-proxy
-* https://github.com/chobits/ngx_http_proxy_connect_module
+- <https://d7y.io/zh-cn/>
+- <https://github.com/goharbor/harbor/>
+- <https://github.com/rpardini/docker-registry-proxy>
+- <https://github.com/chobits/ngx_http_proxy_connect_module>
