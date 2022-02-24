@@ -24,7 +24,7 @@ Dragonfly 能让所有类型的文件、镜像或数据分发变得简单而经�
 **注意：**更多面向阿里巴巴内部的功能也将逐步开源。敬请期待！
 
 - **基于 P2P 的文件分发**：通过利用 P2P 技术进行文件传输，它能最大限度地利用每个对等节点（Peer）的带宽资源，以提高下载效率，并节省大量跨机房
-带宽，尤其是昂贵的跨境带宽。
+  带宽，尤其是昂贵的跨境带宽。
 - **非侵入式支持所有类型的容器技术**：Dragonfly 可无缝支持多种容器用于分发镜像。
 - **机器级别的限速**：除了像许多其他下载工具（例如 wget 和 curl）那样的针对当前下载任务的限速之外，Dragonfly 还支持针对整个机器的限速。
 - **被动式 CDN**：这种 CDN 机制可防止重复远程下载。
@@ -41,17 +41,17 @@ Dragonfly 能让所有类型的文件、镜像或数据分发变得简单而经�
 
 我们开展了一个实验来对比 Dragonfly 和 wget 的性能。
 
-|测试环境||
-|---|---|
-|Dragonfly 服务端|2 * (24核 64GB内存 2000Mb/s)|
-|文件源服务端|2 * (24核 64GB内存 2000Mb/s)|
-|客户端|4核 8GB内存 200Mb/s|
-|目标文件大小|200MB|
-|实验日期|2016年4月20日|
+| 测试环境         |                                 |
+| ---------------- | ------------------------------- |
+| Dragonfly 服务端 | 2 \* (24 核 64GB 内存 2000Mb/s) |
+| 文件源服务端     | 2 \* (24 核 64GB 内存 2000Mb/s) |
+| 客户端           | 4 核 8GB 内存 200Mb/s           |
+| 目标文件大小     | 200MB                           |
+| 实验日期         | 2016 年 4 月 20 日              |
 
 实验结果如下图所示。
 
-![How it stacks up](/img/docs/intro/performance.png)
+![How it stacks up](../resource/performance.png)
 
 如统计图所示，对于 Dragonfly，不论有多少个客户端同时下载，平均下载时间始终约为 12 秒。但是对于 wget，下载速度会随着客户端数量的增加不断增加。
 当 wget 客户端数量达到 1,200 个时，文件源崩溃了，因此无法继续为任何客户端提供服务。
@@ -65,18 +65,18 @@ Dragonfly 下载普通文件和下载容器镜像的工作原理略有不同。
 SuperNode 充当 CDN，并负责调度对等节点（Peer）之间的文件分块传输。dfget 是 P2P 客户端，也称为“Peer”（对等节点），主要用于下载和共享文件分
 块。
 
-![Downloading General Files](/img/docs/intro/dfget.png)
+![Downloading General Files](../resource/dfget.png)
 
 ### 下载镜像文件
 
 Registry 类似于文件服务器。dfget proxy 也称为 dfdaemon，会拦截来自 docker pull 或 docker push 的 HTTP 请求，然后使用 dfget 来处理那
 些跟镜像分层相关的请求。
 
-![Downloading Container Images](/img/docs/intro/dfget-combine-container.png)
+![Downloading Container Images](../resource/dfget-combine-container.png)
 
 ### 下载文件分块
 
 每个文件会被分成多个分块，并在对等节点之间传输。一个对等节点就是一个 P2P 客户端。SuperNode 会判断本地是否存在对应的文件。如果不存在，则会将其从
 文件服务器下载到 SuperNode。
 
-![How file blocks are downloaded](/img/docs/intro/distributing.png)
+![How file blocks are downloaded](../resource/distributing.png)
