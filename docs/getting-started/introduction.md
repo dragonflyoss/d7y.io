@@ -32,21 +32,21 @@ This project is an open-source version of the Dragonfly used at Alibaba. It has 
 **Note:** More Alibaba-internal features will be made available to open-source users soon. Stay tuned!
 
 - **P2P-based file distribution**: By using the P2P technology for file transmission, it makes the most out of the
-bandwidth resources of each peer to improve downloading efficiency,  and saves a lot of cross-IDC bandwidth,
-especially the costly cross-board bandwidth.
+  bandwidth resources of each peer to improve downloading efficiency, and saves a lot of cross-IDC bandwidth,
+  especially the costly cross-board bandwidth.
 - **Non-invasive support to all kinds of container technologies**: Dragonfly can seamlessly support various containers
-for distributing images.
+  for distributing images.
 - **Host level speed limit**: In addition to rate limit for the current download task like many other downloading tools
-(for example wget and curl), Dragonfly also provides rate limit for the entire host.
+  (for example wget and curl), Dragonfly also provides rate limit for the entire host.
 - **Passive CDN**: The CDN mechanism can avoid repetitive remote downloads.
 - **Strong consistency**: Dragonfly can make sure that all downloaded files are consistent even if users do not provide
-any check code (MD5).
+  any check code (MD5).
 - **Disk protection and highly efficient IO**: Prechecking disk space, delaying synchronization, writing file blocks
-in the best order, isolating net-read/disk-write, and so on.
+  in the best order, isolating net-read/disk-write, and so on.
 - **High performance**: SuperNode is completely closed-loop, which means that it doesn't rely on any database
-or distributed cache, processing requests with extremely high performance.
+  or distributed cache, processing requests with extremely high performance.
 - **Auto-isolation of Exception**: Dragonfly will automatically isolate exception nodes (peer or SuperNode)
-to improve download stability.
+  to improve download stability.
 - **No pressure on file source**: Generally, only a few SuperNodes will download files from the source.
 - **Support standard HTTP header**: Support submitting authentication information through HTTP header.
 - **Effective concurrency control of Registry Auth**: Reduce the pressure on the Registry Auth Service.
@@ -56,17 +56,17 @@ to improve download stability.
 
 We carried out an experiment to compare the performance of Dragonfly and wget.
 
-|Test Environment ||
-|---|---|
-|Dragonfly Server|2 * (24-Core 64GB-RAM 2000Mb/s)|
-|File Source Server|2 * (24-Core 64GB-RAM 2000Mb/s)|
-|Client|4-Core 8GB-RAM 200Mb/s|
-|Target File Size|200MB|
-|Experiment Date|April 20, 2016|
+| Test Environment   |                                  |
+| ------------------ | -------------------------------- |
+| Dragonfly Server   | 2 \* (24-Core 64GB-RAM 2000Mb/s) |
+| File Source Server | 2 \* (24-Core 64GB-RAM 2000Mb/s) |
+| Client             | 4-Core 8GB-RAM 200Mb/s           |
+| Target File Size   | 200MB                            |
+| Experiment Date    | April 20, 2016                   |
 
 The expeirment result is as shown in the following figure.
 
-![How it stacks up](/img/docs/intro/performance.png)
+![How it stacks up](../resource/performance.png)
 
 As you can see in the chart, for Dragonfly, no matter how many clients are downloading, the average downloading
 time is always about 12 seconds. But for wget, the downloading time keeps increasing with the number of clients.
@@ -81,14 +81,14 @@ Dragonfly works slightly differently when downloading general files and download
 The SuperNode plays the role of CDN and schedules the transfer of blocks between each peer. dfget is the P2P client,
 which is also called a "peer". It's mainly used to download and share blocks.
 
-![Downloading General Files](/img/docs/intro/dfget.png)
+![Downloading General Files](../resource/dfget.png)
 
 ### Downloading Container Images
 
 Registry is similar to the file server above. dfget proxy is also called dfdaemon, which intercepts HTTP requests
 from docker pull or docker push, and then decides which requests to process with dfget.
 
-![Downloading Container Images](/img/docs/intro/dfget-combine-container.png)
+![Downloading Container Images](../resource/dfget-combine-container.png)
 
 ### Downloading Blocks
 
@@ -96,4 +96,4 @@ Every file is divided into multiple blocks, which are transferred between peers.
 The SuperNode will check if the corresponding file exists in the local disk. If not,
 the file will be downloaded into SuperNode from the file server.
 
-![How file blocks are downloaded](/img/docs/intro/distributing.png)
+![How file blocks are downloaded](../resource/distributing.png)
