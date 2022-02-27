@@ -2,7 +2,7 @@
 id: quick-start
 title: 快速开始：以docker-compose为例
 description: 文档的目标是帮助您快速开始使用 Dragonfly
-slug: /quick-start/
+slug: /getting-started/quick-start/
 ---
 
 为了方便您快速搭建起 Dragonfly 环境，本文以 [Docker-Compose](https://docs.docker.com/compose/) 为例进行讲解，
