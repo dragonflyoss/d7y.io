@@ -6,13 +6,15 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "prepare": "husky install",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations --locale zh",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "markdown-lint": "scripts/markdownlint.sh"
+    "markdown-lint": "scripts/markdownlint.sh",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.15",
@@ -26,6 +28,8 @@
     "react-youtube": "^7.14.0"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^16.2.1",
+    "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
     "prettier": "^2.5.1"
   },
@@ -46,13 +50,18 @@
       "prettier --write",
       "git add"
     ],
-    "*.json": [
-      "prettier --write",
-      "git add"
-    ],
     "*.css": [
       "prettier --write",
       "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
     ]
   }
 }
