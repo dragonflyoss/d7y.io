@@ -99,8 +99,24 @@ const config = {
                 to: "/docs/",
               },
               {
-                label: "Tutorial",
-                to: "/docs/tutorial/helm",
+                label: "Setup",
+                to: "/docs/setup/install/kubernetes",
+              },
+              {
+                label: "Concepts",
+                to: "/docs/concepts/best-practices",
+              },
+              {
+                label: "Reference",
+                to: "/docs/reference/benchmark",
+              },
+              {
+                label: "Contribute",
+                to: "/docs/contribute/development-guide/development",
+              },
+              {
+                label: "Others",
+                to: "/docs/others/faqs",
               },
             ],
           },
