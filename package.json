@@ -47,16 +47,13 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.css": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.json": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "commitlint": {
