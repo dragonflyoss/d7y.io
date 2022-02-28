@@ -13,7 +13,7 @@ module.exports = {
   docs: [
     {
       type: 'category',
-      label: 'Getting Started1',
+      label: 'Getting Started',
       collapsed: false,
       items: [
         {
