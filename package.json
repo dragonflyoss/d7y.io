@@ -25,6 +25,10 @@
     "react-github-btn": "^1.2.1",
     "react-youtube": "^7.14.0"
   },
+  "devDependencies": {
+    "lint-staged": "^12.3.4",
+    "prettier": "^2.5.1"
+  },
   "browserslist": {
     "production": [
       ">0.5%",
@@ -35,6 +39,20 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.css": [
+      "prettier --write",
+      "git add"
     ]
   }
 }
