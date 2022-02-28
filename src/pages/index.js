@@ -36,6 +36,9 @@ export default function Home() {
           <Button href={useBaseUrl("docs/")}>
             <Translate>Get Started</Translate>
           </Button>
+          <Button href={useBaseUrl("docs/concepts/terminology/cdn")}>
+            <Translate>Learn More</Translate>
+          </Button>
         </div>
       </header>
 
