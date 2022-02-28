@@ -27,6 +27,7 @@ module.exports = {
       collapsed: false,
       items: [
         {
+
           type: 'category',
           label: 'Install',
           items: [{
