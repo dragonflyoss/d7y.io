@@ -18,6 +18,11 @@ module.exports = {
       items: [
         "getting-started/introduction",
         {
+          type: 'link',
+          label: 'WIP katacoda',
+          href: 'https://www.katacoda.com/',
+        },
+        {
           type: 'category',
           label: 'Quick Start',
           link: {
