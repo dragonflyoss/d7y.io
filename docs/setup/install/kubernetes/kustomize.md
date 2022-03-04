@@ -1,6 +1,6 @@
 ---
 id: kustomize
-title: Kustomize Support
+title: Kustomize
 slug: /setup/install/kubernetes/kustomize
 ---
 

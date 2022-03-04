@@ -1,8 +1,10 @@
 ---
 id: cri-o
-title: 使用 dfdaemon 支持 CRI-O
+title: CRI-O
 slug: /setup/runtime/cri-o
 ---
+
+使用 dfdaemon 支持 CRI-O
 
 ## Step 1: 配置 Dragonfly
 

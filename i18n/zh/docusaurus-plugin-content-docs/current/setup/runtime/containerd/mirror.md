@@ -1,8 +1,10 @@
 ---
 id: containerd-mirror
-title: 使用 dfdaemon 支持 Containerd
+title: Mirror 模式
 slug: /setup/runtime/containerd/mirror
 ---
+
+使用 dfdaemon 支持 Containerd
 
 从 v1.1.0 开始，Containerd 支持镜像仓库。
 

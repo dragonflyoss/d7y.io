@@ -1,6 +1,6 @@
 ---
 id: helm
-title: Helm Support
+title: Helm
 slug: /setup/install/kubernetes/helm
 ---
 

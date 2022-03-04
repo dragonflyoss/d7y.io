@@ -1,8 +1,10 @@
 ---
 id: containerd-proxy
-title: Use dfget daemon as HTTP proxy for containerd
+title: Http Proxy mode
 slug: /setup/runtime/containerd/proxy
 ---
+
+Use dfget daemon as HTTP proxy for containerd
 
 Currently, `ctr` command of containerd doesn't support private registries with `registry-mirrors`,
 in order to do so, we need to use HTTP proxy for containerd.

@@ -1,8 +1,10 @@
 ---
 id: cri-o
-title: Use dfget daemon as registry mirror for CRI-O
+title: CRI-O
 slug: /setup/runtime/cri-o
 ---
+
+Use dfget daemon as registry mirror for CRI-O
 
 ## Step 1: Validate Dragonfly Configuration
 

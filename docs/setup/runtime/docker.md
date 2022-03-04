@@ -1,8 +1,10 @@
 ---
 id: docker
-title: Use dfget daemon as HTTP proxy for docker daemon
+title: Docker
 slug: /setup/runtime/docker
 ---
+
+Use dfget daemon as HTTP proxy for docker daemon
 
 Currently, docker doesn't support private registries with `registry-mirrors`,
 in order to do so, we need to use HTTP proxy for docker daemon.

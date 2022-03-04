@@ -1,8 +1,10 @@
 ---
 id: containerd-mirror
-title: Use dfget daemon for containerd
+title: Mirror mode
 slug: /setup/runtime/containerd/mirror
 ---
+
+Use dfget daemon for containerd
 
 From v1.1.0, Containerd supports registry mirrors,
 we can configure Containerd via this feature for HA.

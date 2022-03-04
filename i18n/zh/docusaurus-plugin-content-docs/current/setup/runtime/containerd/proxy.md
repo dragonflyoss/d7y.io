@@ -1,8 +1,10 @@
 ---
 id: containerd-proxy
-title: 使用 dfget daemon 作为 containerd 的 http 代理
+title: Http Proxy 模式
 slug: /setup/runtime/containerd/proxy
 ---
+
+使用 dfget daemon 作为 containerd 的 http 代理
 
 目前 containerd 的 `ctr` 命令不支持带有
 registry-mirrors 的私有注册表，为此我们需要为 containerd 使用 HTTP 代理。
