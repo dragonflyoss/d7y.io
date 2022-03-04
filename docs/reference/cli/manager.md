@@ -48,6 +48,7 @@ manager --jaeger  http://localhost:14250/api/traces
 ```
 
 ## Available Commands
+
 ```text
 completion  generate the autocompletion script for the specified shell
 doc         generate documents
@@ -55,7 +56,6 @@ help        Help about any command
 plugin      show plugin
 version     show version
 ```
-
 
 ## Options
 
