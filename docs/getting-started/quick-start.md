@@ -1,8 +1,10 @@
 ---
 id: quick-start
-title: WIP Getting Started
-description: Dragonfly Quick Start document aims to help you to quick start Dragonfly journey. This experiment is quite easy and simplified.
+title: Quick Start
 slug: /getting-started/quick-start/
 ---
 
-Dragonfly Quick Start
+Table of contents:
+
+- [Docker Compose](./quick-start/docker-compose.md)
+- [Kubernetes](./quick-start/kubernetes.md)

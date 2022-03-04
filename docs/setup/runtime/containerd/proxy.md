@@ -1,22 +1,24 @@
 ---
-id: docker
-title: 使用 dfget daemon 作为 docker daemon 的 http 代理
-slug: /setup/runtime/docker
+id: containerd-proxy
+title: Use dfget daemon as HTTP proxy for containerd
+slug: /setup/runtime/containerd/proxy
 ---
 
-目前 docker 不支持带有 registry-mirrors 的私有注册表，为此，我们需要为 docker daemon 使用 HTTP 代理。
+Currently, `ctr` command of containerd doesn't support private registries with `registry-mirrors`,
+in order to do so, we need to use HTTP proxy for containerd.
 
-## 快速开始
+## Quick Start
 
-### 第一步：为 http 代理生成 CA 证书
+### Step 1: Generate CA certificate for HTTP proxy
 
-生成一个 CA 证书私钥。
+Generate a CA certificate private key.
 
 ```bash
 openssl genrsa -out ca.key 2048
 ```
 
-打开 openssl 配置文件 `openssl.conf`。设置 `basicConstraints` 为 true，然后您就能修改这些值。
+Open openssl config file `openssl.conf`.
+Note set `basicConstraints` to true, that you can modify the values.
 
 ```text
 [ req ]
@@ -27,6 +29,7 @@ distinguished_name = req_distinguished_name
 attributes = req_attributes
 extensions               = v3_ca
 req_extensions           = v3_ca
+
 [ req_distinguished_name ]
 countryName = Country Name (2 letter code)
 countryName_min = 2
@@ -39,15 +42,17 @@ commonName = Common Name (eg, fully qualified host name)
 commonName_max = 64
 emailAddress = Email Address
 emailAddress_max = 64
+
 [ req_attributes ]
 challengePassword = A challenge password
 challengePassword_min = 4
 challengePassword_max = 20
+
 [ v3_ca ]
 basicConstraints         = CA:TRUE
 ```
 
-生成 CA 证书。
+Generate the CA certificate.
 
 ```bash
 openssl req -new -key ca.key -nodes -out ca.csr -config openssl.conf
@@ -55,10 +60,11 @@ openssl x509 -req -days 36500 -extfile openssl.conf \
     -extensions v3_ca -in ca.csr -signkey ca.key -out ca.crt
 ```
 
-### 第二步：配置 dfget daemon
+### Step 2: Configure dfget daemon
 
-为了将 dfget daemon 作为 http 代理使用，首先你需要在 `/var/log/dragonfly/dfget.yaml` 中增加一条代理规则，
-它将会代理 `your.private.registry` 对镜像层的请求：
+To use dfget daemon as HTTP proxy, first you need to append a proxy rule in
+`/etc/dragonfly/dfget.yaml`, This will proxy
+`your.private.registry`'s requests for image layers:
 
 ```yaml
 proxy:
@@ -77,21 +83,10 @@ proxy:
       - regx: your.private.registry
 ```
 
-### 第三步：配置 Docker daemon
+### Step 3: Configure containerd
 
-为了忽略您的证书错误，您需要在
-`/etc/docker/daemon.json` 中把 `insecure-registries` 设置为您的私有代理：
-
-```json
-{
-  "insecure-registries": ["your.private.registry"]
-}
-```
-
-### 第四步：继续配置 Docker daemon
-
-在 `/etc/systemd/system/docker.service.d/http-proxy.conf` 设置 dfdaemon 为
-docker daemon 的 `HTTP_PROXY` 和 `HTTPS_PROXY` 代理：
+Set dfget damone as `HTTP_PROXY` and `HTTPS_PROXY` for containerd in
+`/etc/systemd/system/containerd.service.d/http-proxy.conf`:
 
 ```toml
 [Service]
@@ -99,21 +94,22 @@ Environment="HTTP_PROXY=http://127.0.0.1:65001"
 Environment="HTTPS_PROXY=http://127.0.0.1:65001"
 ```
 
-### 第五步：使用代理拉取镜像
+### Step 4: Pull images with proxy
 
-完成以上的步骤后，我们可以尝试验证 Dragonfly 是否像我们预期的一样正常工作。
+Through the above steps, we can start to validate if Dragonfly works as expected.
 
-您可以像往常一样拉取镜像，比如：
+And you can pull the image as usual, for example:
 
 ```bash
-docker pull your.private.registry/namespace/image:latest
+ctr image pull your.private.registry/namespace/image:latest
 ```
 
-## 自定义配置项
+## Custom assets
 
-### 使用自签名证书注册
+### Registry uses a self-signed certificate
 
-如果您使用一个自签名证书进行注册，你可以用以下配置来忽略证书错误：
+If your registry uses a self-signed certificate, you can either choose to
+ignore the certificate error with:
 
 ```yaml
 proxy:
@@ -133,7 +129,7 @@ proxy:
         insecure: true
 ```
 
-也可以使用以下配置提供一个证书：
+Or provide a certificate with:
 
 ```yaml
 proxy:
@@ -153,9 +149,9 @@ proxy:
         certs: ['server.crt']
 ```
 
-您能使用以下命令获取您服务器的证书：
+You can get the certificate of your server with:
 
-```shell
+```bash
 openssl x509 -in <(openssl s_client -showcerts \
     -servername your.domain.com -connect your.domain.com:443 -prexit 2>/dev/null)
 ```
