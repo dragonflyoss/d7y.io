@@ -66,5 +66,17 @@
   "sidebar.docs.link.Change logs": {
     "message": "变更日志",
     "description": "The label for link Change logs in sidebar docs, linking to https://github.com/dragonflyoss/Dragonfly2/blob/main/CHANGELOG.md"
+  },
+  "sidebar.docs.category.Quick Start": {
+    "message": "快速开始",
+    "description": "The label for category Quick Start in sidebar docs"
+  },
+  "sidebar.docs.category.Kubernetes": {
+    "message": "Kubernetes",
+    "description": "The label for category Kubernetes in sidebar docs"
+  },
+  "sidebar.docs.category.Containerd": {
+    "message": "Containerd",
+    "description": "The label for category Containerd in sidebar docs"
   }
 }
