@@ -4,8 +4,6 @@ title: WIP Plugin Develop Guide
 slug: /contribute/development-guide/plugin/
 ---
 
-# [WIP] Plugin Develop Guide
-
 All compiled plugins need to place in `/usr/local/dragonfly/plugins/`.
 
 ## Plugin Design
