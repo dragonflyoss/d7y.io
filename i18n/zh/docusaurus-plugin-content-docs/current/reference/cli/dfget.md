@@ -34,7 +34,7 @@ dfget [command]
 ### dfget 用法案例
 
 ```text
-dfget --schedulers 127.0.0.1:8002 -o /path/to/output -u "http://example.com/object"
+dfget --schedulers 127.0.0.1:8002 -O /path/to/output -u "http://example.com/object"
 ```
 
 ### 查看 dfget 日志
