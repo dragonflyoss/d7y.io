@@ -63,10 +63,6 @@
     "message": "配置",
     "description": "The label for link Configuration in sidebar docs, linking to https://github.com/dragonflyoss/Dragonfly2/tree/main/docs/zh-CN/deployment/configuration"
   },
-  "sidebar.docs.link.Change logs": {
-    "message": "变更日志",
-    "description": "The label for link Change logs in sidebar docs, linking to https://github.com/dragonflyoss/Dragonfly2/blob/main/CHANGELOG.md"
-  },
   "sidebar.docs.category.Quick Start": {
     "message": "快速开始",
     "description": "The label for category Quick Start in sidebar docs"
@@ -78,10 +74,6 @@
   "sidebar.docs.category.Containerd": {
     "message": "Containerd",
     "description": "The label for category Containerd in sidebar docs"
-  },
-  "sidebar.docs.category.Source": {
-    "message": "源码安装",
-    "description": "The label for category Source in sidebar docs"
   },
   "sidebar.docs.link.WIP katacoda": {
     "message": "WIP katacoda",
