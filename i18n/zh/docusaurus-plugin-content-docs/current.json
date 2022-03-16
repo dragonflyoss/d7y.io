@@ -59,10 +59,6 @@
     "message": "其他",
     "description": "The label for category Others in sidebar docs"
   },
-  "sidebar.docs.link.Configuration": {
-    "message": "配置",
-    "description": "The label for link Configuration in sidebar docs, linking to https://github.com/dragonflyoss/Dragonfly2/tree/main/docs/zh-CN/deployment/configuration"
-  },
   "sidebar.docs.category.Quick Start": {
     "message": "快速开始",
     "description": "The label for category Quick Start in sidebar docs"
@@ -82,5 +78,9 @@
   "sidebar.docs.category.Preheat": {
     "message": "预热",
     "description": "The label for category Preheat in sidebar docs"
+  },
+  "sidebar.docs.category.Configuration": {
+    "message": "配置",
+    "description": "The label for category Configuration in sidebar docs"
   }
 }
