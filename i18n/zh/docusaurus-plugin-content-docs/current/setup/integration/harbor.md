@@ -1,17 +1,15 @@
 ---
 id: harbor
-title: Dragonfly 与 Harbor 使用
+title: Harbor
 ---
-
-## Dragonfly 与 Harbor 使用
 
 本文档将帮助您将 Dragonfly 与 Harbor 一起使用。
 
-### Harbor 地址作为 P2P 源镜像仓库
+## Harbor 地址作为 P2P 源镜像仓库
 
 首先基于 Mirror 模式将 Harbor 地址作为 Dragonfly 的源仓库地址, 参考文档 [runtime-containerd-mirror](../runtime/containerd/mirror.md)。
 
-### 预热功能集成
+## 预热功能集成
 
 Dragonfly 2.0 兼容 Dragonfly 1.0 集成 Harbor 预热接口。
 
