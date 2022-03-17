@@ -5,7 +5,7 @@ title: Manager
 
 ## Configure Manager YAML File
 
-The default path for the dfdaemon yaml configuration file is `/etc/dragonfly/manager.yaml` in linux,
+The default path for the manager yaml configuration file is `/etc/dragonfly/manager.yaml` in linux,
 and the default path is `$HOME/.dragonfly/config/manager.yaml` in darwin.
 
 ```yaml

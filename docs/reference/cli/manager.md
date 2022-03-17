@@ -75,4 +75,4 @@ version     show version
 
 ## Manager Config
 
-[Config Example](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/en/deployment/configuration/manager.yaml)
+[Config Example](../configuration/manager.md)

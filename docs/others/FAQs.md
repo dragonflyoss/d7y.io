@@ -27,7 +27,7 @@ change log level to info
 
 ## Download slower than without Dragonfly
 
-1. Confirm limit rate in [dfget.yaml](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/en/deployment/configuration/dfget.yaml#L65)
+1. Confirm limit rate in [dfget.yaml](../reference/configuration/dfdaemon.md)
 
    ```yaml
    download:

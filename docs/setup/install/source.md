@@ -9,7 +9,7 @@ the executable files separately according to the modules.
 ## Prerequisites
 
 | Required Software | Version Limit |
-|-------------------|---------------|
+| ----------------- | ------------- |
 | Git               | 1.9.1+        |
 | Golang            | 1.16.x        |
 | MySQL             | 5.6+          |
@@ -93,11 +93,13 @@ the executable files separately according to the modules.
 
 #### Startup Manager
 
+Configure manager yaml file, The default path for the manager yaml configuration file is
+`/etc/dragonfly/manager.yaml` in linux,
+and the default path is `$HOME/.dragonfly/config/manager.yaml` in darwin. Please refer to [Configure Manager YAML File](../../reference/configuration/manager.md)
+
 ```bash
-# download manager configuration example
+# Configure manager yaml file
 # Notice: check and modify some config e.g. database.mysql,server.rest.publicPath ...
-wget -o /etc/dragonfly/manager.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/manager.yaml
 
 # View manager cli help docs
 manager --help
@@ -124,11 +126,13 @@ Console features preview reference document [console preview](../../reference/ma
 
 #### Startup cdn
 
+Configure cdn yaml file, The default path for the cdn yaml configuration file is
+`/etc/dragonfly/cdn.yaml` in linux,
+and the default path is `$HOME/.dragonfly/config/cdn.yaml` in darwin. Please refer to [Configure CDN YAML File](../../reference/configuration/cdn.md)
+
 ```bash
-# download cdn configuration example
+# Configure cdn yaml file
 # Notice: check and modify some config e.g. base.manager ...
-wget -o /etc/dragonfly/cdn.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/cdn.yaml
 
 # View cdn cli help docs
 cdn --help
@@ -178,11 +182,13 @@ Let's take nginx as an example.
 
 #### Startup scheduler
 
+Configure scheduler yaml file, The default path for the scheduler yaml configuration file is
+`/etc/dragonfly/scheduler.yaml` in linux,
+and the default path is `$HOME/.dragonfly/config/scheduler.yaml` in darwin. Please refer to [Configure Scheduler YAML File](../../reference/configuration/scheduler.md)
+
 ```bash
-# download scheduler configuration example
+# Configure scheduler yaml file
 # Notice: check and modify some config e.g. job.enable,job.redis,manager.addr ...
-wget -o /etc/dragonfly/scheduler.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/scheduler.yaml
 
 # View scheduler cli help docs
 scheduler --help
@@ -202,11 +208,13 @@ telnet 127.0.0.1 8002
 
 ### Startup dfdaemon
 
+Configure dfdaemon yaml file, The default path for the dfdaemon yaml configuration file is
+`/etc/dragonfly/dfget.yaml` in linux,
+and the default path is `$HOME/.dragonfly/config/dfget.yaml` in darwin. Please refer to [Configure Dfdaemon YAML File](../../reference/configuration/dfdaemon.md)
+
 ```bash
-# download dfget configuration example
+# Configure dfdaemon yaml file
 # Notice: check and modify some config e.g. scheduler.manager ...
-wget -o /etc/dragonfly/dfget.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/dfget.yaml
 
 # View dfget cli help docs
 dfget --help

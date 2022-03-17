@@ -5,7 +5,7 @@ title: Scheduler
 
 ## Configure Scheduler YAML File
 
-The default path for the dfdaemon yaml configuration file is `/etc/dragonfly/scheduler.yaml` in linux,
+The default path for the scheduler yaml configuration file is `/etc/dragonfly/scheduler.yaml` in linux,
 and the default path is `$HOME/.dragonfly/config/scheduler.yaml` in darwin.
 
 ```yaml

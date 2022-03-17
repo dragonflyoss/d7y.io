@@ -5,7 +5,7 @@ title: Manager
 
 ## 配置 Manager YAML 文件
 
-Linux 环境下默认 Manager 配置路径为 `/etc/dragonfly/manager.yaml`, Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/manager.yaml`。
+Linux 环境下默认 Manager 配置路径为 `/etc/dragonfly/manager.yaml`, Darwin 环境下默认 Manager 配置路径为 `$HOME/.dragonfly/config/manager.yaml`。
 
 ```yaml
 # 服务配置

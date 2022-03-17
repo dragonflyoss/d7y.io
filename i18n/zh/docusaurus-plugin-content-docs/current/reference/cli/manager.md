@@ -71,4 +71,4 @@ version     show version
 
 ## 配置文件
 
-[配置样例](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/zh-CN/deployment/configuration/manager.yaml)
+[配置样例](../../reference/configuration/manager.md)

@@ -7,13 +7,13 @@ title: 源码安装
 
 ## 前提
 
-| 所需软件   | 版本要求   |
-|--------|--------|
-| Git    | 1.9.1+ |
-| Golang | 1.16.x |
-| MySQL  | 5.6+   |
-| Redis  | 3.0+   |
-| Nginx  | 0.8+   |
+| 所需软件 | 版本要求 |
+| -------- | -------- |
+| Git      | 1.9.1+   |
+| Golang   | 1.16.x   |
+| MySQL    | 5.6+     |
+| Redis    | 3.0+     |
+| Nginx    | 0.8+     |
 
 ## 按模块单独安装
 
@@ -91,11 +91,12 @@ title: 源码安装
 
 #### 启动 Manager
 
+编辑配置文件 Linux 环境下默认 Manager 配置路径为 `/etc/dragonfly/manager.yaml`, Darwin 环境下默认 Manager 配置路径为 `$HOME/.dragonfly/config/manager.yaml`。
+参考文档 [配置 Manager YAML 文件](../../reference/configuration/manager.md)。
+
 ```bash
 # 下载 manager 配置样例
 # 注意检查并修改样例配置文件，比如: database.mysql,server.rest.publicPath ...
-wget -o /etc/dragonfly/manager.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/manager.yaml
 
 # 查看 manager cli 帮助文档
 manager --help
@@ -121,11 +122,12 @@ telnet 127.0.0.1 65003
 
 #### 启动 cdn
 
+编辑配置文件 Linux 环境下默认 CDN 配置路径为 `/etc/dragonfly/cdn.yaml`, Darwin 环境下默认 CDN 配置路径为 `$HOME/.dragonfly/config/cdn.yaml`。
+参考文档 [配置 CDN YAML 文件](../../reference/configuration/cdn.md)。
+
 ```bash
 # 下载 cdn 配置样例
 # 注意检查并修改样例配置文件，比如: base.manager ...
-wget -o /etc/dragonfly/cdn.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/cdn.yaml
 
 # 查看 cdn cli 帮助
 cdn --help
@@ -173,11 +175,12 @@ cdn
 
 #### 启动 scheduler
 
+编辑配置文件 Linux 环境下默认 Scheduler 配置路径为 `/etc/dragonfly/scheduler.yaml`, Darwin 环境下默认 Scheduler 配置路径为 `$HOME/.dragonfly/config/scheduler.yaml`。
+参考文档 [配置 Scheduler YAML 文件](../../reference/configuration/scheduler.md)。
+
 ```bash
 # 下载 scheduler 配置样例
 # 注意检查并修改样例配置文件，比如: job.enable,job.redis,manager.addr ...
-wget -o /etc/dragonfly/scheduler.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/scheduler.yaml
 
 # 查看 scheduler cli 帮助
 scheduler --help
@@ -196,11 +199,12 @@ telnet 127.0.0.1 8002
 
 ### 启动 dfdaemon
 
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfget.yaml`, Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`。
+参考文档 [配置 Dfdaemon YAML 文件](../../reference/configuration/dfdaemon.md)。
+
 ```bash
-# 下载 dfget 配置样例
+# 下载 dfdaemon 配置样例
 # 注意检查并修改样例配置文件，比如: scheduler.manager ...
-wget -o /etc/dragonfly/dfget.yaml \
- https://raw.githubusercontent.com/dragonflyoss/Dragonfly2/main/docs/zh-CN/deployment/configuration/dfget.yaml
 
 # 查看 dfget cli 帮助
 dfget --help
