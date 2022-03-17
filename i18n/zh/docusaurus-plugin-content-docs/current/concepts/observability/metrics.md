@@ -41,17 +41,19 @@ GRPC 数据指标基于 [go-grpc-prometheus](https://github.com/grpc-ecosystem/g
 
 <!-- markdownlint-disable -->
 
-| 名字                                                         | 标签                                       | 类型      | 描述                  |
-| :----------------------------------------------------------- | :----------------------------------------- | :-------- | :-------------------- |
-| dragonfly_scheduler_register_peer_task_total                 |                                            | counter   | 注册任务总次数。      |
-| dragonfly_scheduler_register_peer_task_failure_total         |                                            | counter   | 注册任务失败次数。    |
-| dragonfly_scheduler_download_total                           |                                            | counter   | 下载任务总次数。      |
-| dragonfly_scheduler_download_failure_total                   |                                            | counter   | 下载任务失败次数。    |
-| dragonfly_scheduler_p2p_traffic                              |                                            | counter   | P2P 流量。            |
-| dragonfly_scheduler_peer_host_traffic                        | traffic_type, peer_host_uuid, peer_host_ip | counter   | 每个主机的 P2P 流量。 |
-| dragonfly_scheduler_peer_task_total                          | type                                       | counter   | 下载任务总个数。      |
-| dragonfly_scheduler_peer_task_download_duration_milliseconds |                                            | histogram | 任务下载耗时。        |
-| dragonfly_scheduler_concurrent_schedule_total                |                                            | gauge     | 并行调度任务个数。    |
+| 名字                                                         | 标签                                                | 类型      | 描述                  |
+| :----------------------------------------------------------- | :-------------------------------------------------- | :-------- | :-------------------- |
+| dragonfly_scheduler_register_peer_task_total                 | biz_tag                                             | counter   | 注册任务总次数。      |
+| dragonfly_scheduler_register_peer_task_failure_total         | biz_tag                                             | counter   | 注册任务失败次数。    |
+| dragonfly_scheduler_download_total                           | biz_tag                                             | counter   | 下载任务总次数。      |
+| dragonfly_scheduler_download_failure_total                   | biz_tag                                             | counter   | 下载任务失败次数。    |
+| dragonfly_scheduler_leave_task_total                         | biz_tag                                             | counter   | 任务释放总个数。      |
+| dragonfly_scheduler_leave_task_failure_total                 | biz_tag                                             | counter   | 任务释放失败个数。    |
+| dragonfly_scheduler_traffic                                  | biz_tag, type                                       | counter   | P2P 流量。            |
+| dragonfly_scheduler_peer_host_traffic                        | biz_tag, traffic_type, peer_host_uuid, peer_host_ip | counter   | 每个主机的 P2P 流量。 |
+| dragonfly_scheduler_peer_task_total                          | biz_tag, type                                       | counter   | 下载任务总个数。      |
+| dragonfly_scheduler_peer_task_download_duration_milliseconds | biz_tag                                             | histogram | 任务下载耗时。        |
+| dragonfly_scheduler_concurrent_schedule_total                |                                                     | gauge     | 并行调度任务个数。    |
 
 <!-- markdownlint-restore -->
 
