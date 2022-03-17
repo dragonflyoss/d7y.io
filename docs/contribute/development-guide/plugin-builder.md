@@ -1,6 +1,6 @@
 ---
 id: plugin-builder
-title: Dragonfly Plugin Builder
+title: Plugin Builder
 slug: /contribute/development-guide/plugin-builder/
 ---
 
@@ -16,14 +16,14 @@ docker build -t dragonfly-plugin-builder -f build/plugin-builder/Dockerfile .
 ## Build Plugin
 
 > Available plugin type: resource, scheduler, manager
-> When type is scheduler, plugin name must be evaluator
-> When type is manager, plugin name must be search
+> When type is scheduler, plugin name includes evaluator
+> When type is manager, plugin name includes search
 
 ### Example
 
 #### 1. Resource Plugin Example
 
-* Build plugin, cdn and dfget
+- Build plugin, cdn and dfget
 
 ```shell
 PLUGIN_TYPE=resource
@@ -38,7 +38,7 @@ docker run --entrypoint=/bin/bash \
   /build.sh "$PLUGIN_TYPE" "$PLUGIN_NAME" /go/src/plugin
 ```
 
-* Build cdn and dfdaemon image
+- Build cdn and dfdaemon image
 
 ```shell
 docker build -t cdn -f build/plugin-builder/images/cdn/Dockerfile .
@@ -47,7 +47,7 @@ docker build -t dfdaemon -f build/plugin-builder/images/dfdaemon/Dockerfile .
 
 #### 2. Scheduler Plugin Example
 
-* Build plugin, scheduler
+- Build plugin, scheduler
 
 ```shell
 PLUGIN_TYPE=scheduler
@@ -61,7 +61,7 @@ docker run --entrypoint=/bin/bash \
   /build.sh "$PLUGIN_TYPE" "$PLUGIN_NAME" /go/src/plugin
 ```
 
-* Build scheduler image
+- Build scheduler image
 
 ```shell
 docker build -t scheduler -f build/plugin-builder/images/scheduler/Dockerfile .
@@ -69,7 +69,7 @@ docker build -t scheduler -f build/plugin-builder/images/scheduler/Dockerfile .
 
 #### 3. Manager Plugin Example
 
-* Build plugin, manager
+- Build plugin, manager
 
 ```shell
 PLUGIN_TYPE=manager
@@ -83,7 +83,7 @@ docker run --entrypoint=/bin/bash \
   /build.sh "$PLUGIN_TYPE" "$PLUGIN_NAME" /go/src/plugin
 ```
 
-* Build manager image
+- Build manager image
 
 ```shell
 docker build -t manager -f build/plugin-builder/images/manager/Dockerfile .

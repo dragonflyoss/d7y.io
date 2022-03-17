@@ -1,6 +1,6 @@
 ---
 id: plugin
-title: WIP Plugin Develop Guide
+title: Plugin Develop
 slug: /contribute/development-guide/plugin/
 ---
 
@@ -195,11 +195,3 @@ resource plugin d7yfs, location: d7y-resource-plugin-d7yfs.so, attribute: {"buil
 ```
 
 <!-- markdownlint-restore -->
-
-## Evaluator Plugin for Scheduler
-
-TODO
-
-## Searcher Plugin for Manager
-
-TODO
