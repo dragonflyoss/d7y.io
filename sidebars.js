@@ -125,7 +125,6 @@ module.exports = {
             },
           ],
         },
-        'concepts/best-practices',
       ],
     },
     {
