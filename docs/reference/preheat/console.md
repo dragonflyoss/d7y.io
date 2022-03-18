@@ -19,9 +19,9 @@ View preheat task details by Click `Description`.
 
 ![preheat-list](../../resource/manager-console/preheat-job-detail.png)
 
-## FAQ
+## FAQ {#faq}
 
-### Create preheat task throw error
+### Create preheat task throw error {#create-preheat-task-throw-error}
 
 If create preheat task throw error,html alert `http error`,network response http status code is `500`,
 Check whether Redis has write permission.

@@ -10,7 +10,7 @@ description: This article mainly describes Dragonfly's implementation in the con
 hide_table_of_contents: false
 ---
 
-## Dragonfly adoption in DCOS of China Mobile Group Zhejiang Co., Ltd
+## Dragonfly adoption in DCOS of China Mobile Group Zhejiang Co., Ltd {#dragonfly-adoption-in-dcos-of-china-mobile-group-zhejiang-co-ltd}
 
 ![611.jpg | center | 827x347](https://user-images.githubusercontent.com/9465626/51097124-ab05eb00-17fc-11e9-890c-51617620feb0.png "")
 
@@ -31,7 +31,7 @@ such as low distribution efficiency, low success rate, and difficult network ban
 In addition, Dragonfly upgraded its features and established high availability deployment based on feedback from
 the DCOS platform to the community.
 
-## __Challenges Faced by the DCOS Container Cloud in the Production Environment__
+## __Challenges Faced by the DCOS Container Cloud in the Production Environment__ {#__challenges-faced-by-the-dcos-container-cloud-in-the-production-environment__}
 
 As the DCOS container cloud platform continuously improves and hosts more and more applications
 (nearly 10,000 running containers), it has become increasingly difficult for distribution service systems
@@ -43,7 +43,7 @@ the integrity and consistency of application code packages.
 * Terabytes of data may need to be transmitted in multiuser and highly-concurrent scenarios. However,
 the single-node performance bottlenecks prolong application publishing time.
 
-## __What Is Dragonfly?__
+## __What Is Dragonfly?__ {#__what-is-dragonfly__}
 
 P2P (peer-to-peer) is a node-to-node network technology that connects individual nodes and distributes resources
 and services in networks among individual nodes. Information transmission
@@ -90,11 +90,11 @@ to reform its existing code package publishing model,
 share the transmission bandwidth bottleneck on a single file server by using a P2P network,
 and ensure the consistency of image files throughout the publishing process.
 
-## __Solution: Unified Distribution Platform__
+## __Solution: Unified Distribution Platform__ {#__solution-unified-distribution-platform__}
 
-### __Functional Architecture Design__
+### __Functional Architecture Design__ {#__functional-architecture-design__}
 
-#### Functional Architecture Design
+#### Functional Architecture Design {#functional-architecture-design}
 
 Based on the Dragonfly technology and the production practices of China Mobile Group Zhejiang Co., Ltd,
 the unified distribution platform has the following overall design objectives:
@@ -125,7 +125,7 @@ such as target clusters in the network layer and task status;
 the status query module enables users to closely monitor the distribution task progress;
 * The user action layer consists of any number of interface-based clients.
 
-#### Technical Architecture Implementation
+#### Technical Architecture Implementation {#technical-architecture-implementation}
 
 According to the preceding platform design objectives and architecture analyses,
 the DOCS container cloud team conducted secondary development of
@@ -149,7 +149,7 @@ cluster-oriented, and dynamically scalable core groups:
 
 ![616.jpg | center | 629x527](https://user-images.githubusercontent.com/9465626/51097224-59aa2b80-17fd-11e9-97c1-97325b1d8b6e.png "")
 
-#### __Technical Characteristics__
+#### __Technical Characteristics__ {#__technical-characteristics__}
 
 * df-client implements container mirroring. The lightweight container deployment improves networking efficiency.
 The cluster host nodes that are newly added to the network layer can start P2P Agent nodes in a few seconds
@@ -159,7 +159,7 @@ of dfget and provides interface-based features to simplify user operations. Dist
 via unified remote calls eliminates the need for users to perform download operations, like dfget,
 node by node and simplifies the "one-to-many" task launching model.
 
-## __Core Functional Modules: Interaction Process of Distribution Control Interfaces__
+## __Core Functional Modules: Interaction Process of Distribution Control Interfaces__ {#__core-functional-modules-interaction-process-of-distribution-control-interfaces__}
 
 __The following figure shows how the core modules of the unified distribution platform distribute tasks.__
 
@@ -177,7 +177,7 @@ and the MySQL database, respectively, to enable users to query task status.
 
 ![617.jpg | center | 650x750](https://user-images.githubusercontent.com/9465626/51097240-7c3c4480-17fd-11e9-805f-df31277515c0.png "")
 
-## __Production Environment Reformation Results__
+## __Production Environment Reformation Results__ {#__production-environment-reformation-results__}
 
 Currently, over 200 business systems and over 1,700 application modules that are currently running
 in the production environment have been optimized to use the image publishing model.
@@ -200,7 +200,7 @@ compared with consumption by the platform before reformation.
 
 ![620.jpg | center | 756x418](https://user-images.githubusercontent.com/9465626/51097263-a8f05c00-17fd-11e9-8f0e-218a9fc84b71.png "")
 
-## __Subsequent Utilization Plans__
+## __Subsequent Utilization Plans__ {#__subsequent-utilization-plans__}
 
 The unified file distribution platform has resolved the efficiency and consistency problems faced
 by China Mobile Group Zhejiang Co., Ltd when using its DCOS platform to publish code
@@ -209,9 +209,9 @@ The unified file distribution platform also supports efficient file distribution
 This distribution platform can be consecutively applied to batch-distribute cluster installation media
 and batch-update cluster configuration files.
 
-## __Community Co-Construction: Interface Function Display__
+## __Community Co-Construction: Interface Function Display__ {#__community-co-construction-interface-function-display__}
 
-### __Community Requirements Resulting from Directly Introducing Dragonfly__
+### __Community Requirements Resulting from Directly Introducing Dragonfly__ {#__community-requirements-resulting-from-directly-introducing-dragonfly__}
 
 * Lack of graphical interfaces contributes to high cost for users and low operation efficiency;
 * The user permission management and distribution audit features are not available, and the distribution control cannot
@@ -226,7 +226,7 @@ Currently, the interface-based client is almost developed and is in production t
 The four planned core features of the distribution platform are Task Management, Target Management,
 Permission Management, and System Analysis. Currently, the first three features are available.
 
-#### __Permission Management__
+#### __Permission Management__ {#__permission-management__}
 
 Permission Management (namely, user management)
 is designed to provide customized permission management features targeting different users, as listed below:
@@ -242,7 +242,7 @@ system users (not yet available).
 
 ![622.jpg | center | 777x291](https://user-images.githubusercontent.com/9465626/51097289-e81ead00-17fd-11e9-8354-c26008ec4ac2.png "")
 
-#### __Target Management__
+#### __Target Management__ {#__target-management__}
 
 Target Management enables users to manage target cluster nodes when distributing tasks and manage
 P2P cluster networking,
@@ -259,7 +259,7 @@ and Mesos cluster node info and batch access of the P2P network layer.
 
 ![624.jpg | center | 770x375](https://user-images.githubusercontent.com/9465626/51097310-01275e00-17fe-11e9-9c91-a183d6d6bf73.png "")
 
-#### __Task Management__
+#### __Task Management__ {#__task-management__}
 
 Task Management enables users to create, delete, and stop file or image distribution tasks and perform other operations,
 as detailed below:：
@@ -276,13 +276,13 @@ in a specified task cluster, as well as copy executed tasks;
 
 ![626.jpg | center | 777x358](https://user-images.githubusercontent.com/9465626/51097319-1dc39600-17fe-11e9-9226-26b80fdb25be.png "")
 
-#### __System Analysis (coming soon)__
+#### __System Analysis (coming soon)__ {#__system-analysis-coming-soon__}
 
 The system analysis feature is expected to be released later to provide platform administrators and users
 with statistical graphs showing information such as task distribution time consumption, success rate,
 and task execution efficiency and facilitate platform intelligence via data statistics and prediction.
 
-## __Community Co-Construction: High-Availability Deployment of Production__
+## __Community Co-Construction: High-Availability Deployment of Production__ {#__community-co-construction-high-availability-deployment-of-production__}
 
 Active-standby mirror database disaster tolerance ensures data consistency between the active
 and standby databases through image synchronization.
@@ -306,7 +306,7 @@ Chen Yuanzheng Cloud Computing Architect at China Mobile Group Zhejiang Co., Ltd
 
 Wang Miaoxin Cloud Computing Architect at China Mobile Group Zhejiang Co., Ltd
 
-## __Dragonfly Community Sharing__
+## __Dragonfly Community Sharing__ {#__dragonfly-community-sharing__}
 
 __Tai Yun, a contributor in the Dragonfly community, said during a Dragonfly Meetup：__
 
@@ -316,10 +316,10 @@ We will continuously improve Dragonfly to provide a more powerful and simpler di
 for cloud-native applications.I look forward to working with you to make Dragonfly a CNCF 'graduated'
 project as soon as possible.
 
-### __Official GitHub page__
+### __Official GitHub page__ {#__official-github-page__}
 
 <https://github.com/dragonflyoss/Dragonfly>
 
-### __Dragonfly Roadmap__
+### __Dragonfly Roadmap__ {#__dragonfly-roadmap__}
 
 <https://github.com/dragonflyoss/Dragonfly/blob/master/ROADMAP.md>

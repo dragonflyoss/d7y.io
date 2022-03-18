@@ -3,7 +3,7 @@ id: scheduler
 title: Scheduler
 ---
 
-## Configure Scheduler YAML File
+## Configure Scheduler YAML File {#configure-scheduler-yaml-file}
 
 The default path for the scheduler yaml configuration file is `/etc/dragonfly/scheduler.yaml` in linux,
 and the default path is `$HOME/.dragonfly/config/scheduler.yaml` in darwin.

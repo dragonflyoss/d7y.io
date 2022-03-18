@@ -5,11 +5,11 @@ title: Nydus
 
 This document will help you experience how to use dragonfly with nydus.
 
-## Install Dragonfly
+## Install Dragonfly {#install-dragonfly}
 
 First, deploy the dragonfly service according to different environments. Please refer to [Quick Start](../../getting-started/quick-start.md)
 
-## Enable dragonfly for nydus
+## Enable dragonfly for nydus {#enable-dragonfly-for-nydus}
 
 Configure nydus configuration file. Please refer to [Enable Nydus P2P Proxy](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusd.md#enable-p2p-proxy-for-storage-backend)
 

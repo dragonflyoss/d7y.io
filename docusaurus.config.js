@@ -104,7 +104,7 @@ const config = {
               },
               {
                 label: 'Reference',
-                to: '/docs/reference/benchmark',
+                to: '/docs/reference/cli/cdn',
               },
               {
                 label: 'Contribute',

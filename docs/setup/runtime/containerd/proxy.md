@@ -9,9 +9,9 @@ Use dfget daemon as HTTP proxy for containerd
 Currently, `ctr` command of containerd doesn't support private registries with `registry-mirrors`,
 in order to do so, we need to use HTTP proxy for containerd.
 
-## Quick Start
+## Quick Start {#quick-start}
 
-### Step 1: Generate CA certificate for HTTP proxy
+### Step 1: Generate CA certificate for HTTP proxy {#step-1-generate-ca-certificate-for-http-proxy}
 
 Generate a CA certificate private key.
 
@@ -62,7 +62,7 @@ openssl x509 -req -days 36500 -extfile openssl.conf \
     -extensions v3_ca -in ca.csr -signkey ca.key -out ca.crt
 ```
 
-### Step 2: Configure dfget daemon
+### Step 2: Configure dfget daemon {#step-2-configure-dfget-daemon}
 
 To use dfget daemon as HTTP proxy, first you need to append a proxy rule in
 `/etc/dragonfly/dfget.yaml`, This will proxy
@@ -85,7 +85,7 @@ proxy:
       - regx: your.private.registry
 ```
 
-### Step 3: Configure containerd
+### Step 3: Configure containerd {#step-3-configure-containerd}
 
 Set dfget damone as `HTTP_PROXY` and `HTTPS_PROXY` for containerd in
 `/etc/systemd/system/containerd.service.d/http-proxy.conf`:
@@ -96,7 +96,7 @@ Environment="HTTP_PROXY=http://127.0.0.1:65001"
 Environment="HTTPS_PROXY=http://127.0.0.1:65001"
 ```
 
-### Step 4: Pull images with proxy
+### Step 4: Pull images with proxy {#step-4-pull-images-with-proxy}
 
 Through the above steps, we can start to validate if Dragonfly works as expected.
 
@@ -106,9 +106,9 @@ And you can pull the image as usual, for example:
 ctr image pull your.private.registry/namespace/image:latest
 ```
 
-## Custom assets
+## Custom assets {#custom-assets}
 
-### Registry uses a self-signed certificate
+### Registry uses a self-signed certificate {#registry-uses-a-self-signed-certificate}
 
 If your registry uses a self-signed certificate, you can either choose to
 ignore the certificate error with:

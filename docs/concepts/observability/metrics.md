@@ -8,7 +8,7 @@ This doc contains all the metrics that Dragonfly components currently support.
 Now we support metrics for Dfdaemon, Manager, Scheduler and CDN.
 The metrics path is fixed to `/metrics`. The following metrics are exported.
 
-## Dfdaemon
+## Dfdaemon {#dfdaemon}
 
 GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
 
@@ -31,11 +31,11 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 
 <!-- markdownlint-restore -->
 
-## Manager
+## Manager {#manager}
 
 GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
 
-## Scheduler
+## Scheduler {#scheduler}
 
 GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
 
@@ -57,7 +57,7 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 
 <!-- markdownlint-restore -->
 
-## CDN
+## CDN {#cdn}
 
 GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
 

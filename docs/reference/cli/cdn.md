@@ -6,14 +6,14 @@ title: CDN
 CDN is a long-running process which caches downloaded data
 from source to avoid downloading the same files from source repeatedly.
 
-## Usage
+## Usage {#usage}
 
 ```shell
 cdn [flags]
 cdn [command]
 ```
 
-## Available Commands
+## Available Commands {#available-commands}
 
 ```text
 completion  generate the autocompletion script for the specified shell
@@ -23,7 +23,7 @@ plugin      show plugin
 version     show version
 ```
 
-## Flags
+## Flags {#flags}
 
 <!-- markdownlint-disable -->
 

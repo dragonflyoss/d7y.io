@@ -3,7 +3,7 @@ id: dfdaemon
 title: Dfdaemon
 ---
 
-## Configure Dfdaemon YAML File
+## Configure Dfdaemon YAML File {#configure-dfdaemon-yaml-file}
 
 The default path for the dfdaemon yaml configuration file is `/etc/dragonfly/dfget.yaml` in linux,
 and the default path is `$HOME/.dragonfly/config/dfget.yaml` in darwin.

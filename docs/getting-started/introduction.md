@@ -6,7 +6,7 @@ description: Dragonfly is an intelligent P2P-based image and file distribution t
 slug: /
 ---
 
-## What Is Dragonfly?
+## What Is Dragonfly? {#what-is-dragonfly}
 
 Dragonfly is an intelligent P2P-based image and file distribution tool. It aims to improve the efficiency and success
 rate of file transferring, and maximize the usage of network bandwidth, especially for the distribution of larget
@@ -25,7 +25,7 @@ and saves up to 99.5% of the out bandwidth of registry.
 Dragonfly makes it simple and cost-effective to set up, operate, and scale any kind of file, image,
 or data distribution.
 
-## Why Dragonfly
+## Why Dragonfly {#why-dragonfly}
 
 This project is an open-source version of the Dragonfly used at Alibaba. It has the following features:
 
@@ -52,7 +52,7 @@ This project is an open-source version of the Dragonfly used at Alibaba. It has 
 - **Effective concurrency control of Registry Auth**: Reduce the pressure on the Registry Auth Service.
 - **Simple and easy to use**: Very few configurations are needed.
 
-## How Does It Stack Up Against Traditional Solution?
+## How Does It Stack Up Against Traditional Solution? {#how-does-it-stack-up-against-traditional-solution}
 
 We carried out an experiment to compare the performance of Dragonfly and wget.
 
@@ -72,25 +72,25 @@ As you can see in the chart, for Dragonfly, no matter how many clients are downl
 time is always about 12 seconds. But for wget, the downloading time keeps increasing with the number of clients.
 When the number of wget clients reaches 1,200, the file source crashed and therefore cannot serve any client.
 
-## How Does It Work?
+## How Does It Work? {#how-does-it-work}
 
 Dragonfly works slightly differently when downloading general files and downloading container images.
 
-### Downloading General Files
+### Downloading General Files {#downloading-general-files}
 
 The SuperNode plays the role of CDN and schedules the transfer of blocks between each peer. dfget is the P2P client,
 which is also called a "peer". It's mainly used to download and share blocks.
 
 ![Downloading General Files](../resource/dfget.png)
 
-### Downloading Container Images
+### Downloading Container Images {#downloading-container-images}
 
 Registry is similar to the file server above. dfget proxy is also called dfdaemon, which intercepts HTTP requests
 from docker pull or docker push, and then decides which requests to process with dfget.
 
 ![Downloading Container Images](../resource/dfget-combine-container.png)
 
-### Downloading Blocks
+### Downloading Blocks {#downloading-blocks}
 
 Every file is divided into multiple blocks, which are transferred between peers. Each peer is a P2P client.
 The SuperNode will check if the corresponding file exists in the local disk. If not,

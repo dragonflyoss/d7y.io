@@ -6,6 +6,6 @@ description: Introduce dragonfly v1 support Docker proxy https
 hide_table_of_contents: false
 ---
 
-## Notice
+## Notice {#notice}
 
 The article is deprecated and Chinese only [睿云智合基于 Dragonfly 支持docker proxy https](https://d7y.io/zh/blog/2019/02/28/wise2c-deploy-dragonfly-https)

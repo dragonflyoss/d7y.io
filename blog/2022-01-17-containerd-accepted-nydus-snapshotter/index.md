@@ -7,7 +7,7 @@ hide_table_of_contents: false
 ---
 
 
-## Containerd Accepted Nydus-snapshotter
+## Containerd Accepted Nydus-snapshotter {#containerd-accepted-nydus-snapshotter}
 
 Early January, Containerd community has taken in nydus-snapshotter as a sub-project. Check out the code,
 particular introductions and tutorial from its [new repository](https://github.com/containerd/nydus-snapshotter).

@@ -1,4 +1,4 @@
 ---
 id: upgrade
-title: WIP Upgrade
+title: 升级
 ---

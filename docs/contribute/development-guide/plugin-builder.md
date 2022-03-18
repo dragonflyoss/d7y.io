@@ -6,22 +6,22 @@ slug: /contribute/development-guide/plugin-builder/
 
 > When build plugin, the image which use the plugin need rebuild
 
-## Build Builder Image
+## Build Builder Image {#build-builder-image}
 
 ```shell
 cd Dragonfly2
 docker build -t dragonfly-plugin-builder -f build/plugin-builder/Dockerfile .
 ```
 
-## Build Plugin
+## Build Plugin {#build-plugin}
 
 > Available plugin type: resource, scheduler, manager
 > When type is scheduler, plugin name includes evaluator
 > When type is manager, plugin name includes search
 
-### Example
+### Example {#example}
 
-#### 1. Resource Plugin Example
+#### 1. Resource Plugin Example {#1-resource-plugin-example}
 
 - Build plugin, cdn and dfget
 
@@ -45,7 +45,7 @@ docker build -t cdn -f build/plugin-builder/images/cdn/Dockerfile .
 docker build -t dfdaemon -f build/plugin-builder/images/dfdaemon/Dockerfile .
 ```
 
-#### 2. Scheduler Plugin Example
+#### 2. Scheduler Plugin Example {#2-scheduler-plugin-example}
 
 - Build plugin, scheduler
 
@@ -67,7 +67,7 @@ docker run --entrypoint=/bin/bash \
 docker build -t scheduler -f build/plugin-builder/images/scheduler/Dockerfile .
 ```
 
-#### 3. Manager Plugin Example
+#### 3. Manager Plugin Example {#3-manager-plugin-example}
 
 - Build plugin, manager
 

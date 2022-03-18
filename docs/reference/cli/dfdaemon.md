@@ -3,11 +3,11 @@ id: dfdaemon
 title: Dfdaemon
 ---
 
-## dfget
+## dfget {#dfget}
 
 `dfget` is the client of Dragonfly used to download and upload files
 
-### Synopsis
+### Synopsis {#synopsis}
 
 dfget is the client of Dragonfly which takes
 a role of peer in a P2P network. When user triggers a file downloading
@@ -23,7 +23,7 @@ dfget url -O path [flags]
 dfget [command]
 ```
 
-### dfget Available Commands
+### dfget Available Commands {#dfget-available-commands}
 
 ```shell
   completion  generate the autocompletion script for the specified shell
@@ -34,17 +34,17 @@ dfget [command]
   version     show version
 ```
 
-### Example
+### Example {#example}
 
 ```shell
 dfget --schedulers 127.0.0.1:8002 -O /path/to/output -u "http://example.com/object"
 ```
 
-### Log configuration
+### Log configuration {#log-configuration}
 
 set environment variable console=true if you want to print logs to Terminal
 
-### Options
+### Options {#options}
 
 <!-- markdownlint-disable -->
 
@@ -79,13 +79,13 @@ set environment variable console=true if you want to print logs to Terminal
 
 <!-- markdownlint-restore -->
 
-## dfget daemon
+## dfget daemon {#dfget-daemon}
 
-### Daemon Log configuration
+### Daemon Log configuration {#daemon-log-configuration}
 
 set environment variable console=true if you want to print logs to Terminal
 
-### Daemon Options
+### Daemon Options {#daemon-options}
 
 <!-- markdownlint-disable -->
 

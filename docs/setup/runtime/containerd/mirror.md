@@ -9,9 +9,9 @@ Use dfget daemon for containerd
 From v1.1.0, Containerd supports registry mirrors,
 we can configure Containerd via this feature for HA.
 
-## Quick Start
+## Quick Start {#quick-start}
 
-### Step 1: Configure dfget daemon
+### Step 1: Configure dfget daemon {#step-1-configure-dfget-daemon}
 
 To use dfget daemon as registry mirror,
 first you need to ensure configuration in `/etc/dragonfly/dfget.yaml`:
@@ -37,9 +37,9 @@ Run dfget daemon
 dfget daemon
 ```
 
-## Step 2: Configure Containerd
+## Step 2: Configure Containerd {#step-2-configure-containerd}
 
-### Option 1: Single Registry
+### Option 1: Single Registry {#option-1-single-registry}
 
 Enable mirrors in Containerd registries configuration in
 `/etc/containerd/config.toml`:
@@ -79,11 +79,11 @@ In this config, registry auth configuration needs to be based on `127.0.0.1:6500
 > Containerd has deprecated the above config from v1.4.0,
 > new format for reference: <https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/config.md#registry-configuration>
 
-### Option 2: Multiple Registries
+### Option 2: Multiple Registries {#option-2-multiple-registries}
 
 This option only supports Containerd 1.5.0+.
 
-#### 1. Enable Containerd Registries Config Path
+#### 1. Enable Containerd Registries Config Path {#1-enable-containerd-registries-config-path}
 
 Enable mirrors in Containerd registries config path in
 `/etc/containerd/config.toml`:
@@ -96,9 +96,9 @@ version = 2
   config_path = "/etc/containerd/certs.d"
 ```
 
-#### 2. Generate Per Registry hosts.toml
+#### 2. Generate Per Registry hosts.toml {#2-generate-per-registry-hoststoml}
 
-##### Option 1: Generate hosts.toml manually
+##### Option 1: Generate hosts.toml manually {#option-1-generate-hoststoml-manually}
 
 Path: `/etc/containerd/certs.d/example.com/hosts.toml`
 
@@ -115,7 +115,7 @@ server = "https://example.com"
     X-Dragonfly-Registry = ["https://example.com"]
 ```
 
-##### Option 2: Generate hosts.toml automatically
+##### Option 2: Generate hosts.toml automatically {#option-2-generate-hoststoml-automatically}
 
 You can also generate hosts.toml with <https://github.com/dragonflyoss/Dragonfly2/blob/main/hack/gen-containerd-hosts.sh>
 
@@ -125,13 +125,13 @@ bash gen-containerd-hosts.sh example.com
 
 > More details about registry configuration: <https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples>
 
-## Step 3: Restart Containerd Daemon
+## Step 3: Restart Containerd Daemon {#step-3-restart-containerd-daemon}
 
 ```shell
 systemctl restart containerd
 ```
 
-## Step 4: Pull Image
+## Step 4: Pull Image {#step-4-pull-image}
 
 You can pull image like this:
 
@@ -139,7 +139,7 @@ You can pull image like this:
 crictl pull docker.io/library/busybox
 ```
 
-## Step 5: Validate Dragonfly
+## Step 5: Validate Dragonfly {#step-5-validate-dragonfly}
 
 You can execute the following command to check
 if the busybox image is distributed via Dragonfly.

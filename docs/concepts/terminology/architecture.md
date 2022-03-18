@@ -3,13 +3,13 @@ id: architecture
 title: Architecture
 ---
 
-## Positioning
+## Positioning {#positioning}
 
 Provide enterprise-level (efficient, stable, secure, low-cost, product-oriented)
 file distribution and management services,
 and become the cloud-native best practice and standard solution in this realm.
 
-## What problems are solved
+## What problems are solved {#what-problems-are-solved}
 
 **Architecture design flaws:** The existing architecture is difficult to
 meet the growing business needs of file distribution,
@@ -27,7 +27,7 @@ lack of active push and active synchronization capabilities
 functions are capabilities, such as distribution task management and control,
 data market, multi-tenancy, and permission control, etc.
 
-## Core Competence
+## Core Competence {#core-competence}
 
 - Through a unified back-to-source adaptation layer and
   realization of P2P file distribution capabilities that
@@ -57,29 +57,29 @@ data market, multi-tenancy, and permission control, etc.
   (image downloading solution on demand),
   warehouse services of various cloud vendors, etc.
 
-## Architecture Design
+## Architecture Design {#architecture-design}
 
-### Overall structure
+### Overall structure {#overall-structure}
 
 ![arch](../../resource/arch.png)
 
-### Entity relationship
+### Entity relationship {#entity-relationship}
 
 ![association](../../resource/association.png)
 
-### Image file download process
+### Image file download process {#image-file-download-process}
 
 ![download-process](../../resource/download-process.png)
 
-### Sub-system architecture
+### Sub-system architecture {#sub-system-architecture}
 
-#### CDN system
+#### CDN system {#cdn-system}
 
 ![cdn](../../resource/cdn.png)
 
-### Sub-system function
+### Sub-system function {#sub-system-function}
 
-#### Manager
+#### Manager {#manager}
 
 - Dynamic configuration management
 - Data Big Disk & Bandwidth Measurement
@@ -90,7 +90,7 @@ data market, multi-tenancy, and permission control, etc.
 - Multi-tenant management
 - Command channel service (channel integration)
 
-#### Scheduler
+#### Scheduler {#scheduler}
 
 - Multi-dimensional P2P scheduling strategy
 - Intelligent scheduling algorithm (advanced)
@@ -100,7 +100,7 @@ data market, multi-tenancy, and permission control, etc.
 - Client download results and back-to-source results statistics and
   docking with monitoring services
 
-#### CDN
+#### CDN {#cdn}
 
 - Multi-source adaptation capabilities, including catalog download
   and range download functions
@@ -113,7 +113,7 @@ data market, multi-tenancy, and permission control, etc.
 - Secure transmission (symmetric encryption, integrity check, etc.)
 - Storage media plug-in
 
-#### Dfget daemon
+#### Dfget daemon {#dfget-daemon}
 
 - Multi-source adaptation capabilities, including catalog
   download and range download functions
@@ -130,7 +130,7 @@ data market, multi-tenancy, and permission control, etc.
 - Client elegant upgrade and deployment plan
 - Command execution
 
-#### Framework
+#### Framework {#framework}
 
 - High availability, high performance, easy integration
 - Consistent Hash algorithm selection

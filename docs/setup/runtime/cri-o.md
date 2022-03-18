@@ -6,7 +6,7 @@ slug: /setup/runtime/cri-o
 
 Use dfget daemon as registry mirror for CRI-O
 
-## Step 1: Validate Dragonfly Configuration
+## Step 1: Validate Dragonfly Configuration {#step-1-validate-dragonfly-configuration}
 
 To use dfget daemon as registry mirror,
 first you need to ensure configuration in `/etc/dragonfly/dfget.yaml`:
@@ -26,7 +26,7 @@ proxy:
 
 This will proxy all requests for image layers with dfget.
 
-## Step 2: Validate CRI-O Configuration
+## Step 2: Validate CRI-O Configuration {#step-2-validate-cri-o-configuration}
 
 Then, enable mirrors in CRI-O registries configuration in
 `/etc/containers/registries.conf`:
@@ -39,7 +39,7 @@ location = "docker.io"
   insecure = true
 ```
 
-## Step 3: Restart CRI-O Daemon
+## Step 3: Restart CRI-O Daemon {#step-3-restart-cri-o-daemon}
 
 ```shell
 systemctl restart crio
@@ -50,7 +50,7 @@ If encounter error like these:
 `registry must be in v2 format but is in v1`,
 please convert your registries configuration to v2.
 
-## Step 4: Pull Image
+## Step 4: Pull Image {#step-4-pull-image}
 
 You can pull image like this:
 
@@ -58,7 +58,7 @@ You can pull image like this:
 crictl pull docker.io/library/busybox
 ```
 
-## Step 5: Validate Dragonfly
+## Step 5: Validate Dragonfly {#step-5-validate-dragonfly}
 
 You can execute the following command to
 check if the busybox image is distributed via Dragonfly.

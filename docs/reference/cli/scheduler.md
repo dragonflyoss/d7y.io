@@ -9,14 +9,14 @@ notify the CDN to return to the source, generate and maintain a
 P2P network during the download process,
 and push suitable download nodes to the client
 
-## Usage
+## Usage {#usage}
 
 ```text
 scheduler [flags]
 scheduler [command]
 ```
 
-## Available Commands
+## Available Commands {#available-commands}
 
 ```text
 completion  generate the autocompletion script for the specified shell
@@ -26,7 +26,7 @@ plugin      show plugin
 version     show version
 ```
 
-## Flags
+## Flags {#flags}
 
 <!-- markdownlint-disable -->
 

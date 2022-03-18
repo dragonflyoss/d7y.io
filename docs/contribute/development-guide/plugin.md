@@ -6,11 +6,11 @@ slug: /contribute/development-guide/plugin/
 
 All compiled plugins need to place in `/usr/local/dragonfly/plugins/`.
 
-## Plugin Design
+## Plugin Design {#plugin-design}
 
 Dragonfly2 use golang plugin to build its plugins, refer: [https://pkg.go.dev/plugin#section-documentation](https://pkg.go.dev/plugin#section-documentation).
 
-## Resource Plugin for CDN and Dfget
+## Resource Plugin for CDN and Dfget {#resource-plugin-for-cdn-and-dfget}
 
 The resource plugin is used to download custom resource like `dfget -u d7yfs://host:56001/path/to/resource`.
 
@@ -51,9 +51,9 @@ type ResourceClient interface {
 
 <!-- markdownlint-restore -->
 
-### Example Code
+### Example Code {#example-code}
 
-#### 1. main.go
+#### 1. main.go {#1-maingo}
 
 <!-- markdownlint-disable -->
 
@@ -120,7 +120,7 @@ func DragonflyPluginInit(option map[string]string) (interface{}, map[string]stri
 
 <!-- markdownlint-restore -->
 
-#### 2. go.mod
+#### 2. go.mod {#2-gomod}
 
 <!-- markdownlint-disable -->
 
@@ -147,12 +147,12 @@ replace d7y.io/dragonfly/v2 => /Dragonfly2
 
 <!-- markdownlint-restore -->
 
-### Build
+### Build {#build}
 
 > We have created a plugin builder in docker, follow [this document](./plugin-builder.md).
 > With the plugin builder, `go.mod` will be ignored.
 
-#### 1. Build plugin with target Dragonfly2 commit
+#### 1. Build plugin with target Dragonfly2 commit {#1-build-plugin-with-target-dragonfly2-commit}
 
 > Update `D7Y_COMMIT` in the following script.
 
@@ -179,7 +179,7 @@ go build -ldflags="-X main.buildTime=${BUILD_TIME} -X main.buildCommit=${BUILD_C
 
 <!-- markdownlint-restore -->
 
-#### 2. Validate plugin
+#### 2. Validate plugin {#2-validate-plugin}
 
 ```shell
 /Dragonfly2/bin/linux_amd64/dfget plugin

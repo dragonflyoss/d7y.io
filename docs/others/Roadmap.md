@@ -3,9 +3,9 @@ id: Roadmap
 title: Roadmap
 ---
 
-## 2022 Roadmap
+## 2022 Roadmap {#2022-roadmap}
 
-### Manager
+### Manager {#manager}
 
 - Console
   - Optimize console UI.
@@ -19,21 +19,21 @@ title: Roadmap
 - Application-level speed limit and other configurations.
 - Added open api interface authentication.
 
-### Scheduler
+### Scheduler {#scheduler}
 
 - Improve scheduling stability and collect metrics during scheduling.
 - Scheduler integrates machine learning algorithms to improve scheduling capabilities.
 - Allocate download peers based on peer bandwidth traffic.
 
-### [WIP] Dfdaemon
+### [WIP] Dfdaemon {#wip-dfdaemon}
 
-### [WIP] CDN
+### [WIP] CDN {#wip-cdn}
 
-### Document
+### Document {#document}
 
 - Refactored d7y.io website and added dragonfly 2.0 documentation.
 
-### Others
+### Others {#others}
 
 - Provide performance testing solutions in perf-tests repo.
 - Provide kustomize based deployment solutions.

@@ -10,6 +10,6 @@ image: https://avatars.githubusercontent.com/u/15098916?s=400&u=23a4b699baa0ed92
 hide_table_of_contents: false
 ---
 
-## Notice
+## Notice {#notice}
 
 The article is deprecated and Chinese only [阿里 Dragonfly 体验之私有 registry 下载(基于0.3.0)](https://d7y.io/zh/blog/2019/09/30/d7y-private-registry)

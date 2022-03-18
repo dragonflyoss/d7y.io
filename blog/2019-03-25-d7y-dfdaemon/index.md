@@ -10,6 +10,6 @@ image: https://avatars.githubusercontent.com/u/15098916?s=400&u=23a4b699baa0ed92
 hide_table_of_contents: false
 ---
 
-## Notice
+## Notice {#notice}
 
 The article is deprecated and Chinese only [使用 Dragonfly 加速 Docker 镜像分发(基于0.3.0)](https://d7y.io/zh/blog/2019/03/25/d7y-dfdaemon)

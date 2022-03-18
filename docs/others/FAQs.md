@@ -3,7 +3,7 @@ id: faqs
 title: FAQs
 ---
 
-## Change log level
+## Change log level {#change-log-level}
 
 Send `SIGUSR1` signal to dragonfly process to change log level
 
@@ -25,7 +25,7 @@ change log level to info
 
 > The change log level event will print in stdout and `core.log` file, but if the level is greater than `info`, stdout only.
 
-## Download slower than without Dragonfly
+## Download slower than without Dragonfly {#download-slower-than-without-dragonfly}
 
 1. Confirm limit rate in [dfget.yaml](../reference/configuration/dfdaemon.md)
 
@@ -43,7 +43,7 @@ change log level to info
 
 2. Confirm source connection speed in CDN and dfdaemon
 
-## 500 Internal Server Error
+## 500 Internal Server Error {#500-internal-server-error}
 
 1. Check error logs in /var/log/dragonfly/daemon/core.log
 2. Check source connectivity(dns error or certificate error)
@@ -56,7 +56,7 @@ curl https://example.harbor.local/
 
 When curl says error, please check the details in output.
 
-## Scheduler log show "resources lacked for task"
+## Scheduler log show "resources lacked for task" {#scheduler-log-show-resources-lacked-for-task}
 
 The specific log in `/var/log/scheduler/core.log` is:
 

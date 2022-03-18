@@ -1,4 +1,4 @@
 ---
 id: cdn
-title: WIP CDN
+title: CDN
 ---

@@ -16,7 +16,7 @@ The following dragonfly monitoring example is based on [kubernetes](https://kube
 [prometheus-community/kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack/)
 charts to deploy prometheus and grafana.
 
-## Step 1: Install prometheus and grafana
+## Step 1: Install prometheus and grafana {#step-1-install-prometheus-and-grafana}
 
 Install prometheus and grafana based on [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
 
@@ -43,7 +43,7 @@ kubectl port-forward svc/prometheus-grafana 8080:80
 
 ![grafana-login](../../resource/monitoring/grafana-login.jpg)
 
-## Step 2: Install dragonfly with [ServiceMonitor](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/getting-started.md#prometheus-operator)
+## Step 2: Install dragonfly with ServiceMonitor {#step-2-install-dragonfly-with-servicemonitor}
 
 Install dragonfly based on [dragonfly](https://artifacthub.io/packages/helm/dragonfly/dragonfly).
 
@@ -94,14 +94,14 @@ manager:
 helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
 ```
 
-## Step 3: Validate metrics
+## Step 3: Validate metrics {#step-3-validate-metrics}
 
 Visit grafana explore page at `localhost:8080/explore` and
 query `dragonfly_manager_requests_total` to validate that dragonfly metrics have been collected.
 
 ![grafana-validate-metrics](../../resource/monitoring/grafana-validate-metrics.jpg)
 
-## Step 4: Import dragonfly grafana dashboards
+## Step 4: Import dragonfly grafana dashboards {#step-4-import-dragonfly-grafana-dashboards}
 
 Dragonfly grafana dashboard info is:
 

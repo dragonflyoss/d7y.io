@@ -10,6 +10,6 @@ image: https://avatars.githubusercontent.com/u/15098916?s=400&u=23a4b699baa0ed92
 hide_table_of_contents: false
 ---
 
-## Notice
+## Notice {#notice}
 
 The article is Chinese only [P2P 加速 Docker 镜像分发(阿里 Dragonfly2 + Google jib)(基于 d7y 2.0.2)](https://d7y.io/zh/blog/2022/02/14/d7-jib)

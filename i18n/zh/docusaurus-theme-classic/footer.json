@@ -39,13 +39,9 @@
     "message": "安装",
     "description": "The label of footer link with label=Setup linking to /docs/setup/install/kubernetes"
   },
-  "link.item.label.Concepts": {
-    "message": "概念",
-    "description": "The label of footer link with label=Concepts linking to /docs/terminology/architecture"
-  },
   "link.item.label.Reference": {
     "message": "参考",
-    "description": "The label of footer link with label=Reference linking to /docs/reference/benchmark"
+    "description": "The label of footer link with label=Reference linking to /docs/reference"
   },
   "link.item.label.Contribute": {
     "message": "贡献",

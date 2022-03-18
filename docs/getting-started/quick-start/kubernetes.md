@@ -26,13 +26,13 @@ This table describes some container runtimes version and documents.
 
 `containerd` is recommended.
 
-## Runtime Configuration Guide for Dragonfly Helm Chart
+## Runtime Configuration Guide for Dragonfly Helm Chart {#runtime-configuration-guide-for-dragonfly-helm-chart}
 
 Dragonfly helm supports config docker automatically.
 
 Config cases:
 
-### Implicit registries support
+### Implicit registries support {#implicit-registries-support}
 
 Chart customize values.yaml:
 
@@ -58,22 +58,22 @@ Limitations:
 
 - Only support implicit registries
 
-## Prepare Kubernetes Cluster
+## Prepare Kubernetes Cluster {#prepare-kubernetes-cluster}
 
 If there is no available Kubernetes cluster for testing,
 [minikube](https://minikube.sigs.k8s.io/docs/start/) is
 recommended. Just run `minikube start`.
 
-## Install Dragonfly
+## Install Dragonfly {#install-dragonfly}
 
-### Install with default configuration
+### Install with default configuration {#install-with-default-configuration}
 
 ```shell
 helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly
 ```
 
-## Wait Dragonfly Ready
+## Wait Dragonfly Ready {#wait-dragonfly-ready}
 
 Wait all pods running
 
@@ -81,7 +81,7 @@ Wait all pods running
 kubectl -n dragonfly-system wait --for=condition=ready --all --timeout=10m pod
 ```
 
-## Manager Console
+## Manager Console {#manager-console}
 
 The console page will be displayed on
 `dragonfly-manager.dragonfly-system.svc.cluster.local:8080`.
@@ -92,7 +92,7 @@ of Helm Charts, or create it manually.
 
 Console features preview reference document [console preview](../../reference/manage-console.md).
 
-## Using Dragonfly
+## Using Dragonfly {#using-dragonfly}
 
 After all above steps, create a new pod with target registry.
 Or just pull an image with `crictl`:
@@ -129,6 +129,6 @@ Example output:
 }
 ```
 
-## Preheat
+## Preheat {#preheat}
 
 To get the best out of Dragonfly, you can pull the image in advance by [preheat](../../reference/preheat.md)

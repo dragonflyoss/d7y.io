@@ -1,6 +1,6 @@
 ---
 id: console
-title: Manager 控制台
+title: 控制台
 ---
 
 用户使用 Dragonfly Manager Console 进行预热。

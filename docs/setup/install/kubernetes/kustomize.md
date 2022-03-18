@@ -4,13 +4,13 @@ title: Kustomize
 slug: /setup/install/kubernetes/kustomize
 ---
 
-## Prepare Kubernetes Cluster
+## Prepare Kubernetes Cluster {#prepare-kubernetes-cluster}
 
 If there is no available Kubernetes cluster for testing,
 [minikube](https://minikube.sigs.k8s.io/docs/start/) is
 recommended. Just run `minikube start`.
 
-## Build and Apply Kustomize Configuration
+## Build and Apply Kustomize Configuration {#build-and-apply-kustomize-configuration}
 
 <!-- markdownlint-disable -->
 ```shell
@@ -19,7 +19,7 @@ kustomize build Dragonfly2/deploy/kustomize/single-cluster-native/overlays/sampl
 ```
 <!-- markdownlint-restore -->
 
-## Wait Dragonfly Ready
+## Wait Dragonfly Ready {#wait-dragonfly-ready}
 
 Wait all pods running
 
@@ -27,7 +27,7 @@ Wait all pods running
 kubectl -n dragonfly-system wait --for=condition=ready --all --timeout=10m pod
 ```
 
-## Manager Console
+## Manager Console {#manager-console}
 
 The console page will be displayed on `dragonfly-manager.dragonfly-system.svc.cluster.local:8080`.
 
@@ -37,7 +37,7 @@ of Helm Charts, or create it manually.
 
 Console features preview reference document [console preview](../../../reference/manage-console.md).
 
-## Configure Runtime Manually
+## Configure Runtime Manually {#configure-runtime-manually}
 
 Use Containerd with CRI as example, more runtimes can be found [here](../../../getting-started/quick-start.md)
 
@@ -67,7 +67,7 @@ Add above config to `/etc/containerd/config.toml` and restart Containerd
 systemctl restart containerd
 ```
 
-## Using Dragonfly
+## Using Dragonfly {#using-dragonfly}
 
 After all above steps, create a new pod with target registry.
 Or just pull an image with `crictl`:

@@ -167,7 +167,6 @@ module.exports = {
           ],
         },
         'reference/manage-console',
-        'reference/benchmark',
       ],
     },
     {

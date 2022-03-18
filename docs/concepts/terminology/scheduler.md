@@ -6,14 +6,14 @@ title: Scheduler
 Scheduler selects the optimal parent peer for current peer to be downloaded
 and triggers the CDN back-to-source download or dfdaemon back-to-source download at the appropriate time.
 
-## Features
+## Features {#features}
 
 - Scheduler selects the optimal parent peer
 - Build a scheduling tree for the P2P cluster
 - Evaluate peers based on different features
 - In the case of scheduling failure, let dfdaemon back-to-source download
 
-## Scheduling
+## Scheduling {#scheduling}
 
 Scheduler maintains task, peer and host resources.
 
@@ -25,7 +25,7 @@ The scheduling process is actually to build a tree according to the peer's load.
 
 ![scheduler-tree](../../resource/architecture/scheduler-tree.jpg)
 
-## Peer State Machine
+## Peer State Machine {#peer-state-machine}
 
 The scheduler divides tasks into three types `Tiny`, `Small` and `Normal`.
 

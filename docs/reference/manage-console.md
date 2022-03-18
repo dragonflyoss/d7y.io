@@ -3,55 +3,55 @@ id: manage-console
 title: Manage Console
 ---
 
-## User account
+## User account {#user-account}
 
 Default root username: `root` password: `dragonfly`.
 
-## Pages
+## Pages {#pages}
 
-### User
+### User {#user}
 
-#### Sign in
+#### Sign in {#sign-in}
 
 ![signin](../resource/manager-console/signin.jpg)
 
-#### Sign up
+#### Sign up {#sign-up}
 
 ![signup](../resource/manager-console/signup.jpg)
 
-### Configuration
+### Configuration {#configuration}
 
-#### Scheduler Cluster
+#### Scheduler Cluster {#scheduler-cluster}
 
-##### Scheduler Cluster List
+##### Scheduler Cluster List {#scheduler-cluster-list}
 
 ![scheduler-cluster](../resource/manager-console/scheduler-cluster.jpg)
 
-##### Add Scheduler Cluster
+##### Add Scheduler Cluster {#add-scheduler-cluster}
 
 ![add-scheduler-cluster](../resource/manager-console/add-scheduler-cluster.jpg)
 
-##### Configure Scheduler Cluster
+##### Configure Scheduler Cluster {#configure-scheduler-cluster}
 
 ![add-scheduler-cluster](../resource/manager-console/add-scheduler-cluster.jpg)
 
-##### Configure Scheduler Cluster's Client
+##### Configure Scheduler Cluster's Client {#configure-scheduler-clusters-client}
 
 ![configure-scheduler-cluster-client](../resource/manager-console/configure-scheduler-cluster-client.jpg)
 
 - `load_limit`: client host can provide the maximum upload load.
 
-#### CDN Cluster
+#### CDN Cluster {#cdn-cluster}
 
-##### CDN Cluster List
+##### CDN Cluster List {#cdn-cluster-list}
 
 ![cdn-cluster](../resource/manager-console/cdn-cluster.jpg)
 
-##### Add CDN Cluster
+##### Add CDN Cluster {#add-cdn-cluster}
 
 ![add-cdn-cluster](../resource/manager-console/add-cdn-cluster.jpg)
 
-##### Configure CDN Cluster
+##### Configure CDN Cluster {#configure-cdn-cluster}
 
 ![configure-cdn-cluster](../resource/manager-console/configure-cdn-cluster.jpg)
 

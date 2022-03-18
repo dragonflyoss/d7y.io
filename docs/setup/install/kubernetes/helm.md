@@ -4,12 +4,12 @@ title: Helm
 slug: /setup/install/kubernetes/helm
 ---
 
-## Runtime Configuration Guide for Dragonfly Helm Chart
+## Runtime Configuration Guide for Dragonfly Helm Chart {#runtime-configuration-guide-for-dragonfly-helm-chart}
 
 When enable runtime configuration in dragonfly,
 you can skip [Configure Runtime](#configure-runtime-manually) manually.
 
-### 1. Docker
+### 1. Docker {#1-docker}
 
 > **We did not recommend to using dragonfly
 > with docker in Kubernetes**
@@ -32,7 +32,7 @@ Dragonfly helm supports config docker automatically.
 
 Config cases:
 
-#### Case 1: [Preferred] Implicit registries support without restart docker
+#### Case 1: [Preferred] Implicit registries support without restart docker {#case-1-preferred-implicit-registries-support-without-restart-docker}
 
 Chart customize values.yaml:
 
@@ -70,7 +70,7 @@ Limitations:
 
 - Only support implicit registries
 
-#### Case 2: Arbitrary registries support with restart docker
+#### Case 2: Arbitrary registries support with restart docker {#case-2-arbitrary-registries-support-with-restart-docker}
 
 Chart customize values.yaml:
 
@@ -104,12 +104,12 @@ Limitations:
 - Need restart docker daemon
 - When upgrade dfdaemon, new image must be pulled beforehand.
 
-### 2. Containerd
+### 2. Containerd {#2-containerd}
 
 The config of containerd has two version with complicated fields.
 These are many cases to consider:
 
-#### Case 1: Version 2 config with config_path
+#### Case 1: Version 2 config with config_path {#case-1-version-2-config-with-config_path}
 
 There is `config_path` in `/etc/containerd/config.toml`:
 
@@ -128,7 +128,7 @@ containerRuntime:
     enable: true
 ```
 
-#### Case 2: Version 2 config without config_path
+#### Case 2: Version 2 config without config_path {#case-2-version-2-config-without-config_path}
 
 - Option 1 - Allow charts to inject config_path and restart containerd.
 
@@ -155,7 +155,7 @@ containerRuntime:
       enable: true
   ```
 
-#### Case 3: Version 1
+#### Case 3: Version 1 {#case-3-version-1}
 
 With version 1 config.toml, only support
 the registry which `dfdaemon.config.proxy.registryMirror.url` is.
@@ -168,7 +168,7 @@ containerRuntime:
     enable: true
 ```
 
-### 3. [WIP] CRI-O
+### 3. [WIP] CRI-O {#3-wip-cri-o}
 
 > DON'T USE, Work in progress
 
@@ -189,22 +189,22 @@ containerRuntime:
       - "https://harbor.example.com:8443"
 ```
 
-## Prepare Kubernetes Cluster
+## Prepare Kubernetes Cluster {#prepare-kubernetes-cluster}
 
 If there is no available Kubernetes cluster for testing,
 [minikube](https://minikube.sigs.k8s.io/docs/start/) is
 recommended. Just run `minikube start`.
 
-## Install Dragonfly
+## Install Dragonfly {#install-dragonfly}
 
-### Install with default configuration
+### Install with default configuration {#install-with-default-configuration}
 
 ```shell
 helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly
 ```
 
-### Install with custom configuration
+### Install with custom configuration {#install-with-custom-configuration}
 
 Create the `values.yaml` configuration file.
 It is recommended to use external redis and mysql instead of containers.
@@ -242,7 +242,7 @@ helm install --create-namespace --namespace dragonfly-system \
     dragonfly dragonfly/dragonfly -f values.yaml
 ```
 
-### Install with an existing manager
+### Install with an existing manager {#install-with-an-existing-manager}
 
 Create the `values.yaml` configuration file.
 Need to configure the cluster id associated with scheduler and cdn.
@@ -283,7 +283,7 @@ mysql:
   enable: false
 ```
 
-## Wait Dragonfly Ready
+## Wait Dragonfly Ready {#wait-dragonfly-ready}
 
 Wait all pods running
 
@@ -291,7 +291,7 @@ Wait all pods running
 kubectl -n dragonfly-system wait --for=condition=ready --all --timeout=10m pod
 ```
 
-## Manager Console
+## Manager Console {#manager-console}
 
 The console page will be displayed on `dragonfly-manager.dragonfly-system.svc.cluster.local:8080`.
 
@@ -301,7 +301,7 @@ of Helm Charts, or create it manually.
 
 Console features preview reference document [console preview](../../../reference/manage-console.md).
 
-## Configure Runtime Manually
+## Configure Runtime Manually {#configure-runtime-manually}
 
 Use Containerd with CRI as example, more runtimes can be found [here](../../../getting-started/quick-start/kubernetes.md)
 
@@ -331,7 +331,7 @@ Add above config to `/etc/containerd/config.toml` and restart Containerd
 systemctl restart containerd
 ```
 
-## Using Dragonfly
+## Using Dragonfly {#using-dragonfly}
 
 After all above steps, create a new pod with
 target registry. Or just pull an image with `crictl`:

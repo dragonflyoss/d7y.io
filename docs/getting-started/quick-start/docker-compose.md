@@ -12,13 +12,13 @@ If you want to use Dragonfly to complete production-level image and file distrib
 please refer to the detailed production-level configuration parameters of supernode and dfget. If it is kubernetes,
 you can use <https://github.com/dragonflyoss/helm-chartsproject>.
 
-## Preconditions
+## Preconditions {#preconditions}
 
 All the steps in this document are done on the same machine using the docker container,
 so please make sure that you have installed and started
 the docker container engine and installed docker-compose on your machine.
 
-## Step 1: Download and run Dragonfly docker-compose
+## Step 1: Download and run Dragonfly docker-compose {#step-1-download-and-run-dragonfly-docker-compose}
 
 > If run with the Mac OS, an error may be reported,
 > ref [sed command with -i option failing on Mac, but works on Linux](https://stackoverflow.com/a/41416710)
@@ -31,7 +31,7 @@ export IP=<host ip>
 ./run.sh
 ```
 
-## Step 2: Modify the Docker Daemon configuration
+## Step 2: Modify the Docker Daemon configuration {#step-2-modify-the-docker-daemon-configuration}
 
 We need to modify the Docker Daemon configuration and use Dragonfly to pull the image by mirroring.
 
@@ -54,7 +54,7 @@ systemctl restart docker
 > For more information `/etc/docker/daemon.json`,
 > please refer to the [Docker documents](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache).
 
-## Step 3: Pull the image
+## Step 3: Pull the image {#step-3-pull-the-image}
 
 Through the above steps, we have completed the deployment of Dragonfly server and client,
 and set up Docker Daemon to pull official images through Dragonfly.
@@ -65,7 +65,7 @@ You can pull the image as usual, for example:
 docker pull nginx:latest
 ```
 
-## Step 4: Verify
+## Step 4: Verify {#step-4-verify}
 
 You can verify that the nginx image is transferred through Dragonfly by executing the following command.
 
@@ -95,7 +95,7 @@ similar after formatting
 
 It means that the mirror download is completed through Dragonfly.
 
-## Step 5: Manager Console
+## Step 5: Manager Console {#step-5-manager-console}
 
 Open via browser `http://ip:8080/`
 
@@ -106,6 +106,6 @@ The account is `root`, password is `dragonfly`
 For more information refer to
 [Manager Console document](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/zh-CN/design/manager.md)
 
-## Step 6: Preheat
+## Step 6: Preheat {#step-6-preheat}
 
 To get the best out of Dragonfly, you can pull the image in advance by [preheat](../../reference/preheat.md)

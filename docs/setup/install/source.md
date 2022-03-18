@@ -6,7 +6,7 @@ title: Source
 There are installation methods to install
 the executable files separately according to the modules.
 
-## Prerequisites
+## Prerequisites {#prerequisites}
 
 | Required Software | Version Limit |
 | ----------------- | ------------- |
@@ -16,9 +16,9 @@ the executable files separately according to the modules.
 | Redis             | 3.0+          |
 | Nginx             | 0.8+          |
 
-## Install it separately by module
+## Install it separately by module {#install-it-separately-by-module}
 
-### Download the precompiled binaries
+### Download the precompiled binaries {#download-the-precompiled-binaries}
 
 1. Download a binary package of the cdn. You can download one of the latest builds for Dragonfly on the
    [github releases page](https://github.com/dragonflyoss/Dragonfly2/releases)
@@ -45,7 +45,7 @@ the executable files separately according to the modules.
    export PATH="/path/to/dragonfly:$PATH"
    ```
 
-### Build executable file by source code
+### Build executable file by source code {#build-executable-file-by-source-code}
 
 1. Obtain the source code of Dragonfly.
 
@@ -87,11 +87,11 @@ the executable files separately according to the modules.
    export PATH="/opt/dragonfly/bin/:$PATH"
    ```
 
-## Operation
+## Operation {#operation}
 
-### Manager
+### Manager {#manager}
 
-#### Startup Manager
+#### Startup Manager {#startup-manager}
 
 Configure manager yaml file, The default path for the manager yaml configuration file is
 `/etc/dragonfly/manager.yaml` in linux,
@@ -116,15 +116,15 @@ telnet 127.0.0.1 8080
 telnet 127.0.0.1 65003
 ```
 
-#### Manager Console
+#### Manager Console {#manager-console}
 
 Now you can open brower and visit console by `localhost:8080`.
 
 Console features preview reference document [console preview](../../reference/manage-console.md)。
 
-### CDN
+### CDN {#cdn}
 
-#### Startup cdn
+#### Startup cdn {#startup-cdn}
 
 Configure cdn yaml file, The default path for the cdn yaml configuration file is
 `/etc/dragonfly/cdn.yaml` in linux,
@@ -141,7 +141,7 @@ cdn --help
 cdn
 ```
 
-#### Startup file server
+#### Startup file server {#startup-file-server}
 
 You can start a file server in any way. However, the following conditions must be met:
 
@@ -178,9 +178,9 @@ Let's take nginx as an example.
    telnet 127.0.0.1 8003
    ```
 
-### Scheduler
+### Scheduler {#scheduler}
 
-#### Startup scheduler
+#### Startup scheduler {#startup-scheduler}
 
 Configure scheduler yaml file, The default path for the scheduler yaml configuration file is
 `/etc/dragonfly/scheduler.yaml` in linux,
@@ -204,9 +204,9 @@ and if Port `8002` is available.
 telnet 127.0.0.1 8002
 ```
 
-### Dfget/Dfdaemon
+### Dfget/Dfdaemon {#dfgetdfdaemon}
 
-### Startup dfdaemon
+### Startup dfdaemon {#startup-dfdaemon}
 
 Configure dfdaemon yaml file, The default path for the dfdaemon yaml configuration file is
 `/etc/dragonfly/dfget.yaml` in linux,
