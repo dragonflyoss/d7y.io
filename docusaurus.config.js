@@ -1,41 +1,41 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github")
-const darkCodeTheme = require("prism-react-renderer/themes/dracula")
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Dragonfly",
-  tagline: "An Open-source P2P-based Image and File Distribution System",
-  url: "https://d7y.io",
-  baseUrl: "/",
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
-  organizationName: "dragonflyoss", // Usually your GitHub org/user name.
-  projectName: "d7y.io", // Usually your repo name.
+  title: 'Dragonfly',
+  tagline: 'An Open-source P2P-based Image and File Distribution System',
+  url: 'https://d7y.io',
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
+  organizationName: 'dragonflyoss', // Usually your GitHub org/user name.
+  projectName: 'd7y.io', // Usually your repo name.
   i18n: {
-    defaultLocale: "en",
-    locales: ["en", "zh"],
+    defaultLocale: 'en',
+    locales: ['en', 'zh'],
     localeConfigs: {
       en: {
-        label: "English",
+        label: 'English',
       },
       zh: {
-        label: "简体中文",
+        label: '简体中文',
       },
     },
   },
   presets: [
     [
-      "classic",
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: require.resolve('./sidebars.js'),
           editUrl: function ({ locale, docPath }) {
-            return `https://github.com/dragonflyoss/d7y.io/edit/main/docs/${docPath}`
+            return `https://github.com/dragonflyoss/d7y.io/edit/main/docs/${docPath}`;
           },
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
@@ -43,15 +43,15 @@ const config = {
         },
         blog: {
           showReadingTime: true,
-          editUrl: "https://github.com/dragonflyoss/d7y.io/tree/main/",
+          editUrl: 'https://github.com/dragonflyoss/d7y.io/tree/main/',
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
         gtag: {
-          trackingID: "G-TZ94NZD7TN",
+          trackingID: 'G-TZ94NZD7TN',
           anonymizeIP: false,
         },
       }),
@@ -61,91 +61,87 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Dragonfly",
+        title: 'Dragonfly',
         logo: {
-          alt: "Dragonfly",
-          src: "img/logo.svg",
+          alt: 'Dragonfly',
+          src: 'img/logo.svg',
         },
         items: [
           {
-            to: "docs/",
-            label: "Documentation",
-            position: "right",
+            to: 'docs/',
+            label: 'Documentation',
+            position: 'right',
           },
           {
-            to: "blog",
-            label: "Blog",
-            position: "right",
+            to: 'blog',
+            label: 'Blog',
+            position: 'right',
           },
           {
-            label: "Community",
-            position: "right",
-            href: "https://github.com/dragonflyoss/Dragonfly2#community",
+            label: 'Community',
+            position: 'right',
+            href: 'https://github.com/dragonflyoss/Dragonfly2#community',
           },
           {
-            type: "localeDropdown",
-            position: "right",
+            type: 'localeDropdown',
+            position: 'right',
           },
         ],
       },
       footer: {
-        style: "dark",
+        style: 'dark',
         links: [
           {
-            title: "Documentation",
+            title: 'Documentation',
             items: [
               {
-                label: "Getting Started",
-                to: "/docs/",
+                label: 'Getting Started',
+                to: '/docs/',
               },
               {
-                label: "Setup",
-                to: "/docs/setup/install/kubernetes",
+                label: 'Setup',
+                to: '/docs/setup/install/kubernetes',
               },
               {
-                label: "Concepts",
-                to: "/docs/concepts/best-practices",
+                label: 'Reference',
+                to: '/docs/reference/benchmark',
               },
               {
-                label: "Reference",
-                to: "/docs/reference/benchmark",
+                label: 'Contribute',
+                to: '/docs/contribute/development-guide/development',
               },
               {
-                label: "Contribute",
-                to: "/docs/contribute/development-guide/development",
-              },
-              {
-                label: "Others",
-                to: "/docs/others/faqs",
+                label: 'Others',
+                to: '/docs/others/faqs',
               },
             ],
           },
           {
-            title: "Community",
+            title: 'Community',
             items: [
               {
                 html: '<div class="dingtalk"> <a class="dingtalk-label">DingTalk</a> <a class="dingtalk-img" aria-label="DingTalk"><img src="https://raw.githubusercontent.com/dragonflyoss/d7y.io/main/static/img/landing/dingtalk.jpg" alt="DingTalk Group"></div>',
               },
               {
-                label: "Discussions",
-                href: "https://github.com/dragonflyoss/Dragonfly2/discussions",
+                label: 'Discussions',
+                href: 'https://github.com/dragonflyoss/Dragonfly2/discussions',
               },
               {
-                label: "Twitter",
-                href: "https://twitter.com/dragonfly_oss",
+                label: 'Twitter',
+                href: 'https://twitter.com/dragonfly_oss',
               },
             ],
           },
           {
-            title: "More",
+            title: 'More',
             items: [
               {
-                label: "Blog",
-                to: "/blog",
+                label: 'Blog',
+                to: '/blog',
               },
               {
-                label: "GitHub",
-                href: "https://github.com/dragonflyoss/Dragonfly2",
+                label: 'GitHub',
+                href: 'https://github.com/dragonflyoss/Dragonfly2',
               },
             ],
           },
@@ -157,6 +153,6 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-}
+};
 
-module.exports = config
+module.exports = config;

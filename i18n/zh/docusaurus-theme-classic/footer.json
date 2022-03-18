@@ -41,7 +41,7 @@
   },
   "link.item.label.Concepts": {
     "message": "概念",
-    "description": "The label of footer link with label=Concepts linking to /docs/concepts/best-practices"
+    "description": "The label of footer link with label=Concepts linking to /docs/terminology/architecture"
   },
   "link.item.label.Reference": {
     "message": "参考",
