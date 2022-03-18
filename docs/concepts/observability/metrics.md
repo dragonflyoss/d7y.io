@@ -6,7 +6,7 @@ slug: /concepts/observability/metrics/
 
 This doc contains all the metrics that Dragonfly components currently support.
 Now we support metrics for Dfdaemon, Manager, Scheduler and CDN.
-The metrics path is fixed to /metrics. The following metrics are exported.
+The metrics path is fixed to `/metrics`. The following metrics are exported.
 
 ## Dfdaemon
 

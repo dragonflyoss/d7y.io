@@ -6,7 +6,7 @@ slug: /concepts/observability/metrics/
 
 文档包含 Dragonfly 组件当前支持的所有指标。
 现在支持 Dfdaemon、Manager、Scheduler 和 CDN 服务的指标。
-获取数据指标的路径固定为 /metrics。
+获取数据指标的路径固定为 `/metrics`。
 
 ## Dfdaemon
 
