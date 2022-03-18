@@ -1,6 +1,6 @@
 ---
 id: architecture
-title: Product Thinking and Design
+title: Architecture
 ---
 
 ## Positioning

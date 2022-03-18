@@ -1,6 +1,6 @@
 ---
 id: architecture
-title: 产品思考与设计
+title: 架构
 ---
 
 ## 定位
