@@ -1,6 +1,6 @@
 ---
 id: dfdaemon
-title: dfget dfdaemon
+title: Dfdaemon
 ---
 
 ## dfget
