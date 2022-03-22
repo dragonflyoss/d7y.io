@@ -8,7 +8,9 @@ title: Roadmap
 ### Manager {#manager}
 
 - Console
-  - Optimize console UI.
+  - Refactor project.
+  - Optimize permissions management.
+  - Optimize console UI, page visual revision.
   - Add actions such as lint and test.
   - Add development documentation.
   - Add dynamic configurations.

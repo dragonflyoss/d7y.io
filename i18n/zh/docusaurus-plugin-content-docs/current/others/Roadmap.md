@@ -8,7 +8,9 @@ title: Roadmap
 ### Manager
 
 - 控制台
-  - 优化页面 UI。
+  - 项目整体重构。
+  - 优化页面 UI, 整体页面视觉改版。
+  - 统一权限管理。
   - 项目增加 lint、test 等 Actions。
   - 增加开发文档。
   - 增加动态配置表单。
