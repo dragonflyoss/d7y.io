@@ -60,6 +60,15 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      algolia: {
+        apiKey: '3ea338c2dd7e413e35e4075a48707fcb',
+        appId: '50KU9JDRGZ',
+        indexName: 'd7y.io',
+        contextualSearch: true,
+        algoliaOptions: {
+          hitsPerPage: 10,
+        },
+      },
       navbar: {
         title: 'Dragonfly',
         logo: {
@@ -87,11 +96,6 @@ const config = {
             position: 'right',
           },
         ],
-      },
-      algolia: {
-        apiKey: '3ea338c2dd7e413e35e4075a48707fcb',
-        appId: '50KU9JDRGZ',
-        indexName: 'd7y.io',
       },
       footer: {
         style: 'dark',

@@ -17,11 +17,25 @@
     "lvl6": "article h6",
     "text": "article p, article li, article td:last-child"
   },
-  "strip_chars": " .,;:#",
   "stop_urls": [],
+  "strip_chars": " .,;:#",
   "custom_settings": {
     "separatorsToIndex": "_",
     "attributesForFaceting": ["language", "version", "type", "docusaurus_tag"],
-    "attributesToRetrieve": ["hierarchy", "content", "anchor", "url", "url_without_anchor", "type"]
-  }
+    "attributesToRetrieve": [
+      "hierarchy",
+      "hierarchy.lvl0",
+      "hierarchy.lvl1",
+      "hierarchy.lvl2",
+      "hierarchy.lvl3",
+      "hierarchy.lvl4",
+      "hierarchy.lvl5",
+      "hierarchy.lvl6",
+      "content",
+      "url",
+      "type"
+    ]
+  },
+  "scrap_start_urls": false,
+  "nb_hits": "OUTPUT OF THE CRAWL"
 }
