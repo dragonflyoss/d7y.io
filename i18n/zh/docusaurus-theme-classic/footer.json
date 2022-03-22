@@ -41,7 +41,7 @@
   },
   "link.item.label.Reference": {
     "message": "参考",
-    "description": "The label of footer link with label=Reference linking to /docs/reference"
+    "description": "The label of footer link with label=Reference linking to /docs/reference/cli/cdn"
   },
   "link.item.label.Contribute": {
     "message": "贡献",
