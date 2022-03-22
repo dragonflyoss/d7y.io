@@ -88,6 +88,11 @@ const config = {
           },
         ],
       },
+      algolia: {
+        apiKey: '3ea338c2dd7e413e35e4075a48707fcb',
+        appId: '50KU9JDRGZ',
+        indexName: 'd7y.io',
+      },
       footer: {
         style: 'dark',
         links: [
