@@ -29,7 +29,12 @@ title: Roadmap
 
 ### [WIP] Dfdaemon {#wip-dfdaemon}
 
-### [WIP] CDN {#wip-cdn}
+### CDN {#cdn}
+
+- Improve file data download efficiency
+- Improve cache utilization of stored data files
+- Provides piece information using GRPC bidirectional streaming
+- Support custom file transfer protocol
 
 ### Document {#document}
 
