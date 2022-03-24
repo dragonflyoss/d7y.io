@@ -12,24 +12,38 @@
 .heroBanner {
   display: flex;
   flex-flow: column;
-  padding: 8rem 0;
+  padding: 4rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
   box-shadow: 0 5px 8px -5px rgba(0, 0, 0, 0.5);
-  background: center no-repeat url("/img/landing/bg-white.svg");
+  background: center no-repeat url('/img/landing/bg-white.svg');
   background-size: cover;
 }
 
-html[data-theme="dark"] .heroBanner {
-  background: center no-repeat url("/img/landing/bg-opacity.svg");
+html[data-theme='dark'] .heroBanner {
+  background: center no-repeat url('/img/landing/bg-opacity.svg');
   background-size: cover;
 }
 
-@media screen and (max-width: 966px) {
+@media screen and (max-width: 768px) {
   .heroBanner {
     padding: 2rem;
   }
+
+  .heroLogoWrapper {
+    width: 192px;
+    height: 192px;
+  }
+}
+
+.heroLogoWrapper {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 230px;
+  height: 230px;
+  margin-bottom: 2rem;
 }
 
 .cncfLogo {

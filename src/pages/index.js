@@ -20,6 +20,9 @@ export default function Home() {
     <Layout>
       <header className={clsx('hero', styles.heroBanner)}>
         <div className="container">
+          <div className={styles.heroLogoWrapper}>
+            <img className={styles.heroLogo} src={useBaseUrl('img/logo.png')} alt="Dragonfly Logo" />
+          </div>
           <h1 className="hero__title">{siteConfig.title}</h1>
           <GitHubButton
             href="https://github.com/dragonflyoss/Dragonfly2"
