@@ -167,10 +167,10 @@ export default function Home() {
             <div className={clsx('row', styles.userImageWrapper)}>
               <img className={styles.userImage} src={useBaseUrl('img/user/alibaba-group.svg')} alt="alibaba-group" />
               <img className={styles.userImage} src={useBaseUrl('img/user/alibaba-cloud.png')} alt="alibaba-cloud" />
-              <img className={styles.userImage} src={useBaseUrl('img/user/ant-financial.png')} alt="ant-financial" />
-              <img className={styles.userImage} src={useBaseUrl('img/user/intel.svg')} alt="intel" />
+              <img className={styles.userImage} src={useBaseUrl('img/user/ant-group.png')} alt="ant-group" />
               <img className={styles.userImage} src={useBaseUrl('img/user/amap.png')} alt="amap" />
               <img className={styles.userImage} src={useBaseUrl('img/user/yahoo.svg')} alt="yahoo" />
+              <img className={styles.userImage} src={useBaseUrl('img/user/vivo.svg')} alt="vivo" />
             </div>
             <div className={clsx('row', styles.userImageWrapper)}>
               <img className={styles.userImage} src={useBaseUrl('img/user/lazada.svg')} alt="lazada" />
