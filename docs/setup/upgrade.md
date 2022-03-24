@@ -28,7 +28,7 @@ helm repo update
 helm upgrade --install -n dragonfly-system dragonfly dragonfly/dragonfly [--version 0.5.50] [-f values.yaml]
 ```
 
-Note:
+**Note:**
 
 1. On the above example, `dragonfly/dragonfly` means `dragonfly` release under `dragonfly` repo,
    `0.5.50` is the upgrading target version，user can specify the version as you want.
@@ -42,14 +42,14 @@ Note:
    can be found in [helm home page](https://helm.sh/docs/helm/helm_upgrade/).
 6. For those users can't fetch the chart from remote repo, follow this step:
 
-    ```shell script
-    # download dragonfly2 helm chart from github source repo. use version 0.5.50 as an example
+   ```shell script
+   # download dragonfly2 helm chart from github source repo. use version 0.5.50 as an example
 
-    # method 1：
-    wget https://github.com/dragonflyoss/helm-charts/releases/download/dragonfly-0.5.50/dragonfly-0.5.50.tgz
-    # method 2：
-    git clone -b dragonfly-0.5.50 --depth=1  https://github.com/dragonflyoss/helm-charts.git
+   # method 1：
+   wget https://github.com/dragonflyoss/helm-charts/releases/download/dragonfly-0.5.50/dragonfly-0.5.50.tgz
+   # method 2：
+   git clone -b dragonfly-0.5.50 --depth=1  https://github.com/dragonflyoss/helm-charts.git
 
-    # upgrade the dragonfly
-    helm upgrade --install -n dragonfly-system dragonfly <Path/To/Chart> [-f values.yaml | --reset-values]
-    ```
+   # upgrade the dragonfly
+   helm upgrade --install -n dragonfly-system dragonfly <Path/To/Chart> [-f values.yaml | --reset-values]
+   ```

@@ -27,7 +27,7 @@ lack of active push and active synchronization capabilities
 functions are capabilities, such as distribution task management and control,
 data market, multi-tenancy, and permission control, etc.
 
-## Core Competence {#core-competence}
+## Features {#features}
 
 - Through a unified back-to-source adaptation layer and
   realization of P2P file distribution capabilities that
@@ -57,29 +57,13 @@ data market, multi-tenancy, and permission control, etc.
   (image downloading solution on demand),
   warehouse services of various cloud vendors, etc.
 
-## Architecture Design {#architecture-design}
-
-### Overall structure {#overall-structure}
+## Architecture {#architecture}
 
 ![arch](../../resource/arch.png)
 
-### Entity relationship {#entity-relationship}
+## Subsystem features {#subsystem-features}
 
-![association](../../resource/association.png)
-
-### Image file download process {#image-file-download-process}
-
-![download-process](../../resource/download-process.png)
-
-### Sub-system architecture {#sub-system-architecture}
-
-#### CDN system {#cdn-system}
-
-![cdn](../../resource/cdn.png)
-
-### Sub-system function {#sub-system-function}
-
-#### Manager {#manager}
+### Manager {#manager}
 
 - Dynamic configuration management
 - Data Big Disk & Bandwidth Measurement
@@ -90,7 +74,7 @@ data market, multi-tenancy, and permission control, etc.
 - Multi-tenant management
 - Command channel service (channel integration)
 
-#### Scheduler {#scheduler}
+### Scheduler {#scheduler}
 
 - Multi-dimensional P2P scheduling strategy
 - Intelligent scheduling algorithm (advanced)
@@ -100,7 +84,7 @@ data market, multi-tenancy, and permission control, etc.
 - Client download results and back-to-source results statistics and
   docking with monitoring services
 
-#### CDN {#cdn}
+### CDN {#cdn}
 
 - Multi-source adaptation capabilities, including catalog download
   and range download functions
@@ -113,7 +97,7 @@ data market, multi-tenancy, and permission control, etc.
 - Secure transmission (symmetric encryption, integrity check, etc.)
 - Storage media plug-in
 
-#### Dfget daemon {#dfget-daemon}
+### dfdaemon {#dfdaemon}
 
 - Multi-source adaptation capabilities, including catalog
   download and range download functions
@@ -130,7 +114,7 @@ data market, multi-tenancy, and permission control, etc.
 - Client elegant upgrade and deployment plan
 - Command execution
 
-#### Framework {#framework}
+### Framework {#framework}
 
 - High availability, high performance, easy integration
 - Consistent Hash algorithm selection

@@ -29,7 +29,7 @@ helm repo update
 helm upgrade --install -n dragonfly-system dragonfly dragonfly/dragonfly [--version 0.5.50] [-f values.yaml]
 ```
 
-注意：
+**注意：**
 
 1. 上述例子中，`dragonfly/dragonfly` 表示 `dragonfly` repo 下的 `dragonfly` release,
    `0.5.50` 为指定升级的目标版本，用户根据需要修改。
@@ -39,14 +39,14 @@ helm upgrade --install -n dragonfly-system dragonfly dragonfly/dragonfly [--vers
 5. 更多对于 `helm upgrade` 子命令的介绍请参考[官方文档](https://helm.sh/zh/docs/helm/helm_upgrade/)
 6. 如果用户无法访问远程仓库下载相应的 chart 包，可以参考下面步骤:
 
-    ```shell script
-    # 从 dragonfly2 helm chart github 仓库下载源码包，以 0.5.50 版本为例
+   ```shell script
+   # 从 dragonfly2 helm chart github 仓库下载源码包，以 0.5.50 版本为例
 
-    # 方法1：
-    wget https://github.com/dragonflyoss/helm-charts/releases/download/dragonfly-0.5.50/dragonfly-0.5.50.tgz
-    # 方法2：
-    git clone -b dragonfly-0.5.50 --depth=1  https://github.com/dragonflyoss/helm-charts.git
+   # 方法1：
+   wget https://github.com/dragonflyoss/helm-charts/releases/download/dragonfly-0.5.50/dragonfly-0.5.50.tgz
+   # 方法2：
+   git clone -b dragonfly-0.5.50 --depth=1  https://github.com/dragonflyoss/helm-charts.git
 
-    # 执行升级命令
-    helm upgrade --install -n dragonfly-system dragonfly <Path/To/Chart> [-f values.yaml | --reset-values]
-    ```
+   # 执行升级命令
+   helm upgrade --install -n dragonfly-system dragonfly <Path/To/Chart> [-f values.yaml | --reset-values]
+   ```

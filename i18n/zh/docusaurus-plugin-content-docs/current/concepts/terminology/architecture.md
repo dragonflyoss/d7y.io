@@ -33,27 +33,11 @@ title: 架构
 
 ## 架构设计
 
-### 整体架构
-
 ![arch](../../resource/arch.png)
 
-### 关联关系
+## 子系统功能
 
-![association](../../resource/association.png)
-
-### 镜像下载流程
-
-![download-process](../../resource/download-process.png)
-
-### 子模块架构
-
-#### CDN 模块
-
-![cdn](../../resource/cdn.png)
-
-### 子系统功能
-
-#### Manager
+### Manager
 
 - 动态配置管理
 - 数据大盘 & 带宽计量
@@ -64,7 +48,7 @@ title: 架构
 - 多租户管理
 - 命令通道服务（通道合一）
 
-#### Scheduler
+### Scheduler
 
 - 基于多维度的 P2P 调度策略
 - 智能化调度算法（高级）
@@ -73,7 +57,7 @@ title: 架构
 - 元信息下发管道
 - 客户端下载结果和回源结果统计以及与监控服务的对接
 
-#### CDN
+### CDN
 
 - 多源适配能力，包括目录下载和 Range 下载功能
 - DMA 读写
@@ -85,7 +69,7 @@ title: 架构
 - 安全传输（对称加密、完整性校验等）
 - 存储介质插件化
 
-#### Dfget daemon
+### Dfdaemon
 
 - 多源适配能力，包括目录下载和 Range 下载功能
 - 高效 IO 机制
@@ -100,7 +84,7 @@ title: 架构
 - 客户端优雅升级与部署方案
 - 命令执行
 
-#### Framework
+### Framework
 
 - 高可用、高性能、易集成
 - 一致性 Hash 算法选主
