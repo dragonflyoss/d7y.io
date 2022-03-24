@@ -20,4 +20,9 @@ Manager 在多 P2P 集群部署的时候扮演管理者的角色。主要提供�
 - CDN 集群与 CDN 实例是一对多关系
 - Scheduler 集群与 Scheduler 实例是一对多关系
 
-![manager-relationship](../../resource/architecture/manager-relationship.jpg)
+## 管理多个 P2P 网络
+
+Manager 可以管理多个 P2P 网络。通常一个 P2P 网络由一个 Scheduler 集群、一个 CDN 集群和若干个 Dfdaemon 组成。
+一个 P2P 网络中的服务网络必须是互通的。
+
+![manage-multiple-p2p-networks](../../resource/architecture/manage-multiple-p2p-networks.png)
