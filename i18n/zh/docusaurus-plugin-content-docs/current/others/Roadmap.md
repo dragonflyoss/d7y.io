@@ -28,7 +28,11 @@ title: Roadmap
 - 优化当前基于负载进行的调度策略，改为基于 Peer 带宽进行调度。
 - 针对 Piece 下载优先级特征值进行调度。
 
-### [WIP] Dfdaemon
+### Dfdaemon
+
+- 提升任务下载效率以及稳定性。
+- 使用 GRPC 双向流传递 Peer 间 Piece 信息。
+- 支持下载 Piece 优先级。
 
 ### [WIP] CDN
 

@@ -4,7 +4,7 @@ title: Upgrade
 slug: /setup/upgrade
 ---
 
-## Upgrade the cluster deployed by Helm
+## Upgrade the cluster deployed by Helm {#upgrade-the-cluster-deployed-by-helm}
 
 User can deploy a Dragonfly2 cluster on kubernetes with Helm.
 The [helm chart](https://github.com/dragonflyoss/helm-charts) is a project managed by Dragonfly2 Team.

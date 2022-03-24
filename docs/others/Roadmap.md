@@ -27,7 +27,11 @@ title: Roadmap
 - Scheduler integrates machine learning algorithms to improve scheduling capabilities.
 - Allocate download peers based on peer bandwidth traffic.
 
-### [WIP] Dfdaemon {#wip-dfdaemon}
+### Dfdaemon {#wip-dfdaemon}
+
+- Improve task download efficiency and stability.
+- Refactoring to use GRPC bidirectional stream for piece information passing between peers.
+- Support piece download priority.
 
 ### [WIP] CDN {#wip-cdn}
 
