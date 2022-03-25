@@ -59,8 +59,8 @@ base:
 
   # manager configuration
   manager:
-    addr: ''
-    cdnClusterID: 0
+    addr: manager-service:65003
+    cdnClusterID: 1
     keepAlive:
       interval: 5s
 

@@ -63,8 +63,8 @@ base:
   # CDN 连接的 manager，可以不指定。
   # 各项配置默认值如下。如果 addr 为空字符串，CDN将不会连接manager。
   manager:
-    addr: ''
-    cdnClusterID: 0
+    addr: manager-service:65003
+    cdnClusterID: 1
     keepAlive:
       interval: 5s
 
