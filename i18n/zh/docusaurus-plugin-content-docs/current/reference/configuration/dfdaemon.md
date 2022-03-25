@@ -63,7 +63,7 @@ scheduler:
     # manager 服务地址
     netAddrs:
       - type: tcp
-        addr: 127.0.0.1:65003
+        addr: manager-service:65003
     # scheduler 列表刷新时间
     refreshInterval: 5m
   # 调度超时
@@ -73,7 +73,7 @@ scheduler:
   # 调度器地址实例
   netAddrs:
     - type: tcp
-      addr: 127.0.0.1:8002
+      addr: scheduler-service:8002
 
 # 用于注册到调度器的 daemon 信息
 host:

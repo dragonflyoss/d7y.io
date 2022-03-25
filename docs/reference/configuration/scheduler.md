@@ -77,7 +77,7 @@ host:
 # manager configuration
 manager:
   # addr manager access address
-  addr: 127.0.0.1:65003
+  addr: manager-service:65003
   # schedulerClusterID cluster id to which scheduler instance belongs
   schedulerClusterID: 1
   # keepAlive keep alive configuration

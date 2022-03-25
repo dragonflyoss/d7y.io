@@ -65,7 +65,7 @@ scheduler:
     # manager service addresses
     netAddrs:
       - type: tcp
-        addr: 127.0.0.1:65003
+        addr: manager-service:65003
     # scheduler list refresh interval
     refreshInterval: 5m
   # schedule timeout
@@ -75,7 +75,7 @@ scheduler:
   # below example is a stand address
   netAddrs:
     - type: tcp
-      addr: 127.0.0.1:8002
+      addr: scheduler-service:8002
 
 # current host info used for scheduler
 host:

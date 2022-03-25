@@ -72,9 +72,9 @@ host:
 # manager 配置
 manager:
   # manager 访问地址
-  addr: ''
+  addr: manager-service:65003
   # 注册的 scheduler 集群 ID
-  schedulerClusterID:
+  schedulerClusterID: 1
   # manager 心跳配置
   keepAlive:
     # 保持心跳的时间间隔
