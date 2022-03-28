@@ -129,10 +129,22 @@ const config = {
             title: 'Community',
             items: [
               {
+                label: 'Slack Channel',
+                href: 'https://cloud-native.slack.com/messages/dragonfly/',
+              },
+              {
                 html: '<div class="dingtalk"> <a class="dingtalk-label">DingTalk</a> <a class="dingtalk-img" aria-label="DingTalk"><img src="https://raw.githubusercontent.com/dragonflyoss/d7y.io/main/static/img/landing/dingtalk.jpg" alt="DingTalk Group"></div>',
               },
               {
-                label: 'Discussions',
+                label: 'Discussion Group',
+                href: 'mailto:dragonfly-discuss@googlegroups.com',
+              },
+              {
+                label: 'Developer Group',
+                href: 'mailto:dragonfly-developers@googlegroups.com',
+              },
+              {
+                label: 'Github Discussions',
                 href: 'https://github.com/dragonflyoss/Dragonfly2/discussions',
               },
               {

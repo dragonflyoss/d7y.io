@@ -50,5 +50,21 @@
   "link.item.label.Others": {
     "message": "其他",
     "description": "The label of footer link with label=Others linking to /docs/others/faqs"
+  },
+  "link.item.label.Slack Channel": {
+    "message": "Slack Channel",
+    "description": "The label of footer link with label=Slack Channel linking to https://cloud-native.slack.com/messages/dragonfly/"
+  },
+  "link.item.label.Discussion Group": {
+    "message": "Discussion Group",
+    "description": "The label of footer link with label=Discussion Group linking to mailto:dragonfly-discuss@googlegroups.com"
+  },
+  "link.item.label.Developer Group": {
+    "message": "Developer Group",
+    "description": "The label of footer link with label=Developer Group linking to mailto:dragonfly-developers@googlegroups.com"
+  },
+  "link.item.label.Github Discussions": {
+    "message": "Github Discussions",
+    "description": "The label of footer link with label=Github Discussions linking to https://github.com/dragonflyoss/Dragonfly2/discussions"
   }
 }
