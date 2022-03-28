@@ -41,12 +41,6 @@
   "Normally only cdn and dfdaemon download from the source, hence little pressure upon file sources.": {
     "message": "首次 cdn 或 dfdaemon 回源下载，此后下载流量走 P2P 网络，因此能够减少对文件源的压力。"
   },
-  "User-Friendly": {
-    "message": "易用"
-  },
-  "Get everything done with a few simple configurations. Use it in a way similar to Curl. Client supports third-party software's native integration of Dragonfly's P2P capabilities through the C/S mode. Harbor, Nydus, etc.": {
-    "message": "简单的配置即可使用，可以用 Curl 进行测试。客户端支持三方客户端通过 C/S 模式集成 Dragonfly。"
-  },
   "Intro To Dragonfly": {
     "message": "介绍 Dragonfly"
   },
@@ -299,5 +293,14 @@
   "theme.SearchPage.fetchingNewResults": {
     "message": "正在获取新的搜索结果...",
     "description": "The paragraph for fetching new search results"
+  },
+  "Ecosystem": {
+    "message": "生态"
+  },
+  "can distribute and preheat images based on the Dragonfly. Image acceleration based on": {
+    "message": "可以基于 Dragonfly 进行镜像分发以及预热。 镜像加速项目"
+  },
+  "container runtime can use Dragonfly for data distribution.": {
+    "message": "可以在容器运行时使用 Dragonfly 进行数据分发。"
   }
 }

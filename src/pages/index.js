@@ -126,14 +126,15 @@ export default function Home() {
             <div className={styles.card}>
               <p className={styles.cardTitle}>
                 <img className={styles.icon} src={useBaseUrl('img/icon/flexible.svg')} alt="flexible" />
-                <Translate>User-Friendly</Translate>
+                <Translate>Ecosystem</Translate>
               </p>
               <p className={styles.cardSubtitle}>
+                <a href="https://goharbor.io/">Harbor</a>{' '}
                 <Translate>
-                  Get everything done with a few simple configurations. Use it in a way similar to Curl. Client supports
-                  third-party software's native integration of Dragonfly's P2P capabilities through the C/S mode.
-                  Harbor, Nydus, etc.
-                </Translate>
+                  can distribute and preheat images based on the Dragonfly. Image acceleration based on
+                </Translate>{' '}
+                <a href="https://nydus.dev/">Nydus</a>{' '}
+                <Translate>container runtime can use Dragonfly for data distribution.</Translate>
               </p>
             </div>
           </div>
