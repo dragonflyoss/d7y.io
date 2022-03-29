@@ -79,12 +79,12 @@ const config = {
           {
             to: 'docs/',
             label: 'Documentation',
-            position: 'right',
+            position: 'left',
           },
           {
             to: 'blog',
             label: 'Blog',
-            position: 'right',
+            position: 'left',
           },
           {
             label: 'Community',
@@ -92,7 +92,17 @@ const config = {
             href: 'https://github.com/dragonflyoss/Dragonfly2#community',
           },
           {
+            label: 'Nydus',
+            position: 'right',
+            href: 'https://nydus.dev/',
+          },
+          {
             type: 'localeDropdown',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/dragonflyoss/Dragonfly2',
+            className: 'header-github-link',
             position: 'right',
           },
         ],
