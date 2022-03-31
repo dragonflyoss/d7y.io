@@ -22,7 +22,7 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 | dragonfly_dfdaemon_proxy_request_running_total           | method | counter | Current running count of proxy request.               |
 | dragonfly_dfdaemon_proxy_request_bytes_total             | method | counter | Counter of the total byte of all proxy request.       |
 | dragonfly_dfdaemon_peer_task_total                       |        | counter | Counter of the total peer tasks.                      |
-| dragonfly_dfdaemon_peer_task_failed_total                |        | counter | Counter of the total failed peer tasks.               |
+| dragonfly_dfdaemon_peer_task_failed_total                | type   | counter | Counter of the total failed peer tasks.               |
 | dragonfly_dfdaemon_piece_task_total                      |        | counter | Counter of the total failed piece tasks.              |
 | dragonfly_dfdaemon_piece_task_failed_total               |        | counter | Dragonfly dfget tasks.                                |
 | dragonfly_dfdaemon_file_task_total                       |        | counter | Counter of the total file tasks.                      |
@@ -46,7 +46,7 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 | dragonfly_scheduler_register_peer_task_total                 | biz_tag                                             | counter   | Counter of the number of the register peer task.           |
 | dragonfly_scheduler_register_peer_task_failure_total         | biz_tag                                             | counter   | Counter of the number of failed of the register peer task. |
 | dragonfly_scheduler_download_total                           | biz_tag                                             | counter   | Counter of the number of the downloading.                  |
-| dragonfly_scheduler_download_failure_total                   | biz_tag                                             | counter   | Counter of the number of failed of the downloading.        |
+| dragonfly_scheduler_download_failure_total                   | biz_tag, type                                       | counter   | Counter of the number of failed of the downloading.        |
 | dragonfly_scheduler_leave_task_total                         | biz_tag                                             | counter   | Counter of the number of the task leaving.                 |
 | dragonfly_scheduler_leave_task_failure_total                 | biz_tag                                             | counter   | Counter of the number of failed of the task leaving.       |
 | dragonfly_scheduler_traffic                                  | biz_tag, type                                       | counter   | Counter of the number of p2p traffic.                      |
