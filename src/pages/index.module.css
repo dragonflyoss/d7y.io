@@ -12,7 +12,7 @@
 .heroBanner {
   display: flex;
   flex-flow: column;
-  padding: 4rem 0;
+  padding: 3.5rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -35,6 +35,14 @@ html[data-theme='dark'] .heroBanner {
     width: 192px;
     height: 192px;
   }
+}
+
+.tagline {
+  margin-top: 1rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
 }
 
 .heroLogoWrapper {
@@ -65,7 +73,6 @@ html[data-theme='dark'] .heroBanner {
 .buttonWrapper {
   display: flex;
   flex-flow: row;
-  margin-top: 1.5rem;
 }
 
 .badgeWrapper {

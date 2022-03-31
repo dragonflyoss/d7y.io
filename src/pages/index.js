@@ -33,7 +33,7 @@ export default function Home() {
           >
             Star
           </GitHubButton>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          <p className={styles.tagline}>{siteConfig.tagline}</p>
         </div>
         <div className={styles.buttonWrapper}>
           <Button href={useBaseUrl('docs/')}>
