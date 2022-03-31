@@ -48,5 +48,4 @@ title: Roadmap
 ### 其他
 
 - perf-tests 仓库中提供压测解决方案。
-- 提供 Kustomize 部署方案。
 - 升级 Golang 1.18 版本，基于泛型重构已有代码。

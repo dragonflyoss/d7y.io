@@ -47,5 +47,4 @@ title: Roadmap
 ### Others {#others}
 
 - Provide performance testing solutions in perf-tests repo.
-- Provide kustomize based deployment solutions.
 - Upgrade golang 1.18, refactor the project using the generic feature.

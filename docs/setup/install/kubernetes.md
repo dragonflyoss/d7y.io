@@ -11,4 +11,3 @@ daemon as `DaemonSets`, manager as `Deployments`.
 Table of contents:
 
 - [Helm](./kubernetes/helm.md)
-- [Kustomize](./kubernetes/kustomize.md)
