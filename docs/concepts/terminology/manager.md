@@ -22,7 +22,7 @@ and provide keepalive and metrics functions.
 - CDN cluster and CDN instance have a `1:N` relationship
 - Scheduler cluster and Scheduler instance have a `1:N` relationship
 
-## Manage multiple P2P networks
+## Manage multiple P2P networks {#manage-multiple-p2p-networks}
 
 Manager can manage multiple P2P networks.
 Usually, a P2P network includes a scheduler cluster, a cdn clsuter and many dfdaemons.

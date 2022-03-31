@@ -9,7 +9,7 @@ Dragonfly Quick Start document aims to help you to
 quick start Dragonfly journey. This experiment is quite easy and
 simplified.
 
-You can have a quick start following [Kubernetes-with-Dragonfly](../../setup/install/kubernetes.md).
+You can have a quick start following [Helm Charts](../../setup/install/helm-charts.md).
 We recommend to use `Containerd with CRI` and `CRI-O` client.
 
 This table describes some container runtimes version and documents.

@@ -6,7 +6,7 @@ slug: /getting-started/quick-start/docker-compose/
 ---
 
 为了方便您快速搭建起 Dragonfly 环境，本文以 [Docker-Compose](https://docs.docker.com/compose/) 为例进行讲解，
-如果需要 kubernetes 相关内容，可以参考 [快速开始: 以kubernetes为例](../../setup/install/kubernetes.md)
+如果需要 kubernetes 相关内容，可以参考 [快速开始: Helm Charts](../../setup/install/helm-charts.md)
 
 如需在生产环境使用 Dragonfly 完成生产级别的镜像与文件分发，请参考 supernode 和 dfget 的详细生产级别配置参数，如果是 kubernetes , 可以使用
 <https://github.com/dragonflyoss/helm-charts> 项目。

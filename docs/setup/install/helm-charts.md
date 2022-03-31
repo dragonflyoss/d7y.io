@@ -1,8 +1,11 @@
 ---
-id: helm
-title: Helm
-slug: /setup/install/kubernetes/helm
+id: helm-charts
+title: Helm Charts
 ---
+
+Now we can deploy all components of Dragonfly in
+Kubernetes cluster. We deploy scheduler and cdn as `StatefulSets`,
+daemon as `DaemonSets`, manager as `Deployments`.
 
 ## Runtime Configuration Guide for Dragonfly Helm Chart {#runtime-configuration-guide-for-dragonfly-helm-chart}
 
@@ -47,8 +50,8 @@ containerRuntime:
     # When use certs and inject hosts in docker, no necessary to restart docker daemon.
     injectHosts: true
     registryDomains:
-      - "harbor.example.com"
-      - "harbor.example.net"
+      - 'harbor.example.com'
+      - 'harbor.example.net'
 ```
 
 <!-- markdownlint-restore -->
@@ -85,8 +88,8 @@ containerRuntime:
     # If did not want restart docker daemon, keep containerRuntime.docker.restart=false and containerRuntime.docker.injectHosts=true.
     restart: true
     skipHosts:
-      - "127.0.0.1"
-      - "docker.io" # Dragonfly use this image registry to upgrade itself, so we need skip it. Change it in real environment.
+      - '127.0.0.1'
+      - 'docker.io' # Dragonfly use this image registry to upgrade itself, so we need skip it. Change it in real environment.
 ```
 
 <!-- markdownlint-restore -->
@@ -184,9 +187,9 @@ containerRuntime:
     enable: true
     # Registries full urls
     registries:
-      - "https://ghcr.io"
-      - "https://quay.io"
-      - "https://harbor.example.com:8443"
+      - 'https://ghcr.io'
+      - 'https://quay.io'
+      - 'https://harbor.example.com:8443'
 ```
 
 ## Prepare Kubernetes Cluster {#prepare-kubernetes-cluster}
@@ -267,7 +270,7 @@ manager:
 
 externalManager:
   enable: true
-  host: "dragonfly-manager.dragonfly-system.svc.cluster.local"
+  host: 'dragonfly-manager.dragonfly-system.svc.cluster.local'
   restPort: 8080
   grpcPort: 65003
 
@@ -299,13 +302,13 @@ If you need to bind Ingress, you can refer to
 [configuration options](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)
 of Helm Charts, or create it manually.
 
-Console features preview reference document [console preview](../../../reference/manage-console.md).
+Console features preview reference document [console preview](../../reference/manage-console.md).
 
 ## Configure Runtime Manually {#configure-runtime-manually}
 
-Use Containerd with CRI as example, more runtimes can be found [here](../../../getting-started/quick-start/kubernetes.md)
+Use Containerd with CRI as example, more runtimes can be found [here](../../getting-started/quick-start/kubernetes.md)
 
-> This example is for single registry, multiple registries configuration is [here](../../../setup/runtime/containerd.md)
+> This example is for single registry, multiple registries configuration is [here](../../setup/runtime/containerd.md)
 
 For private registry:
 

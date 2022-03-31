@@ -6,7 +6,7 @@ slug: /getting-started/quick-start/docker-compose/
 
 In order to facilitate you to quickly set up the Dragonfly environment,
 this article uses [Docker-Compose](https://docs.docker.com/compose/) Take kubernetes as an example to explain,
-if you need kubernetes related content, you can refer to [Quick Start: kubernetes](../../setup/install/kubernetes.md)
+if you need kubernetes related content, you can refer to [Quick Start: Helm Charts](../../setup/install/helm-charts.md)
 
 If you want to use Dragonfly to complete production-level image and file distribution in the production environment,
 please refer to the detailed production-level configuration parameters of supernode and dfget. If it is kubernetes,
@@ -76,20 +76,28 @@ docker exec dfdaemon grep "peer task done" /var/log/dragonfly/daemon/core.log
 If the above command has something like
 
 ```json
-{"level":"info","ts":"2022-02-23 06:06:21.506","caller":"peer/peertask_conductor.go:1167","msg":"peer task done, cost: 16052ms","peer":"172.17.189.172-1-249fa302-f107-444d-b03e-103f54b2fa4f","task":"708fff474e9885df7a9efa95b607618478912367f70a1aeb2753cfb00dfb28f7","component":"PeerTask"}
+{
+  "level": "info",
+  "ts": "2022-02-23 06:06:21.506",
+  "caller": "peer/peertask_conductor.go:1167",
+  "msg": "peer task done, cost: 16052ms",
+  "peer": "172.17.189.172-1-249fa302-f107-444d-b03e-103f54b2fa4f",
+  "task": "708fff474e9885df7a9efa95b607618478912367f70a1aeb2753cfb00dfb28f7",
+  "component": "PeerTask"
+}
 ```
 
 similar after formatting
 
 ```json
 {
-    "level": "info",
-    "ts": "2022-02-23 06:06:21.506",
-    "caller": "peer/peertask_conductor.go:1167",
-    "msg": "peer task done, cost: 16052ms",
-    "peer": "172.17.189.172-1-249fa302-f107-444d-b03e-103f54b2fa4f",
-    "task": "708fff474e9885df7a9efa95b607618478912367f70a1aeb2753cfb00dfb28f7",
-    "component": "PeerTask"
+  "level": "info",
+  "ts": "2022-02-23 06:06:21.506",
+  "caller": "peer/peertask_conductor.go:1167",
+  "msg": "peer task done, cost: 16052ms",
+  "peer": "172.17.189.172-1-249fa302-f107-444d-b03e-103f54b2fa4f",
+  "task": "708fff474e9885df7a9efa95b607618478912367f70a1aeb2753cfb00dfb28f7",
+  "component": "PeerTask"
 }
 ```
 

@@ -1,7 +1,7 @@
 ---
 id: quick-start
-title: 快速开始：以docker-compose为例
-description: 文档的目标是帮助您快速开始使用 Dragonfly
+title: 快速开始
+description: 该文档帮助您快速开始使用 Dragonfly
 slug: /getting-started/quick-start/
 ---
 

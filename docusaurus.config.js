@@ -119,7 +119,7 @@ const config = {
               },
               {
                 label: 'Setup',
-                to: '/docs/setup/install/kubernetes',
+                to: '/docs/setup/install/helm-charts',
               },
               {
                 label: 'Reference',

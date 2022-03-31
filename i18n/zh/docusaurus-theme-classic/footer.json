@@ -33,7 +33,7 @@
   },
   "link.item.label.Setup": {
     "message": "安装",
-    "description": "The label of footer link with label=Setup linking to /docs/setup/install/kubernetes"
+    "description": "The label of footer link with label=Setup linking to /docs/setup/install/helm-charts"
   },
   "link.item.label.Reference": {
     "message": "参考",
