@@ -29,8 +29,7 @@ const config = {
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: function ({ locale, docPath }) {
@@ -53,141 +52,145 @@ const config = {
           trackingID: 'G-TZ94NZD7TN',
           anonymizeIP: false,
         },
-      }),
+      },
     ],
   ],
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      algolia: {
-        apiKey: '3ea338c2dd7e413e35e4075a48707fcb',
-        appId: '50KU9JDRGZ',
-        indexName: 'd7y.io',
-        contextualSearch: true,
-        algoliaOptions: {
-          hitsPerPage: 10,
-        },
+  themeConfig: {
+    metadata: [
+      {
+        name: 'keywords',
+        content: 'dragonfly, nydus, cncf, p2p, cloud-native, registry, containers, docker-image, accelerate-image',
       },
-      navbar: {
-        title: 'Dragonfly',
-        logo: {
-          alt: 'Dragonfly',
-          src: 'img/logo.svg',
-        },
-        items: [
-          {
-            to: 'docs/',
-            label: 'Documentation',
-            position: 'left',
-          },
-          {
-            to: 'blog',
-            label: 'Blog',
-            position: 'left',
-          },
-          {
-            label: 'Community',
-            position: 'right',
-            href: 'https://github.com/dragonflyoss/Dragonfly2#community',
-          },
-          {
-            label: 'Nydus',
-            position: 'right',
-            href: 'https://nydus.dev/',
-          },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
-          {
-            href: 'https://github.com/dragonflyoss/Dragonfly2',
-            className: 'header-github-link',
-            position: 'right',
-          },
-        ],
+    ],
+    algolia: {
+      apiKey: '3ea338c2dd7e413e35e4075a48707fcb',
+      appId: '50KU9JDRGZ',
+      indexName: 'd7y.io',
+      contextualSearch: true,
+      algoliaOptions: {
+        hitsPerPage: 10,
       },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Documentation',
-            items: [
-              {
-                label: 'Getting Started',
-                to: '/docs/',
-              },
-              {
-                label: 'Setup',
-                to: '/docs/setup/install/helm-charts',
-              },
-              {
-                label: 'Reference',
-                to: '/docs/reference/cli/cdn',
-              },
-              {
-                label: 'Contribute',
-                to: '/docs/contribute/development-guide/development',
-              },
-              {
-                label: 'Others',
-                to: '/docs/others/faqs',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Slack Channel',
-                href: 'https://cloud-native.slack.com/messages/dragonfly/',
-              },
-              {
-                html: '<div class="dingtalk"> <a class="dingtalk-label">DingTalk</a> <a class="dingtalk-img" aria-label="DingTalk"><img src="https://raw.githubusercontent.com/dragonflyoss/d7y.io/main/static/img/landing/dingtalk.jpg" alt="DingTalk Group"></div>',
-              },
-              {
-                label: 'Discussion Group',
-                href: 'mailto:dragonfly-discuss@googlegroups.com',
-              },
-              {
-                label: 'Developer Group',
-                href: 'mailto:dragonfly-developers@googlegroups.com',
-              },
-              {
-                label: 'Github Discussions',
-                href: 'https://github.com/dragonflyoss/Dragonfly2/discussions',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/dragonfly_oss',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/dragonflyoss/Dragonfly2',
-              },
-            ],
-          },
-        ],
-        copyright: `
+    },
+    navbar: {
+      title: 'Dragonfly',
+      logo: {
+        alt: 'Dragonfly',
+        src: 'img/logo.svg',
+      },
+      items: [
+        {
+          to: 'docs/',
+          label: 'Documentation',
+          position: 'left',
+        },
+        {
+          to: 'blog',
+          label: 'Blog',
+          position: 'left',
+        },
+        {
+          label: 'Community',
+          position: 'right',
+          href: 'https://github.com/dragonflyoss/Dragonfly2#community',
+        },
+        {
+          label: 'Nydus',
+          position: 'right',
+          href: 'https://nydus.dev/',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/dragonflyoss/Dragonfly2',
+          className: 'header-github-link',
+          position: 'right',
+        },
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'Getting Started',
+              to: '/docs/',
+            },
+            {
+              label: 'Setup',
+              to: '/docs/setup/install/helm-charts',
+            },
+            {
+              label: 'Reference',
+              to: '/docs/reference/cli/cdn',
+            },
+            {
+              label: 'Contribute',
+              to: '/docs/contribute/development-guide/development',
+            },
+            {
+              label: 'Others',
+              to: '/docs/others/faqs',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Slack Channel',
+              href: 'https://cloud-native.slack.com/messages/dragonfly/',
+            },
+            {
+              html: '<div class="dingtalk"> <a class="dingtalk-label">DingTalk</a> <a class="dingtalk-img" aria-label="DingTalk"><img src="https://raw.githubusercontent.com/dragonflyoss/d7y.io/main/static/img/landing/dingtalk.jpg" alt="DingTalk Group"></div>',
+            },
+            {
+              label: 'Discussion Group',
+              href: 'mailto:dragonfly-discuss@googlegroups.com',
+            },
+            {
+              label: 'Developer Group',
+              href: 'mailto:dragonfly-developers@googlegroups.com',
+            },
+            {
+              label: 'Github Discussions',
+              href: 'https://github.com/dragonflyoss/Dragonfly2/discussions',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/dragonfly_oss',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'Blog',
+              to: '/blog',
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/dragonflyoss/Dragonfly2',
+            },
+          ],
+        },
+      ],
+      copyright: `
         <br />
         <strong>© Dragonfly Authors ${new Date().getFullYear()} | Documentation Distributed under <a href="https://creativecommons.org/licenses/by/4.0">CC-BY-4.0</a> </strong>
         <br />
         <br />
         © ${new Date().getFullYear()} The Linux Foundation. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage/"> Trademark Usage</a> page.
       `,
-      },
-      prism: {
-        theme: codeTheme,
-      },
-    }),
+    },
+    prism: {
+      theme: codeTheme,
+    },
+  },
 };
 
 module.exports = config;
