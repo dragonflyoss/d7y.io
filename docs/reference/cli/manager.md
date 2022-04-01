@@ -9,42 +9,11 @@ It is used to manage the dynamic
 configuration of each system module and provide functions
 such as heartbeat keeping alive, monitoring the market, and product functions.
 
-## Try it {#try-it}
+## Usage {#usage}
 
 ```text
 manager [flags]
 manager [command]
-```
-
-## Log configuration {#log-configuration}
-
-```text
-1. set option --console if you want to print logs to Terminal
-2. log path: /var/log/dragonfly/manager/
-```
-
-## Runtime metrics monitoring {#runtime-metrics-monitoring}
-
-```text
-manager --pprof-port port
-```
-
-## Swagger support {#swagger-support}
-
-endpoint: /swagger/doc.json
-
-## Prometheus metrics monitoring {#prometheus-metrics-monitoring}
-
-endpoint: /metrics
-
-## HealthCheck {#healthcheck}
-
-endpoint: /healthy/
-
-## Enable jaeger {#enable-jaeger}
-
-```text
-manager --jaeger  http://localhost:14250/api/traces
 ```
 
 ## Available Commands {#available-commands}
@@ -73,6 +42,9 @@ version     show version
 
 <!-- markdownlint-restore -->
 
-## Manager Config {#manager-config}
+## Log configuration {#log-configuration}
 
-[Config Example](../configuration/manager.md)
+```text
+1. set option --console if you want to print logs to Terminal
+2. log path: /var/log/dragonfly/manager/
+```

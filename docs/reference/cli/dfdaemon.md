@@ -7,7 +7,7 @@ title: Dfdaemon
 
 `dfget` is the client of Dragonfly used to download and upload files
 
-### Synopsis {#synopsis}
+### Usage {#usage}
 
 dfget is the client of Dragonfly which takes
 a role of peer in a P2P network. When user triggers a file downloading
@@ -23,7 +23,7 @@ dfget url -O path [flags]
 dfget [command]
 ```
 
-### dfget Available Commands {#dfget-available-commands}
+### Available Commands {#available-commands}
 
 ```shell
   completion  generate the autocompletion script for the specified shell
@@ -33,16 +33,6 @@ dfget [command]
   plugin      show plugin
   version     show version
 ```
-
-### Example {#example}
-
-```shell
-dfget --schedulers 127.0.0.1:8002 -O /path/to/output -u "http://example.com/object"
-```
-
-### Log configuration {#log-configuration}
-
-set environment variable console=true if you want to print logs to Terminal
 
 ### Options {#options}
 
@@ -77,13 +67,22 @@ set environment variable console=true if you want to print logs to Terminal
       --workhome string       Dfget working directory
 ```
 
+### Example {#example}
+
+```shell
+dfget --schedulers 127.0.0.1:8002 -O /path/to/output -u "http://example.com/object"
+```
+
+### Log configuration {#log-configuration}
+
+```text
+1. set option --console if you want to print logs to Terminal
+2. log path: /var/log/dragonfly/dfget/
+```
+
 <!-- markdownlint-restore -->
 
 ## dfget daemon {#dfget-daemon}
-
-### Daemon Log configuration {#daemon-log-configuration}
-
-set environment variable console=true if you want to print logs to Terminal
 
 ### Daemon Options {#daemon-options}
 
@@ -119,3 +118,10 @@ set environment variable console=true if you want to print logs to Terminal
 ```
 
 <!-- markdownlint-restore -->
+
+### Daemon Log configuration {#daemon-log-configuration}
+
+```text
+1. set option --console if you want to print logs to Terminal
+2. log path: /var/log/dragonfly/daemon/
+```

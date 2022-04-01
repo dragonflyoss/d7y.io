@@ -12,38 +12,7 @@ manager [flags]
 manager [command]
 ```
 
-## 日志配置
-
-```text
-1. 终端日志输出： --console
-2. 日志目录: /var/log/dragonfly/manager/
-```
-
-## 指标输出
-
-```text
-启动时配置参数: --pprof-port port
-```
-
-## Swagger 支持
-
-端点: /swagger/doc.json
-
-## Prometheus 集成
-
-端点: /metrics
-
-## 健康检查
-
-端点: /healthy/
-
-## jaeger 集成
-
-```text
-启动时配置 --jaeger  http://localhost:14250/api/traces
-```
-
-## 可用命令
+## 子命令
 
 ```text
 completion  generate the autocompletion script for the specified shell
@@ -69,6 +38,9 @@ version     show version
 
 <!-- markdownlint-restore -->
 
-## 配置文件
+## 日志
 
-[配置样例](../../reference/configuration/manager.md)
+```text
+1. 终端日志输出需要增加命令行参数 --console
+2. 正常情况日志目录: /var/log/dragonfly/manager/
+```

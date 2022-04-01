@@ -50,7 +50,7 @@ scheduler:
     # peerGCInterval is peer's gc interval
     peerGCInterval: 10m
     # peerTTL is peer's TTL duration
-    peerTTL: 24h
+    peerTTL: 12h
     # taskGCInterval is task's gc interval
     taskGCInterval: 10m
     # taskTTL is task's TTL duration

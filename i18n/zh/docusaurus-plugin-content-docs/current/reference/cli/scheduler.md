@@ -13,7 +13,7 @@ scheduler [flags]
 scheduler [command]
 ```
 
-## 可用子命令
+## 子命令
 
 ```text
 completion  generate the autocompletion script for the specified shell
@@ -38,3 +38,10 @@ version     show version
 ```
 
 <!-- markdownlint-restore -->
+
+## 日志
+
+```text
+1. 终端日志输出需要增加命令行参数 --console
+2. 正常情况日志目录: /var/log/dragonfly/scheduler/
+```

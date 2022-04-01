@@ -45,7 +45,7 @@ scheduler:
     # peer 的回收间隔
     peerGCInterval: 10m
     # 不活跃的 peer 的存活时间
-    peerTTL: 24h
+    peerTTL: 12h
     # task 的回收间隔
     taskGCInterval: 10m
     # 不活跃的 task 的存活时间

@@ -23,7 +23,7 @@ plugin      show plugin
 version     show version
 ```
 
-## Flags {#flags}
+## Options {#options}
 
 <!-- markdownlint-disable -->
 
@@ -38,3 +38,10 @@ version     show version
 ```
 
 <!-- markdownlint-restore -->
+
+## Log configuration {#log-configuration}
+
+```text
+1. set option --console if you want to print logs to Terminal
+2. log path: /var/log/dragonfly/cdn/
+```
