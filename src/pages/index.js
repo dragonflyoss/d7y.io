@@ -66,61 +66,50 @@ export default function Home() {
             <div className={styles.card}>
               <p className={styles.cardTitle}>
                 <img className={styles.icon} src={useBaseUrl('img/icon/transfer.svg')} alt="transfer" />
-                <Translate>A P2P-Based File Distribution System</Translate>
+                <Translate>P2P File Distribution</Translate>
               </p>
               <p className={styles.cardSubtitle}>
                 <Translate>
-                  By harnessing the power of P2P technology, it supports large-scale file distribution with improved
-                  downloading speed and success rate and lower consumption of bandwidth, especially cross-IDC bandwidth.
+                  Use P2P technology for file transfer, improve download efficiency, and save bandwidth across IDC.
                 </Translate>
               </p>
             </div>
             <div className={styles.card}>
               <p className={styles.cardTitle}>
                 <img className={styles.icon} src={useBaseUrl('img/icon/support.svg')} alt="support" />
-                <Translate>Non-Invasive Support for Various Container Technologies</Translate>
+                <Translate>Noninvasive</Translate>
               </p>
               <p className={styles.cardSubtitle}>
-                <Translate>
-                  Get it up and running with a few simple configurations, without touching the code of container
-                  services.
-                </Translate>
+                <Translate>Supports multiple containers for distributing images.</Translate>
               </p>
             </div>
             <div className={styles.card}>
               <p className={styles.cardTitle}>
-                <img className={styles.icon} src={useBaseUrl('img/icon/cdn.svg')} alt="cdn" />
-                <Translate>Passive CDN</Translate>
+                <img className={styles.icon} src={useBaseUrl('img/icon/traffic.svg')} alt="traffic" />
+                <Translate>Host-level speed limit</Translate>
               </p>
               <p className={styles.cardSubtitle}>
-                <Translate>
-                  It avoids downloading the same files repeatedly by taking advantage of the CDN technology.
-                </Translate>
+                <Translate>Support for host-level limits speed.</Translate>
               </p>
             </div>
           </div>
           <div className={clsx('row', styles.cardWrapper)}>
             <div className={styles.card}>
               <p className={styles.cardTitle}>
-                <img className={styles.icon} src={useBaseUrl('img/icon/traffic.svg')} alt="traffic" />
-                <Translate>Host-Level Traffic Throttling</Translate>
+                <img className={styles.icon} src={useBaseUrl('img/icon/cdn.svg')} alt="cdn" />
+                <Translate>Consistency</Translate>
               </p>
               <p className={styles.cardSubtitle}>
-                <Translate>
-                  Cap the total traffic of all jobs on a host at a certain level. Implement P2P files distribution with
-                  various storage types through a unified back-to-source adapter layer.
-                </Translate>
+                <Translate>Make sure all downloaded files are consistent.</Translate>
               </p>
             </div>
             <div className={styles.card}>
               <p className={styles.cardTitle}>
                 <img className={styles.icon} src={useBaseUrl('img/icon/pressure.svg')} alt="pressure" />
-                <Translate>Little Pressure upon File Sources</Translate>
+                <Translate>Isolate abnormal peers</Translate>
               </p>
               <p className={styles.cardSubtitle}>
-                <Translate>
-                  Normally only cdn and dfdaemon download from the source, hence little pressure upon file sources.
-                </Translate>
+                <Translate>Automatically isolate abnormal peers to improve download stability.</Translate>
               </p>
             </div>
             <div className={styles.card}>

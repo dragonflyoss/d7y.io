@@ -11,36 +11,6 @@
   "Originally it was born to solve distribution at large scales, such as file distribution, log distribution, image distribution, etc. It solves the following problems:": {
     "message": "Dragonfly 是为了解决大规模文件分发下载问题，如文件分发、日志分发、图像分发等。其主要解决了以下问题："
   },
-  "A P2P-Based File Distribution System": {
-    "message": "基于 P2P 方案的文件分发系统"
-  },
-  "By harnessing the power of P2P technology, it supports large-scale file distribution with improved downloading speed and success rate and lower consumption of bandwidth, especially cross-IDC bandwidth.": {
-    "message": "基于 P2P 方案，在大规模文件分发场景下提高下载速度和成功率，降低带宽消耗，尤其是跨机房带宽。"
-  },
-  "Non-Invasive Support for Various Container Technologies": {
-    "message": "简单有效的集成方案"
-  },
-  "Get it up and running with a few simple configurations, without touching the code of container services.": {
-    "message": "配置简单且无需侵入容器客户端代码。"
-  },
-  "Passive CDN": {
-    "message": "CDN"
-  },
-  "It avoids downloading the same files repeatedly by taking advantage of the CDN technology.": {
-    "message": "通过利用 CDN 缓存技术，避免重复下载相同的文件。"
-  },
-  "Host-Level Traffic Throttling": {
-    "message": "主机级别限流"
-  },
-  "Cap the total traffic of all jobs on a host at a certain level. Implement P2P files distribution with various storage types through a unified back-to-source adapter layer.": {
-    "message": "可以将主机上所有下载任务的总流量限制在某个级别。通过统一的回源适配层支持多种存储类型文件分发。"
-  },
-  "Little Pressure upon File Sources": {
-    "message": "减少源站压力"
-  },
-  "Normally only cdn and dfdaemon download from the source, hence little pressure upon file sources.": {
-    "message": "首次 cdn 或 dfdaemon 回源下载，此后下载流量走 P2P 网络，因此能够减少对文件源的压力。"
-  },
   "Intro To Dragonfly": {
     "message": "介绍 Dragonfly"
   },
@@ -302,5 +272,35 @@
   },
   "container runtime can use Dragonfly for data distribution.": {
     "message": "可以在容器运行时使用 Dragonfly 进行数据分发。"
+  },
+  "P2P File Distribution": {
+    "message": "基于 P2P 的文件分发"
+  },
+  "Use P2P technology for file transfer, improve download efficiency, and save bandwidth across IDC.": {
+    "message": "利用 P2P 技术进行文件传输，提高下载效率，并且节省跨机房带宽。"
+  },
+  "Noninvasive": {
+    "message": "非侵入式接入"
+  },
+  "Supports multiple containers for distributing images.": {
+    "message": "可无缝支持多种容器用于分发镜像。"
+  },
+  "Host-level speed limit": {
+    "message": "主机级别的限速"
+  },
+  "Support for host-level limits speed.": {
+    "message": "除了像许多其他下载工具针对当前下载任务的限速之外，还支持针对整个机器的限速。"
+  },
+  "Consistency": {
+    "message": "一致性"
+  },
+  "Make sure all downloaded files are consistent.": {
+    "message": "可确保所有下载的文件是一致的，即使用户不进行最终一致性校验。"
+  },
+  "Isolate abnormal peers": {
+    "message": "隔离异常节点"
+  },
+  "Automatically isolate abnormal peers to improve download stability.": {
+    "message": "自动隔离异常节点来提高下载稳定性和成功率。"
   }
 }

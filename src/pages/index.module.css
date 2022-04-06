@@ -158,7 +158,7 @@ html[data-theme='dark'] .heroBanner {
 .card {
   margin-left: 5rem;
   border: 1px solid var(--hero-border-color);
-  height: 20rem;
+  height: 16rem;
   width: 18rem;
   border-radius: 8px;
   padding: 1.5rem;
