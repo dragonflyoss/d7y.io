@@ -3,8 +3,7 @@ id: api
 title: API
 ---
 
-Use preheat apis for preheating. First create a POST request for preheating,
-you can refer to [create job api document](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/en/api-reference/api-reference.md#create-job)
+Use preheat apis for preheating. First create a POST request for preheating.
 
 If the `scheduler_cluster_ids` does not exist,
 it means to preheat all scheduler clusters.
@@ -38,9 +37,7 @@ If the output of command above has content like
 }
 ```
 
-Polling the preheating status with id. if status is `SUCCESS`,
-preheating is successful, you can refer to
-[get job api document](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/en/api-reference/api-reference.md#get-job)
+Polling the preheating status with id. if status is `SUCCESS`.
 
 ```bash
 curl --request GET 'http://dragonfly-manager:8080/api/v1/jobs/1'

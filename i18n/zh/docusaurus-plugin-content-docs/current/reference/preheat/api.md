@@ -3,8 +3,7 @@ id: api
 title: API
 ---
 
-用户使用 api 进行预热。首先发送 POST 请求创建预热任务，具体 api 可以参考文档
-[create job api document](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/en/api-reference/api-reference.md#create-job)。
+用户使用 api 进行预热。首先发送 POST 请求创建预热任务。
 
 如果 `scheduler_cluster_ids` 不存在，表示对所有 scheduler cluster 进行预热。
 
@@ -37,8 +36,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/api/v1/jobs' \
 }
 ```
 
-使用预热任务 ID 轮训查询任务是否成功，具体 api 可以参考文档
-[get job api document](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/en/api-reference/api-reference.md#get-job)。
+使用预热任务 ID 轮训查询任务是否成功。
 
 ```bash
 curl --request GET 'http://dragonfly-manager:8080/api/v1/jobs/1'

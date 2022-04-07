@@ -112,7 +112,7 @@ The account is `root`, password is `dragonfly`
 > Tip: Please remember to modify the user name and password for the generation environment
 
 For more information refer to
-[Manager Console document](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/zh-CN/design/manager.md)
+[Manager Console document](../../reference/manage-console.md)
 
 ## Step 6: Preheat {#step-6-preheat}
 

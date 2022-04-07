@@ -100,7 +100,7 @@ docker exec dfdaemon grep "peer task done" /var/log/dragonfly/daemon/core.log
 
 > 提示：用于生成环境请记得修改用户名和密码
 
-更多信息参考 [Manager Console 文档](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/zh-CN/design/manager.md)
+更多信息参考 [Manager Console 文档](../../reference/manage-console.md)
 
 ## 步骤 6: 预热
 

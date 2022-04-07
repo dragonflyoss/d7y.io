@@ -27,7 +27,7 @@ change log level to info
 
 ## 下载速度比不用蜻蜓的时候慢
 
-1. 确认限速值是否合适 [dfget.yaml](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/zh-CN/config/dfget.yaml#L61)
+1. 确认限速值是否合适 [dfget.yaml](../reference/configuration/dfdaemon.md)
 
    ```yaml
    download:
@@ -60,7 +60,7 @@ change log level to info
 
 在 `/var/log/scheduler/core.log` 中看到的具体日志信息为:
 
-``` text
+```text
 "msg":"trigger cdn download task failed: [1000]resources lacked for
 task(1920b46813f800b443fb181228794be167fe252d282dc7a258a126a048daaacd): resources lacked"
 ```
@@ -74,13 +74,13 @@ task(1920b46813f800b443fb181228794be167fe252d282dc7a258a126a048daaacd): resource
 
 ```yaml
 plugins:
- storageManager:
-  - config:
-      driverConfigs:
-        disk:
-          gcConfig:
-            cleanRatio: 1
-            # if freeSpace > GCThreshold, CDN will not run GC
-            fullGCThreshold: 500M
-            youngGCThreshold: 1G
+  storageManager:
+    - config:
+        driverConfigs:
+          disk:
+            gcConfig:
+              cleanRatio: 1
+              # if freeSpace > GCThreshold, CDN will not run GC
+              fullGCThreshold: 500M
+              youngGCThreshold: 1G
 ```
