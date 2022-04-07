@@ -1,7 +1,11 @@
 {
   "index_name": "d7y.io",
-  "start_urls": ["https://d7y.netlify.app/"],
-  "sitemap_urls": ["https://d7y.netlify.app/sitemap.xml"],
+  "start_urls": [
+    "https://d7y.io/"
+  ],
+  "sitemap_urls": [
+    "https://d7y.io/sitemap.xml"
+  ],
   "selectors": {
     "lvl0": {
       "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text() | //nav[contains(@class, 'navbar')]//a[contains(@class, 'navbar__link--active')]/text())[last()]",
@@ -21,7 +25,12 @@
   "strip_chars": " .,;:#",
   "custom_settings": {
     "separatorsToIndex": "_",
-    "attributesForFaceting": ["language", "version", "type", "docusaurus_tag"],
+    "attributesForFaceting": [
+      "language",
+      "version",
+      "type",
+      "docusaurus_tag"
+    ],
     "attributesToRetrieve": [
       "hierarchy",
       "hierarchy.lvl0",
