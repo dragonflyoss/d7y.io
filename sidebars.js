@@ -19,7 +19,7 @@ module.exports = {
         'getting-started/introduction',
         {
           type: 'link',
-          label: 'Katacoda Online Tutorial',
+          label: 'Katacoda Tutorial',
           href: 'https://www.katacoda.com/d7y/',
         },
         {
