@@ -4,19 +4,19 @@ title: Plugin Develop
 slug: /contribute/development-guide/plugin/
 ---
 
-# Overview {#overview}
-
 There are two types plugin in dragonfly:
+
 * In-tree plugin: The source code need be placed in dragonfly and then rebuild all components
+
 * Out-of-tree plugin: The source code can be out of dragonfly code, just need to rebuild with same golang compile environment
 
 In-tree plugin is easy to develop, build and run. New plugin users should use this mechanism to extend dragonfly.
 
-# In-tree Plugin {#in-tree-plugin}
+## In-tree Plugin {#in-tree-plugin}
 
 > In-tree plugin is working in progress, only supported in main branch.
 
-## Resource Plugin for CDN and Dfget {#resource-plugin-for-cdn-and-dfget}
+### In-tree Resource Plugin for CDN and Dfget {#in-tree-resource-plugin-for-cdn-and-dfget}
 
 The resource plugin is used to download custom resource like `dfget -u dfs://host:56001/path/to/resource`.
 
@@ -51,9 +51,11 @@ type ResourceClient interface {
 
 <!-- markdownlint-restore -->
 
-## Example Code {#example-code}
+### In-tree Example Code {#in-tree-example-code}
 
-1. Plugin code `Dragonfly2/pkg/source/clients/example/dfs.go`:
+#### 1. In-tree Plugin code {#in-tree-plugin-code}
+
+Example code `Dragonfly2/pkg/source/clients/example/dfs.go`:
 
 <!-- markdownlint-disable -->
 
@@ -109,7 +111,9 @@ func (c *client) GetLastModified(request *source.Request) (int64, error) {
 
 <!-- markdownlint-restore -->
 
-2. Register to client manager `pkg/source/loader/dfs.go`:
+#### 2. Register to client manager {#register-to-client-manager}
+
+Example code `pkg/source/loader/dfs.go`:
 
 <!-- markdownlint-disable -->
 
@@ -122,7 +126,7 @@ import (
 ```
 <!-- markdownlint-restore -->
 
-3. Build and list plugins:
+#### 3. Build and list plugins {#build-and-list-plugins}
 
 Build manually:
 
@@ -136,7 +140,7 @@ bin/`go env GOOS`_`go env GOARCH`/cdn plugin
 
 Example output:
 
-```
+```text
 source plugin: dfs, location: in-tree
 source plugin: http, location: in-tree
 source plugin: https, location: in-tree
@@ -147,15 +151,13 @@ no out of tree plugin found
 
 The `source plugin: dfs, location: in-tree` is the newly plugin we added.
 
-# Out-of-tree Plugin {#out-of-tree-plugin}
+## Out-of-tree Plugin {#out-of-tree-plugin}
 
 All compiled out-of-tree plugins need to place in `/usr/local/dragonfly/plugins/`.
 
-##  Plugin Design {#plugin-design}
-
 Dragonfly2 use golang plugin to build its out-of-tree plugins, refer: [https://pkg.go.dev/plugin#section-documentation](https://pkg.go.dev/plugin#section-documentation).
 
-## Resource Plugin for CDN and Dfget {#resource-plugin-for-cdn-and-dfget}
+### Resource Plugin for CDN and Dfget {#resource-plugin-for-cdn-and-dfget}
 
 The resource plugin is used to download custom resource like `dfget -u d7yfs://host:56001/path/to/resource`.
 
@@ -196,9 +198,9 @@ type ResourceClient interface {
 
 <!-- markdownlint-restore -->
 
-### Example Code {#example-code}
+#### Example Code {#example-code}
 
-#### 1. main.go {#1-maingo}
+##### 1. main.go {#1-maingo}
 
 <!-- markdownlint-disable -->
 
@@ -265,7 +267,7 @@ func DragonflyPluginInit(option map[string]string) (interface{}, map[string]stri
 
 <!-- markdownlint-restore -->
 
-#### 2. go.mod {#2-gomod}
+##### 2. go.mod {#2-gomod}
 
 <!-- markdownlint-disable -->
 
@@ -292,12 +294,12 @@ replace d7y.io/dragonfly/v2 => /Dragonfly2
 
 <!-- markdownlint-restore -->
 
-### Build {#build}
+#### Build {#build}
 
 > We have created a plugin builder in docker, follow [this document](./plugin-builder.md).
 > With the plugin builder, `go.mod` will be ignored.
 
-#### 1. Build plugin with target Dragonfly2 commit {#1-build-plugin-with-target-dragonfly2-commit}
+##### 1. Build plugin with target Dragonfly2 commit {#1-build-plugin-with-target-dragonfly2-commit}
 
 > Update `D7Y_COMMIT` in the following script.
 
@@ -324,7 +326,7 @@ go build -ldflags="-X main.buildTime=${BUILD_TIME} -X main.buildCommit=${BUILD_C
 
 <!-- markdownlint-restore -->
 
-#### 2. Validate plugin {#2-validate-plugin}
+##### 2. Validate plugin {#2-validate-plugin}
 
 ```shell
 /Dragonfly2/bin/linux_amd64/dfget plugin
