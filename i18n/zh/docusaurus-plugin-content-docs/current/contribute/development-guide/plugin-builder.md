@@ -1,8 +1,10 @@
 ---
 id: plugin-builder
-title: 插件构建
+title: 外置插件构建工具
 slug: /contribute/development-guide/plugin-builder/
 ---
+
+该文档描述用于构建外置插件的构建工具。
 
 > 当构建插件的时候，镜像需要被重新构建。
 

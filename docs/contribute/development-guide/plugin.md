@@ -149,7 +149,7 @@ search plugin in /Users/d7y/.dragonfly/plugins
 no out of tree plugin found
 ```
 
-The `source plugin: dfs, location: in-tree` is the newly plugin we added.
+The `source plugin: dfs, location: in-tree` is the new plugin we added.
 
 ## Out-of-tree Plugin {#out-of-tree-plugin}
 
