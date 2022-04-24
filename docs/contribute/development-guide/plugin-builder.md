@@ -1,8 +1,10 @@
 ---
 id: plugin-builder
-title: Plugin Builder
+title: Out-of-tree Plugin Builder
 slug: /contribute/development-guide/plugin-builder/
 ---
+
+This document describes the out-of-tree plugin builder, which can build dragonfly with out-of-tree plugin.
 
 > When build plugin, the image which use the plugin need rebuild
 
