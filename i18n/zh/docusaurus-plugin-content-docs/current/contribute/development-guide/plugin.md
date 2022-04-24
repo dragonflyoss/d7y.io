@@ -16,7 +16,7 @@ slug: /contribute/development-guide/plugin/
 
 > 内置插件目前还在开发中，仅在主分支中支持。
 
-## CDN 和 Dfget 的资源插件
+## 内置 CDN 和 Dfget 的资源插件
 
 资源插件是用作下载自定义协议资源使用，例如 `dfget -u d7yfs://host:56001/path/to/resource`。
 
@@ -156,7 +156,7 @@ no out of tree plugin found
 
 Dragonfly 外置插件使用 Golang Plugin 方式进行集成, 参考文档:[https://pkg.go.dev/plugin#section-documentation](https://pkg.go.dev/plugin#section-documentation)。
 
-### CDN 和 Dfget 的资源插件
+### 外置 CDN 和 Dfget 的资源插件
 
 资源插件是用作下载自定义协议资源使用，例如 `dfget -u d7yfs://host:56001/path/to/resource`。
 
