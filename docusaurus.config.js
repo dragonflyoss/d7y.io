@@ -89,6 +89,10 @@ const config = {
           position: 'left',
         },
         {
+          type: 'docsVersionDropdown',
+          position: 'right',
+        },
+        {
           label: 'Community',
           position: 'right',
           href: 'https://github.com/dragonflyoss/Dragonfly2#community',

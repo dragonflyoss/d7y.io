@@ -64,15 +64,10 @@ html[data-theme='dark'] .heroBanner {
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .buttonWrapper {
   display: flex;
   flex-flow: row;
+  justify-content: space-around;
 }
 
 .badgeWrapper {
