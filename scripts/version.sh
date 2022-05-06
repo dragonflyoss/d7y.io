@@ -19,7 +19,7 @@ rm -rf versions.json.bak
 echo "update versions.json"
 
 sed -i.bak "/${version}/d" docusaurus.config.js
-success "update docusaurus.config.js"
+echo "update docusaurus.config.js"
 
 yarn run docusaurus docs:version "${version}"
 rm -rf docusaurus.config.js
@@ -28,5 +28,4 @@ echo "generate ${version} docs"
 
 rm -rf ./i18n/zh/docusaurus-plugin-content-docs/version-"${version}"
 cp -r ./i18n/zh/docusaurus-plugin-content-docs/current ./i18n/zh/docusaurus-plugin-content-docs/version-"${version}"
-cp -r ./i18n/zh/docusaurus-plugin-content-docs/current.json ./i18n/zh/docusaurus-plugin-content-docs/version-"${version}.json"
 echo "generate i18n ${version} docs"
