@@ -37,7 +37,8 @@ database:
     port: 3306
     dbname: manager
     migrate: true
-  # tls:
+  # tls: preferred
+  # tlsConfig:
   #   # client certificate file path
   #   cert: /etc/ssl/certs/cert.pem
   #   # client key file path
