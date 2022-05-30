@@ -5,7 +5,7 @@ slug: /concepts/observability/metrics/
 ---
 
 文档包含 Dragonfly 组件当前支持的所有指标。
-现在支持 Dfdaemon、Manager、Scheduler 和 CDN 服务的指标。
+现在支持 Dfdaemon、Manager 和 Scheduler 服务的指标。
 获取数据指标的路径固定为 `/metrics`。
 
 ## Dfdaemon
@@ -27,13 +27,26 @@ GRPC 数据指标基于 [go-grpc-prometheus](https://github.com/grpc-ecosystem/g
 | dragonfly_dfdaemon_piece_task_failed_total               |        | counter | 失败的分片总个数。                  |
 | dragonfly_dfdaemon_file_task_total                       |        | counter | 文件类型任务总个数。                |
 | dragonfly_dfdaemon_stream_task_total                     |        | counter | 流式类型任务总个数。                |
+| dragonfly_dfdaemon_seed_peer_download_total              |        | counter | 作为 Seed Peer 下载总次数。         |
+| dragonfly_dfdaemon_seed_peer_download_failure_total      |        | counter | 作为 Seed Peer 下载失败总次数。     |
+| dragonfly_dfdaemon_seed_peer_download_traffic            | type   | counter | 作为 Seed Peer 下载流量。           |
+| dragonfly_dfdaemon_seed_peer_concurrent_download_total   |        | gauge   | 作为 Seed Peer 的并行下载个数。     |
 | dragonfly_dfdaemon_peer_task_cache_hit_total             |        | counter | 命中缓存任务个数。                  |
+| dragonfly_dfdaemon_prefetch_task_total                   |        | counter | 预取任务总个数。                    |
 
 <!-- markdownlint-restore -->
 
 ## Manager
 
 GRPC 数据指标基于 [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
+
+<!-- markdownlint-disable -->
+
+| Name                         | Labels | Type  | Description              |
+| :--------------------------- | :----- | :---- | :----------------------- |
+| dragonfly_manager_peer_total |        | gauge | 当前活跃的 Peer 总个数。 |
+
+<!-- markdownlint-restore -->
 
 ## Scheduler
 
@@ -58,20 +71,5 @@ GRPC 数据指标基于 [go-grpc-prometheus](https://github.com/grpc-ecosystem/g
 | dragonfly_scheduler_stat_task_failure_total                  |                                                     | counter   | 查询任务失败次数。    |
 | dragonfly_scheduler_announce_task_total                      |                                                     | counter   | 声明任务总次数。      |
 | dragonfly_scheduler_announce_task_failure_total              |                                                     | counter   | 声明任务失败次数。    |
-
-<!-- markdownlint-restore -->
-
-## CDN
-
-GRPC 数据指标基于 [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
-
-<!-- markdownlint-disable -->
-
-| 名字                                    | 标签 | 类型    | 描述               |
-| :-------------------------------------- | :--- | :------ | :----------------- |
-| dragonfly_cdn_download_total            |      | counter | 下载任务总次数。   |
-| dragonfly_cdn_download_failure_total    |      | counter | 下载任务失败次数。 |
-| dragonfly_cdn_download_traffic          |      | counter | 经过 CDN 流量。    |
-| dragonfly_cdn_concurrent_download_total |      | gauge   | 并行下载任务个数。 |
 
 <!-- markdownlint-restore -->
