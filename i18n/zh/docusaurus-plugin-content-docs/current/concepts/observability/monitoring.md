@@ -8,7 +8,7 @@ Prometheus 和 Grafana 配置维护在仓库 [dragonflyoss/monitoring](https://g
 
 Grafana 大盘发布在 [grafana.com](https://grafana.com/), 对应大盘地址分别为 [Manager](https://grafana.com/grafana/dashboards/15945/),
 [Scheduler](https://grafana.com/grafana/dashboards/15944/) 和
-[CDN](https://grafana.com/grafana/dashboards/15946/)。
+[Seed Peer](https://grafana.com/grafana/dashboards/16349/)。
 
 下面例子中对于 Dragonfly 监控例子基于 [kubernetes](https://kubernetes.io/) 环境, 使用
 [prometheus-community/kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack/)
@@ -66,8 +66,8 @@ scheduler:
     serviceMonitor:
       enable: true
 
-cdn:
-  image: d7yio/cdn
+seedPeer:
+  image: d7yio/dfdaemon
   tag: latest
   metrics:
     enable: true
@@ -110,11 +110,11 @@ Dragonfly grafana 数据大盘信息如下：
 | :------------------ | :---- | :------------------------------------------- | :----------------------------------------- |
 | Dragonfly Manager   | 15945 | https://grafana.com/grafana/dashboards/15945 | Granafa dashboard for dragonfly manager.   |
 | Dragonfly Scheduler | 15944 | https://grafana.com/grafana/dashboards/15944 | Granafa dashboard for dragonfly scheduler. |
-| Dragonfly CDN       | 15946 | https://grafana.com/grafana/dashboards/15946 | Granafa dashboard for dragonfly cdn.       |
+| Dragonfly Seed Peer | 16349 | https://grafana.com/grafana/dashboards/16349 | Granafa dashboard for dragonfly seed peer. |
 
 <!-- markdownlint-restore -->
 
-- 导入 Dragonfly grafana 数据大盘使用 ID `15945`, `15944` 和 `15946`, 参考文档 [export-import](https://grafana.com/docs/grafana/latest/dashboards/export-import/)
+- 导入 Dragonfly grafana 数据大盘使用 ID `15945`, `15944` 和 `16349`, 参考文档 [export-import](https://grafana.com/docs/grafana/latest/dashboards/export-import/)
 
 ![grafana-import-dashboard](../../resource/monitoring/grafana-import-dashboard.jpg)
 
@@ -124,4 +124,4 @@ Dragonfly grafana 数据大盘信息如下：
 
 ![grafana-scheduler](../../resource/monitoring/grafana-scheduler.jpg)
 
-![grafana-cdn](../../resource/monitoring/grafana-cdn.jpg)
+![grafana-seed-peer](../../resource/monitoring/grafana-seed-peer.jpg)

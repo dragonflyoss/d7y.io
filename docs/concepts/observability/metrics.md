@@ -5,7 +5,7 @@ slug: /concepts/observability/metrics/
 ---
 
 This doc contains all the metrics that Dragonfly components currently support.
-Now we support metrics for Dfdaemon, Manager, Scheduler and CDN.
+Now we support metrics for Dfdaemon, Manager and Scheduler.
 The metrics path is fixed to `/metrics`. The following metrics are exported.
 
 ## Dfdaemon {#dfdaemon}
@@ -14,26 +14,39 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 
 <!-- markdownlint-disable -->
 
-| Name                                                     | Labels | Type    | Description                                           |
-| :------------------------------------------------------- | :----- | :------ | :---------------------------------------------------- |
-| dragonfly_dfdaemon_proxy_request_total                   | method | counter | Counter of the total proxy request.                   |
-| dragonfly_dfdaemon_proxy_request_via_dragonfly_total     |        | counter | Counter of the total proxy request via Dragonfly.     |
-| dragonfly_dfdaemon_proxy_request_not_via_dragonfly_total |        | counter | Counter of the total proxy request not via Dragonfly. |
-| dragonfly_dfdaemon_proxy_request_running_total           | method | counter | Current running count of proxy request.               |
-| dragonfly_dfdaemon_proxy_request_bytes_total             | method | counter | Counter of the total byte of all proxy request.       |
-| dragonfly_dfdaemon_peer_task_total                       |        | counter | Counter of the total peer tasks.                      |
-| dragonfly_dfdaemon_peer_task_failed_total                | type   | counter | Counter of the total failed peer tasks.               |
-| dragonfly_dfdaemon_piece_task_total                      |        | counter | Counter of the total failed piece tasks.              |
-| dragonfly_dfdaemon_piece_task_failed_total               |        | counter | Dragonfly dfget tasks.                                |
-| dragonfly_dfdaemon_file_task_total                       |        | counter | Counter of the total file tasks.                      |
-| dragonfly_dfdaemon_stream_task_total                     |        | counter | Counter of the total stream tasks.                    |
-| dragonfly_dfdaemon_peer_task_cache_hit_total             |        | counter | Counter of the total cache hit peer tasks.            |
+| Name                                                     | Labels | Type    | Description                                                      |
+| :------------------------------------------------------- | :----- | :------ | :--------------------------------------------------------------- |
+| dragonfly_dfdaemon_proxy_request_total                   | method | counter | Counter of the total proxy request.                              |
+| dragonfly_dfdaemon_proxy_request_via_dragonfly_total     |        | counter | Counter of the total proxy request via Dragonfly.                |
+| dragonfly_dfdaemon_proxy_request_not_via_dragonfly_total |        | counter | Counter of the total proxy request not via Dragonfly.            |
+| dragonfly_dfdaemon_proxy_request_running_total           | method | counter | Current running count of proxy request.                          |
+| dragonfly_dfdaemon_proxy_request_bytes_total             | method | counter | Counter of the total byte of all proxy request.                  |
+| dragonfly_dfdaemon_peer_task_total                       |        | counter | Counter of the total peer tasks.                                 |
+| dragonfly_dfdaemon_peer_task_failed_total                | type   | counter | Counter of the total failed peer tasks.                          |
+| dragonfly_dfdaemon_piece_task_total                      |        | counter | Counter of the total failed piece tasks.                         |
+| dragonfly_dfdaemon_piece_task_failed_total               |        | counter | Dragonfly dfget tasks.                                           |
+| dragonfly_dfdaemon_file_task_total                       |        | counter | Counter of the total file tasks.                                 |
+| dragonfly_dfdaemon_stream_task_total                     |        | counter | Counter of the total stream tasks.                               |
+| dragonfly_dfdaemon_seed_peer_download_total              |        | counter | Counter of the number of the seed peer downloading.              |
+| dragonfly_dfdaemon_seed_peer_download_failure_total      |        | counter | Counter of the number of failed of the seed peer downloading.    |
+| dragonfly_dfdaemon_seed_peer_download_traffic            | type   | counter | Counter of the number of seed peer download traffic.             |
+| dragonfly_dfdaemon_seed_peer_concurrent_download_total   |        | gauge   | Gauger of the number of concurrent of the seed peer downloading. |
+| dragonfly_dfdaemon_peer_task_cache_hit_total             |        | counter | Counter of the total cache hit peer tasks.                       |
+| dragonfly_dfdaemon_prefetch_task_total                   |        | counter | Counter of the total prefetched tasks.                           |
 
 <!-- markdownlint-restore -->
 
 ## Manager {#manager}
 
 GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
+
+<!-- markdownlint-disable -->
+
+| Name                         | Labels | Type  | Description                  |
+| :--------------------------- | :----- | :---- | :--------------------------- |
+| dragonfly_manager_peer_total |        | gauge | Gauge of the number of peer. |
+
+<!-- markdownlint-restore -->
 
 ## Scheduler {#scheduler}
 
@@ -58,20 +71,5 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 | dragonfly_scheduler_stat_task_failure_total                  |                                                     | counter   | Counter of the number of failed of the stat task.          |
 | dragonfly_scheduler_announce_task_total                      |                                                     | counter   | Counter of the number of the announce task.                |
 | dragonfly_scheduler_announce_task_failure_total              |                                                     | counter   | Counter of the number of failed of the announce task.      |
-
-<!-- markdownlint-restore -->
-
-## CDN {#cdn}
-
-GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
-
-<!-- markdownlint-disable -->
-
-| Name                                    | Labels | Type    | Description                                            |
-| :-------------------------------------- | :----- | :------ | :----------------------------------------------------- |
-| dragonfly_cdn_download_total            |        | counter | Counter of the number of the downloading.              |
-| dragonfly_cdn_download_failure_total    |        | counter | Counter of the number of failed of the downloading.    |
-| dragonfly_cdn_download_traffic          |        | counter | Counter of the number of download traffic.             |
-| dragonfly_cdn_concurrent_download_total |        | gauge   | Gauger of the number of concurrent of the downloading. |
 
 <!-- markdownlint-restore -->
