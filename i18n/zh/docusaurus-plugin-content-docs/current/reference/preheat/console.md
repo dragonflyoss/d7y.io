@@ -8,21 +8,21 @@ title: 控制台
 
 如果不选择 `Scheduler Cluster` 则是对所有 Scheduler 进行预热。
 
-![add-preheat-job](../../resource/manager-console/add-preheat-job.png)
+![add-preheat-job](../../resource/manager-console/add-preheat-job.jpg)
 
 查看预热任务列表
 
-![preheat-list](../../resource/manager-console/preheat-list.png)
+![preheat-list](../../resource/manager-console/preheat-list.jpg)
 
 点击 `Description` 查看预热详情
 
-![preheat-list](../../resource/manager-console/preheat-job-detail.png)
+![preheat-job-detail](../../resource/manager-console/preheat-job-detail.jpg)
 
 ## FAQ
 
 ### 创建预热任务报错
 
-如果创建预热任务报错，接口返回500，页面提示 `http error`，需要排查 redis 是否具有写权限。
+如果创建预热任务报错，接口返回 500，页面提示 `http error`，需要排查 redis 是否具有写权限。
 Dragonfly Manager 日志报错类似
 
 ```bash

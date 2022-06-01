@@ -31,28 +31,12 @@ title: Manage 控制台
 
 ![add-scheduler-cluster](../resource/manager-console/add-scheduler-cluster.jpg)
 
-##### 配置 Scheduler 集群
+#### Seed Peer 集群
 
-![add-scheduler-cluster](../resource/manager-console/add-scheduler-cluster.jpg)
+##### Seed Peer 集群列表
 
-##### 配置 Scheduler 集群覆盖的客户端
+![cdn-cluster](../resource/manager-console/seed-peer-cluster.jpg)
 
-![configure-scheduler-cluster-client](../resource/manager-console/configure-scheduler-cluster-client.jpg)
+##### 添加 Seed Peer 集群
 
-- `load_limit`: 客户端可以提供的最大下载任务负载数。
-
-#### CDN 集群
-
-##### CDN 集群列表
-
-![cdn-cluster](../resource/manager-console/cdn-cluster.jpg)
-
-##### 添加 CDN 集群
-
-![add-cdn-cluster](../resource/manager-console/add-cdn-cluster.jpg)
-
-##### 配置 CDN 集群
-
-![configure-cdn-cluster](../resource/manager-console/configure-cdn-cluster.jpg)
-
-- `load_limit`: CDN 可以提供的最大下载任务负载数。
+![add-cdn-cluster](../resource/manager-console/add-seed-peer-cluster.jpg)

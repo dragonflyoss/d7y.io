@@ -9,15 +9,15 @@ and create preheat task for preheating.
 
 If the `scheduler_cluster_ids` does not selected, it means to preheat all scheduler clusters.
 
-![add-preheat-job](../../resource/manager-console/add-preheat-job.png)
+![add-preheat-job](../../resource/manager-console/add-preheat-job.jpg)
 
 View preheat task list.
 
-![preheat-list](../../resource/manager-console/preheat-list.png)
+![preheat-list](../../resource/manager-console/preheat-list.jpg)
 
 View preheat task details by Click `Description`.
 
-![preheat-list](../../resource/manager-console/preheat-job-detail.png)
+![preheat-job-detail](../../resource/manager-console/preheat-job-detail.jpg)
 
 ## FAQ {#faq}
 

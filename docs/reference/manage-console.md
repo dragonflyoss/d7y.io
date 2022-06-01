@@ -31,28 +31,12 @@ Default root username: `root` password: `dragonfly`.
 
 ![add-scheduler-cluster](../resource/manager-console/add-scheduler-cluster.jpg)
 
-##### Configure Scheduler Cluster {#configure-scheduler-cluster}
+#### Seed Peer Cluster {#seed-peer-cluster}
 
-![add-scheduler-cluster](../resource/manager-console/add-scheduler-cluster.jpg)
+##### Seed Peer Cluster List {#seed-peer-cluster-list}
 
-##### Configure Scheduler Cluster's Client {#configure-scheduler-clusters-client}
+![cdn-cluster](../resource/manager-console/seed-peer-cluster.jpg)
 
-![configure-scheduler-cluster-client](../resource/manager-console/configure-scheduler-cluster-client.jpg)
+##### Add Seed Peer Cluster {#add-seed-peer-cluster}
 
-- `load_limit`: client host can provide the maximum upload load.
-
-#### CDN Cluster {#cdn-cluster}
-
-##### CDN Cluster List {#cdn-cluster-list}
-
-![cdn-cluster](../resource/manager-console/cdn-cluster.jpg)
-
-##### Add CDN Cluster {#add-cdn-cluster}
-
-![add-cdn-cluster](../resource/manager-console/add-cdn-cluster.jpg)
-
-##### Configure CDN Cluster {#configure-cdn-cluster}
-
-![configure-cdn-cluster](../resource/manager-console/configure-cdn-cluster.jpg)
-
-- `load_limit`: CDN host can provide the maximum upload load.
+![add-cdn-cluster](../resource/manager-console/add-seed-peer-cluster.jpg)
