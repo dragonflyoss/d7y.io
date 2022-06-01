@@ -54,7 +54,7 @@ dfget [command]
   -l, --list                  Recursively download only. List all urls instead of downloading them.
       --logdir string         Dfget log directory
   -O, --output string         Destination path which is used to store the downloaded file, it must be a full path
-  -p, --pattern string        The downloading pattern: p2p/cdn/source
+  -p, --pattern string        The downloading pattern: p2p/seed-peer/source
       --pprof-port int        listen port for pprof, 0 represents random port (default -1)
   -r, --recursive             Recursively download all resources in target url, the target source client must support list action
       --reject-regex string   Recursively download only. Specify a regular expression to reject the complete URL. In this case, you have to enclose the pattern into quotes to prevent your shell from expanding it
@@ -104,7 +104,7 @@ dfget --schedulers 127.0.0.1:8002 -O /path/to/output -u "http://example.com/obje
   -l, --list                  Recursively download only. List all urls instead of downloading them.
       --logdir string         Dfget log directory
   -O, --output string         Destination path which is used to store the downloaded file, it must be a full path
-  -p, --pattern string        The downloading pattern: p2p/cdn/source
+  -p, --pattern string        The downloading pattern: p2p/seed-peer/source
       --pprof-port int        listen port for pprof, 0 represents random port (default -1)
   -r, --recursive             Recursively download all resources in target url, the target source client must support list action
       --reject-regex string   Recursively download only. Specify a regular expression to reject the complete URL. In this case, you have to enclose the pattern into quotes to prevent your shell from expanding it

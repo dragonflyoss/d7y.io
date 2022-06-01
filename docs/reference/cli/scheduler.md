@@ -5,7 +5,7 @@ title: Scheduler
 
 Scheduler is a long-running process which receives
 and manages download tasks from the client,
-notify the CDN to return to the source, generate and maintain a
+notify the seed peer to return to the source, generate and maintain a
 P2P network during the download process,
 and push suitable download nodes to the client
 

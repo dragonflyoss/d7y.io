@@ -35,8 +35,8 @@ Default root username: `root` password: `dragonfly`.
 
 ##### Seed Peer Cluster List {#seed-peer-cluster-list}
 
-![cdn-cluster](../resource/manager-console/seed-peer-cluster.jpg)
+![seed-peer-cluster](../resource/manager-console/seed-peer-cluster.jpg)
 
 ##### Add Seed Peer Cluster {#add-seed-peer-cluster}
 
-![add-cdn-cluster](../resource/manager-console/add-seed-peer-cluster.jpg)
+![add-seed-peer-cluster](../resource/manager-console/add-seed-peer-cluster.jpg)

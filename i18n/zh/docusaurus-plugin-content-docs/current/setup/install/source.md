@@ -60,18 +60,17 @@ title: 源码安装
 3. 编译源码并安装二进制可执行程序
 
    ```bash
-   # 同时构建 cdn scheduler dfget manager
+   # 同时构建 scheduler, dfget 以及 manager
    make build
 
    # 等同于
-   make build-cdn && make build-scheduler && make build-dfget && make build-manager
+   make make build-scheduler && make build-dfget && make build-manager
 
    # 构建 manager-console UI (可选)
    make build-manager-console
 
-   # 安装二进制文件到 /opt/dragonfly/bin/{manager,cdn,scheduler,dfget}
+   # 安装二进制文件到 /opt/dragonfly/bin/{manager,scheduler,dfget}
    make install-manager
-   make install-cdn
    make install-scheduler
    make install-dfget
 
@@ -118,59 +117,6 @@ telnet 127.0.0.1 65003
 
 控制台功能预览参考文档 [console preview](../../reference/manage-console.md)。
 
-### CDN
-
-#### 启动 cdn
-
-编辑配置文件 Linux 环境下默认 CDN 配置路径为 `/etc/dragonfly/cdn.yaml`, Darwin 环境下默认 CDN 配置路径为 `$HOME/.dragonfly/config/cdn.yaml`。
-参考文档 [配置 CDN YAML 文件](../../reference/configuration/cdn.md)。
-
-```bash
-# 下载 cdn 配置样例
-# 注意检查并修改样例配置文件，比如: base.manager ...
-
-# 查看 cdn cli 帮助
-cdn --help
-
-# 启动 cdn
-cdn
-```
-
-#### 启动 file server
-
-您可以在满足以下条件的基础上用任何方式启动 file server：
-
-- 必须挂载在 `/etc/dragonfly/cdn.yaml` 的 `plugins.storagedriver[]name: disk.config.baseDir` 目录上。
-- 必须监听 `/etc/dragonfly/cdn.yaml` 中已经定义的 `base.downloadPort` 端口。
-
-以 nginx 为例：
-
-1. 将下面的配置添加到 Nginx 配置文件中
-
-   ```conf
-   server {
-     # 必须是 `/etc/dragonfly/cdn.yaml` 中的 ${base.downloadPort}
-     listen 8001;
-     location / {
-        # 必须是 `/etc/dragonfly/cdn.yaml` 中的 ${plugins.storagedriver[]name: disk.config.baseDir}
-        root /Users/${USER_HOME}/ftp;
-     }
-   }
-   ```
-
-2. 启动 Nginx.
-
-   ```bash
-   sudo nginx
-   ```
-
-   CDN 部署完成之后，运行以下命令以检查 Nginx 和 **cdn** 是否正在运行，以及 `8001` 和 `8003` 端口是否可用。
-
-   ```bash
-   telnet 127.0.0.1 8001
-   telnet 127.0.0.1 8003
-   ```
-
 ### Scheduler
 
 #### 启动 scheduler
@@ -195,9 +141,47 @@ scheduler 部署完成之后，运行以下命令以检查 **scheduler** 是否�
 telnet 127.0.0.1 8002
 ```
 
-### Dfget/Dfdaemon
+### Dfdaemon
 
-### 启动 dfdaemon
+#### 启动 dfdaemon 作为 seed peer
+
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfget.yaml`, Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`。
+参考文档 [配置 Dfdaemon YAML 文件](../../reference/configuration/dfdaemon.md)。
+
+启动 Seed Peer 模式的配置如下：
+
+```yaml
+# Seed peer 配置文件
+scheduler:
+  manager:
+    enable: true
+    netAddrs:
+      - type: tcp
+        addr: manager-service:65003
+    refreshInterval: 10s
+    seedPeer:
+      enable: true
+      type: 'super'
+      clusterID: 1
+```
+
+把 Dfdaemon 当作 Seed Peer 运行。
+
+```bash
+# 下载 dfdaemon 配置样例
+# 注意检查并修改样例配置文件，比如: scheduler.manager ...
+
+# 查看 dfget cli 帮助
+dfget --help
+
+# 查看 dfget daemon cli 帮助
+dfget daemon --help
+
+# 启动 dfget daemon 模式
+dfget daemon
+```
+
+#### 启动 dfdaemon 作为 Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfget.yaml`, Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`。
 参考文档 [配置 Dfdaemon YAML 文件](../../reference/configuration/dfdaemon.md)。

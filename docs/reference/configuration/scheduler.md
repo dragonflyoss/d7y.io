@@ -15,7 +15,7 @@ server:
   # ip: 127.0.0.1
   # # host
   # host: localhost
-  # port is the ip and port scheduler server listens on.
+  # port is the ip and port scheduler server listens on
   port: 8002
   # cacheDir is dynconfig cache storage directory
   # in linux, default value is /var/cache/dragonfly
@@ -37,7 +37,7 @@ scheduler:
   # the dragonfly working directory plugins
   algorithm: default
   # backSourceCount is the number of backsource clients
-  # when the CDN is unavailable
+  # when the seed peer is unavailable
   backSourceCount: 3
   # retry scheduling back-to-source limit times
   retryBackSourceLimit: 5
@@ -85,11 +85,11 @@ manager:
     # interval
     interval: 5s
 
-# cdn configuration
-cdn:
-  # scheduler enable cdn as P2P peer,
+# seed peer configuration
+seedPeer:
+  # scheduler enable seed peer as P2P peer,
   # if the value is false, P2P network will not be back-to-source through
-  # cdn but by dfdaemon and preheat feature does not work
+  # seed peer but by peer and preheat feature does not work
   enable: true
 
 # machinery async job configuration,
@@ -116,6 +116,16 @@ job:
     # backendDB
     backendDB: 2
 
+# store task download information
+storage:
+  # maxSize sets the maximum size in megabytes of storage file
+  maxSize: 100
+  # maxBackups sets the maximum number of storage files to retain
+  maxBackups: 10
+  # bufferSize sets the size of buffer container,
+  # if the buffer is full, write all the records in the buffer to the file
+  bufferSize: 100
+
 # enable prometheus metrics
 metrics:
   # scheduler enable metrics service
@@ -132,7 +142,7 @@ console: false
 verbose: false
 
 # listen port for pprof, only valid when the verbose option is true
-# default is -1. If it is 0, pprof will use a random port.
+# default is -1. If it is 0, pprof will use a random port
 pprof-port: -1
 
 # jaeger endpoint url, like: http://jaeger.dragonfly.svc:14268/api/traces

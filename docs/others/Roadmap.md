@@ -29,16 +29,10 @@ title: Roadmap
 
 ### Dfdaemon {#wip-dfdaemon}
 
+- Support seed peer feature.
 - Improve task download efficiency and stability.
 - Refactoring to use GRPC bidirectional stream for piece information passing between peers.
 - Support piece download priority.
-
-### CDN {#cdn}
-
-- Improve file data download efficiency
-- Improve cache utilization of stored data files
-- Provides piece information using GRPC bidirectional streaming
-- Support custom file transfer protocol
 
 ### Document {#document}
 

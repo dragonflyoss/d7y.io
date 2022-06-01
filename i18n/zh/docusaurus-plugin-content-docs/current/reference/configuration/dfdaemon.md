@@ -66,6 +66,17 @@ scheduler:
         addr: manager-service:65003
     # scheduler 列表刷新时间
     refreshInterval: 5m
+    # seed peer 配置
+    seedPeer:
+      # dfdaemon 开启 seed peer 模式
+      enable: false
+      # seed peer 类型，包括 super, strong 和 weak
+      type: super
+      # 注册的 seed peer 集群 ID
+      clusterID: 1
+      keepAlive:
+        # 保持心跳的时间间隔
+        internal: 5s
   # 调度超时
   scheduleTimeout: 30s
   # 是否禁用回源，禁用回源后，在调度失败时不在 daemon 回源，直接返错
@@ -109,6 +120,7 @@ download:
       cacert: ''
       cert: ''
       key: ''
+      tlsVerify: true
       tlsConfig: null
     # 下载服务监听地址，dfget 下载文件将通过该地址连接到 daemon
     # 目前是支持 unix domain socket
@@ -124,6 +136,7 @@ download:
       cacert: ''
       cert: ''
       key: ''
+      tlsVerify: true
     tcpListen:
       # 监听地址
       listen: 0.0.0.0
@@ -143,6 +156,7 @@ upload:
     cacert: ''
     cert: ''
     key: ''
+    tlsVerify: false
   tcpListen:
     # 监听地址
     listen: 0.0.0.0
@@ -190,6 +204,7 @@ proxy:
     cacert: ''
     cert: ''
     key: ''
+    tlsVerify: false
   tcpListen:
     # 监听的网络命名空间, 例如：/proc/1/ns/net
     # 主要用在部署 kubernetes 中的时候，daemon 不使用 host network 时，监听宿主机的端口

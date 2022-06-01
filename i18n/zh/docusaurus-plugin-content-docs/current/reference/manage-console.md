@@ -35,8 +35,8 @@ title: Manage 控制台
 
 ##### Seed Peer 集群列表
 
-![cdn-cluster](../resource/manager-console/seed-peer-cluster.jpg)
+![seed-peer-cluster](../resource/manager-console/seed-peer-cluster.jpg)
 
 ##### 添加 Seed Peer 集群
 
-![add-cdn-cluster](../resource/manager-console/add-seed-peer-cluster.jpg)
+![add-seed-peer-cluster](../resource/manager-console/add-seed-peer-cluster.jpg)

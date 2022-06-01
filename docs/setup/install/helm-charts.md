@@ -4,7 +4,7 @@ title: Helm Charts
 ---
 
 Now we can deploy all components of Dragonfly in
-Kubernetes cluster. We deploy scheduler and cdn as `StatefulSets`,
+Kubernetes cluster. We deploy scheduler and seed peer as `StatefulSets`,
 daemon as `DaemonSets`, manager as `Deployments`.
 
 ## Runtime Configuration Guide for Dragonfly Helm Chart {#runtime-configuration-guide-for-dragonfly-helm-chart}
@@ -248,7 +248,7 @@ helm install --create-namespace --namespace dragonfly-system \
 ### Install with an existing manager {#install-with-an-existing-manager}
 
 Create the `values.yaml` configuration file.
-Need to configure the cluster id associated with scheduler and cdn.
+Need to configure the cluster id associated with scheduler and seed peer.
 
 The example is to deploy a cluster using the existing manager and redis.
 Refer to the document for [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values).
@@ -259,11 +259,12 @@ scheduler:
     manager:
       schedulerClusterID: 1
 
-cdn:
+seedPeer:
   config:
-    base:
+    scheduler:
       manager:
-        cdnClusterID: 1
+        seedPeer:
+          clusterID: 1
 
 manager:
   enable: false

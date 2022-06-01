@@ -13,7 +13,7 @@ dfcache 是 dragonfly 的缓存客户端，它与 dfdaemon 交互来对 P2P 网�
 作，其中 P2P 网络充当缓存系统。
 
 dfcache 和 dfget 的区别在于，dfget 从给定 URL 下载文件，文件可能在 P2P 网络中的
-其他Peer或 CDN 上，是 dfget 负责从 P2P 网络或者回源下载文件； 但是 dfcache 只能
+其他 Peer 或 Seed Peer 上，是 dfget 负责从 P2P 网络或者回源下载文件； 但是 dfcache 只能
 导出或下载已被其他 Peer 导入/添加到 P2P 网络中的文件，是用户负责回源并将文件添
 加到 P2P 网络中。
 
@@ -55,7 +55,7 @@ dfcache [subcommand] [flags]
       --workhome string       Dfcache working directory
 ```
 
-### Stat命令 {#dfcache-stat}
+### Stat 命令 {#dfcache-stat}
 
 <!-- markdownlint-disable -->
 
@@ -68,7 +68,7 @@ Flags:
   -l, --local   only check task exists locally, and don't check other peers in P2P network
 ```
 
-### Import命令 {#dfcache-import}
+### Import 命令 {#dfcache-import}
 
 <!-- markdownlint-disable -->
 
@@ -81,7 +81,7 @@ Flags:
   -I, --input string   import the given file into P2P network
 ```
 
-### Export命令 {#dfcache-export}
+### Export 命令 {#dfcache-export}
 
 <!-- markdownlint-disable -->
 
@@ -95,7 +95,7 @@ Flags:
   -O, --output string   export file path
 ```
 
-### Delete命令 {#dfcache-delete}
+### Delete 命令 {#dfcache-delete}
 
 <!-- markdownlint-disable -->
 

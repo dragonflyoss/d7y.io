@@ -80,10 +80,10 @@ manager:
     # 保持心跳的时间间隔
     interval: 5s
 
-# cdn 配置
-cdn:
-  # 启动 cdn 作为 P2P 网络节点,
-  # 如果值为 false 第一次回源请求不通过 cdn 而是通过 dfdaemon 直接回源,
+# seed peer 配置
+seedPeer:
+  # 启动 seed peer 作为 P2P 网络节点,
+  # 如果值为 false 第一次回源请求不通过 seed peer 而是通过 peer 直接回源,
   # 而且无法使用预热功能
   enable: true
 
@@ -109,6 +109,15 @@ job:
     brokerDB: 1
     # backend 数据库
     backendDB: 2
+
+# 存储任务下载信息
+storage:
+  # 设置单个存储文件大小，单位为 megabytes
+  maxSize: 100
+  # 保留最大副本数
+  maxBackups: 10
+  # 缓冲区限制，如果缓冲区写满，一次性写入存储文件中
+  bufferSize: 100
 
 # 开启数据收集服务
 metrics:

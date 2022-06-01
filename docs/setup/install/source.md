@@ -20,7 +20,7 @@ the executable files separately according to the modules.
 
 ### Download the precompiled binaries {#download-the-precompiled-binaries}
 
-1. Download a binary package of the cdn. You can download one of the latest builds for Dragonfly on the
+1. Download a binary package. You can download one of the latest builds for Dragonfly on the
    [github releases page](https://github.com/dragonflyoss/Dragonfly2/releases)
 
    > Note: v2.x-rc.x rc indicates the candidate version and is not recommended to be deployed in a production environment
@@ -62,18 +62,17 @@ the executable files separately according to the modules.
 3. Compile the source code.
 
    ```bash
-   # At the same time to build cdn scheduler dfget manager
+   # At the same time to build scheduler, dfget and manager
    make build
 
    # Equal
-   make build-cdn && make build-scheduler && make build-dfget && make build-manager
+   make make build-scheduler && make build-dfget && make build-manager
 
    # Build manager-console UI (optional)
    make build-manager-console
 
-   # Install executable file to  /opt/dragonfly/bin/{manager,cdn,scheduler,dfget}
+   # Install executable file to  /opt/dragonfly/bin/{manager,scheduler,dfget}
    make install-manager
-   make install-cdn
    make install-scheduler
    make install-dfget
 
@@ -122,62 +121,6 @@ Now you can open brower and visit console by `localhost:8080`.
 
 Console features preview reference document [console preview](../../reference/manage-console.md)。
 
-### CDN {#cdn}
-
-#### Startup cdn {#startup-cdn}
-
-Configure cdn yaml file, The default path for the cdn yaml configuration file is
-`/etc/dragonfly/cdn.yaml` in linux,
-and the default path is `$HOME/.dragonfly/config/cdn.yaml` in darwin. Please refer to [Configure CDN YAML File](../../reference/configuration/cdn.md)
-
-```bash
-# Configure cdn yaml file
-# Notice: check and modify some config e.g. base.manager ...
-
-# View cdn cli help docs
-cdn --help
-
-# startup cdn
-cdn
-```
-
-#### Startup file server {#startup-file-server}
-
-You can start a file server in any way. However, the following conditions must be met:
-
-- It must be rooted at `plugins.storagedriver[]name: disk.config.baseDir`
-  which is defined in the `/etc/dragonfly/cdn.yaml`.
-- It must listen on the port at `base.downloadPort` which is defined in the `/etc/dragonfly/cdn.yaml`.
-
-Let's take nginx as an example.
-
-1. Add the following configuration items to the Nginx configuration file.
-
-   ```conf
-   server {
-     # Must be `/etc/dragonfly/cdn.yaml`'s ${base.downloadPort}
-     listen 8001;
-     location / {
-        # Must be `/etc/dragonfly/cdn.yaml`'s ${plugins.storagedriver[]name: disk.config.baseDir}
-        root /Users/${USER_HOME}/ftp;
-     }
-   }
-   ```
-
-2. Start Nginx.
-
-   ```bash
-   sudo nginx
-   ```
-
-   After cdn is installed, run the following commands to verify if Nginx and **cdn** are started,
-   and if Port `8001` and `8003` are available.
-
-   ```bash
-   telnet 127.0.0.1 8001
-   telnet 127.0.0.1 8003
-   ```
-
 ### Scheduler {#scheduler}
 
 #### Startup scheduler {#startup-scheduler}
@@ -204,11 +147,53 @@ and if Port `8002` is available.
 telnet 127.0.0.1 8002
 ```
 
-### Dfget/Dfdaemon {#dfgetdfdaemon}
+### Dfdaemon {#dfdaemon}
 
-### Startup dfdaemon {#startup-dfdaemon}
+#### Startup dfdaemon as seed peer {#startup-dfdaemon-as-seed-peer}
 
-Configure dfdaemon yaml file, The default path for the dfdaemon yaml configuration file is
+Configure dfdaemon's seed peer yaml file, The default path for the dfdaemon yaml configuration file is
+`/etc/dragonfly/dfget.yaml` in linux,
+and the default path is `$HOME/.dragonfly/config/dfget.yaml` in darwin. Please refer to [Configure Dfdaemon YAML File](../../reference/configuration/dfdaemon.md)
+
+Configure dfdaemon's yaml file to enable seed peer mode:
+
+```yaml
+# Seed peer yaml file
+scheduler:
+  manager:
+    # get scheduler list dynamically from manager
+    enable: true
+    # manager service address
+    netAddrs:
+      - type: tcp
+        addr: manager-service:65003
+    # scheduler list refresh interval
+    refreshInterval: 10s
+    seedPeer:
+      enable: true
+      type: 'super'
+      clusterID: 1
+```
+
+Run dfdaemon as seed peer.
+
+```bash
+# Configure dfdaemon yaml file
+# Notice: check and modify some config e.g. scheduler.manager ...
+
+# View dfget cli help docs
+dfget --help
+
+# View dfget daemon cli help docs
+dfget daemon --help
+
+# Startup dfget daemon mode
+dfget daemon
+```
+
+#### Startup dfdaemon as peer {#startup-dfdaemon-as-peer}
+
+Configure dfdaemon's peer yaml file, The default path for the dfdaemon yaml configuration file is
 `/etc/dragonfly/dfget.yaml` in linux,
 and the default path is `$HOME/.dragonfly/config/dfget.yaml` in darwin. Please refer to [Configure Dfdaemon YAML File](../../reference/configuration/dfdaemon.md)
 

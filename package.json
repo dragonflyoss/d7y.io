@@ -12,7 +12,7 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations --locale zh",
-    "write-heading-ids": "docusaurus write-heading-ids",
+    "write-heading-ids": "docusaurus write-heading-ids --overwrite",
     "markdown-lint": "scripts/markdownlint.sh",
     "lint-staged": "lint-staged",
     "version": "./scripts/version.sh"

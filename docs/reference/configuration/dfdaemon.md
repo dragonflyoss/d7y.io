@@ -68,6 +68,17 @@ scheduler:
         addr: manager-service:65003
     # scheduler list refresh interval
     refreshInterval: 5m
+    # seed peer configuration
+    seedPeer:
+      # dfdaemon enabled seed peer mode
+      enable: false
+      # seed peer type includes super, strong and weak
+      type: super
+      # seed peer cluster id
+      clusterID: 1
+      keepAlive:
+        # keep alive internal
+        internal: 5s
   # schedule timeout
   scheduleTimeout: 30s
   # when true, only scheduler says back source, daemon can back source
@@ -130,6 +141,7 @@ download:
       cacert: ''
       cert: ''
       key: ''
+      tlsVerify: true
       tlsConfig: null
     # download service listen address
     # current, only support unix domain socket
@@ -145,6 +157,7 @@ download:
       cacert: ''
       cert: ''
       key: ''
+      tlsVerify: true
     tcpListen:
       # listen address
       listen: 0.0.0.0
@@ -165,6 +178,7 @@ upload:
     cacert: ''
     cert: ''
     key: ''
+    tlsVerify: false
   tcpListen:
     # listen address
     listen: 0.0.0.0
@@ -213,6 +227,7 @@ proxy:
     cacert: ''
     cert: ''
     key: ''
+    tlsVerify: false
   tcpListen:
     # namespace stands the linux net namespace, like /proc/1/ns/net
     # it's useful for running daemon in pod with ip allocated and listening the special port in host net namespace
