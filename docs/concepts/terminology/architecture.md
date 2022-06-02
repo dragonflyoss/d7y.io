@@ -6,7 +6,7 @@ title: Architecture
 ## Positioning {#positioning}
 
 Provide enterprise-level (efficient, stable, secure, low-cost, product-oriented)
-file distribution and management services,
+file and image distribution services,
 and become the cloud-native best practice and standard solution in this realm.
 
 ## What problems are solved {#what-problems-are-solved}

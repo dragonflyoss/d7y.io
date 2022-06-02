@@ -29,9 +29,6 @@
   "What is Dragonfly ?": {
     "message": "Dragonfly 是什么?"
   },
-  "Dragonfly is an open source intelligent P2P based image and file distribution system. Its goal is to tackle all distribution problems in cloud native scenarios. It is now hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project. Originally it was born to solve all kinds of distribution at very large scales, such as application distribution, cache distribution, log distribution, image distribution, and so on.": {
-    "message": "Dragonfly 是一个基于 P2P 的镜像和文件分发系统。它的目标是解决云原生场景中的所有镜像和文件分发问题。它现在是 CNCF 托管孵化级项目。最初它是为了解决各种超大规模的镜像和文件分发而诞生的，包括应用分发、缓存分发、日志分发、镜像分发等等。"
-  },
   "theme.ErrorPageContent.title": {
     "message": "页面已崩溃。",
     "description": "The title of the fallback page when the page crashed"
@@ -340,5 +337,8 @@
   },
   "theme.SearchBar.seeAll": {
     "message": "查看全部 {count} 个结果"
+  },
+  "Provide efficient, stable, secure, low-cost file and image distribution services to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project.": {
+    "message": "提供高效、稳定、安全且低耗的文件和镜像分发系统，并且是云原生架构中镜像加速领域的标准解决方案以及最佳实践。现在作为孵化级项目被托管在 CNCF 基金会。"
   }
 }

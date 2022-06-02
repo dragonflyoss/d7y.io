@@ -218,11 +218,9 @@ const BasicInfo = () => (
           <div className="row">
             <p className={clsx('hero__subtitle', styles.description)}>
               <Translate>
-                Dragonfly is an open source intelligent P2P based image and file distribution system. Its goal is to
-                tackle all distribution problems in cloud native scenarios. It is now hosted by the Cloud Native
-                Computing Foundation (CNCF) as an Incubating Level Project. Originally it was born to solve all kinds of
-                distribution at very large scales, such as application distribution, cache distribution, log
-                distribution, image distribution, and so on.
+                Provide efficient, stable, secure, low-cost file and image distribution services to be the best practice
+                and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing
+                Foundation (CNCF) as an Incubating Level Project.
               </Translate>
             </p>
           </div>
