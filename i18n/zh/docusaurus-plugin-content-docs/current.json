@@ -70,9 +70,5 @@
   "sidebar.docs.category.Configuration": {
     "message": "配置",
     "description": "The label for category Configuration in sidebar docs"
-  },
-  "sidebar.docs.link.Katacoda Tutorial": {
-    "message": "Katacoda 教程",
-    "description": "The label for link Katacoda Tutorial in sidebar docs, linking to https://www.katacoda.com/d7y/"
   }
 }
