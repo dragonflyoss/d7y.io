@@ -129,7 +129,7 @@ const config = {
             },
             {
               label: 'Reference',
-              to: '/docs/reference/cli/cdn',
+              to: '/docs/reference/cli/dfdaemon',
             },
             {
               label: 'Contribute',

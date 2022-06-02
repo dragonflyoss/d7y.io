@@ -37,7 +37,7 @@
   },
   "link.item.label.Reference": {
     "message": "参考",
-    "description": "The label of footer link with label=Reference linking to /docs/reference/cli/cdn"
+    "description": "The label of footer link with label=Reference linking to /docs/reference/cli/dfdaemon"
   },
   "link.item.label.Contribute": {
     "message": "贡献",

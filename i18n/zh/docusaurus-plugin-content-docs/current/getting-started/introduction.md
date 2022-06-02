@@ -37,8 +37,8 @@ Dragonfly 在解决大规模文件分发场景下有着无可比拟的优势。�
 
 **全新架构**：
 
-Dragonfly 整体由四部分组成 Manager、Scheduler、Dfdaemon 和 CDN，将 Scheduler 和 CDN 独立从根本上解决了调度和存储 IO 之间相互影响的问题。
-同时支持 CDN 插件化可按需部署，灵活满足不同场景的实际需要。此外整个系统采用更加高效的 GRPC 框架，并采用自定义一致性 hash 实现系统间的交互，极大提升了 P2P 的规模和分发效率。
+Dragonfly 整体由四部分组成 Manager、Scheduler、Seed Peer 和 Peer，将 Scheduler 和 Seed Peer 独立从根本上解决了调度和存储 IO 之间相互影响的问题。
+同时支持 Seed Peer 插件化可按需部署，灵活满足不同场景的实际需要。此外整个系统采用更加高效的 GRPC 框架，并采用自定义一致性 hash 实现系统间的交互，极大提升了 P2P 的规模和分发效率。
 
 **更广泛的应用场景**：
 
@@ -51,12 +51,12 @@ Dragonfly 通过管控系统支持配置管理、各种分发模式的任务管�
 
 ## 技术架构
 
-Dragonfly 架构主要分为四部分 Manager、Scheduler、Dfdaemon 以及 CDN 各司其职组成 P2P 下载网络,
+Dragonfly 架构主要分为三部分 Manager、Scheduler、Seed Peer 以及 Peer 各司其职组成 P2P 下载网络, Dfdaemon 可以作为 Seed Peer 和 Peer。
 详细内容可以参考[架构文档](../concepts/terminology/architecture.md), 下面是各模块功能:
 
 - **Manager**: 维护各 P2P 集群的关联关系、动态配置管理、用户态以及权限管理等功能。也包含了前端控制台，方便用户进行可视化操作集群。
 - **Scheduler**: 为下载节点选择最优下载父节点。异常情况控制 Dfdaemon 回源。
-- **Dfdaemon**: 基于 C/S 架构提供 `dfget` 命令行下载工具，以及 `dfget daemon` 运行守护进程，提供任务下载能力。
-- **CDN**: 回源下载任务，缓存下载内容, 减少回源流量，节省带宽。CDN 为 P2P 网络中的根节点。
+- **Seed Peer**: Dfdaemon 开启 Seed Peer 模式可以作为 P2P 集群中回源下载节点, 也就是整个集群中下载的根节点。
+- **Peer**: 通过 Dfdaemon 部署，基于 C/S 架构提供 `dfget` 命令行下载工具，以及 `dfget daemon` 运行守护进程，提供任务下载能力。
 
 ![sequence-diagram](../resource/getting-started/sequence-diagram.png)

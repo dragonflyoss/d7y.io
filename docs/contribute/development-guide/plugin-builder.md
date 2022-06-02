@@ -25,7 +25,7 @@ docker build -t dragonfly-plugin-builder -f build/plugin-builder/Dockerfile .
 
 #### 1. Resource Plugin Example {#1-resource-plugin-example}
 
-- Build plugin, cdn and dfget
+- Build plugin dfget
 
 ```shell
 PLUGIN_TYPE=resource
@@ -40,10 +40,9 @@ docker run --entrypoint=/bin/bash \
   /build.sh "$PLUGIN_TYPE" "$PLUGIN_NAME" /go/src/plugin
 ```
 
-- Build cdn and dfdaemon image
+- Build dfdaemon image
 
 ```shell
-docker build -t cdn -f build/plugin-builder/images/cdn/Dockerfile .
 docker build -t dfdaemon -f build/plugin-builder/images/dfdaemon/Dockerfile .
 ```
 

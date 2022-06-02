@@ -5,57 +5,29 @@ title: Architecture
 
 ## Positioning {#positioning}
 
-Provide enterprise-level (efficient, stable, secure, low-cost, product-oriented)
-file and image distribution services,
-and become the cloud-native best practice and standard solution in this realm.
-
-## What problems are solved {#what-problems-are-solved}
-
-**Architecture design flaws:** The existing architecture is difficult to
-meet the growing business needs of file distribution,
-and has gradually exposed deficiencies in stability,
-efficiency, and security, and is facing more and more challenges
-
-**Insufficient value penetration:** Currently only supports HTTP back-to-source protocol,
-and lacks adaptation to other types of
-storage (HDFS, storage services of various cloud vendors, Maven, YUM, etc.)
-
-**Single distribution mode:** Currently only supports active pull mode,
-lack of active push and active synchronization capabilities
-
-**Lack of product capabilities:** No well-experienced console
-functions are capabilities, such as distribution task management and control,
-data market, multi-tenancy, and permission control, etc.
+Provide efficient, stable, secure, low-cost file and
+image distribution services to be the best practice and
+standard solution in cloud native architectures.
 
 ## Features {#features}
 
-- Through a unified back-to-source adaptation layer and
-  realization of P2P file distribution capabilities that
-  support various types of storage (HDFS,
-  storage services of various cloud vendors, Maven, YUM, etc.)
-- Support more distribution modes: active pull, active push,
-  real-time synchronization, remote copy, automatic warm-up,
-  cross-cloud transmission, etc.
-- Separation and decoupling between systems, scheduling and CDN plug-in,
-  and support on-demand deployment, light or heavy,
-  internal or external, flexible to
-  meet the actual needs of different scenarios
+- Based on the multi-feature intelligent scheduling system, it not only improves the
+  download efficiency but also ensures the system stability.
+- By adapting to support different source protocols (HDFS,
+  storage services of various cloud vendors, Maven, YUM, etc.).
+- Support more distribution modes, such as active pull, active push,
+  sync, preheat, etc.
+- Separation between systems, support separate deployment to
+  meet the needs of different scenarios
 - Based on the newly designed P2P protocol framework of grpc,
-  with better efficiency and stability
-- Support encrypted transmission, account-based transmission
-  authentication and current limiting, and multi-tenant isolation mechanism
-- Support more efficient IO methods: multi-threaded IO, memory mapping, DMA, etc.
-- Support dynamic compression, memory file system and
-  more efficient scheduling algorithms to improve distribution efficiency
-- The client supports third-party software's native integration
-  of Dragonfly's P2P capabilities through the C/S mode
-- Production capabilities: support file upload, task management of
-  various distribution modes, data views, and global management and control functions
-- One set of internal and external, core features are
-  shared with each other, and non-common features are extended separately
-- Further integration with the ecosystem: Harbor, Nydus
-  (image downloading solution on demand),
-  warehouse services of various cloud vendors, etc.
+  with better efficiency and stability.
+- Customized P2P protocol based on GRPC is efficient and stable.
+- Support user RBAC and multi-tenant isolation.
+- Improve distribution efficiency by dynamically compressing files during distribution.
+- The client supports third-party client integration
+  of Dragonfly's P2P capabilities through the C/S mode.
+- Support features such as task management, data visualization, and control of multiple P2P clusters.
+- Integration with cloud native ecosystem, such as Harbor, Nydus, etc.
 
 ## Architecture {#architecture}
 
@@ -65,57 +37,26 @@ data market, multi-tenancy, and permission control, etc.
 
 ### Manager {#manager}
 
-- Dynamic configuration management
-- Data Big Disk & Bandwidth Measurement
-- File upload & distribution management and control
-- File synchronization management
-- Account & access control
-- Subscription & notification
-- Multi-tenant management
-- Command channel service (channel integration)
+- Stores dynamic configuration for consumption by seed peer cluster, scheduler cluster and dfdaemon.
+- Maintain the relationship between seed peer cluster and scheduler cluster.
+- Provide async task management features for image preheat combined with harbor.
+- Keepalive with scheduler instance and seed peer instance.
+- Filter the optimal scheduler cluster for dfdaemon.
+- Provides a visual console, which is helpful for users to manage the P2P cluster.
 
 ### Scheduler {#scheduler}
 
-- Multi-dimensional P2P scheduling strategy
-- Intelligent scheduling algorithm (advanced)
-- The scheduling results can be quantitatively compared and support A/B Testing
-- Scheduling strategy plug-in and CDN subsystem plug-in
-- Meta-information distribution pipeline
-- Client download results and back-to-source results statistics and
-  docking with monitoring services
-
-### CDN {#cdn}
-
-- Multi-source adaptation capabilities, including catalog download
-  and range download functions
-- DMA read and write
-- Transfer back to the source
-- Distribute warm-up
-- Dynamic compression
-- Storage management (seed storage, disk cleaning, block-level storage)
-- Memory file system
-- Secure transmission (symmetric encryption, integrity check, etc.)
-- Storage media plug-in
+- Based on the multi-feature intelligent scheduling system selects the optimal parent peer.
+- Build a scheduling tree for the P2P cluster.
+- Remove abnormal peer based on peer multi-feature evaluation results.
+- In the case of scheduling failure, notice peer back-to-source download.
 
 ### dfdaemon {#dfdaemon}
 
-- Multi-source adaptation capabilities, including catalog
-  download and range download functions
-- Efficient IO mechanism
-- IO scheduling of multiple download tasks (high IO throughput)
-- Reduce the number of file reads and writes: improve
-  the storage of temporary files and improve file integrity verification
-- DMA read and write
-- Streaming
-- Client download Proxy capability (http & https)
-- Single service process startup (CS mode) and resident and non-resident modes
-- Failed back to source processing
-- Local cache capability (client seeder mode)
-- Client elegant upgrade and deployment plan
-- Command execution
-
-### Framework {#framework}
-
-- High availability, high performance, easy integration
-- Consistent Hash algorithm selection
-- Client connection management
+- Serve gRPC for `dfget` with downloading feature,
+  and provide adaptation to different source protocols.
+- It can be used as seed peer. Turning on the Seed Peer mode can be used as
+  a back-to-source download peer in a P2P cluster,
+  which is the root peer for download in the entire cluster.
+- Serve proxy for container registry mirror and any other http backend.
+- Download object like via `http`, `https` and other custom protocol.

@@ -25,7 +25,7 @@ docker build -t dragonfly-plugin-builder -f build/plugin-builder/Dockerfile .
 
 #### 1. 资源插件示例
 
-- 为 cdn 和 dfget 构建插件
+- 为 dfget 构建插件
 
 ```shell
 PLUGIN_TYPE=resource
@@ -40,10 +40,9 @@ docker run --entrypoint=/bin/bash \
   /build.sh "$PLUGIN_TYPE" "$PLUGIN_NAME" /go/src/plugin
 ```
 
-- 构建 cdn 和 dfdaemon 镜像
+- 构建 dfdaemon 镜像
 
 ```shell
-docker build -t cdn -f build/plugin-builder/images/cdn/Dockerfile .
 docker build -t dfdaemon -f build/plugin-builder/images/dfdaemon/Dockerfile .
 ```
 

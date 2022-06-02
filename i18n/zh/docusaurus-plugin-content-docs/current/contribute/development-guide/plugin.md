@@ -6,9 +6,9 @@ slug: /contribute/development-guide/plugin/
 
 目前蜻蜓支持两类插件：
 
-* 内置插件：代码在蜻蜓代码中，使用时需要重新构建所有组件的代码
+- 内置插件：代码在蜻蜓代码中，使用时需要重新构建所有组件的代码
 
-* 外置插件：代码在蜻蜓代码之外，仅需要构建插件代码即可，无需重新构建蜻蜓代码
+- 外置插件：代码在蜻蜓代码之外，仅需要构建插件代码即可，无需重新构建蜻蜓代码
 
 内置插件比较容器开发、构建和运行，刚接触蜻蜓的用户推荐使用这种机制去扩展蜻蜓。
 
@@ -16,7 +16,7 @@ slug: /contribute/development-guide/plugin/
 
 > 内置插件目前还在开发中，仅在主分支中支持。
 
-## 内置 CDN 和 Dfget 的资源插件
+## 内置 Dfget 的资源插件
 
 资源插件是用作下载自定义协议资源使用，例如 `dfget -u d7yfs://host:56001/path/to/resource`。
 
@@ -123,6 +123,7 @@ import (
 	_ "d7y.io/dragonfly/v2/pkg/source/clients/example" // Register dfs client
 )
 ```
+
 <!-- markdownlint-restore -->
 
 #### 3. 构建并查看插件
@@ -130,11 +131,10 @@ import (
 手动构建:
 
 ```shell
-# 构建 dfget 和 cdn
-make build-dfget build-cdn
-# 验证 dfget 和 cdn
+# 构建 dfget
+make build-dfget
+# 验证 dfget
 bin/`go env GOOS`_`go env GOARCH`/dfget plugin
-bin/`go env GOOS`_`go env GOARCH`/cdn plugin
 ```
 
 示例输出:
@@ -156,7 +156,7 @@ no out of tree plugin found
 
 Dragonfly 外置插件使用 Golang Plugin 方式进行集成, 参考文档:[https://pkg.go.dev/plugin#section-documentation](https://pkg.go.dev/plugin#section-documentation)。
 
-### 外置 CDN 和 Dfget 的资源插件
+### 外置 Dfget 的资源插件
 
 资源插件是用作下载自定义协议资源使用，例如 `dfget -u d7yfs://host:56001/path/to/resource`。
 
@@ -306,13 +306,13 @@ replace d7y.io/dragonfly/v2 => /Dragonfly2
 ```shell
 # golang plugin need cgo
 # original Dragonfly2 image is built with CGO_ENABLED=0 for alpine linux
-# "dfdaemon" and "cdn" need to re-compile with CGO_ENABLED=1
+# "dfdaemon" need to re-compile with CGO_ENABLED=1
 export CGO_ENABLED="1"
 
 # ensure same commit of code base
 D7Y_COMMIT=01798aa08a6b4510210dd0a901e9f89318405440
 git clone https://github.com/dragonflyoss/Dragonfly2.git /Dragonfly2 && git reset --hard ${D7Y_COMMIT}
-(cd /Dragonfly2 && make build-dfget build-cdn)
+(cd /Dragonfly2 && make build-dfget)
 
 # build plugin
 BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ')

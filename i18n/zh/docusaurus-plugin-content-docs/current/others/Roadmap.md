@@ -19,7 +19,7 @@ title: Roadmap
 - 优化匹配 scheduler 集群规则。
 - 增加应用级别安全限制和动态配置。
 - 增加 Open API 接口鉴权。
-- 无 CDN 场景下，预热功能实现。
+- 无 Seed Peer 场景下，预热功能实现。
 
 ### Scheduler
 

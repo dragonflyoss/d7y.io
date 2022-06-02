@@ -6,9 +6,9 @@ slug: /contribute/development-guide/plugin/
 
 There are two types plugin in dragonfly:
 
-* In-tree plugin: The source code need be placed in dragonfly and then rebuild all components
+- In-tree plugin: The source code need be placed in dragonfly and then rebuild all components
 
-* Out-of-tree plugin: The source code can be out of dragonfly code, just need to rebuild with same golang compile environment
+- Out-of-tree plugin: The source code can be out of dragonfly code, just need to rebuild with same golang compile environment
 
 In-tree plugin is easy to develop, build and run. New plugin users should use this mechanism to extend dragonfly.
 
@@ -16,7 +16,7 @@ In-tree plugin is easy to develop, build and run. New plugin users should use th
 
 > In-tree plugin is working in progress, only supported in main branch.
 
-### In-tree Resource Plugin for CDN and Dfget {#in-tree-resource-plugin-for-cdn-and-dfget}
+### In-tree Resource Plugin for Dfget {#in-tree-resource-plugin-for-dfget}
 
 The resource plugin is used to download custom resource like `dfget -u dfs://host:56001/path/to/resource`.
 
@@ -124,6 +124,7 @@ import (
 	_ "d7y.io/dragonfly/v2/pkg/source/clients/example" // Register dfs client
 )
 ```
+
 <!-- markdownlint-restore -->
 
 #### 3. Build and list plugins {#build-and-list-plugins}
@@ -131,11 +132,10 @@ import (
 Build manually:
 
 ```shell
-# build dfget and cdn
-make build-dfget build-cdn
-# verify with dfget and cdn plugin command
+# build dfget
+make build-dfget
+# verify with dfget plugin command
 bin/`go env GOOS`_`go env GOARCH`/dfget plugin
-bin/`go env GOOS`_`go env GOARCH`/cdn plugin
 ```
 
 Example output:
@@ -157,7 +157,7 @@ All compiled out-of-tree plugins need to place in `/usr/local/dragonfly/plugins/
 
 Dragonfly2 use golang plugin to build its out-of-tree plugins, refer: [https://pkg.go.dev/plugin#section-documentation](https://pkg.go.dev/plugin#section-documentation).
 
-### Resource Plugin for CDN and Dfget {#resource-plugin-for-cdn-and-dfget}
+### Resource Plugin for Dfget {#resource-plugin-for-dfget}
 
 The resource plugin is used to download custom resource like `dfget -u d7yfs://host:56001/path/to/resource`.
 
@@ -308,13 +308,13 @@ replace d7y.io/dragonfly/v2 => /Dragonfly2
 ```shell
 # golang plugin need cgo
 # original Dragonfly2 image is built with CGO_ENABLED=0 for alpine linux
-# "dfdaemon" and "cdn" need to re-compile with CGO_ENABLED=1
+# "dfdaemon" need to re-compile with CGO_ENABLED=1
 export CGO_ENABLED="1"
 
 # ensure same commit of code base
 D7Y_COMMIT=01798aa08a6b4510210dd0a901e9f89318405440
 git clone https://github.com/dragonflyoss/Dragonfly2.git /Dragonfly2 && git reset --hard ${D7Y_COMMIT}
-(cd /Dragonfly2 && make build-dfget build-cdn)
+(cd /Dragonfly2 && make build-dfget)
 
 # build plugin
 BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ')

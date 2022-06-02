@@ -4,14 +4,14 @@ title: Scheduler
 ---
 
 Scheduler selects the optimal parent peer for current peer to be downloaded
-and triggers the CDN back-to-source download or dfdaemon back-to-source download at the appropriate time.
+and triggers the seed peer back-to-source download or dfdaemon back-to-source download at the appropriate time.
 
 ## Features {#features}
 
-- Scheduler selects the optimal parent peer
-- Build a scheduling tree for the P2P cluster
-- Evaluate peers based on different features
-- In the case of scheduling failure, let dfdaemon back-to-source download
+- Based on the multi-feature intelligent scheduling system selects the optimal parent peer.
+- Build a scheduling tree for the P2P cluster.
+- Remove abnormal peer based on peer multi-feature evaluation results.
+- In the case of scheduling failure, notice peer back-to-source download.
 
 ## Scheduling {#scheduling}
 
