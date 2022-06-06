@@ -29,6 +29,7 @@ Nydus 镜像服务的下一代容器镜像分发方案逐渐清晰起来。
 先看一下 OCIv1 标准镜像，OCIv1 格式是一种基于 Docker Image Manifest Version 2 Schema 2 格式的镜像格式规范，由 manifest、镜像索引 (optional)、一系列容器镜像层及配置文件组成，细节可以参见相关文档，本文不再赘述。
 本质上说 OCI 镜像是一个以层为基本单位的镜像格式，每个层存储了文件级别的 diff data，以 tgz 归档格式存储，如下所示：
 ![ociv1](ociv1.png)
+
 由于 tgz 的限制，OCIv1 存在一些固有问题，例如无法按需加载、较粗的层级的去重粒度、每层 hash 值易变等等。
 
 而一些“二次套娃”方案 (例如基于自定义块格式的容器镜像方案)，也存在一些原理性的设计缺陷。例如：
@@ -204,8 +205,8 @@ fscache/cachefiles (以下统称 fscache) 是 Linux 系统中相对成熟的文�
 
 最后感谢方案开发过程中支持和帮助过我们的所有个人与团队，感谢快手与字节跳动的同学对该方案的大力支持，让我们携手一起构建一个更好的容器镜像生态 ：）
 
-[1] 测试环境 ECS ecs.i2ne.4xlarge (16 vCPU, 128 GiB Mem)，本地 NVMe 盘
-[2] 测试命令 "fio -ioengine=psync -bs=4k -direct=0 -rw=[read|randread] -numjobs=1"
-[3] 使用 [passthrough_hp](https://github.com/libfuse/libfuse/blob/master/example/passthrough_hp.cc) 作为 fuse daemon
-[4] 测试 "tar -cf /dev/null <linux_src_dir>" 命令的执行时间
-[5] 测试 "time make -j16" 命令的执行时间
+1. 测试环境 ECS ecs.i2ne.4xlarge (16 vCPU, 128 GiB Mem)，本地 NVMe 盘
+2. 测试命令 "fio -ioengine=psync -bs=4k -direct=0 -rw=[read|randread] -numjobs=1"
+3. 使用 [passthrough_hp](https://github.com/libfuse/libfuse/blob/master/example/passthrough_hp.cc) 作为 fuse daemon
+4. 测试 "tar -cf /dev/null linux_src_dir" 命令的执行时间
+5. 测试 "time make -j16" 命令的执行时间

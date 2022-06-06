@@ -15,7 +15,7 @@ of Dragonfly), which was accompanied by the addition of mainstream manufacturers
 
 In addition to startup speed, core features such as image layering, on-demand loading etc. are also particularly
 important in the field of container images. But since there is no native file system supporting that, most opt for the
-userland solution, and Nydus initially did the same. However user-mode solutions are encountering more and more
+userspace solution, and Nydus initially did the same. However user-mode solutions are encountering more and more
 challenges nowadays, such as a large gap in performance compared with native file systems, and high resourceoverhead in
 high-density employed scenarios.
 
@@ -44,6 +44,7 @@ the *Docker Image Manifest Version 2 Schema 2*. It consists of a manifest, an im
 container image layers and configuration files. Essentially, OCIv1 is a layer-based image format, with each layer
 storing file-level diff data in tgz archive format.
 ![ociv1](ociv1.png)
+
 Due to the limitation of tgz, OCIv1 has some inherent problems, such as inability to load on demand, coarser level
 deduplication granularity, volatile hash value of each layer, and so on.
 
@@ -73,7 +74,7 @@ The Nydus RAFS image format is shown below:
 
 #### Evolution of RAFS image format
 
-Prior to the introduction of RAFS v6 format, Nydus used a fully userland implemented image format, providing service via
+Prior to the introduction of RAFS v6 format, Nydus used a fully userspace implemented image format, providing service via
 FUSE or virtiofs. However, the user-mode file system has the following defects:
 
 - The overhead of large amounts of system call cannot be ignored, especially in the case of random small I/O with depth
@@ -93,8 +94,8 @@ state based on the EROFS kernel file system.
 #### Introduction to EROFS file system
 
 The EROFS file system has existed in the Linux mainline since the Linux 4.19. In the past, it was mainly used for mobile
-terminals. It exists in the current major distributions (such as Fedora, Ubuntu, Archlinux, Debian, Gentoo, etc.).
-The userland tool erofs-utils also already exists in these distributions and the [OIN Linux system definition](https://openinventionnetwork.com/linux-system/table-11/)
+devices. It exists in the current major distributions (such as Fedora, Ubuntu, Archlinux, Debian, Gentoo, etc.).
+The userspace tools erofs-utils also already exists in these distributions and the [OIN Linux system definition](https://openinventionnetwork.com/linux-system/table-11/)
 list, and the community is quite active.
 
 The EROFS file system has the following characteristics:
@@ -291,8 +292,8 @@ Last but not least, I would like to thank all the individuals and teams who have
 development of the program, and special thanks to the folks from ByteDance and Kuaishou for their strong support for
 the program. Let us work together to build a better container image ecosystem :)
 
-[1] Test environment: ecs.i2ne.4xlarge (16 vCPU, 128 GiB Mem, local NVMe disk)
-[2] Test command "fio -ioengine=psync -bs=4k -direct=0 -rw=[read|randread] -numjobs=1"
-[3] Use [passthrough_hp](https://github.com/libfuse/libfuse/blob/master/example/passthrough_hp.cc) as fuse daemon
-[4] Test the execution time of "tar -cf /dev/null <linux_src_dir>" command
-[5] Test the execution time of the "time make -j16" command
+1. Test environment: ecs.i2ne.4xlarge (16 vCPU, 128 GiB Mem, local NVMe disk)
+2. Test command "fio -ioengine=psync -bs=4k -direct=0 -rw=[read|randread] -numjobs=1"
+3. Use [passthrough_hp](https://github.com/libfuse/libfuse/blob/master/example/passthrough_hp.cc) as fuse daemon
+4. Test the execution time of "tar -cf /dev/null linux_src_dir" command
+5. Test the execution time of the "time make -j16" command
