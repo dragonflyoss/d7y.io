@@ -67,6 +67,8 @@ database:
 
 # enable prometheus metrics
 # metrics:
+#  # manager enable metrics service
+#  enable: false
 #  # metrics service address
 #  addr: ":8000"
 

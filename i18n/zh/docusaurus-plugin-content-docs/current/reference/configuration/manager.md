@@ -65,6 +65,8 @@ database:
 
 # 开启数据收集服务
 # metrics:
+#  # 启动数据收集服务
+#  enable: false
 #  # 数据服务地址
 #  addr: ":8000"
 
