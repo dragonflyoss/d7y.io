@@ -198,6 +198,7 @@ Here is the performance statistics under several workloads as below[1].
 ###### read/randread IO
 
 The following is the performance statistics of file read/randread buffered IO [2]
+
 | read | IOPS | BW | performance
 | -------- | -------- | -------- | -------- |
 | native ext4 | 267K | 1093MB/s | 1 |
