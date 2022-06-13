@@ -181,10 +181,10 @@ storage:
 # 代理服务详细选项
 proxy:
   # 哈希 url 的时候的过滤选项
-  # 例如：defaultFilter: "Expires&Signature":
-  #  http://localhost/xyz?Expires=111&Signature=222 and http://localhost/xyz?Expires=333&Signature=999
+  # 例如：defaultFilter: "Expires&Signature&ns":
+  #  http://localhost/xyz?Expires=111&Signature=222&ns=docker.io and http://localhost/xyz?Expires=333&Signature=999&ns=docker.io
   # 是相同的 task
-  defaultFilter: 'Expires&Signature'
+  defaultFilter: 'Expires&Signature&ns'
   security:
     insecure: true
     cacert: ''
