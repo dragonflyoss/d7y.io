@@ -3,6 +3,21 @@ id: api
 title: API
 ---
 
+## Configuration
+
+If the client is `containerd`, it is recommended to configure `proxy.defaultFilter` in dfget.yaml and set it to `Expires&Signature&ns`,
+because containerd will add `ns` query params to the blobs download URL,
+refer to [containerd/remotes/docker/resolver.go](https://github.com/containerd/containerd/blob/main/remotes/docker/resolver.go#L493).
+Which will cause the generated Task ID to be different from the preheat Task ID, so it is impossible to hit the preheat blobs.
+
+```yaml
+# proxy service detail option
+proxy:
+  defaultFilter: 'Expires&Signature&ns'
+```
+
+## Operation
+
 Use preheat apis for preheating. First create a POST request for preheating.
 
 If the `scheduler_cluster_ids` does not exist,
@@ -15,7 +30,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/api/v1/jobs' \
     "type": "preheat",
     "args": {
         "type": "image",
-        "url": "https://registry-1.docker.io/v2/library/redis/manifests/latest"
+        "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
 }'
 ```
@@ -32,7 +47,7 @@ If the output of command above has content like
         "filter": "",
         "headers": null,
         "type": "image",
-        "url": "https://registry-1.docker.io/v2/library/redis/manifests/latest"
+        "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
 }
 ```
@@ -55,7 +70,7 @@ If the status is `SUCCESS`, the preheating is successful.
         "filter": "",
         "headers": null,
         "type": "image",
-        "url": "https://registry-1.docker.io/v2/library/redis/manifests/latest"
+        "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
 }
 ```

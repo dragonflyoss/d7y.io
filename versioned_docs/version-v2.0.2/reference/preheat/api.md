@@ -15,7 +15,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/api/v1/jobs' \
     "type": "preheat",
     "args": {
         "type": "image",
-        "url": "https://registry-1.docker.io/v2/library/redis/manifests/latest"
+        "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
 }'
 ```
@@ -32,7 +32,7 @@ If the output of command above has content like
         "filter": "",
         "headers": null,
         "type": "image",
-        "url": "https://registry-1.docker.io/v2/library/redis/manifests/latest"
+        "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
 }
 ```
@@ -55,7 +55,7 @@ If the status is `SUCCESS`, the preheating is successful.
         "filter": "",
         "headers": null,
         "type": "image",
-        "url": "https://registry-1.docker.io/v2/library/redis/manifests/latest"
+        "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
 }
 ```

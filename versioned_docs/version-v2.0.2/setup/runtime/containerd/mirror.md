@@ -49,13 +49,13 @@ Enable mirrors in Containerd registries configuration in
 version = 2
 
 [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-  endpoint = ["http://127.0.0.1:65001","https://registry-1.docker.io"]
+  endpoint = ["http://127.0.0.1:65001","https://index.docker.io"]
 ```
 
 In this config, there is two mirror endpoints for "docker.io",
 Containerd will pull images with `http://127.0.0.1:65001` first.
 If `http://127.0.0.1:65001` is not available,
-the default `https://registry-1.docker.io` will be used for HA.
+the default `https://index.docker.io` will be used for HA.
 
 Enable mirrors in private Containerd registries configuration in
 
@@ -66,7 +66,7 @@ Enable mirrors in private Containerd registries configuration in
 version = 2
 
 [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-  endpoint = ["http://127.0.0.1:65001","https://registry-1.docker.io"]
+  endpoint = ["http://127.0.0.1:65001","https://index.docker.io"]
 
 [plugins."io.containerd.grpc.v1.cri".registry.configs."127.0.0.1:65001".auth]
   username = "registry_username"

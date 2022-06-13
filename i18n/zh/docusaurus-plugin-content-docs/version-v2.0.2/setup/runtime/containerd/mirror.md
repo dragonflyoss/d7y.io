@@ -46,10 +46,10 @@ dfget daemon
 version = 2
 
 [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-  endpoint = ["http://127.0.0.1:65001","https://registry-1.docker.io"]
+  endpoint = ["http://127.0.0.1:65001","https://index.docker.io"]
 ```
 
-配置支持两个镜像仓库地址 `http://127.0.0.1:65001` 以及 `https://registry-1.docker.io`.
+配置支持两个镜像仓库地址 `http://127.0.0.1:65001` 以及 `https://index.docker.io`.
 
 在 Containerd 配置文件中启用私有镜像注册中心，配置文件位于 `/etc/containerd/config.toml`:
 
@@ -58,7 +58,7 @@ version = 2
 version = 2
 
 [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-  endpoint = ["http://127.0.0.1:65001","https://registry-1.docker.io"]
+  endpoint = ["http://127.0.0.1:65001","https://index.docker.io"]
 
 [plugins."io.containerd.grpc.v1.cri".registry.configs."127.0.0.1:65001".auth]
   username = "registry_username"

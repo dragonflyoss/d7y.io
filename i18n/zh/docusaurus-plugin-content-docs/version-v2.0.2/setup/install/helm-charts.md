@@ -292,7 +292,7 @@ dockerhub 官方仓库:
 # explicitly use v2 config format, if already v2, skip the "version = 2"
 version = 2
 [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-endpoint = ["http://127.0.0.1:65001", "https://registry-1.docker.io"]
+endpoint = ["http://127.0.0.1:65001", "https://index.docker.io"]
 ```
 
 增加配置到 `/etc/containerd/config.toml` 文件并重启 Containerd。
