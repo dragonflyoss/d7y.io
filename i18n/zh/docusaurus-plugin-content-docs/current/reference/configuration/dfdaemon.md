@@ -112,6 +112,8 @@ download:
   totalRateLimit: 200Mi
   # 单个任务下载限速
   perPeerRateLimit: 100Mi
+  # 单个 Piece 下载超时时间
+  pieceDownloadTimeout: 30s
   # 下载 GRPC 配置
   downloadGRPC:
     # 安全选项
