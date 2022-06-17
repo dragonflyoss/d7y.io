@@ -7,6 +7,11 @@ Now we can deploy all components of Dragonfly in
 Kubernetes cluster. We deploy scheduler and seed peer as `StatefulSets`,
 daemon as `DaemonSets`, manager as `Deployments`.
 
+## Prerequisites
+
+- Kubernetes cluster 1.20+
+- Helm v3.8.0+
+
 ## Runtime Configuration Guide for Dragonfly Helm Chart {#runtime-configuration-guide-for-dragonfly-helm-chart}
 
 When enable runtime configuration in dragonfly,
