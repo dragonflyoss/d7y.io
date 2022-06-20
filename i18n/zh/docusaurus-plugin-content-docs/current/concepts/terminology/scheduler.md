@@ -15,7 +15,7 @@ Scheduler 主要工作就是为当前下载节点寻找最优父节点并触发 
 
 ## 调度功能
 
-Scheudler 主要维护三种数据资源 task, peer 和 host。
+Scheduler 主要维护三种数据资源 task, peer 和 host。
 
 - Peer: Dfdaemon 的一次下载任务
 - Host: Dfdaemon 的主机信息，Host 和 Peer 是一对多关系
