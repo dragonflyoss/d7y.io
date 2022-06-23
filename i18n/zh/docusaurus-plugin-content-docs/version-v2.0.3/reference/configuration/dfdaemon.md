@@ -123,7 +123,7 @@ download:
       tlsVerify: true
       tlsConfig: null
     # 下载服务监听地址，dfget 下载文件将通过该地址连接到 daemon
-    # 目前是支持 unix domain socket
+    # 目前只支持 unix domain socket
     unixListen:
       # linux 上默认路径为 /var/run/dfdaemon.sock
       # macos(仅开发、测试), 默认目录是 /tmp/dfdaemon.sock
@@ -268,4 +268,8 @@ proxy:
       ports:
       # - 80
       # - 443
+  # 为 proxy 设置基础认证
+  basicAuth:
+    username: "admin"
+    password: "password"
 ```

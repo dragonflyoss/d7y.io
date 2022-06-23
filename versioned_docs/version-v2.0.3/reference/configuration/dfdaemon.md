@@ -291,4 +291,8 @@ proxy:
       regx:
       # port that need to be added to the whitelist
       ports:
+  # setup basic auth for proxy
+  basicAuth:
+    username: "admin"
+    password: "password"
 ```
