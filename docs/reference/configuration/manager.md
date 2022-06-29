@@ -72,6 +72,8 @@ database:
 #  enable: false
 #  # metrics service address
 #  addr: ":8000"
+#  # enable peer gauge metrics.
+#  enablePeerGauge: true
 
 # console shows log on console
 console: false

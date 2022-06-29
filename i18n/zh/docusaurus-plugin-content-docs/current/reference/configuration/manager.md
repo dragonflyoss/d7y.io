@@ -69,6 +69,8 @@ database:
 #  enable: false
 #  # 数据服务地址
 #  addr: ":8000"
+#  # 开启 peer gauge 数据.
+#  enablePeerGauge: true
 
 # console 是否在控制台程序中显示日志
 console: false
