@@ -274,7 +274,7 @@ func DragonflyPluginInit(option map[string]string) (interface{}, map[string]stri
 ```
 module example.com/d7yfs
 
-go 1.17
+go 1.18
 
 require d7y.io/dragonfly/v2 v2.0.1
 
@@ -319,7 +319,7 @@ git clone https://github.com/dragonflyoss/Dragonfly2.git /Dragonfly2 && git rese
 # build plugin
 BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 BUILD_COMMIT=$(git rev-parse --short HEAD)
-go mod tidy -compat=1.17
+go mod tidy
 go build -ldflags="-X main.buildTime=${BUILD_TIME} -X main.buildCommit=${BUILD_COMMIT}" \
     -buildmode=plugin -o=/usr/local/dragonfly/plugins/d7y-resource-plugin-d7yfs.so ./main.go
 ```
