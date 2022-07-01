@@ -15,11 +15,11 @@ slug: /getting-started/quick-start/kubernetes/
 
 <!-- markdownlint-disable -->
 
-| Runtime                 | Version  | Document                                   | CRI Support | Pull Command                                |
-| ----------------------- | -------- |--------------------------------------------| ----------- | ------------------------------------------- |
-| Containerd<sup>\*</sup> | v1.1.0+  | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
-| Containerd without CRI  | < v1.1.0 | [Link](../../setup/runtime/containerd/proxy.md) | No          | ctr image pull docker.io/library/alpine     |
-| CRI-O                   | All      | [Link](../../setup/runtime/cri-o.md)          | Yes         | crictl pull docker.io/library/alpine:latest |
+| Runtime                 | Version | Document                                         | CRI Support | Pull Command                                |
+| ----------------------- | ------- | ------------------------------------------------ | ----------- | ------------------------------------------- |
+| Containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
+| Containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
+| CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             | Yes         | crictl pull docker.io/library/alpine:latest |
 
 <!-- markdownlint-restore -->
 
