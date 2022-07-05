@@ -64,7 +64,7 @@ database:
 #     # lfu cache size
 #     size: 10000
 #     # cache ttl configure
-#     ttl: 30s
+#     ttl: 10s
 
 # enable prometheus metrics
 # metrics:

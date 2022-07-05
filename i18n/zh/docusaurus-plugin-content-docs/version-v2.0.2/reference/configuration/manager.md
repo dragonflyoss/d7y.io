@@ -61,7 +61,7 @@ database:
 #     # LFU 缓存大小
 #     size: 10000
 #     # ttl 配置
-#     ttl: 30s
+#     ttl: 10s
 
 # 开启数据收集服务
 # metrics:
