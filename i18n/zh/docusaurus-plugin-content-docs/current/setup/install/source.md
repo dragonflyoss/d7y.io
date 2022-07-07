@@ -26,15 +26,15 @@ title: 源码安装
    ```bash
    version=2.0.2
 
-   wget -O Dragonfly2_linux_amd64.tar.gz \
-      https://github.com/dragonflyoss/Dragonfly2/releases/download/v${version}/Dragonfly2-${version}-linux-amd64.tar.gz
+   wget -O dragonfly_linux_amd64.tar.gz \
+      https://github.com/dragonflyoss/Dragonfly2/releases/download/v${version}/dragonfly-${version}-linux-amd64.tar.gz
    ```
 
 2. 解压压缩包
 
    ```bash
    # 替换 `/path/to/dragonfly` 为真实安装目录
-   tar -zxf Dragonfly2_linux_amd64.tar.gz -C /path/to/dragonfly
+   tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
    ```
 
 3. 配置环境变量
