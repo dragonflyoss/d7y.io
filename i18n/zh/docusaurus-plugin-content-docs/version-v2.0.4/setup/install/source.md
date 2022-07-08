@@ -13,7 +13,6 @@ title: 源码安装
 | Golang   | 1.16.x   |
 | MySQL    | 5.6+     |
 | Redis    | 3.0+     |
-| Nginx    | 0.8+     |
 
 ## 按模块单独安装
 

@@ -14,7 +14,6 @@ the executable files separately according to the modules.
 | Golang            | 1.16.x        |
 | MySQL             | 5.6+          |
 | Redis             | 3.0+          |
-| Nginx             | 0.8+          |
 
 ## Install it separately by module {#install-it-separately-by-module}
 
