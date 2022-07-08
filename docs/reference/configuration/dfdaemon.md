@@ -133,6 +133,19 @@ download:
     tlsHandshakeTimeout: 1s
     # same with http.Transport.ExpectContinueTimeout
     expectContinueTimeout: 2s
+  # concurrent option for back source, default: empty
+  # if you want to enable concurrent option, thresholdSize and goroutineCount is enough, keep other options empty is okay
+  concurrent:
+    # thresholdSize indicates the threshold to download pieces concurrently
+    thresholdSize: 10M
+    # goroutineCount indicates the concurrent goroutine count for every task
+    goroutineCount: 4
+    # initBackoff second for every piece failed, default: 0.5
+    initBackoff: 0.5
+    # maxBackoff second for every piece failed, default: 3
+    maxBackoff: 3
+    # maxAttempts for every piece failed,default: 3
+    maxAttempts: 3
   # download grpc option
   downloadGRPC:
     # security option

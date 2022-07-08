@@ -114,6 +114,35 @@ download:
   perPeerRateLimit: 100Mi
   # 单个 Piece 下载超时时间
   pieceDownloadTimeout: 30s
+  # golang transport 选项
+  transportOption:
+    # 连接超时时间
+    dialTimeout: 2s
+    # 保活时间
+    keepAlive: 30s
+    # 等同于 http.Transport.MaxIdleConns
+    maxIdleConns: 100
+    # 等同于 http.Transport.IdleConnTimeout
+    idleConnTimeout: 90s
+    # 等同于 http.Transport.ResponseHeaderTimeout
+    responseHeaderTimeout: 2s
+    # 等同于 http.Transport.TLSHandshakeTimeout
+    tlsHandshakeTimeout: 1s
+    # 等同于 http.Transport.ExpectContinueTimeout
+    expectContinueTimeout: 2s
+  # 回源并发选项, 默认不并发
+  # 一般设置 thresholdSize 和 goroutineCount 就够用了
+  concurrent:
+    # 开启并发的阈值，大于此值则使用并发方式回源
+    thresholdSize: 10M
+    # 每个任务并发回源的协程数量
+    goroutineCount: 4
+    # 初次失败等待时间，单位：秒，默认是 0.5 秒
+    initBackoff: 0.5
+    # 最大失败等待时间，单位：秒，默认是 3 秒
+    maxBackoff: 3
+    # 最多失败重试次数，默认是 3 次
+    maxAttempts: 3
   # 下载 GRPC 配置
   downloadGRPC:
     # 安全选项
