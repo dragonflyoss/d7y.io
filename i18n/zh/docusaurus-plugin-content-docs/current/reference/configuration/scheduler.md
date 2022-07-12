@@ -16,14 +16,18 @@ server:
   # host: localhost
   # 服务监听端口
   port:
-  # daemon 动态配置缓存目录
+  # 服务的动态配置缓存目录
   # linux 上默认目录 /var/cache/dragonfly
   # macos(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly/cache
   cacheDir: ''
-  # daemon 日志目录
+  # 服务的日志目录
   # linux 上默认目录 /var/log/dragonfly
   # macos(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly/logs
   logDir: ''
+  # 服务的存储目录
+  # linux 上默认目录 /var/lib/dragonfly
+  # macos(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly/data
+  dataDir: ''
 
 # scheduler 调度策略配置
 scheduler:

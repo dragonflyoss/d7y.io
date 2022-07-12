@@ -25,6 +25,10 @@ server:
   # in linux, default value is /var/log/dragonfly
   # in macos(just for testing), default value is /Users/$USER/.dragonfly/logs
   logDir: ''
+  # dataDir is the storage directory
+  # in linux, default value is /var/lib/dragonfly
+  # in macos(just for testing), default value is /Users/$USER/.dragonfly/data
+  dataDir: ''
 
 # scheduler policy configuration
 scheduler:
