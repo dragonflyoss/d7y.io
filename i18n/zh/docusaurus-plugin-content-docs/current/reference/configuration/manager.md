@@ -27,6 +27,8 @@ server:
 
 # 数据库配置, 当前只支持 mysql 以及 redis
 database:
+  # 数据库类型，支持 mysql、mariadb 以及 postgres
+  type: mysql
   # mysql 配置
   mysql:
     user: dragonfly
@@ -34,6 +36,16 @@ database:
     host: dragonfly
     port: 3306
     dbname: manager
+    migrate: true
+  # postgres 配置
+  postgres:
+    user: dragonfly
+    password: dragonfly
+    host: dragonfly
+    port: 3306
+    dbname: manager
+    sslMode: disable
+    timezone: UTC
     migrate: true
   # tls:
   #   # 客户端证书文件路径

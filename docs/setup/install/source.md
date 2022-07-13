@@ -8,12 +8,12 @@ the executable files separately according to the modules.
 
 ## Prerequisites {#prerequisites}
 
-| Required Software | Version Limit |
-| ----------------- | ------------- |
-| Git               | 1.9.1+        |
-| Golang            | 1.16.x        |
-| MySQL             | 5.6+          |
-| Redis             | 3.0+          |
+| Required Software | Version Limit                |
+| ----------------- | ---------------------------- |
+| Git               | 1.9.1+                       |
+| Golang            | 1.16.x                       |
+| Database          | Mysql 5.6+ OR PostgreSQL 12+ |
+| Redis             | 3.0+                         |
 
 ## Install it separately by module {#install-it-separately-by-module}
 

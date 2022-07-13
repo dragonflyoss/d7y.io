@@ -29,6 +29,8 @@ server:
 
 # database info used for server
 database:
+  # database type, supported types include mysql, mariadb and postgres
+  type: mysql
   # mysql configure
   mysql:
     user: dragonfly
@@ -36,6 +38,16 @@ database:
     host: dragonfly
     port: 3306
     dbname: manager
+    migrate: true
+  # postgres configure
+  postgres:
+    user: dragonfly
+    password: dragonfly
+    host: dragonfly
+    port: 5432
+    dbname: manager
+    sslMode: disable
+    timezone: UTC
     migrate: true
   # tlsConfig: preferred
   # tls:
