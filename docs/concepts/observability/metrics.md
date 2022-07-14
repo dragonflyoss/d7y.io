@@ -54,22 +54,22 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 
 <!-- markdownlint-disable -->
 
-| Name                                                         | Labels                                              | Type      | Description                                                |
-| :----------------------------------------------------------- | :-------------------------------------------------- | :-------- | :--------------------------------------------------------- |
-| dragonfly_scheduler_register_peer_task_total                 | biz_tag                                             | counter   | Counter of the number of the register peer task.           |
-| dragonfly_scheduler_register_peer_task_failure_total         | biz_tag                                             | counter   | Counter of the number of failed of the register peer task. |
-| dragonfly_scheduler_download_total                           | biz_tag                                             | counter   | Counter of the number of the downloading.                  |
-| dragonfly_scheduler_download_failure_total                   | biz_tag, type                                       | counter   | Counter of the number of failed of the downloading.        |
-| dragonfly_scheduler_leave_task_total                         | biz_tag                                             | counter   | Counter of the number of the task leaving.                 |
-| dragonfly_scheduler_leave_task_failure_total                 | biz_tag                                             | counter   | Counter of the number of failed of the task leaving.       |
-| dragonfly_scheduler_traffic                                  | biz_tag, type                                       | counter   | Counter of the number of p2p traffic.                      |
-| dragonfly_scheduler_peer_host_traffic                        | biz_tag, traffic_type, peer_host_uuid, peer_host_ip | counter   | Counter of the number of per peer host traffic.            |
-| dragonfly_scheduler_peer_task_total                          | biz_tag, type                                       | counter   | Counter of the number of peer task.                        |
-| dragonfly_scheduler_peer_task_download_duration_milliseconds | biz_tag                                             | histogram | Histogram of the time each peer task downloading.          |
-| dragonfly_scheduler_concurrent_schedule_total                |                                                     | gauge     | Gauge of the number of concurrent of the scheduling.       |
-| dragonfly_scheduler_stat_task_total                          |                                                     | counter   | Counter of the number of the stat task.                    |
-| dragonfly_scheduler_stat_task_failure_total                  |                                                     | counter   | Counter of the number of failed of the stat task.          |
-| dragonfly_scheduler_announce_task_total                      |                                                     | counter   | Counter of the number of the announce task.                |
-| dragonfly_scheduler_announce_task_failure_total              |                                                     | counter   | Counter of the number of failed of the announce task.      |
+| Name                                                         | Labels                                          | Type      | Description                                                |
+| :----------------------------------------------------------- | :---------------------------------------------- | :-------- | :--------------------------------------------------------- |
+| dragonfly_scheduler_register_peer_task_total                 | tag                                             | counter   | Counter of the number of the register peer task.           |
+| dragonfly_scheduler_register_peer_task_failure_total         | tag                                             | counter   | Counter of the number of failed of the register peer task. |
+| dragonfly_scheduler_download_total                           | tag                                             | counter   | Counter of the number of the downloading.                  |
+| dragonfly_scheduler_download_failure_total                   | tag, type                                       | counter   | Counter of the number of failed of the downloading.        |
+| dragonfly_scheduler_leave_task_total                         | tag                                             | counter   | Counter of the number of the task leaving.                 |
+| dragonfly_scheduler_leave_task_failure_total                 | tag                                             | counter   | Counter of the number of failed of the task leaving.       |
+| dragonfly_scheduler_traffic                                  | tag, type                                       | counter   | Counter of the number of p2p traffic.                      |
+| dragonfly_scheduler_peer_host_traffic                        | tag, traffic_type, peer_host_uuid, peer_host_ip | counter   | Counter of the number of per peer host traffic.            |
+| dragonfly_scheduler_peer_task_total                          | tag, type                                       | counter   | Counter of the number of peer task.                        |
+| dragonfly_scheduler_peer_task_download_duration_milliseconds | tag                                             | histogram | Histogram of the time each peer task downloading.          |
+| dragonfly_scheduler_concurrent_schedule_total                |                                                 | gauge     | Gauge of the number of concurrent of the scheduling.       |
+| dragonfly_scheduler_stat_task_total                          |                                                 | counter   | Counter of the number of the stat task.                    |
+| dragonfly_scheduler_stat_task_failure_total                  |                                                 | counter   | Counter of the number of failed of the stat task.          |
+| dragonfly_scheduler_announce_task_total                      |                                                 | counter   | Counter of the number of the announce task.                |
+| dragonfly_scheduler_announce_task_failure_total              |                                                 | counter   | Counter of the number of failed of the announce task.      |
 
 <!-- markdownlint-restore -->

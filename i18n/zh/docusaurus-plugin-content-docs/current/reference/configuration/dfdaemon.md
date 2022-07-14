@@ -225,11 +225,15 @@ storage:
 
 # 代理服务详细选项
 proxy:
-  # 哈希 url 的时候的过滤选项
+  # 哈希 URL 的时候的过滤选项
   # 例如：defaultFilter: "Expires&Signature&ns":
   #  http://localhost/xyz?Expires=111&Signature=222&ns=docker.io and http://localhost/xyz?Expires=333&Signature=999&ns=docker.io
-  # 是相同的 task
+  # 是相同的 task, 也可以通过代理增加 X-Dragonfly-Filter Header 覆盖默认的 Filter。
   defaultFilter: 'Expires&Signature&ns'
+  # 为 URL 对应的任务打标记.
+  # 当下载任务的 URL 相同，但 defaultTag 不同时，会根据 defaultTag 进行区分, 生成的 task 是不同的。
+  # 也可以通过代理增加 X-Dragonfly-Tag Header 覆盖默认的 Filter。
+  defaultTag: ''
   security:
     insecure: true
     cacert: ''
@@ -301,6 +305,6 @@ proxy:
       # - 443
   # 为 proxy 设置基础认证
   basicAuth:
-    username: "admin"
-    password: "password"
+    username: 'admin'
+    password: 'password'
 ```

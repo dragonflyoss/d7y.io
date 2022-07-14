@@ -230,11 +230,18 @@ storage:
 
 # proxy service detail option
 proxy:
-  # filter for hash url
+  # filter for hash url.
   # when defaultFilter: "Expires&Signature&ns", for example:
   #  http://localhost/xyz?Expires=111&Signature=222&ns=docker.io and http://localhost/xyz?Expires=333&Signature=999&ns=docker.io
-  # is same task
+  # is same task, it is also possible to override the default filter by adding
+  # the X-Dragonfly-Filter header through the proxy.
   defaultFilter: 'Expires&Signature&ns'
+  # tag the task.
+  # when the value of the default tag is different,
+  # the same download url can be divided into different tasks according to the tag,
+  # it is also possible to override the default tag by adding
+  # the X-Dragonfly-Tag header through the proxy.
+  defaultTag: ''
   security:
     insecure: true
     cacert: ''
@@ -306,6 +313,6 @@ proxy:
       ports:
   # setup basic auth for proxy
   basicAuth:
-    username: "admin"
-    password: "password"
+    username: 'admin'
+    password: 'password'
 ```
