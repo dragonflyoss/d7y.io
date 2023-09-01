@@ -127,7 +127,6 @@ docker pull anjia0532/kubeflow-images-public.tensorflow-1.6.0-notebook-gpu:v2018
 - [直击阿里双 11 神秘技术：PB 级大规模文件分发系统“蜻蜓”](https://yq.aliyun.com/articles/244897)
 - [深度解读阿里巴巴云原生镜像分发系统 Dragonfly](https://mp.weixin.qq.com/s?__biz=MzUzNzYxNjAzMg==&mid=2247484045&idx=1&sn=2e4586171930b8d3080eadd55be09723)
 - [加速和简化构建 Docker(基于 Google jib)](https://juejin.im/post/5c60c021f265da2dd37bf85b)
-- [浙江移动容器云基于 Dragonfly 的统一文件分发平台生产实践](https://d7y.io/zh-cn/blog/china-mobile-practice.html)
 
 ### 招聘小广告
 
