@@ -1,0 +1,74 @@
+{
+  "version.label": {
+    "message": "v2.0.8",
+    "description": "The label for version v2.0.8"
+  },
+  "sidebar.docs.category.Getting Started": {
+    "message": "开始",
+    "description": "The label for category Getting Started in sidebar docs"
+  },
+  "sidebar.docs.category.Setup": {
+    "message": "安装",
+    "description": "The label for category Setup in sidebar docs"
+  },
+  "sidebar.docs.category.Install": {
+    "message": "部署",
+    "description": "The label for category Install in sidebar docs"
+  },
+  "sidebar.docs.category.Runtime": {
+    "message": "运行时",
+    "description": "The label for category Runtime in sidebar docs"
+  },
+  "sidebar.docs.category.Integration": {
+    "message": "集成",
+    "description": "The label for category Integration in sidebar docs"
+  },
+  "sidebar.docs.category.Concepts": {
+    "message": "概念",
+    "description": "The label for category Concepts in sidebar docs"
+  },
+  "sidebar.docs.category.Observability": {
+    "message": "可观测性",
+    "description": "The label for category Observability in sidebar docs"
+  },
+  "sidebar.docs.category.Terminology": {
+    "message": "术语",
+    "description": "The label for category Terminology in sidebar docs"
+  },
+  "sidebar.docs.category.Reference": {
+    "message": "参考",
+    "description": "The label for category Reference in sidebar docs"
+  },
+  "sidebar.docs.category.Command Line": {
+    "message": "命令行",
+    "description": "The label for category Command Line in sidebar docs"
+  },
+  "sidebar.docs.category.Contribute": {
+    "message": "贡献",
+    "description": "The label for category Contribute in sidebar docs"
+  },
+  "sidebar.docs.category.Development Guide": {
+    "message": "开发者指南",
+    "description": "The label for category Development Guide in sidebar docs"
+  },
+  "sidebar.docs.category.Others": {
+    "message": "其他",
+    "description": "The label for category Others in sidebar docs"
+  },
+  "sidebar.docs.category.Quick Start": {
+    "message": "快速开始",
+    "description": "The label for category Quick Start in sidebar docs"
+  },
+  "sidebar.docs.category.Containerd": {
+    "message": "Containerd",
+    "description": "The label for category Containerd in sidebar docs"
+  },
+  "sidebar.docs.category.Preheat": {
+    "message": "预热",
+    "description": "The label for category Preheat in sidebar docs"
+  },
+  "sidebar.docs.category.Configuration": {
+    "message": "配置",
+    "description": "The label for category Configuration in sidebar docs"
+  }
+}

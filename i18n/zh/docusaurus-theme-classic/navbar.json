@@ -1,0 +1,30 @@
+{
+  "title": {
+    "message": "Dragonfly",
+    "description": "The title in the navbar"
+  },
+  "item.label.Documentation": {
+    "message": "文档",
+    "description": "Navbar item with label Documentation"
+  },
+  "item.label.Blog": {
+    "message": "博客",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Community": {
+    "message": "社区",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.Nydus": {
+    "message": "Nydus",
+    "description": "Navbar item with label Nydus"
+  },
+  "item.label.Video": {
+    "message": "视频",
+    "description": "Navbar item with label Video"
+  },
+  "logo.alt": {
+    "message": "Dragonfly",
+    "description": "The alt text of navbar logo"
+  }
+}

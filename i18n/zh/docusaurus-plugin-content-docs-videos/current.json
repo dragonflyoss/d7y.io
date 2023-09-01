@@ -1,0 +1,18 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.videos.category.Sessions": {
+    "message": "会议",
+    "description": "The label for category Sessions in sidebar videos"
+  },
+  "sidebar.videos.category.Sessions in English": {
+    "message": "英文会议",
+    "description": "The label for category Sessions in English in sidebar videos"
+  },
+  "sidebar.videos.category.Sessions in Chinese": {
+    "message": "中文会议",
+    "description": "The label for category Sessions in Chinese in sidebar videos"
+  }
+}

@@ -1,0 +1,22 @@
+name: Docsearch
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run DocSearch
+        env:
+          APPLICATION_ID: ${{ secrets.DOCSEARCH_APP_ID }}
+          API_KEY: ${{ secrets.DOCSEARCH_API_KEY }}
+        run: |
+          docker run \
+          -e APPLICATION_ID -e API_KEY \
+          -e CONFIG="$(cat docsearch.json)" \
+          algolia/docsearch-scraper:latest

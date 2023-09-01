@@ -1,0 +1,70 @@
+{
+  "name": "d7y-io",
+  "version": "0.1.2",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "prepare": "husky install",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations --locale zh",
+    "write-heading-ids": "docusaurus write-heading-ids --overwrite",
+    "markdown-lint": "scripts/markdownlint.sh",
+    "lint-staged": "lint-staged",
+    "version": "./scripts/version.sh"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^2.0.0",
+    "@docusaurus/preset-classic": "^2.0.0",
+    "@docusaurus/plugin-content-docs": "2.4.1",
+    "@mdx-js/react": "^1.6.21",
+    "acorn": "^8.7.1",
+    "clsx": "^2.0.0",
+    "lottie-react": "^2.3.1",
+    "lottie-web": "^5.9.6",
+    "prism-react-renderer": "^1.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-github-btn": "^1.2.1",
+    "react-youtube": "^10.1.0",
+    "three": "^0.155.0"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^17.1.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^14.0.0",
+    "prettier": "^3.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write"
+    ],
+    "*.css": [
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}

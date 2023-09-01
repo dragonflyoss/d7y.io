@@ -1,0 +1,41 @@
+{
+  "index_name": "d7y.io",
+  "start_urls": ["https://d7y.io/"],
+  "sitemap_urls": ["https://d7y.io/sitemap.xml"],
+  "selectors": {
+    "lvl0": {
+      "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text() | //nav[contains(@class, 'navbar')]//a[contains(@class, 'navbar__link--active')]/text())[last()]",
+      "type": "xpath",
+      "global": true,
+      "default_value": "Documentation"
+    },
+    "lvl1": "header h1",
+    "lvl2": "article h2",
+    "lvl3": "article h3",
+    "lvl4": "article h4",
+    "lvl5": "article h5, article td:first-child",
+    "lvl6": "article h6",
+    "text": "article p, article li, article td:last-child"
+  },
+  "stop_urls": [],
+  "strip_chars": " .,;:#",
+  "custom_settings": {
+    "separatorsToIndex": "_",
+    "attributesForFaceting": ["language", "version", "type", "docusaurus_tag"],
+    "attributesToRetrieve": [
+      "hierarchy",
+      "hierarchy.lvl0",
+      "hierarchy.lvl1",
+      "hierarchy.lvl2",
+      "hierarchy.lvl3",
+      "hierarchy.lvl4",
+      "hierarchy.lvl5",
+      "hierarchy.lvl6",
+      "content",
+      "url",
+      "type"
+    ]
+  },
+  "scrap_start_urls": false,
+  "nb_hits": "OUTPUT OF THE CRAWL"
+}

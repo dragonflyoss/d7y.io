@@ -1,0 +1,22 @@
+name: Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Markdown lint
+        uses: docker://avtodev/markdown-lint:v1
+        with:
+          config: '.markdownlint.yml'
+          args: '**/*.md'
