@@ -1,6 +1,6 @@
 ---
 id: personal-access-tokens
-title: Personal Access Tokens 
+title: 个人访问令牌
 ---
 
 可以使用 Personal Access Token 来调用 Open API。
@@ -15,23 +15,21 @@ title: Personal Access Tokens
 
 ## 创建 Personal Access Token
 
-**步骤 1:** 点击 `ADD PERSONAL ACCESS TOKENS` 按钮创建 Personal Access Token。
+点击 `ADD PERSONAL ACCESS TOKENS` 按钮创建 Personal Access Token。
 
-**步骤 2:** 在 `Name` 字段中，为您的令牌指定一个描述性名称。
+**Name**: 为您的令牌指定一个描述性名称。
 
-**步骤 3:** 在 `Description` 字段中，添加说明来描述令牌的用途。
+**Description**: 添加说明来描述令牌的用途。
 
-**步骤 4:** 要为令牌提供到期时间，请选择 `Expiration`，然后选择默认选项。
+**Expiration**: 为令牌提供过期时间。
 
-**步骤 5:** 在 `Select scopes` 下，选择令牌的访问权限。
-
-**步骤 6:** 点击 `SAVE`。
-
-**步骤 7:** 完成后，复制令牌并将其存储在安全位置。为了您的安全，它不会再次显示。
-
-![copy-token](../resource/personal-access-tokens/copy-token.png)
+**Select scopes**: 选择令牌的访问权限。
 
 ![create-token](../resource/personal-access-tokens/create-token.png)
+
+点击 `SAVE` 创建完成后，复制令牌并将其存储在安全位置。为了您的安全，它不会再次显示
+
+![copy-token](../resource/personal-access-tokens/copy-token.png)
 
 ## 更新 Personal Access Token
 
@@ -45,11 +43,11 @@ title: Personal Access Tokens
 
 ![delete-token](../resource/personal-access-tokens/delete-token.png)
 
-## 使用 Personal Access Token 调用 Open API
+## 使用 Personal Access Token
 
 **步骤 1:** 打开 Postman，并导入 [postman-collection.json](https://github.com/gaius-qi/dragonfly-docs/blob/main/manager/postman/Dragonfly.postman_collection.json)。
 
-**步骤 2:** 在左侧边栏中点击 **OpenAPI**。
+**步骤 2:** 在左侧边栏中点击 **Open API**。
 
 **步骤 3:** 点击 **Authorization** 并选择 **Bearer Token**，在 `Token` 处粘贴 `Personal Access Token`。
 
@@ -61,6 +59,6 @@ title: Personal Access Tokens
 
 **步骤 5:** 点击 **Send** 按钮发起请求。
 
-**步骤 6:** 如果成功，则说明通过 Personal Access Token 完成了对 Open API 的调用。
+**步骤 6:** 如果成功，则说明通过 Personal Access Token 完成了对 **Open API** 的调用。
 
 ![verify-open-api](../resource/personal-access-tokens/verify-request.png)
