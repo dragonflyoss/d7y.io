@@ -16,6 +16,10 @@ proxy:
   defaultFilter: 'Expires&Signature&ns'
 ```
 
+## 申请 Personal Access Token
+
+调用 Open API 之前请先申请 Personal Access Token，并且 Access Scopes 选择为 `job`，参考文档 [personal-access-tokens](./personal-access-tokens.md)。
+
 ## 操作
 
 用户使用 api 进行预热。首先发送 POST 请求创建预热任务。
@@ -23,8 +27,9 @@ proxy:
 如果 `scheduler_cluster_ids` 不存在，表示对所有 scheduler cluster 进行预热。
 
 ```bash
-curl --location --request POST 'http://dragonfly-manager:8080/api/v1/jobs' \
+curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0' \
 --data-raw '{
     "type": "preheat",
     "args": {
@@ -54,7 +59,8 @@ curl --location --request POST 'http://dragonfly-manager:8080/api/v1/jobs' \
 使用预热任务 ID 轮训查询任务是否成功。
 
 ```bash
-curl --request GET 'http://dragonfly-manager:8080/api/v1/jobs/1'
+curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
+--header 'Authorization: Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0'
 ```
 
 如果返回预热任务状态为 `SUCCESS`，表示预热成功。

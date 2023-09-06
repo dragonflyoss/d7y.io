@@ -18,14 +18,20 @@ proxy:
   defaultFilter: 'Expires&Signature&ns'
 ```
 
+## Create Personal Access Token
+
+Please create personal access Token before calling Open API, and select `job` for access scopes,
+refer to [personal-access-tokens](./personal-access-tokens.md).
+
 ## Operation
 
 If the `scheduler_cluster_ids` does not exist,
 it means to preheat all scheduler clusters.
 
 ```bash
-curl --location --request POST 'http://dragonfly-manager:8080/api/v1/jobs' \
+curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0' \
 --data-raw '{
     "type": "preheat",
     "args": {
@@ -55,7 +61,8 @@ The command-line log returns the preheat job id.
 Polling the preheating status with job id.
 
 ```bash
-curl --request GET 'http://dragonfly-manager:8080/api/v1/jobs/1'
+curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
+--header 'Authorization: Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0'
 ```
 
 If the status is `SUCCESS`, the preheating is successful.

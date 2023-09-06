@@ -133,6 +133,7 @@ module.exports = {
             },
           ],
         },
+        'reference/personal-access-tokens',
         'reference/preheat',
         'reference/manage-console',
       ],

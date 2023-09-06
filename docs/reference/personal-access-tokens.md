@@ -9,47 +9,45 @@ In this article, we will show you how to create, use, modify and delete personal
 
 ## About personal access tokens
 
-Only users with `root` role can browse all personal access token lists.
+Only users with `root` role can list all personal access tokens.
 
 ![tokens](../resource/personal-access-tokens/tokens.png)
 
 ## Create personal access token
 
-**Step 1:** Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
+Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
-**Step 2:** In the `Name` field, give your token a descriptive name.
+**Name**: Set your token a descriptive name.
 
-**Step 3:** In the `Description` field, add a description describing what the token is for.
+**Description**: Set a description.
 
-**Step 4:** To give your token an expiration, select `Expiration`, Then choose the default option.
+**Expiration**: Set your token an expiration.
 
-**Step 5:** Under `Select scopes`, select the access permissions for the token.
-
-**Step 6:** Click `SAVE`.
-
-**Step 7:** When you're done, copy the token and store it in a secure location. For your security, it doesn't display again.
-
-![copy-token](../resource/personal-access-tokens/copy-token.png)
+**Scopes**: Select the access permissions for the token.
 
 ![create-token](../resource/personal-access-tokens/create-token.png)
 
+Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
+
+![copy-token](../resource/personal-access-tokens/copy-token.png)
+
 ## Update personal access token
 
-On the left side of the personal access token to be updated, click `personal access token name`.
+Click `personal access token name` and update your personal access token.
 
 ![update-token](../resource/personal-access-tokens/update-token.png)
 
 ## Delete personal access token
 
-To the right of the personal access token you want to delete, click `DELETE`.
+Click `DELETE` and delete your personal access token.
 
 ![delete-token](../resource/personal-access-tokens/delete-token.png)
 
-## Use personal access token to call open API
+## Use personal access token
 
 **Step 1:** Open Postman, and import [postman_collection.json](https://github.com/gaius-qi/dragonfly-docs/blob/main/manager/postman/Dragonfly.postman_collection.json).
 
-**Step 2:** Click **OpenAPI** in the left sidebar.
+**Step 2:** Click **Open API** in the sidebar.
 
 **Step 3:** Click **Authorization** and select **Bearer Token**, paste `personal access token` in `Token`.
 
