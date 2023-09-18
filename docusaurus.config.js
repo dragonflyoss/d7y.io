@@ -83,7 +83,7 @@ const config = {
       },
       items: [
         {
-          to: 'docs/',
+          to: 'docs/next/',
           label: 'Documentation',
           position: 'left',
         },
@@ -132,23 +132,23 @@ const config = {
           items: [
             {
               label: 'Getting Started',
-              to: '/docs/',
+              to: '/docs/next/',
             },
             {
               label: 'Setup',
-              to: '/docs/setup/install/helm-charts',
+              to: '/docs/next/setup/install/helm-charts',
             },
             {
               label: 'Reference',
-              to: '/docs/reference/cli/dfdaemon',
+              to: '/docs/next/reference/cli/dfdaemon',
             },
             {
               label: 'Contribute',
-              to: '/docs/contribute/development-guide/development',
+              to: '/docs/next/contribute/development-guide/development',
             },
             {
               label: 'Others',
-              to: '/docs/others/faqs',
+              to: '/docs/next/others/faqs',
             },
           ],
         },
