@@ -196,7 +196,7 @@ export default function Home() {
       cardTitle: <Translate> Dragonfly 1.x</Translate>,
       cardContent: (
         <Translate>
-          In November 2017,the Dragonfly 1.x project was open sourced,and was selected and put into production use by
+          In November 2017, the Dragonfly 1.x project was open sourced,and was selected and put into production use by
           many internet companies.
         </Translate>
       ),
@@ -205,7 +205,7 @@ export default function Home() {
       cardTitle: <Translate> CNCF SandBox</Translate>,
       cardContent: (
         <Translate>
-          In October 2018,it entered the CNCF Sandbox, becoming the third project in China to enter the CNCF Sandbox.
+          In October 2018, it entered the CNCF Sandbox, becoming the third project in China to enter the CNCF Sandbox.
         </Translate>
       ),
     },
@@ -213,7 +213,7 @@ export default function Home() {
       cardTitle: <Translate> CNCF Incubating</Translate>,
       cardContent: (
         <Translate>
-          In April 2020,the CNCF TOC voted to accept Dragonfly as an official entry into CNCF Incubating.
+          In April 2020, the CNCF TOC voted to accept Dragonfly as an official entry into CNCF Incubating.
         </Translate>
       ),
     },
