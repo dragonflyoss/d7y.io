@@ -128,6 +128,12 @@ cache:
 
 # 异步任务配置。
 job:
+  # 同步 Peer 信息配置。
+  syncPeers:
+    # 同步 Peer 信息的间隔时间。Manager 同步会从 Scheduler 同步所有的 Peer 信息，并将 Peer 统计信息展示在 Manager 控制台。
+    interval: 24h
+    # 同步单个 Scheduler 的超时时间。
+    timeout: 10m
   # 预热任务配置。
   preheat:
     # 在镜像预热时跟镜像仓库交换 Token 或者获取 Manifest 的时候的请求超时时间。

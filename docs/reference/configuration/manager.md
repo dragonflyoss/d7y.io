@@ -134,6 +134,13 @@ cache:
 
 # Job configuration.
 job:
+  # Sync peers configuration.
+  syncPeers:
+    # Interval is the interval for syncing all peers information from the scheduler and
+    # display peers information in the manager console.
+    interval: 24h
+    # Timeout is the timeout for syncing peers information from the single scheduler.
+    timeout: 10m
   # Preheat configuration.
   preheat:
     # registryTimeout is the timeout for requesting registry to get token and manifest.
