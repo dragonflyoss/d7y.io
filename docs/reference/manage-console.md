@@ -115,6 +115,96 @@ Delete seed peer record in database.
 
 ![delete-seed-peer](../resource/manager-console/delete-seed-peer.png)
 
+## Personal Access Tokens
+
+Only users with root role can list all personal access tokens.
+
+![tokens](../resource/manager-console/tokens.png)
+
+## Create Personal Access Token
+
+Create a personal access token.
+
+![create-token](../resource/manager-console/create-token.png)
+
+### Information
+
+The information of personal access token.
+
+### Expiration
+
+**Expiration**: Set your token an expiration.
+
+### Select Scopes
+
+Select the access permissions for the token.
+
+## Update Personal Access Token
+
+Update personal access token information.
+
+![update-token](../resource/manager-console/update-token.png)
+
+## Delete Personal Access Token
+
+Delete your personal access token.
+
+![delete-token](../resource/manager-console/delete-token.png)
+
+## Preheats
+
+Only users with `root` role can list all preheat tasks.
+
+![preheats](../resource/manager-console/preheats.png)
+
+## Preheat
+
+Display the preheat details,The `status` attribute shows whether the preheat is successful.
+
+![preheat](../resource/manager-console/preheat.png)
+
+## Preheat Failure
+
+If the status is `FAILURE`, the preheating is failure and you can view the error log.
+
+![preheat-failure](../resource/manager-console/preheat-failure.png)
+
+## Create Preheat
+
+Create a preheat task for file preheating.
+
+![create-preheat](../resource/manager-console/create-preheat.png)
+
+### Information
+
+The information of preheat.
+
+### Clusters
+
+Used for clusters that need to be preheat.
+
+### Args
+
+Args used to pass additional configuration options to the preheat task.
+
+**URL**: URL address used to specify the resource to be preheat.
+
+**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the tag and the generated preheat task will be different.
+
+**URL**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
+
+## Peers
+
+Display the number of peers according to different attributes. If the chart is unclear, you can click the ‘?’ button to display specific prompt information.
+
+![peers](../resource/manager-console/peers.png)
+
+## Export Peer Date
+
+Export the peer data you need.
+
+![export-peer](../resource/manager-console/export-peer.png)
+
 ## Users
 
 Only users with the `root` role can view the list of all users.
