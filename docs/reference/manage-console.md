@@ -165,7 +165,7 @@ Display the preheat details,The `status` attribute shows whether the preheat is 
 
 ## Preheat Failure
 
-If the status is `FAILURE`, the preheating is failure and you can view the error log.
+If the status is `FAILURE`, the preheating is failure and an error log is displayed.
 
 ![preheat-failure](../resource/manager-console/preheat-failure.png)
 
@@ -191,7 +191,7 @@ Args used to pass additional configuration options to the preheat task.
 
 **Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the tag and the generated preheat task will be different.
 
-**URL**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
+**Filter**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
 
 ## Peers
 
