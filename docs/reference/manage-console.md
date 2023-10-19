@@ -127,17 +127,9 @@ Create a personal access token.
 
 ![create-token](../resource/manager-console/create-token.png)
 
-### Information
-
-The information of personal access token.
-
-### Expiration
-
 **Expiration**: Set your token an expiration.
 
-### Select Scopes
-
-Select the access permissions for the token.
+**Scopes**: Select the access permissions for the token.
 
 ## Update Personal Access Token
 
@@ -175,27 +167,20 @@ Create a preheat task for file preheating.
 
 ![create-preheat](../resource/manager-console/create-preheat.png)
 
-### Information
-
-The information of preheat.
-
-### Clusters
-
-Used for clusters that need to be preheat.
-
-### Args
-
-Args used to pass additional configuration options to the preheat task.
+**Clusters**: Used for clusters that need to be preheat.
 
 **URL**: URL address used to specify the resource to be preheat.
 
-**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the tag and the generated preheat task will be different.
+**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished
+ based on the tag and the generated preheat task will be different.
 
-**Filter**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
+**Filter**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. 
+The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
 
 ## Peers
 
-Display the number of peers according to different attributes. If the chart is unclear, you can click the ‘?’ button to display specific prompt information.
+Display the number of peers according to different attributes. If the chart is unclear, you can click the ‘?’ button
+to display specific prompt information.
 
 ![peers](../resource/manager-console/peers.png)
 

@@ -121,17 +121,9 @@ Scheduler 将不再调度其他 Peer 从该 Peer 下载，直到它有可用的�
 
 ![create-token](../resource/manager-console/create-token.png)
 
-### Information
-
-Personal Access Token 基本信息。
-
-### Expiration
-
 **Expiration**: 为令牌提供过期时间。
 
-### Select Scopes
-
-选择令牌的访问权限。
+**Scopes**:选择令牌的访问权限。
 
 ## Update Personal Access Token
 
@@ -169,17 +161,7 @@ Personal Access Token 基本信息。
 
 ![create-preheat](../resource/manager-console/create-preheat.png)
 
-### Information
-
-预热任务基本信息。
-
-### Clusters
-
-至少选择一个或多个 Cluster 进行预热。
-
-### Args
-
-Args 用于将附加配置选项传递给预热任务。
+**Clusters**至少选择一个或多个 Cluster 进行预热。
 
 **URL**: 需要进行预热资源的 URL 地址。
 
