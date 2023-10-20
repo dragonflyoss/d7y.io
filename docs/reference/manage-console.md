@@ -171,11 +171,10 @@ Create a preheat task for file preheating.
 
 **URL**: URL address used to specify the resource to be preheat.
 
-**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished
- based on the tag and the generated preheat task will be different.
+**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
+tag and the generated preheat task will be different.
 
-**Filter**: By setting the filter parameter, you can specify the file type of the resource
-that needs to be preheated.
+**Filter**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated.
 The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
 
 ## Peers
