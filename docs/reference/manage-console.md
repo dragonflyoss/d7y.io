@@ -117,7 +117,7 @@ Delete seed peer record in database.
 
 ## Personal Access Tokens
 
-Only users with root role can list all personal access tokens.
+Display all of the personal access tokens information.
 
 ![tokens](../resource/manager-console/tokens.png)
 
@@ -145,7 +145,7 @@ Delete your personal access token.
 
 ## Preheats
 
-Only users with `root` role can list all preheat tasks.
+Display all of the preheat tasks.
 
 ![preheats](../resource/manager-console/preheats.png)
 

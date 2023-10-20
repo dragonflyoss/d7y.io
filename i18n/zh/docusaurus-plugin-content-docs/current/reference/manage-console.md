@@ -111,7 +111,7 @@ Scheduler 将不再调度其他 Peer 从该 Peer 下载，直到它有可用的�
 
 ## Personal Access Tokens
 
-只有具有 `root` 角色的用户才能浏览所有 Personal Access Token 列表。
+展示所有 Personal Access Token 的列表信息。
 
 ![tokens](../resource/manager-console/tokens.png)
 
@@ -139,7 +139,7 @@ Scheduler 将不再调度其他 Peer 从该 Peer 下载，直到它有可用的�
 
 ## Preheats
 
-只有具有 `root` 角色的用户才能浏览所有预热任务。
+展示所有预热任务列表信息。
 
 ![preheats](../resource/manager-console/preheats.png)
 
