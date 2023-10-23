@@ -151,7 +151,7 @@ Display all of the preheat tasks.
 
 ## Preheat
 
-Display the preheat details,The `status` attribute shows whether the preheat is successful.
+Display the preheat details, The `status` attribute shows whether the preheat is successful.
 
 ![preheat](../resource/manager-console/preheat.png)
 
@@ -179,14 +179,13 @@ The filter is used to generate a unique preheat task and filter unnecessary quer
 
 ## Peers
 
-Display the number of peers according to different attributes. If the chart is unclear, you can click the ‘?’ button
-to display specific prompt information.
+Display the peer information, You can click the `?` button to display prompt information.
 
 ![peers](../resource/manager-console/peers.png)
 
 ## Export Peer Date
 
-Export the peer data you need.
+Export the peer data.
 
 ![export-peer](../resource/manager-console/export-peer.png)
 
