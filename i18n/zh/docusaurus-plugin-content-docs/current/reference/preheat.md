@@ -79,3 +79,45 @@ curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
     }
 }
 ```
+
+## 控制台预热
+
+使用控制台进行预热，用于文件预热。
+
+## 关于预热
+
+展示所有预热任务信息列表。
+
+![preheats](../resource/preheat/preheats.png)
+
+## 创建预热任务
+
+点击 `ADD PREHEAT` 按钮创建预热任务。
+
+**Description**: 添加说明来描述预热的用途。
+
+**Clusters**: 至少选择一个或多个 Cluster 进行预热。
+
+**URL**: 需要进行预热资源的 URL 地址。
+
+**Tag**: 当预热任务的 URL 相同但 Tag 不同时，会根据 Tag 进行区分，生成的预热任务也会不同。
+
+**Filter**: 通过设置 Filter 参数，可以指定需要预热的资源的文件类型，过滤器用于生成唯一的任务 ID，过滤 URL 中不必要的查询参数。
+
+![create-preheat](../resource/preheat/create-preheat.png)
+
+点击 `SAVE` 创建完成后，生成的预热任务不会立即返回结果，该预热任务会一直轮询直到返回结果。
+
+![penging-preheat](../resource/preheat/penging-preheat.png)
+
+## 预热成功
+
+显示预热任务详细信息，`status` 属性显示预热任务是否成功。
+
+![success-preheat](../resource/preheat/preheat-success.png)
+
+## 预热失败
+
+如果返回预热任务状态为 `FAILURE`，表示预热失败，并且可以查看失败日志。
+
+![failure-preheat](../resource/preheat/preheat-failure.png)

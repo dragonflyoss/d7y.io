@@ -81,3 +81,46 @@ If the status is `SUCCESS`, the preheating is successful.
     }
 }
 ```
+## Console Preheat 
+
+Use console for preheating,for file preheating.
+
+## About Preheat 
+
+Display all of the preheat tasks.
+
+![preheats](../resource/preheat/preheats.png)
+
+## Create Preheat
+
+Click the `ADD PREHEAT` button to create preheat task.
+
+**Description**: Set a description.
+
+**Clusters**: Used for clusters that need to be preheat.
+
+**URL**: URL address used to specify the resource to be preheat.
+
+**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
+tag and the generated preheat task will be different.
+
+**Filter**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated.
+The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
+
+![create-preheat](../resource/preheat/create-preheat.png)
+
+Click the `SAVE` to generate the preheat task,the generated preheat task will not return results immediately and you need to wait.
+
+![penging-preheat](../resource/preheat/penging-preheat.png)
+
+## Preheat Success
+
+If the status is `SUCCESS`, the preheating is successful.
+
+![success-preheat](../resource/preheat/preheat-success.png)
+
+## Preheat Failure
+
+If the status is `FAILURE`, the preheating is failure and an error log is displayed.
+
+![failure-preheat](../resource/preheat/preheat-failure.png)
