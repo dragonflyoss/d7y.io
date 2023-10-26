@@ -5,7 +5,11 @@ title: Preheat
 
 Use preheat api for preheating. First create a POST request for preheating.
 
-## Configuration
+## Open API Preheat
+
+Use Open API to preheat.
+
+### Configuration
 
 If the client is `containerd`, it is recommended to configure `proxy.defaultFilter` in dfget.yaml and set it to `Expires&Signature&ns`,
 because containerd will add `ns` query params to the blobs download URL,
@@ -18,12 +22,12 @@ proxy:
   defaultFilter: 'Expires&Signature&ns'
 ```
 
-## Create Personal Access Token
+### Create Personal Access Token
 
 Please create personal access Token before calling Open API, and select `job` for access scopes,
 refer to [personal-access-tokens](./personal-access-tokens.md).
 
-## Operation
+### Operation
 
 If the `scheduler_cluster_ids` does not exist,
 it means to preheat all scheduler clusters.
@@ -84,15 +88,15 @@ If the status is `SUCCESS`, the preheating is successful.
 
 ## Console Preheat
 
-Use console for preheating,for file preheating.
+Use console for preheating, for file preheating.
 
-## About Preheat
+### About Preheat
 
 Display all of the preheat tasks.
 
 ![preheats](../resource/preheat/preheats.png)
 
-## Create Preheat
+### Create Preheat
 
 Click the `ADD PREHEAT` button to create preheat task.
 
@@ -115,13 +119,13 @@ you need to wait.
 
 ![penging-preheat](../resource/preheat/penging-preheat.png)
 
-## Preheat Success
+### Preheat Success
 
 If the status is `SUCCESS`, the preheating is successful.
 
 ![success-preheat](../resource/preheat/preheat-success.png)
 
-## Preheat Failure
+### Preheat Failure
 
 If the status is `FAILURE`, the preheating is failure and an error log is displayed.
 
