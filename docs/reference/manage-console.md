@@ -115,6 +115,80 @@ Delete seed peer record in database.
 
 ![delete-seed-peer](../resource/manager-console/delete-seed-peer.png)
 
+## Personal Access Tokens
+
+Display all of the personal access tokens information.
+
+![tokens](../resource/manager-console/tokens.png)
+
+## Create Personal Access Token
+
+Create a personal access token.
+
+![create-token](../resource/manager-console/create-token.png)
+
+**Expiration**: Set your token an expiration.
+
+**Scopes**: Select the access permissions for the token.
+
+## Update Personal Access Token
+
+Update personal access token information.
+
+![update-token](../resource/manager-console/update-token.png)
+
+## Delete Personal Access Token
+
+Delete your personal access token.
+
+![delete-token](../resource/manager-console/delete-token.png)
+
+## Preheats
+
+Display all of the preheat tasks.
+
+![preheats](../resource/manager-console/preheats.png)
+
+## Preheat
+
+Display the preheat details, The `status` attribute shows whether the preheat is successful.
+
+![preheat](../resource/manager-console/preheat.png)
+
+## Preheat Failure
+
+If the status is `FAILURE`, the preheating is failure and an error log is displayed.
+
+![preheat-failure](../resource/manager-console/preheat-failure.png)
+
+## Create Preheat
+
+Create a preheat task for file preheating.
+
+![create-preheat](../resource/manager-console/create-preheat.png)
+
+**Clusters**: Used for clusters that need to be preheat.
+
+**URL**: URL address used to specify the resource to be preheat.
+
+**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
+tag and the generated preheat task will be different.
+
+**Filter**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated.
+The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
+
+## Peers
+
+Display the peer information, You can click the `?` button to display prompt information.
+
+![peers](../resource/manager-console/peers.png)
+
+## Export Peer Date
+
+Export the peer data.
+
+![export-peer](../resource/manager-console/export-peer.png)
+
 ## Users
 
 Only users with the `root` role can view the list of all users.

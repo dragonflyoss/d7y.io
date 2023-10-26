@@ -109,6 +109,78 @@ Scheduler 将不再调度其他 Peer 从该 Peer 下载，直到它有可用的�
 
 ![delete-seed-peer](../resource/manager-console/delete-seed-peer.png)
 
+## Personal Access Tokens
+
+展示所有 Personal Access Tokens 的列表信息。
+
+![tokens](../resource/manager-console/tokens.png)
+
+## Create Personal Access Token
+
+创建 Personal Access Token。
+
+![create-token](../resource/manager-console/create-token.png)
+
+**Expiration**: 为令牌提供过期时间。
+
+**Scopes**: 选择令牌的访问权限。
+
+## Update Personal Access Token
+
+更新 Personal Access Token 信息。
+
+![update-token](../resource/manager-console/update-token.png)
+
+## Delete Personal Access Token
+
+删除 Personal Access Token，如果被删除那么该 Personal Access Token 将无法提供服务。
+
+![delete-token](../resource/manager-console/delete-token.png)
+
+## Preheats
+
+展示所有预热任务列表信息。
+
+![preheats](../resource/manager-console/preheats.png)
+
+## Preheat
+
+显示预热任务详细信息，`status` 属性显示预热任务是否成功。
+
+![preheat](../resource/manager-console/preheat.png)
+
+## Preheat Failure
+
+如果返回预热任务状态为 `FAILURE`，表示预热失败，并且可以查看失败日志。
+
+![preheat-failure](../resource/manager-console/preheat-failure.png)
+
+## Create Preheat
+
+创建预热任务，该任务用于文件预热。
+
+![create-preheat](../resource/manager-console/create-preheat.png)
+
+**Clusters**: 至少选择一个或多个 Cluster 进行预热。
+
+**URL**: 需要进行预热资源的 URL 地址。
+
+**Tag**: 当预热任务的 URL 相同但 Tag 不同时，会根据 Tag 进行区分，生成的预热任务也会不同。
+
+**Filter**: 通过设置 Filter 参数，可以指定需要预热的资源的文件类型，过滤器用于生成唯一的任务 ID，过滤 URL 中不必要的查询参数。
+
+## Peers
+
+根据不同的属性展示 Peer 数量，如果对图表表述不清楚，可以点击 `?` 按钮展示具体提示信息。
+
+![peers](../resource/manager-console/peers.png)
+
+## Export Peer Date
+
+导出 Peer 数据。
+
+![export-peer](../resource/manager-console/export-peer.png)
+
 ## Users
 
 只有 `root` 角色的用户可以浏览所有用户的信息列表。
