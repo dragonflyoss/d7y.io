@@ -3,8 +3,6 @@ id: preheat
 title: Preheat
 ---
 
-Use preheat api for preheating. First create a POST request for preheating.
-
 ## Open API Preheat
 
 Use Open API to preheat.
@@ -28,6 +26,8 @@ Please create personal access Token before calling Open API, and select `job` fo
 refer to [personal-access-tokens](./personal-access-tokens.md).
 
 ### Operation
+
+Use preheat api for preheating. First create a POST request for preheating.
 
 If the `scheduler_cluster_ids` does not exist,
 it means to preheat all scheduler clusters.
