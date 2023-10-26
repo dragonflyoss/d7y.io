@@ -3,7 +3,9 @@ id: preheat
 title: Preheat
 ---
 
-## Open API Preheat
+There are two ways to preheat, one is to preheat through the Open API, and the other is to preheat through the console.
+
+## Open API
 
 Use Open API to preheat.
 
@@ -86,11 +88,11 @@ If the status is `SUCCESS`, the preheating is successful.
 }
 ```
 
-## Console Preheat
+## Console
 
 Use console for preheating, for file preheating.
 
-### About Preheat
+### Preheat
 
 Display all of the preheat tasks.
 

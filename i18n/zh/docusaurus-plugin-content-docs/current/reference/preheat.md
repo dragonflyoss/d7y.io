@@ -3,7 +3,9 @@ id: preheat
 title: 预热
 ---
 
-## Open API 预热
+可以使用两种方式预热，一种是通过 Open API 预热，一种是通过控制台预热。
+
+## Open API
 
 使用 Open API 进行预热。
 
@@ -84,11 +86,11 @@ curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
 }
 ```
 
-## 控制台预热
+## 控制台
 
 使用控制台进行预热，用于文件预热。
 
-### 关于预热
+### 展示预热信息
 
 展示所有预热任务信息列表。
 
