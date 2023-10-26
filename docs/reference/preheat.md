@@ -81,11 +81,12 @@ If the status is `SUCCESS`, the preheating is successful.
     }
 }
 ```
-## Console Preheat 
+
+## Console Preheat
 
 Use console for preheating,for file preheating.
 
-## About Preheat 
+## About Preheat
 
 Display all of the preheat tasks.
 
@@ -109,7 +110,8 @@ The filter is used to generate a unique preheat task and filter unnecessary quer
 
 ![create-preheat](../resource/preheat/create-preheat.png)
 
-Click the `SAVE` to generate the preheat task,the generated preheat task will not return results immediately and you need to wait.
+Click the `SAVE` to generate the preheat task,the generated preheat task will not return results immediately and
+you need to wait.
 
 ![penging-preheat](../resource/preheat/penging-preheat.png)
 
