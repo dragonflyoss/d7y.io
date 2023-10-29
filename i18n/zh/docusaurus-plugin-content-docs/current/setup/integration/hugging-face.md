@@ -3,33 +3,35 @@ id: hugging-face
 title: Hugging Face
 ---
 
-This document will help you experience how to use dragonfly with hugging face.
+本文档将帮助您将 Dragonfly 与 Hugging Face 一起使用。
 
-During the downloading of datasets or models, the file size is large and there are many services
-downloading the files at the same time. The bandwidth of the storage will reach the limit and the download will be slow.
-Therefore, Dragonfly can be used to eliminate the bandwidth limit of the storage through P2P technology,
-thereby accelerating file downloading.
+当在 Hugging Face 下载数据集以及模型的时候，文件相对较大且会有并发下载文件的场景。
+这样很容易导致 Hugging Face 的 Git LFS 存储带宽被打满，从而引起下载过慢的情况，影响
+训练以及推理服务的使用。这种方式比较好的解决方案是使用 Dragonfly 的 P2P 技术利用
+每个节点的闲置带宽缓解 Git LFS 存储的带宽压力，从而达到加速效果。在最理想的情况下
+Dragonfly 可以让整个 P2P 集群中只有一个节点回源 Hugging Face 下载数据集或模型，其他
+节点流量均使用集群内 P2P 内网带宽。
 
-## Prerequisites {#prerequisites}
+## 依赖
 
 <!-- markdownlint-disable -->
 
-| Name               | Version | Document                                |
-| ------------------ | ------- | --------------------------------------- |
-| Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
-| Helm               | 3.8.0+  | [helm.sh](https://helm.sh/)             |
+| 所需软件           | 版本要求 | 文档                                    |
+| ------------------ | -------- | --------------------------------------- |
+| Kubernetes cluster | 1.20+    | [kubernetes.io](https://kubernetes.io/) |
+| Helm               | 3.8.0+   | [helm.sh](https://helm.sh/)             |
 
 <!-- markdownlint-restore -->
 
-**Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
+**注意:** 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
-## Install dragonfly {#install-dragonfly}
+## 安装 Dragonfly
 
-For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
+基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md)。
 
-## Setup kubernetes cluster {#setup-kubernetes-cluster}
+### 使用 Kind 安装 Kubernetes 集群
 
-Create kind multi-node cluster configuration file `kind-config.yaml`, configuration content is as follows:
+创建 Kind 多节点集群配置文件 `kind-config.yaml`, 配置如下:
 
 ```yaml
 kind: Cluster
@@ -43,21 +45,21 @@ nodes:
   - role: worker
 ```
 
-Create a kind multi-node cluster using the configuration file:
+使用配置文件创建 Kind 集群:
 
 ```shell
 kind create cluster --config kind-config.yaml
 ```
 
-Switch the context of kubectl to kind cluster:
+切换 Kubectl 的 context 到 Kind 集群:
 
 ```shell
 kubectl config use-context kind-kind
 ```
 
-## Kind loads dragonfly image {#kind-loads-dragonfly-image}
+### Kind 加载 Dragonfly 镜像
 
-Pull dragonfly latest images:
+下载 Dragonfly latest 镜像:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
@@ -65,7 +67,7 @@ docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/dfdaemon:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind 集群加载 Dragonfly latest 镜像:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
@@ -73,10 +75,10 @@ kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
-## Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+### 基于 Helm Charts 创建 Dragonfly P2P 集群
 
-Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.proxy.registryMirror.url` to
-the address of the Hugging Face Hub's LFS server, configuration content is as follows:
+创建 Helm Charts 配置文件 `charts-config.yaml` 并且设置 `dfdaemon.config.proxy.registryMirror.url` 为
+Hugging Face 的 LFS 服务的地址, 配置如下:
 
 ```yaml
 scheduler:
@@ -135,7 +137,7 @@ manager:
     pprofPort: 18066
 ```
 
-Create a dragonfly cluster using the configuration file:
+使用配置文件部署 Dragonfly Helm Charts:
 
 <!-- markdownlint-disable -->
 
@@ -166,7 +168,7 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly is deployed successfully:
+检查 Dragonfly 是否部署成功:
 
 ```shell
 $ kubectl get po -n dragonfly-system
@@ -183,7 +185,7 @@ dragonfly-scheduler-0                1/1     Running   0              3m27s
 dragonfly-seed-peer-0                1/1     Running   2 (95s ago)    3m27s
 ```
 
-Create peer service configuration file `peer-service-config.yaml`, configuration content is as follows:
+创建 Peer Service 配置文件 `peer-service-config.yaml` 配置如下:
 
 ```yaml
 apiVersion: v1
@@ -203,27 +205,24 @@ spec:
     release: dragonfly
 ```
 
-Create a peer service using the configuration file:
+使用配置文件部署 Peer Service:
 
 ```shell
 kubectl apply -f peer-service-config.yaml
 ```
 
-## Use Hub Python Library to download files and distribute traffic through Draognfly {#use-hub-python-library-to-download-files-and-distribute-traffic-through-draognfly}
+## 通过 Dragonfly 分发 Hub Python Library 的下载文件流量
 
-Any API in the [Hub Python Library](https://huggingface.co/docs/huggingface_hub/index)
-that uses `Requests` library for downloading files can
-distribute the download traffic in the P2P network by
-setting `DragonflyAdapter` to the requests `Session`.
+任何 [Hub Python Library](https://huggingface.co/docs/huggingface_hub/index) 的 API 使用
+`Requests` 库下载文件，都可以通过设置 `DragonflyAdapter` 将流量使用 Dragonfly 分发。
 
-### Download a single file with Dragonfly {#download-a-single-file-with-dragonfly}
+### 使用 Dragonfly 下载单个文件
 
-A single file can be downloaded using the [`hf_hub_download`](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.hf_hub_download),
-distribute traffic through the Dragonfly peer.
+下载单个文件可以使用 [`hf_hub_download`](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.hf_hub_download)，
+并且通过 Dragonfly 分发流量。
 
-Create `hf_hub_download_dragonfly.py` file. Use `DragonflyAdapter` to forward the file download request of
-the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network
-to distribute file, content is as follows:
+创建 `hf_hub_download_dragonfly.py` 文件，使用 `DragonflyAdapter` 将下载流量转发至 Dragonfly HTTP Proxy。
+这样可以通过 P2P 网络分发流量，内容如下：
 
 ```python
 import requests
@@ -262,7 +261,7 @@ configure_http_backend(backend_factory=backend_factory)
 hf_hub_download(repo_id="tiiuae/falcon-rw-1b", filename="pytorch_model.bin")
 ```
 
-Download a single file of th LFS protocol with Dragonfly:
+通过 Dragonfly 基于 LFS 协议下载单个文件：
 
 <!-- markdownlint-disable -->
 
@@ -273,9 +272,9 @@ $ python3 hf_hub_download_dragonfly.py
 
 <!-- markdownlint-restore -->
 
-#### Verify a single file download with Dragonfly {#verify-a-single-file-download-with-dragonfly}
+#### 验证基于 Dragonfly 下载单个文件
 
-Execute the command:
+执行命令：
 
 ```shell
 # find pods
@@ -285,7 +284,7 @@ pod_name=dfdaemon-xxxxx
 kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
 ```
 
-Example output:
+日志输出：
 
 <!-- markdownlint-disable -->
 
@@ -295,15 +294,13 @@ peer task done, cost: 28349ms	{"peer": "89.116.64.101-77008-a95a6918-a52b-47f5-9
 
 <!-- markdownlint-restore -->
 
-### Download a snapshot of the repo with Dragonfly {#download-a-snapshot-of-the-repo-with-dragonfly}
+### 使用 Dragonfly 下载仓库快照
 
-A snapshot of the repo can be downloaded using the [`snapshot_download`](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.snapshot_download),
-distribute traffic through the Dragonfly peer.
+下载仓库快照可以使用 [`snapshot_download`](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.snapshot_download)，
+并且通过 Dragonfly 分发流量。
 
-Create `snapshot_download_dragonfly.py` file. Use `DragonflyAdapter` to forward the file download request of
-the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network
-to distribute file. Only the files of the LFS protocol will be distributed
-through the Dragonfly P2P network. content is as follows:
+创建 `snapshot_download_dragonfly.py` 文件，使用 `DragonflyAdapter` 将下载流量转发至 Dragonfly HTTP Proxy。
+只有 Git LFS 协议的大文件流量会通过 P2P 网络分发，内容如下：
 
 ```python
 import requests
@@ -342,7 +339,7 @@ configure_http_backend(backend_factory=backend_factory)
 snapshot_download(repo_id="tiiuae/falcon-rw-1b")
 ```
 
-Download a snapshot of the repo with Dragonfly:
+通过 Dragonfly 基于 LFS 协议下载仓库快照：
 
 <!-- markdownlint-disable -->
 
@@ -365,9 +362,9 @@ Fetching 12 files: 100%|██████████████████�
 
 <!-- markdownlint-restore -->
 
-#### Verify a snapshot of the repo download with Dragonfly {#verify-a-snapshot-of-the-repo-download-with-dragonfly}
+#### 验证基于 Dragonfly 下载仓库快照
 
-Execute the command:
+执行命令：
 
 ```shell
 # find pods
@@ -377,7 +374,7 @@ pod_name=dfdaemon-xxxxx
 kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
 ```
 
-Example output:
+日志输出：
 
 <!-- markdownlint-disable -->
 
@@ -387,27 +384,26 @@ peer task done, cost: 28349ms	{"peer": "89.116.64.101-77008-a95a6918-a52b-47f5-9
 
 <!-- markdownlint-restore -->
 
-## Performance testing {#performance-testing}
+## 性能测试
 
-Test the performance of single-machine file download by `hf_hub_download` API after the integration of
-Hugging Face Python Library and Dragonfly P2P.
-Due to the influence of the network environment of the machine itself, the actual download time is not important,
-but the ratio of the increase in the download time in different scenarios is very important.
+测试 Hugging Face Python Library 的 `hf_hub_download` API 与 Dragonfly 集成后的
+单机模型文件下载的性能。
+由于机器本身网络环境、配置等影响，实际下载时间不具有参考价值，
+但是不同场景下载时间所提升的比率是有重要意义的。
 
 ![hugging-face-dragonfly](../../resource/setup/hugging-face-dragonfly.png)
 
 <!-- markdownlint-disable -->
 
-- Hugging Face Python Library: Use `hf_hub_download` API to download models directly.
-- Hugging Face Python Library & Dragonfly Cold Boot: Use `hf_hub_download` API to download models via Dragonfly P2P network and no cache hits.
-- Hit Dragonfly Remote Peer Cache: Use `hf_hub_download` API to download models via Dragonfly P2P network and hit the remote peer cache.
-- Hit Dragonfly Local Peer Cache: Use `hf_hub_download` API to download models via Dragonfly P2P network and hit the local peer cache.
-- Hit Hugging Face Cache: Use `hf_hub_download` API to download models via Dragonfly P2P network and hit the Hugging Face local cache.
+- Hugging Face Python Library: 使用 `hf_hub_download` API 直接下载模型文件。
+- Hugging Face Python Library & Dragonfly Cold Boot: 使用 `hf_hub_download` API 直接下载模型文件，没有命中任何缓存。
+- Hit Dragonfly Remote Peer Cache: 使用 `hf_hub_download` API 直接下载模型文件，在命中 Dragonfly 的远端 Peer 缓存。
+- Hit Dragonfly Remote Local Cache: 使用 `hf_hub_download` API 直接下载模型文件，在命中 Dragonfly 的本地 Peer 缓存。
+- Hit Hugging Face Cache: 使用 `hf_hub_download` API 直接下载模型文件，在命中 Hugging Face 的缓存。
 
 <!-- markdownlint-restore -->
 
-Test results show Hugging Face Python Library and Dragonfly P2P integration.
-It can effectively reduce the file download time.
-Note that this test was a single-machine test, which means that in the case of cache hits,
-the performance limitation is on the disk.
-If Dragonfly is deployed on multiple machines for P2P download, the models download speed will be faster.
+测试结果表明 Hugging Face Python Library 和 Dragonfly 集成。
+能够有效减少模型文件下载时间。测试是在单机情况下基本在缓存命中情况下，
+性能瓶颈在于磁盘。如果在多节点并发下载数据集或者模型的情况下，
+Dragonfly 效果会更加明显。
