@@ -27,7 +27,7 @@ thereby accelerating file downloading.
 
 For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
 
-## Setup kubernetes cluster {#setup-kubernetes-cluster}
+### Setup kubernetes cluster {#setup-kubernetes-cluster}
 
 Create kind multi-node cluster configuration file `kind-config.yaml`, configuration content is as follows:
 
@@ -55,7 +55,7 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-## Kind loads dragonfly image {#kind-loads-dragonfly-image}
+### Kind loads dragonfly image {#kind-loads-dragonfly-image}
 
 Pull dragonfly latest images:
 
@@ -73,7 +73,7 @@ kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
-## Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+### Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.proxy.registryMirror.url` to
 the address of the Hugging Face Hub's LFS server, configuration content is as follows:
