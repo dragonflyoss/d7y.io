@@ -41,6 +41,10 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --data-raw '{
     "type": "preheat",
     "args": {
+        "filter": "Expires&Signature",
+        "headers": {
+          "Authorization": "Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0"
+        },
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
@@ -56,8 +60,10 @@ The command-line log returns the preheat job id.
     "type": "preheat",
     "status": "PENDING",
     "args": {
-        "filter": "",
-        "headers": null,
+        "filter": "Expires&Signature",
+        "headers": {
+          "Authorization": "Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0"
+        },
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
