@@ -52,6 +52,8 @@ scheduler:
   algorithm: default
   # 单个任务允许客户端回源的数量。
   backToSourceCount: 3
+  # 单个任务最大调度次数，如果超过最大调度次数会通知其回源。
+  maxScheduleCount: 30
   # 调度回源重试次数限制。
   retryBackToSourceLimit: 5
   # 调度重试次数限制。
