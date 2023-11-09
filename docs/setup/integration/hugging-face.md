@@ -4,11 +4,15 @@ title: Hugging Face
 ---
 
 This document will help you experience how to use dragonfly with hugging face.
+During the downloading of datasets or models, the file size is large and
+there are many services downloading the files at the same time.
+The bandwidth of the storage will reach the limit and the download will be slow.
 
-During the downloading of datasets or models, the file size is large and there are many services
-downloading the files at the same time. The bandwidth of the storage will reach the limit and the download will be slow.
-Therefore, Dragonfly can be used to eliminate the bandwidth limit of the storage through P2P technology,
-thereby accelerating file downloading.
+![hugging-face-download](../../resource/setup/hugging-face-download.png)
+
+Dragonfly can be used to eliminate the bandwidth limit of the storage through P2P technology, thereby accelerating file downloading.
+
+![hugging-face-p2p](../../resource/setup/hugging-face-p2p.png)
 
 ## Prerequisites {#prerequisites}
 
