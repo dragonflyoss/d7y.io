@@ -4,13 +4,16 @@ title: Hugging Face
 ---
 
 本文档将帮助您将 Dragonfly 与 Hugging Face 一起使用。
-
 当在 Hugging Face 下载数据集以及模型的时候，文件相对较大且会有并发下载文件的场景。
-这样很容易导致 Hugging Face 的 Git LFS 存储带宽被打满，从而引起下载过慢的情况，影响
-训练以及推理服务的使用。这种方式比较好的解决方案是使用 Dragonfly 的 P2P 技术利用
-每个节点的闲置带宽缓解 Git LFS 存储的带宽压力，从而达到加速效果。在最理想的情况下
-Dragonfly 可以让整个 P2P 集群中只有一个节点回源 Hugging Face 下载数据集或模型，其他
-节点流量均使用集群内 P2P 内网带宽。
+这样很容易导致 Hugging Face 的 Git LFS 存储带宽被打满，从而引起下载过慢的情况，影响训练以及推理服务的使用。
+
+![hugging-face-download](../../resource/setup/hugging-face-download.png)
+
+这种方式比较好的解决方案是使用 Dragonfly 的 P2P 技术利用每个节点的闲置带宽缓解 Git LFS 存储的带宽压力，
+从而达到加速效果。在最理想的情况下 Dragonfly 可以让整个 P2P 集群中只有一个节点回源 Hugging Face 下载数据集或模型，
+其他节点流量均使用集群内 P2P 内网带宽。
+
+![hugging-face-p2p](../../resource/setup/hugging-face-p2p.png)
 
 ## 依赖
 
