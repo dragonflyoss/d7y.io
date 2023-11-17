@@ -292,7 +292,7 @@ export DRAGONFLY_ENDPOINT_CONFIG=/etc/dragonfly-endpoint/config.json
 - addr: Drangonfly 的 Peer 的 HTTP Proxy 的地址。
 - header: 为请求增加请求头。
 - filter: 用于生成唯一的任务，并过滤 URL 中不必要的查询参数。
-- object_storage: 模型文件所在对象存储的配置，其中 type 可为 s3，oss，abs，gcs，具体参考[对象存储配置](https://www.yuque.com/baimo/dsehg9/bhnbe93g7kw4grt6#3db09a23)。
+- object_storage: 模型文件所在对象存储的配置，其中 type 可为 s3，oss，abs 和 gcs。
 
 配置文件中的 `filter` 部分， 根据对象存储类型设置不同值:
 
