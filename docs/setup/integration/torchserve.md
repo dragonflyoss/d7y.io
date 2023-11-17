@@ -95,7 +95,7 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 
 #### Create dragonfly cluster based on helm charts
 
-Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.agents.regx` to
+Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.proxies.regx` to
 match the download path of the object storage, configuration content is as follows:
 
 ```yaml
@@ -294,8 +294,7 @@ Create the `config.json` configuration to configure the Dragonfly Endpoint for S
 - addr: The address of Drangonfly's Peer HTTP proxy.
 - header: Adds a request header to the request.
 - filter: Used to generate unique tasks and filter unnecessary query parameters in the URL.
-- object_storage: The object storage configuration, where type can be s3, oss, abs, gcs,
-  refer to the [object storage configuration](https://www.yuque.com/baimo/dsehg9/que4o40e9px9nufb#3db09a23) for details.
+- object_storage: The object storage configuration, where type can be s3, oss, abs and gcs.
 
 In the filter of the configuration, set different values when using different object storage:
 
