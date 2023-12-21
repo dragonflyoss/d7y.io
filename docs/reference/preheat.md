@@ -41,12 +41,11 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --data-raw '{
     "type": "preheat",
     "args": {
-        "filter": "Expires&Signature",
-        "headers": {
-          "Authorization": "Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0"
-        },
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
+        "filter": "Expires&Signature",
+        "username": "registry_username",
+        "password": "registry_password",
     }
 }'
 ```
@@ -60,12 +59,9 @@ The command-line log returns the preheat job id.
     "type": "preheat",
     "status": "PENDING",
     "args": {
-        "filter": "Expires&Signature",
-        "headers": {
-          "Authorization": "Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0"
-        },
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
+        "filter": "Expires&Signature",
     }
 }
 ```
@@ -74,6 +70,7 @@ Polling the preheating status with job id.
 
 ```bash
 curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
+--header 'Content-Type: application/json' \
 --header 'Authorization: Bearer ZDkxMDMyYTEtZDE1ZC00ZmUxLWE0ODItNDI3NTk1ZGM2YWU0'
 ```
 
@@ -86,8 +83,6 @@ If the status is `SUCCESS`, the preheating is successful.
     "type": "preheat",
     "status": "SUCCESS",
     "args": {
-        "filter": "",
-        "headers": null,
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
     }
