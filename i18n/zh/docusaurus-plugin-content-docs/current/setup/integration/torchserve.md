@@ -94,7 +94,7 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 
 #### 基于 Helm Charts 创建 Dragonfly 集群
 
-创建 Helm Charts 配置文件 charts-config.yaml。可以根据对象存储的下载路径修改`dfdaemon.config.proxies.regx`来调整路由匹配规则，示例中默认匹配了 AWS S3 的请求，配置如下:
+创建 Helm Charts 配置文件 charts-config.yaml。可以根据对象存储的下载路径修改`dfdaemon.config.proxy.proxies.regx`来调整路由匹配规则，示例中默认匹配了 AWS S3 的请求，配置如下:
 
 ```yaml
 scheduler:
