@@ -95,7 +95,7 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 
 #### Create dragonfly cluster based on helm charts
 
-Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.proxies.regx` to
+Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.proxy.proxies.regx` to
 match the download path of the object storage, configuration content is as follows:
 
 ```yaml
