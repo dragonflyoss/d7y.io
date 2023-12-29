@@ -226,6 +226,8 @@ download:
     unixListen:
       # linux 上默认路径为 /var/run/dfdaemon.sock。
       # macos(仅开发、测试), 默认目录是 /tmp/dfdaemon.sock。
+      # 如果更改默认路径，当使用 dfget 下载时
+      # 需要通过 --daemon-sock 指定 socket 的路径。
       socket: ''
   # Peer grpc 选项。
   # Peer 之间通信和下载配置。
