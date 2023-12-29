@@ -228,6 +228,8 @@ download:
     unixListen:
       # In linux, default value is /var/run/dfdaemon.sock.
       # In macos(just for testing), default value is /tmp/dfdaemon.sock.
+      # If change the default path, need to specify the changed path through --daemon-sock
+      # when using dfget to download.
       socket: ''
   # Peer grpc option.
   # Peer grpc service send pieces info to other peers.
