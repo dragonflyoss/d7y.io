@@ -16,9 +16,6 @@ server:
     # # Access ip for other services,
     # # when local ip is different with access ip, advertiseIP should be set.
     # advertiseIP: 127.0.0.1
-    # # Access port for other services,
-    # # when local ip is different with access port, advertisePort should be set.
-    # advertisePort: 65003
     # # Listen ip.
     # listenIP: 0.0.0.0
     # Listen port.
