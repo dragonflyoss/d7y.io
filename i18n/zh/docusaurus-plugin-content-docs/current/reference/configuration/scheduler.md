@@ -53,11 +53,11 @@ scheduler:
   # 单个任务允许客户端回源的数量。
   backToSourceCount: 3
   # 调度回源重试次数限制。
-  retryBackToSourceLimit: 30
+  retryBackToSourceLimit: 10
   # 调度重试次数限制。
-  retryLimit: 40
+  retryLimit: 15
   # 调度重试时间间隔。
-  retryInterval: 100ms
+  retryInterval: 300ms
   # 数据回收策略。
   gc:
     # 单个 Piece 下载超时时间。

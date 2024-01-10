@@ -57,11 +57,11 @@ scheduler:
   # backToSourceCount is single task allows the peer to back-to-source count.
   backToSourceCount: 3
   # retryBackToSourceLimit reaches the limit, then the peer back-to-source.
-  retryBackToSourceLimit: 30
+  retryBackToSourceLimit: 10
   # Retry scheduling limit times.
-  retryLimit: 40
+  retryLimit: 15
   # Retry scheduling interval.
-  retryInterval: 100ms
+  retryInterval: 300ms
   # GC metadata configuration.
   gc:
     # pieceDownloadTimeout is the timeout of downloading piece.
