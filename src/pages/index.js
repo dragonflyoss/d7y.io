@@ -380,6 +380,7 @@ export default function Home() {
         </div>
       </main>
       <section className={clsx('row', styles.development)}>
+        <div className={styles.developmentSkew}></div>
         <div className={styles.developmentContainer}>
           <div className="row">
             <h1 className={styles.mainModuleTitle}>
@@ -523,6 +524,7 @@ export default function Home() {
         </div>
       </section>
       <section className={clsx('row', styles.user)}>
+        <div className={styles.userSkew}></div>
         <div className={styles.userWrapper}>
           <h1 className={styles.useTitle}>
             <Translate>Who is</Translate>
@@ -571,6 +573,7 @@ export default function Home() {
         </div>
       </section>
       <section className={clsx('row', styles.community)}>
+        <div className={styles.communitySkew}></div>
         <div className={styles.communityWrapper}>
           <h1 className={styles.communityTitle}>
             <Translate>Join the</Translate>

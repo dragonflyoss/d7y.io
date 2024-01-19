@@ -132,7 +132,7 @@ a {
 .headerButton {
   display: flex;
   justify-content: center;
-  margin: 1.5rem 0;
+  margin-bottom: 1.5rem 0;
 }
 
 .getStartedButton {
@@ -254,8 +254,25 @@ a {
     padding: 12.5rem 6rem 15rem;
   }
 
+  .getStartedButton {
+    padding: 0.6rem 0.8rem;
+    min-width: 13rem;
+    font-size: 1.2rem;
+  }
+
+  .githubButton {
+    padding: 0.6rem 0.8rem;
+    min-width: 13rem;
+    font-size: 1.2rem;
+  }
+
+  .githubIcon {
+    width: 1.5rem;
+    margin-right: 1rem;
+  }
+
   .containerInfo {
-    max-width: 63.5rem;
+    max-width: 67.5rem;
   }
 
   .heroTitle {
@@ -268,8 +285,12 @@ a {
     line-height: 3rem;
   }
 
+  .headerButton {
+    margin: 2rem 0;
+  }
+
   .description {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
 
   .partnersWrapper > * {
@@ -285,7 +306,7 @@ a {
   }
 
   .partners {
-    margin-top: 14.5rem !important;
+    margin-top: 4.5rem !important;
   }
 
   .partnersTitle {
@@ -295,25 +316,53 @@ a {
 
 @media screen and (max-width: 2048px) {
   .headerWrapper {
-    padding: 12rem 6rem 18rem;
+    padding: 10rem 6rem 18rem;
   }
+
+  .containerInfo {
+    max-width: 63.5rem;
+  }
+
   .partners {
-    margin-top: 3.5rem;
+    margin-top: 4.5rem;
   }
 }
 
 @media screen and (max-width: 1920px) {
   .headerWrapper {
-    padding: 9.7rem 6rem 16rem;
+    padding: 9rem 6rem 14rem;
+  }
+
+  .containerInfo {
+    max-width: 63.5rem;
+  }
+
+  .partners {
+    margin-top: 3rem;
+  }
+
+  .headerButton {
+    margin: 2rem 0;
+  }
+
+  .tagline {
+    min-height: 8rem;
+    line-height: 2.6rem;
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1.6rem;
   }
 }
 
 @media screen and (max-width: 1600px) {
   .headerWrapper {
-    padding: 8.2rem 6rem;
+    padding: 7.2rem 6rem 9rem;
   }
+
   .partners {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
   }
 }
 
@@ -321,8 +370,19 @@ a {
   .partners {
     margin: 1.5rem 0;
   }
+
   .headerWrapper {
     padding: 5rem 6rem 8rem;
+  }
+
+  .containerInfo {
+    max-width: 53rem;
+  }
+
+  .tagline {
+    min-height: 4rem;
+    line-height: 2rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -415,7 +475,7 @@ a {
 }
 
 .mainWrapper {
-  padding: 2rem 6rem;
+  padding: 4rem 6rem;
   max-width: var(--ifm-container-width-xl);
   width: 100%;
   z-index: 3;
@@ -423,11 +483,44 @@ a {
 
 .mainSkew {
   position: absolute;
-  top: 6%;
+  top: 10%;
   left: center;
   bottom: 4%;
   width: 40%;
-  border-radius: 30%;
+  border-radius: 20%;
+  background-image: url(../../static/img/background.svg);
+  z-index: 2;
+}
+
+.developmentSkew {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 25rem;
+  height: 30rem;
+  border-radius: 10%;
+  background-image: url(../../static/img/background.svg);
+  z-index: 2;
+}
+
+.userSkew {
+  position: absolute;
+  top: 10%;
+  right: 0;
+  width: 22rem;
+  height: 32rem;
+  border-radius: 10%;
+  background-image: url(../../static/img/background.svg);
+  z-index: 2;
+}
+
+.communitySkew {
+  position: absolute;
+  left: 0;
+  bottom: 0%;
+  width: 15rem;
+  height: 20rem;
+  border-radius: 10%;
   background-image: url(../../static/img/background.svg);
   z-index: 2;
 }
@@ -573,6 +666,7 @@ a {
   flex-direction: column;
   margin: 0;
   background: linear-gradient(0deg, #eefff5, #fff);
+  position: relative;
 }
 
 .developmentCardWrapper {
@@ -580,7 +674,7 @@ a {
 }
 
 .developmentContainer {
-  padding: 2rem 6rem;
+  padding: 4rem 6rem;
   max-width: var(--ifm-container-width-xl);
   width: 100%;
   z-index: 3;
@@ -732,7 +826,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 6rem;
+  padding: 4rem 6rem;
   z-index: 3;
 }
 
@@ -943,6 +1037,7 @@ a {
   width: 100%;
   margin: 0;
   background-image: linear-gradient(0deg, #eefff5, #fff);
+  position: relative;
 }
 
 .communityWrapper {
@@ -950,7 +1045,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 6rem;
+  padding: 4rem 6rem;
   z-index: 3;
 }
 
