@@ -236,23 +236,44 @@
   "P2P File Distribution": {
     "message": "基于 P2P 的文件分发"
   },
-  "Use P2P technology for file transfer, improve download efficiency, and save bandwidth across IDC.": {
-    "message": "利用 P2P 技术进行文件传输，提高下载效率，并且节省跨机房带宽。"
+  "Use P2P technology for file transfer,": {
+    "message": "利用 P2P 技术进行文件传输"
+  },
+  "improve download efficiency, and save bandwidth across IDC.": {
+    "message": "提高下载效率，并且节省跨机房带宽。"
+  },
+  "IDC.": {
+    "message": "机房带宽。"
   },
   "Noninvasive": {
     "message": "非侵入式接入"
   },
-  "Supports multiple containers for distributing images.": {
-    "message": "可以非侵入式的接入多种容器客户端，并提供镜像分发。"
+  "Supports": {
+    "message": "可以非侵入式的接入"
+  },
+  "multiple containers": {
+    "message": "多种容器"
+  },
+  "for distributing images.": {
+    "message": "客户端，并提供镜像分发。"
   },
   "Consistency": {
     "message": "一致性"
   },
-  "It can ensure that the same file is consistent in peer transmission, even if the user does not perform final consistency check.": {
-    "message": "可确保同样的文件在节点传输中是一致的，即使用户不进行最终一致性校验。"
+  "Automatically isolate abnormal peers to": {
+    "message": "自动隔离异常节点"
   },
-  "Automatically isolate abnormal peers to improve download stability.": {
-    "message": "自动隔离异常节点来提高下载稳定性和成功率。"
+  "improve download stability.": {
+    "message": "来提高下载稳定性和成功率。"
+  },
+  "It can ensure that the same file is": {
+    "message": "可确保同样的文件在"
+  },
+  "consistent in peer transmission,": {
+    "message": "节点传输中是一致的，"
+  },
+  "even if the user does not perform final consistency check.": {
+    "message": "即使用户不进行最终一致性校验。"
   },
   "theme.blog.post.readMoreLabel": {
     "message": "阅读 {title} 的全文",
@@ -420,7 +441,7 @@
   "Dragonfly 1.x": {
     "message": "Dragonfly 1.x"
   },
-  "In November 2017, the Dragonfly 1.x project was open sourced,and was selected and put into production use by many internet companies.": {
+  "In November 2017, the Dragonfly 1.x project was open sourced, and was selected and put into production use by many internet companies.": {
     "message": "2017年11月，Dragonfly 1.x 项目正式开源，被许多大规模互联网公司选用并投入生产使用。"
   },
   "In October 2018, it entered the CNCF Sandbox, becoming the third project in China to enter the CNCF Sandbox.": {
@@ -435,7 +456,7 @@
   "Dragonfly 2": {
     "message": "Dragonfly 2"
   },
-  "In April 2021, taking the advantages of Dragonfly 1 .x and making a lot of optimizations for known issues. Dragonfly 2 is open source.": {
+  "In April 2021, taking the advantages of Dragonfly 1.x and making a lot of optimizations for known issues. Dragonfly 2 is open source.": {
     "message": "2021年 4月汲取 Dragonfly 1.x 的优点并针对已知问题做了大量优化。Dragonfly 2 正式开源。"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
@@ -465,7 +486,7 @@
   "Milestones": {
     "message": "里程碑"
   },
-  "Who Is": {
+  "Who is": {
     "message": "谁在"
   },
   "Using": {
@@ -473,12 +494,6 @@
   },
   "CONTACT US": {
     "message": "联系我们"
-  },
-  "as an Incubating Level Project.": {
-    "message": "托管作为孵化级项目。"
-  },
-  "(CNCF)": {
-    "message": "云原生计算机基金会"
   },
   "Isolate Abnormal Peers": {
     "message": "隔离异常节点"
@@ -495,8 +510,20 @@
   "Peer Level Control": {
     "message": "节点级别控制"
   },
-  "In addition to the speed limit for the task like many other download tools, you can also limit the speed and adjust the load limit for the peer level.": {
-    "message": "除了像许多其他下载工具针对当前下载任务的限速之外，还可以针对整个节点级别进行限速、调整负载等。"
+  "In addition to the speed limit for the task like many other download tools, you can also": {
+    "message": "除了像许多其他下载工具针对当前下载任务的限速之外，还可以针对整个节点级别进行"
+  },
+  "limit the speed": {
+    "message": "限速"
+  },
+  "and": {
+    "message": "、"
+  },
+  "adjust the load limit": {
+    "message": "调整负载"
+  },
+  "for the peer level.": {
+    "message": "等。"
   },
   "CNCF SandBox": {
     "message": "CNCF SandBox"
@@ -504,8 +531,17 @@
   "efficient, stable, secure": {
     "message": "高效、稳定、安全"
   },
-  "file distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation": {
+  "file distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the": {
     "message": "的基于 P2P 技术的文件分发和镜像加速系统，并且是云原生架构中镜像加速领域的标准解决方案以及最佳实践。现在为"
+  },
+  "Cloud Native Computing Foundation(CNCF)": {
+    "message": "云原生计算机基金会"
+  },
+  "as an": {
+    "message": "托管作为"
+  },
+  "Incubating Level Project.": {
+    "message": "孵化级项目。"
   },
   "theme.NavBar.navAriaLabel": {
     "message": "主导航",
@@ -514,5 +550,35 @@
   "theme.docs.sidebar.navAriaLabel": {
     "message": "文档侧边栏",
     "description": "The ARIA label for the sidebar navigation"
+  },
+  "Join the": {
+    "message": "加入"
+  },
+  "Community": {
+    "message": "社区"
+  },
+  "Engage with our ever-growing community to get the latest updates, product support, and more.": {
+    "message": "与我们不断发展的社区互动，获取最新更新、产品支持等。"
+  },
+  "Join our developer security community on Slack Channel.": {
+    "message": "加入我们 Slack 频道上的开发者安全社区。"
+  },
+  "Join our contributors in building the future of Dragonfly.": {
+    "message": "与我们的贡献者一起建设 Dragonfly 的未来。"
+  },
+  "Propose, discuss and debate ideas.": {
+    "message": "提出、讨论和辩论想法。"
+  },
+  "Dragonfly is a": {
+    "message": "Dragonfly 是"
+  },
+  "Efficiency": {
+    "message": "高效"
+  },
+  "Stability": {
+    "message": "稳定"
+  },
+  "Safety": {
+    "message": "安全"
   }
 }

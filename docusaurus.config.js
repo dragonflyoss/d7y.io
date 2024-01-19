@@ -76,6 +76,7 @@ const config = {
       disableSwitch: true,
     },
     navbar: {
+      hideOnScroll: true,
       title: 'Dragonfly',
       logo: {
         alt: 'Dragonfly',
@@ -125,71 +126,74 @@ const config = {
       ],
     },
     footer: {
-      style: 'dark',
       links: [
         {
-          title: 'Documentation',
           items: [
             {
-              label: 'Getting Started',
-              to: '/docs/next/',
-            },
-            {
-              label: 'Setup',
-              to: '/docs/next/setup/install/helm-charts',
-            },
-            {
-              label: 'Reference',
-              to: '/docs/next/reference/cli/dfdaemon',
-            },
-            {
-              label: 'Contribute',
-              to: '/docs/next/contribute/development-guide/development',
-            },
-            {
-              label: 'Others',
-              to: '/docs/next/others/faqs',
+              html: `
+              <a href="/" class="footer-logo-wrapper">
+                <img src="/img/logo.svg" alt="dragonfly" class="footer-logo" />
+                <b>dragonfly</b>
+              </a>
+              `,
             },
           ],
         },
         {
-          title: 'Community',
           items: [
             {
-              label: 'Slack Channel',
-              href: 'https://cloud-native.slack.com/messages/dragonfly/',
-            },
-            {
-              html: '<div class="dingtalk"> <a class="dingtalk-label">DingTalk</a> <a class="dingtalk-img" aria-label="DingTalk"><img src="https://raw.githubusercontent.com/dragonflyoss/d7y.io/main/static/img/landing/dingtalk.jpg" alt="DingTalk Group"></div>',
-            },
-            {
-              label: 'Discussion Group',
-              href: 'mailto:dragonfly-discuss@googlegroups.com',
-            },
-            {
-              label: 'Developer Group',
-              href: 'mailto:dragonfly-developers@googlegroups.com',
-            },
-            {
-              label: 'Github Discussions',
-              href: 'https://github.com/dragonflyoss/Dragonfly2/discussions',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/dragonfly_oss',
+              html: `
+                <div class="footer-content">
+                <a class="footer-items" href="/">
+                  Home
+                </a>
+                <a class="footer-items" href="/docs/next/">
+                  Docs
+                </a>
+                <a class="footer-items" href="/blog">
+                  Blog
+                </a>
+                <a class="footer-items" href="/videos/sessions/en/2023-05-02">
+                  Video
+                </a>
+              </div>`,
             },
           ],
         },
         {
-          title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
+              html: `
+              <div class="dingtalk">
+               <a class="dingtalk-label">
+                <img class="socials" src="/img/icon/footer-ding-talk.svg" alt="twitter icon" />
+               </a>
+               <a class="dingtalk-img" aria-label="DingTalk">
+                <img src="https://raw.githubusercontent.com/dragonflyoss/d7y.io/main/static/img/landing/dingtalk.jpg" alt="DingTalk Group"/>
+               </a>
+              </div>
+              `,
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/dragonflyoss/Dragonfly2',
+              html: `
+              <a href="https://twitter.com/dragonfly_oss" target="_blank">
+               <img class="socials" src="/img/icon/footer-twitter.svg" alt="youtube icon" />
+              </a>
+               `,
+            },
+            {
+              html: `
+              <a href="https://github.com/dragonflyoss/Dragonfly2" target="_blank">
+               <img class="socials" src="/img/icon/footer-github.svg" alt="github icon" />
+              </a>
+              `,
+            },
+            {
+              html: `
+              <a href="https://cloud-native.slack.com/messages/dragonfly/" target="_blank">
+               <img class="socials" src="/img/icon/footer-slack.svg" alt="linkedin icon" />
+              </a>
+              `,
             },
           ],
         },
