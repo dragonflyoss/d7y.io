@@ -313,7 +313,7 @@ export default function Home() {
                   <Link className={styles.getStartedButton} to="docs/next/">
                     GET STARTED
                   </Link>
-                  <Link className={styles.gethubButton} to="https://github.com/dragonflyoss/Dragonfly2">
+                  <Link className={styles.githubButton} to="https://github.com/dragonflyoss/Dragonfly2">
                     <img className={styles.githubIcon} src={useBaseUrl('img/icon/github.svg')} alt="button logo" />
                     <span>GITHUB</span>
                   </Link>
@@ -404,13 +404,13 @@ export default function Home() {
             </p>
           </div>
           <div className={clsx('row', styles.developmentInfo)}>
-            <img className={styles.developmentInfoImg} src={useBaseUrl('img/icon/development-milestone.svg')} />
+            <img className={styles.developmentInfoImage} src={useBaseUrl('img/icon/development-milestone.svg')} />
             <div className={styles.developmentCardWrapper}>
               <div className={styles.developmentCard}>
                 <div className={styles.developmentBox}>
                   <div className={styles.developmentTitleWrapper}>
                     <img
-                      className={styles.developmentCardImg}
+                      className={styles.developmentCardImage}
                       src={useBaseUrl('img/icon/development-dragonfly1.svg')}
                     />
                     <div className={styles.developmentCardTitle}>Dragonfly 1.x</div>
@@ -437,7 +437,7 @@ export default function Home() {
               <div className={styles.developmentCards}>
                 <div className={styles.developmentBox}>
                   <div className={styles.developmentTitleWrapper}>
-                    <img className={styles.developmentCardImg} src={useBaseUrl('img/icon/development-san-box.svg')} />
+                    <img className={styles.developmentCardImage} src={useBaseUrl('img/icon/development-san-box.svg')} />
                     <div className={styles.developmentCardTitle}>
                       <Translate> CNCF Sandbox</Translate>
                     </div>
@@ -465,7 +465,7 @@ export default function Home() {
                 <div className={styles.developmentBox}>
                   <div className={styles.developmentTitleWrapper}>
                     <img
-                      className={styles.developmentCardImg}
+                      className={styles.developmentCardImage}
                       src={useBaseUrl('img/icon/development-incubating.svg')}
                     />
                     <div className={styles.developmentCardTitle}>
@@ -494,7 +494,7 @@ export default function Home() {
                 <div className={styles.developmentBox}>
                   <div className={styles.developmentTitleWrapper}>
                     <img
-                      className={styles.developmentCardImg}
+                      className={styles.developmentCardImage}
                       src={useBaseUrl('img/icon/development-dragonfly2.svg')}
                     />
                     <div className={styles.developmentCardTitle}>

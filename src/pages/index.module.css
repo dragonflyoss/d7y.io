@@ -155,7 +155,7 @@ a {
   transition: all 0.2s ease-in-out;
 }
 
-.gethubButton {
+.githubButton {
   display: flex;
   justify-content: center;
   border-radius: 0.4rem;
@@ -167,7 +167,7 @@ a {
   font-weight: 600;
 }
 
-.gethubButton:hover {
+.githubButton:hover {
   color: #020203;
   background: #ffffff;
   border: 1px solid #020203;
@@ -180,7 +180,7 @@ a {
   filter: invert(100%);
 }
 
-.gethubButton:hover .githubIcon {
+.githubButton:hover .githubIcon {
   filter: none;
 }
 
@@ -595,7 +595,7 @@ a {
   margin: 1rem 0;
 }
 
-.developmentInfoImg {
+.developmentInfoImage {
   width: 3rem;
   padding-bottom: 1rem;
 }
@@ -694,12 +694,7 @@ a {
   padding-bottom: 1rem;
 }
 
-.developmentCardImgWrapper {
-  display: flex;
-  align-items: center;
-}
-
-.developmentCardImg {
+.developmentCardImage {
   width: 1.6rem;
   margin-right: 0.8rem;
 }
