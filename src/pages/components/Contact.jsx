@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 import ContactAnimation from '../../../static/lottie/contact.json';
 
 const Style = {
-    height: 70,
+    height: 58,
     width:'100%'
   };
 

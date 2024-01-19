@@ -30,15 +30,23 @@
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
-  --hero-border-color: rgba(0, 0, 0, 0.1);
-  --hero-subtitle-font-color: rgba(0, 0, 0, 0.6);
-  --hero-header-shew-color: #dcf9c8;
+  --ifm-menu-color: #000;
+  --hero-header-shew-color: #fcfcfc;
   --hero-description-font-color: rgba(0, 0, 0);
   --hero-mian-skew-color: #ffffff;
   --hero-user-color: #e5fbd6;
   --hero-white-color: #ffffff;
   --hero-card-content-color: #000;
-  --ifm-color-higlight: #ff5722;
+  --ifm-color-higlight: #239b56;
+  --ifm-hero-text-color: -webkit-linear-gradient(315deg, #42d392 25%, #647eff);
+  --ifm-footer-background-color: #172026;
+  --ifm-footer-title-color: #ffffff;
+  --ifm-footer-link-color: #ffffff;
+  --ifm-footer-color: #ffffff;
+  --ifm-menu-color-background-active: #e8faf0;
+  --ifm-menu-link-sublist-icon: url('../../static/img/icon/pointer.svg');
+  --ifm-card-hover-color: #d0ffda;
+  --ifm-dropdown-hover-background-color: #e8faf0;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -72,6 +80,81 @@ html[data-theme='dark'] {
     no-repeat;
 }
 
+.menu__link--active:not(.menu__link--sublist) {
+  margin-right: 1rem;
+  font-family: __Inter_332a6e ', ' __Inter_Fallback_332a6e;
+}
+
+.menu__link--sublist-caret:after {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.4rem 1.4rem;
+}
+
+.menu__caret:before {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.4rem 1.4rem;
+}
+
+.table-of-contents__link {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.footer-logo-wrapper {
+  display: inline-flex;
+  align-items: center;
+  font-family: HFPopin;
+  font-size: 1.3rem;
+  color: var(--ifm-footer-color);
+}
+
+.footer-logo {
+  width: 2rem;
+  margin-right: 0.4rem;
+}
+
+.socials {
+  width: 2rem;
+  margin-right: 0.8rem;
+  transition: opacity var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  filter: grayscale(1) invert(0.25);
+}
+
+.socials:hover {
+  filter: none;
+}
+
+.footer__col:nth-last-of-type(2) .footer__items {
+  display: flex;
+  text-align: center;
+}
+
+.footer-items:not(:last-child):after {
+  content: '·';
+  margin: 0 1rem;
+  color: #ffffff;
+}
+
+.footer__col:last-of-type .footer__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer__col:nth-last-of-type(2) .footer__item {
+  width: 100%;
+}
+
+.footer-items {
+  color: var(--ifm-footer-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 .cncf-logo {
   background: center no-repeat url('/img/cncf-color.svg');
 }
@@ -93,8 +176,6 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 .dingtalk .dingtalk-label {
   color: var(--ifm-footer-link-color);
-  line-height: 2;
-  cursor: pointer;
 }
 
 .dingtalk .dingtalk-img {
@@ -108,16 +189,28 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .navbar {
-  padding: 0.5rem 8rem;
-  height: 4.7rem;
-  box-shadow: 0 5px 8px -7px rgb(0 0 0 / 50%);
+  height: 4rem;
+  box-shadow: none;
+  position: static;
+}
+
+@media only screen and (min-width: 2049px) and (max-width: 2560px) {
+  .table-of-contents__link {
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
 }
 
 @media screen and (max-width: 1440px) {
   .navbar {
     padding: 0.5rem 3rem;
   }
+  .table-of-contents__link {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
 }
+
 @media screen and (max-width: 1200px) {
   .navbar__item {
     font-size: 0.9rem !important;
@@ -129,6 +222,11 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .navbar__title {
+  font-family: HFPopin;
+  font-size: 1.3rem;
+}
+
+b {
   font-family: HFPopin;
   font-size: 1.3rem;
 }
