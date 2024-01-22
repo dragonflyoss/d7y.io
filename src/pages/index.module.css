@@ -485,7 +485,7 @@ a {
   position: absolute;
   top: 10%;
   left: center;
-  bottom: 4%;
+  bottom: 10%;
   width: 40%;
   border-radius: 20%;
   background-image: url(../../static/img/background.svg);
@@ -494,22 +494,22 @@ a {
 
 .developmentSkew {
   position: absolute;
-  top: 10%;
-  left: 0;
-  width: 25rem;
-  height: 30rem;
-  border-radius: 10%;
+  top: 0%;
+  left: -25rem;
+  width: 50rem;
+  height: 50rem;
+  border-radius: 50%;
   background-image: url(../../static/img/background.svg);
   z-index: 2;
 }
 
 .userSkew {
   position: absolute;
-  top: 10%;
-  right: 0;
-  width: 22rem;
-  height: 32rem;
-  border-radius: 10%;
+  top: 0%;
+  right: -25rem;
+  width: 50rem;
+  height: 50rem;
+  border-radius: 50%;
   background-image: url(../../static/img/background.svg);
   z-index: 2;
 }
@@ -517,10 +517,10 @@ a {
 .communitySkew {
   position: absolute;
   left: 0;
-  bottom: 0%;
-  width: 15rem;
-  height: 20rem;
-  border-radius: 10%;
+  bottom: -25rem;
+  width: 60rem;
+  height: 50rem;
+  border-radius: 50%;
   background-image: url(../../static/img/background.svg);
   z-index: 2;
 }
@@ -819,6 +819,7 @@ a {
   margin: 0;
   position: relative;
   background-image: linear-gradient(180deg, #eefff5, #fff);
+  overflow: hidden;
 }
 
 .userWrapper {
@@ -1038,6 +1039,7 @@ a {
   margin: 0;
   background-image: linear-gradient(0deg, #eefff5, #fff);
   position: relative;
+  overflow: hidden;
 }
 
 .communityWrapper {
