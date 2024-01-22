@@ -196,7 +196,6 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 .navbar {
   height: 4rem;
   box-shadow: none;
-  /* position: static; */
 }
 
 .navbar-scrolled {
