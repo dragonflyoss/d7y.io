@@ -26,7 +26,7 @@ const config = {
       },
     },
   },
-  clientModules: [require.resolve('./src/pages/components/NavbarScroll.jsx')],
+  clientModules: [require.resolve('./src/NavbarScroll.js')],
   presets: [
     [
       'classic',

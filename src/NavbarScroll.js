@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+
+if (ExecutionEnvironment.canUseDOM) {
   function changeNavbarScroll() {
     const navbarElement = document.querySelector('.navbar');
     if (navbarElement) {
@@ -10,7 +12,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  document.addEventListener('scroll', changeNavbarScroll);
-
-  changeNavbarScroll();
-});
+  window.addEventListener('scroll', changeNavbarScroll);
+}
