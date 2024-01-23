@@ -27,8 +27,8 @@ const BackgroundAnimate = () => {
       <g className={styles.backgroundAnimation}>
         <use xlinkHref="#gentle-wave" x="48" y="0" fill="#e1feed" fillOpacity="0.79"></use>
         <use xlinkHref="#gentle-wave" x="48" y="3" fill="#b1f5ce" fillOpacity="0.79"></use>
-        <use xlinkHref="#gentle-wave" x="48" y="6" fill="#99eabb" fillOpacity="0.79"></use>
-        <use xlinkHref="#gentle-wave" x="48" y="9" fill="#85d9a8" fillOpacity="1"></use>
+        <use xlinkHref="#gentle-wave" x="48" y="0" fill="#99eabb" fillOpacity="0.79"></use>
+        <use xlinkHref="#gentle-wave" x="48" y="3" fill="#85d9a8" fillOpacity="1"></use>
       </g>
     </svg>
   );

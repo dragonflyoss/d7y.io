@@ -26,6 +26,7 @@ const config = {
       },
     },
   },
+  clientModules: [require.resolve('./src/clientModules.js')],
   presets: [
     [
       'classic',
@@ -76,7 +77,6 @@ const config = {
       disableSwitch: true,
     },
     navbar: {
-      hideOnScroll: true,
       title: 'Dragonfly',
       logo: {
         alt: 'Dragonfly',
