@@ -523,8 +523,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <div className={styles.footer}>
+      <div className={styles.container}>
         <div className={styles.userSkew}></div>
         <div className={styles.communitySkew}></div>
         <section className={clsx('row', styles.user)}>

@@ -66,16 +66,6 @@ a {
   text-decoration: none !important;
 }
 
-.container {
-  width: 100vw;
-  height: 80%;
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  transform: translate3d(-50%, -15%, 0);
-  z-index: 5;
-}
-
 .heroHeader {
   position: relative;
   height: 100%;
@@ -503,6 +493,11 @@ a {
   z-index: 2;
 }
 
+.container {
+  position: relative;
+  overflow: hidden;
+}
+
 .userSkew {
   position: absolute;
   top: 0%;
@@ -810,11 +805,6 @@ a {
 .developmentCardContent {
   line-height: 1.3rem;
   color: rgba(0, 0, 0, 0.8);
-}
-
-.footer {
-  position: relative;
-  overflow: hidden;
 }
 
 .user {
