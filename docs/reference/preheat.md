@@ -43,7 +43,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
-        "filter": "Expires&Signature",
+        "filteredQueryParams": "Expires&Signature",
         "username": "registry_username",
         "password": "registry_password",
     }
@@ -61,7 +61,7 @@ The command-line log returns the preheat job id.
     "args": {
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
-        "filter": "Expires&Signature",
+        "filteredQueryParams": "Expires&Signature",
     }
 }
 ```
@@ -112,8 +112,9 @@ Click the `ADD PREHEAT` button to create preheat task.
 **Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
 tag and the generated preheat task will be different.
 
-**Filter**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated.
-The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
+**Filtered Query Params**: By setting the filteredQueryParams parameter, you can specify
+the file type of the resource that needs to be preheated.
+The filteredQueryParams is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
 
 ![create-preheat](../resource/preheat/create-preheat.png)
 
