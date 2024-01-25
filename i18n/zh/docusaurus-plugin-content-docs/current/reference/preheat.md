@@ -41,7 +41,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
-        "filter": "Expires&Signature",
+        "filteredQueryParams": "Expires&Signature",
         "username": "registry_username",
         "password": "registry_password",
     }
@@ -59,7 +59,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "type": "image",
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
-        "filter": "Expires&Signature",
+        "filteredQueryParams": "Expires&Signature",
     }
 }
 ```
@@ -109,7 +109,7 @@ curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
 
 **Tag**: 当预热任务的 URL 相同但 Tag 不同时，会根据 Tag 进行区分，生成的预热任务也会不同。
 
-**Filter**: 通过设置 Filter 参数，可以指定需要预热的资源的文件类型，过滤器用于生成唯一的任务 ID，过滤 URL 中不必要的查询参数。
+**Filtered Query Params**: 通过设置 filteredQueryParams 参数，可以指定需要预热的资源的文件类型，过滤器用于生成唯一的任务 ID，过滤 URL 中不必要的查询参数。
 
 ![create-preheat](../resource/preheat/create-preheat.png)
 
