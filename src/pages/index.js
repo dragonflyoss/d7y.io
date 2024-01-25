@@ -523,142 +523,148 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className={clsx('row', styles.user)}>
+
+      <div className={styles.footer}>
         <div className={styles.userSkew}></div>
-        <div className={styles.userWrapper}>
-          <h1 className={styles.useTitle}>
-            <Translate>Who is</Translate>
-            <div className={styles.userTitleHighling}>
-              <Translate>Using</Translate>
-            </div>
-            <Translate>Dragonfly</Translate>
-          </h1>
-          <div className={styles.userCase}>
-            <dl className={styles.userShowCase}>
-              <div className={styles.showCaseWrapper}>
-                <h1 className={styles.showCaseContent}>
-                  <Translate>Efficiency</Translate>
-                </h1>
-              </div>
-              <div className={styles.showCaseWrapper}>
-                <h1 className={styles.showCaseContent}>
-                  <Translate>Stability</Translate>
-                </h1>
-              </div>
-              <div className={styles.showCaseWrapper}>
-                <h1 className={styles.showCaseContent}>
-                  <Translate>Safety</Translate>
-                </h1>
-              </div>
-            </dl>
-          </div>
-          <div className={clsx('row', styles.userImageBox)}>
-            {UserList.map((item, index) => {
-              return (
-                <div className={styles.imageCard} key={index}>
-                  <a href={item.herf} target="_blank" className={styles.userLink}>
-                    <img className={styles.userImage} src={useBaseUrl(item.imgURL)} alt={item.alt} />
-                    <div className={styles.userName}>{item.name}</div>
-                  </a>
-                </div>
-              );
-            })}
-            <a href="mailto:dragonfly-discuss@googlegroups.com" className={styles.contactBox}>
-              <LottieContact />
-              <div className={styles.contact}>
-                <div>CONTACT US</div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
-      <section className={clsx('row', styles.community)}>
         <div className={styles.communitySkew}></div>
-        <div className={styles.communityWrapper}>
-          <h1 className={styles.communityTitle}>
-            <Translate>Join the</Translate>
-            <div className={styles.userTitleHighling}>
-              <Translate>Community</Translate>
-            </div>
-          </h1>
-          <p className={styles.communitySubtitle}>
-            <Translate>
-              Engage with our ever-growing community to get the latest updates, product support, and more.
-            </Translate>
-          </p>
-          <div className={clsx('row', styles.communityCardInfo)}>
-            <div className={clsx('col col--4', styles.communityCardWrapper)}>
-              <div className={styles.communityCard}>
-                <div className={styles.communityContent}>
-                  <img className={styles.communityIcon} src={useBaseUrl('img/icon/community-slack.svg')} />
-                  <h3>Join Slack</h3>
-                  <p className={styles.communityText}>
-                    <Translate>Join our developer security community on Slack Channel.</Translate>
-                  </p>
-                </div>
-                <Link className={styles.communityButton} to="https://cloud-native.slack.com/messages/dragonfly/">
-                  <img
-                    className={styles.communityButtonIcon}
-                    src={useBaseUrl('img/icon/community-slack-button.svg')}
-                    alt="button logo"
-                  />
-                  Slack Channel
-                </Link>
+        <section className={clsx('row', styles.user)}>
+          <div className={styles.userWrapper}>
+            <h1 className={styles.useTitle}>
+              <Translate>Who is</Translate>
+              <div className={styles.userTitleHighling}>
+                <Translate>Using</Translate>
               </div>
-            </div>
-            <div className={clsx('col col--4', styles.communityCardWrapper)}>
-              <div className={styles.communityCard}>
-                <div className={styles.communityContent}>
-                  <img
-                    className={styles.communityIcon}
-                    src={useBaseUrl('img/icon/community-github.svg')}
-                    alt="button logo"
-                  />
-                  <h3>GitHub</h3>
-                  <p className={styles.communityText}>
-                    <Translate>Join our contributors in building the future of Dragonfly.</Translate>
-                  </p>
+              <Translate>Dragonfly</Translate>
+            </h1>
+            <div className={styles.userCase}>
+              <dl className={styles.userShowCase}>
+                <div className={styles.showCaseWrapper}>
+                  <h1 className={styles.showCaseContent}>
+                    <Translate>Efficiency</Translate>
+                  </h1>
                 </div>
-                <Link className={styles.communityButton} to="https://github.com/dragonflyoss/Dragonfly2">
-                  <img
-                    className={styles.communityButtonIcon}
-                    src={useBaseUrl('img/icon/community-github-button.svg')}
-                    alt="button logo"
-                  />
-                  Star →
-                </Link>
+                <div className={styles.showCaseWrapper}>
+                  <h1 className={styles.showCaseContent}>
+                    <Translate>Stability</Translate>
+                  </h1>
+                </div>
+                <div className={styles.showCaseWrapper}>
+                  <h1 className={styles.showCaseContent}>
+                    <Translate>Safety</Translate>
+                  </h1>
+                </div>
+              </dl>
+            </div>
+            <div className={clsx('row', styles.userImageBox)}>
+              {UserList.map((item, index) => {
+                return (
+                  <div className={styles.imageCard} key={index}>
+                    <a href={item.herf} target="_blank" className={styles.userLink}>
+                      <img className={styles.userImage} src={useBaseUrl(item.imgURL)} alt={item.alt} />
+                      <div className={styles.userName}>{item.name}</div>
+                    </a>
+                  </div>
+                );
+              })}
+              <a href="mailto:dragonfly-discuss@googlegroups.com" className={styles.contactBox}>
+                <LottieContact />
+                <div className={styles.contact}>
+                  <div>CONTACT US</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className={clsx('row', styles.community)}>
+          <div className={styles.communityWrapper}>
+            <h1 className={styles.communityTitle}>
+              <Translate>Join the</Translate>
+              <div className={styles.userTitleHighling}>
+                <Translate>Community</Translate>
               </div>
-            </div>
-            <div className={clsx('col col--4', styles.communityCardWrapper)}>
-              <div className={styles.communityCard}>
-                <div className={styles.communityContent}>
-                  <img className={styles.communityIcon} src={useBaseUrl('img/icon/community-problem.svg')} />
-                  <h3>Dragonfly Improvement Proposals</h3>
-                  <p className={styles.communityText}>
-                    <Translate>Propose, discuss and debate ideas.</Translate>
-                  </p>
-                </div>
-                <div className={clsx('row', styles.communityButtonContain)}>
-                  <Link className={styles.communityButton} to="https://github.com/dragonflyoss/Dragonfly2/issues">
+            </h1>
+            <p className={styles.communitySubtitle}>
+              <Translate>
+                Engage with our ever-growing community to get the latest updates, product support, and more.
+              </Translate>
+            </p>
+            <div className={clsx('row', styles.communityCardInfo)}>
+              <div className={clsx('col col--4', styles.communityCardWrapper)}>
+                <div className={styles.communityCard}>
+                  <div className={styles.communityContent}>
+                    <img className={styles.communityIcon} src={useBaseUrl('img/icon/community-slack.svg')} />
+                    <h3>Join Slack</h3>
+                    <p className={styles.communityText}>
+                      <Translate>Join our developer security community on Slack Channel.</Translate>
+                    </p>
+                  </div>
+                  <Link className={styles.communityButton} to="https://cloud-native.slack.com/messages/dragonfly/">
                     <img
                       className={styles.communityButtonIcon}
-                      src={useBaseUrl('img/icon/community-issues-button.svg')}
+                      src={useBaseUrl('img/icon/community-slack-button.svg')}
+                      alt="button logo"
                     />
-                    Issues
+                    Slack Channel
                   </Link>
-                  <Link className={styles.communityButton} to="https://github.com/dragonflyoss/Dragonfly2/discussions">
+                </div>
+              </div>
+              <div className={clsx('col col--4', styles.communityCardWrapper)}>
+                <div className={styles.communityCard}>
+                  <div className={styles.communityContent}>
+                    <img
+                      className={styles.communityIcon}
+                      src={useBaseUrl('img/icon/community-github.svg')}
+                      alt="button logo"
+                    />
+                    <h3>GitHub</h3>
+                    <p className={styles.communityText}>
+                      <Translate>Join our contributors in building the future of Dragonfly.</Translate>
+                    </p>
+                  </div>
+                  <Link className={styles.communityButton} to="https://github.com/dragonflyoss/Dragonfly2">
                     <img
                       className={styles.communityButtonIcon}
-                      src={useBaseUrl('img/icon/community-discussions-button.svg')}
+                      src={useBaseUrl('img/icon/community-github-button.svg')}
+                      alt="button logo"
                     />
-                    Discussions
+                    Star →
                   </Link>
+                </div>
+              </div>
+              <div className={clsx('col col--4', styles.communityCardWrapper)}>
+                <div className={styles.communityCard}>
+                  <div className={styles.communityContent}>
+                    <img className={styles.communityIcon} src={useBaseUrl('img/icon/community-problem.svg')} />
+                    <h3>Dragonfly Improvement Proposals</h3>
+                    <p className={styles.communityText}>
+                      <Translate>Propose, discuss and debate ideas.</Translate>
+                    </p>
+                  </div>
+                  <div className={clsx('row', styles.communityButtonContain)}>
+                    <Link className={styles.communityButton} to="https://github.com/dragonflyoss/Dragonfly2/issues">
+                      <img
+                        className={styles.communityButtonIcon}
+                        src={useBaseUrl('img/icon/community-issues-button.svg')}
+                      />
+                      Issues
+                    </Link>
+                    <Link
+                      className={styles.communityButton}
+                      to="https://github.com/dragonflyoss/Dragonfly2/discussions"
+                    >
+                      <img
+                        className={styles.communityButtonIcon}
+                        src={useBaseUrl('img/icon/community-discussions-button.svg')}
+                      />
+                      Discussions
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </Layout>
   );
 }
