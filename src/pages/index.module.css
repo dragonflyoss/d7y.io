@@ -66,16 +66,6 @@ a {
   text-decoration: none !important;
 }
 
-.container {
-  width: 100vw;
-  height: 80%;
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  transform: translate3d(-50%, -15%, 0);
-  z-index: 5;
-}
-
 .heroHeader {
   position: relative;
   height: 100%;
@@ -494,21 +484,26 @@ a {
 
 .developmentSkew {
   position: absolute;
-  top: 0%;
-  left: -25rem;
-  width: 50rem;
-  height: 50rem;
+  top: -10%;
+  left: -35%;
+  width: 80%;
+  height: 100%;
   border-radius: 50%;
   background-image: url(../../static/img/background.svg);
   z-index: 2;
 }
 
+.container {
+  position: relative;
+  overflow: hidden;
+}
+
 .userSkew {
   position: absolute;
   top: 0%;
-  right: -25rem;
-  width: 50rem;
-  height: 50rem;
+  right: -35%;
+  width: 80%;
+  height: 70%;
   border-radius: 50%;
   background-image: url(../../static/img/background.svg);
   z-index: 2;
@@ -517,9 +512,9 @@ a {
 .communitySkew {
   position: absolute;
   left: 0;
-  bottom: -25rem;
-  width: 60rem;
-  height: 50rem;
+  bottom: -40%;
+  width: 50%;
+  height: 100%;
   border-radius: 50%;
   background-image: url(../../static/img/background.svg);
   z-index: 2;
@@ -819,7 +814,6 @@ a {
   margin: 0;
   position: relative;
   background-image: linear-gradient(180deg, #eefff5, #fff);
-  overflow: hidden;
 }
 
 .userWrapper {
