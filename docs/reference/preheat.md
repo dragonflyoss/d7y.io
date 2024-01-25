@@ -112,7 +112,8 @@ Click the `ADD PREHEAT` button to create preheat task.
 **Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
 tag and the generated preheat task will be different.
 
-**Filtered Query Params**: By setting the filteredQueryParams parameter, you can specify the file type of the resource that needs to be preheated.
+**Filtered Query Params**: By setting the filteredQueryParams parameter, you can specify 
+the file type of the resource that needs to be preheated.
 The filteredQueryParams is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
 
 ![create-preheat](../resource/preheat/create-preheat.png)
