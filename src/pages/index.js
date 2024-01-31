@@ -215,7 +215,7 @@ export default function Home() {
       cardTitle: <Translate>Exception isolation</Translate>,
       cardContent: (
         <Translate>
-          Isolate exceptions based on Service level, Peer level and Task level to improve download stability..
+          Isolate exceptions based on Service level, Peer level and Task level to improve download stability.
         </Translate>
       ),
     },

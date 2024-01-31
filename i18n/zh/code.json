@@ -260,7 +260,7 @@
   "Exception isolation": {
     "message": "异常隔离"
   },
-  "Isolate exceptions based on Service level, Peer level and Task level to improve download stability..": {
+  "Isolate exceptions based on Service level, Peer level and Task level to improve download stability.": {
     "message": "通过 Service、Peer 以及 Task 三个级别自动隔离异常提高下载稳定性。"
   },
   "Ecosystem": {
