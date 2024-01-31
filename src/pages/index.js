@@ -188,94 +188,44 @@ export default function Home() {
 
   const FeaturesList = [
     {
-      imag: 'img/icon/features-file-distribution.svg',
-      cardTitle: <Translate>P2P File Distribution</Translate>,
+      cardTitle: <Translate>P2P technology</Translate>,
       cardContent: (
-        <>
-          <Translate>Use P2P technology for file transfer,</Translate>
-          <span className={styles.featuresHighlight}>
-            <Translate>improve download efficiency, and save bandwidth across IDC.</Translate>
-          </span>
-        </>
+        <Translate>Based on P2P technology, use the idle bandwidth of Peer to improve download speed.</Translate>
       ),
     },
     {
-      imag: 'img/icon/features-noninvasive.svg',
-      cardTitle: <Translate>Noninvasive</Translate>,
+      cardTitle: <Translate>Non-invasive</Translate>,
       cardContent: (
-        <>
-          <Translate>Supports</Translate>
-          <span className={styles.featuresHighlight}>
-            <Translate>multiple containers</Translate>
-          </span>
-          <Translate>for distributing images.</Translate>
-        </>
+        <Translate>
+          Non-intrusive support for multiple container runtimes, download tools, AI infrastructure, etc.
+        </Translate>
       ),
     },
     {
-      imag: 'img/icon/features-isolate-abnormal.svg',
-      cardTitle: <Translate>Isolate Abnormal Peers</Translate>,
-      cardContent: (
-        <>
-          <Translate>Automatically isolate abnormal peers to</Translate>
-          <span className={styles.featuresHighlight}>
-            <Translate>improve download stability.</Translate>
-          </span>
-        </>
-      ),
+      cardTitle: <Translate>Peer configuration</Translate>,
+      cardContent: <Translate>Load limit, concurrent limit, traffic limit, etc. can be configured.</Translate>,
     },
     {
-      imag: 'img/icon/features-consistency.svg',
       cardTitle: <Translate>Consistency</Translate>,
       cardContent: (
-        <>
-          <Translate>It can ensure that the same file is</Translate>
-          <span className={styles.featuresHighlight}>
-            <Translate>consistent in peer transmission,</Translate>
-          </span>
-          <Translate>even if the user does not perform final consistency check.</Translate>
-        </>
+        <Translate>Ensures downloaded files are consistent even if the user does not check for consistency.</Translate>
       ),
     },
     {
-      imag: 'img/icon/features-ecosystem.svg',
+      cardTitle: <Translate>Exception isolation</Translate>,
+      cardContent: (
+        <Translate>
+          Isolate exceptions based on Service level, Peer level and Task level to improve download stability.
+        </Translate>
+      ),
+    },
+    {
       cardTitle: <Translate>Ecosystem</Translate>,
       cardContent: (
-        <>
-          <a href="https://goharbor.io/" className={styles.textLink}>
-            Harbor
-          </a>
-          <Translate>
-            can distribute and preheat images based on the Dragonfly. if image acceleration based on
-          </Translate>
-          <a href="https://nydus.dev/" className={styles.textLink}>
-            Nydus
-          </a>
-          <Translate>or</Translate>
-          <a href=" https://github.com/containerd/stargz-snapshotter" className={styles.textLink}>
-            eStargz
-          </a>
-          <Translate>, Dragonfly can be used to distribute data.</Translate>
-        </>
-      ),
-    },
-    {
-      imag: 'img/icon/features-control.svg',
-      cardTitle: <Translate>Peer Level Control</Translate>,
-      cardContent: (
-        <>
-          <Translate>
-            In addition to the speed limit for the task like many other download tools, you can also
-          </Translate>
-          <span className={styles.featuresHighlight}>
-            <Translate>limit the speed</Translate>
-          </span>
-          <Translate>and</Translate>
-          <span className={styles.featuresHighlight}>
-            <Translate>adjust the load limit</Translate>
-          </span>
-          <Translate>for the peer level.</Translate>
-        </>
+        <Translate>
+          Provides simple integration with AI infrastructure, container runtimes, container registry, download
+          tools,etc.
+        </Translate>
       ),
     },
   ];
@@ -365,17 +315,13 @@ export default function Home() {
           <div className={clsx('row', styles.featuresCardWrapper)}>
             {FeaturesList.map((item, index) => {
               return (
-                <div className={clsx('col col--4', styles.featuresCardInfoWrapper)} key={index}>
-                  <div className={styles.featuresCardInfo}>
-                    <div className={styles.featuresImageWrapper}>
-                      <img className={styles.featuresImage} src={useBaseUrl(item.imag)} />
-                      <h2 className={styles.featuresCardTitle}>{item.cardTitle}</h2>
-                    </div>
-                    <span className={styles.featuresCardContent}>{item.cardContent}</span>
-                  </div>
+                <div className={clsx('col col--3', styles.featuresInfoWrapper)} key={index}>
+                  <h2 className={styles.featuresCardTitle}>{item.cardTitle}</h2>
+                  <span className={styles.featuresCardContent}>{item.cardContent}</span>
                 </div>
               );
             })}
+            <img className={styles.featuresBackground} src={useBaseUrl('img/features.svg')}></img>
           </div>
         </div>
       </main>
@@ -417,14 +363,13 @@ export default function Home() {
                     <div className={styles.developmentCardTitle}>Dragonfly 1.x</div>
                   </div>
                   <div className={styles.developmentCardContent}>
-                    <Translate>
-                      In November 2017, the Dragonfly 1.x project was open sourced, and was selected and put into
-                      production use by many internet companies.
-                    </Translate>
+                    <Translate>v1.x was open source and used in production environments by many companies.</Translate>
                   </div>
                 </div>
                 <div className={styles.developmentCardYear}>
-                  <span className={styles.developmentCardMoon}>November</span>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>November</Translate>
+                  </span>
                   <h2>2017</h2>
                 </div>
               </div>
@@ -444,14 +389,13 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles.developmentCardContent}>
-                    <Translate>
-                      In October 2018, it entered the CNCF Sandbox, becoming the third project in China to enter the
-                      CNCF Sandbox.
-                    </Translate>
+                    <Translate>Dragonfly joined the CNCF as a sandbox project.</Translate>
                   </div>
                 </div>
                 <div className={styles.developmentCardYear}>
-                  <span className={styles.developmentCardMoon}>October</span>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>October</Translate>
+                  </span>
                   <h2>2018</h2>
                 </div>
               </div>
@@ -475,12 +419,14 @@ export default function Home() {
                   </div>
                   <div className={styles.developmentCardContent}>
                     <Translate>
-                      In April 2020, the CNCF TOC voted to accept Dragonfly as an official entry into CNCF Incubating.
+                      The CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an Incubating Project.
                     </Translate>
                   </div>
                 </div>
                 <div className={styles.developmentCardYear}>
-                  <span className={styles.developmentCardMoon}>April</span>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>April</Translate>
+                  </span>
                   <h2>2020</h2>
                 </div>
               </div>
@@ -503,14 +449,13 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles.developmentCardContent}>
-                    <Translate>
-                      In April 2021, taking the advantages of Dragonfly 1.x and making a lot of optimizations for known
-                      issues. Dragonfly 2 is open source.
-                    </Translate>
+                    <Translate>v2.0 was released after architectural optimization and code refactoring.</Translate>
                   </div>
                 </div>
                 <div className={styles.developmentCardYear}>
-                  <span className={styles.developmentCardMoon}>April</span>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>April</Translate>
+                  </span>
                   <h2>2021</h2>
                 </div>
               </div>

@@ -52,6 +52,7 @@
   --ifm-menu-link-sublist-icon: url('../../static/img/icon/pointer.svg');
   --ifm-card-hover-color: #d0ffda;
   --ifm-dropdown-hover-background-color: #e8faf0;
+  --ifm-navbar-height: 4.2rem;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -201,7 +202,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 .navbar-scrolled {
   transition: background-color 0.3s;
   background-color: rgb(23 137 72);
-  height: 4.8rem;
+  height: 4.6rem;
 }
 
 .navbar-scrolled .navbar__title {
