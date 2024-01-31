@@ -230,50 +230,44 @@
     "message": "正在获取新的搜索结果...",
     "description": "The paragraph for fetching new search results"
   },
-  "Ecosystem": {
-    "message": "生态"
+  "P2P technology": {
+    "message": "P2P 技术"
   },
-  "P2P File Distribution": {
-    "message": "基于 P2P 的文件分发"
+  "Based on P2P technology, use the idle bandwidth of Peer to improve download speed.": {
+    "message": "通过利用 P2P 技术进行文件传输，它能最大限度地利用每个 Peer 的带宽资源。提高下载效率，并节省大量跨机房带宽，尤其是昂贵的跨境带宽。"
   },
-  "Use P2P technology for file transfer,": {
-    "message": "利用 P2P 技术进行文件传输"
+  "Non-invasive": {
+    "message": "非侵入式"
   },
-  "improve download efficiency, and save bandwidth across IDC.": {
-    "message": "提高下载效率，并且节省跨机房带宽。"
+  "Non-intrusive support for multiple container runtimes, download tools, AI infrastructure, etc.": {
+    "message": "可非侵入式支持多种容器运行时、文件下载工具以及 AI 基础设施等。"
   },
-  "IDC.": {
-    "message": "机房带宽。"
+  "节点级别配置": {
+    "message": "可动态配置节点级别负载、并发以及限流等能力。"
   },
-  "Noninvasive": {
-    "message": "非侵入式接入"
+  "Peer configuration": {
+    "message": "节点级别配置"
   },
-  "Supports": {
-    "message": "可以非侵入式的接入"
-  },
-  "multiple containers": {
-    "message": "多种容器"
-  },
-  "for distributing images.": {
-    "message": "客户端，并提供镜像分发。"
+  "Load limit, concurrent limit, traffic limit, etc. can be configured.": {
+    "message": "来提高下载稳定性和成功率。"
   },
   "Consistency": {
     "message": "一致性"
   },
-  "Automatically isolate abnormal peers to": {
-    "message": "自动隔离异常节点"
+  "Ensures downloaded files are consistent even if the user does not check for consistency.": {
+    "message": "可确保下载的文件是一致的，即使用户不进行最终一致性校验。"
   },
-  "improve download stability.": {
-    "message": "来提高下载稳定性和成功率。"
+  "Exception isolation": {
+    "message": "异常隔离"
   },
-  "It can ensure that the same file is": {
-    "message": "可确保同样的文件在"
+  "Isolate exceptions based on Service level, Peer level and Task level to improve download stability..": {
+    "message": "通过 Service、Peer 以及 Task 三个级别自动隔离异常提高下载稳定性。"
   },
-  "consistent in peer transmission,": {
-    "message": "节点传输中是一致的，"
+  "Ecosystem": {
+    "message": "生态"
   },
-  "even if the user does not perform final consistency check.": {
-    "message": "即使用户不进行最终一致性校验。"
+  "Provides simple integration with AI infrastructure, container runtimes, container registry, download tools,etc.": {
+    "message": "跟 AI 基础设施、容器镜像以及文件分发等生态项目都有简单的集成方案。"
   },
   "theme.blog.post.readMoreLabel": {
     "message": "阅读 {title} 的全文",
@@ -441,23 +435,32 @@
   "Dragonfly 1.x": {
     "message": "Dragonfly 1.x"
   },
-  "In November 2017, the Dragonfly 1.x project was open sourced, and was selected and put into production use by many internet companies.": {
-    "message": "2017年11月，Dragonfly 1.x 项目正式开源，被许多大规模互联网公司选用并投入生产使用。"
+  "v1.x was open source and used in production environments by many companies.": {
+    "message": "Dragonfly 1.x 项目正式开源，被许多大规模互联网公司选用并投入生产使用。"
   },
-  "In October 2018, it entered the CNCF Sandbox, becoming the third project in China to enter the CNCF Sandbox.": {
-    "message": "2018年10月，正式进入 CNCF Sandbox，成为中国第三个进入CNCF Sandbox 项目。"
+  "November": {
+    "message": "11月"
+  },
+  "Dragonfly joined the CNCF as a sandbox project.": {
+    "message": "正式进入 CNCF Sandbox，成为中国第三个进入CNCF Sandbox 项目。"
+  },
+  "October": {
+    "message": "10月"
   },
   "CNCF Incubating": {
     "message": "CNCF Incubating"
   },
-  "In April 2020, the CNCF TOC voted to accept Dragonfly as an official entry into CNCF Incubating.": {
-    "message": "2020年4月由 CNCF TOC 投票决定接受 Dragonfly 正式进入。CNCF Incubating。"
+  "The CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an Incubating Project.": {
+    "message": "CNCF TOC 投票决定接受 Dragonfly 正式进入。CNCF Incubating。"
+  },
+  "April": {
+    "message": "4月"
   },
   "Dragonfly 2": {
     "message": "Dragonfly 2"
   },
-  "In April 2021, taking the advantages of Dragonfly 1.x and making a lot of optimizations for known issues. Dragonfly 2 is open source.": {
-    "message": "2021年 4月汲取 Dragonfly 1.x 的优点并针对已知问题做了大量优化。Dragonfly 2 正式开源。"
+  "v2.0 was released after architectural optimization and code refactoring.": {
+    "message": "在保持 Dragonfly1.x 原有核心能力的基础上，在系统架构、产品能力、使用场景等几大方向上进行了全面升级。"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
     "message": "Close navigation bar",
@@ -494,39 +497,6 @@
   },
   "CONTACT US": {
     "message": "联系我们"
-  },
-  "Isolate Abnormal Peers": {
-    "message": "隔离异常节点"
-  },
-  "can distribute and preheat images based on the Dragonfly. if image acceleration based on": {
-    "message": "可以基于 Dragonfly 进行镜像分发以及预热。 镜像加速项目"
-  },
-  "or": {
-    "message": "和"
-  },
-  ", Dragonfly can be used to distribute data.": {
-    "message": "，可以在容器运行时使用 Dragonfly 进行数据分发。"
-  },
-  "Peer Level Control": {
-    "message": "节点级别控制"
-  },
-  "In addition to the speed limit for the task like many other download tools, you can also": {
-    "message": "除了像许多其他下载工具针对当前下载任务的限速之外，还可以针对整个节点级别进行"
-  },
-  "limit the speed": {
-    "message": "限速"
-  },
-  "and": {
-    "message": "、"
-  },
-  "adjust the load limit": {
-    "message": "调整负载"
-  },
-  "for the peer level.": {
-    "message": "等。"
-  },
-  "CNCF SandBox": {
-    "message": "CNCF SandBox"
   },
   "efficient, stable, secure": {
     "message": "高效、稳定、安全"
