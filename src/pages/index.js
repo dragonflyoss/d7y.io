@@ -190,42 +190,70 @@ export default function Home() {
     {
       cardTitle: <Translate>P2P technology</Translate>,
       cardContent: (
-        <Translate>Based on P2P technology, use the idle bandwidth of Peer to improve download speed.</Translate>
+        <>
+          <Translate>Based on P2P technology, use the idle bandwidth of Peer to</Translate>
+          <span className={styles.featuresHighlight}>
+            <Translate>improve download speed.</Translate>
+          </span>
+        </>
       ),
     },
     {
       cardTitle: <Translate>Non-invasive</Translate>,
       cardContent: (
-        <Translate>
-          Non-intrusive support for multiple container runtimes, download tools, AI infrastructure, etc.
-        </Translate>
+        <>
+          <Translate>Non-intrusive support for</Translate>
+          <span className={styles.featuresHighlight}>
+            <Translate>multiple container runtimes, download tools, AI infrastructure,</Translate>
+          </span>
+          <Translate>etc.</Translate>
+        </>
       ),
     },
     {
       cardTitle: <Translate>Peer configuration</Translate>,
-      cardContent: <Translate>Load limit, concurrent limit, traffic limit, etc. can be configured.</Translate>,
+      cardContent: (
+        <>
+          <span className={styles.featuresInitialHighlight}>
+            <Translate>Load limit, concurrent limit, traffic limit,</Translate>
+          </span>
+          <Translate>etc. can be configured.</Translate>
+        </>
+      ),
     },
     {
       cardTitle: <Translate>Consistency</Translate>,
       cardContent: (
-        <Translate>Ensures downloaded files are consistent even if the user does not check for consistency.</Translate>
+        <>
+          <Translate>Ensures downloaded files are</Translate>
+          <span className={styles.featuresHighlight}>
+            <Translate>consistent</Translate>
+          </span>
+          <Translate>even if the user does not check for consistency.</Translate>
+        </>
       ),
     },
     {
       cardTitle: <Translate>Exception isolation</Translate>,
       cardContent: (
-        <Translate>
-          Isolate exceptions based on Service level, Peer level and Task level to improve download stability.
-        </Translate>
+        <>
+          <span className={styles.featuresInitialHighlight}>
+            <Translate>Isolate exceptions</Translate>
+          </span>
+          <Translate>based on Service level, Peer level and Task level to improve download stability.</Translate>
+        </>
       ),
     },
     {
       cardTitle: <Translate>Ecosystem</Translate>,
       cardContent: (
-        <Translate>
-          Provides simple integration with AI infrastructure, container runtimes, container registry, download
-          tools,etc.
-        </Translate>
+        <>
+          <Translate>Provides simple integration with</Translate>
+          <span className={styles.featuresHighlight}>
+            <Translate>AI infrastructure, container runtimes, container registry, download tools,</Translate>
+          </span>
+          <Translate> etc.</Translate>
+        </>
       ),
     },
   ];
@@ -316,7 +344,7 @@ export default function Home() {
             {FeaturesList.map((item, index) => {
               return (
                 <div className={clsx('col col--3', styles.featuresInfoWrapper)} key={index}>
-                  <h2 className={styles.featuresCardTitle}>{item.cardTitle}</h2>
+                  <div className={styles.featuresCardTitle}>{item.cardTitle}</div>
                   <span className={styles.featuresCardContent}>{item.cardContent}</span>
                 </div>
               );

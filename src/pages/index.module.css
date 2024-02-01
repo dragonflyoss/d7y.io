@@ -509,20 +509,20 @@ a {
   background: linear-gradient(
     180deg,
     #85d9a8,
-    #90e4b4 15.73%,
-    #99eabb 29.02%,
-    #a5f1c5 40.13%,
-    #b1f5ce 49.33%,
-    #b8f8d3 56.87%,
-    #c8fadd 63.04%,
-    #d5fde6 68.08%,
-    #e1feed 72.27%,
-    #e8fff2 75.87%,
-    #f0fff6 79.16%,
-    #f6fffa 82.38%,
-    #f9fffb 85.81%,
-    #fbfffc 89.71%,
-    #fdfffe 94.35%,
+    #99eabc 15.73%,
+    #b0f9cf 29.02%,
+    #c7fadd 40.13%,
+    #d9fbe8 49.33%,
+    #e5fff0 56.87%,
+    #f0fff7 63.04%,
+    #f3fff9 68.08%,
+    #f6fffa 72.27%,
+    #f7fffb 75.87%,
+    #f7fffb 79.16%,
+    #f7fffb 82.38%,
+    #fbfffd 85.81%,
+    #fbfffd 89.71%,
+    #fbfffd 94.35%,
     #fff0
   );
 }
@@ -630,51 +630,69 @@ a {
   justify-content: center;
   position: relative;
   align-items: center;
-  padding: 3rem;
+  padding: 7rem 0rem;
+  margin-top: 1rem;
 }
 
 .featuresBackground {
-  width: 36rem;
-  height: 36rem;
+  width: 34rem;
+  height: 34rem;
+}
+
+.featuresInfoWrapper {
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow:
+    2px 5px 20px 0px rgba(0, 0, 0, 0.1),
+    6px 6px 10px -5px rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.4rem;
 }
 
 .featuresInfoWrapper:nth-child(1) {
   position: absolute;
-  top: 28%;
-  left: 4rem;
-  text-align: center;
+  top: 29%;
+  left: 0;
 }
+
 .featuresInfoWrapper:nth-child(2) {
   position: absolute;
-  top: 0;
-  text-align: center;
+  bottom: 79%;
 }
 
 .featuresInfoWrapper:nth-child(3) {
   position: absolute;
-  top: 28%;
-  right: 4rem;
-  text-align: center;
+  top: 29%;
+  right: 0;
 }
 
 .featuresInfoWrapper:nth-child(4) {
   position: absolute;
-  top: 67%;
-  left: 4rem;
-  text-align: center;
+  top: 62%;
+  left: 0;
 }
 
 .featuresInfoWrapper:nth-child(5) {
   position: absolute;
-  bottom: 0;
-  text-align: center;
+  top: 79%;
 }
 
 .featuresInfoWrapper:nth-child(6) {
   position: absolute;
-  top: 67%;
-  right: 4rem;
-  text-align: center;
+  top: 62%;
+  right: 0;
+}
+
+.featuresHighlight {
+  color: var(--ifm-color-higlight);
+  margin: 0 0.3rem;
+  font-weight: 600;
+}
+
+.featuresInitialHighlight {
+  color: var(--ifm-color-higlight);
+  margin: 0 0.3rem 0 0;
+  font-weight: 600;
 }
 
 .featuresImageBackground {
@@ -687,10 +705,11 @@ a {
 
 .featuresCardTitle {
   font-size: 1.2rem;
+  padding-bottom: 0.4rem;
   margin-bottom: 0.4rem;
   font-weight: 600;
-  height: 1.5rem;
-  line-height: 1.5rem;
+  position: relative;
+  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
 }
 
 .featuresCardContent {
