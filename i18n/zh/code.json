@@ -233,41 +233,68 @@
   "P2P technology": {
     "message": "P2P 技术"
   },
-  "Based on P2P technology, use the idle bandwidth of Peer to improve download speed.": {
-    "message": "通过利用 P2P 技术进行文件传输，它能最大限度地利用每个 Peer 的带宽资源。提高下载效率，并节省大量跨机房带宽，尤其是昂贵的跨境带宽。"
+  "Based on P2P technology, use the idle bandwidth of Peer to": {
+    "message": "通过利用 P2P 技术进行文件传输，它能最大限度地利用每个 Peer 的带宽资源。"
+  },
+  "improve download speed.": {
+    "message": "提高下载效率，并节省大量跨机房带宽，尤其是昂贵的跨境带宽。"
   },
   "Non-invasive": {
     "message": "非侵入式"
   },
-  "Non-intrusive support for multiple container runtimes, download tools, AI infrastructure, etc.": {
-    "message": "可非侵入式支持多种容器运行时、文件下载工具以及 AI 基础设施等。"
+  "Non-intrusive support for": {
+    "message": "可非侵入式支持"
   },
-  "节点级别配置": {
-    "message": "可动态配置节点级别负载、并发以及限流等能力。"
+  "multiple container runtimes, download tools, AI infrastructure,": {
+    "message": "多种容器运行时、文件下载工具以及 AI 基础设施"
+  },
+  "etc.": {
+    "message": "等。"
   },
   "Peer configuration": {
     "message": "节点级别配置"
   },
-  "Load limit, concurrent limit, traffic limit, etc. can be configured.": {
-    "message": "来提高下载稳定性和成功率。"
+  "Load": {
+    "message": "可动态配置"
+  },
+  "Load limit, concurrent limit, traffic limit,": {
+    "message": "节点级别负载、并发以及限流"
+  },
+  "etc. can be configured.": {
+    "message": "等能力。"
   },
   "Consistency": {
     "message": "一致性"
   },
-  "Ensures downloaded files are consistent even if the user does not check for consistency.": {
-    "message": "可确保下载的文件是一致的，即使用户不进行最终一致性校验。"
+  "Ensures downloaded files are": {
+    "message": "可确保下载的文件是"
+  },
+  "consistent": {
+    "message": "一致的，"
+  },
+  "even if the user does not check for consistency.": {
+    "message": "即使用户不进行最终一致性校验。"
   },
   "Exception isolation": {
     "message": "异常隔离"
   },
-  "Isolate exceptions based on Service level, Peer level and Task level to improve download stability.": {
-    "message": "通过 Service、Peer 以及 Task 三个级别自动隔离异常提高下载稳定性。"
+  "Isolate exceptions": {
+    "message": "通过 Service、Peer 以及 Task 三个级别"
+  },
+  "based on Service level, Peer level and Task level to improve download stability.": {
+    "message": "自动隔离异常提高下载稳定性。"
   },
   "Ecosystem": {
     "message": "生态"
   },
-  "Provides simple integration with AI infrastructure, container runtimes, container registry, download tools,etc.": {
-    "message": "跟 AI 基础设施、容器镜像以及文件分发等生态项目都有简单的集成方案。"
+  "Provides simple integration with": {
+    "message": "跟"
+  },
+  "AI infrastructure, container runtimes, container registry, download tools,": {
+    "message": "AI 基础设施、容器镜像以及文件分发"
+  },
+  " etc.": {
+    "message": "等生态项目都有简单的集成方案。"
   },
   "theme.blog.post.readMoreLabel": {
     "message": "阅读 {title} 的全文",
