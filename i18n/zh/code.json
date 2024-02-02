@@ -469,7 +469,7 @@
     "message": "11月"
   },
   "Dragonfly joined the CNCF as a sandbox project.": {
-    "message": "正式进入 CNCF Sandbox，成为中国第三个进入CNCF Sandbox 项目。"
+    "message": "正式进入 CNCF Sandbox，成为中国第三个进入 CNCF Sandbox 项目。"
   },
   "October": {
     "message": "10月"
@@ -478,7 +478,7 @@
     "message": "CNCF Incubating"
   },
   "The CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an Incubating Project.": {
-    "message": "CNCF TOC 投票决定接受 Dragonfly 正式进入。CNCF Incubating。"
+    "message": "由 CNCF TOC 投票决定接受 Dragonfly 正式进入 CNCF Incubating。"
   },
   "April": {
     "message": "4月"
@@ -487,7 +487,7 @@
     "message": "Dragonfly 2"
   },
   "v2.0 was released after architectural optimization and code refactoring.": {
-    "message": "在保持 Dragonfly1.x 原有核心能力的基础上，在系统架构、产品能力、使用场景等几大方向上进行了全面升级。"
+    "message": "经过系统架构、产品能力、使用场景等几大方向上进行升级后发布 Dragonfly 2 。"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
     "message": "Close navigation bar",
