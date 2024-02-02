@@ -22,13 +22,17 @@ Dragonfly 是一款基于 P2P 技术的文件分发和镜像加速系统，它�
 
 ## 里程碑
 
-自 17 年开源以来，Dragonfly 被许多大规模互联网公司选用并投入生产使用。并在 18 年 10 月正式进入 CNCF，成为中国第三个成为 CNCF Sandbox 的项目。2020 年 4 月，CNCF 技术监督委员会（TOC）投票决定接受 Dragonfly 成为 CNCF Incubating 项目。Dragonfly2 基于 [Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) 演进而来，在保持 Dragonfly 1.x 原有核心能力的基础上，对系统架构、产品能力、使用场景等几大方向进行全面升级后发布 Dragonfly 2。
+自 17 年开源以来，Dragonfly 被许多大规模互联网公司选用并投入生产使用。并在 18 年 10 月正式进入 CNCF，成为中国第三个成为 CNCF Sandbox 的项目。2020 年 4 月，
+CNCF 技术监督委员会（TOC）投票决定接受 Dragonfly 成为 CNCF Incubating 项目。
+Dragonfly2 基于 [Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) 演进而来，在保持 Dragonfly 1.x 原有核心能力的基础上，
+对系统架构、产品能力、使用场景等几大方向进行全面升级后发布 Dragonfly 2。
 
 ![milestone](./resource/getting-started/milestone.jpeg)
 
 ## 架构
 
-Dragonfly 架构主要分为四部分 Manager、Scheduler、Seed Peer 以及 Peer 各司其职组成 P2P 下载网络。详细内容可以参考[架构文档](./concepts/terminology/architecture)， 下面是各模块功能：
+Dragonfly 架构主要分为四部分 Manager、Scheduler、Seed Peer 以及 Peer 各司其职组成 P2P 下载网络。
+详细内容可以参考[架构文档](./concepts/terminology/architecture)， 下面是各模块功能：
 
 - **Manager**： Manager 在多 P2P 集群部署的时候扮演管理者的角色。主要提供动态配置管理以及数据收集等功能。也包含了前端控制台，方便用户进行可视化操作集群。
 - **Scheduler**： 为当前下载节点寻找一组最优父节点。在适当时候触发 Seed Peer 进行回源下载或让 Peer 进行回源下载。
@@ -39,6 +43,10 @@ Dragonfly 架构主要分为四部分 Manager、Scheduler、Seed Peer 以及 Pee
 
 ## 怎么运行的
 
-当下载一个镜像或文件时，通过 Peer 的 HTTP Proxy 将下载请求代理到 Dragonfly。Peer 首先会向 Scheduler 注册 Task， Scheduler 会查看 Task 的信息，判断 Task 是否在 P2P 集群内第一次下载，如果是第一次下载优先触发 Seed Peer 进行回源下载，并且下载过程中对 Task 基于 Piece 级别切分。注册成功后 Peer 会和 Scheduler 建立双向流，然后将 Seed Peer 调度给 Peer 进行下载。Seed Peer 和 Peer 之间下载传输基于 Piece 级别进行流式传输。Peer 每下载成功一个 Piece，会将信息上报给 Scheduler 供下次调度使用。如果 Task 在 P2P 集群内非第一次下载，那么 Scheduler 会调度其他 Peer 给当前 Peer 下载。Peer 从不同的 Peer 下载 Piece，拼接并返回整个文件，那么 P2P 下载就完成了。
+当下载一个镜像或文件时，通过 Peer 的 HTTP Proxy 将下载请求代理到 Dragonfly。Peer 首先会向 Scheduler 注册 Task， Scheduler 会查看 Task 的信息，判断 Task 是否在 P2P 集群内第一次下载，
+如果是第一次下载优先触发 Seed Peer 进行回源下载，并且下载过程中对 Task 基于 Piece 级别切分。注册成功后 Peer 会和 Scheduler 建立双向流，
+然后将 Seed Peer 调度给 Peer 进行下载。Seed Peer 和 Peer 之间下载传输基于 Piece 级别进行流式传输。Peer 每下载成功一个 Piece，
+会将信息上报给 Scheduler 供下次调度使用。如果 Task 在 P2P 集群内非第一次下载，那么 Scheduler 会调度其他 Peer 给当前 Peer 下载。
+Peer 从不同的 Peer 下载 Piece，拼接并返回整个文件，那么 P2P 下载就完成了。
 
 ![sequence-diagram](./resource/getting-started/sequence-diagram.png)
