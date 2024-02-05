@@ -1,14 +1,17 @@
 ---
 id: introduction
 title: Introduction
-description: Dragonfly is an file distribution and image acceleration based on p2p technology. It is designed to improve the efficiency and speed of large-scale file distribution. It is widely used in various domains such as image distribution, file delivery, AI model distribution, AI dataset distribution, and more.
+description: Dragonfly is an file distribution and image acceleration based on p2p technology.
+It is designed to increase the efficiency of large-scale data distribution and improve idle bandwidth usage of peer.
+It is widely used in various domains such as image acceleration, file distribution,
+AI model distribution, AI dataset distribution, etc.
 slug: /
 ---
 
 Dragonfly is an file distribution and image acceleration based on p2p technology.
-It is designed to improve the efficiency and speed of large-scale file distribution.
-It is widely used in various domains such as image distribution, file delivery,
-AI model distribution, AI dataset distribution, and more.
+It is designed to increase the efficiency of large-scale data distribution and improve idle bandwidth usage of peer.
+It is widely used in various domains such as image acceleration, file distribution,
+AI model distribution, AI dataset distribution, etc.
 
 ## Features
 
@@ -27,7 +30,7 @@ download tools, etc.
 
 ## Milestone
 
-[Dragonfly1.x](https://github.com/dragonflyoss/Dragonfly) has been open source since 2017 and used in production
+[Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) has been open source in November 2017 and used in production
 environments by many companies.
 And joined the CNCF as a sandbox project in October 2018.
 In April 2020, The CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an Incubating Project.
@@ -37,7 +40,7 @@ In April 2021, Dragonfly 2.0 was released after architectural optimization and c
 
 ## Architecture
 
-Dragonfly could be divided into four categories: Manager, Scheduler, Seed Peer and Peer.
+Dragonfly services could be divided into four categories: Manager, Scheduler, Seed Peer and Peer.
 
 - **Manager**: Maintain the relationship between each P2P cluster,
 It primarily offers functions such as dynamic configuration management and data collection.
@@ -54,16 +57,15 @@ Below is the Dragonfly architecture diagram. You can find more detailed architec
 
 ## How it works
 
-When downloading an image or file, the download request is proxied to Dragonfly through the Peer HTTP Proxy.
-Peer will first register the Task with the Scheduler, and the Scheduler will check the Task information
+When downloading an image or file, the download request is proxied to Dragonfly via the Peer HTTP Proxy.
+Peer will first register the Task with the Scheduler, and the Scheduler will check the Task metadata
 to determine whether the Task is downloaded for the first time in the P2P cluster.
-If this is the first time downloading, the Seed Peer will be triggered to perform back-to-source downloading,
-and the Task will be segmented based on the Piece level.
-After successful registration,The peer establishes a connection to the scheduler based on this task,
-and then schedule the Seed Peer to the Peer for downloading.
-Each time a Piece is successfully downloaded, the information will be reported to the Scheduler for next scheduling use.
-After each successful Piece download, the Peer reports the information back to the Scheduler for future scheduling.
-If this is not the first time downloading,the Scheduler will assigns other Peers for the download.
-Peer downloads Piece from different Peers, splices and returns the entire file, then the P2P download is completed.
+If this is the first time downloading, the Seed Peer will be triggered to download back-to-source,
+and the Task will be divided based on the piece level.
+After successful registration, The peer establishes a connection to the scheduler based on this task,
+and then schedule the Seed Peer to the Peer for streaming based on piece level.
+when a piece is successfully downloaded, the piece metadata will be reported to the Scheduler for next scheduling.
+If this is not the first time downloading, the Scheduler will schedule other Peers for the download.
+The Peer will download pieces from different Peers, splices and returns the entire file, then the P2P download is completed.
 
 ![sequence-diagram](./resource/getting-started/sequence-diagram.png)
