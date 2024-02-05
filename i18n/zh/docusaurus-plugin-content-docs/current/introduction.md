@@ -25,7 +25,7 @@ Dragonfly 是一款基于 P2P 技术的文件分发和镜像加速系统，它�
 [Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) 自 17 年 11 月开源以来，被许多大规模互联网公司选用并投入生产使用。
 并在 18 年 10 月正式进入 CNCF，成为中国第三个成为 CNCF Sandbox 的项目。
 2020 年 4 月，CNCF 技术监督委员会（TOC）投票决定接受 Dragonfly 成为 CNCF Incubating 项目。
-2021 年 4 月， 经过系统架构、产品能力、使用场景等几大方向上进行升级后发布 Dragonfly 2 。
+2021 年 4 月，经过系统架构、产品能力、使用场景等几大方向上进行升级后发布 Dragonfly 2。
 
 ![milestone](./resource/getting-started/milestone.jpeg)
 
