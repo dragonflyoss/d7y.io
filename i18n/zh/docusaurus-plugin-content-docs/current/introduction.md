@@ -49,4 +49,4 @@ Dragonfly 架构主要分为四部分 Manager、Scheduler、Seed Peer 以及 Pee
 会将信息上报给 Scheduler 供下次调度使用。如果 Task 在 P2P 集群内非第一次下载，那么 Scheduler 会调度其他 Peer 给当前 Peer 下载。
 Peer 从不同的 Peer 下载 Piece，拼接并返回整个文件，那么 P2P 下载就完成了。
 
-![sequence-diagram](./resource/introduction/sequence-diagram.png)
+![sequence-diagram](./resource/getting-started/sequence-diagram.png)

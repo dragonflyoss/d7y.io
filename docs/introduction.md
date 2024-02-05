@@ -65,4 +65,4 @@ when a piece is successfully downloaded, the piece metadata will be reported to 
 If this is not the first time downloading, the Scheduler will schedule other Peers for the download.
 The Peer will download pieces from different Peers, splices and returns the entire file, then the P2P download is completed.
 
-![sequence-diagram](./resource/introduction/sequence-diagram.png)
+![sequence-diagram](./resource/getting-started/sequence-diagram.png)
