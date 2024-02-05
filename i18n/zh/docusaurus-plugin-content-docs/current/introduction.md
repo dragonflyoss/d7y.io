@@ -18,7 +18,7 @@ Dragonfly 是一款基于 P2P 技术的文件分发和镜像加速系统，它�
 - **异常隔离**：通过 Service、Peer 以及 Task 三个级别自动隔离异常提高下载稳定性。
 - **生态**：跟 AI 基础设施、容器镜像以及文件分发等生态项目都有简单的集成方案。
 
-![features](./resource/getting-started/features.jpeg)
+![features](./resource/introduction/features.jpeg)
 
 ## 里程碑
 
@@ -27,7 +27,7 @@ Dragonfly 是一款基于 P2P 技术的文件分发和镜像加速系统，它�
 2020 年 4 月，CNCF 技术监督委员会（TOC）投票决定接受 Dragonfly 成为 CNCF Incubating 项目。
 2021 年 4 月，经过系统架构、产品能力、使用场景等几大方向上进行升级后发布 Dragonfly 2。
 
-![milestone](./resource/getting-started/milestone.jpeg)
+![milestone](./resource/introduction/milestone.jpeg)
 
 ## 架构
 
@@ -49,4 +49,4 @@ Dragonfly 架构主要分为四部分 Manager、Scheduler、Seed Peer 以及 Pee
 会将信息上报给 Scheduler 供下次调度使用。如果 Task 在 P2P 集群内非第一次下载，那么 Scheduler 会调度其他 Peer 给当前 Peer 下载。
 Peer 从不同的 Peer 下载 Piece，拼接并返回整个文件，那么 P2P 下载就完成了。
 
-![sequence-diagram](./resource/getting-started/sequence-diagram.png)
+![sequence-diagram](./resource/introduction/sequence-diagram.png)

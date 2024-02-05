@@ -23,7 +23,7 @@ download stability.
 - **Ecosystem**: Provides simple integration with AI infrastructure, container runtimes, container registry,
 download tools, etc.
 
-![features](./resource/getting-started/features.jpeg)
+![features](./resource/introduction/features.jpeg)
 
 ## Milestone
 
@@ -33,7 +33,7 @@ And joined the CNCF as a sandbox project in October 2018.
 In April 2020, The CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an Incubating Project.
 In April 2021, Dragonfly 2.0 was released after architectural optimization and code refactoring.
 
-![milestone](./resource/getting-started/milestone.jpeg)
+![milestone](./resource/introduction/milestone.jpeg)
 
 ## Architecture
 
@@ -65,4 +65,4 @@ when a piece is successfully downloaded, the piece metadata will be reported to 
 If this is not the first time downloading, the Scheduler will schedule other Peers for the download.
 The Peer will download pieces from different Peers, splices and returns the entire file, then the P2P download is completed.
 
-![sequence-diagram](./resource/getting-started/sequence-diagram.png)
+![sequence-diagram](./resource/introduction/sequence-diagram.png)
