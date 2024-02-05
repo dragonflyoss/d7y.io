@@ -1,16 +1,18 @@
 ---
 id: introduction
 title: Introduction
-description: Dragonfly is an intelligent P2P-based image and file distribution tool. It aims to improve the efficiency and success rate of file transferring, and maximize the usage of network bandwidth, especially for the distribution of larget amounts of data, such as application distribution, cache distribution, log distribution, and image distribution.
+description: Dragonfly is an open-source p2p-based image and file Distribution System. It is designed to improve the efficiency and speed of large-scale file distribution. It is extensively used in areas such as image distribution, file delivery, AI model distribution, and AI dataset distribution.
 slug: /
 ---
 
-Dragonfly is a file distribution and mirror acceleration system based on P2P technology, which improves
-the efficiency of large-scale file transfer and maximizes the use of network bandwidth.
-It is used in the fields of image distribution,file distribution, log distribution,
-AI model distribution, and AI data set distribution.
+Dragonfly is an open-source p2p-based image and file Distribution System.
+It is designed to improve the efficiency and speed of large-scale file distribution.
+It is extensively used in areas such as image distribution, file delivery, AI model distribution,
+and AI dataset distribution.
 
 ## Features
+
+The fundamental capabilities offered include:
 
 - **P2P technology**: Based on P2P technology, use the idle bandwidth of Peer to improve download speed.
 - **Non-invasive**: Non-intrusive support for multiple container runtimes, download tools, AI infrastructure, etc.
@@ -25,41 +27,47 @@ download tools, etc.
 
 ## Milestone
 
-Since being open sourced in 2017, Dragonfly has been selected by many companies and put into production.
-And officially entered CNCF in October 2018,becoming the third project in China to become a CNCF Sandbox. In April 2020,
-the CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as a CNCF Incubating project.
-On the basis of maintaining the original core capabilities of [Dragonfly1.x](https://github.com/dragonflyoss/Dragonfly),
-Dragonfly 2 was released after architecture optimization and code reconstruction.
+Since its open source inception in 2017, Dragonfly has been embraced by numerous companies for production use.
+It officially became a part of the Cloud Native Computing Foundation (CNCF) in October 2018,
+marking it as the third Chinese project to enter the CNCF Sandbox. In April 2020,
+the CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an incubating project.
+Following enhancements in architecture and code
+refactoring while preserving the original core capabilities of
+[Dragonfly1.x](https://github.com/dragonflyoss/Dragonfly), Dragonfly 2 was released.
 
 ![milestone](./resource/getting-started/milestone.jpeg)
 
 ## Architecture
 
-Dragonfly architecture includes Manager, Scheduler, Seed Peer and Peer. For details, please refer to  [Architecture](./concepts/terminology/architecture),
-The following are the functions of each module:
+The Dragonfly architecture is primarily divided into four components: Manager, Scheduler,
+Seed Peer, and Peer. 
+For detailed information, please refer to the [Architecture](./concepts/terminology/architecture).
 
-- **Manager**: Manager plays the role of a manager and provides functions such as dynamic configuration
-management and data collection.
-It also includes a front-end console to facilitate users to visually operate the cluster.
-- **Scheduler**: Choose the best parent node for the download node. At the appropriate time,
-control the Seed Peer to perform back-to-source downloading or the Peer to perform back-to-source downloading.
-- **Seed Peer**: Provides upload and download capabilities. It can be actively triggered by the Scheduler to
-go back to the source and serve as the root node in the P2P node.
-- **Peer**: Provides upload and download capabilities.
+- **Manager**: In a multi-P2P cluster deployment scenario, the Manager plays the role of an administrator.
+It primarily offers functions such as dynamic configuration management and data collection.
+It also includes a front-end console, enabling users to visually operate and manage the cluster.
+- **Scheduler**: Select the optimal download parent peer for the download peer.
+When appropriate,
+it triggers the Seed Peer to perform a back-to-source download,
+or enables the Peer to carry out the download from the back-to-source.
+- **Seed Peer**: It offers upload and download capabilities and can serve as a root node in the P2P network,
+allowing the Scheduler to actively initiate back-to-source.
+- **Peer**: Provides the capability for both uploading and downloading.
 
-![sequence-diagram](./resource/concepts/arch.png)
+![arch](./resource/concepts/arch.png)
 
 ## How it works
 
-When downloading an image or file, the download request is proxied to Dragonfly through the Peer's HTTP Proxy.
-The Peer will register the Task with the Scheduler, and the Scheduler will determine whether the Task
-is downloaded for the first time. If it is the first download, the Seed Peer will be triggered
-to download back to the source. During the download process, the Task will be segmented based on Pieces.
-Peer will establish a shared stream with Scheduler, and then schedule Seed Peer to Peer for downloading.
-Download transmission between Seed Peer and Peer is based on Piece level streaming.
-Every time Peer successfully downloads a Piece, it will report the information to Scheduler
-for next scheduling use. If it is not the first download, the Scheduler will schedule other Peer downloads.
-Peer downloads Piece from different Peers, splices and returns the entire file,
-and the P2P download is completed.
+When downloading an image or file, it proxies the request via its HTTP Proxy to Dragonfly.
+The Peer registers the Task with the Scheduler, which determines if it is the first
+time the Task is being downloaded.
+If it is, the Scheduler triggers a Seed Peer to perform a back-to-source download,
+with the Task being split into Pieces during this process.
+The Peer establishes a shared stream with the Scheduler, which then schedules the Seed Peer for the download.
+The download between the Seed Peer and the Peer is conducted in a streaming manner at the Piece level.
+After each successful Piece download, the Peer reports the information back to the Scheduler for future scheduling.
+If it's not the first download,
+the Scheduler assigns other Peers for the download. The Peer then downloads Pieces from various Peers,
+assembles the complete file and thus the P2P download is completed.
 
 ![sequence-diagram](./resource/getting-started/sequence-diagram.png)

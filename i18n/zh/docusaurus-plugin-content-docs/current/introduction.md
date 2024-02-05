@@ -34,12 +34,12 @@ Dragonfly2 基于 [Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) 演
 Dragonfly 架构主要分为四部分 Manager、Scheduler、Seed Peer 以及 Peer 各司其职组成 P2P 下载网络。
 详细内容可以参考[架构文档](./concepts/terminology/architecture)， 下面是各模块功能：
 
-- **Manager**： Manager 在多 P2P 集群部署的时候扮演管理者的角色。主要提供动态配置管理以及数据收集等功能。也包含了前端控制台，方便用户进行可视化操作集群。
-- **Scheduler**： 为当前下载节点寻找一组最优父节点。在适当时候触发 Seed Peer 进行回源下载或让 Peer 进行回源下载。
-- **Seed Peer**： 提供上传跟下载能力。并提供可以被 Scheduler 主动触发回源，可以作为 P2P 节点中的根节点。
-- **Peer**： 提供上传跟下载能力。
+- **Manager**：Manager 在多 P2P 集群部署的时候扮演管理者的角色。主要提供动态配置管理以及数据收集等功能。也包含了前端控制台，方便用户进行可视化操作集群。
+- **Scheduler**：为当前下载节点寻找一组最优父节点。在适当时候触发 Seed Peer 进行回源下载或让 Peer 进行回源下载。
+- **Seed Peer**：提供上传跟下载能力。并提供可以被 Scheduler 主动触发回源，可以作为 P2P 节点中的根节点。
+- **Peer**：提供上传跟下载能力。
 
-![sequence-diagram](./resource/concepts/arch.png)
+![arch](./resource/concepts/arch.png)
 
 ## 怎么运行的
 
