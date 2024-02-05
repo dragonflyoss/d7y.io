@@ -487,7 +487,7 @@
     "message": "Dragonfly 2"
   },
   "v2.0 was released after architectural optimization and code refactoring.": {
-    "message": "经过系统架构、产品能力、使用场景等几大方向上进行升级后发布 Dragonfly 2 。"
+    "message": "经过系统架构、产品能力、使用场景等几大方向上进行升级后发布 Dragonfly 2。"
   },
   "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
     "message": "Close navigation bar",
