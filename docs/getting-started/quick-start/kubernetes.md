@@ -7,7 +7,7 @@ slug: /getting-started/quick-start/kubernetes/
 
 Documentation for deploying dragonfly on kubernetes using helm.
 
-You can have a quick start following [Helm Charts](../../setup/install/helm-charts.md).
+You can have a quick start following [Helm Charts](../installation/helm-charts.md).
 We recommend to use `Containerd with CRI` and `CRI-O` client.
 
 This table describes some container runtimes version and documents.

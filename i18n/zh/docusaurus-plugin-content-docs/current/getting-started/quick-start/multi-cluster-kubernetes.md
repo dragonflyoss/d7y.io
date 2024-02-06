@@ -17,7 +17,7 @@ Peers 只能在当前 Dragonfly 集群内 P2P 传输数据，所以一定要保�
 
 ## Runtime
 
-您可以根据 [Helm Charts](../../setup/install/helm-charts.md)
+您可以根据 [Helm Charts](../installation/helm-charts.md)
 文档中的内容快速搭建 Dragonfly 的 Kubernetes 集群。
 我们推荐使用 `Containerd with CRI` 和 `CRI-O` 客户端。
 

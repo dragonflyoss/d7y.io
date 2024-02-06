@@ -7,6 +7,5 @@ slug: /getting-started/quick-start/
 
 部署方式:
 
-- [Docker Compose](quick-start/docker-compose.md)
 - [Kubernetes](quick-start/kubernetes.md)
 - [Multi-cluster Kubernetes](./quick-start/multi-cluster-kubernetes.md)

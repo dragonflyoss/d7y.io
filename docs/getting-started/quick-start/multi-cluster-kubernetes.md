@@ -17,7 +17,7 @@ and internal peers can only schedule and transmit data in a kubernetes cluster.
 
 ## Runtime
 
-You can have a quick start following [Helm Charts](../../setup/install/helm-charts.md).
+You can have a quick start following [Helm Charts](../../installation/helm-charts).
 We recommend to use `Containerd with CRI` and `CRI-O` client.
 
 This table describes some container runtimes version and documents.
