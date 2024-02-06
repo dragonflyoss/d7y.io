@@ -364,7 +364,7 @@ export default function Home() {
             </h1>
           </div>
           <div className={styles.buttonWrapper}>
-            <Button href={useBaseUrl('docs/next/#evolution')}>
+            <Button href={useBaseUrl('docs/next/#milestones')}>
               <img
                 className={styles.viewFeaturesIcon}
                 src={useBaseUrl('img/icon/development-learn-more.svg')}
