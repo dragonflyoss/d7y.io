@@ -25,7 +25,7 @@ download tools, etc.
 
 ![features](./resource/introduction/features.jpeg)
 
-## Milestone {#milestones}
+## Milestones {#milestones}
 
 [Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) has been open source in November 2017 and used in production
 environments by many companies.
