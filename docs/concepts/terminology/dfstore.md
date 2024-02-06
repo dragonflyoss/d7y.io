@@ -143,7 +143,7 @@ objectStorage:
 
 ### Step 4: Install dragofly system
 
-Install dragonfly system with object storage, refer to [install dragonfly](../../setup/install/helm-charts.md).
+Install dragonfly system with object storage, refer to [install dragonfly](../../getting-started/installation/helm-charts.md).
 
 ### Step 5: Install the dfstore command-line tool
 

@@ -1,6 +1,6 @@
 ---
-id: source
-title: Source
+id: binaries
+title: Binaries
 ---
 
 There are installation methods to install

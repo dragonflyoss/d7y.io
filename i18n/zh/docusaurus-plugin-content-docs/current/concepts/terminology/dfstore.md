@@ -138,7 +138,7 @@ objectStorage:
 
 ### 步骤 4: 安装 Dragonfly 系统
 
-安装 Dragonfly 系统参考文档 [install dragonfly](../../setup/install/helm-charts.md)。[]
+安装 Dragonfly 系统参考文档 [install dragonfly](../../getting-started/installation/helm-charts.md)。
 
 ### 步骤 5: 安装 dfstore 命令行工具
 

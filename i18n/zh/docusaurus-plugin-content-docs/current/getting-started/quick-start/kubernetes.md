@@ -7,7 +7,7 @@ slug: /getting-started/quick-start/kubernetes/
 
 文档的目标是帮助您快速开始使用 Helm 部署 Dragonfly。
 
-您可以根据 [Helm Charts](../../setup/install/helm-charts.md)
+您可以根据 [Helm Charts](../installation/helm-charts.md)
 文档中的内容快速搭建 Dragonfly 的 Kubernetes 集群。
 我们推荐使用 `Containerd with CRI` 和 `CRI-O` 客户端。
 

@@ -59,6 +59,10 @@
     "message": "快速开始",
     "description": "The label for category Quick Start in sidebar docs"
   },
+  "sidebar.docs.category.Installation": {
+    "message": "安装",
+    "description": "The label for category Quick Start in sidebar docs"
+  },
   "sidebar.docs.category.Containerd": {
     "message": "Containerd",
     "description": "The label for category Containerd in sidebar docs"

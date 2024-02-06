@@ -1,6 +1,6 @@
 ---
-id: source
-title: 源码安装
+id: binaries
+title: 使用二进制部署
 ---
 
 通过可执行文件分模块进行安装。
