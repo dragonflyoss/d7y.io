@@ -10,7 +10,7 @@ It is designed to increase the efficiency of large-scale data distribution and i
 It is widely used in various domains such as image acceleration, file distribution,
 AI model distribution, AI dataset distribution, etc.
 
-## Features
+## Features {#features}
 
 Here are some of the features that Dragonfly offers:
 
@@ -25,7 +25,7 @@ download tools, etc.
 
 ![features](./resource/introduction/features.jpeg)
 
-## Milestone
+## Milestones {#milestones}
 
 [Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) has been open source in November 2017 and used in production
 environments by many companies.
