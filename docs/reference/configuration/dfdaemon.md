@@ -21,6 +21,10 @@ gcInterval: 1m0s
 # In macos(just for testing), default value is /Users/$USER/.dragonfly.
 workHome: ''
 
+# workHomeMode is used to set the file mode bits for the workHome directory.
+# The default is 0755.
+workHomeMode: 0755
+
 # logDir is the log directory.
 # In linux, default value is /var/log/dragonfly.
 # In macos(just for testing), default value is /Users/$USER/.dragonfly/logs.
@@ -31,6 +35,10 @@ logDir: ''
 # In macos(just for testing), default value is /Users/$USER/.dragonfly/cache.
 cacheDir: ''
 
+# cacheDirMode is used to set the file mode bits for the cacheDir directory.
+# The default is 0755.
+cacheDirMode: 0755
+
 # pluginDir is the plugin directory.
 # In linux, default value is /usr/local/dragonfly/plugins.
 # In macos(just for testing), default value is /Users/$USER/.dragonfly/plugins.
@@ -40,6 +48,10 @@ pluginDir: ''
 # In linux, default value is /var/lib/dragonfly.
 # In macos(just for testing), default value is /Users/$USER/.dragonfly/data.
 dataDir: ''
+
+# dataDirMode is used to set the file mode bits for the dataDir directory.
+# The default is 0755.
+dataDirMode: 0755
 
 # When daemon exit, keep peer task data or not.
 # it is usefully when upgrade daemon service, all local cache will be saved

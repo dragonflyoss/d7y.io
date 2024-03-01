@@ -20,6 +20,10 @@ gcInterval: 1m0s
 # macOS(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly。
 workHome: ''
 
+# workHomeMode is used to set the file mode bits for the workHome directory.
+# The default is 0755.
+workHomeMode: 0755
+
 # 服务的日志目录。
 # Linux 上默认目录 /var/log/dragonfly。
 # macOS(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly/logs。
@@ -30,6 +34,10 @@ logDir: ''
 # macOS(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly/cache。
 cacheDir: ''
 
+# cacheDirMode is used to set the file mode bits for the cacheDir directory.
+# The default is 0755.
+cacheDirMode: 0755
+
 # 服务的插件目录。
 # Linux 上默认目录 /usr/local/dragonfly/plugins。
 # macOS(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly/plugins。
@@ -39,6 +47,10 @@ pluginDir: ''
 # Linux 上默认目录为 /var/lib/dragonfly。
 # macOS(仅开发、测试), 默认目录是 /Users/$USER/.dragonfly/data/。
 dataDir: ''
+
+# dataDirMode is used to set the file mode bits for the dataDir directory.
+# The default is 0755.
+dataDirMode: 0755
 
 # 当 daemon 退出是, 是否保存缓存数据。
 # 保留缓存数据在升级 daemon 的时候比较有用。
