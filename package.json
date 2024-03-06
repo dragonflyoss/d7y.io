@@ -34,7 +34,7 @@
     "three": "^0.162.0"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^18.0.0",
+    "@commitlint/config-conventional": "^19.0.3",
     "husky": "^9.0.6",
     "lint-staged": "^15.0.1",
     "prettier": "^3.0.0"
