@@ -3,344 +3,291 @@ id: helm-charts
 title: Helm Charts
 ---
 
-下面会解释如何在 Kubernetes 集群内部署 Dragonfly。
-Dragonfly 部署具体模块包括 4 部分: scheduler 和 seed peer 会作为 `StatefulSets` 部署,
-dfdaemon 会作为 `DaemonSets` 部署, manager 会作为 `Deployments` 部署。
+文档的目标是帮助您快速开始使用 Helm Charts 部署 Dragonfly。
 
-## 依赖
+您可以根据不同的容器运行时去选择配置 helm charts，推荐使用 `Containerd`。
+
+## 环境准备
 
 | 所需软件           | 版本要求 |
 | ------------------ | -------- |
 | Kubernetes cluster | 1.20+    |
 | Helm               | v3.8.0+  |
 
-## Helm Chart 运行时配置
+## Containerd
 
-当使用 Helm Chart 运行时配置时，可以忽略 [运行时配置](#运行时配置) 章节。
-因为 Helm Chart 安装时会自动帮助改变 Docker、Containerd 等配置, 无需再手动配置。
+### 准备 Kubernetes 集群
 
-### 1. Docker
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
-> **不推荐在 docker 环境中使用蜻蜓**：1. 拉镜像没有 fallback 机制，2. 在未来的 Kubernetes 中已经废弃。
-> 因为当前 Kubernetes 里的 `daemonset` 并不支持 `Surging Rolling Update` 策略,
-> 一旦旧的 dfdaemon pod 被删除后，新的 dfdaemon 就再也拉取不了了。
-> 如果无法更换容器运行时的话，那在升级蜻蜓的时候，请从下面两种方案选择比较适合的：
-> 选项 1：先手动拉取新的 dfdaemon 镜像，或者使用
-> [ImagePullJob](https://openkruise.io/docs/user-manuals/imagepulljob)
-> 去自动拉取。
-> 选项 2：保持蜻蜓的镜像中心和通用的镜像中心不一样，同时将蜻蜓镜像中心相关的 host 加入 `containerRuntime.docker.skipHosts`。
-
-Dragonfly Helm 支持自动更改 docker 配置。
-
-#### 情况 1:【推荐的】支持指定仓库
-
-定制 values.yaml 文件:
+创建 Kind 多节点集群配置文件 `kind-config.yaml`，配置如下:
 
 ```yaml
-containerRuntime:
-  docker:
-    enable: true
-    # -- Inject domains into /etc/hosts to force redirect traffic to dfdaemon.
-    # Caution: This feature need dfdaemon to implement SNI Proxy,
-    # confirm image tag is greater than v2.0.0.
-    # When use certs and inject hosts in docker, no necessary to restart docker daemon.
-    injectHosts: true
-    registryDomains:
-      - 'harbor.example.com'
-      - 'harbor.example.net'
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker
 ```
 
-此配置允许 docker 通过 Dragonfly 拉取 `harbor.example.com` 和 `harbor.example.net` 域名镜像。
-使用上述配置部署 Dragonfly 时，无需重新启动 docker。
+使用配置文件创建 Kind 集群:
 
-优点：
-
-- 支持 dfdaemon 自身平滑升级
-
-> 这种模式下，当删除 dfdaemon pod 的时候，`preStop` 钩子将会清理已经注入到 `/etc/hosts` 下的所有主机信息，所有流量将会走原来的镜像中心。
-
-限制:
-
-- 只支持指定域名。
-
-#### 情况 2: 支持任意仓库
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  docker:
-    enable: true
-    # -- Restart docker daemon to redirect traffic to dfdaemon
-    # When containerRuntime.docker.restart=true,
-    # containerRuntime.docker.injectHosts and
-    # containerRuntime.registry.domains is ignored.
-    # If did not want restart docker daemon,
-    # keep containerRuntime.docker.restart=false and
-    # containerRuntime.docker.injectHosts=true.
-    restart: true
+```shell
+kind create cluster --config kind-config.yaml
 ```
 
-此配置允许 Dragonfly 拦截所有 docker 流量。
-使用上述配置部署 Dragonfly 时，dfdaemon 将重新启动 docker。
+切换 Kubectl 的 context 到 Kind 集群:
 
-限制:
-
-- 必须开启 docker 的 `live-restore` 功能
-- 需要重启 docker daemon
-
-### 2. Containerd
-
-Containerd 的配置有两个版本，字段复杂。有很多情况需要考虑：
-
-#### 情况 1: V2 版本使用配置文件
-
-配置文件路径是 `/etc/containerd/config.toml`:
-
-```toml
-[plugins."io.containerd.grpc.v1.cri".registry]
-  config_path = "/etc/containerd/certs.d"
+```shell
+kubectl config use-context kind-kind
 ```
 
-这种情况很简单，并可以启用多个镜像仓库支持。
+### Kind 加载 Dragonfly 镜像
 
-定制 values.yaml 文件:
+下载 Dragonfly latest 镜像:
 
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
+```shell
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
-#### 情况 2: V2 版本不使用配置文件
+Kind 集群加载 Dragonfly latest 镜像:
 
-- 选项 1 - 允许 Charts 注入 `config_path` 并重新启动 containerd。
+```shell
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
+```
 
-此选项启用多个镜像仓库支持。
+### 基于 Helm Charts 创建 Dragonfly P2P 集群
 
-> 警告: 如果 config.toml 中已经有许多其他镜像仓库配置，则不应使用此选项，或使用 `config_path` 迁移您的配置。
+创建 Helm Charts 配置文件 `values.yaml`，配置如下:
 
-定制 values.yaml 文件:
+需要增加其他配置，参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
 
 ```yaml
 containerRuntime:
   containerd:
     enable: true
     injectConfigPath: true
-```
-
-- 选项 2 - 只使用一个镜像仓库 `dfdaemon.config.proxy.registryMirror.url`
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
-```
-
-#### 情况 3: V1 版本
-
-对于 V1 版本 config.toml，仅支持 `dfdaemon.config.proxy.registryMirror.url` 镜像仓库。
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
-```
-
-### 3. [WIP] CRI-O
-
-> 请勿使用，开发中。
-
-Dragonfly helm 自动支持配置 CRI-O。
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  crio:
-    # -- Enable CRI-O support
-    # Inject drop-in mirror config into /etc/containers/registries.conf.d.
-    enable: true
-    # Registries full urls
     registries:
-      - 'https://ghcr.io'
-      - 'https://quay.io'
-      - 'https://harbor.example.com:8443'
+      - 'https://docker.io'
 ```
 
-## 准备 Kubernetes 集群
-
-如果没有可用的 Kubernetes 集群进行测试，推荐使用
-[minikube](https://minikube.sigs.k8s.io/docs/start/)。只需运行`minikube start`。
-
-## 安装 Dragonfly
-
-### 默认配置安装
+使用配置文件部署 Dragonfly Helm Charts:
 
 ```shell
-helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly
-```
+$ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
+$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
 
-### 自定义配置安装
+NAME: dragonfly
+LAST DEPLOYED: Mon Mar  4 16:23:15 2024
+NAMESPACE: dragonfly-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the scheduler address by running these commands:
+  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+  component=scheduler" -o jsonpath={.items[0].metadata.name})
+  export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8002 to use your scheduler"
 
-创建 `values.yaml` 配置文件。建议使用外部 redis 和 mysql 代替容器启动。
+1. Get the dfdaemon port by running these commands:
+  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+  component=dfdaemon" -o jsonpath={.items[0].metadata.name})
+  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
-该示例使用外部 mysql 和 redis。参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
-
-```yaml
-mysql:
-  enable: false
-
-externalMysql:
-  migrate: true
-  host: mysql-host
-  username: dragonfly
-  password: dragonfly
-  database: manager
-  port: 3306
-
-redis:
-  enable: false
-
-externalRedis:
-  addrs:
-    - redis.example.com:6379
-  password: dragonfly
-```
-
-使用配置文件 `values.yaml` 安装 Dragonfly。
-
-```shell
-helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-helm install --create-namespace --namespace dragonfly-system \
-    dragonfly dragonfly/dragonfly -f values.yaml
-```
-
-### 安装 Drgonfly 使用已经部署的 manager
-
-创建 `values.yaml` 配置文件。需要配置 scheduler 和 seed peer 关联的对应集群的 id。
-
-示例是使用外部的 manager 和 redis。参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
-
-```yaml
-scheduler:
-  config:
-    manager:
-      schedulerClusterID: 1
-
-seedPeer:
-  config:
-    scheduler:
-      manager:
-        seedPeer:
-          clusterID: 1
-
-manager:
-  enable: false
-
-externalManager:
-  enable: true
-  host: dragonfly-manager.dragonfly-system.svc.cluster.local
-  restPort: 8080
-  grpcPort: 65003
-
-redis:
-  enable: false
-
-externalRedis:
-  addrs:
-    - redis.example.com:6379
-  password: dragonfly
-
-mysql:
-  enable: false
+1. Configure runtime to use dragonfly:
+  https://d7y.io/docs/getting-started/quick-start/kubernetes/
 ```
 
 ### 等待部署成功
 
-等待所有的服务运行成功。
+检查 Dragonfly 是否部署成功:
 
 ```shell
-kubectl -n dragonfly-system wait --for=condition=ready --all --timeout=10m pod
+$ kubectl get po -n dragonfly-system
+NAME                                READY   STATUS    RESTARTS   AGE
+dragonfly-dfdaemon-2j57h            1/1     Running   0          92s
+dragonfly-dfdaemon-fg575            1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-9cd6m   1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-m9nkj   1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-x2nzg   1/1     Running   0          92s
+dragonfly-mysql-0                   1/1     Running   0          92s
+dragonfly-redis-master-0            1/1     Running   0          92s
+dragonfly-redis-replicas-0          1/1     Running   0          92s
+dragonfly-redis-replicas-1          1/1     Running   0          55s
+dragonfly-redis-replicas-2          1/1     Running   0          34s
+dragonfly-scheduler-0               1/1     Running   0          92s
+dragonfly-scheduler-1               1/1     Running   0          20s
+dragonfly-scheduler-2               0/1     Running   0          10s
+dragonfly-seed-peer-0               1/1     Running   0          92s
+dragonfly-seed-peer-1               1/1     Running   0          31s
+dragonfly-seed-peer-2               0/1     Running   0          11s
 ```
 
-## Manager 控制台
+### 运行 Dragonfly
 
-控制台页面会在 `dragonfly-manager.dragonfly-system.svc.cluster.local:8080` 展示。
-
-需要绑定 Ingress 可以参考
-[Helm Charts 配置选项](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values),
-或者手动自行创建 Ingress。
-
-控制台功能预览参考文档 [console preview](../../reference/manage-console.md)。
-
-## 运行时配置
-
-以 Containerd 和 CRI 为例，更多运行时[文档](../../getting-started/quick-start.md)
-
-> 例子为单镜像仓库配置，多镜像仓库配置参考[文档](../../setup/runtime/containerd.md)
-
-私有仓库:
-
-```toml
-# explicitly use v2 config format, if already v2, skip the "version = 2"
-version = 2
-[plugins."io.containerd.grpc.v1.cri".registry.mirrors."harbor.example.com"]
-endpoint = ["http://127.0.0.1:65001", "https://harbor.example.com"]
-```
-
-dockerhub 官方仓库:
-
-```toml
-# explicitly use v2 config format, if already v2, skip the "version = 2"
-version = 2
-[plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-endpoint = ["http://127.0.0.1:65001", "https://index.docker.io"]
-```
-
-增加配置到 `/etc/containerd/config.toml` 文件并重启 Containerd。
+在 `kind-worker` Node 下载 `dragonflyoss/scheduler:latest` 镜像。
 
 ```shell
-systemctl restart containerd
-```
-
-## 使用 Dragonfly
-
-以上步骤执行完毕，可以使用 `crictl` 命令拉取镜像:
-
-```shell
-crictl harbor.example.com/library/alpine:latest
-```
-
-```shell
-crictl pull docker.io/library/alpine:latest
+docker exec -i kind-worker /usr/local/bin/crictl pull dragonflyoss/scheduler:latest
 ```
 
 拉取镜像后可以在 dfdaemon 查询日志:
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# 显示 pod
+kubectl -n dragonfly-system get pod -l component=dfdaemon -owide
+# 显示日志
+POD_NAME=<your-pod-name>
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
 ```
 
 日志输出例子:
 
 ```shell
 {
-    "level": "info",
-    "ts": "2021-06-28 06:02:30.924",
-    "caller": "peer/peertask_stream_callback.go:77",
-    "msg": "stream peer task done, cost: 2838ms",
-    "peer": "172.17.0.9-1-ed7a32ae-3f18-4095-9f54-6ccfc248b16e",
-    "task": "3c658c488fd0868847fab30976c2a079d8fd63df148fb3b53fd1a418015723d7",
-    "component": "streamPeerTask"
+  "level": "info",
+  "ts": "2024-03-05 12:06:31.244",
+  "caller": "peer/peertask_conductor.go:1349",
+  "msg": "peer task done, cost: 2751ms",
+  "peer": "10.244.1.2-54896-5c6cb404-0f2b-4ac6-a18f-d74167a766b4",
+  "task": "0bff62286fe544f598997eed3ecfc8aa9772b8522b9aa22a01c06eef2c8eba66",
+  "component": "PeerTask",
+  "trace": "31fc6650d93ec3992ab9aad245fbef71"
 }
+```
+
+## Docker
+
+> **不推荐在 docker 环境中使用蜻蜓**：1. 拉镜像没有 fallback 机制，2. 在未来的 Kubernetes 中已经废弃。
+> 因为当前 Kubernetes 里的 `daemonset` 并不支持 `Surging Rolling Update` 策略，
+> 一旦旧的 dfdaemon pod 被删除后，新的 dfdaemon 就再也拉取不了了。
+
+### 准备 Kubernetes 集群 {#docker-prepare-kubernetes-cluster}
+
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [minikube](https://minikube.sigs.k8s.io/docs/start/)。
+只需运行 `minikube start`。
+
+### 基于 Helm Charts 创建 Dragonfly P2P 集群 {#docker-install-dragonfly}
+
+创建 Helm Charts 配置文件 `values.yaml`，配置如下:
+
+需要增加其他配置，参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
+
+```shell
+containerRuntime:
+  docker:
+    enable: true
+    restart: true
+```
+
+使用配置文件部署 Dragonfly Helm Charts:
+
+```shell
+$ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
+$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+NAME: dragonfly
+LAST DEPLOYED: Tue Mar  5 20:29:43 2024
+NAMESPACE: dragonfly-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the scheduler address by running these commands:
+  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+  component=scheduler" -o jsonpath={.items[0].metadata.name})
+  export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8002 to use your scheduler"
+
+2. Get the dfdaemon port by running these commands:
+  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+  component=dfdaemon" -o jsonpath={.items[0].metadata.name})
+  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
+
+3. Configure runtime to use dragonfly:
+  https://d7y.io/docs/getting-started/quick-start/kubernetes/
+```
+
+### 等待部署成功 Wait Dragonfly Ready {#docker-wait-dragonfly-ready}
+
+检查 Dragonfly 是否部署成功:
+
+```shell
+$ kubectl get po -n dragonfly-system
+NAME                                READY   STATUS    RESTARTS   AGE
+dragonfly-dfdaemon-vsggn            1/1     Running   0          123s
+dragonfly-manager-6dbfb7b47-j5gpn   1/1     Running   0          123s
+dragonfly-manager-6dbfb7b47-tgdxq   1/1     Running   0          123s
+dragonfly-manager-6dbfb7b47-vz67b   1/1     Running   0          123s
+dragonfly-mysql-0                   1/1     Running   0          123s
+dragonfly-redis-master-0            1/1     Running   0          123s
+dragonfly-redis-replicas-0          1/1     Running   0          123s
+dragonfly-redis-replicas-1          1/1     Running   0          123s
+dragonfly-redis-replicas-2          1/1     Running   0          112s
+dragonfly-scheduler-0               1/1     Running   0          123s
+dragonfly-scheduler-1               1/1     Running   0          121s
+dragonfly-scheduler-2               1/1     Running   0          121s
+dragonfly-seed-peer-0               1/1     Running   0          123s
+dragonfly-seed-peer-1               1/1     Running   0          121s
+dragonfly-seed-peer-2               1/1     Running   0          121s
+```
+
+### 运行 Dragonfly {#docker-run-dragonfly}
+
+在 `minikube` Node 下载 `dragonflyoss/scheduler:latest` 镜像。
+
+```shell
+docker exec -i minikube /bin/docker pull dragonflyoss/scheduler:latest
+```
+
+拉取镜像后可以在 dfdaemon 查询日志:
+
+```shell
+# 显示 pod
+kubectl -n dragonfly-system get pod -l component=dfdaemon -owide
+# 显示日志
+POD_NAME=<your-pod-name>
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+```
+
+日志输出例子:
+
+```shell
+{
+  "level": "info",
+  "ts": "2024-03-05 12:46:29.542",
+  "caller": "peer/peertask_conductor.go:1349",
+  "msg": "peer task done, cost: 32068ms",
+  "peer": "10.244.0.153-231511-f19680f9-4028-46b9-be8b-8eed156183a1",
+  "task": "4d4eba4c9dca752f0381ffe5093a96fb4ffbd9b0b4ea43234d942025c451b76c",
+  "component": "PeerTask",
+  "trace": "e35cc32974a440297016a213aa2f0e48"
+}
+```
+
+## Manager 控制台
+
+使用默认用户名 `root`，密码 `dragonfly` 访问 `localhost:8080` 的 Manager 控制台地址，并且进入控制台。
+
+需要绑定 Ingress 可以参考
+[Helm Charts 配置选项](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)，
+或者手动自行创建 Ingress。
+
+控制台功能预览参考文档 [console preview](../../reference/manage-console.md)。
+
+## 卸载 Dragonfly
+
+如要卸载 Dragonfly，请执行以下命令：
+
+```shell
+helm delete dragonfly --namespace dragonfly-system
 ```
