@@ -137,7 +137,7 @@ dragonfly-seed-peer-1               1/1     Running   0          31s
 dragonfly-seed-peer-2               0/1     Running   0          11s
 ```
 
-## Containerd downloads images through Dragonfly Peer {#containerd-downloads-images-through-dragonfly-peer}
+## Containerd downloads images through Dragonfly {#containerd-downloads-images-through-dragonfly}
 
 Pull `alpine:3.19` image in kind-worker node:
 
@@ -145,7 +145,7 @@ Pull `alpine:3.19` image in kind-worker node:
 docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-### Verify Dragonfly {#verify-ragonfly}
+### Verify {#verify}
 
 You can execute the following command to check if the `alpine:3.19` image is distributed via Dragonfly.
 
