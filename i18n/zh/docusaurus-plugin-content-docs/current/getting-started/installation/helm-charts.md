@@ -3,344 +3,349 @@ id: helm-charts
 title: Helm Charts
 ---
 
-下面会解释如何在 Kubernetes 集群内部署 Dragonfly。
-Dragonfly 部署具体模块包括 4 部分: scheduler 和 seed peer 会作为 `StatefulSets` 部署,
-dfdaemon 会作为 `DaemonSets` 部署, manager 会作为 `Deployments` 部署。
+文档的目标是帮助您快速开始使用 Helm Charts 部署 Dragonfly。
 
-## 依赖
+更多的集成方案，例如 Docker、CRI-O、Singularity/Apptainer、Nydus、eStargz、Harbor、Git LFS、Hugging Face、TorchServe、Triton Server 等，
+可以参考 [Integrations](../../setup/runtime/containerd.md) 文档。
 
-| 所需软件           | 版本要求 |
-| ------------------ | -------- |
-| Kubernetes cluster | 1.20+    |
-| Helm               | v3.8.0+  |
+## 环境准备
 
-## Helm Chart 运行时配置
+| 所需软件           | 版本要求 | 文档                                    |
+| ------------------ | -------- | --------------------------------------- |
+| Kubernetes cluster | 1.19+    | [kubernetes.io](https://kubernetes.io/) |
+| Helm               | v3.8.0+  | [helm.sh](https://helm.sh/)             |
+| containerd        | v1.5.0+  | [containerd.io](https://containerd.io/) |
 
-当使用 Helm Chart 运行时配置时，可以忽略 [运行时配置](#运行时配置) 章节。
-因为 Helm Chart 安装时会自动帮助改变 Docker、Containerd 等配置, 无需再手动配置。
+## 准备 Kubernetes 集群
 
-### 1. Docker
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
-> **不推荐在 docker 环境中使用蜻蜓**：1. 拉镜像没有 fallback 机制，2. 在未来的 Kubernetes 中已经废弃。
-> 因为当前 Kubernetes 里的 `daemonset` 并不支持 `Surging Rolling Update` 策略,
-> 一旦旧的 dfdaemon pod 被删除后，新的 dfdaemon 就再也拉取不了了。
-> 如果无法更换容器运行时的话，那在升级蜻蜓的时候，请从下面两种方案选择比较适合的：
-> 选项 1：先手动拉取新的 dfdaemon 镜像，或者使用
-> [ImagePullJob](https://openkruise.io/docs/user-manuals/imagepulljob)
-> 去自动拉取。
-> 选项 2：保持蜻蜓的镜像中心和通用的镜像中心不一样，同时将蜻蜓镜像中心相关的 host 加入 `containerRuntime.docker.skipHosts`。
-
-Dragonfly Helm 支持自动更改 docker 配置。
-
-#### 情况 1:【推荐的】支持指定仓库
-
-定制 values.yaml 文件:
+创建 Kind 多节点集群配置文件 `kind-config.yaml`，配置如下:
 
 ```yaml
-containerRuntime:
-  docker:
-    enable: true
-    # -- Inject domains into /etc/hosts to force redirect traffic to dfdaemon.
-    # Caution: This feature need dfdaemon to implement SNI Proxy,
-    # confirm image tag is greater than v2.0.0.
-    # When use certs and inject hosts in docker, no necessary to restart docker daemon.
-    injectHosts: true
-    registryDomains:
-      - 'harbor.example.com'
-      - 'harbor.example.net'
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker
 ```
 
-此配置允许 docker 通过 Dragonfly 拉取 `harbor.example.com` 和 `harbor.example.net` 域名镜像。
-使用上述配置部署 Dragonfly 时，无需重新启动 docker。
+使用配置文件创建 Kind 集群:
 
-优点：
-
-- 支持 dfdaemon 自身平滑升级
-
-> 这种模式下，当删除 dfdaemon pod 的时候，`preStop` 钩子将会清理已经注入到 `/etc/hosts` 下的所有主机信息，所有流量将会走原来的镜像中心。
-
-限制:
-
-- 只支持指定域名。
-
-#### 情况 2: 支持任意仓库
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  docker:
-    enable: true
-    # -- Restart docker daemon to redirect traffic to dfdaemon
-    # When containerRuntime.docker.restart=true,
-    # containerRuntime.docker.injectHosts and
-    # containerRuntime.registry.domains is ignored.
-    # If did not want restart docker daemon,
-    # keep containerRuntime.docker.restart=false and
-    # containerRuntime.docker.injectHosts=true.
-    restart: true
+```shell
+kind create cluster --config kind-config.yaml
 ```
 
-此配置允许 Dragonfly 拦截所有 docker 流量。
-使用上述配置部署 Dragonfly 时，dfdaemon 将重新启动 docker。
+切换 Kubectl 的 Context 到 Kind 集群:
 
-限制:
-
-- 必须开启 docker 的 `live-restore` 功能
-- 需要重启 docker daemon
-
-### 2. Containerd
-
-Containerd 的配置有两个版本，字段复杂。有很多情况需要考虑：
-
-#### 情况 1: V2 版本使用配置文件
-
-配置文件路径是 `/etc/containerd/config.toml`:
-
-```toml
-[plugins."io.containerd.grpc.v1.cri".registry]
-  config_path = "/etc/containerd/certs.d"
+```shell
+kubectl config use-context kind-kind
 ```
 
-这种情况很简单，并可以启用多个镜像仓库支持。
+## Kind 加载 Dragonfly 镜像
 
-定制 values.yaml 文件:
+下载 Dragonfly Latest 镜像:
 
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
+```shell
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
-#### 情况 2: V2 版本不使用配置文件
+Kind 集群加载 Dragonfly Latest 镜像:
 
-- 选项 1 - 允许 Charts 注入 `config_path` 并重新启动 containerd。
+```shell
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
+```
 
-此选项启用多个镜像仓库支持。
+## 基于 Helm Charts 创建 Dragonfly 集群
 
-> 警告: 如果 config.toml 中已经有许多其他镜像仓库配置，则不应使用此选项，或使用 `config_path` 迁移您的配置。
-
-定制 values.yaml 文件:
+创建 Helm Charts 配置文件 `values.yaml`，并且设置容器运行时为 containerd。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
 
 ```yaml
 containerRuntime:
   containerd:
     enable: true
     injectConfigPath: true
-```
-
-- 选项 2 - 只使用一个镜像仓库 `dfdaemon.config.proxy.registryMirror.url`
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
-```
-
-#### 情况 3: V1 版本
-
-对于 V1 版本 config.toml，仅支持 `dfdaemon.config.proxy.registryMirror.url` 镜像仓库。
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
-```
-
-### 3. [WIP] CRI-O
-
-> 请勿使用，开发中。
-
-Dragonfly helm 自动支持配置 CRI-O。
-
-定制 values.yaml 文件:
-
-```yaml
-containerRuntime:
-  crio:
-    # -- Enable CRI-O support
-    # Inject drop-in mirror config into /etc/containers/registries.conf.d.
-    enable: true
-    # Registries full urls
     registries:
-      - 'https://ghcr.io'
-      - 'https://quay.io'
-      - 'https://harbor.example.com:8443'
-```
+      - 'https://docker.io'
 
-## 准备 Kubernetes 集群
-
-如果没有可用的 Kubernetes 集群进行测试，推荐使用
-[minikube](https://minikube.sigs.k8s.io/docs/start/)。只需运行`minikube start`。
-
-## 安装 Dragonfly
-
-### 默认配置安装
-
-```shell
-helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly
-```
-
-### 自定义配置安装
-
-创建 `values.yaml` 配置文件。建议使用外部 redis 和 mysql 代替容器启动。
-
-该示例使用外部 mysql 和 redis。参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
-
-```yaml
-mysql:
-  enable: false
-
-externalMysql:
-  migrate: true
-  host: mysql-host
-  username: dragonfly
-  password: dragonfly
-  database: manager
-  port: 3306
-
-redis:
-  enable: false
-
-externalRedis:
-  addrs:
-    - redis.example.com:6379
-  password: dragonfly
-```
-
-使用配置文件 `values.yaml` 安装 Dragonfly。
-
-```shell
-helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-helm install --create-namespace --namespace dragonfly-system \
-    dragonfly dragonfly/dragonfly -f values.yaml
-```
-
-### 安装 Drgonfly 使用已经部署的 manager
-
-创建 `values.yaml` 配置文件。需要配置 scheduler 和 seed peer 关联的对应集群的 id。
-
-示例是使用外部的 manager 和 redis。参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
-
-```yaml
-scheduler:
-  config:
-    manager:
-      schedulerClusterID: 1
-
-seedPeer:
-  config:
-    scheduler:
-      manager:
-        seedPeer:
-          clusterID: 1
-
-manager:
-  enable: false
-
-externalManager:
+jaeger:
   enable: true
-  host: dragonfly-manager.dragonfly-system.svc.cluster.local
-  restPort: 8080
-  grpcPort: 65003
-
-redis:
-  enable: false
-
-externalRedis:
-  addrs:
-    - redis.example.com:6379
-  password: dragonfly
-
-mysql:
-  enable: false
 ```
 
-### 等待部署成功
-
-等待所有的服务运行成功。
+使用配置文件部署 Dragonfly Helm Charts:
 
 ```shell
-kubectl -n dragonfly-system wait --for=condition=ready --all --timeout=10m pod
+$ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
+$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+NAME: dragonfly
+LAST DEPLOYED: Mon Mar  4 16:23:15 2024
+NAMESPACE: dragonfly-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the scheduler address by running these commands:
+  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+  component=scheduler" -o jsonpath={.items[0].metadata.name})
+  export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8002 to use your scheduler"
+
+2. Get the dfdaemon port by running these commands:
+  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+  component=dfdaemon" -o jsonpath={.items[0].metadata.name})
+  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
+
+3. Configure runtime to use dragonfly:
+  https://d7y.io/docs/getting-started/quick-start/kubernetes/
+
+4. Get Jaeger query URL by running these commands:
+  export JAEGER_QUERY_PORT=$(kubectl --namespace dragonfly-system get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
+  kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
+  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly
+  to query download events"
 ```
 
-## Manager 控制台
-
-控制台页面会在 `dragonfly-manager.dragonfly-system.svc.cluster.local:8080` 展示。
-
-需要绑定 Ingress 可以参考
-[Helm Charts 配置选项](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values),
-或者手动自行创建 Ingress。
-
-控制台功能预览参考文档 [console preview](../../reference/manage-console.md)。
-
-## 运行时配置
-
-以 Containerd 和 CRI 为例，更多运行时[文档](../../getting-started/quick-start.md)
-
-> 例子为单镜像仓库配置，多镜像仓库配置参考[文档](../../setup/runtime/containerd.md)
-
-私有仓库:
-
-```toml
-# explicitly use v2 config format, if already v2, skip the "version = 2"
-version = 2
-[plugins."io.containerd.grpc.v1.cri".registry.mirrors."harbor.example.com"]
-endpoint = ["http://127.0.0.1:65001", "https://harbor.example.com"]
-```
-
-dockerhub 官方仓库:
-
-```toml
-# explicitly use v2 config format, if already v2, skip the "version = 2"
-version = 2
-[plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-endpoint = ["http://127.0.0.1:65001", "https://index.docker.io"]
-```
-
-增加配置到 `/etc/containerd/config.toml` 文件并重启 Containerd。
+检查 Dragonfly 是否部署成功:
 
 ```shell
-systemctl restart containerd
+$ kubectl get po -n dragonfly-system
+NAME                                READY   STATUS    RESTARTS   AGE
+dragonfly-dfdaemon-2j57h            1/1     Running   0          92s
+dragonfly-dfdaemon-fg575            1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-9cd6m   1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-m9nkj   1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-x2nzg   1/1     Running   0          92s
+dragonfly-mysql-0                   1/1     Running   0          92s
+dragonfly-redis-master-0            1/1     Running   0          92s
+dragonfly-redis-replicas-0          1/1     Running   0          92s
+dragonfly-redis-replicas-1          1/1     Running   0          55s
+dragonfly-redis-replicas-2          1/1     Running   0          34s
+dragonfly-scheduler-0               1/1     Running   0          92s
+dragonfly-scheduler-1               1/1     Running   0          20s
+dragonfly-scheduler-2               1/1     Running   0          10s
+dragonfly-seed-peer-0               1/1     Running   0          92s
+dragonfly-seed-peer-1               1/1     Running   0          31s
+dragonfly-seed-peer-2               1/1     Running   0          11s
 ```
 
-## 使用 Dragonfly
+## containerd 通过 Dragonfly 下载镜像
 
-以上步骤执行完毕，可以使用 `crictl` 命令拉取镜像:
+在 `kind-worker` Node 下载 `alpine:3.19` 镜像。
 
 ```shell
-crictl harbor.example.com/library/alpine:latest
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-```shell
-crictl pull docker.io/library/alpine:latest
-```
+### 验证镜像下载成功
 
-拉取镜像后可以在 dfdaemon 查询日志:
+可以查看日志，判断 `alpine:3.19` 镜像正常拉取。
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=
+dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# 获取 Peer ID
+export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/
+daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
+
+# 查看下载日志
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/
+daemon/core.log | grep "peer task done"
 ```
 
 日志输出例子:
 
 ```shell
 {
-    "level": "info",
-    "ts": "2021-06-28 06:02:30.924",
-    "caller": "peer/peertask_stream_callback.go:77",
-    "msg": "stream peer task done, cost: 2838ms",
-    "peer": "172.17.0.9-1-ed7a32ae-3f18-4095-9f54-6ccfc248b16e",
-    "task": "3c658c488fd0868847fab30976c2a079d8fd63df148fb3b53fd1a418015723d7",
-    "component": "streamPeerTask"
+  "level": "info",
+  "ts": "2024-03-05 12:06:31.244",
+  "caller": "peer/peertask_conductor.go:1349",
+  "msg": "peer task done, cost: 2751ms",
+  "peer": "10.244.1.2-54896-5c6cb404-0f2b-4ac6-a18f-d74167a766b4",
+  "task": "0bff62286fe544f598997eed3ecfc8aa9772b8522b9aa22a01c06eef2c8eba66",
+  "component": "PeerTask",
+  "trace": "31fc6650d93ec3992ab9aad245fbef71"
 }
 ```
+
+## 性能测试
+
+### containerd 通过 Dragonfly 首次回源拉镜像
+
+在 `kind-worker` Node 下载 `alpine:3.19` 镜像。
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+暴露 Jaeger `16686` 端口:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`
+Tracing:
+
+![download-back-to-source-search-tracing](../../resource/getting-started/installation/download-back-to-source-search-tracing.png)
+Tracing 详细内容:
+
+![download-back-to-source-tracing](../../resource/getting-started/installation/download-back-to-source-tracing.png)
+
+集群内首次回源时，下载 `ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3` 层需要消耗时间为 `2.82s`。
+
+### containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
+
+删除 Node 为 `kind-worker` 的 dfdaemon, 为了清除 Dragonfly 本地 Peer 的缓存。
+
+```shell
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=
+dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# 删除 Pod
+kubectl delete pod ${POD_NAME} -n dragonfly-system
+```
+
+删除 `kind-worker` Node 的 containerd 中镜像 `alpine:3.19` 的缓存:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
+```
+
+在 `kind-worker` Node 下载 `alpine:3.19` 镜像:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+暴露 Jaeger `16686` 端口:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`
+Tracing:
+
+![hit-remote-peer-cache-search-tracing](../../resource/getting-started/installation/hit-remote-peer-cache-search-tracing.png)
+
+Tracing 详细内容:
+
+![hit-remote-peer-cache-tracing](../../resource/getting-started/installation/hit-remote-peer-cache-tracing.png)
+
+命中远程 Peer 缓存时，下载 `ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3` 层需要消耗时间为 `341.72ms`。
+
+### containerd 下载镜像命中 Dragonfly 本地 Peer 的缓存
+
+删除 `kind-worker` Node 的 containerd 中镜像 `alpine:3.19` 的缓存:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
+```
+
+在 `kind-worker` Node 下载 `alpine:3.19` 镜像:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+暴露 Jaeger `16686` 端口:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`
+Tracing:
+
+![hit-local-peer-cache-search-tracing](../../resource/getting-started/installation/hit-local-peer-cache-search-tracing.png)
+
+Tracing 详细内容:
+
+![hit-local-peer-cache-tracing](../../resource/getting-started/installation/hit-local-peer-cache-tracing.png)
+
+命中本地 Peer 缓存时下载 `ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3` 层需要消耗时间为 `5.38ms`。
+
+## 预热镜像
+
+暴露 Manager 8080 端口:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080:8080
+```
+
+使用 Open API 之前请先申请 Personal Access Token，并且 Access Scopes 选择为 `job`，参考文档 [personal-access-tokens](../../reference/personal-access-tokens.md)。
+
+使用 Open API 预热镜像 `alpine:3.19`，参考文档 [preheat](../../reference/preheat.md)。
+
+```shell
+curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your_personal_access_token' \
+--data-raw '{
+    "type": "preheat",
+    "args": {
+        "type": "image",
+        "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
+        "filteredQueryParams": "Expires&Signature",
+        "username": "your_registry_username",
+        "password": "your_registry_password"
+    }
+}'
+```
+
+命令行日志返回预热任务 ID:
+
+```shell
+{"id":1,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"task_id":"group_e9a1bc09-b988-4403-bf56-c4dc295b6a76","bio":"","type":"preheat","state":"PENDING","args":{"filteredQueryParams":"","headers":null,"password":"","platform":"","tag":"","type":"image","url":"https://registry-1.docker.io/v2/library/alpine/manifests/3.19","username":""},"result":null,"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":null,"scheduler_clusters":[{"id":1,"created_at":"2024-03-12T08:39:20Z","updated_at":"2024-03-12T08:39:20Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+```
+
+使用预热任务 ID 轮训查询任务是否成功:
+
+```shell
+curl --request GET 'http://127.0.0.1:8080/oapi/v1/jobs/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your_personal_access_token'
+```
+
+如果返回预热任务状态为 `SUCCESS`，表示预热成功:
+
+```shell
+{"id":1,"created_at":"2024-03-14T08:01:05Z","updated_at":"2024-03-14T08:01:29Z","is_del":0,"task_id":"group_e64477bd-3ec8-4898-bd4d-ce74f0f66564","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"liubo666.","platform":"","tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":"zhaoxinxin03"},"result":{"CreatedAt":"2024-03-14T08:01:05.08734184Z","GroupUUID":"group_e64477bd-3ec8-4898-bd4d-ce74f0f66564","JobStates":[{"CreatedAt":"2024-03-14T08:01:05.08734184Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_36d16ee6-dea6-426a-94d9-4e2aaedba97e"},{"CreatedAt":"2024-03-14T08:01:05.092529257Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_253e6894-ca21-4287-8cc7-1b2f5bcd52f5"}],"State":"SUCCESS"},"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":[],"scheduler_clusters":[{"id":1,"created_at":"2024-03-14T07:37:01Z","updated_at":"2024-03-14T07:37:01Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+```
+
+在 `kind-worker` Node 下载 `alpine:3.19` 镜像:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+暴露 Jaeger `16686` 端口:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`
+Tracing:
+
+![hit-preheat-cache-search-tracing](../../resource/getting-started/installation/hit-preheat-cache-search-tracing.png)
+
+Tracing 详细内容:
+
+![hit-preheat-cache-tracing](../../resource/getting-started/installation/hit-preheat-cache-tracing.png)
+
+命中预热缓存时，下载 `ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3` 层需要消耗时间为 `854.54ms`。
