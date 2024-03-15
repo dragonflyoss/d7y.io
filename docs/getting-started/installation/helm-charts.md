@@ -5,8 +5,8 @@ title: Helm Charts
 
 Documentation for deploying Dragonfly on kubernetes using helm.
 
-For more integration solutions, such as Docker, CRI-O, Singularity/Apptainer, Nydus, eStargz, Harbor,
-Git LFS, Hugging Face, TorchServe, Triton Server, etc., refer to [Integrations](../../setup/runtime/containerd.md).
+For more integrations such as Docker, CRI-O, Singularity/Apptainer, Nydus, eStargz, Harbor, Git LFS,
+Hugging Face, TorchServe, Triton Server, etc., refer to [Integrations](../../setup/runtime/containerd.md).
 
 ## Prerequisites {#prerequisites}
 
@@ -80,6 +80,8 @@ jaeger:
 
 Create a Dragonfly cluster using the configuration file:
 
+<!-- markdownlint-disable -->
+
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
@@ -91,28 +93,27 @@ REVISION: 1
 TEST SUITE: None
 NOTES:
 1. Get the scheduler address by running these commands:
-  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
-  component=scheduler" -o jsonpath={.items[0].metadata.name})
-  export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME
-  -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
+  export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
 
 2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,
-  release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
+  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
   export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
+  
 
 4. Get Jaeger query URL by running these commands:
   export JAEGER_QUERY_PORT=$(kubectl --namespace dragonfly-system get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
   kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
-  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly
-  to query download events"
+  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
+
+<!-- markdownlint-restore -->
 
 Check that Dragonfly is deployed successfully:
 
@@ -137,7 +138,7 @@ dragonfly-seed-peer-1               1/1     Running   0          31s
 dragonfly-seed-peer-2               0/1     Running   0          11s
 ```
 
-## Containerd downloads images through Dragonfly Peer {#containerd-downloads-images-through-dragonfly-peer}
+## Containerd downloads images through Dragonfly {#containerd-downloads-images-through-dragonfly}
 
 Pull `alpine:3.19` image in kind-worker node:
 
@@ -145,23 +146,25 @@ Pull `alpine:3.19` image in kind-worker node:
 docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-### Verify Dragonfly {#verify-ragonfly}
+### Verify {#verify}
 
 You can execute the following command to check if the `alpine:3.19` image is distributed via Dragonfly.
 
+<!-- markdownlint-disable -->
+
 ```shell
 # Find pod name.
-export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
-component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # Find peer id.
-export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/daemon/
-core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
+export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
 
 # Check logs.
 kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/daemon/
 core.log | grep "peer task done"
 ```
+
+<!-- markdownlint-restore -->
 
 The expected output is as follows:
 
@@ -210,14 +213,17 @@ When pull image back-to-source for the first time through Dragonfly, it takes `2
 
 Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
 
+<!-- markdownlint-disable -->
+
 ```shell
 # Find pod name.
-export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=
-dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # Delete pod.
 kubectl delete pod ${POD_NAME} -n dragonfly-system
 ```
+
+<!-- markdownlint-restore -->
 
 Delete `alpine:3.19` image in `kind-worker` node:
 

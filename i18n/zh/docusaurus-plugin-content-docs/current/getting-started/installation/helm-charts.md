@@ -79,6 +79,8 @@ jaeger:
 
 使用配置文件部署 Dragonfly Helm Charts:
 
+<!-- markdownlint-disable -->
+
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
@@ -90,27 +92,26 @@ REVISION: 1
 TEST SUITE: None
 NOTES:
 1. Get the scheduler address by running these commands:
-  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
-  component=scheduler" -o jsonpath={.items[0].metadata.name})
+  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
 
 2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
-  component=dfdaemon" -o jsonpath={.items[0].metadata.name})
+  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
   export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
 
+
 4. Get Jaeger query URL by running these commands:
   export JAEGER_QUERY_PORT=$(kubectl --namespace dragonfly-system get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
   kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
-  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly
-  to query download events"
+  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
+
 
 检查 Dragonfly 是否部署成功:
 
@@ -147,6 +148,8 @@ docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 
 可以查看日志，判断 `alpine:3.19` 镜像正常拉取。
 
+<!-- markdownlint-disable -->
+
 ```shell
 # 获取 Pod Name
 export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=
@@ -160,6 +163,8 @@ daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head 
 kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/
 daemon/core.log | grep "peer task done"
 ```
+
+<!-- markdownlint-restore -->
 
 日志输出例子:
 
@@ -207,6 +212,8 @@ Tracing 详细内容:
 
 删除 Node 为 `kind-worker` 的 dfdaemon, 为了清除 Dragonfly 本地 Peer 的缓存。
 
+<!-- markdownlint-disable -->
+
 ```shell
 # 获取 Pod Name
 export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=
@@ -215,6 +222,8 @@ dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}
 # 删除 Pod
 kubectl delete pod ${POD_NAME} -n dragonfly-system
 ```
+
+<!-- markdownlint-restore -->
 
 删除 `kind-worker` Node 的 containerd 中镜像 `alpine:3.19` 的缓存:
 
