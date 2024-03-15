@@ -3,376 +3,352 @@ id: helm-charts
 title: Helm Charts
 ---
 
-Now we can deploy all components of Dragonfly in
-Kubernetes cluster. We deploy scheduler and seed peer as `StatefulSets`,
-daemon as `DaemonSets`, manager as `Deployments`.
+Documentation for deploying Dragonfly on kubernetes using helm.
+
+For more integration solutions, such as Docker, CRI-O, Singularity/Apptainer, Nydus, eStargz, Harbor,
+Git LFS, Hugging Face, TorchServe, Triton Server, etc., refer to [Integrations](../../setup/runtime/containerd.md).
 
 ## Prerequisites {#prerequisites}
 
-- Kubernetes cluster 1.20+
-- Helm v3.8.0+
+| Required software  | Version | Document                                |
+| ------------------ | ------- | --------------------------------------- |
+| Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
+| Helm               | v3.8.0+ | [helm.sh](https://helm.sh/)             |
+| containerd         | v1.5.0+ | [containerd.io](https://containerd.io/) |
 
-## Runtime Configuration Guide for Dragonfly Helm Chart {#runtime-configuration-guide-for-dragonfly-helm-chart}
+## Setup kubernetes cluster {#setup-kubernetes-cluster}
 
-When enable runtime configuration in dragonfly,
-you can skip [Configure Runtime](#configure-runtime-manually) manually.
+[Kind](https://kind.sigs.k8s.io/) is recommended if no Kubernetes cluster is available for testing.
 
-### 1. Docker {#1-docker}
-
-> **We did not recommend to using dragonfly
-> with docker in Kubernetes**
-> due to many reasons:
-> no fallback image pulling policy.
-> deprecated in Kubernetes.
-> Because the original `daemonset` in
-> Kubernetes did not support `Surging Rolling Update` policy.
-> When kill current dfdaemon pod,
-> the new pod image can not be pulled anymore.
-> If you can not change runtime from docker to others,
-> remind to choose a plan when upgrade dfdaemon:
-> pull newly dfdaemon image manually before upgrade dragonfly,
-> or use [ImagePullJob](https://openkruise.io/docs/user-manuals/imagepulljob) to
-> pull image automate.
-> keep the image registry of dragonfly is
-> different from common registries and add host in `containerRuntime.docker.skipHosts`.
-
-Dragonfly helm supports config docker automatically.
-
-Config cases:
-
-#### Case 1: [Preferred] Implicit registries support without restart docker {#case-1-preferred-implicit-registries-support-without-restart-docker}
-
-Chart customize values.yaml:
-
-<!-- markdownlint-disable -->
+Create kind multi-node cluster configuration file `kind-config.yaml`, configuration content is as follows:
 
 ```yaml
-containerRuntime:
-  docker:
-    enable: true
-    # -- Inject domains into /etc/hosts to force redirect traffic to dfdaemon.
-    # Caution: This feature need dfdaemon to implement SNI Proxy, confirm image tag is greater than v2.0.0.
-    # When use certs and inject hosts in docker, no necessary to restart docker daemon.
-    injectHosts: true
-    registryDomains:
-      - 'harbor.example.com'
-      - 'harbor.example.net'
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker
 ```
 
-<!-- markdownlint-restore -->
+Create a kind multi-node cluster using the configuration file:
 
-This config enables docker pulling images from
-registries `harbor.example.com` and `harbor.example.net` via Dragonfly.
-When deploying Dragonfly with above config,
-it's unnecessary to restart docker daemon.
-
-Advantages:
-
-- Support upgrade dfdaemon smoothness
-
-> In this mode, when dfdaemon pod deleted,
-> the `preStop` hook will remove all injected hosts info in /etc/hosts,
-> all images traffic fallbacks to original registries.
-
-Limitations:
-
-- Only support implicit registries
-
-#### Case 2: Arbitrary registries support with restart docker {#case-2-arbitrary-registries-support-with-restart-docker}
-
-Chart customize values.yaml:
-
-<!-- markdownlint-disable -->
-
-```yaml
-containerRuntime:
-  docker:
-    enable: true
-    # -- Restart docker daemon to redirect traffic to dfdaemon
-    # When containerRuntime.docker.restart=true, containerRuntime.docker.injectHosts and containerRuntime.registry.domains is ignored.
-    # If did not want restart docker daemon, keep containerRuntime.docker.restart=false and containerRuntime.docker.injectHosts=true.
-    restart: true
-    skipHosts:
-      - '127.0.0.1'
-      - 'docker.io' # Dragonfly use this image registry to upgrade itself, so we need skip it. Change it in real environment.
+```shell
+kind create cluster --config kind-config.yaml
 ```
 
-<!-- markdownlint-restore -->
+Switch the context of kubectl to kind cluster:
 
-This config enables docker pulling images from arbitrary registries via Dragonfly.
-When deploying Dragonfly with above config, dfdaemon will restart docker daemon.
-
-Advantages:
-
-- Support arbitrary registries
-
-Limitations:
-
-- Must enable live-restore feature in docker
-- Need restart docker daemon
-- When upgrade dfdaemon, new image must be pulled beforehand.
-
-### 2. Containerd {#2-containerd}
-
-The config of containerd has two version with complicated fields.
-These are many cases to consider:
-
-#### Case 1: Version 2 config with config_path {#case-1-version-2-config-with-config_path}
-
-There is `config_path` in `/etc/containerd/config.toml`:
-
-```toml
-[plugins."io.containerd.grpc.v1.cri".registry]
-  config_path = "/etc/containerd/certs.d"
+```shell
+kubectl config use-context kind-kind
 ```
 
-This case is very simple to enable multiple registry mirrors support.
+## Kind loads Dragonfly image {#kind-loads-dragonfly-image}
 
-Chart customize values.yaml:
+Pull Dragonfly latest images:
+
+```shell
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
+```
+
+Kind cluster loads Dragonfly latest images:
+
+```shell
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
+```
+
+## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+
+Create the Helm Charts configuration file `values.yaml`, and set the container runtime to `containerd`.
+Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
 containerRuntime:
   containerd:
     enable: true
-```
-
-#### Case 2: Version 2 config without config_path {#case-2-version-2-config-without-config_path}
-
-- Option 1 - Allow charts to inject config_path and restart containerd.
-
-  This option also enable multiple registry mirrors support.
-
-  > Caution: if there are already many other mirror config in config.toml,
-  > should not use this option, or migrate your config with `config_path`.
-
-  Chart customize values.yaml:
-
-  ```yaml
-  containerRuntime:
-    containerd:
-      enable: true
-      injectConfigPath: true
-  ```
-
-- Option 2 - Just mirror only one registry
-  which `dfdaemon.config.proxy.registryMirror.url` is Chart customize values.yaml:
-
-  ```yaml
-  containerRuntime:
-    containerd:
-      enable: true
-  ```
-
-#### Case 3: Version 1 {#case-3-version-1}
-
-With version 1 config.toml, only support
-the registry which `dfdaemon.config.proxy.registryMirror.url` is.
-
-Chart customize values.yaml:
-
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
-```
-
-### 3. [WIP] CRI-O {#3-wip-cri-o}
-
-> DON'T USE, Work in progress
-
-Dragonfly helm supports config CRI-O automatically with drop-in registries.
-
-Chart customize values.yaml:
-
-```yaml
-containerRuntime:
-  crio:
-    # -- Enable CRI-O support
-    # Inject drop-in mirror config into /etc/containers/registries.conf.d.
-    enable: true
-    # Registries full urls
+    injectConfigPath: true
     registries:
-      - 'https://ghcr.io'
-      - 'https://quay.io'
-      - 'https://harbor.example.com:8443'
-```
+      - 'https://docker.io'
 
-## Prepare Kubernetes Cluster {#prepare-kubernetes-cluster}
-
-If there is no available Kubernetes cluster for testing,
-[minikube](https://minikube.sigs.k8s.io/docs/start/) is
-recommended. Just run `minikube start`.
-
-## Install Dragonfly {#install-dragonfly}
-
-### Install with default configuration {#install-with-default-configuration}
-
-```shell
-helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly
-```
-
-### Install with custom configuration {#install-with-custom-configuration}
-
-Create the `values.yaml` configuration file.
-It is recommended to use external redis and mysql instead of containers.
-
-The example uses external mysql and redis.
-Refer to the document for
-[configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values).
-
-```yaml
-mysql:
-  enable: false
-
-externalMysql:
-  migrate: true
-  host: mysql-host
-  username: dragonfly
-  password: dragonfly
-  database: manager
-  port: 3306
-
-redis:
-  enable: false
-
-externalRedis:
-  addrs:
-    - redis.example.com:6379
-  password: dragonfly
-```
-
-Install dragonfly with `values.yaml`.
-
-```shell
-helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-helm install --create-namespace --namespace dragonfly-system \
-    dragonfly dragonfly/dragonfly -f values.yaml
-```
-
-### Install with an existing manager {#install-with-an-existing-manager}
-
-Create the `values.yaml` configuration file.
-Need to configure the cluster id associated with scheduler and seed peer.
-
-The example is to deploy a cluster using the existing manager and redis.
-Refer to the document for [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values).
-
-```yaml
-scheduler:
-  config:
-    manager:
-      schedulerClusterID: 1
-
-seedPeer:
-  config:
-    scheduler:
-      manager:
-        seedPeer:
-          clusterID: 1
-
-manager:
-  enable: false
-
-externalManager:
+jaeger:
   enable: true
-  host: dragonfly-manager.dragonfly-system.svc.cluster.local
-  restPort: 8080
-  grpcPort: 65003
-
-redis:
-  enable: false
-
-externalRedis:
-  addrs:
-    - redis.example.com:6379
-  password: dragonfly
-
-mysql:
-  enable: false
 ```
 
-## Wait Dragonfly Ready {#wait-dragonfly-ready}
-
-Wait all pods running
+Create a Dragonfly cluster using the configuration file:
 
 ```shell
-kubectl -n dragonfly-system wait --for=condition=ready --all --timeout=10m pod
+$ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
+$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+NAME: dragonfly
+LAST DEPLOYED: Mon Mar  4 16:23:15 2024
+NAMESPACE: dragonfly-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the scheduler address by running these commands:
+  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+  component=scheduler" -o jsonpath={.items[0].metadata.name})
+  export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME
+  -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8002 to use your scheduler"
+
+2. Get the dfdaemon port by running these commands:
+  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,
+  release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
+  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
+
+3. Configure runtime to use dragonfly:
+  https://d7y.io/docs/getting-started/quick-start/kubernetes/
+
+4. Get Jaeger query URL by running these commands:
+  export JAEGER_QUERY_PORT=$(kubectl --namespace dragonfly-system get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
+  kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
+  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly
+  to query download events"
 ```
 
-## Manager Console {#manager-console}
-
-The console page will be displayed on `dragonfly-manager.dragonfly-system.svc.cluster.local:8080`.
-
-If you need to bind Ingress, you can refer to
-[configuration options](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)
-of Helm Charts, or create it manually.
-
-Console features preview reference document [console preview](../../reference/manage-console.md).
-
-## Configure Runtime Manually {#configure-runtime-manually}
-
-Use Containerd with CRI as example, more runtimes can be found [here](../../getting-started/quick-start/kubernetes.md)
-
-> This example is for single registry, multiple registries configuration is [here](../../setup/runtime/containerd.md)
-
-For private registry:
-
-```toml
-# explicitly use v2 config format, if already v2, skip the "version = 2"
-version = 2
-[plugins."io.containerd.grpc.v1.cri".registry.mirrors."harbor.example.com"]
-endpoint = ["http://127.0.0.1:65001", "https://harbor.example.com"]
-```
-
-For docker public registry:
-
-```toml
-# explicitly use v2 config format, if already v2, skip the "version = 2"
-version = 2
-[plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-endpoint = ["http://127.0.0.1:65001", "https://index.docker.io"]
-```
-
-Add above config to `/etc/containerd/config.toml` and restart Containerd
+Check that Dragonfly is deployed successfully:
 
 ```shell
-systemctl restart containerd
+$ kubectl get po -n dragonfly-system
+NAME                                READY   STATUS    RESTARTS   AGE
+dragonfly-dfdaemon-2j57h            1/1     Running   0          92s
+dragonfly-dfdaemon-fg575            1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-9cd6m   1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-m9nkj   1/1     Running   0          92s
+dragonfly-manager-6dbfb7b47-x2nzg   1/1     Running   0          92s
+dragonfly-mysql-0                   1/1     Running   0          92s
+dragonfly-redis-master-0            1/1     Running   0          92s
+dragonfly-redis-replicas-0          1/1     Running   0          92s
+dragonfly-redis-replicas-1          1/1     Running   0          55s
+dragonfly-redis-replicas-2          1/1     Running   0          34s
+dragonfly-scheduler-0               1/1     Running   0          92s
+dragonfly-scheduler-1               1/1     Running   0          20s
+dragonfly-scheduler-2               0/1     Running   0          10s
+dragonfly-seed-peer-0               1/1     Running   0          92s
+dragonfly-seed-peer-1               1/1     Running   0          31s
+dragonfly-seed-peer-2               0/1     Running   0          11s
 ```
 
-## Using Dragonfly {#using-dragonfly}
+## Containerd downloads images through Dragonfly Peer {#containerd-downloads-images-through-dragonfly-peer}
 
-After all above steps, create a new pod with
-target registry. Or just pull an image with `crictl`:
+Pull `alpine:3.19` image in kind-worker node:
 
 ```shell
-crictl harbor.example.com/library/alpine:latest
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
+
+### Verify Dragonfly {#verify-ragonfly}
+
+You can execute the following command to check if the `alpine:3.19` image is distributed via Dragonfly.
 
 ```shell
-crictl pull docker.io/library/alpine:latest
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Find peer id.
+export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/daemon/
+core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/daemon/
+core.log | grep "peer task done"
 ```
 
-After pulled images, find logs in dfdaemon pod:
-
-```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
-```
-
-Example output:
+The expected output is as follows:
 
 ```shell
 {
-   "level":"info",
-   "ts":"2022-09-07 12:04:26.485",
-   "caller":"peer/peertask_conductor.go:1500",
-   "msg":"peer task done, cost: 1ms",
-   "peer":"10.140.2.175-5184-1eab18b6-bead-4b9f-b055-6c1120a30a33",
-   "task":"b423e11ddb7ab19a3c2c4c98e5ab3b1699a597e974c737bb4004edeef6016ed2",
-   "component":"PeerTask"
+  "level": "info",
+  "ts": "2024-03-05 12:06:31.244",
+  "caller": "peer/peertask_conductor.go:1349",
+  "msg": "peer task done, cost: 2751ms",
+  "peer": "10.244.1.2-54896-5c6cb404-0f2b-4ac6-a18f-d74167a766b4",
+  "task": "0bff62286fe544f598997eed3ecfc8aa9772b8522b9aa22a01c06eef2c8eba66",
+  "component": "PeerTask",
+  "trace": "31fc6650d93ec3992ab9aad245fbef71"
 }
 ```
+
+## Performance testing {#performance-testing}
+
+### Containerd pull image back-to-source for the first time through Dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
+
+Pull `alpine:3.19` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+Expose jaeger's port `16686`:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`:
+
+![download-back-to-source-search-tracing](../../resource/getting-started/installation/download-back-to-source-search-tracing.png)
+
+Tracing details:
+
+![download-back-to-source-tracing](../../resource/getting-started/installation/download-back-to-source-tracing.png)
+
+When pull image back-to-source for the first time through Dragonfly, it takes `2.82s` to download the
+`ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0` layer.
+
+### Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
+
+Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
+
+```shell
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=
+dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Delete pod.
+kubectl delete pod ${POD_NAME} -n dragonfly-system
+```
+
+Delete `alpine:3.19` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
+```
+
+Pull `alpine:3.19` image in `kind-worker2` node:
+
+```shell
+docker exec -i kind-worker2 /usr/local/bin/crictl pull alpine:3.19
+```
+
+Expose jaeger's port `16686`:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`:
+
+![hit-remote-peer-cache-search-tracing](../../resource/getting-started/installation/hit-remote-peer-cache-search-tracing.png)
+
+Tracing details:
+
+![hit-remote-peer-cache-tracing](../../resource/getting-started/installation/hit-remote-peer-cache-tracing.png)
+
+When pull image hits cache of remote peer, it takes `341.72ms` to download the
+`ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0` layer.
+
+### Containerd pull image hits the cache of local peer {#containerd-pull-image-hits-the-cache-of-local-peer}
+
+Delete `alpine:3.19` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
+```
+
+Pull `alpine:3.19` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+Expose jaeger's port `16686`:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`:
+
+![hit-local-peer-cache-search-tracing](../../resource/getting-started/installation/hit-local-peer-cache-search-tracing.png)
+
+Tracing details:
+
+![hit-local-peer-cache-tracing](../../resource/getting-started/installation/hit-local-peer-cache-tracing.png)
+
+When pull image hits cache of local peer, it takes `5.38ms` to download the
+`ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0` layer.
+
+## Preheat image {#preheat-image}
+
+Expose manager's port `8080`:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080:8080
+```
+
+Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../reference/personal-access-tokens.md).
+
+Use Open API to preheat the image `alpine:3.19` to Seed Peer, refer to [preheat](../../reference/preheat.md).
+
+```shell
+curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your_personal_access_token' \
+--data-raw '{
+    "type": "preheat",
+    "args": {
+        "type": "image",
+        "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
+        "filteredQueryParams": "Expires&Signature",
+        "username": "your_registry_username",
+        "password": "your_registry_password"
+    }
+}'
+```
+
+The command-line log returns the preheat job id:
+
+```shell
+{"id":1,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"task_id":"group_e9a1bc09-b988-4403-bf56-c4dc295b6a76","bio":"","type":"preheat","state":"PENDING","args":{"filteredQueryParams":"","headers":null,"password":"","platform":"","tag":"","type":"image","url":"https://registry-1.docker.io/v2/library/alpine/manifests/3.19","username":""},"result":null,"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":null,"scheduler_clusters":[{"id":1,"created_at":"2024-03-12T08:39:20Z","updated_at":"2024-03-12T08:39:20Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+```
+
+Polling the preheating status with job id:
+
+```shell
+curl --request GET 'http://127.0.0.1:8080/oapi/v1/jobs/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your_personal_access_token'
+```
+
+If the status is `SUCCESS`, the preheating is successful:
+
+```shell
+{"id":1,"created_at":"2024-03-14T08:01:05Z","updated_at":"2024-03-14T08:01:29Z","is_del":0,"task_id":"group_e64477bd-3ec8-4898-bd4d-ce74f0f66564","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"liubo666.","platform":"","tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":"zhaoxinxin03"},"result":{"CreatedAt":"2024-03-14T08:01:05.08734184Z","GroupUUID":"group_e64477bd-3ec8-4898-bd4d-ce74f0f66564","JobStates":[{"CreatedAt":"2024-03-14T08:01:05.08734184Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_36d16ee6-dea6-426a-94d9-4e2aaedba97e"},{"CreatedAt":"2024-03-14T08:01:05.092529257Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_253e6894-ca21-4287-8cc7-1b2f5bcd52f5"}],"State":"SUCCESS"},"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":[],"scheduler_clusters":[{"id":1,"created_at":"2024-03-14T07:37:01Z","updated_at":"2024-03-14T07:37:01Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+```
+
+Pull `alpine:3.19` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+Expose jaeger's port `16686`:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
+`http.url="https://index.docker.io/v2/library/alpine/blobs/sha256:ace17d5d883e9ea5a21138d0608d60aa2376c68f616c55b0b7e73fba6d8556a3?ns=docker.io"`:
+
+![hit-preheat-cache-search-tracing](../../resource/getting-started/installation/hit-preheat-cache-search-tracing.png)
+
+Tracing details:
+
+![hit-preheat-cache-tracing](../../resource/getting-started/installation/hit-preheat-cache-tracing.png)
+
+When pull image hits preheat cache, it takes `854.54ms` to download the
+`ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0` layer.

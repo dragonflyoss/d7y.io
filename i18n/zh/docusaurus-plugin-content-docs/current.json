@@ -8,7 +8,7 @@
     "description": "The label for category Getting Started in sidebar docs"
   },
   "sidebar.docs.category.Setup": {
-    "message": "安装",
+    "message": "设置",
     "description": "The label for category Setup in sidebar docs"
   },
   "sidebar.docs.category.Install": {
