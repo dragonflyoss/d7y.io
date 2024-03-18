@@ -5,12 +5,12 @@ description: Multi-cluster kubernetes
 slug: /getting-started/quick-start/multi-cluster-kubernetes/
 ---
 
-Documentation for deploying dragonfly on multi-cluster kubernetes using helm. A dragonfly cluster manages cluster within
-a network. If you have two clusters with disconnected networks, you can use two dragonfly clusters to manage their own clusters.
+Documentation for deploying Dragonfly on multi-cluster kubernetes using helm. A Dragonfly cluster manages cluster within
+a network. If you have two clusters with disconnected networks, you can use two Dragonfly clusters to manage their own clusters.
 
-The recommended deployment in a multi-cluster kubernetes is to use a dragonfly cluster to manage a kubernetes cluster,
-and use a centralized manager service to manage multiple dragonfly clusters. Because peer can only transmit data in
-its own dragonfly cluster, if a kubernetes cluster deploys a dragonfly cluster, then a kubernetes cluster forms a p2p network,
+The recommended deployment in a multi-cluster kubernetes is to use a Dragonfly cluster to manage a kubernetes cluster,
+and use a centralized manager service to manage multiple Dragonfly clusters. Because peer can only transmit data in
+its own Dragonfly cluster, if a kubernetes cluster deploys a Dragonfly cluster, then a kubernetes cluster forms a p2p network,
 and internal peers can only schedule and transmit data in a kubernetes cluster.
 
 ![multi-cluster-kubernetes](../../resource/getting-started/multi-cluster-kubernetes.png)
@@ -18,7 +18,7 @@ and internal peers can only schedule and transmit data in a kubernetes cluster.
 ## Runtime
 
 You can have a quick start following [Helm Charts](../../installation/helm-charts).
-We recommend to use `Containerd with CRI` and `CRI-O` client.
+We recommend to use `containerd with CRI` and `CRI-O` client.
 
 This table describes some container runtimes version and documents.
 
@@ -26,8 +26,8 @@ This table describes some container runtimes version and documents.
 
 | Runtime                 | Version | Document                                         | CRI Support | Pull Command                                |
 | ----------------------- | ------- | ------------------------------------------------ | ----------- | ------------------------------------------- |
-| Containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
-| Containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
+| containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
+| containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
 | CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             | Yes         | crictl pull docker.io/library/alpine:latest |
 
 <!-- markdownlint-restore -->
@@ -74,9 +74,9 @@ Switch the context of kubectl to kind cluster A:
 kubectl config use-context kind-kind
 ```
 
-## Kind loads dragonfly image
+## Kind loads Dragonfly image
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
@@ -84,7 +84,7 @@ docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/dfdaemon:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
@@ -92,14 +92,14 @@ kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
-## Create dragonfly cluster A
+## Create Dragonfly cluster A
 
-Create dragonfly cluster A, the schedulers, seed peers, peers and centralized manager included in
+Create Dragonfly cluster A, the schedulers, seed peers, peers and centralized manager included in
 the cluster should be installed using helm.
 
-### Create dragonfly cluster A based on helm charts
+### Create Dragonfly cluster A based on helm charts
 
-Create dragonfly cluster A charts configuration file `charts-config-cluster-a.yaml`, configuration content is as follows:
+Create Dragonfly cluster A charts configuration file `charts-config-cluster-a.yaml`, configuration content is as follows:
 
 ```yaml
 containerRuntime:
@@ -160,7 +160,7 @@ jaeger:
   enable: true
 ```
 
-Create dragonfly cluster A using the configuration file:
+Create Dragonfly cluster A using the configuration file:
 
 <!-- markdownlint-disable -->
 
@@ -197,7 +197,7 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly cluster A is deployed successfully:
+Check that Dragonfly cluster A is deployed successfully:
 
 ```shell
 $ kubectl get po -n cluster-a
@@ -253,56 +253,56 @@ the username is `root` and password is `dragonfly`.
 
 ![clusters](../../resource/getting-started/clusters.png)
 
-By default, Dragonfly will automatically create dragonfly cluster A record in manager when
-it is installed for the first time. You can click dragonfly cluster A to view the details.
+By default, Dragonfly will automatically create Dragonfly cluster A record in manager when
+it is installed for the first time. You can click Dragonfly cluster A to view the details.
 
 ![cluster-a](../../resource/getting-started/cluster-a.png)
 
-## Create dragonfly cluster B
+## Create Dragonfly cluster B
 
-Create dragonfly cluster B, you need to create a dragonfly cluster record in the manager console first,
-and the schedulers, seed peers and peers included in the dragonfly cluster should be installed using helm.
+Create Dragonfly cluster B, you need to create a Dragonfly cluster record in the manager console first,
+and the schedulers, seed peers and peers included in the Dragonfly cluster should be installed using helm.
 
-### Create dragonfly cluster B in the manager console
+### Create Dragonfly cluster B in the manager console
 
-Visit manager console and click the `ADD CLUSTER` button to add dragonfly cluster B record.
+Visit manager console and click the `ADD CLUSTER` button to add Dragonfly cluster B record.
 Note that the IDC is set to `cluster-2` to match the peer whose IDC is `cluster-2`.
 
 ![create-cluster-b](../../resource/getting-started/create-cluster-b.png)
 
-Create dragonfly cluster B record successfully.
+Create Dragonfly cluster B record successfully.
 
 ![create-cluster-b-successfully](../../resource/getting-started/create-cluster-b-successfully.png)
 
-### Use scopes to distinguish different dragonfly clusters
+### Use scopes to distinguish different Dragonfly clusters
 
-The dragonfly cluster needs to serve the scope. It wil provide scheduler services and
-seed peer services to peers in the scope. The scopes of the dragonfly cluster are configured
+The Dragonfly cluster needs to serve the scope. It wil provide scheduler services and
+seed peer services to peers in the scope. The scopes of the Dragonfly cluster are configured
 when the console is created and updated. The scopes of the peer are configured in peer YAML config,
 the fields are `host.idc`, `host.location` and `host.advertiseIP`,
 refer to [dfdaemon config](../../reference/configuration/dfdaemon.md).
 
-If the peer scopes match the dragonfly cluster scopes, then the peer will use
-the dragonfly cluster's scheduler and seed peer first, and if there is no matching
-dragonfly cluster then use the default dragonfly cluster.
+If the peer scopes match the Dragonfly cluster scopes, then the peer will use
+the Dragonfly cluster's scheduler and seed peer first, and if there is no matching
+Dragonfly cluster then use the default Dragonfly cluster.
 
-**Location**: The dragonfly cluster needs to serve all peers in the location. When the location in
-the peer configuration matches the location in the dragonfly cluster, the peer will preferentially
-use the scheduler and the seed peer of the dragonfly cluster. It separated by "|",
+**Location**: The Dragonfly cluster needs to serve all peers in the location. When the location in
+the peer configuration matches the location in the Dragonfly cluster, the peer will preferentially
+use the scheduler and the seed peer of the Dragonfly cluster. It separated by "|",
 for example "area|country|province|city".
 
-**IDC**: The dragonfly cluster needs to serve all peers in the IDC. When the IDC in the peer
-configuration matches the IDC in the dragonfly cluster, the peer will preferentially use the
-scheduler and the seed peer of the dragonfly cluster. IDC has higher priority than location
+**IDC**: The Dragonfly cluster needs to serve all peers in the IDC. When the IDC in the peer
+configuration matches the IDC in the Dragonfly cluster, the peer will preferentially use the
+scheduler and the seed peer of the Dragonfly cluster. IDC has higher priority than location
 in the scopes.
 
-**CIDRs**: The dragonfly cluster needs to serve all peers in the CIDRs. The advertise IP will be reported in the peer
+**CIDRs**: The Dragonfly cluster needs to serve all peers in the CIDRs. The advertise IP will be reported in the peer
 configuration when the peer is started, and if the advertise IP is empty in the peer configuration,
-peer will automatically get expose IP as advertise IP. When advertise IP of the peer matches the CIDRs in dragonfly cluster,
-the peer will preferentially use the scheduler and the seed peer of the dragonfly cluster.
+peer will automatically get expose IP as advertise IP. When advertise IP of the peer matches the CIDRs in Dragonfly cluster,
+the peer will preferentially use the scheduler and the seed peer of the Dragonfly cluster.
 CIDRs has higher priority than IDC in the scopes.
 
-### Create dragonfly cluster B based on helm charts
+### Create Dragonfly cluster B based on helm charts
 
 Create charts configuration with cluster information in the manager console.
 
@@ -319,7 +319,7 @@ Create charts configuration with cluster information in the manager console.
 - `externalManager.host` is host of the manager GRPC server.
 - `externalRedis.addrs[0]` is address of the redis.
 
-Create dragonfly cluster B charts configuration file `charts-config-cluster-b.yaml`,
+Create Dragonfly cluster B charts configuration file `charts-config-cluster-b.yaml`,
 configuration content is as follows:
 
 ```yaml
@@ -395,7 +395,7 @@ jaeger:
   enable: true
 ```
 
-Create dragonfly cluster B using the configuration file:
+Create Dragonfly cluster B using the configuration file:
 
 <!-- markdownlint-disable -->
 
@@ -431,10 +431,10 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly cluster B is deployed successfully:
+Check that Dragonfly cluster B is deployed successfully:
 
 ```shell
-$ kubectl get po -n dragonfly-system
+$ kubectl get po -n cluster-b
 NAME                                READY   STATUS    RESTARTS   AGE
 dragonfly-dfdaemon-q8bsg            1/1     Running   0          67s
 dragonfly-dfdaemon-tsqls            1/1     Running   0          67s
@@ -447,9 +447,9 @@ Create dragonfly cluster B successfully.
 
 ![install-cluster-b-successfully](../../resource/getting-started/install-cluster-b-successfully.png)
 
-## Using dragonfly to distribute images for multi-cluster kubernetes
+## Using Dragonfly to distribute images for multi-cluster kubernetes
 
-### Containerd pull image back-to-source for the first time through dragonfly in cluster A
+### Containerd pull image back-to-source for the first time through Dragonfly in cluster A
 
 Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
 
@@ -472,15 +472,35 @@ Tracing details:
 
 ![cluster-a-download-back-to-source-tracing](../../resource/getting-started/cluster-a-download-back-to-source-tracing.jpg)
 
-When pull image back-to-source for the first time through dragonfly, peer uses `cluster-a`'s scheduler and seed peer.
+When pull image back-to-source for the first time through Dragonfly, peer uses `cluster-a`'s scheduler and seed peer.
 It takes `1.47s` to download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` layer.
 
 ### Containerd pull image hits the cache of remote peer in cluster A
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker2` node:
+Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
+
+<!-- markdownlint-disable -->
 
 ```shell
-docker exec -i kind-worker2 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Delete pod.
+kubectl delete pod ${POD_NAME} -n cluster-a
+```
+
+<!-- markdownlint-restore -->
+
+Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -524,15 +544,33 @@ Tracing details:
 
 ![cluster-b-download-back-to-source-tracing](../../resource/getting-started/cluster-b-download-back-to-source-tracing.jpg)
 
-When pull image back-to-source for the first time through dragonfly, peer uses `cluster-b`'s scheduler and seed peer.
+When pull image back-to-source for the first time through Dragonfly, peer uses `cluster-b`'s scheduler and seed peer.
 It takes `4.97s` to download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` layer.
 
 ### Containerd pull image hits the cache of remote peer in cluster B
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker4` node:
+<!-- markdownlint-disable -->
 
 ```shell
-docker exec -i kind-worker4 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker3")].metadata.name}' | head -n 1 )
+
+# Delete pod.
+kubectl delete pod ${POD_NAME} -n cluster-b
+```
+
+<!-- markdownlint-restore -->
+
+Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+
+```shell
+docker exec -i kind-worker3 /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+
+```shell
+docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:

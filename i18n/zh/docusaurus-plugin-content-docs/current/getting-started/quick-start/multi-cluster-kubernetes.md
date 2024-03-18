@@ -19,7 +19,7 @@ Peers 只能在当前 Dragonfly 集群内 P2P 传输数据，所以一定要保�
 
 您可以根据 [Helm Charts](../installation/helm-charts.md)
 文档中的内容快速搭建 Dragonfly 的 Kubernetes 集群。
-我们推荐使用 `Containerd with CRI` 和 `CRI-O` 客户端。
+我们推荐使用 `containerd with CRI` 和 `CRI-O` 客户端。
 
 下表列出了一些容器的运行时、版本和文档。
 
@@ -27,8 +27,8 @@ Peers 只能在当前 Dragonfly 集群内 P2P 传输数据，所以一定要保�
 
 | Runtime                 | Version | Document                                         | CRI Support | Pull Command                                |
 | ----------------------- | ------- | ------------------------------------------------ | ----------- | ------------------------------------------- |
-| Containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
-| Containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
+| containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
+| containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
 | CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             | Yes         | crictl pull docker.io/library/alpine:latest |
 
 <!-- markdownlint-restore -->
@@ -39,7 +39,7 @@ Peers 只能在当前 Dragonfly 集群内 P2P 传输数据，所以一定要保�
 
 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
-创建 Kind 多节点集群配置文件 `kind-config.yaml`, 配置如下:
+创建 Kind 多节点集群配置文件 `kind-config.yaml`，配置如下:
 
 ```yaml
 kind: Cluster
@@ -99,7 +99,7 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 
 ### 基于 Helm Charts 创建 Dragonfly 集群 A
 
-创建 Helm Charts 的 Dragonfly 集群 A 的配置文件 `charts-config-cluster-a.yaml`, 配置如下:
+创建 Helm Charts 的 Dragonfly 集群 A 的配置文件 `charts-config-cluster-a.yaml`，配置如下:
 
 ```yaml
 containerRuntime:
@@ -245,7 +245,7 @@ kubectl apply -f manager-rest-svc.yaml -n cluster-a
 
 ### 访问 Manager 控制台
 
-使用默认用户名 `root`, 密码 `dragonfly` 访问 `localhost:8080` 的 Manager 控制台地址，并且进入控制台。
+使用默认用户名 `root`，密码 `dragonfly` 访问 `localhost:8080` 的 Manager 控制台地址，并且进入控制台。
 
 ![signin](../../resource/getting-started/signin.png)
 
@@ -309,7 +309,7 @@ CIDR 在 Scopes 内的优先级高于 IDC。
 - `externalManager.host` 是 Manager 的 GRPC 服务的 Host。
 - `externalRedis.addrs[0]` 是 Redis 的服务地址。
 
-创建 Helm Charts 的 Dragonfly 集群 B 的配置文件 `charts-config-cluster-b.yaml`, 配置如下:
+创建 Helm Charts 的 Dragonfly 集群 B 的配置文件 `charts-config-cluster-b.yaml`，配置如下:
 
 ```yaml
 containerRuntime:
@@ -423,7 +423,7 @@ NOTES:
 检查 Dragonfly 集群 B 是否部署成功:
 
 ```shell
-$ kubectl get po -n dragonfly-system
+$ kubectl get po -n cluster-b
 NAME                                READY   STATUS    RESTARTS   AGE
 dragonfly-dfdaemon-q8bsg            1/1     Running   0          67s
 dragonfly-dfdaemon-tsqls            1/1     Running   0          67s
@@ -438,7 +438,7 @@ dragonfly-seed-peer-0               1/1     Running   0          67s
 
 ## 使用 Dragonfly 在多集群环境下分发镜像
 
-### 集群 A 中 Containerd 通过 Dragonfly 首次回源拉镜像
+### 集群 A 中 containerd 通过 Dragonfly 首次回源拉镜像
 
 在 `kind-worker` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
 
@@ -452,7 +452,7 @@ docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/drago
 kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:16686
 ```
 
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)， 搜索 Tags 值为
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
 `http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
 Tracing:
 
@@ -464,12 +464,32 @@ Tracing 详细内容:
 
 集群 A 内首次回源时，下载 `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 层需要消耗时间为 `1.47s`。
 
-### 集群 A 中 Containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
+### 集群 A 中 containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
 
-在 `kind-worker2` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+删除 Node 为 `kind-worker` 的 dfdaemon，为了清除 Dragonfly 本地 Peer 的缓存。
+
+<!-- markdownlint-disable -->
 
 ```shell
-docker exec -i kind-worker2 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# 删除 Pod
+kubectl delete pod ${POD_NAME} -n cluster-a
+```
+
+<!-- markdownlint-restore -->
+
+删除 `kind-worker` Node 的 containerd 中镜像 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 的缓存:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+在 `kind-worker` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
 ```
 
 暴露 Jaeger `16686` 端口:
@@ -478,7 +498,7 @@ docker exec -i kind-worker2 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/drag
 kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:16686
 ```
 
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)， 搜索 Tags 值为
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
 `http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
 Tracing:
 
@@ -490,7 +510,7 @@ Tracing 详细内容:
 
 集群 A 中命中远程 Peer 缓存时，下载 `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 层需要消耗时间为 `37.48ms`。
 
-### 集群 B 中 Containerd 通过 Dragonfly 首次回源拉镜像
+### 集群 B 中 containerd 通过 Dragonfly 首次回源拉镜像
 
 在 `kind-worker3` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
 
@@ -504,7 +524,7 @@ docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/drag
 kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:16686
 ```
 
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)， 搜索 Tags 值为
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
 `http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
 Tracing:
 
@@ -516,12 +536,32 @@ Tracing 详细内容:
 
 集群 B 中命中远程 Peer 缓存时，下载 `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 层需要消耗时间为 `4.97s`。
 
-### 集群 B 中 Containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
+### 集群 B 中 containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
 
-在 `kind-worker4` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+删除 Node 为 `kind-worker3` 的 dfdaemon，为了清除 Dragonfly 本地 Peer 的缓存。
+
+<!-- markdownlint-disable -->
 
 ```shell
-docker exec -i kind-worker4 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker3")].metadata.name}' | head -n 1 )
+
+# 删除 Pod
+kubectl delete pod ${POD_NAME} -n cluster-b
+```
+
+<!-- markdownlint-restore -->
+
+删除 `kind-worker3` Node 的 containerd 中镜像 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 的缓存:
+
+```shell
+docker exec -i kind-worker3 /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+在 `kind-worker3` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+
+```shell
+docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
 ```
 
 暴露 Jaeger `16686` 端口:
@@ -530,7 +570,7 @@ docker exec -i kind-worker4 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/drag
 kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:16686
 ```
 
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)， 搜索 Tags 值为
+进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
 `http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
 Tracing:
 

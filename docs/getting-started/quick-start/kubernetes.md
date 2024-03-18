@@ -5,10 +5,10 @@ description: Kubernetes
 slug: /getting-started/quick-start/kubernetes/
 ---
 
-Documentation for deploying dragonfly on kubernetes using helm.
+Documentation for deploying Dragonfly on kubernetes using helm.
 
 You can have a quick start following [Helm Charts](../installation/helm-charts.md).
-We recommend to use `Containerd with CRI` and `CRI-O` client.
+We recommend to use `containerd with CRI` and `CRI-O` client.
 
 This table describes some container runtimes version and documents.
 
@@ -16,8 +16,8 @@ This table describes some container runtimes version and documents.
 
 | Runtime                 | Version | Document                                         | CRI Support | Pull Command                                |
 | ----------------------- | ------- | ------------------------------------------------ | ----------- | ------------------------------------------- |
-| Containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
-| Containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
+| containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
+| containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
 | CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             | Yes         | crictl pull docker.io/library/alpine:latest |
 
 <!-- markdownlint-restore -->
@@ -51,9 +51,9 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-## Kind loads dragonfly image {#kind-loads-dragonfly-image}
+## Kind loads Dragonfly image {#kind-loads-dragonfly-image}
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
@@ -69,7 +69,7 @@ kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
-## Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create helm charts configuration file `charts-config.yaml`, configuration content is as follows:
 
@@ -124,7 +124,7 @@ jaeger:
   enable: true
 ```
 
-Create a dragonfly cluster using the configuration file:
+Create a Dragonfly cluster using the configuration file:
 
 <!-- markdownlint-disable -->
 
@@ -161,7 +161,7 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly is deployed successfully:
+Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
@@ -179,7 +179,7 @@ dragonfly-scheduler-0                1/1     Running   0               8m43s
 dragonfly-seed-peer-0                1/1     Running   3 (5m56s ago)   8m43s
 ```
 
-## Containerd pull image back-to-source for the first time through dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
+## Containerd pull image back-to-source for the first time through Dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
 
 Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
 
@@ -202,7 +202,53 @@ Tracing details:
 
 ![download-back-to-source-tracing](../../resource/getting-started/download-back-to-source-tracing.jpg)
 
-When pull image back-to-source for the first time through dragonfly, it takes `5.58s` to
+When pull image back-to-source for the first time through Dragonfly, it takes `5.58s` to
+download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
+
+## Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
+
+Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
+
+<!-- markdownlint-disable -->
+
+```shell
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Delete pod.
+kubectl delete pod ${POD_NAME} -n dragonfly-system
+```
+
+<!-- markdownlint-restore -->
+
+Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+Expose jaeger's port `16686`:
+
+```shell
+kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+```
+
+Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
+`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
+
+![hit-remote-peer-cache-search-tracing](../../resource/getting-started/hit-remote-peer-cache-search-tracing.jpg)
+
+Tracing details:
+
+![hit-remote-peer-cache-tracing](../../resource/getting-started/hit-remote-peer-cache-tracing.jpg)
+
+When pull image hits cache of remote peer, it takes `117.98ms` to
 download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
 
 ## Containerd pull image hits the cache of local peer {#containerd-pull-image-hits-the-cache-of-local-peer}
@@ -237,32 +283,6 @@ Tracing details:
 When pull image hits cache of local peer, it takes `65.24ms` to
 download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
 
-## Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
-
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker2` node:
-
-```shell
-docker exec -i kind-worker2 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
-```
-
-Expose jaeger's port `16686`:
-
-```shell
-kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
-
-![hit-remote-peer-cache-search-tracing](../../resource/getting-started/hit-remote-peer-cache-search-tracing.jpg)
-
-Tracing details:
-
-![hit-remote-peer-cache-tracing](../../resource/getting-started/hit-remote-peer-cache-tracing.jpg)
-
-When pull image hits cache of remote peer, it takes `117.98ms` to
-download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
-
 ## Preheat image {#preheat-image}
 
 Expose manager's port `8080`:
@@ -271,16 +291,22 @@ Expose manager's port `8080`:
 kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080:8080
 ```
 
-Preheat `ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5` image:
+Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../reference/personal-access-tokens.md).
+
+Use Open API to preheat the image `ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5` to Seed Peer, refer to [preheat](../../reference/preheat.md).
 
 ```shell
-curl --location --request POST 'http://127.0.0.1:8080/api/v1/jobs' \
+curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your_personal_access_token' \
 --data-raw '{
     "type": "preheat",
     "args": {
         "type": "image",
-        "url": "https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5"
+        "url": "https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5",
+        "filteredQueryParams": "Expires&Signature",
+        "username": "your_registry_username",
+        "password": "your_registry_password"
     }
 }'
 ```
@@ -293,8 +319,10 @@ The command-line log returns the preheat job id:
 
 Polling the preheating status with job id:
 
-```bash
-curl --request GET 'http://127.0.0.1:8080/api/v1/jobs/1'
+```shell
+curl --request GET 'http://127.0.0.1:8080/oapi/v1/jobs/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your_personal_access_token'
 ```
 
 If the status is `SUCCESS`, the preheating is successful:
