@@ -18,7 +18,7 @@ and internal peers can only schedule and transmit data in a kubernetes cluster.
 ## Runtime
 
 You can have a quick start following [Helm Charts](../../installation/helm-charts).
-We recommend to use `Containerd with CRI` and `CRI-O` client.
+We recommend to use `containerd with CRI` and `CRI-O` client.
 
 This table describes some container runtimes version and documents.
 
@@ -26,8 +26,8 @@ This table describes some container runtimes version and documents.
 
 | Runtime                 | Version | Document                                         | CRI Support | Pull Command                                |
 | ----------------------- | ------- | ------------------------------------------------ | ----------- | ------------------------------------------- |
-| Containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
-| Containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
+| containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
+| containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
 | CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             | Yes         | crictl pull docker.io/library/alpine:latest |
 
 <!-- markdownlint-restore -->
@@ -434,7 +434,7 @@ NOTES:
 Check that dragonfly cluster B is deployed successfully:
 
 ```shell
-$ kubectl get po -n dragonfly-system
+$ kubectl get po -n cluster-b
 NAME                                READY   STATUS    RESTARTS   AGE
 dragonfly-dfdaemon-q8bsg            1/1     Running   0          67s
 dragonfly-dfdaemon-tsqls            1/1     Running   0          67s
@@ -477,10 +477,30 @@ It takes `1.47s` to download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a13767
 
 ### Containerd pull image hits the cache of remote peer in cluster A
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker2` node:
+Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
+
+<!-- markdownlint-disable -->
 
 ```shell
-docker exec -i kind-worker2 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Delete pod.
+kubectl delete pod ${POD_NAME} -n cluster-a
+```
+
+<!-- markdownlint-restore -->
+
+Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+
+```shell
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -529,10 +549,28 @@ It takes `4.97s` to download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a13767
 
 ### Containerd pull image hits the cache of remote peer in cluster B
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker4` node:
+<!-- markdownlint-disable -->
 
 ```shell
-docker exec -i kind-worker4 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker3")].metadata.name}' | head -n 1 )
+
+# Delete pod.
+kubectl delete pod ${POD_NAME} -n cluster-b
+```
+
+<!-- markdownlint-restore -->
+
+Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+
+```shell
+docker exec -i kind-worker3 /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+```
+
+Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+
+```shell
+docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
