@@ -5,7 +5,7 @@ description: Kubernetes
 slug: /getting-started/quick-start/kubernetes/
 ---
 
-Documentation for deploying dragonfly on kubernetes using helm.
+Documentation for deploying Dragonfly on kubernetes using helm.
 
 You can have a quick start following [Helm Charts](../installation/helm-charts.md).
 We recommend to use `containerd with CRI` and `CRI-O` client.
@@ -51,9 +51,9 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-## Kind loads dragonfly image {#kind-loads-dragonfly-image}
+## Kind loads Dragonfly image {#kind-loads-dragonfly-image}
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
@@ -69,7 +69,7 @@ kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
-## Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create helm charts configuration file `charts-config.yaml`, configuration content is as follows:
 
@@ -124,7 +124,7 @@ jaeger:
   enable: true
 ```
 
-Create a dragonfly cluster using the configuration file:
+Create a Dragonfly cluster using the configuration file:
 
 <!-- markdownlint-disable -->
 
@@ -161,7 +161,7 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly is deployed successfully:
+Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
@@ -179,7 +179,7 @@ dragonfly-scheduler-0                1/1     Running   0               8m43s
 dragonfly-seed-peer-0                1/1     Running   3 (5m56s ago)   8m43s
 ```
 
-## Containerd pull image back-to-source for the first time through dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
+## Containerd pull image back-to-source for the first time through Dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
 
 Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
 
@@ -202,7 +202,7 @@ Tracing details:
 
 ![download-back-to-source-tracing](../../resource/getting-started/download-back-to-source-tracing.jpg)
 
-When pull image back-to-source for the first time through dragonfly, it takes `5.58s` to
+When pull image back-to-source for the first time through Dragonfly, it takes `5.58s` to
 download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
 
 ## Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
