@@ -139,7 +139,7 @@ telnet 127.0.0.1 65003
 
 #### Manager Console {#manager-console}
 
-Now you can open brower and visit console by localhost:8080, Console features preview reference document [console preview](https://d7y.io/docs/next/reference/manage-console).
+Now you can open brower and visit console by localhost:8080, Console features preview reference document [console preview](../../reference/manage-console.md).
 
 ![manager-console](../../resource/getting-started/installation/manager-console.png)
 
@@ -246,7 +246,7 @@ telnet 127.0.0.1 65002
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
-refer to [Configure Manager YAML File](../../reference/configuration/dfdaemon.md)
+refer to [Dfdaemon](../../reference/configuration/dfdaemon.md)
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
 Configuration content is as follows:
