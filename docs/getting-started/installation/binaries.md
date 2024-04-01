@@ -3,81 +3,84 @@ id: binaries
 title: Binaries
 ---
 
-There are installation methods to install
-the executable files separately according to the modules.
+This guide shows how to install the Dragonfly. Dragonfly can be installed either from source, or from pre-built binary releases.
 
 ## Prerequisites {#prerequisites}
 
-| Required Software | Version Limit                |
-| ----------------- | ---------------------------- |
-| Git               | 1.9.1+                       |
-| Golang            | 1.16.x                       |
-| Database          | Mysql 5.6+ OR PostgreSQL 12+ |
-| Redis             | 3.0+                         |
+<!-- markdownlint-disable -->
 
-## Install it separately by module {#install-it-separately-by-module}
+| Required Software | Version Limit                | Document                                                                     |
+| ----------------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| Git               | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
+| Golang            | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
+| Database          | Mysql 5.6+ OR PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
+| Redis             | 3.0+                         | [redis.io](https://redis.io/)                                                |
 
-### Download the precompiled binaries {#download-the-precompiled-binaries}
+<!-- markdownlint-restore -->
 
-1. Download a binary package. You can download one of the latest builds for Dragonfly on the
-   [github releases page](https://github.com/dragonflyoss/Dragonfly2/releases)
+## Installing Dragonfly {#installing-dragonfly}
 
-   > Note: v2.x-rc.x rc indicates the candidate version and is not recommended to be deployed in a production environment
+### From the Binary Releases {#from-the-binary-releases}
 
-   ```bash
-   version=2.0.2
+Every [release](https://github.com/dragonflyoss/Dragonfly2/releases) of
+Dragonfly provides binary releases for a variety of OSes.
+These binary versions can be manually downloaded and installed.
 
-   wget -O dragonfly_linux_amd64.tar.gz \
-      https://github.com/dragonflyoss/Dragonfly2/releases/download/v${version}/dragonfly-${version}-linux-amd64.tar.gz
-   ```
+Download the Dragonfly binaries:
 
-2. Unzip the package.
+> Notice: your_version is recommended to use the latest version.
 
-   ```bash
-   # Replace `/path/to/dragonfly` with the installation directory.
-   tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
-   ```
+<!-- markdownlint-disable -->
 
-3. Configuration environment
+```bash
+VERSION=<your_version>
+wget -O dragonfly_linux_amd64.tar.gz https://github.com/dragonflyoss/Dragonfly2/releases/download/v${VERSION}/dragonfly-${VERSION}-linux-amd64.tar.gz
+```
 
-   ```bash
-   export PATH="/path/to/dragonfly:$PATH"
-   ```
+<!-- markdownlint-restore -->
 
-### Build executable file by source code {#build-executable-file-by-source-code}
+Untar the package:
 
-1. Obtain the source code of Dragonfly.
+```bash
+# Replace `/path/to/dragonfly` with the installation directory.
+tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
+```
 
-   ```bash
-   git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
-   ```
+Configuration environment:
 
-2. Enter the project directory.
+```bash
+export PATH="/path/to/dragonfly:$PATH"
+```
 
-   ```bash
-   cd Dragonfly2
-   ```
+### From Source {#from-source}
 
-3. Compile the source code.
+Clone the source code of Dragonfly:
 
-   ```bash
-   # At the same time to build scheduler, dfget and manager
-   make build
+```bash
+git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
+cd Dragonfly2
+```
 
-   # Equal
-   make build-scheduler && make build-dfget && make build-manager
+Compile the source code:
 
-   # Install executable file to  /opt/dragonfly/bin/{manager,scheduler,dfget}
-   make install-manager
-   make install-scheduler
-   make install-dfget
-   ```
+```bash
+# At the same time to build scheduler, dfget and manager.
+make build
 
-4. Configuration environment
+# make build is equivalent to
+make build-scheduler && make build-dfget && make build-manager
 
-   ```bash
-   export PATH="/opt/dragonfly/bin/:$PATH"
-   ```
+# Install executable file to  /opt/dragonfly/bin/{manager,scheduler,dfget}.
+make install-manager
+make install-scheduler
+make install-dfget
+```
+
+Configuration environment:
+
+```bash
+export PATH="/opt/dragonfly/bin/:$PATH"
+```
 
 ## Operation {#operation}
 
@@ -85,22 +88,48 @@ the executable files separately according to the modules.
 
 #### Startup Manager {#startup-manager}
 
-Configure manager yaml file, The default path for the manager yaml configuration file is
-`/etc/dragonfly/manager.yaml` in linux,
-and the default path is `$HOME/.dragonfly/config/manager.yaml` in darwin. Please refer to [Configure Manager YAML File](../../reference/configuration/manager.md)
+Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/manager.yaml`,
+refer to [Manager](../../reference/configuration/manager.md).
+
+Set the `database.mysql.addrs` and `database.redis.addrs` addresses under the configuration
+file to your actual addresses. Configuration content is as follows:
+
+```yaml
+# Manager configuration.
+database:
+  type: mysql
+  mysql:
+    user: dragonfly-mysql
+    password: your_mysql_password
+    host: your_mysql_host
+    port: your_mysql_port
+    dbname: manager
+    migrate: true
+  redis:
+    addrs:
+      - dragonfly-redis
+    masterName: your_redis_master_name
+    username: your_redis_username
+    password: your_redis_passwprd
+    db: 0
+    brokerDB: 1
+    backendDB: 2
+```
+
+Run Manager:
 
 ```bash
-# Configure manager yaml file
-# Notice: check and modify some config e.g. database.mysql
-
-# View manager cli help docs
+# View Manager cli help docs.
 manager --help
 
-# startup manager
+# Startup Manager.
 manager
 ```
 
-After manager is installed, run the following commands to verify if **manager** is started,
+#### Verify {#verify-manager}
+
+After the Manager deployment is complete, run the following commands to verify if **Manager** is started,
 and if Port `8080` and `65003` is available.
 
 ```bash
@@ -110,30 +139,53 @@ telnet 127.0.0.1 65003
 
 #### Manager Console {#manager-console}
 
-Now you can open brower and visit console by `localhost:8080`.
+Now you can open brower and visit console by localhost:8080, Console features preview reference document [console preview](../../reference/manage-console.md).
 
-Console features preview reference document [console preview](../../reference/manage-console.md)。
+![manager-console](../../resource/getting-started/installation/manager-console.png)
 
 ### Scheduler {#scheduler}
 
-#### Startup scheduler {#startup-scheduler}
+#### Startup Scheduler {#startup-scheduler}
 
-Configure scheduler yaml file, The default path for the scheduler yaml configuration file is
-`/etc/dragonfly/scheduler.yaml` in linux,
-and the default path is `$HOME/.dragonfly/config/scheduler.yaml` in darwin. Please refer to [Configure Scheduler YAML File](../../reference/configuration/scheduler.md)
+Configure Scheduler yaml file, The default path in Linux is `/etc/dragonfly/scheduler.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/scheduler.yaml`,
+refer to [Scheduler](../../reference/configuration/scheduler.md).
+
+Set the `database.redis.addrs` and `manager.addr` addresses manager.
+under the configuration file to your actual addresses. Configuration content is as follows:
+
+```yaml
+# Scheduler configuration.
+database:
+  redis:
+    addrs:
+      - dragonfly-redis
+    masterName: your_redis_master_name
+    username: your_redis_username
+    password: your_redis_password
+    brokerDB: 1
+    backendDB: 2
+    networkTopologyDB: 3
+ manager:
+  addr: dragonfly-manager:65003
+  schedulerClusterID: 1
+  keepAlive:
+    interval: 5s
+```
+
+Run Scheduler:
 
 ```bash
-# Configure scheduler yaml file
-# Notice: check and modify some config e.g. job.enable,job.redis,manager.addr ...
-
-# View scheduler cli help docs
+# View Scheduler cli help docs.
 scheduler --help
 
-# Startup scheduler
+# Startup Scheduler.
 scheduler
 ```
 
-After scheduler is installed, run the following commands to verify if **scheduler** is started,
+#### Verify {#verify-scheduler}
+
+After the Scheduler deployment is complete, run the following commands to verify if **Scheduler** is started,
 and if Port `8002` is available.
 
 ```bash
@@ -142,69 +194,90 @@ telnet 127.0.0.1 8002
 
 ### Dfdaemon {#dfdaemon}
 
-#### Startup dfdaemon as seed peer {#startup-dfdaemon-as-seed-peer}
+#### Startup Dfdaemon as Seed Peer {#startup-dfdaemon-as-seed-peer}
 
-Configure dfdaemon's seed peer yaml file, The default path for the dfdaemon yaml configuration file is
-`/etc/dragonfly/dfget.yaml` in linux,
-and the default path is `$HOME/.dragonfly/config/dfget.yaml` in darwin. Please refer to [Configure Dfdaemon YAML File](../../reference/configuration/dfdaemon.md)
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
-Configure dfdaemon's yaml file to enable seed peer mode:
+Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
+Configuration content is as follows:
 
 ```yaml
-# Seed peer yaml file
+# Seed Peer configuration.
 scheduler:
   manager:
-    # get scheduler list dynamically from manager
     enable: true
-    # manager service address
     netAddrs:
       - type: tcp
-        addr: manager-service:65003
-    # scheduler list refresh interval
+        addr: dragonfly-manager:65003
     refreshInterval: 10m
     seedPeer:
       enable: true
-      type: 'super'
+      type: super
       clusterID: 1
 ```
 
-Run dfdaemon as seed peer.
+Run Dfdaemon as Seed Peer:
 
 ```bash
-# Configure dfdaemon yaml file
-# Notice: check and modify some config e.g. scheduler.manager ...
-
-# View dfget cli help docs
+# View Dfget cli help docs.
 dfget --help
 
-# View dfget daemon cli help docs
+# View Dfget daemon cli help docs.
 dfget daemon --help
 
-# Startup dfget daemon mode
+# Startup Dfget daemon mode.
 dfget daemon
 ```
 
-#### Startup dfdaemon as peer {#startup-dfdaemon-as-peer}
+#### Verify {#verify-seed-peer}
 
-Configure dfdaemon's peer yaml file, The default path for the dfdaemon yaml configuration file is
-`/etc/dragonfly/dfget.yaml` in linux,
-and the default path is `$HOME/.dragonfly/config/dfget.yaml` in darwin. Please refer to [Configure Dfdaemon YAML File](../../reference/configuration/dfdaemon.md)
+After the Seed Peer deployment is complete, run the following commands to verify if **Seed Peer** is started,
+and if Port `65000`, `65001` and `65002` is available.
 
 ```bash
-# Configure dfdaemon yaml file
-# Notice: check and modify some config e.g. scheduler.manager ...
+telnet 127.0.0.1 65000
+telnet 127.0.0.1 65001
+telnet 127.0.0.1 65002
+```
 
-# View dfget cli help docs
+#### Startup Dfdaemon as Peer {#startup-dfdaemon-as-Peer}
+
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+refer to [Dfdaemon](../../reference/configuration/dfdaemon.md)
+
+Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
+Configuration content is as follows:
+
+```yaml
+# Peer configuration.
+scheduler:
+  manager:
+    enable: true
+    netAddrs:
+      - type: tcp
+        addr: dragonfly-manager:65003
+    refreshInterval: 10m
+```
+
+Run Dfdaemon as Peer:
+
+```bash
+# View Dfget cli help docs.
 dfget --help
 
-# View dfget daemon cli help docs
+# View Dfget daemon cli help docs.
 dfget daemon --help
 
-# Startup dfget daemon mode
+# Startup Dfget daemon mode.
 dfget daemon
 ```
 
-After dfget is installed, run the following commands to verify if **dfdaemon** is started,
+#### Verify {#verify-peer}
+
+After the Peer deployment is complete, run the following commands to verify if **Peer** is started,
 and if Port `65000`, `65001` and `65002` is available.
 
 ```bash
