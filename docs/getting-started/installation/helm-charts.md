@@ -10,7 +10,7 @@ Hugging Face, TorchServe, Triton Server, etc., refer to [Integrations](../../set
 
 ## Prerequisites {#prerequisites}
 
-| Required software  | Version | Document                                |
+| Name               | Version | Document                                |
 | ------------------ | ------- | --------------------------------------- |
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | v3.8.0+ | [helm.sh](https://helm.sh/)             |
@@ -160,8 +160,7 @@ export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfl
 export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
 
 # Check logs.
-kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/daemon/
-core.log | grep "peer task done"
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/daemon/core.log | grep "peer task done"
 ```
 
 <!-- markdownlint-restore -->

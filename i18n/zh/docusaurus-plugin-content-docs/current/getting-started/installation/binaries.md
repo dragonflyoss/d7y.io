@@ -5,7 +5,7 @@ title: 使用二进制文件安装
 
 文档的目标是帮助您快速开始使用源码或构建的二进制版本部署 Dragonfly。
 
-## 依赖
+## 环境准备
 
 <!-- markdownlint-disable -->
 

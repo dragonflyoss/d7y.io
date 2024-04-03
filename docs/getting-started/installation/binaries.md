@@ -9,7 +9,7 @@ This guide shows how to install the Dragonfly. Dragonfly can be installed either
 
 <!-- markdownlint-disable -->
 
-| Required Software | Version Limit                | Document                                                                     |
+| Name              | Version                      | Document                                                                     |
 | ----------------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | Git               | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
 | Golang            | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
