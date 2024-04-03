@@ -10,11 +10,11 @@ title: Helm Charts
 
 ## 环境准备
 
-| 所需软件           | 版本要求 | 文档                                    |
+| 所需软件            | 版本要求 | 文档                                      |
 | ------------------ | -------- | --------------------------------------- |
 | Kubernetes cluster | 1.19+    | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | v3.8.0+  | [helm.sh](https://helm.sh/)             |
-| containerd        | v1.5.0+  | [containerd.io](https://containerd.io/) |
+| containerd         | v1.5.0+  | [containerd.io](https://containerd.io/) |
 
 ## 准备 Kubernetes 集群
 
@@ -155,12 +155,10 @@ docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # 获取 Peer ID
-export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/
-daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
+export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
 
 # 查看下载日志
-kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/
-daemon/core.log | grep "peer task done"
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/daemon/core.log | grep "peer task done"
 ```
 
 <!-- markdownlint-restore -->

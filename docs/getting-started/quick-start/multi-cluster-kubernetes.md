@@ -17,22 +17,14 @@ and internal peers can only schedule and transmit data in a kubernetes cluster.
 
 ## Runtime
 
-You can have a quick start following [Helm Charts](../../installation/helm-charts).
-We recommend to use `containerd with CRI` and `CRI-O` client.
+You can have a quick start following [Helm Charts](../installation/helm-charts.md).
+We recommend to use `containerd`.
 
-This table describes some container runtimes version and documents.
-
-<!-- markdownlint-disable -->
-
-| Runtime                 | Version | Document                                         | CRI Support | Pull Command                                |
-| ----------------------- | ------- | ------------------------------------------------ | ----------- | ------------------------------------------- |
-| containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
-| containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
-| CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             | Yes         | crictl pull docker.io/library/alpine:latest |
-
-<!-- markdownlint-restore -->
-
-`containerd` is recommended.
+| Runtime                 | Version | Document                                         |
+| ----------------------- | ------- | ------------------------------------------------ |
+| containerd              | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) |
+| Docker                  | v20.0.1+| [Link](../../setup/runtime/docker.md)            |
+| CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             |
 
 ## Setup kubernetes cluster
 

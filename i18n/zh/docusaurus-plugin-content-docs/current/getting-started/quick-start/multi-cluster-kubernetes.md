@@ -15,25 +15,16 @@ Peers 只能在当前 Dragonfly 集群内 P2P 传输数据，所以一定要保�
 
 ![multi-cluster-kubernetes](../../resource/getting-started/multi-cluster-kubernetes.png)
 
-## Runtime
+## 容器运行时
 
-您可以根据 [Helm Charts](../installation/helm-charts.md)
-文档中的内容快速搭建 Dragonfly 的 Kubernetes 集群。
-我们推荐使用 `containerd with CRI` 和 `CRI-O` 客户端。
+您可以根据 [Helm Charts](../installation/helm-charts.md)文档中的内容快速搭建 Dragonfly 的 Kubernetes 集群。
+我们推荐使用 `containerd`。
 
-下表列出了一些容器的运行时、版本和文档。
-
-<!-- markdownlint-disable -->
-
-| Runtime                 | Version | Document                                         | CRI Support | Pull Command                                |
-| ----------------------- | ------- | ------------------------------------------------ | ----------- | ------------------------------------------- |
-| containerd<sup>\*</sup> | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) | Yes         | crictl pull docker.io/library/alpine:latest |
-| containerd without CRI  | v1.1.0  | [Link](../../setup/runtime/containerd/proxy.md)  | No          | ctr image pull docker.io/library/alpine     |
-| CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             | Yes         | crictl pull docker.io/library/alpine:latest |
-
-<!-- markdownlint-restore -->
-
-推荐使用 `containerd`.
+| 容器运行时                | 版本要求 |  文档                                             |
+| ----------------------- | ------- | ------------------------------------------------ |
+| containerd              | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) |
+| Docker                  | v20.0.1+| [Link](../../setup/runtime/docker.md)            |
+| CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             |
 
 ## 准备 Kubernetes 集群
 
