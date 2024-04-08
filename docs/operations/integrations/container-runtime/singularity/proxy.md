@@ -4,7 +4,7 @@ title: HTTP Proxy
 slug: /operations/integrations/container-runtime/singularity/proxy/
 ---
 
-Documentation for setting up Dragonfly's container runtime as an http proxy for Singularity/Apptainer.
+Documentation for setting up Dragonfly's container runtime as an HTTP Proxy for Singularity/Apptainer.
 
 ## Generate CA certificate  {#step-1-generate-ca-certificate}
 

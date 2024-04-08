@@ -4,9 +4,9 @@ title: HTTP Proxy
 slug: /operations/integrations/container-runtime/singularity/proxy/
 ---
 
-文档的目标是帮助您将 Dragonfly 的容器运行时设置为 Singularity/Apptainer 的 http 代理。
+文档的目标是帮助您将 Dragonfly 的容器运行时设置为 Singularity/Apptainer 的 HTTP 代理。
 
-## 为 http 代理生成 CA 证书
+## 为 HTTP 代理生成 CA 证书
 
 生成一个 CA 证书私钥。
 
@@ -58,7 +58,7 @@ openssl x509 -req -days 36500 -extfile openssl.conf \
 
 ## 配置 Dfdaemon
 
-为了将 Dfdaemon 作为 http 代理使用，首先你需要在 `/etc/dragonfly/dfget.yaml` 中增加一条代理规则，
+为了将 Dfdaemon 作为 HTTP 代理使用，首先你需要在 `/etc/dragonfly/dfget.yaml` 中增加一条代理规则，
 它将会代理 `your.private.registry` 对镜像层的请求：
 
 ```yaml
