@@ -22,9 +22,9 @@ We recommend to use `containerd`.
 
 | Runtime                 | Version | Document                                         |
 | ----------------------- | ------- | ------------------------------------------------ |
-| containerd              | v1.1.0+ | [Link](../../setup/runtime/containerd/mirror.md) |
-| Docker                  | v20.0.1+| [Link](../../setup/runtime/docker.md)            |
-| CRI-O                   | All     | [Link](../../setup/runtime/cri-o.md)             |
+| containerd              | v1.1.0+ | [Link](../../operations/integrations/container-runtime/containerd.md)        |
+| Docker                  | v20.0.1+| [Link](../../operations/integrations/container-runtime/docker.md)            |
+| CRI-O                   | All     | [Link](../../operations/integrations/container-runtime/cri-o.md)             |
 
 ## Setup kubernetes cluster
 

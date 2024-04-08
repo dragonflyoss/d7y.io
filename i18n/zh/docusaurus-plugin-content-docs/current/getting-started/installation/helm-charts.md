@@ -6,7 +6,7 @@ title: Helm Charts
 文档的目标是帮助您快速开始使用 Helm Charts 部署 Dragonfly。
 
 更多的集成方案，例如 Docker、CRI-O、Singularity/Apptainer、Nydus、eStargz、Harbor、Git LFS、Hugging Face、TorchServe、Triton Server 等，
-可以参考 [Integrations](../../setup/runtime/containerd.md) 文档。
+可以参考 [Integrations](../../operations/integrations/container-runtime/containerd.md) 文档。
 
 ## 环境准备
 

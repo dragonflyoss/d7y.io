@@ -7,9 +7,17 @@
     "message": "开始",
     "description": "The label for category Getting Started in sidebar docs"
   },
-  "sidebar.docs.category.Setup": {
-    "message": "设置",
-    "description": "The label for category Setup in sidebar docs"
+  "sidebar.docs.category.Operations": {
+    "message": "运维",
+    "description": "The label for category Operations in sidebar docs"
+  },
+  "sidebar.docs.category.Integrations": {
+    "message": "集成",
+    "description": "The label for category Integrations in sidebar docs"
+  },
+  "sidebar.docs.category.Container Runtime": {
+    "message": "容器运行时",
+    "description": "The label for category Integrations in sidebar docs"
   },
   "sidebar.docs.category.Install": {
     "message": "部署",
