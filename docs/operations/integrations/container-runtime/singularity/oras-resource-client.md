@@ -1,22 +1,18 @@
 ---
 id: singularity-oras-resource-client
-title: Oras Resource Client Mode
-slug: /setup/runtime/singularity/oras-resource-client
+title: ORAS Resource Client
+slug: /operations/integrations/container-runtime/singularity/oras-resource-client/
 ---
 
-## Oras Resource Client {#oras-resource-client}
-
-We can use oras resource client to pull image using Dragonfly, the key is the scheme used for the resource client.
+Documentation for setting Dragonfly's container runtime to ORAS Resource Client.
 
 This method of image pull through Dragonfly is more efficient when compared to proxy method as
 it avoids TLS termination, reduces CPU time and download time as it creates hardlink(insead of copy)
 for subsequent file download after downloading the image from source for first time.
 
-## Quick Start {#quick-start}
+## Configure dfget daemon {#step-1-configure-dfget-daemon}
 
-### Step 1: Configure dfget daemon {#step-1-configure-dfget-daemon}
-
-To use oras resource client to pull image ensure below configuraion in `/etc/dragonfly/dfget.yaml:`.
+To use ORAS Resource Client to pull image ensure below configuraion in `/etc/dragonfly/dfget.yaml`:
 
 ```yaml
 # Peer task storage option.
@@ -33,7 +29,7 @@ storage:
   # Set to ture for reusing underlying storage for same task id.
   multiplex: true
 
-# The singularity oras resources, most of it is same with https scheme
+# The singularity ORAS resources, most of it is same with https scheme.
 oras:
   proxy:
   dialTimeout: 30s
@@ -46,17 +42,15 @@ oras:
   insecureSkipVerify: true
 ```
 
-### Step 2: Pull images through oras resource client {#step-2-pull-images-through-oras-resource-client}
+## ORAS Resource Client downloads images through Dragonfly {#step-2-pull-images-through-oras-resource-client}
 
-Through the above steps, we can start to validate if Dragonfly works as expected.
-
-And you can pull the image through oras resource client as below:
+And you can pull the image through ORAS Resource Client as below:
 
 ```shell
 dfget -u "oras://hostname/path/image:tag" -O /path/to/output
 ```
 
-### Step 3: Validate Dragonfly {#step-3-validate-dragonfly}
+### Verify {#verify}
 
 You can execute the following command to
 check if the image is distributed via Dragonfly.
@@ -65,7 +59,7 @@ check if the image is distributed via Dragonfly.
 grep "peer task done" /var/log/dragonfly/daemon/core.log
 ```
 
-If the output of command above has content like
+The expected output is as follows:
 
 ```shell
 {

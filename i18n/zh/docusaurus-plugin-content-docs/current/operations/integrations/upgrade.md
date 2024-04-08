@@ -1,7 +1,7 @@
 ---
 id: upgrade
 title: 升级
-slug: /setup/upgrade
+slug: /operations/integrations/upgrade/
 ---
 
 ## 升级 Helm 部署的集群

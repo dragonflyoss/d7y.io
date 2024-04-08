@@ -1,7 +1,7 @@
 ---
 id: quick-start
 title: Quick Start
-slug: /getting-started/quick-start/
+slug: /getting-started/quick-start
 ---
 
 Table of contents:

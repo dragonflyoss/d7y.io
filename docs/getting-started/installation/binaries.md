@@ -1,6 +1,7 @@
 ---
 id: binaries
 title: Binaries
+slug: /getting-started/installation/binaries/
 ---
 
 This guide shows how to install the Dragonfly. Dragonfly can be installed either from source, or from pre-built binary releases.

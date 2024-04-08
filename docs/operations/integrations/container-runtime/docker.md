@@ -1,7 +1,7 @@
 ---
 id: docker
 title: Docker
-slug: /setup/runtime/docker
+slug: /operations/integrations/container-runtime/docker/
 ---
 
 Use dfget daemon as HTTP proxy for docker daemon

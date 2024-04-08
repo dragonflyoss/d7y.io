@@ -1,26 +1,22 @@
 ---
 id: singularity-oras-resource-client
-title: Oras 资源客户端模式
-slug: /setup/runtime/singularity/oras-resource-client
+title: ORAS 资源客户端
+slug: /operations/integrations/container-runtime/singularity/oras-resource-client/
 ---
 
-## Oras 资源客户端
-
-使用 oras 的资源客户端使用 Dragonfly 拉取镜像。
+文档的目标是帮助您将 Dragonfly 的容器运行时设置为 ORAS 的资源客户端。
 
 通过 Dragonfly 资源客户端拉取镜像的这种方法比代理方法相比更加高效，因为它避免了 TLS，减少了 CPU 资源使用量和下载时间，
 因为它在首次从源下载镜像后为后续文件下载创建了硬链接，而不是复制一份完全一样的资源。
 
-## 快速开始
+## 配置 Dfdaemon
 
-### 步骤 1: 配置 dfdaemon
-
-下面为镜像仓库的 dfdaemon 配置，在路径 `/etc/dragonfly/dfget.yaml`:
+下面为镜像仓库的 Dfdaemon 配置，在路径 `/etc/dragonfly/dfget.yaml`:
 
 ```yaml
 # Peer task storage option.
 storage:
-  # Task data expire time,
+  # Task data expire time.
   # when there is no access to a task data, this task will be gc.
   taskExpireTime: 6h
   strategy: io.d7y.storage.v2.advance.
@@ -32,7 +28,7 @@ storage:
   # Set to ture for reusing underlying storage for same task id.
   multiplex: true
 
-# The singularity oras resources, most of it is same with https scheme
+# The singularity oras resources, most of it is same with https scheme.
 oras:
   proxy:
   dialTimeout: 30s
@@ -45,7 +41,7 @@ oras:
   insecureSkipVerify: true
 ```
 
-### 步骤 2: 使用 oras 资源客户端下载镜像
+## ORAS 资源客户端通过 Dragonfly 下载镜像
 
 使用以下命令拉取镜像:
 
@@ -53,7 +49,7 @@ oras:
 dfget -u "oras://hostname/path/image:tag" -O /path/to/output
 ```
 
-### 步骤 3: 验证 Dragonfly 拉取成功
+### 验证镜像下载成功
 
 可以查看日志，判断镜像正常拉取。
 

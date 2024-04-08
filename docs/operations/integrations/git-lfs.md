@@ -1,6 +1,7 @@
 ---
 id: git-lfs
 title: Git LFS
+slug: /operations/integrations/git-lfs/
 ---
 
 ## What is Git LFS?

@@ -1,7 +1,7 @@
 ---
 id: upgrade
 title: Upgrade
-slug: /setup/upgrade
+slug: /operations/integrations/upgrade/
 ---
 
 ## Upgrade the cluster deployed by Helm {#upgrade-the-cluster-deployed-by-helm}

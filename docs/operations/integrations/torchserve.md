@@ -1,6 +1,7 @@
 ---
 id: torchserve
 title: TorchServe
+slug: /operations/integrations/torchserve/
 ---
 
 This document will help you experience how to use dragonfly with [TorchServe](https://github.com/pytorch/serve).

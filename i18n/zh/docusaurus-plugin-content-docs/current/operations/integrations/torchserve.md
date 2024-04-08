@@ -1,6 +1,7 @@
 ---
 id: torchserve
 title: TorchServe
+slug: /operations/integrations/torchserve/
 ---
 
 本文主要解决在 [TorchServe](https://github.com/pytorch/serve) 模型拉取时，存在的中心化的模型仓库带宽瓶颈问题。

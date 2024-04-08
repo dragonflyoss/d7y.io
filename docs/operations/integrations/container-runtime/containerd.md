@@ -1,7 +1,7 @@
 ---
 id: containerd
 title: containerd
-slug: /setup/runtime/containerd
+slug: /operations/integrations/container-runtime/containerd/
 ---
 
 Documentation for setting Dragonfly's container runtime to containerd.

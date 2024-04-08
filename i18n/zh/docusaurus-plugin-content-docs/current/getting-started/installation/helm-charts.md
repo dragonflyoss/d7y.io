@@ -1,6 +1,7 @@
 ---
 id: helm-charts
 title: Helm Charts
+slug: /getting-started/installation/helm-charts/
 ---
 
 文档的目标是帮助您快速开始使用 Helm Charts 部署 Dragonfly。

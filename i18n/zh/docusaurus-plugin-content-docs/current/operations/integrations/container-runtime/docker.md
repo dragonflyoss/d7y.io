@@ -1,7 +1,7 @@
 ---
 id: docker
 title: Docker
-slug: /setup/runtime/docker
+slug: /operations/integrations/container-runtime/docker/
 ---
 
 使用 dfget daemon 作为 docker daemon 的 http 代理

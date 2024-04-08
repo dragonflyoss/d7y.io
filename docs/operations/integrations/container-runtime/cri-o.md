@@ -1,7 +1,7 @@
 ---
 id: cri-o
 title: CRI-O
-slug: /setup/runtime/cri-o
+slug: /operations/integrations/container-runtime/cri-o/
 ---
 
 Use dfget daemon as registry mirror for CRI-O

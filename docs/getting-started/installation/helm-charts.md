@@ -1,6 +1,7 @@
 ---
 id: helm-charts
 title: Helm Charts
+slug: /getting-started/installation/helm-charts/
 ---
 
 Documentation for deploying Dragonfly on kubernetes using helm.
