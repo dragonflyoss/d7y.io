@@ -15,7 +15,7 @@ const config = {
   organizationName: 'dragonflyoss', // Usually your GitHub org/user name.
   projectName: 'd7y.io', // Usually your repo name.
   i18n: {
-    defaultLocale: 'en',
+    defaultLocale: 'zh',
     locales: ['en', 'zh'],
     localeConfigs: {
       en: {
