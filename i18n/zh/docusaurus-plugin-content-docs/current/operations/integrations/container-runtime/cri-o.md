@@ -1,7 +1,7 @@
 ---
 id: cri-o
 title: CRI-O
-slug: /operations/integrations/container-runtime/cri/
+slug: /operations/integrations/container-runtime/cri-o/
 ---
 
 使用 dfdaemon 支持 CRI-O
