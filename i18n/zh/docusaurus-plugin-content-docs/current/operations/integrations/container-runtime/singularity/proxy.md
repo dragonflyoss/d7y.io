@@ -90,7 +90,7 @@ hijackHTTPS:
     - regx: your_hijack_https_hosts
 ```
 
-## 使用代理拉取镜像
+## HTTP 代理通过 Dragonfly 下载镜像
 
 使用以下命令拉取镜像:
 
