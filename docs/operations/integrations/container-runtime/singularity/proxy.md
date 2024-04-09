@@ -63,7 +63,8 @@ Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
 refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
-Set the `registryMirror.url` and `hijackHTTPS.hosts.regx` addresses under the configuration file to your actual addresses. Configuration content is as follows:
+Set the `registryMirror.url` and `hijackHTTPS.hosts.regx` addresses under the configuration
+file to your actual addresses. Configuration content is as follows:
 
 ```yaml
 registryMirror:
