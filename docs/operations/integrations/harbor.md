@@ -1,6 +1,7 @@
 ---
 id: harbor
 title: Harbor
+slug: /operations/integrations/harbor/
 ---
 
 This document will help you experience how to use dragonfly with harbor.

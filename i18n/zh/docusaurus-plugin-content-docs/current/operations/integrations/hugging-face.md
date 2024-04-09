@@ -1,6 +1,7 @@
 ---
 id: hugging-face
 title: Hugging Face
+slug: /operations/integrations/hugging-face/
 ---
 
 本文档将帮助您将 Dragonfly 与 Hugging Face 一起使用。

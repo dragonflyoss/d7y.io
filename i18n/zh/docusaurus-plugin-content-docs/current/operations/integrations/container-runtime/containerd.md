@@ -1,7 +1,7 @@
 ---
 id: containerd
 title: containerd
-slug: /setup/runtime/containerd
+slug: /operations/integrations/container-runtime/containerd/
 ---
 
 文档的目标是帮助您将 Dragonfly 的容器运行时设置为 containerd。

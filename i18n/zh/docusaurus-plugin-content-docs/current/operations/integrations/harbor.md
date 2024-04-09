@@ -1,6 +1,7 @@
 ---
 id: harbor
 title: Harbor
+slug: /operations/integrations/harbor/
 ---
 
 本文档将帮助您将 Dragonfly 与 Harbor 一起使用。

@@ -1,6 +1,7 @@
 ---
 id: binaries
 title: Binaries
+slug: /getting-started/installation/binaries/
 ---
 
 This guide shows how to install the Dragonfly. Dragonfly can be installed either from source, or from pre-built binary releases.
@@ -246,7 +247,7 @@ telnet 127.0.0.1 65002
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
-refer to [Dfdaemon](../../reference/configuration/dfdaemon.md)
+refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
 Configuration content is as follows:

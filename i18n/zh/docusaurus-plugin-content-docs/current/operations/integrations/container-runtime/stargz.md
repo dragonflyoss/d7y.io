@@ -1,6 +1,7 @@
 ---
 id: stargz
 title: eStargz
+slug: /operations/integrations/container-runtime/stargz/
 ---
 
 本文档将帮助您将 Dragonfly 与 eStargz 一起使用。

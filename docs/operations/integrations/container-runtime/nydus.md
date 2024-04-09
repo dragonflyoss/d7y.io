@@ -1,6 +1,7 @@
 ---
 id: nydus
 title: Nydus
+slug: /operations/integrations/container-runtime/nydus/
 ---
 
 This document will help you experience how to use dragonfly with nydus.

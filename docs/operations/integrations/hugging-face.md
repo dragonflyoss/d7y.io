@@ -1,6 +1,7 @@
 ---
 id: hugging-face
 title: Hugging Face
+slug: /operations/integrations/hugging-face/
 ---
 
 This document will help you experience how to use dragonfly with hugging face.

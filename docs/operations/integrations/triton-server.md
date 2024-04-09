@@ -1,6 +1,7 @@
 ---
 id: triton-server
 title: Triton Server
+slug: /operations/integrations/triton-server/
 ---
 
 This document will help you experience how to use dragonfly with [TritonServe](https://github.com/pytorch/serve).

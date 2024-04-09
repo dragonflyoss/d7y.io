@@ -1,6 +1,7 @@
 ---
 id: triton-server
 title: Triton Server
+slug: /operations/integrations/triton-server/
 ---
 
 本文主要解决在 [Triton Server](https://github.com/triton-inference-server/server) 模型拉取时，存在的中心化的模型仓库带宽瓶颈问题。
