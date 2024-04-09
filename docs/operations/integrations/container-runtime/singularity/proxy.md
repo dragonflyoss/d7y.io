@@ -95,7 +95,7 @@ hijackHTTPS:
 
 ## HTTP Proxy downloads images through Dragonfly {#http-proxy-downloads-images-through-Dragonfly}
 
-Pull images through http proxy:
+Pull images through HTTP Proxy:
 
 ```bash
 no_proxy='' NO_PROXY='' HTTPS_PROXY=127.0.0.1:65001 singularity pull  oras://hostname/path/image:tag
