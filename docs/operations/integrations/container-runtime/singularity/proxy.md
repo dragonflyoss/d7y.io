@@ -6,7 +6,7 @@ slug: /operations/integrations/container-runtime/singularity/proxy/
 
 Documentation for setting up Dragonfly's container runtime as an HTTP Proxy for Singularity/Apptainer.
 
-## Generate CA certificate  {#step-1-generate-ca-certificate}
+## Generate CA certificate  {#generate-ca-certificate}
 
 Generate an RSA private key.
 
@@ -57,18 +57,20 @@ openssl x509 -req -days 36500 -extfile openssl.conf \
     -extensions v3_ca -in ca.csr -signkey ca.key -out ca.crt
 ```
 
-## Configure dfget daemon {#step-2-configure-dfget-daemon}
+## Configure dfget daemon {#configure-dfget-daemon}
 
-To use dfget daemon as proxy, first you need to append a proxy rule in
-`/etc/dragonfly/dfget.yaml`, This will proxy
-`your.private.registry's` requests for image layers:
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
+
+Set the `registryMirror.url` and `hijackHTTPS.hosts.regx` addresses under the configuration file to your actual addresses. Configuration content is as follows:
 
 ```yaml
 registryMirror:
   # When enable, using header "X-Dragonfly-Registry" for remote instead of url.
   dynamic: true
   # URL for the registry mirror.
-  url: <your.private.registry>
+  url: your_registry_mirror_url
   # Whether to ignore https certificate errors.
   insecure: false
   # Optional certificates if the remote server uses self-signed certificates.
@@ -87,12 +89,12 @@ hijackHTTPS:
   cert: ca.crt
   key: ca.key
   hosts:
-    - regx: <your.private.registry>
+    - regx: your_hijack_https_hosts
 ```
 
-## Pull images with proxy {#step-4-pull-images-with-proxy}
+## HTTP Proxy downloads images through Dragonfly {#http-proxy-downloads-images-through-Dragonfly}
 
-And you can pull the image through proxy as below:
+Pull images through http proxy:
 
 ```bash
 no_proxy='' NO_PROXY='' HTTPS_PROXY=127.0.0.1:65001 singularity pull  oras://hostname/path/image:tag
@@ -100,8 +102,7 @@ no_proxy='' NO_PROXY='' HTTPS_PROXY=127.0.0.1:65001 singularity pull  oras://hos
 
 ### Verify {#verify}
 
-You can execute the following command to
-check if the image is distributed via Dragonfly.
+You can execute the following command to check if the image is distributed via Dragonfly.
 
 ```shell
 grep "peer task done" /var/log/dragonfly/daemon/core.log

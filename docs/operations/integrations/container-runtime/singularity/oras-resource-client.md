@@ -10,9 +10,11 @@ This method of image pull through Dragonfly is more efficient when compared to p
 it avoids TLS termination, reduces CPU time and download time as it creates hardlink(insead of copy)
 for subsequent file download after downloading the image from source for first time.
 
-## Configure dfget daemon {#step-1-configure-dfget-daemon}
+## Configure dfget daemon {#configure-dfget-daemon}
 
-To use ORAS Resource Client to pull image ensure below configuraion in `/etc/dragonfly/dfget.yaml`:
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
 ```yaml
 # Peer task storage option.
@@ -42,9 +44,9 @@ oras:
   insecureSkipVerify: true
 ```
 
-## ORAS Resource Client downloads images through Dragonfly {#step-2-pull-images-through-oras-resource-client}
+## ORAS Resource Client downloads images through Dragonfly {#oras-resource-client-downloads-images-through-Dragonfly}
 
-And you can pull the image through ORAS Resource Client as below:
+Pull the image through ORAS Resource Client:
 
 ```shell
 dfget -u "oras://hostname/path/image:tag" -O /path/to/output
@@ -52,8 +54,7 @@ dfget -u "oras://hostname/path/image:tag" -O /path/to/output
 
 ### Verify {#verify}
 
-You can execute the following command to
-check if the image is distributed via Dragonfly.
+You can execute the following command to check if the image is distributed via Dragonfly.
 
 ```shell
 grep "peer task done" /var/log/dragonfly/daemon/core.log

@@ -58,15 +58,17 @@ openssl x509 -req -days 36500 -extfile openssl.conf \
 
 ## 配置 Dfdaemon
 
-为了将 Dfdaemon 作为 HTTP 代理使用，首先你需要在 `/etc/dragonfly/dfget.yaml` 中增加一条代理规则，
-它将会代理 `your.private.registry` 对镜像层的请求：
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfget.yaml`，
+Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`，参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
+
+配置文件下设置 `registryMirror.url` 和 `hijackHTTPS.hosts.regx` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 registryMirror:
   # When enable, using header "X-Dragonfly-Registry" for remote instead of url.
   dynamic: true
   # URL for the registry mirror.
-  url: <your.private.registry>
+  url: your_registry_mirror_url
   # Whether to ignore https certificate errors.
   insecure: false
   # Optional certificates if the remote server uses self-signed certificates.
@@ -85,7 +87,7 @@ hijackHTTPS:
   cert: ca.crt
   key: ca.key
   hosts:
-    - regx: <your.private.registry>
+    - regx: your_hijack_https_hosts
 ```
 
 ## 使用代理拉取镜像
