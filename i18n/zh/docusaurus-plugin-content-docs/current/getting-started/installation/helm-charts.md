@@ -11,7 +11,7 @@ slug: /getting-started/installation/helm-charts/
 
 ## 环境准备
 
-| 所需软件            | 版本要求 | 文档                                      |
+| 所需软件           | 版本要求 | 文档                                    |
 | ------------------ | -------- | --------------------------------------- |
 | Kubernetes cluster | 1.19+    | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | v3.8.0+  | [helm.sh](https://helm.sh/)             |
@@ -74,6 +74,45 @@ containerRuntime:
     registries:
       - 'https://docker.io'
 
+scheduler:
+  image: dragonflyoss/scheduler
+  tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedPeer:
+  image: dragonflyoss/dfdaemon
+  tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+dfdaemon:
+  image: dragonflyoss/dfdaemon
+  tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+manager:
+  image: dragonflyoss/manager
+  tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
 jaeger:
   enable: true
 ```
@@ -112,7 +151,6 @@ NOTES:
   kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
   echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
-
 
 检查 Dragonfly 是否部署成功:
 
