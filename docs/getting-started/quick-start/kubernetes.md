@@ -12,11 +12,11 @@ Documentation for deploying Dragonfly on kubernetes using helm.
 You can have a quick start following [Helm Charts](../installation/helm-charts.md).
 We recommend to use `containerd`.
 
-| Runtime                 | Version | Document                                         |
-| ----------------------- | ------- | ------------------------------------------------ |
-| containerd              | v1.1.0+ | [Link](../../operations/integrations/container-runtime/containerd.md)        |
-| Docker                  | v20.0.1+| [Link](../../operations/integrations/container-runtime/docker.md)            |
-| CRI-O                   | All     | [Link](../../operations/integrations/container-runtime/cri-o.md)             |
+| Runtime    | Version  | Document                                                              |
+| ---------- | -------- | --------------------------------------------------------------------- |
+| containerd | v1.1.0+  | [Link](../../operations/integrations/container-runtime/containerd.md) |
+| Docker     | v20.0.1+ | [Link](../../operations/integrations/container-runtime/docker.md)     |
+| CRI-O      | All      | [Link](../../operations/integrations/container-runtime/cri-o.md)      |
 
 ## Setup kubernetes cluster {#setup-kubernetes-cluster}
 
@@ -76,8 +76,9 @@ containerRuntime:
       - 'https://ghcr.io'
 
 scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -86,8 +87,9 @@ scheduler:
     pprofPort: 18066
 
 seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -96,8 +98,9 @@ seedPeer:
     pprofPort: 18066
 
 dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   metrics:
     enable: true
   config:
@@ -105,8 +108,9 @@ dfdaemon:
     pprofPort: 18066
 
 manager:
-  image: dragonflyoss/manager
-  tag: latest
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   replicas: 1
   metrics:
     enable: true

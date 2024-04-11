@@ -11,7 +11,7 @@ slug: /getting-started/installation/helm-charts/
 
 ## 环境准备
 
-| 所需软件            | 版本要求 | 文档                                      |
+| 所需软件           | 版本要求 | 文档                                    |
 | ------------------ | -------- | --------------------------------------- |
 | Kubernetes cluster | 1.19+    | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | v3.8.0+  | [helm.sh](https://helm.sh/)             |
@@ -112,7 +112,6 @@ NOTES:
   kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
   echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
-
 
 检查 Dragonfly 是否部署成功:
 

@@ -59,32 +59,36 @@ helm repo update
 
 ```yaml
 scheduler:
-  image: d7yio/scheduler
-  tag: latest
+ image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   metrics:
     enable: true
     serviceMonitor:
       enable: true
 
 seedPeer:
-  image: d7yio/dfdaemon
-  tag: latest
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   metrics:
     enable: true
     serviceMonitor:
       enable: true
 
 dfdaemon:
-  image: d7yio/dfdaemon
-  tag: latest
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   metrics:
     enable: true
     serviceMonitor:
       enable: true
 
 manager:
-  image: d7yio/manager
-  tag: latest
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   metrics:
     enable: true
     serviceMonitor:
