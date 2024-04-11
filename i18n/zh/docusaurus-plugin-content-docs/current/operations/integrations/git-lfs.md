@@ -159,8 +159,9 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 
 ```yaml
 scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -169,8 +170,9 @@ scheduler:
     pprofPort: 18066
 
 seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -179,8 +181,9 @@ seedPeer:
     pprofPort: 18066
 
 dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   metrics:
     enable: true
   config:
@@ -206,8 +209,9 @@ dfdaemon:
         - regx: github-cloud.githubusercontent.com.*
 
 manager:
-  image: dragonflyoss/manager
-  tag: latest
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   replicas: 1
   metrics:
     enable: true

@@ -74,45 +74,6 @@ containerRuntime:
     injectConfigPath: true
     registries:
       - 'https://docker.io'
-      
-scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-manager:
-  image: dragonflyoss/manager
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 jaeger:
   enable: true
@@ -145,7 +106,6 @@ NOTES:
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
-  
 
 4. Get Jaeger query URL by running these commands:
   export JAEGER_QUERY_PORT=$(kubectl --namespace dragonfly-system get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
