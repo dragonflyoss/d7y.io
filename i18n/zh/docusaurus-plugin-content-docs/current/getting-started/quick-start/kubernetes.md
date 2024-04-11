@@ -12,11 +12,11 @@ slug: /getting-started/quick-start/kubernetes/
 您可以根据 [Helm Charts](../installation/helm-charts.md)文档中的内容快速搭建 Dragonfly 的 Kubernetes 集群。
 我们推荐使用 `containerd`。
 
-| 容器运行时                | 版本要求 |  文档                                             |
-| ----------------------- | ------- | ------------------------------------------------ |
-| containerd              | v1.1.0+ | [Link](../../operations/integrations/container-runtime/containerd.md)        |
-| Docker                  | v20.0.1+| [Link](../../operations/integrations/container-runtime/docker.md)            |
-| CRI-O                   | All     | [Link](../../operations/integrations/container-runtime/cri-o.md)             |
+| 容器运行时 | 版本要求 | 文档                                                                  |
+| ---------- | -------- | --------------------------------------------------------------------- |
+| containerd | v1.1.0+  | [Link](../../operations/integrations/container-runtime/containerd.md) |
+| Docker     | v20.0.1+ | [Link](../../operations/integrations/container-runtime/docker.md)     |
+| CRI-O      | All      | [Link](../../operations/integrations/container-runtime/cri-o.md)      |
 
 ## 准备 Kubernetes 集群
 
