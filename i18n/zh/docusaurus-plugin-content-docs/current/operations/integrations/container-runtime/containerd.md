@@ -178,45 +178,6 @@ containerRuntime:
     injectConfigPath: true
     registries:
       - 'https://docker.io'
-
-scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-manager:
-  image: dragonflyoss/manager
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 ```
 
 方法 2：更改 containerd 配置文件 `/etc/containerd/config.toml`，详细 containerd 参考文档 [configure-registry-endpoint](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-endpoint)。
@@ -262,45 +223,6 @@ containerRuntime:
     registries:
       - 'https://docker.io'
       - 'https://ghcr.io'
-
-scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-manager:
-  image: dragonflyoss/manager
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 ```
 
 方法 2：更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。

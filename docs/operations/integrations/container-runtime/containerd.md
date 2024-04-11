@@ -185,45 +185,6 @@ containerRuntime:
     injectConfigPath: true
     registries:
       - 'https://docker.io'
-
-scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-manager:
-  image: dragonflyoss/manager
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 ```
 
 Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
@@ -270,45 +231,6 @@ containerRuntime:
     registries:
       - 'https://docker.io'
       - 'https://ghcr.io'
-
-scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-manager:
-  image: dragonflyoss/manager
-  tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 ```
 
 Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
