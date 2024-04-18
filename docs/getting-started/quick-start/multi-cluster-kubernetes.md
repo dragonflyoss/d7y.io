@@ -66,24 +66,6 @@ Switch the context of kubectl to kind cluster A:
 kubectl config use-context kind-kind
 ```
 
-## Kind loads Dragonfly image
-
-Pull Dragonfly latest images:
-
-```shell
-docker pull dragonflyoss/scheduler:latest
-docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
-```
-
-Kind cluster loads Dragonfly latest images:
-
-```shell
-kind load docker-image dragonflyoss/scheduler:latest
-kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
-```
-
 ## Create Dragonfly cluster A
 
 Create Dragonfly cluster A, the schedulers, seed peers, peers and centralized manager included in
@@ -94,58 +76,49 @@ the cluster should be installed using helm.
 Create Dragonfly cluster A charts configuration file `charts-config-cluster-a.yaml`, configuration content is as follows:
 
 ```yaml
-containerRuntime:
-  containerd:
-    enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://ghcr.io'
-
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
 manager:
+  replicas: 1
+  nodeSelector:
+    cluster: a
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  replicas: 1
+  nodeSelector:
+    cluster: a
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+
+seedClient:
+  replicas: 1
+  nodeSelector:
+    cluster: a
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+
+client:
+  nodeSelector:
+    cluster: a
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
 ```
 
 Create Dragonfly cluster A using the configuration file:
@@ -156,7 +129,7 @@ Create Dragonfly cluster A using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace cluster-a dragonfly dragonfly/dragonfly -f charts-config-cluster-a.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Aug  7 22:07:02 2023
+LAST DEPLOYED: Tue Apr 16 16:12:42 2024
 NAMESPACE: cluster-a
 STATUS: deployed
 REVISION: 1
@@ -175,12 +148,6 @@ NOTES:
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
-
-
-4. Get Jaeger query URL by running these commands:
-  export JAEGER_QUERY_PORT=$(kubectl --namespace cluster-a get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
-  kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
-  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
 
 <!-- markdownlint-restore -->
@@ -189,18 +156,17 @@ Check that Dragonfly cluster A is deployed successfully:
 
 ```shell
 $ kubectl get po -n cluster-a
-NAME                                 READY   STATUS    RESTARTS      AGE
-dragonfly-dfdaemon-7t6wc             1/1     Running   0             3m18s
-dragonfly-dfdaemon-r45bk             1/1     Running   0             3m18s
-dragonfly-jaeger-84dbfd5b56-fmhh6    1/1     Running   0             3m18s
-dragonfly-manager-75f4c54d6d-tr88v   1/1     Running   0             3m18s
-dragonfly-mysql-0                    1/1     Running   0             3m18s
-dragonfly-redis-master-0             1/1     Running   0             3m18s
-dragonfly-redis-replicas-0           1/1     Running   1 (2m ago)    3m18s
-dragonfly-redis-replicas-1           1/1     Running   0             96s
-dragonfly-redis-replicas-2           1/1     Running   0             45s
-dragonfly-scheduler-0                1/1     Running   0             3m18s
-dragonfly-seed-peer-0                1/1     Running   1 (37s ago)   3m18s
+NAME                                READY   STATUS    RESTARTS   AGE
+dragonfly-client-5gvz7              1/1     Running   0          51m
+dragonfly-client-xvqmq              1/1     Running   0          51m
+dragonfly-manager-dc6dcf87b-l88mr   1/1     Running   0          51m
+dragonfly-mysql-0                   1/1     Running   0          51m
+dragonfly-redis-master-0            1/1     Running   0          51m
+dragonfly-redis-replicas-0          1/1     Running   0          51m
+dragonfly-redis-replicas-1          1/1     Running   0          48m
+dragonfly-redis-replicas-2          1/1     Running   0          39m
+dragonfly-scheduler-0               1/1     Running   0          51m
+dragonfly-seed-client-0             1/1     Running   0          51m
 ```
 
 ### Create NodePort service of the manager REST service
@@ -290,6 +256,13 @@ peer will automatically get expose IP as advertise IP. When advertise IP of the 
 the peer will preferentially use the scheduler and the seed peer of the Dragonfly cluster.
 CIDRs has higher priority than IDC in the scopes.
 
+**Hostnames**: The cluster needs to serve all peers in Hostnames. The input parameter is the multiple Hostnames regexes.
+The Hostnames will be reported in the peer configuration when the peer is started.
+When the Hostnames matches the multiple Hostnames regexes in the cluster,
+the peer will preferentially use the scheduler and the seed peer of the cluster.
+Hostnames has higher priority than IDC in the scopes.
+Hostnames has priority equal to CIDRs in the scopes.
+
 ### Create Dragonfly cluster B based on helm charts
 
 Create charts configuration with cluster information in the manager console.
@@ -299,11 +272,11 @@ Create charts configuration with cluster information in the manager console.
 - `Scheduler.config.manager.schedulerClusterID` using the `Scheduler cluster ID`
   from `cluster-2` information in the manager console.
 - `Scheduler.config.manager.addr` is address of the manager GRPC server.
-- `seedPeer.config.scheduler.manager.seedPeer.clusterID` using the `Seed peer cluster ID`
+- `seedClient.config.seedPeer.clusterID` using the `Seed peer cluster ID`
   from `cluster-2` information in the manager console.
-- `seedPeer.config.scheduler.manager.netAddrs[0].addr` is address of the manager GRPC server.
-- `dfdaemon.config.host.idc` using the `IDC` from `cluster-2` information in the manager console.
-- `dfdaemon.config.scheduler.manager.netAddrs[0].addr` is address of the manager GRPC server.
+- `seedClient.config.manager.addrs` is address of the manager GRPC server.
+- `client.config.host.idc` using the `IDC` from `cluster-2` information in the manager console.
+- `client.config.manager.addrs` is address of the manager GRPC server.
 - `externalManager.host` is host of the manager GRPC server.
 - `externalRedis.addrs[0]` is address of the redis.
 
@@ -311,53 +284,57 @@ Create Dragonfly cluster B charts configuration file `charts-config-cluster-b.ya
 configuration content is as follows:
 
 ```yaml
-containerRuntime:
-  containerd:
-    enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://ghcr.io'
-
 scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
+  replicas: 1
   nodeSelector:
     cluster: b
-  replicas: 1
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   config:
     manager:
       addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
       schedulerClusterID: 2
 
-seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  nodeSelector:
-    cluster: b
+seedClient:
   replicas: 1
-  config:
-    scheduler:
-      manager:
-        netAddrs:
-          - type: tcp
-            addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
-        seedPeer:
-          enable: true
-          clusterID: 2
-
-dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
   nodeSelector:
     cluster: b
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  config:
+    manager:
+      addrs:
+        - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
+    seedPeer:
+      clusterID: 2
+
+client:
+  nodeSelector:
+    cluster: b
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
   config:
     host:
       idc: cluster-2
-    scheduler:
-      manager:
-        netAddrs:
-          - type: tcp
-            addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
+    manager:
+      addrs:
+        - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
 
 manager:
   enable: false
@@ -378,9 +355,6 @@ externalRedis:
 
 mysql:
   enable: false
-
-jaeger:
-  enable: true
 ```
 
 Create Dragonfly cluster B using the configuration file:
@@ -390,7 +364,7 @@ Create Dragonfly cluster B using the configuration file:
 ```shell
 $ helm install --wait --create-namespace --namespace cluster-b dragonfly dragonfly/dragonfly -f charts-config-cluster-b.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Aug  7 22:13:51 2023
+LAST DEPLOYED: Tue Apr 16 15:49:42 2024
 NAMESPACE: cluster-b
 STATUS: deployed
 REVISION: 1
@@ -409,12 +383,6 @@ NOTES:
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
-
-
-4. Get Jaeger query URL by running these commands:
-  export JAEGER_QUERY_PORT=$(kubectl --namespace cluster-b get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
-  kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
-  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
 
 <!-- markdownlint-restore -->
@@ -423,12 +391,11 @@ Check that Dragonfly cluster B is deployed successfully:
 
 ```shell
 $ kubectl get po -n cluster-b
-NAME                                READY   STATUS    RESTARTS   AGE
-dragonfly-dfdaemon-q8bsg            1/1     Running   0          67s
-dragonfly-dfdaemon-tsqls            1/1     Running   0          67s
-dragonfly-jaeger-84dbfd5b56-rg5dv   1/1     Running   0          67s
-dragonfly-scheduler-0               1/1     Running   0          67s
-dragonfly-seed-peer-0               1/1     Running   0          67s
+NAME                      READY   STATUS    RESTARTS   AGE
+dragonfly-client-f4897    1/1     Running   0          10m
+dragonfly-client-m9k9f    1/1     Running   0          10m
+dragonfly-scheduler-0     1/1     Running   0          10m
+dragonfly-seed-client-0   1/1     Running   0          10m
 ```
 
 Create dragonfly cluster B successfully.
@@ -439,29 +406,14 @@ Create dragonfly cluster B successfully.
 
 ### Containerd pull image back-to-source for the first time through Dragonfly in cluster A
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
-
-Expose jaeger's port `16686`:
-
-```shell
-kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
-
-![cluster-a-download-back-to-source-search-tracing](../../resource/getting-started/cluster-a-download-back-to-source-search-tracing.jpg)
-
-Tracing details:
-
-![cluster-a-download-back-to-source-tracing](../../resource/getting-started/cluster-a-download-back-to-source-tracing.jpg)
 
 When pull image back-to-source for the first time through Dragonfly, peer uses `cluster-a`'s scheduler and seed peer.
-It takes `1.47s` to download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` layer.
+It takes `31.714s` .
 
 ### Containerd pull image hits the cache of remote peer in cluster A
 
@@ -471,7 +423,7 @@ Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly 
 
 ```shell
 # Find pod name.
-export POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # Delete pod.
 kubectl delete pod ${POD_NAME} -n cluster-a
@@ -479,61 +431,30 @@ kubectl delete pod ${POD_NAME} -n cluster-a
 
 <!-- markdownlint-restore -->
 
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Delete `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-Expose jaeger's port `16686`:
-
-```shell
-kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
-
-![cluster-a-hit-remote-peer-cache-search-tracing](../../resource/getting-started/cluster-a-hit-remote-peer-cache-search-tracing.jpg)
-
-Tracing details:
-
-![cluster-a-hit-remote-peer-cache-tracing](../../resource/getting-started/cluster-a-hit-remote-peer-cache-tracing.jpg)
-
-When pull image hits cache of remote peer, peer uses `cluster-a`'s scheduler and seed peer. It takes `37.48ms` to
-download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` layer.
+When pull image hits cache of remote peer, peer uses `cluster-a`'s scheduler and seed peer. It takes `7.304s`.
 
 ### Containerd pull image back-to-source for the first time through dragonfly in cluster B
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+Pull `alpine:3.19` image in `kind-worker3` node:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker3 /usr/local/bin/crictl pull alpine:3.19
 ```
-
-Expose jaeger's port `16686`:
-
-```shell
-kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
-
-![cluster-b-download-back-to-source-search-tracing](../../resource/getting-started/cluster-b-download-back-to-source-search-tracing.jpg)
-
-Tracing details:
-
-![cluster-b-download-back-to-source-tracing](../../resource/getting-started/cluster-b-download-back-to-source-tracing.jpg)
 
 When pull image back-to-source for the first time through Dragonfly, peer uses `cluster-b`'s scheduler and seed peer.
-It takes `4.97s` to download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` layer.
+It takes `36.208s`.
 
 ### Containerd pull image hits the cache of remote peer in cluster B
 
@@ -541,7 +462,7 @@ It takes `4.97s` to download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a13767
 
 ```shell
 # Find pod name.
-export POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker3")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker3")].metadata.name}' | head -n 1 )
 
 # Delete pod.
 kubectl delete pod ${POD_NAME} -n cluster-b
@@ -549,32 +470,16 @@ kubectl delete pod ${POD_NAME} -n cluster-b
 
 <!-- markdownlint-restore -->
 
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+Delete `alpine:3.19` image in `kind-worker3` node:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker3 /usr/local/bin/crictl rmi alpine:3.19
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+Pull `alpine:3.19` image in `kind-worker3` node:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker3 /usr/local/bin/crictl pull alpine:3.19
 ```
 
-Expose jaeger's port `16686`:
-
-```shell
-kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
-
-![cluster-b-hit-remote-peer-cache-search-tracing](../../resource/getting-started/cluster-b-hit-remote-peer-cache-search-tracing.jpg)
-
-Tracing details:
-
-![cluster-b-hit-remote-peer-cache-tracing](../../resource/getting-started/cluster-b-hit-remote-peer-cache-tracing.jpg)
-
-When pull image hits cache of remote peer, peer uses `cluster-b`'s scheduler and seed peer. It takes `14.53ms` to
-download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` layer.
+When pull image hits cache of remote peer, peer uses `cluster-b`'s scheduler and seed peer. It takes `6.963s`.
