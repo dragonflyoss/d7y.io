@@ -401,7 +401,7 @@ time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 
 ### 集群 A 中 containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
 
-删除 Node 为 `kind-worker` 的 dfdaemon，为了清除 Dragonfly 本地 Peer 的缓存。
+删除 Node 为 `kind-worker` 的 client，为了清除 Dragonfly 本地 Peer 的缓存。
 
 <!-- markdownlint-disable -->
 
@@ -441,7 +441,7 @@ time docker exec -i kind-worker3 /usr/local/bin/crictl pull alpine:3.19
 
 ### 集群 B 中 containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
 
-删除 Node 为 `kind-worker3` 的 dfdaemon，为了清除 Dragonfly 本地 Peer 的缓存。
+删除 Node 为 `kind-worker3` 的 client，为了清除 Dragonfly 本地 Peer 的缓存。
 
 <!-- markdownlint-disable -->
 

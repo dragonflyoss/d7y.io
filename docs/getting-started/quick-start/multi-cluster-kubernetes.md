@@ -413,11 +413,11 @@ time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
 When pull image back-to-source for the first time through Dragonfly, peer uses `cluster-a`'s scheduler and seed peer.
-It takes `31.714s` .
+It takes `31.714s` to download the `alpine:3.19` image.
 
 ### Containerd pull image hits the cache of remote peer in cluster A
 
-Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
+Delete the client whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
 
 <!-- markdownlint-disable -->
 
@@ -443,7 +443,8 @@ Pull `alpine:3.19` image in `kind-worker` node:
 time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-When pull image hits cache of remote peer, peer uses `cluster-a`'s scheduler and seed peer. It takes `7.304s`.
+When pull image hits cache of remote peer, peer uses `cluster-a`'s scheduler and seed peer.
+It takes `7.304s` to download the `alpine:3.19` image.
 
 ### Containerd pull image back-to-source for the first time through dragonfly in cluster B
 
@@ -454,9 +455,11 @@ time docker exec -i kind-worker3 /usr/local/bin/crictl pull alpine:3.19
 ```
 
 When pull image back-to-source for the first time through Dragonfly, peer uses `cluster-b`'s scheduler and seed peer.
-It takes `36.208s`.
+It takes `36.208s` to download the `alpine:3.19` image.
 
 ### Containerd pull image hits the cache of remote peer in cluster B
+
+Delete the client whose Node is `kind-worker3` to clear the cache of Dragonfly local Peer.
 
 <!-- markdownlint-disable -->
 
@@ -482,4 +485,5 @@ Pull `alpine:3.19` image in `kind-worker3` node:
 time docker exec -i kind-worker3 /usr/local/bin/crictl pull alpine:3.19
 ```
 
-When pull image hits cache of remote peer, peer uses `cluster-b`'s scheduler and seed peer. It takes `6.963s`.
+When pull image hits cache of remote peer, peer uses `cluster-b`'s scheduler and seed peer.
+It takes `6.963s` to download the `alpine:3.19` image.
