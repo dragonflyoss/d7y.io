@@ -181,7 +181,8 @@ Pull `alpine:3.19` image in `kind-worker` node:
 time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-When pull image back-to-source for the first time through Dragonfly, it takes `37.852s`.
+When pull image back-to-source for the first time through Dragonfly, it takes `37.852s` to download the
+`alpine:3.19` image.
 
 ### Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
 
@@ -211,7 +212,8 @@ Pull `alpine:3.19` image in `kind-worker` node:
 time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-When pull image hits cache of remote peer, it takes `6.942s`.
+When pull image hits cache of remote peer, it takes `6.942s` to download the
+`alpine:3.19` image.
 
 ### Containerd pull image hits the cache of local peer {#containerd-pull-image-hits-the-cache-of-local-peer}
 
@@ -227,7 +229,8 @@ Pull `alpine:3.19` image in `kind-worker` node:
 time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-When pull image hits cache of local peer, it takes `5.540s`.
+When pull image hits cache of local peer, it takes `5.540s` to download the
+`alpine:3.19` image.
 
 ## Preheat image {#preheat-image}
 
@@ -417,4 +420,5 @@ Pull `alpine:3.19` image in `kind-worker` node:
 time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-When pull image hits preheat cache, it takes `2.952s`.
+When pull image hits preheat cache, it takes `2.952s` to download the
+`alpine:3.19` image.
