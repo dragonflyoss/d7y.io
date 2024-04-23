@@ -10,12 +10,13 @@ This guide shows how to install the Dragonfly. Dragonfly can be installed either
 
 <!-- markdownlint-disable -->
 
-| Name              | Version                      | Document                                                                     |
-| ----------------- | ---------------------------- | ---------------------------------------------------------------------------- |
-| Git               | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
-| Golang            | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
-| Database          | Mysql 5.6+ OR PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
-| Redis             | 3.0+                         | [redis.io](https://redis.io/)                                                |
+| Name     | Version                      | Document                                                                     |
+| -------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| Git      | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
+| Golang   | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
+| Rust     | 1.2+                         | [rustup.rs](https://rustup.rs/)                                              |
+| Database | Mysql 5.6+ OR PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
+| Redis    | 3.0+                         | [redis.io](https://redis.io/)                                                |
 
 <!-- markdownlint-restore -->
 
@@ -47,6 +48,35 @@ Untar the package:
 tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
 ```
 
+Every [release](https://github.com/dragonflyoss/client/releases) of
+Clinet provides binary releases for a variety of OSes.
+These binary versions can be manually downloaded and installed.
+
+Download the Client binaries:
+
+> Notice: your_client_version is recommended to use the latest version.
+
+```bash
+VERSION=<your_client_version>
+
+# Download the dfget binaries.
+wget -O client_dfget_x86_64-unknown-linux-gnu.tar.gz https://github.com/dragonflyoss/client/releases/download/v${VERSION}/dfget-v${VERSION}-x86_64-unknown-linux-gnu.tar.gz
+
+# Download the dfdaemon binaries.
+wget -O client_dfdaemon_x86_64-unknown-linux-gnu.tar.gz https://github.com/dragonflyoss/client/releases/download/v${VERSION}/dfdaemon-v${VERSION}-x86_64-unknown-linux-gnu.tar.gz
+```
+
+Untar the package:
+
+```bash
+# Replace `/path/to/dragonfly` with the installation directory.
+tar -zxf client_dfget_x86_64-unknown-linux-gnu.tar.gz -C /path/to/dragonfly
+
+tar -zxf client_dfdaemon_x86_64-unknown-linux-gnu.tar.gz -C /path/to/dragonfly
+```
+
+<!-- markdownlint-disable -->
+
 Configuration environment:
 
 ```bash
@@ -65,16 +95,30 @@ cd Dragonfly2
 Compile the source code:
 
 ```bash
-# At the same time to build scheduler, dfget and manager.
-make build
+# At the same time to build scheduler and manager.
+make build-manager && make build-scheduler
 
-# make build is equivalent to
-make build-scheduler && make build-dfget && make build-manager
-
-# Install executable file to  /opt/dragonfly/bin/{manager,scheduler,dfget}.
+# Install executable file to  /opt/dragonfly/bin/{manager,scheduler}.
 make install-manager
 make install-scheduler
-make install-dfget
+```
+
+Clone the source code of Client:
+
+```bash
+git clone https://github.com/dragonflyoss/client.git
+cd client
+```
+
+Compile the source code:
+
+```bash
+# At the same time to build dfdaemon and dfget.
+cargo build --release --bins
+
+# Install executable file to  /opt/dragonfly/bin/{dfget,dfdaemon}.
+mv target/release/dfget /opt/dragonfly/bin/dfget
+mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
 ```
 
 Configuration environment:
@@ -197,26 +241,24 @@ telnet 127.0.0.1 8002
 
 #### Startup Dfdaemon as Seed Peer {#startup-dfdaemon-as-seed-peer}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/dfdaemon.yaml`,
 refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
 Configuration content is as follows:
 
+> Notice: manager.addrs must be a complete URL.
+
 ```yaml
 # Seed Peer configuration.
-scheduler:
-  manager:
-    enable: true
-    netAddrs:
-      - type: tcp
-        addr: dragonfly-manager:65003
-    refreshInterval: 10m
-    seedPeer:
-      enable: true
-      type: super
-      clusterID: 1
+manager:
+  addrs:
+    - dragonfly-manager:65003
+seedPeer:
+  enable: true
+  type: super
+  clusterID: 1
 ```
 
 Run Dfdaemon as Seed Peer:
@@ -225,42 +267,40 @@ Run Dfdaemon as Seed Peer:
 # View Dfget cli help docs.
 dfget --help
 
-# View Dfget daemon cli help docs.
-dfget daemon --help
+# View Dfdaemon cli help docs.
+dfdaemon --help
 
-# Startup Dfget daemon mode.
-dfget daemon
+# Startup Dfdaemon mode.
+dfdaemon
 ```
 
 #### Verify {#verify-seed-peer}
 
 After the Seed Peer deployment is complete, run the following commands to verify if **Seed Peer** is started,
-and if Port `65000`, `65001` and `65002` is available.
+and if Port `4000`, `4001` and `4002` is available.
 
 ```bash
-telnet 127.0.0.1 65000
-telnet 127.0.0.1 65001
-telnet 127.0.0.1 65002
+telnet 127.0.0.1 4000
+telnet 127.0.0.1 4001
+telnet 127.0.0.1 4002
 ```
 
 #### Startup Dfdaemon as Peer {#startup-dfdaemon-as-Peer}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+The default path in Darwin is `$HOME/.dragonfly/config/dfdaemon.yaml`,
 refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
-Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
+Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
+
+> Notice: manager.addrs must be a complete URL.
 
 ```yaml
 # Peer configuration.
-scheduler:
-  manager:
-    enable: true
-    netAddrs:
-      - type: tcp
-        addr: dragonfly-manager:65003
-    refreshInterval: 10m
+manager:
+  addrs:
+    - dragonfly-manager:65003
 ```
 
 Run Dfdaemon as Peer:
@@ -269,20 +309,20 @@ Run Dfdaemon as Peer:
 # View Dfget cli help docs.
 dfget --help
 
-# View Dfget daemon cli help docs.
-dfget daemon --help
+# View Dfdaemon cli help docs.
+dfdaemon --help
 
-# Startup Dfget daemon mode.
-dfget daemon
+# Startup Dfdaemon mode.
+dfdaemon
 ```
 
 #### Verify {#verify-peer}
 
 After the Peer deployment is complete, run the following commands to verify if **Peer** is started,
-and if Port `65000`, `65001` and `65002` is available.
+and if Port `4000`, `4001` and `4002` is available.
 
 ```bash
-telnet 127.0.0.1 65000
-telnet 127.0.0.1 65001
-telnet 127.0.0.1 65002
+telnet 127.0.0.1 4000
+telnet 127.0.0.1 4001
+telnet 127.0.0.1 4002
 ```
