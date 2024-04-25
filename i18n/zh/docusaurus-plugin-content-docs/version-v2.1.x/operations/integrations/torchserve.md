@@ -110,6 +110,7 @@ scheduler:
     pprofPort: 18066
 
 seedPeer:
+  enable: true
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest
@@ -121,6 +122,7 @@ seedPeer:
     pprofPort: 18066
 
 dfdaemon:
+  enable: true
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest

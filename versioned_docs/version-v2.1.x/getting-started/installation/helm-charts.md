@@ -75,6 +75,29 @@ containerRuntime:
     registries:
       - 'https://docker.io'
 
+seedPeer:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+dfdaemon:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
 jaeger:
   enable: true
 ```

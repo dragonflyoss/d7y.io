@@ -73,6 +73,29 @@ containerRuntime:
     injectConfigPath: true
     registries:
       - 'https://docker.io'
+
+seedPeer:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+dfdaemon:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 ```
 
 Create a Dragonfly cluster using the configuration file:
@@ -185,6 +208,29 @@ containerRuntime:
     injectConfigPath: true
     registries:
       - 'https://docker.io'
+
+seedPeer:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+dfdaemon:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 ```
 
 Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
@@ -231,6 +277,29 @@ containerRuntime:
     registries:
       - 'https://docker.io'
       - 'https://ghcr.io'
+
+seedPeer:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+dfdaemon:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 ```
 
 Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
