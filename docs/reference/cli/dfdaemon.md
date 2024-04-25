@@ -3,9 +3,9 @@ id: dfdaemon
 title: Dfdaemon
 ---
 
-## dfget {#dfget}
+## Dfget {#dfget}
 
-`dfget` is the client of Dragonfly used to download and upload files
+`dfget` is the client of Dragonfly used to download and upload files.
 
 ### Usage {#usage}
 
@@ -19,19 +19,8 @@ functionality, such as network bandwidth limit,
 transmission encryption and so on.
 
 ```shell
-dfget url -O path [flags]
+dfget -O <OUTPUT> <URL>
 dfget [command]
-```
-
-### Available Commands {#available-commands}
-
-```shell
-  completion  generate the autocompletion script for the specified shell
-  daemon      start the client daemon of dragonfly
-  doc         generate documents
-  help        Help about any command
-  plugin      show plugin
-  version     show version
 ```
 
 ### Options {#options}
@@ -39,42 +28,118 @@ dfget [command]
 <!-- markdownlint-disable -->
 
 ```text
-      --accept-regex string   Recursively download only. Specify a regular expression to accept the complete URL. In this case, you have to enclose the pattern into quotes to prevent your shell from expanding it
-      --config string         the path of configuration file with yaml extension name, it can also be set by env var: DFGET_CONFIG
-      --console               whether logger output records to the stdout
-      --daemon-sock string    Download socket path of daemon. In linux, default value is /var/run/dfdaemon.sock, in macos(just for testing), default value is /tmp/dfdaemon.sock
-      --digest string         Check the integrity of the downloaded file with digest, in format of md5:xxx or sha256:yyy
-      --disable-back-source   Disable downloading directly from source when the daemon fails to download file
-      --filter string         Filter the query parameters of the url, P2P overlay is the same one if the filtered url is same, in format of key&sign, which will filter 'key' and 'sign' query parameters
-  -H, --header strings        url header, eg: --header='Accept: *' --header='Host: abc'
-  -h, --help                  help for dfget
-      --jaeger string         jaeger endpoint url, like: http://localhost:14250/api/traces
-      --level uint            Recursively download only. Set the maximum number of subdirectories that dfget will recurse into. Set to 0 for no limit (default 5)
-  -l, --list                  Recursively download only. List all urls instead of downloading them.
-      --logdir string         Dfget log directory
-      --original-offset       Range request only. Download ranged data into target file with original offset. Daemon will make a hardlink to target file. Client can download many ranged data into one file for same url. When enabled, back source in client will be disabled
-  -O, --output string         Destination path which is used to store the downloaded file, it must be a full path
-  -P, --priority string       Scheduler will schedule task according to priority
-      --pprof-port int        listen port for pprof, 0 represents random port (default -1)
-      --range string          Download range. Like: 0-9, stands download 10 bytes from 0 -9, [0:9] in real url
-      --ratelimit string      The downloading network bandwidth limit per second in format of G(B)/g/M(B)/m/K(B)/k/B, pure number will be parsed as Byte, 0 is infinite (default "100.0MB")
-  -r, --recursive             Recursively download all resources in target url, the target source client must support list action
-      --reject-regex string   Recursively download only. Specify a regular expression to reject the complete URL. In this case, you have to enclose the pattern into quotes to prevent your shell from expanding it
-      --service-name string   name of the service for tracer (default "dragonfly-dfget")
-  -b, --show-progress         Show progress bar, it conflicts with --console
-      --tag string            Different tags for the same url will be divided into different P2P overlay, it conflicts with --digest
-      --timeout duration      Timeout for the downloading task, 0 is infinite
-  -u, --url string            Download one file from the url, equivalent to the command's first position argument
-      --verbose               whether logger use debug level
-      --workhome string       Dfget working directory
+Usage: dfget [OPTIONS] --output <OUTPUT> <URL>
+
+Arguments:
+  <URL>
+          Specify the URL to download
+
+Options:
+  -O, --output <OUTPUT>
+          Specify the output path of downloading file
+
+  -e, --endpoint <ENDPOINT>
+          Endpoint of dfdaemon's GRPC server
+
+          [default: /var/run/dragonfly/dfdaemon.sock]
+
+      --timeout <TIMEOUT>
+          Specify the timeout for downloading a file
+
+          [default: 2h]
+
+      --piece-length <PIECE_LENGTH>
+          Specify the byte length of the piece
+
+          [default: 4194304]
+
+  -d, --digest <DIGEST>
+          Verify the integrity of the downloaded file using the specified digest, e.g. md5:86d3f3a95c324c9479bd8986968f4327
+
+          [default: ]
+
+  -p, --priority <PRIORITY>
+          Specify the priority for scheduling task
+
+          [default: 6]
+
+      --application <APPLICATION>
+          Caller application which is used for statistics and access control
+
+          [default: ]
+
+      --tag <TAG>
+          Different tags for the same url will be divided into different tasks
+
+          [default: ]
+
+  -H, --header <HEADER>
+          Specify the header for downloading file, e.g. --header='Content-Type: application/json' --header='Accept: application/json'
+
+      --filtered-query-param <FILTERED_QUERY_PARAMS>
+          Filter the query parameters of the downloaded URL. If the download URL is the same, it will be scheduled as the same task, e.g. --filtered-query-param='signature' --filtered-query-param='timeout'
+
+      --disable-back-to-source
+          Disable back-to-source download when dfget download failed
+
+  -l, --log-level <LOG_LEVEL>
+          Specify the logging level [trace, debug, info, warn, error]
+
+          [default: info]
+
+      --log-dir <LOG_DIR>
+          Specify the log directory
+
+          [default: /var/log/dragonfly/dfget]
+
+      --log-max-files <LOG_MAX_FILES>
+          Specify the max number of log files
+
+          [default: 24]
+
+      --verbose
+          Specify whether to print log
+
+  -c, --dfdaemon-config <DFDAEMON_CONFIG>
+          Specify dfdaemon's config file to use
+
+          [default: /etc/dragonfly/dfdaemon.yaml]
+
+      --dfdaemon-lock-path <DFDAEMON_LOCK_PATH>
+          Specify the dfdaemon's lock file path
+
+          [default: /var/lock/dragonfly/dfdaemon.lock]
+
+      --dfdaemon-log-level <DFDAEMON_LOG_LEVEL>
+          Specify the dfdaemon's logging level [trace, debug, info, warn, error]
+
+          [default: info]
+
+      --dfdaemon-log-dir <DFDAEMON_LOG_DIR>
+          Specify the dfdaemon's log directory
+
+          [default: /var/log/dragonfly/dfdaemon]
+
+      --dfdaemon-log-max-files <DFDAEMON_LOG_MAX_FILES>
+          Specify the dfdaemon's max number of log files
+
+          [default: 24]
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
 ```
+
+<!-- markdownlint-restore -->
 
 ### Example {#example}
 
 #### Download with HTTP protocol {#downlad-with-http}
 
 ```shell
-dfget -u "http://example.com/object" -O /path/to/output
+dfget -O /path/to/output http://example.com/object
 ```
 
 #### Download with OSS protocol {#downlad-with-oss}
@@ -86,73 +151,83 @@ All arguments is necessary to download from private OSS bucket.
 
 Header explain:
 
-`Endpoint`: OSS Endpoint, refer: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints)
+`Endpoint`: OSS Endpoint, refer: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints).
 
-`AccessKeyID`: OSS AccessKey ID
+`AccessKeyID`: OSS AccessKey ID.
 
-`AccessKeySecret`: OSS AccessKey Secret
+`AccessKeySecret`: OSS AccessKey Secret.
 
 `--filter "Expires&Signature"` is used for generating unique task id for same object
 in different machines.
+
+`/path/to/output` is download storage path.
 
 `oss://bucket/path/to/object` is the object bucket and path.
 
 ```shell
 dfget --header "Endpoint: https://oss-cn-hangzhou.aliyuncs.com" \
-    --header "AccessKeyID: id" \
-    --header "AccessKeySecret: secret" \
-    --url oss://bucket/path/to/object \
-    --output /path/to/output \
-    --filter "Expires&Signature"
+    --header "AccessKeyID: your_access_key_id" \
+    --header "AccessKeySecret: your_access_key_secret" \
+    --output /path/to/output oss://bucket/path/to/object \
+    --filtered-query-param "Expires&Signature"
 ```
 
 ### Log configuration {#log-configuration}
 
 ```text
-1. set option --console if you want to print logs to Terminal
-2. log path: /var/log/dragonfly/dfget/
+log path: /var/log/dragonfly/dfget/
 ```
 
 <!-- markdownlint-restore -->
 
-## dfget daemon {#dfget-daemon}
+## Dfdaemon {#dfdaemon}
 
-### Daemon Options {#daemon-options}
+A high performance P2P download daemon in Dragonfly that can download resources of different protocols. When user triggers a file downloading task, dfdaemon will download the pieces of file from other peers. Meanwhile, it will act as an uploader to support other peers to download pieces from it if it owns them.
+
+### Options {#dfdaemon-options}
 
 <!-- markdownlint-disable -->
 
-```
-      --accept-regex string   Recursively download only. Specify a regular expression to accept the complete URL. In this case, you have to enclose the pattern into quotes to prevent your shell from expanding it
-      --config string         the path of configuration file with yaml extension name, default is /etc/dragonfly/dfget.yaml, it can also be set by env var: DFGET_CONFIG
-      --console               whether logger output records to the stdout
-      --digest string         Check the integrity of the downloaded file with digest, in format of md5:xxx or sha256:yyy
-      --disable-back-source   Disable downloading directly from source when the daemon fails to download file
-      --filter string         Filter the query parameters of the url, P2P overlay is the same one if the filtered url is same, in format of key&sign, which will filter 'key' and 'sign' query parameters
-  -H, --header strings        url header, eg: --header='Accept: *' --header='Host: abc'
-  -h, --help                  help for dfget
-      --jaeger string         jaeger endpoint url, like: http://localhost:14250/api/traces
-      --level uint            Recursively download only. Set the maximum number of subdirectories that dfget will recurse into. Set to 0 for no limit (default 5)
-      --limit string          The downloading network bandwidth limit per second in format of G(B)/g/M(B)/m/K(B)/k/B, pure number will be parsed as Byte, 0 is infinite (default "0.0B")
-  -l, --list                  Recursively download only. List all urls instead of downloading them.
-      --logdir string         Dfget log directory
-  -O, --output string         Destination path which is used to store the downloaded file, it must be a full path
-      --pprof-port int        listen port for pprof, 0 represents random port (default -1)
-  -r, --recursive             Recursively download all resources in target url, the target source client must support list action
-      --reject-regex string   Recursively download only. Specify a regular expression to reject the complete URL. In this case, you have to enclose the pattern into quotes to prevent your shell from expanding it
-      --service-name string   name of the service for tracer (default "dragonfly-dfget")
-  -b, --show-progress         Show progress bar, it conflicts with --console
-      --tag string            Different tags for the same url will be divided into different P2P overlay, it conflicts with --digest
-      --timeout duration      Timeout for the downloading task, 0 is infinite
-  -u, --url string            Download one file from the url, equivalent to the command's first position argument
-      --verbose               whether logger use debug level
-      --workhome string       Dfget working directory
+```text
+ -c, --config <CONFIG>
+          Specify config file to use
+
+          [default: /etc/dragonfly/dfdaemon.yaml]
+
+      --lock-path <LOCK_PATH>
+          Specify the lock file path
+
+          [default: /var/lock/dragonfly/dfdaemon.lock]
+
+  -l, --log-level <LOG_LEVEL>
+          Specify the logging level [trace, debug, info, warn, error]
+
+          [default: info]
+
+      --log-dir <LOG_DIR>
+          Specify the log directory
+
+          [default: /var/log/dragonfly/dfdaemon]
+
+      --log-max-files <LOG_MAX_FILES>
+          Specify the max number of log files
+
+          [default: 24]
+
+      --verbose
+          Specify whether to print log
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
 ```
 
 <!-- markdownlint-restore -->
 
-### Daemon Log configuration {#daemon-log-configuration}
+### Log configuration {#dfdaemon-log-configuration}
 
 ```text
-1. set option --console if you want to print logs to Terminal
-2. log path: /var/log/dragonfly/daemon/
+log path: /var/log/dragonfly/dfdaemon/
 ```
