@@ -56,7 +56,7 @@ docker pull dragonflyoss/client:latest
 docker pull dragonflyoss/dfinit:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
