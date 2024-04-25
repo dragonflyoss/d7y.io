@@ -86,6 +86,9 @@ Hugging Face 的 LFS 服务的地址, 配置如下:
 
 ```yaml
 scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -94,6 +97,10 @@ scheduler:
     pprofPort: 18066
 
 seedPeer:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -102,6 +109,10 @@ seedPeer:
     pprofPort: 18066
 
 dfdaemon:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   metrics:
     enable: true
   hostNetwork: true
@@ -133,6 +144,9 @@ dfdaemon:
           useHTTPS: true
 
 manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   replicas: 1
   metrics:
     enable: true
