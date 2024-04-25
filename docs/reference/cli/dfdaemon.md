@@ -132,8 +132,6 @@ Options:
           Print version
 ```
 
-<!-- markdownlint-restore -->
-
 ### Example {#example}
 
 #### Download with HTTP protocol {#downlad-with-http}
@@ -182,7 +180,9 @@ log path: /var/log/dragonfly/dfget/
 
 ## Dfdaemon {#dfdaemon}
 
-A high performance P2P download daemon in Dragonfly that can download resources of different protocols. When user triggers a file downloading task, dfdaemon will download the pieces of file from other peers. Meanwhile, it will act as an uploader to support other peers to download pieces from it if it owns them.
+A high performance P2P download daemon in Dragonfly that can download resources of different protocols.
+When user triggers a file downloading task, dfdaemon will download the pieces of file from other peers.
+Meanwhile, it will act as an uploader to support other peers to download pieces from it if it owns them.
 
 ### Options {#dfdaemon-options}
 
