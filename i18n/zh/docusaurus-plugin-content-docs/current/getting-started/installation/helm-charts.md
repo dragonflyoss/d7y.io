@@ -44,6 +44,26 @@ kind create cluster --config kind-config.yaml
 kubectl config use-context kind-kind
 ```
 
+## Kind 加载 Dragonfly 镜像
+
+下载 Dragonfly latest 镜像:
+
+```shell
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/client:latest
+docker pull dragonflyoss/dfinit:latest
+```
+
+Kind 集群加载 Dragonfly latest 镜像:
+
+```shell
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/client:latest
+kind load docker-image dragonflyoss/dfinit:latest
+```
+
 ## 基于 Helm Charts 创建 Dragonfly 集群
 
 创建 Helm Charts 配置文件 `values.yaml`，并且设置容器运行时为 containerd。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
