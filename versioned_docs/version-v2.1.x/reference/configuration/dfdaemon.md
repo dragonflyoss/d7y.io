@@ -120,7 +120,7 @@ host:
 # Download service option.
 download:
   # Calculate digest when transfer files, set false to save memory.
-  calculateDigest: true
+  calculateDigest: false
   # Total download limit per second.
   totalRateLimit: 1024Mi
   # Per peer task download limit per second.

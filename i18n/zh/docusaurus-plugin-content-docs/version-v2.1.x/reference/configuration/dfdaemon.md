@@ -118,7 +118,7 @@ host:
 # 下载服务选项。
 download:
   # 是否计算文件摘要，设置为 false 的话，会节省内存。
-  calculateDigest: true
+  calculateDigest: false
   # 总下载限速。
   totalRateLimit: 1024Mi
   # 单个任务下载限速。
