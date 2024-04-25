@@ -23,7 +23,8 @@ This guide shows how to install the Dragonfly. Dragonfly can be installed either
 
 ### From the Binary Releases {#from-the-binary-releases}
 
-Pre-built binaries are available on our Dragonfly [releases page](https://github.com/dragonflyoss/Dragonfly2/releases). These binary versions can be manually downloaded and installed.
+Pre-built binaries are available on our Dragonfly [releases page](https://github.com/dragonflyoss/Dragonfly2/releases).
+These binary versions can be manually downloaded and installed.
 
 Download the Dragonfly binaries:
 
@@ -45,7 +46,8 @@ Untar the package:
 tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
 ```
 
-Pre-built binaries are available on our Client [releases page](https://github.com/dragonflyoss/Dragonfly2/releases). These binary versions can be manually downloaded and installed.
+Pre-built binaries are available on our Client [releases page](https://github.com/dragonflyoss/Dragonfly2/releases).
+These binary versions can be manually downloaded and installed.
 
 Download the Client binaries:
 
