@@ -39,6 +39,32 @@ Create a kind multi-node cluster using the configuration file:
 kind create cluster --config kind-config.yaml
 ```
 
+Switch the context of kubectl to kind cluster:
+
+```shell
+kubectl config use-context kind-kind
+```
+
+## Kind loads Dragonfly image {#kind-loads-dragonfly-image}
+
+Pull Dragonfly latest images:
+
+```shell
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/client:latest
+docker pull dragonflyoss/dfinit:latest
+```
+
+Kind cluster loads dragonfly latest images:
+
+```shell
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/client:latest
+kind load docker-image dragonflyoss/dfinit:latest
+```
+
 ## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create helm charts configuration file `charts-config.yaml`, configuration content is as follows:

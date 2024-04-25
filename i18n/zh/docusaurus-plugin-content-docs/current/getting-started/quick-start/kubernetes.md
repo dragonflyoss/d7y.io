@@ -39,6 +39,32 @@ nodes:
 kind create cluster --config kind-config.yaml
 ```
 
+切换 Kubectl 的 Context 到 Kind 集群:
+
+```shell
+kubectl config use-context kind-kind
+```
+
+## Kind 加载 Dragonfly 镜像
+
+下载 Dragonfly latest 镜像:
+
+```shell
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/client:latest
+docker pull dragonflyoss/dfinit:latest
+```
+
+Kind 集群加载 Dragonfly latest 镜像:
+
+```shell
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/client:latest
+kind load docker-image dragonflyoss/dfinit:latest
+```
+
 ## 基于 Helm Charts 创建 Dragonfly P2P 集群
 
 创建 Helm Charts 配置文件 `charts-config.yaml`，配置如下:
