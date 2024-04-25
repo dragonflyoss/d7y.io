@@ -69,6 +69,7 @@ scheduler:
       enable: true
 
 seedPeer:
+  enable: true
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest
@@ -78,6 +79,7 @@ seedPeer:
       enable: true
 
 dfdaemon:
+  enable: true
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest

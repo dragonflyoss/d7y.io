@@ -113,6 +113,7 @@ scheduler:
     pprofPort: 18066
 
 seedPeer:
+  enable: true
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest
@@ -124,6 +125,7 @@ seedPeer:
     pprofPort: 18066
 
 dfdaemon:
+  enable: true
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest
@@ -319,8 +321,9 @@ containerRuntime:
       - 'https://ghcr.io'
 
 scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   nodeSelector:
     cluster: b
   replicas: 1
@@ -330,8 +333,10 @@ scheduler:
       schedulerClusterID: 2
 
 seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   nodeSelector:
     cluster: b
   replicas: 1
@@ -346,8 +351,10 @@ seedPeer:
           clusterID: 2
 
 dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   nodeSelector:
     cluster: b
   config:

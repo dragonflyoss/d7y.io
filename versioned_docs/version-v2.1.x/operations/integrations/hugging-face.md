@@ -85,6 +85,9 @@ the address of the Hugging Face Hub's LFS server, configuration content is as fo
 
 ```yaml
 scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -93,6 +96,10 @@ scheduler:
     pprofPort: 18066
 
 seedPeer:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   replicas: 1
   metrics:
     enable: true
@@ -101,6 +108,10 @@ seedPeer:
     pprofPort: 18066
 
 dfdaemon:
+  enable: true
+  image:
+    repository: dragonflyoss/dfdaemon
+    tag: latest
   metrics:
     enable: true
   hostNetwork: true
@@ -132,6 +143,9 @@ dfdaemon:
           useHTTPS: true
 
 manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   replicas: 1
   metrics:
     enable: true
