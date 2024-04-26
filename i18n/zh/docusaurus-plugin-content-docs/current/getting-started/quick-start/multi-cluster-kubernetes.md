@@ -104,6 +104,8 @@ scheduler:
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  nodeSelector:
+    cluster: a
   replicas: 1
   metrics:
     enable: true
@@ -115,6 +117,8 @@ seedPeer:
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest
+  nodeSelector:
+    cluster: a
   replicas: 1
   metrics:
     enable: true
@@ -126,6 +130,8 @@ dfdaemon:
   image:
     repository: dragonflyoss/dfdaemon
     tag: latest
+  nodeSelector:
+    cluster: a
   metrics:
     enable: true
   config:
@@ -136,6 +142,8 @@ manager:
   image:
     repository: dragonflyoss/manager
     tag: latest
+  nodeSelector:
+    cluster: a
   replicas: 1
   metrics:
     enable: true
