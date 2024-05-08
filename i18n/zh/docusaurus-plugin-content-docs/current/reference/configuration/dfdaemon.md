@@ -8,12 +8,7 @@ title: Dfdaemon
 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`, Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfdaemon.yaml`。
 
 ```yaml
-# verbose 是否使用调试级别的日志、是否启用 pprof。
-verbose: false
-log:
-  # 指定日志记录级别 [trace、debug、info、warn、error]。
-  level: info
-# host 是 dfdaemon 的主机配置。
+# dfdaemon 的主机配置。
 host:
   ## 机房信息。
   idc: ''
@@ -23,72 +18,100 @@ host:
   # hostname: ""
   ## 访问 IP 地址。
   # ip: ""
+
+# dfdaemon 的服务器配置。
 server:
   # pluginDir 是存放插件的目录位置。
   pluginDir: /var/lib/dragonfly/plugins/dfdaemon/
-  # cacheDir 是存放缓存文件的目录位置。
+  # 存放缓存文件的目录位置。
   cacheDir: /var/cache/dragonfly/dfdaemon/
+
+# dfdaemon 的下载配置。
 download:
+  # dfdaemon 的下载服务器配置。
   server:
-    # socketPath 是 dfdaemon GRPC 服务的 unix socket 路径。
+    # ssocketPath 是 dfdaemon GRPC 服务的 unix socket 路径。
     socketPath: /var/run/dragonfly/dfdaemon.sock
-  # 回源下载 Piece 的超时时间。
-  pieceTimeout: 30s
-  # 下载 Piece 的并发数量。
-  concurrentPieceCount: 10
+  # 下载速度的速率限制，单位为 bps（字节每秒），默认为 10Gbps。
+  rateLimit: 10000000000
+  # 回源下载 piece 的超时时间。
+  pieceTimeout: 180s
+  # 下载 piece 的并发数量。
+  concurrentPieceCount: 16
+
+# dfdaemon 的上传配置。
 upload:
+  # dfdaemon 的上传服务器配置。
   server:
-    # 指定固定端口，也可以指定端口范围。
+    # 指定固定端口，也可以指定端口。
     port: 4000
     ## GRPC 服务器的监听 ip。
     # ip: ""
+  # 上传速度的速率限制，单位为 bps（字节每秒），默认为 10Gbps。
+  rateLimit: 10000000000
+
+# dfdaemon 的管理器配置。
 manager:
   # Manager 服务地址。
   addrs: []
+
+# dfdaemon 的调度程序配置。
 scheduler:
-  # announceInterval 是向 scheduler 宣布 peer 的时间间隔。
-  # Announcer 会向 scheduler 提供 peer 信息进行调度。
-  # peer 信息包括 cpu, memory, 等...
-  announceInterval: 1m
+  # 向 scheduler 宣布 peer 的时间间隔。
+  # 向 scheduler 提供 peer 信息进行调度，peer 信息包括 cpu, memory, 等...
+  announceInterval: 300s
   # 调度的超时时间，如果调度超时 dfdaemon 将回源。
   # 如果 enableBackToSource 为 true 则下载，否则 dfdaemon 将返回下载失败。
   scheduleTimeout: 30s
-  # maxScheduleCount 是 Scheduler 的最大数量。
+  # scheduler 的最大数量。
   maxScheduleCount: 5
-  # 是否禁用回源，禁用回源后，在调度失败时不在 daemon 回源，直接返错。
-  enableBackToSource: true
+
+# dfdaemon 的 seed peer 配置。
 seedPeer:
-  # Dfdaemon 开启 seed peer 模式。
+  # dfdaemon 开启 seed peer 模式。
   enable: true
-  # Seed peer 类型，包括 super, strong 和 weak。
+  # seed peer 类型，包括 super, strong 和 weak。
   type: super
   # 注册的 seed peer 集群 ID。
   clusterID: 1
-  # 保持心跳的时间间隔。
+  # 与 manager 保持活动的时间间隔。
   keepaliveInterval: 15s
+
+# dynconfig is the dynamic configuration for dfdaemon.
 dynconfig:
-  # 是 manager 刷新动态配置的时间间隔。
-  refreshInterval: 1m
+  # manager 刷新动态配置的时间间隔。
+  refreshInterval: 300s
+
+# dfdaemon 的存储配置。
 storage:
-  # dir 是存储任务元数据和内容的目录。
+  # 存储任务元数据和内容的目录。
   dir: /var/lib/dragonfly/
+  # 将 piece 写入磁盘的缓冲区大小，默认为 16KB。
+  writeBufferSize: 16384
+  # 从磁盘读取 piece 的缓冲区大小，默认为 16KB。
+  readBufferSize: 16384
+
+# dfdaemon 的 gc 配置。
 gc:
-  # gc 的时间间隔。
+  # 进行 gc 的时间间隔。
   interval: 900s
+  # policy is the gc policy.
   policy:
-    # taskTTL 是任务的 TTL。
+    # taskTTL 是任务的 ttl。
     taskTTL: 21600s
-    # distHighThresholdPercent 是磁盘使用率的高阈值百分比。
+    # 磁盘使用率的高阈值百分比。
     # 如果磁盘使用率大于阈值，dfdaemon 将执行 gc。
     distHighThresholdPercent: 80
-    # distLowThresholdPercent 是磁盘使用率的下阈值百分比。
+    # 磁盘使用率的下阈值百分比。
     # 如果磁盘使用率低于阈值，dfdaemon 将停止 gc。
     distLowThresholdPercent: 60
+
+# dfdaemon 的代理配置。
 proxy:
   server:
-    # port 是 proxy 服务器的端口。
+    # proxy 服务监听端口。
     port: 4001
-    ## ip 是 proxy 服务器的监听ip。
+    ## proxy 的 IP 地址。
     # ip: ""
     ## caCert 是 PEM 格式的 root CA 证书路径，用于 proxy 服务器生成服务器证书。
     ## 如果 ca_cert 为空，proxy 将通过 rcgen::generate_simple_self_signed 生成一个简单的 CA 证书。
@@ -120,6 +143,7 @@ proxy:
       # useTLS: false
       # redirect: ""
       # filteredQueryParams: []
+  # registryMirror is implementation of the registry mirror in the proxy.
   registryMirror:
     # registry mirror 的默认地址。 proxy 会启动一个 registry 镜像服务，供 client 拉取镜像。
     # client 可以使用配置中的 registry 镜像的默认地址来拉取镜像。 “X-Dragonfly-Registry”标头可以代替 registry mirror 的默认地址。
@@ -129,18 +153,37 @@ proxy:
     # certs: ""
   # disableBackToSource 表示是否禁止下载失败时下载回源。
   disableBackToSource: false
-  # 当下载带有范围请求时，prefetch 会预下载完整的任务。
+  # 当请求使用 Range Header，请求部分数据的时候，可以预先获取非 Range 内的数据。
   prefetch: false
-security:
-  # 是否启用 security.
-  enable: false
-metrics:
+  # 从磁盘读取片段的缓冲区大小，默认为 16KB。
+  readBufferSize: 16384
+
+# dfdaemon 的运行状况配置。
+health:
+  # health 服务器配置。
   server:
-    # metrics 服务器的端口。
-    port: 4002
-    ## metrics 服务器的监听ip。
+    # health 服务监听端口。
+    port: 4003
+    ## health IP 地址。
     # ip: ""
-## Tracing 是 dfdaemon 的跟踪配置。
+
+# dfdaemon 的指标配置。
+metrics:
+  # metrics 服务器配置。
+  server:
+    # metrics  服务监听端口。
+    port: 4002
+    ## metrics 服务器 IP 地址。
+    # ip: ""
+
+# pprof 的统计数据配置。
+stats:
+  server:
+    # stats 监听端口。
+    port: 4004
+    ## stats IP 地址。
+    # ip: ""
+## dfdaemon 的 tracing 配置。
 # tracing:
 ## addr 为上报 tracing 日志的地址。
 # addr: ""

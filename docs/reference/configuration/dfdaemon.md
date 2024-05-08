@@ -9,11 +9,6 @@ The default path for the dfdaemon yaml configuration file is `/etc/dragonfly/dfd
 and the default path is `$HOME/.dragonfly/config/dfdaemon.yaml` in darwin.
 
 ```yaml
-# bose prints log.
-verbose: false
-log:
-  # Specify the logging level [trace, debug, info, warn, error]
-  level: info
 # host is the host configuration for dfdaemon.
 host:
   ## idc is the idc of the host.
@@ -24,40 +19,56 @@ host:
   # hostname: ""
   ## ip is the advertise ip of the host.
   # ip: ""
+
+# server is the server configuration for dfdaemon.
 server:
   # pluginDir is the directory to store plugins.
   pluginDir: /var/lib/dragonfly/plugins/dfdaemon/
   # cacheDir is the directory to store cache files.
   cacheDir: /var/cache/dragonfly/dfdaemon/
+
+# download is the download configuration for dfdaemon.
 download:
+  # server is the download server configuration for dfdaemon.
   server:
     # socketPath is the unix socket path for dfdaemon GRPC service.
     socketPath: /var/run/dragonfly/dfdaemon.sock
-  #  pieceTimeout is the timeout for downloading a piece from source.
-  pieceTimeout: 30s
+  # rateLimit is the rate limit of the download speed in bps(bytes per second), default is 10Gbps.
+  rateLimit: 10000000000
+  # pieceTimeout is the timeout for downloading a piece from source.
+  pieceTimeout: 180s
   # concurrentPieceCount is the number of concurrent pieces to download.
-  concurrentPieceCount: 10
+  concurrentPieceCount: 16
+
+# upload is the upload configuration for dfdaemon.
 upload:
+  # server is the upload server configuration for dfdaemon.
   server:
     # port is the port to the grpc server.
     port: 4000
     ## ip is the listen ip of the grpc server.
     # ip: ""
+  # rateLimit is the rate limit of the upload speed in bps(bytes per second), default is 10Gbps.
+  rateLimit: 10000000000
+
+# manager is the manager configuration for dfdaemon.
 manager:
   # addrs is manager addresses.
   addrs: []
+
+# scheduler is the scheduler configuration for dfdaemon.
 scheduler:
   # announceInterval is the interval to announce peer to the scheduler.
   # Announcer will provide the scheduler with peer information for scheduling,
   # peer information includes cpu, memory, etc.
-  announceInterval: 1m
+  announceInterval: 300s
   # scheduleTimeout is the timeout for scheduling. If the scheduling timesout, dfdaemon will back-to-source
   # download if enableBackToSource is true, otherwise dfdaemon will return download failed.
   scheduleTimeout: 30s
   # maxScheduleCount is the max count of schedule.
   maxScheduleCount: 5
-  # enableBackToSource indicates whether enable back-to-source download, when the scheduling failed.
-  enableBackToSource: true
+
+# seedPeer is the seed peer configuration for dfdaemon.
 seedPeer:
   # enable indicates whether enable seed peer.
   enable: true
@@ -67,15 +78,26 @@ seedPeer:
   clusterID: 1
   # keepaliveInterval is the interval to keep alive with manager.
   keepaliveInterval: 15s
+
+# dynconfig is the dynamic configuration for dfdaemon.
 dynconfig:
   # refreshInterval is the interval to refresh dynamic configuration from manager.
-  refreshInterval: 1m
+  refreshInterval: 300s
+
+# storage is the storage configuration for dfdaemon.
 storage:
   # dir is the directory to store task's metadata and content.
   dir: /var/lib/dragonfly/
+  # writeBufferSize is the buffer size for writing piece to disk, default is 16KB.
+  writeBufferSize: 16384
+  # readBufferSize is the buffer size for reading piece from disk, d efault is 16KB.
+  readBufferSize: 16384
+
+# gc is the gc configuration for dfdaemon.
 gc:
   # interval is the interval to do gc.
   interval: 900s
+  # policy is the gc policy.
   policy:
     # taskTTL is the ttl of the task.
     taskTTL: 21600s
@@ -85,6 +107,8 @@ gc:
     # distLowThresholdPercent is the low threshold percent of the disk usage.
     # If the disk usage is less than the threshold, dfdaemon will stop gc.
     distLowThresholdPercent: 60
+
+# proxy is the proxy configuration for dfdaemon.
 proxy:
   server:
     # port is the port to the proxy server.
@@ -123,6 +147,7 @@ proxy:
       # useTLS: false
       # redirect: ""
       # filteredQueryParams: []
+  # registryMirror is implementation of the registry mirror in the proxy.
   registryMirror:
     # addr is the default address of the registry mirror. Proxy will start a registry mirror service for the
     # client to pull the image. The client can use the default address of the registry mirror in
@@ -137,14 +162,34 @@ proxy:
   disableBackToSource: false
   # prefetch pre-downloads full of the task when download with range request.
   prefetch: false
-security:
-  # enable indicates whether enable security.
-  enable: false
+  # readBufferSize is the buffer size for reading piece from disk, default is 16KB.
+  readBufferSize: 16384
+
+# health is the health configuration for dfdaemon.
+health:
+  # port is the port to the health server.
+  server:
+    # port is the port to the health server.
+    port: 4003
+    ## ip is the listen ip of the health server.
+    # ip: ""
+
+# metrics is the metrics configuration for dfdaemon.
 metrics:
+  # port is the port to the metrics server.
   server:
     # port is the port to the metrics server.
     port: 4002
     ## ip is the listen ip of the metrics server.
+    # ip: ""
+
+# stats is the stats configuration for pprof.
+stats:
+  # port is the port to the stats server.
+  server:
+    # port is the port to the stats server.
+    port: 4004
+    ## ip is the listen ip of the stats server.
     # ip: ""
 ## tracing is the tracing configuration for dfdaemon.
 # tracing:
