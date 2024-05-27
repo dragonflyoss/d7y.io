@@ -4,4 +4,10 @@ title: Docker
 slug: /operations/integrations/container-runtime/docker/
 ---
 
-当前 Rust 版本不再支持 Docker，如果需要使用 Docker 请使用 v2.1.x 版本 Golang 部署，参考文档 [container-runtime-docker](../../../../version-v2.1.x/operations/integrations/container-runtime/docker.md)。
+文档的目标是帮助您将 Dragonfly 的容器运行时设置为 Docker。
+
+## Docker 通过 Dragonfly 下载镜像
+
+Dragonfly v2.1.x 版本不再支持 Docker。
+
+具体对接 Docker 文档参考 [container-runtime-docker](../../../../versioned_docs/version-v2.1.x/operations/integrations/container-runtime/docker.md).
