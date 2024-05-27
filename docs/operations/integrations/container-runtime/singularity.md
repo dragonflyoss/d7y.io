@@ -3,10 +3,5 @@ id: singularity
 title: Singularity/Apptainer
 ---
 
-This documentation will help you to integrate Dragonfly into
-Singularity/Apptainer container runtime.
-
-Table of contents:
-
-- [Oras Resource Client Mode](./singularity/oras-resource-client.md)
-- [Proxy Mode](./singularity/proxy.md)
+The current Rust version does not support Singularity/Apptainer. If you need to use Singularity/Apptainer,
+[container-runtime-singularity/apptainer](../../../../versioned_docs/version-v2.1.x/operations/integrations/container-runtime/singularity.md).
