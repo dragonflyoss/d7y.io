@@ -10,4 +10,4 @@ slug: /operations/integrations/container-runtime/docker/
 
 Dragonfly v2.1.x 版本不再支持 Docker。
 
-具体对接 Docker 文档参考 [container-runtime-docker](../../../../versioned_docs/version-v2.1.x/operations/integrations/container-runtime/docker.md).
+具体对接 Docker 文档参考 [container-runtime-docker](../../../../version-v2.1.x/operations/integrations/container-runtime/docker.md).
