@@ -3,5 +3,10 @@ id: singularity
 title: Singularity/Apptainer
 ---
 
-当前 Rust 版本不再支持 Singularity/Apptainer，如果需要使用 Singularity/Apptainer 请使用 v2.1.x 版本 Golang 部署，
-参考文档 [container-runtime-singularity/apptainer](../../../../version-v2.1.x/operations/integrations/container-runtime/singularity.md)。
+文档的目标是帮助您将 Dragonfly 的容器运行时设置为 Singularity/Apptainer。
+
+## Singularity/Apptainer downloads images through Dragonfly
+
+Dragonfly v2.1.x 版本不再支持 Singularity/Apptainer。
+
+具体对接 Singularity/Apptainer 文档参考 [singularity-apptainer](../../../../version-v2.1.x/operations/integrations/container-runtime/singularity.md)。
