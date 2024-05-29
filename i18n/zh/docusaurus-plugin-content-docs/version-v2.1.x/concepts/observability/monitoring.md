@@ -100,7 +100,7 @@ manager:
 - 安装 Dragonfly 并开启 `ServiceMonitor`
 
 ```bash
-helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly --version 1.1.45 -f values.yaml
 ```
 
 ## 步骤 3: 验证数据是否被采集

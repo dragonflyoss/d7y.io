@@ -158,7 +158,7 @@ jaeger:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
+$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly --version 1.1.45 -f charts-config.yaml
 LAST DEPLOYED: Wed Nov 29 21:23:48 2023
 NAMESPACE: dragonfly-system
 STATUS: deployed
