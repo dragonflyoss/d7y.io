@@ -101,7 +101,7 @@ manager:
 - Install dragonfly charts with `ServiceMonitor`
 
 ```bash
-helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly --version 1.1.45 -f values.yaml
 ```
 
 ## Step 3: Validate metrics {#step-3-validate-metrics}

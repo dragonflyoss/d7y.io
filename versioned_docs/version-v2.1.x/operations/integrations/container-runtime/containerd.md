@@ -104,7 +104,7 @@ Create a Dragonfly cluster using the configuration file:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly --version 1.1.45 -f values.yaml
 NAME: dragonfly
 LAST DEPLOYED: Mon Mar  4 16:23:15 2024
 NAMESPACE: dragonfly-system

@@ -163,7 +163,7 @@ jaeger:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --wait --create-namespace --namespace cluster-a dragonfly dragonfly/dragonfly -f charts-config-cluster-a.yaml
+$ helm install --wait --create-namespace --namespace cluster-a dragonfly dragonfly/dragonfly --version 1.1.45 -f charts-config-cluster-a.yaml
 NAME: dragonfly
 LAST DEPLOYED: Mon Aug  7 22:07:02 2023
 NAMESPACE: cluster-a
@@ -391,7 +391,7 @@ jaeger:
 <!-- markdownlint-disable -->
 
 ```shell
-$ helm install --wait --create-namespace --namespace cluster-b dragonfly dragonfly/dragonfly -f charts-config-cluster-b.yaml
+$ helm install --wait --create-namespace --namespace cluster-b dragonfly dragonfly/dragonfly --version 1.1.45 -f charts-config-cluster-b.yaml
 NAME: dragonfly
 LAST DEPLOYED: Mon Aug  7 22:13:51 2023
 NAMESPACE: cluster-b

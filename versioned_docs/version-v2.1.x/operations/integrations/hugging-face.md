@@ -160,7 +160,7 @@ Create a dragonfly cluster using the configuration file:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
+$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly --version 1.1.45 -f charts-config.yaml
 NAME: dragonfly
 LAST DEPLOYED: Wed Oct 19 04:23:22 2022
 NAMESPACE: dragonfly-system
