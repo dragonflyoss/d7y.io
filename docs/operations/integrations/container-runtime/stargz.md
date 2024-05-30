@@ -4,7 +4,7 @@ title: eStargz
 slug: /operations/integrations/container-runtime/stargz/
 ---
 
-This document will help you experience how to use dragonfly with eStargz.
+Documentation for setting Dragonfly's container runtime to eStargz.
 
 ## Prerequisites {#prerequisites}
 
@@ -14,14 +14,14 @@ This document will help you experience how to use dragonfly with eStargz.
 | ------------------ | ------- | ----------------------------------------------------------- |
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/)                     |
 | Helm               | 3.8.0+  | [helm.sh](https://helm.sh/)                                 |
-| Containerd         | v1.4.3+ | [containerd.io](https://containerd.io/)                     |
+| containerd         | v1.4.3+ | [containerd.io](https://containerd.io/)                     |
 | Nerdctl            | 0.22+   | [containerd/nerdctl](https://github.com/containerd/nerdctl) |
 
 **Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
 
 <!-- markdownlint-restore -->
 
-## Install dragonfly {#install-dragonfly}
+## Dragonfly Kubernetes Cluster Setup {#dragonfly-kubernetes-cluster-setup}
 
 For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md).
 
@@ -37,9 +37,9 @@ nodes:
   - role: worker
     extraPortMappings:
       - containerPort: 30950
-        hostPort: 65001
+        hostPort: 4001
       - containerPort: 30951
-        hostPort: 40901
+        hostPort: 4003
   - role: worker
 ```
 
@@ -57,12 +57,12 @@ kubectl config use-context kind-kind
 
 ### Kind loads dragonfly image {#kind-loads-dragonfly-image}
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
 Kind cluster loads dragonfly latest images:
@@ -70,61 +70,64 @@ Kind cluster loads dragonfly latest images:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
-### Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+### Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create helm charts configuration file `charts-config.yaml` and enable prefetching, configuration content is as follows:
 
 ```yaml
-scheduler:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    download:
-      prefetch: true
-
-dfdaemon:
-  metrics:
-    enable: true
-  hostNetwork: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    download:
-      prefetch: true
-    proxy:
-      defaultFilter: 'Expires&Signature&ns'
-      security:
-        insecure: true
-      tcpListen:
-        listen: 0.0.0.0
-        port: 65001
-      registryMirror:
-        dynamic: true
-        url: https://index.docker.io
-      proxies:
-        - regx: blobs/sha256.*
-
 manager:
-  replicas: 1
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/clinet
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    proxy:
+      prefetch: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  hostNetwork: true
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      prefetch: true
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: 'blobs/sha256.*'
 ```
 
 Create a dragonfly cluster using the configuration file:
@@ -135,7 +138,7 @@ Create a dragonfly cluster using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Wed Oct 19 04:23:22 2022
+LAST DEPLOYED: Mon May 28 20:52:12 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -162,17 +165,21 @@ Check that dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
-NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-rhnr6             1/1     Running   4 (101s ago)   3m27s
-dragonfly-dfdaemon-s6sv5             1/1     Running   5 (111s ago)   3m27s
-dragonfly-manager-67f97d7986-8dgn8   1/1     Running   0              3m27s
-dragonfly-mysql-0                    1/1     Running   0              3m27s
-dragonfly-redis-master-0             1/1     Running   0              3m27s
-dragonfly-redis-replicas-0           1/1     Running   1 (115s ago)   3m27s
-dragonfly-redis-replicas-1           1/1     Running   0              95s
-dragonfly-redis-replicas-2           1/1     Running   0              70s
-dragonfly-scheduler-0                1/1     Running   0              3m27s
-dragonfly-seed-peer-0                1/1     Running   2 (95s ago)    3m27s
+NAME                                 READY   STATUS    RESTARTS      AGE
+dragonfly-client-5vtn2               1/1     Running   0             74m
+dragonfly-client-g648f               1/1     Running   0             74m
+dragonfly-manager-58ff696785-kjl8r   1/1     Running   0             74m
+dragonfly-mysql-0                    1/1     Running   0             74m
+dragonfly-redis-master-0             1/1     Running   0             74m
+dragonfly-redis-replicas-0           1/1     Running   0             74m
+dragonfly-redis-replicas-1           1/1     Running   0             72m
+dragonfly-redis-replicas-2           1/1     Running   0             72m
+dragonfly-scheduler-0                1/1     Running   0             74m
+dragonfly-scheduler-1                1/1     Running   0             66m
+dragonfly-scheduler-2                1/1     Running   0             65m
+dragonfly-seed-client-0              1/1     Running   4 (66m ago)   74m
+dragonfly-seed-client-1              1/1     Running   0             65m
+dragonfly-seed-client-2              1/1     Running   0             65m
 ```
 
 Create peer service configuration file `peer-service-config.yaml`, configuration content is as follows:
@@ -186,15 +193,15 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: http-65001
+    - name: http-4001
       nodePort: 30950
-      port: 65001
-    - name: http-40901
+      port: 4001
+    - name: http-4003
       nodePort: 30951
-      port: 40901
+      port: 4003
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 ```
 
@@ -214,10 +221,18 @@ The example uses Systemd to manage the `stargz-snapshotter` service.
 
 Download `containerd-stargz-grpc` binary, please refer to [stargz-snapshotter/releases](https://github.com/containerd/stargz-snapshotter/releases/latest):
 
+> Notice: `stargz-snapshotter_version` is recommended to use the latest version.
+
 ```shell
-STARGZ_SNAPSHOTTER_VERSION=0.13.0
-wget https://github.com/containerd/stargz-snapshotter/releases/download/stargz-snapshotter-v$STARGZ_SNAPSHOTTER_VERSION-linux-amd64.tar.gz
-tar -C /usr/local/bin -xvf stargz-snapshotter-v$STARGZ_SNAPSHOTTER_VERSION-linux-amd64.tar.gz containerd-stargz-grpc ctr-remote
+STARGZ_SNAPSHOTTER_VERSION=<your_stargz-snapshotter_version>
+wget -O stargz-snapshotter-linux-arm64.tgz https://github.com/containerd/stargz-snapshotter/releases/download/v$STARGZ_SNAPSHOTTER_VERSION/stargz-snapshotter-v$STARGZ_SNAPSHOTTER_VERSION-linux-arm64.tar.gz
+```
+
+解压压缩包：
+
+```shell
+# Install containerd-stargz-grpc and ctr-remote tools to /usr/local/bin.
+tar -C /usr/local/bin -xvf stargz-snapshotter-linux-arm64.tgz containerd-stargz-grpc ctr-remote
 ```
 
 ### Install stargz snapshotter plugin for containerd {#install-stargz-snapshotter-plugin-for-containerd}
@@ -225,7 +240,7 @@ tar -C /usr/local/bin -xvf stargz-snapshotter-v$STARGZ_SNAPSHOTTER_VERSION-linux
 Configure containerd to use the `stargz-snapshotter` plugin, please refer to
 [configure-and-start-containerd](https://github.com/containerd/stargz-snapshotter/blob/main/docs/INSTALL.md#install-stargz-snapshotter-for-containerd-with-systemd).
 
-Change configuration of containerd in `/etc/containerd/config.toml`:
+Modify your `config.toml` (default location: `/etc/containerd/config.toml`).
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri".containerd]
@@ -238,7 +253,7 @@ Change configuration of containerd in `/etc/containerd/config.toml`:
     address = "/run/containerd-stargz-grpc/containerd-stargz-grpc.sock"
 ```
 
-Restart containerd service:
+Restart containerd:
 
 ```shell
 sudo systemctl restart containerd
@@ -256,15 +271,17 @@ io.containerd.snapshotter.v1          stargz                    -              o
 For detailed configuration documentation based on stargz mirror mode, please refer to
 [stargz-registry-mirrors](https://github.com/containerd/stargz-snapshotter/blob/main/docs/overview.md#registry-mirrors-and-insecure-connection).
 
-`127.0.0.1:65001` is the proxy address of dragonfly peer,
+`dragonfly:4001` is the proxy address of dragonfly peer,
 and the `X-Dragonfly-Registry` header is the address of origin registry,
 which is provided for dragonfly to download the images.
 
 Create stargz configuration file `config.toml`, configuration content is as follows:
 
+Set the `host` address in the configuration file to your actual address. Configuration content is as follows:
+
 ```toml
 [[resolver.host."docker.io".mirrors]]
-  host = "127.0.0.1:65001"
+  host = "dragonfly:4001"
   insecure = true
   [resolver.host."docker.io".mirrors.header]
     X-Dragonfly-Registry = ["https://index.docker.io"]
@@ -286,8 +303,8 @@ systemctl restart containerd
 
 ### Convert an image to stargz format {#convert-an-image-to-stargz-format}
 
-Convert `python:3.9.15` image to stargz format, you can use
-the converted `dragonflyoss/python:3.9.15-esgz` image and skip this step.
+Convert `alpine:3.19` image to stargz format, you can use
+the converted `alpine:3.19-esgz` image and skip this step.
 
 Login to Dockerhub:
 
@@ -295,23 +312,25 @@ Login to Dockerhub:
 docker login
 ```
 
-Convert `python:3.9.15` image to stargz format, and `DOCKERHUB_REPO_NAME` environment variable
+Convert `alpine:3.19` image to stargz format, and `DOCKERHUB_REPO_NAME` environment variable
 needs to be set to the user's image repository:
 
 ```shell
-DOCKERHUB_REPO_NAME=dragonflyoss
-sudo nerdctl pull python:3.9.15
-sudo nerdctl image convert --estargz --oci python:3.9.15 $DOCKERHUB_REPO_NAME/python:3.9.15-esgz
-sudo nerdctl image push $DOCKERHUB_REPO_NAME/python:3.9.15-esgz
+DOCKERHUB_REPO_NAME=<your_dockerhub_repo_name>
+sudo nerdctl pull alpine:3.19
+sudo nerdctl image convert --estargz --oci alpine:3.19 $DOCKERHUB_REPO_NAME/alpine:3.19-esgz
+sudo nerdctl image push $DOCKERHUB_REPO_NAME/alpine:3.19-esgz
 ```
 
 ### Try stargz with nerdctl {#try-stargz-with-nerdctl}
 
-Running `python:3.9.15-esgz` with nerdctl:
+Running `alpine:3.19-esgz` with nerdctl:
 
 ```shell
-sudo nerdctl --snapshotter stargz run --rm -it $DOCKERHUB_REPO_NAME/python:3.9.15-esgz
+sudo nerdctl --snapshotter stargz run --rm -it $DOCKERHUB_REPO_NAME/alpine:3.19-esgz
 ```
+
+#### Verify {#verify}
 
 Check that stargz is downloaded via dragonfly based on mirror mode:
 
@@ -319,7 +338,20 @@ Check that stargz is downloaded via dragonfly based on mirror mode:
 
 ```shell
 $ journalctl -u stargz-snapshotter | grep 'prepared remote snapshot'
-containerd-stargz-grpc[641210]: {"key":"default/102/extract-937057799-P18P sha256:3c17c21e4512b29e8cfc1c8621f91e4284ce2dcc5080a348c7ba4f47eaba6f11","level":"debug","msg":"prepared remote snapshot","parent":"sha256:4f9bea3e771997ae09192ddf4bd59c844444c671174835446759a82e457f1aed","remote-snapshot-prepared":"true","time":"2022-11-04T03:53:03.945119325Z"}
+containerd-stargz-grpc[4049]: {"key":"default/73/extract-656625708-vmlX sha256:7c7f00c83139c0b82eae3452058c975fb5a086d1c7d9124c77dd7a66d499dc6a","level":"debug","msg":"prepared remote snapshot","parent":"default/72/sha256:413f24977d4a9ef3a4582e041dbf50a3d32f5f60d97c98225eb492883d9c4c75","remote-snapshot-prepared":"true","time":"2024-05-30T14:36:55.660116292Z"}
+```
+
+You can execute the following command to check if the `alpine:3.19` image is distributed via Dragonfly.
+
+```shell
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Find task id.
+export TASK_ID=$(kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep -hoP 'alpine.*task_id=\"\K[^\"]+' /var/log/dragonfly/dfdaemon/* | head -n 1")
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'"
 ```
 
 <!-- markdownlint-restore -->
