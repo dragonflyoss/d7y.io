@@ -262,9 +262,6 @@ sudo cp nydus-static/nydus-image nydus-static/nydusd nydus-static/nydusify /usr/
 配置 containerd 使用 `nydus-snapshotter` 插件, 详细文档参考
 [configure-and-start-containerd](https://github.com/dragonflyoss/image-service/blob/master/docs/containerd-env-setup.md#configure-and-start-containerd)。
 
-`127.0.0.1:4001` 是 Dragonfly Peer 的 Proxy 地址，
-`X-Dragonfly-Registry` 自定义 Header 是提供给 Dragonfly 回源的源站仓库地址。
-
 更改 containerd 配置文件 `/etc/containerd/config.toml`。
 
 ```toml
@@ -299,7 +296,7 @@ Nydusd 的 Mirror 模式配置详细文档可以参考
 
 创建 Nydusd 配置文件 `nydusd-config.json`, 配置如下:
 
-在 Manager 配置文件下设置 `backend.config.mirrors.host` 和 `backend.config.mirrors.ping_url` 地址为你的实际地址，配置内容如下：
+在配置文件下设置 `backend.config.mirrors.host` 和 `backend.config.mirrors.ping_url` 地址为你的实际地址，配置内容如下：
 
 ```json
 {
@@ -309,12 +306,12 @@ Nydusd 的 Mirror 模式配置详细文档可以参考
       "config": {
         "mirrors": [
           {
-            "host": "http://Dragonfly:4001",
+            "host": "http://dragonfly:4001",
             "auth_through": false,
             "headers": {
               "X-Dragonfly-Registry": "https://index.docker.io"
             },
-            "ping_url": "http:Dragonfly:4003/healthy"
+            "ping_url": "http:dragonfly:4003/healthy"
           }
         ],
         "scheme": "https",
