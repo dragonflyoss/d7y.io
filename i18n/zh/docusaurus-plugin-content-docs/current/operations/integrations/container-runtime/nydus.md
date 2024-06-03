@@ -96,7 +96,7 @@ manager:
 
 scheduler:
   image:
-    repository: dragonflyoss/clinet
+    repository: dragonflyoss/scheduler
     tag: latest
   metrics:
     enable: true
