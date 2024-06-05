@@ -84,16 +84,6 @@ kind load docker-image dragonflyoss/client:latest
 创建 Helm Charts 配置文件 `charts-config.yaml` 并且开启 Peer 的预取功能, 配置如下:
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -134,6 +124,16 @@ client:
         addr: https://index.docker.io
       rules:
         - regex: 'blobs/sha256.*'
+
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:

@@ -84,16 +84,6 @@ kind load docker-image dragonflyoss/client:latest
 Create helm charts configuration file `charts-config.yaml` and enable prefetching, configuration content is as follows:
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -134,6 +124,16 @@ client:
         addr: https://index.docker.io
       rules:
         - regex: 'blobs/sha256.*'
+
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 ```
 
 Create a Dragonfly cluster using the configuration file:
