@@ -16,7 +16,7 @@ slug: /operations/integrations/hugging-face/
 
 ![hugging-face-p2p](../../resource/operations/integrations/hugging-face-p2p.png)
 
-## 依赖
+## 环境准备
 
 <!-- markdownlint-disable -->
 
@@ -24,16 +24,17 @@ slug: /operations/integrations/hugging-face/
 | ------------------ | -------- | --------------------------------------- |
 | Kubernetes cluster | 1.20+    | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | 3.8.0+   | [helm.sh](https://helm.sh/)             |
+| Python             | 3.6.0+   | [python.org](https://www.python.org/)   |
 
 <!-- markdownlint-restore -->
 
-**注意:** 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
+## Dragonfly Kubernetes 集群搭建
 
-## 安装 Dragonfly
+基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md)。
 
-基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md)。
+### 准备 Kubernetes 集群
 
-### 使用 Kind 安装 Kubernetes 集群
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
 创建 Kind 多节点集群配置文件 `kind-config.yaml`, 配置如下:
 
@@ -45,7 +46,7 @@ nodes:
   - role: worker
     extraPortMappings:
       - containerPort: 30950
-        hostPort: 65001
+        hostPort: 4001
   - role: worker
 ```
 
@@ -68,7 +69,7 @@ kubectl config use-context kind-kind
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
 Kind 集群加载 Dragonfly latest 镜像:
@@ -76,69 +77,63 @@ Kind 集群加载 Dragonfly latest 镜像:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
 ### 基于 Helm Charts 创建 Dragonfly P2P 集群
 
-创建 Helm Charts 配置文件 `charts-config.yaml` 并且设置 `dfdaemon.config.proxy.registryMirror.url` 为
+创建 Helm Charts 配置文件 `charts-config.yaml` 并且设置 `client.config.proxy.registryMirror.addr` 为
 Hugging Face 的 LFS 服务的地址, 配置如下:
 
 ```yaml
-scheduler:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  metrics:
-    enable: true
-  hostNetwork: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'Expires&Key-Pair-Id&Policy&Signature'
-      security:
-        insecure: true
-      tcpListen:
-        listen: 0.0.0.0
-        port: 65001
-      registryMirror:
-        # When enable, using header "X-Dragonfly-Registry" for remote instead of url.
-        dynamic: true
-        # URL for the registry mirror.
-        url: https://cdn-lfs.huggingface.co
-        # Whether to ignore https certificate errors.
-        insecure: true
-        # Optional certificates if the remote server uses self-signed certificates.
-        certs: []
-        # Whether to request the remote registry directly.
-        direct: false
-        # Whether to use proxies to decide if dragonfly should be used.
-        useProxies: true
-      proxies:
-        - regx: repos.*
-          useHTTPS: true
-
 manager:
-  replicas: 1
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  hostNetwork: true
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://cdn-lfs.huggingface.co
+      rules:
+        - regex: repos.*
+            useTLS: true
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:
@@ -149,7 +144,7 @@ manager:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Wed Oct 19 04:23:22 2022
+LAST DEPLOYED: Mon Jun  3 16:32:28 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -177,16 +172,20 @@ NOTES:
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-rhnr6             1/1     Running   4 (101s ago)   3m27s
-dragonfly-dfdaemon-s6sv5             1/1     Running   5 (111s ago)   3m27s
-dragonfly-manager-67f97d7986-8dgn8   1/1     Running   0              3m27s
-dragonfly-mysql-0                    1/1     Running   0              3m27s
-dragonfly-redis-master-0             1/1     Running   0              3m27s
-dragonfly-redis-replicas-0           1/1     Running   1 (115s ago)   3m27s
-dragonfly-redis-replicas-1           1/1     Running   0              95s
-dragonfly-redis-replicas-2           1/1     Running   0              70s
-dragonfly-scheduler-0                1/1     Running   0              3m27s
-dragonfly-seed-peer-0                1/1     Running   2 (95s ago)    3m27s
+dragonfly-client-6jgzn               1/1     Running   0             21m
+dragonfly-client-qzcz9               1/1     Running   0             21m
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0             21m
+dragonfly-mysql-0                    1/1     Running   0             21m
+dragonfly-redis-master-0             1/1     Running   0             21m
+dragonfly-redis-replicas-0           1/1     Running   0             21m
+dragonfly-redis-replicas-1           1/1     Running   0             21m
+dragonfly-redis-replicas-2           1/1     Running   0             21m
+dragonfly-scheduler-0                1/1     Running   0             21m
+dragonfly-scheduler-1                1/1     Running   0             21m
+dragonfly-scheduler-2                1/1     Running   0             21m
+dragonfly-seed-client-0              1/1     Running   2 (21m ago)   21m
+dragonfly-seed-client-1              1/1     Running   0             21m
+dragonfly-seed-client-2              1/1     Running   0             21m
 ```
 
 创建 Peer Service 配置文件 `peer-service-config.yaml` 配置如下:
@@ -200,12 +199,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: http-65001
+    - name: http-4001
       nodePort: 30950
-      port: 65001
+      port: 4001
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 ```
 
@@ -227,6 +226,8 @@ kubectl apply -f peer-service-config.yaml
 
 创建 `hf_hub_download_dragonfly.py` 文件，使用 `DragonflyAdapter` 将下载流量转发至 Dragonfly HTTP Proxy。
 这样可以通过 P2P 网络分发流量，内容如下：
+
+> 注意：更换 `session.proxies` 地址为你的实际地址。
 
 ```python
 import requests
@@ -256,7 +257,7 @@ def backend_factory() -> requests.Session:
     session = requests.Session()
     session.mount('http://', DragonflyAdapter())
     session.mount('https://', DragonflyAdapter())
-    session.proxies = {'http': 'http://127.0.0.1:65001'}
+    session.proxies = {'http': 'http://127.0.0.1:4001'}
     return session
 
 # Set it as the default session factory
@@ -281,19 +282,19 @@ $ python3 hf_hub_download_dragonfly.py
 执行命令：
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# 查看下载日志
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-日志输出：
+日志输出例子：
 
 <!-- markdownlint-disable -->
 
 ```text
-peer task done, cost: 28349ms	{"peer": "89.116.64.101-77008-a95a6918-a52b-47f5-9b18-cec6ada03daf", "task": "2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901", "component": "PeerTask", "trace": "b34ed802b7afc0f4acd94b2cedf3fa2a"}
+2024-06-03-13:2024-06-04T13:30:50.644228Z  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded host_id="172.18.0.4-kind-worker" task_id="2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901" peer_id="172.18.0.4-kind-worker-39ee6e2b-a339-440b-b214-3e8a1a3f1e36"
 ```
 
 <!-- markdownlint-restore -->
@@ -305,6 +306,8 @@ peer task done, cost: 28349ms	{"peer": "89.116.64.101-77008-a95a6918-a52b-47f5-9
 
 创建 `snapshot_download_dragonfly.py` 文件，使用 `DragonflyAdapter` 将下载流量转发至 Dragonfly HTTP Proxy。
 只有 Git LFS 协议的大文件流量会通过 P2P 网络分发，内容如下：
+
+> 注意：更换 session.proxies 地址为你的实际地址。
 
 ```python
 import requests
@@ -334,7 +337,7 @@ def backend_factory() -> requests.Session:
     session = requests.Session()
     session.mount('http://', DragonflyAdapter())
     session.mount('https://', DragonflyAdapter())
-    session.proxies = {'http': 'http://127.0.0.1:65001'}
+    session.proxies = {'http': 'http://127.0.0.1:4001'}
     return session
 
 # Set it as the default session factory
@@ -371,19 +374,19 @@ Fetching 12 files: 100%|██████████████████�
 执行命令：
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# 查看下载日志
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-日志输出：
+日志输出例子：
 
 <!-- markdownlint-disable -->
 
 ```text
-peer task done, cost: 28349ms	{"peer": "89.116.64.101-77008-a95a6918-a52b-47f5-9b18-cec6ada03daf", "task": "2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901", "component": "PeerTask", "trace": "b34ed802b7afc0f4acd94b2cedf3fa2a"}
+2024-06-03-13:2024-06-04T13:30:50.644228Z  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded host_id="172.18.0.4-kind-worker" task_id="2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901" peer_id="172.18.0.4-kind-worker-39ee6e2b-a339-440b-b214-3e8a1a3f1e36"
 ```
 
 <!-- markdownlint-restore -->

@@ -23,16 +23,17 @@ Dragonfly can be used to eliminate the bandwidth limit of the storage through P2
 | ------------------ | ------- | --------------------------------------- |
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | 3.8.0+  | [helm.sh](https://helm.sh/)             |
+| Python             | 3.8.0+  | [python.org](https://www.python.org/)   |
 
 <!-- markdownlint-restore -->
 
-**Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
+## Dragonfly Kubernetes Cluster Setup {#dragonfly-kubernetes-cluster-setup}
 
-## Install dragonfly {#install-dragonfly}
-
-For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
+For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md).
 
 ### Setup kubernetes cluster {#setup-kubernetes-cluster}
+
+[Kind](https://kind.sigs.k8s.io/) is recommended if no Kubernetes cluster is available for testing.
 
 Create kind multi-node cluster configuration file `kind-config.yaml`, configuration content is as follows:
 
@@ -44,7 +45,7 @@ nodes:
   - role: worker
     extraPortMappings:
       - containerPort: 30950
-        hostPort: 65001
+        hostPort: 4001
   - role: worker
 ```
 
@@ -60,14 +61,14 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-### Kind loads dragonfly image {#kind-loads-dragonfly-image}
+### Kind loads Dragonfly image {#kind-loads-dragonfly-image}
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
 Kind cluster loads dragonfly latest images:
@@ -75,72 +76,66 @@ Kind cluster loads dragonfly latest images:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
-### Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+### Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
-Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.proxy.registryMirror.url` to
+Create helm charts configuration file `charts-config.yaml` and set `client.config.proxy.registryMirror.addr` to
 the address of the Hugging Face Hub's LFS server, configuration content is as follows:
 
 ```yaml
-scheduler:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  metrics:
-    enable: true
-  hostNetwork: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'Expires&Key-Pair-Id&Policy&Signature'
-      security:
-        insecure: true
-      tcpListen:
-        listen: 0.0.0.0
-        port: 65001
-      registryMirror:
-        # When enable, using header "X-Dragonfly-Registry" for remote instead of url.
-        dynamic: true
-        # URL for the registry mirror.
-        url: https://cdn-lfs.huggingface.co
-        # Whether to ignore https certificate errors.
-        insecure: true
-        # Optional certificates if the remote server uses self-signed certificates.
-        certs: []
-        # Whether to request the remote registry directly.
-        direct: false
-        # Whether to use proxies to decide if dragonfly should be used.
-        useProxies: true
-      proxies:
-        - regx: repos.*
-          useHTTPS: true
-
 manager:
-  replicas: 1
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  hostNetwork: true
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://cdn-lfs.huggingface.co
+      rules:
+        - regex: repos.*
+            useTLS: true
 ```
 
-Create a dragonfly cluster using the configuration file:
+Create a Dragonfly cluster using the configuration file:
 
 <!-- markdownlint-disable -->
 
@@ -148,7 +143,7 @@ Create a dragonfly cluster using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Wed Oct 19 04:23:22 2022
+LAST DEPLOYED: Mon Jun  3 16:32:28 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -171,21 +166,25 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly is deployed successfully:
+Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-rhnr6             1/1     Running   4 (101s ago)   3m27s
-dragonfly-dfdaemon-s6sv5             1/1     Running   5 (111s ago)   3m27s
-dragonfly-manager-67f97d7986-8dgn8   1/1     Running   0              3m27s
-dragonfly-mysql-0                    1/1     Running   0              3m27s
-dragonfly-redis-master-0             1/1     Running   0              3m27s
-dragonfly-redis-replicas-0           1/1     Running   1 (115s ago)   3m27s
-dragonfly-redis-replicas-1           1/1     Running   0              95s
-dragonfly-redis-replicas-2           1/1     Running   0              70s
-dragonfly-scheduler-0                1/1     Running   0              3m27s
-dragonfly-seed-peer-0                1/1     Running   2 (95s ago)    3m27s
+dragonfly-client-6jgzn               1/1     Running   0             21m
+dragonfly-client-qzcz9               1/1     Running   0             21m
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0             21m
+dragonfly-mysql-0                    1/1     Running   0             21m
+dragonfly-redis-master-0             1/1     Running   0             21m
+dragonfly-redis-replicas-0           1/1     Running   0             21m
+dragonfly-redis-replicas-1           1/1     Running   0             21m
+dragonfly-redis-replicas-2           1/1     Running   0             21m
+dragonfly-scheduler-0                1/1     Running   0             21m
+dragonfly-scheduler-1                1/1     Running   0             21m
+dragonfly-scheduler-2                1/1     Running   0             21m
+dragonfly-seed-client-0              1/1     Running   2 (21m ago)   21m
+dragonfly-seed-client-1              1/1     Running   0             21m
+dragonfly-seed-client-2              1/1     Running   0             21m
 ```
 
 Create peer service configuration file `peer-service-config.yaml`, configuration content is as follows:
@@ -199,12 +198,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: http-65001
+    - name: http-4001
       nodePort: 30950
-      port: 65001
+      port: 4001
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 ```
 
@@ -228,7 +227,9 @@ distribute traffic through the Dragonfly peer.
 
 Create `hf_hub_download_dragonfly.py` file. Use `DragonflyAdapter` to forward the file download request of
 the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network
-to distribute file, content is as follows:
+to distribute file, configuration content is as follows:
+
+> Notice: Replace the `session.proxies` address with your actual address.
 
 ```python
 import requests
@@ -258,7 +259,7 @@ def backend_factory() -> requests.Session:
     session = requests.Session()
     session.mount('http://', DragonflyAdapter())
     session.mount('https://', DragonflyAdapter())
-    session.proxies = {'http': 'http://127.0.0.1:65001'}
+    session.proxies = {'http': 'http://127.0.0.1:4001'}
     return session
 
 # Set it as the default session factory
@@ -283,19 +284,19 @@ $ python3 hf_hub_download_dragonfly.py
 Execute the command:
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-Example output:
+The expected output is as follows:
 
 <!-- markdownlint-disable -->
 
 ```text
-peer task done, cost: 28349ms	{"peer": "89.116.64.101-77008-a95a6918-a52b-47f5-9b18-cec6ada03daf", "task": "2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901", "component": "PeerTask", "trace": "b34ed802b7afc0f4acd94b2cedf3fa2a"}
+2024-06-03-13:2024-06-04T13:30:50.644228Z  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded host_id="172.18.0.4-kind-worker" task_id="2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901" peer_id="172.18.0.4-kind-worker-39ee6e2b-a339-440b-b214-3e8a1a3f1e36"
 ```
 
 <!-- markdownlint-restore -->
@@ -309,6 +310,8 @@ Create `snapshot_download_dragonfly.py` file. Use `DragonflyAdapter` to forward 
 the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network
 to distribute file. Only the files of the LFS protocol will be distributed
 through the Dragonfly P2P network. content is as follows:
+
+> Notice: Replace the `session.proxies` address with your actual address.
 
 ```python
 import requests
@@ -338,7 +341,7 @@ def backend_factory() -> requests.Session:
     session = requests.Session()
     session.mount('http://', DragonflyAdapter())
     session.mount('https://', DragonflyAdapter())
-    session.proxies = {'http': 'http://127.0.0.1:65001'}
+    session.proxies = {'http': 'http://127.0.0.1:4001'}
     return session
 
 # Set it as the default session factory
@@ -375,19 +378,19 @@ Fetching 12 files: 100%|██████████████████�
 Execute the command:
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-Example output:
+The expected output is as follows:
 
 <!-- markdownlint-disable -->
 
 ```text
-peer task done, cost: 28349ms	{"peer": "89.116.64.101-77008-a95a6918-a52b-47f5-9b18-cec6ada03daf", "task": "2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901", "component": "PeerTask", "trace": "b34ed802b7afc0f4acd94b2cedf3fa2a"}
+2024-06-03-13:2024-06-04T13:30:50.644228Z  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded host_id="172.18.0.4-kind-worker" task_id="2fe93348699e07ab67823170925f6be579a3fbc803ff3d33bf9278a60b08d901" peer_id="172.18.0.4-kind-worker-39ee6e2b-a339-440b-b214-3e8a1a3f1e36"
 ```
 
 <!-- markdownlint-restore -->
