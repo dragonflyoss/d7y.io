@@ -29,7 +29,7 @@ Dragonfly can be used to eliminate the bandwidth limit of the storage through P2
 
 ## Dragonfly Kubernetes Cluster Setup {#dragonfly-kubernetes-cluster-setup}
 
-For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md).
+For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
 
 ### Setup kubernetes cluster {#setup-kubernetes-cluster}
 
@@ -71,7 +71,7 @@ docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest

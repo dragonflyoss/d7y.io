@@ -30,7 +30,7 @@ slug: /operations/integrations/hugging-face/
 
 ## Dragonfly Kubernetes 集群搭建
 
-基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md)。
+基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md)。
 
 ### 准备 Kubernetes 集群
 
