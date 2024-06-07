@@ -4,7 +4,7 @@ title: Triton Server
 slug: /operations/integrations/triton-server/
 ---
 
-This document will help you experience how to use dragonfly with [TritonServe](https://github.com/pytorch/serve).
+This document will help you experience how to use Dragonfly with [TritonServe](https://github.com/pytorch/serve).
 During the downloading of models, the file size is large and there are many services downloading the files at the same time.
 The bandwidth of the storage will reach the limit and the download will be slow.
 
@@ -28,13 +28,13 @@ the [dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repos
 | Helm               | 3.8.0+    | [helm.sh](https://helm.sh/)                                        |
 | Triton Server      | 23.08-py3 | [Triton Server](https://github.com/triton-inference-server/server) |
 
-**Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
-
 ### Dragonfly Kubernetes Cluster Setup
 
 For detailed installation documentation, please refer to [quick-start-kubernetes](https://d7y.io/zh/docs/getting-started/quick-start/kubernetes/).
 
 #### Prepare Kubernetes Cluster
+
+[Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
 
 Create kind multi-node cluster configuration file `kind-config.yaml`, configuration content is as follows:
 
@@ -59,107 +59,90 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-#### Kind loads dragonfly image
+#### Kind loads Dragonfly image
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
-#### Create dragonfly cluster based on helm charts
+#### Create Dragonfly cluster based on helm charts
 
 Create helm charts configuration file `charts-config.yaml` and set
-`dfdaemon.config.agents.regx` to match the download path of the object storage.
-Example: add `regx:.*models.*` to match download request from object storage bucket `models`.
+`client.config.proxy.rules.regex` to match the download path of the object storage.
+Example: add `regex:.*models.*` to match download request from object storage bucket `models`.
 Configuration content is as follows:
 
 ```yaml
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'Expires&Signature&ns'
-      security:
-        insecure: true
-        cacert: ''
-        cert: ''
-        key: ''
-      tcpListen:
-        namespace: ''
-        port: 65001
-      registryMirror:
-        url: https://index.docker.io
-        insecure: true
-        certs: []
-        direct: false
-      proxies:
-        - regx: blobs/sha256.*
-        - regx: .*amazonaws.*
-        # Proxy all http downlowd requests of model bucket path.
-        - regx: .*models.*
-
 manager:
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: blobs/sha256.*
+        # Proxy all http downlowd requests of model bucket path.
+        - regex: .*models.*
 ```
 
-Create a dragonfly cluster using the configuration file:
+Create a Dragonfly cluster using the configuration file:
 
 <!-- markdownlint-disable -->
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
-LAST DEPLOYED: Wed Nov 29 21:23:48 2023
+LAST DEPLOYED: Mon June 27 19:56:34 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -188,28 +171,31 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly is deployed successfully:
+Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get pods -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-8qcpd             1/1     Running   4 (118s ago)   2m45s
-dragonfly-dfdaemon-qhkn8             1/1     Running   4 (108s ago)   2m45s
-dragonfly-jaeger-6c44dc44b9-dfjfv    1/1     Running   0              2m45s
-dragonfly-manager-549cd546b9-ps5tf   1/1     Running   0              2m45s
-dragonfly-mysql-0                    1/1     Running   0              2m45s
-dragonfly-redis-master-0             1/1     Running   0              2m45s
-dragonfly-redis-replicas-0           1/1     Running   0              2m45s
-dragonfly-redis-replicas-1           1/1     Running   0              2m7s
-dragonfly-redis-replicas-2           1/1     Running   0              101s
-dragonfly-scheduler-0                1/1     Running   0              2m45s
-dragonfly-seed-peer-0                1/1     Running   1 (52s ago)    2m45s
+dragonfly-client-qhkn8               1/1     Running   0              21m3s
+dragonfly-client-qzcz9               1/1     Running   0              21m3s
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0              21m3s
+dragonfly-mysql-0                    1/1     Running   0              21m3s
+dragonfly-redis-master-0             1/1     Running   0              21m3s
+dragonfly-redis-replicas-0           1/1     Running   0              21m3s
+dragonfly-redis-replicas-1           1/1     Running   0              21m3s
+dragonfly-redis-replicas-2           1/1     Running   0              21m3s
+dragonfly-scheduler-0                1/1     Running   0              21m3s
+dragonfly-scheduler-1                1/1     Running   0              21m3s
+dragonfly-scheduler-2                1/1     Running   0              21m3s
+dragonfly-seed-client-0              1/1     Running   0              21m3s
+dragonfly-seed-client-1              1/1     Running   0              21m3s
+dragonfly-seed-client-2              1/1     Running   0              21m3s
 ```
 
 #### Expose the Proxy service port
 
 Create the `dfstore.yaml` configuration file to expose the port on which the
-Dragonfly Peer's HTTP proxy listens. The default port is `65001` and set`targetPort` to `65001`.
+Dragonfly Peer's HTTP proxy listens. The default port is `4001` and set`targetPort` to `4001`.
 
 ```yaml
 kind: Service
@@ -219,13 +205,13 @@ metadata:
 spec:
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 
   ports:
     - protocol: TCP
-      port: 65001
-      targetPort: 65001
+      port: 4001
+      targetPort: 4001
 
   type: NodePort
 ```
@@ -239,7 +225,7 @@ kubectl --namespace dragonfly-system apply -f dfstore.yaml
 Forward request to Dragonfly Peer's HTTP proxy:
 
 ```shell
-kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
+kubectl --namespace dragonfly-system port-forward service/dfstore 4001:4001
 ```
 
 ### Install Dragonfly Repository Agent
@@ -248,9 +234,11 @@ kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
 
 Create the `dragonfly_config.json`configuration file, the configuration is as follows:
 
+> Notice: Replace the `addr` address with your actual address.
+
 ```shell
 {
-  "proxy": "http://127.0.0.1:65001",
+  "proxy": "http://127.0.0.1:4001",
 	"header": {
 	},
 	"filter": [
@@ -450,20 +438,23 @@ I1130 09:43:22.695843 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8
 Execute the following command to check the Dragonfly logs:
 
 ```shell
-kubectl exec -it -n dragonfly-system dragonfly-dfdaemon-<id> -- tail -f /var/log/dragonfly/daemon/core.log
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-Check downloaded successfully through Dragonfly:
+The expected output is as follows:
 
 ```shell
 {
- "level":"info","ts":"2024-02-02 05:28:02.631",
- "caller":"peer/peertask_conductor.go:1349",
- "msg":"peer task done, cost: 352ms",
- "peer":"10.244.2.3-1-4398a429-d780-423a-a630-57d765f1ccfc",
- "task":"974aaf56d4877cc65888a4736340fb1d8fecc93eadf7507f531f9fae650f1b4d",
- "component":"PeerTask",
- "trace":"4cca9ce80dbf5a445d321cec593aee65"
+2024-06-4T07:55:39.011077Z  INFO
+download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded
+host_id="172.18.0.4-kind-worker"
+task_id="974aaf56d4877cc65888a4736340fb1d8fecc93eadf7507f531f9fae650f1b4d"
+peer_id="172.18.0.4-kind-worker-b1490bd8-2778-405f-8871-cdeb87cf36a7"
 }
 ```
 
