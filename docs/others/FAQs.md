@@ -27,7 +27,7 @@ change log level to info
 
 ## Download slower than without Dragonfly {#download-slower-than-without-dragonfly}
 
-1. Confirm limit rate in [dfget.yaml](../reference/configuration/dfdaemon.md)
+1. Confirm limit rate in [dfget.yaml](../reference/configuration/client/dfdaemon.md)
 
    ```yaml
    download:

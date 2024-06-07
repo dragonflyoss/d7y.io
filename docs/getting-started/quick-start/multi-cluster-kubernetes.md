@@ -268,7 +268,7 @@ The Dragonfly cluster needs to serve the scope. It wil provide scheduler service
 seed peer services to peers in the scope. The scopes of the Dragonfly cluster are configured
 when the console is created and updated. The scopes of the peer are configured in peer YAML config,
 the fields are `host.idc`, `host.location` and `host.advertiseIP`,
-refer to [dfdaemon config](../../reference/configuration/dfdaemon.md).
+refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 If the peer scopes match the Dragonfly cluster scopes, then the peer will use
 the Dragonfly cluster's scheduler and seed peer first, and if there is no matching

@@ -10,12 +10,12 @@ This guide shows how to install the Dragonfly. Dragonfly can be installed either
 
 <!-- markdownlint-disable -->
 
-| Name              | Version                      | Document                                                                     |
-| ----------------- | ---------------------------- | ---------------------------------------------------------------------------- |
-| Git               | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
-| Golang            | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
-| Database          | Mysql 5.6+ OR PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
-| Redis             | 3.0+                         | [redis.io](https://redis.io/)                                                |
+| Name     | Version                      | Document                                                                     |
+| -------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| Git      | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
+| Golang   | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
+| Database | Mysql 5.6+ OR PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
+| Redis    | 3.0+                         | [redis.io](https://redis.io/)                                                |
 
 <!-- markdownlint-restore -->
 
@@ -199,7 +199,7 @@ telnet 127.0.0.1 8002
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
-refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
+refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -247,7 +247,7 @@ telnet 127.0.0.1 65002
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
-refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
+refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
 Configuration content is as follows:

@@ -12,7 +12,7 @@ slug: /operations/integrations/container-runtime/singularity/oras-resource-clien
 ## 配置 Dfdaemon
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfget.yaml`，
-Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`，参考文档 [Dfdaemon](../../../../reference/configuration/dfdaemon.md)。
+Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`，参考文档 [Dfdaemon](../../../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
 # Peer task storage option.

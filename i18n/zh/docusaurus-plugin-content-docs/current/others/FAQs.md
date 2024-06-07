@@ -27,7 +27,7 @@ change log level to info
 
 ## 下载速度比不用蜻蜓的时候慢
 
-1. 确认限速值是否合适 [dfget.yaml](../reference/configuration/dfdaemon.md)
+1. 确认限速值是否合适 [dfget.yaml](../reference/configuration/client/dfdaemon.md)
 
    ```yaml
    download:

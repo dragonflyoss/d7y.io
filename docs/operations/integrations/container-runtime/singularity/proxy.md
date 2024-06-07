@@ -61,7 +61,7 @@ openssl x509 -req -days 36500 -extfile openssl.conf \
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
-refer to [Dfdaemon](../../../../reference/configuration/dfdaemon.md).
+refer to [Dfdaemon](../../../../reference/configuration/client/dfdaemon.md).
 
 Set the `registryMirror.url` and `hijackHTTPS.hosts.regx` addresses under the configuration
 file to your actual addresses. Configuration content is as follows:

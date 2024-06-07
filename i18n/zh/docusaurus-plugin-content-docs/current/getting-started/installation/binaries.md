@@ -186,7 +186,7 @@ telnet 127.0.0.1 8002
 #### 启动 Dfdaemon 作为 Seed Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfget.yaml`，
-Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`，参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
+Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`，参考文档 [Dfdaemon](../../reference/configuration/client/dfdaemon.md)。
 
 在 Seed Peer 配置文件下设置 scheduler.manager.netAddrs.addr 地址为你的实际地址，配置内容如下：
 
@@ -231,7 +231,7 @@ telnet 127.0.0.1 65002
 #### 启动 Dfdaemon 作为 Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfget.yaml`，
-Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`，参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
+Darwin 环境下默认 Dfdaemon 配置路径为 `$HOME/.dragonfly/config/dfget.yaml`，参考文档 [Dfdaemon](../../reference/configuration/client/dfdaemon.md)。
 
 配置文件下设置 scheduler.manager.netAddrs.addr 地址为你的实际地址，配置内容如下：
 
