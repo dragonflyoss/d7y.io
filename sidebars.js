@@ -131,6 +131,8 @@ module.exports = {
           type: 'category',
           label: 'Commands',
           items: [
+            'reference/commands/manager',
+            'reference/commands/scheduler',
             {
               type: 'category',
               label: 'Client',
@@ -141,8 +143,6 @@ module.exports = {
                 },
               ],
             },
-            'reference/commands/manager',
-            'reference/commands/scheduler',
           ],
         },
         'reference/personal-access-tokens',

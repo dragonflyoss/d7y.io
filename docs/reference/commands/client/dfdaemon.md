@@ -1,6 +1,7 @@
 ---
 id: dfdaemon
 title: Dfdaemon
+slug: /reference/commands/client/dfdaemon/
 ---
 
 ## Dfdaemon {#dfdaemon}

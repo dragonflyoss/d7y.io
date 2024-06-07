@@ -1,6 +1,7 @@
 ---
 id: dfget
 title: Dfget
+slug: /reference/commands/client/dfget/
 ---
 
 ## Dfget {#dfget}

@@ -47,9 +47,9 @@
     "message": "参考",
     "description": "The label for category Reference in sidebar docs"
   },
-  "sidebar.docs.category.Command Line": {
+  "sidebar.docs.category.Commands": {
     "message": "命令行",
-    "description": "The label for category Command Line in sidebar docs"
+    "description": "The label for category Commands in sidebar docs"
   },
   "sidebar.docs.category.Contribute": {
     "message": "贡献",

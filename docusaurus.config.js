@@ -15,7 +15,7 @@ const config = {
   organizationName: 'dragonflyoss', // Usually your GitHub org/user name.
   projectName: 'd7y.io', // Usually your repo name.
   i18n: {
-    defaultLocale: 'en',
+    defaultLocale: 'zh',
     locales: ['en', 'zh'],
     localeConfigs: {
       en: {
@@ -94,7 +94,7 @@ const config = {
           position: 'left',
         },
         {
-          to: 'videos/sessions/en/2024-03-23',
+          to: 'videos/sessions/en/2023-05-02',
           activeBasePath: 'videos',
           label: 'Video',
           position: 'left',
