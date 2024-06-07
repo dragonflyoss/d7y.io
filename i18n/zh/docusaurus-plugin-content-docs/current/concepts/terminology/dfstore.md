@@ -150,7 +150,7 @@ go install d7y.io/dragonfly/v2/cmd/dfstore@latest
 
 `dfstore` 需要和 Peer 在同一台机器上面，因为 `dfstore` 默认调用本地 Peer 的 `127.0.0.1:65004` 地址进行上传和下载对象。
 如果 `dfstore` 和 Peer 不在同一台机器上，那么可以通过命令行参数 `--endpoint` 来配置 Peer 的对象存储服务地址。
-具体命令行参数参考文档 [dfstore-cli](../../reference/cli/dfstore.md)。
+具体命令行参数参考文档 [dfstore-cli](https://d7y.io/docs/next/reference/cli/dfstore/)。
 
 ### 步骤 6: 上传对象文件到 Dragonfly 对象存储服务
 

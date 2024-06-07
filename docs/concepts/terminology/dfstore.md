@@ -158,7 +158,7 @@ because the `127.0.0.1:65004` endpoint of the peer will be called by default whe
 If dfstore and peer are not the same instance,
 you can specify the endpoint of the peer's object storage through
 the `--endpoint` parameter of `dfstore` command-line tool.
-Detailed parameters refer to [dfstore-cli](../../reference/cli/dfstore.md).
+Detailed parameters refer to [dfstore-cli](https://d7y.io/docs/next/reference/cli/dfstore/).
 
 ### Step 6: Upload object to dragonfly object storage
 

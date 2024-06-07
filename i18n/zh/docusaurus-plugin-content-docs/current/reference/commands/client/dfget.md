@@ -1,29 +1,24 @@
 ---
-id: dfdaemon
-title: Dfdaemon
+id: dfget
+title: Dfget
 ---
 
-## Dfget {#dfget}
+## Dfget
 
-`dfget` is the client of Dragonfly used to download and upload files.
+`dfget` 是 Dragonfly 中用来下载和上传文件的客户端。
 
-### Usage {#usage}
+### 用法
 
-dfget is the client of Dragonfly which takes
-a role of peer in a P2P network. When user triggers a file downloading
-task, dfget will download the pieces of
-file from other peers. Meanwhile, it will act as an uploader to support other
-peers to download pieces from it if it owns them.
-In addition, dfget has the abilities to provide more advanced
-functionality, such as network bandwidth limit,
-transmission encryption and so on.
+dfget 是 Dragonfly 中用来下载和上传文件的客户端，也是 p2p 网络中的一个 peer。当用户发起文件下载请求时，
+dfget 将从其他 peer 下载文件。同时，它也能作为上传者，让其他 peer 下载它已拥有的那部分文件。
+此外，dfget 还提供了一些高级功能，如网络带宽限制、加密传输等。
 
 ```shell
 dfget -O <OUTPUT> <URL>
 dfget [command]
 ```
 
-### Options {#options}
+### 可选参数
 
 <!-- markdownlint-disable -->
 
@@ -132,35 +127,35 @@ Options:
           Print version
 ```
 
-### Example {#example}
+<!-- markdownlint-restore -->
 
-#### Download with HTTP protocol {#downlad-with-http}
+### 例子
 
-```shell
+#### 使用 HTTP 协议下载
+
+```text
 dfget -O /path/to/output http://example.com/object
 ```
 
-#### Download with OSS protocol {#downlad-with-oss}
+#### 使用 OSS 协议下载
 
-Dragonfly supports download objects from Alibaba Cloud Object Storage Service (OSS).
-You can download via `dfget` command.
+蜻蜓支持从阿里云对象存储服务（OSS）直接下载对象。直接使用 `dfget` 命令即可。
 
-All arguments is necessary to download from private OSS bucket.
+示例中所有的参数都是必须。
 
-Header explain:
+Header 解释:
 
-`Endpoint`: OSS Endpoint, refer: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints).
+`Endpoint`: OSS Endpoint, 参考: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints)。
 
-`AccessKeyID`: OSS AccessKey ID.
+`AccessKeyID`: OSS AccessKey ID
 
-`AccessKeySecret`: OSS AccessKey Secret.
+`AccessKeySecret`: OSS AccessKey Secret
 
-`--filter "Expires&Signature"` is used for generating unique task id for same object
-in different machines.
+`--filter "Expires&Signature"` 是用来为相同对象在不同机器上下载的时候生成唯一任务 ID 使用的。
 
-`/path/to/output` is download storage path.
+`/path/to/output` 下载文件的存储路径。
 
-`oss://bucket/path/to/object` is the object bucket and path.
+`oss://bucket/path/to/object` 是指定 Bucket 和路径的。
 
 ```shell
 dfget --header "Endpoint: https://oss-cn-hangzhou.aliyuncs.com" \
@@ -170,64 +165,8 @@ dfget --header "Endpoint: https://oss-cn-hangzhou.aliyuncs.com" \
     --filtered-query-param "Expires&Signature"
 ```
 
-### Log configuration {#log-configuration}
+### 日志
 
 ```text
-log path: /var/log/dragonfly/dfget/
-```
-
-<!-- markdownlint-restore -->
-
-## Dfdaemon {#dfdaemon}
-
-A high performance P2P download daemon in Dragonfly that can download resources of different protocols.
-When user triggers a file downloading task, dfdaemon will download the pieces of file from other peers.
-Meanwhile, it will act as an uploader to support other peers to download pieces from it if it owns them.
-
-### Options {#dfdaemon-options}
-
-<!-- markdownlint-disable -->
-
-```text
- -c, --config <CONFIG>
-          Specify config file to use
-
-          [default: /etc/dragonfly/dfdaemon.yaml]
-
-      --lock-path <LOCK_PATH>
-          Specify the lock file path
-
-          [default: /var/lock/dragonfly/dfdaemon.lock]
-
-  -l, --log-level <LOG_LEVEL>
-          Specify the logging level [trace, debug, info, warn, error]
-
-          [default: info]
-
-      --log-dir <LOG_DIR>
-          Specify the log directory
-
-          [default: /var/log/dragonfly/dfdaemon]
-
-      --log-max-files <LOG_MAX_FILES>
-          Specify the max number of log files
-
-          [default: 24]
-
-      --verbose
-          Specify whether to print log
-
-  -h, --help
-          Print help (see a summary with '-h')
-
-  -V, --version
-          Print version
-```
-
-<!-- markdownlint-restore -->
-
-### Log configuration {#dfdaemon-log-configuration}
-
-```text
-log path: /var/log/dragonfly/dfdaemon/
+正常情况日志目录: /var/log/dragonfly/dfget/
 ```

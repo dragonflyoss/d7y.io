@@ -1,24 +1,29 @@
 ---
-id: dfdaemon
-title: Dfdaemon
+id: dfget
+title: Dfget
 ---
 
-## Dfget
+## Dfget {#dfget}
 
-`dfget` 是 Dragonfly 中用来下载和上传文件的客户端。
+`dfget` is the client of Dragonfly used to download and upload files.
 
-### 用法
+### Usage {#usage}
 
-dfget 是 Dragonfly 中用来下载和上传文件的客户端，也是 p2p 网络中的一个 peer。当用户发起文件下载请求时，
-dfget 将从其他 peer 下载文件。同时，它也能作为上传者，让其他 peer 下载它已拥有的那部分文件。
-此外，dfget 还提供了一些高级功能，如网络带宽限制、加密传输等。
+dfget is the client of Dragonfly which takes
+a role of peer in a P2P network. When user triggers a file downloading
+task, dfget will download the pieces of
+file from other peers. Meanwhile, it will act as an uploader to support other
+peers to download pieces from it if it owns them.
+In addition, dfget has the abilities to provide more advanced
+functionality, such as network bandwidth limit,
+transmission encryption and so on.
 
 ```shell
 dfget -O <OUTPUT> <URL>
 dfget [command]
 ```
 
-### 可选参数
+### Options {#options}
 
 <!-- markdownlint-disable -->
 
@@ -127,35 +132,35 @@ Options:
           Print version
 ```
 
-<!-- markdownlint-restore -->
+### Example {#example}
 
-### 例子
+#### Download with HTTP protocol {#downlad-with-http}
 
-#### 使用 HTTP 协议下载
-
-```text
+```shell
 dfget -O /path/to/output http://example.com/object
 ```
 
-#### 使用 OSS 协议下载
+#### Download with OSS protocol {#downlad-with-oss}
 
-蜻蜓支持从阿里云对象存储服务（OSS）直接下载对象。直接使用 `dfget` 命令即可。
+Dragonfly supports download objects from Alibaba Cloud Object Storage Service (OSS).
+You can download via `dfget` command.
 
-示例中所有的参数都是必须。
+All arguments is necessary to download from private OSS bucket.
 
-Header 解释:
+Header explain:
 
-`Endpoint`: OSS Endpoint, 参考: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints)。
+`Endpoint`: OSS Endpoint, refer: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints).
 
-`AccessKeyID`: OSS AccessKey ID
+`AccessKeyID`: OSS AccessKey ID.
 
-`AccessKeySecret`: OSS AccessKey Secret
+`AccessKeySecret`: OSS AccessKey Secret.
 
-`--filter "Expires&Signature"` 是用来为相同对象在不同机器上下载的时候生成唯一任务 ID 使用的。
+`--filter "Expires&Signature"` is used for generating unique task id for same object
+in different machines.
 
-`/path/to/output` 下载文件的存储路径。
+`/path/to/output` is download storage path.
 
-`oss://bucket/path/to/object` 是指定 Bucket 和路径的。
+`oss://bucket/path/to/object` is the object bucket and path.
 
 ```shell
 dfget --header "Endpoint: https://oss-cn-hangzhou.aliyuncs.com" \
@@ -165,61 +170,10 @@ dfget --header "Endpoint: https://oss-cn-hangzhou.aliyuncs.com" \
     --filtered-query-param "Expires&Signature"
 ```
 
-### 日志
+### Log configuration {#log-configuration}
 
 ```text
-正常情况日志目录: /var/log/dragonfly/dfget/
-```
-
-## Dfdaemon
-
-Dragonfly 中的高性能 P2P 下载守护进程，可以下载不同协议的资源。当用户触发文件下载任务时，
-dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者，支持其他节点从它下载片段（如果它拥有这些片段）。
-
-### Dfdaemon 可选参数
-
-<!-- markdownlint-disable -->
-
-```text
- -c, --config <CONFIG>
-          Specify config file to use
-
-          [default: /etc/dragonfly/dfdaemon.yaml]
-
-      --lock-path <LOCK_PATH>
-          Specify the lock file path
-
-          [default: /var/lock/dragonfly/dfdaemon.lock]
-
-  -l, --log-level <LOG_LEVEL>
-          Specify the logging level [trace, debug, info, warn, error]
-
-          [default: info]
-
-      --log-dir <LOG_DIR>
-          Specify the log directory
-
-          [default: /var/log/dragonfly/dfdaemon]
-
-      --log-max-files <LOG_MAX_FILES>
-          Specify the max number of log files
-
-          [default: 24]
-
-      --verbose
-          Specify whether to print log
-
-  -h, --help
-          Print help (see a summary with '-h')
-
-  -V, --version
-          Print version
+log path: /var/log/dragonfly/dfget/
 ```
 
 <!-- markdownlint-restore -->
-
-### Dfdaemon 日志
-
-```text
-正常情况日志目录: /var/log/dragonfly/dfdaemon/
-```
