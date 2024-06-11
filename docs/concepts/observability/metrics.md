@@ -5,34 +5,27 @@ slug: /concepts/observability/metrics/
 ---
 
 This doc contains all the metrics that Dragonfly components currently support.
-Now we support metrics for Dfdaemon, Manager and Scheduler.
+Now we support metrics for Client, Seed Client, Manager and Scheduler.
 The metrics path is fixed to `/metrics`. The following metrics are exported.
 
-## Dfdaemon {#dfdaemon}
+## Client{#client}
 
 GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
 
 <!-- markdownlint-disable -->
 
-| Name                                                     | Labels | Type    | Description                                                      |
-| :------------------------------------------------------- | :----- | :------ | :--------------------------------------------------------------- |
-| dragonfly_dfdaemon_proxy_request_total                   | method | counter | Counter of the total proxy request.                              |
-| dragonfly_dfdaemon_proxy_request_via_dragonfly_total     |        | counter | Counter of the total proxy request via Dragonfly.                |
-| dragonfly_dfdaemon_proxy_request_not_via_dragonfly_total |        | counter | Counter of the total proxy request not via Dragonfly.            |
-| dragonfly_dfdaemon_proxy_request_running_total           | method | counter | Current running count of proxy request.                          |
-| dragonfly_dfdaemon_proxy_request_bytes_total             | method | counter | Counter of the total byte of all proxy request.                  |
-| dragonfly_dfdaemon_peer_task_total                       |        | counter | Counter of the total peer tasks.                                 |
-| dragonfly_dfdaemon_peer_task_failed_total                | type   | counter | Counter of the total failed peer tasks.                          |
-| dragonfly_dfdaemon_piece_task_total                      |        | counter | Counter of the total failed piece tasks.                         |
-| dragonfly_dfdaemon_piece_task_failed_total               |        | counter | Dragonfly dfget tasks.                                           |
-| dragonfly_dfdaemon_file_task_total                       |        | counter | Counter of the total file tasks.                                 |
-| dragonfly_dfdaemon_stream_task_total                     |        | counter | Counter of the total stream tasks.                               |
-| dragonfly_dfdaemon_seed_peer_download_total              |        | counter | Counter of the number of the seed peer downloading.              |
-| dragonfly_dfdaemon_seed_peer_download_failure_total      |        | counter | Counter of the number of failed of the seed peer downloading.    |
-| dragonfly_dfdaemon_seed_peer_download_traffic            | type   | counter | Counter of the number of seed peer download traffic.             |
-| dragonfly_dfdaemon_seed_peer_concurrent_download_total   |        | gauge   | Gauger of the number of concurrent of the seed peer downloading. |
-| dragonfly_dfdaemon_peer_task_cache_hit_total             |        | counter | Counter of the total cache hit peer tasks.                       |
-| dragonfly_dfdaemon_prefetch_task_total                   |        | counter | Counter of the total prefetched tasks.                           |
+| Name                                | Labels                                        | Type      | Description                                             |
+| :---------------------------------- | :-------------------------------------------- | :-------- | :------------------------------------------------------ |
+| download_task_total                 | type, tag, app, priority                      | counter   | Counter of the number of the download task.             |
+| download_task_failure_total         | type, tag, app, priority                      | counter   | Counter of the number of failed of the download task.   |
+| prefetch_task_total                 | type, tag, app, priority                      | counter   | Counter of the number of the prefetch task.             |
+| prefetch_task_failure_total         | type, tag, app, priority                      | counter   | Counter of the number of failed of the prefetch task.   |
+| concurrent_download_task_total      | type, tag, app, priority                      | gauge     | Gauge of the number of concurrent of the download task. |
+| concurrent_upload_piece_total       |                                               | gauge     | Gauge of the number of concurrent of the upload piece.  |
+| download_traffic                    | type                                          | counter   | Counter of the number of the download traffic.          |
+| upload_traffic                      |                                               | counter   | Counter of the number of the upload traffic.            |
+| download_task_duration_milliseconds | task_size_level                               | histogram | Histogram of the download task duration.                |
+| version                             | git_version, git_commit, platform, build_time | gauge     | Version info of the service.                            |
 
 <!-- markdownlint-restore -->
 
