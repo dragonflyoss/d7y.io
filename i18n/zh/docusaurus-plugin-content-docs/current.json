@@ -35,6 +35,10 @@
     "message": "概念",
     "description": "The label for category Concepts in sidebar docs"
   },
+  "sidebar.docs.category.Best Practices": {
+    "message": "最佳实践",
+    "description": "The label for category Observability in sidebar docs"
+  },
   "sidebar.docs.category.Observability": {
     "message": "可观测性",
     "description": "The label for category Observability in sidebar docs"
