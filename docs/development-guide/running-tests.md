@@ -1,10 +1,21 @@
 ---
-id: test-guide
-title: Test Guide
-slug: /contribute/development-guide/test-guide/
+id: running tests
+title: Running Tests
+slug: /development-guide/running-tests/
 ---
 
-Dragonfly includes unit tests and E2E tests.
+This document describes how to run unit tests and E2E tests.
+
+## Prerequisites {#prerequisites}
+
+<!-- markdownlint-disable -->
+
+| Name   | Version | Document                        |
+| ------ | ------- | ------------------------------- |
+| Golang | 1.16.x  | [go.dev](https://go.dev/)       |
+| Rust   | 1.6+    | [rustup.rs](https://rustup.rs/) |
+
+<!-- markdownlint-restore -->
 
 ## Unit tests {#unit-tests}
 
@@ -24,7 +35,7 @@ make test-coverage
 
 ## E2E tests {#e2e-tests}
 
-E2E tests is in `test/e2e` path.
+E2E tests is in `Dragonfly2/test/e2e` path.
 
 ### Running E2E tests {#running-e2e-tests}
 
