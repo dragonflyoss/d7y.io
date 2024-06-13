@@ -72,7 +72,7 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 #### 启动 Manager
 
 编辑配置文件 Linux 环境下默认 Manager 配置路径为 `/etc/dragonfly/manager.yaml`，
-参考文档 [Manager](../../reference/configuration/manager.md)。
+参考文档 [Manager](../reference/configuration/manager.md)。
 
 在 Manager 配置文件下设置 database.mysql.addrs 和 database.redis.addrs 地址为你的实际地址，配置内容如下：
 
@@ -119,16 +119,16 @@ telnet 127.0.0.1 65003
 
 #### Manager 控制台
 
-可以在 `localhost:8080` 访问控制台，控制台功能预览参考文档 [console preview](../../reference/manage-console.md)。
+可以在 `localhost:8080` 访问控制台，控制台功能预览参考文档 [console preview](../reference/manage-console.md)。
 
-![manager-console](../../resource/getting-started/installation/manager-console.png)
+![manager-console](../resource/getting-started/installation/manager-console.png)
 
 ### Scheduler
 
 #### 启动 Scheduler
 
 编辑配置文件 Linux 环境下默认 Scheduler 配置路径为 `/etc/dragonfly/scheduler.yaml`，
-参考文档 [Scheduler](../../reference/configuration/scheduler.md)。
+参考文档 [Scheduler](../reference/configuration/scheduler.md)。
 
 在 Scheduler 配置文件下设置 database.redis.addrs 和 manager.addr 地址为你的实际地址，配置内容如下：
 
@@ -174,7 +174,7 @@ telnet 127.0.0.1 8002
 #### 启动 Dfdaemon 作为 Seed Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
-参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
+参考文档 [Dfdaemon](../reference/configuration/dfdaemon.md)。
 
 在 Seed Peer 配置文件下设置 manager.addrs 地址为你的实际地址，配置内容如下：
 
@@ -215,7 +215,7 @@ telnet 127.0.0.1 4002
 #### 启动 Dfdaemon 作为 Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
-参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
+参考文档 [Dfdaemon](../reference/configuration/dfdaemon.md)。
 
 配置文件下设置 manager.addrs 地址为你的实际地址，配置内容如下：
 
