@@ -1,7 +1,7 @@
 ---
-id: metrics
+id: prometheus-metrics
 title: Prometheus 数据指标
-slug: /concepts/observability/metrics/
+slug: /operations/best-practices/observability/prometheus-metrics/
 ---
 
 文档包含 Dragonfly 组件当前支持的所有指标。

@@ -1,6 +1,7 @@
 ---
 id: monitoring
 title: 监控
+slug: /operations/best-practices/observability/monitoring/
 ---
 
 Dragonfly 推荐使用 [prometheus](https://prometheus.io/) 做监控。

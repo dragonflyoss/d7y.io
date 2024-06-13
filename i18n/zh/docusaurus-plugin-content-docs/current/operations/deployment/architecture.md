@@ -1,11 +1,12 @@
 ---
 id: architecture
 title: 架构
+slug: /operations/deployment/architecture/
 ---
 
 ## 定位
 
-提供企业级（高效、稳定、安全、低成本、产品化）的文件分发与管理服务，并成为在该领域的云原生标准解决方案与最佳实践。
+提供企业级（高效、稳定、安全、低成本、产品化）的文件分发和镜像加速系统，并成为在该领域的云原生标准解决方案与最佳实践。
 
 ## 核心能力
 
@@ -28,11 +29,11 @@ title: 架构
 
 ### Manager
 
-- 存储动态配置供 Seed Peer 集群、Scheduler 集群以及 Dfdaemon 消费。
+- 存储动态配置供 Seed Peer 集群、Scheduler 集群以及 Client 消费。
 - 维护 Seed Peer 集群和 Scheduler 集群之间关联关系。
 - 提供统一异步任务管理，用作预热等功能。
 - 监听各模块是否健康运行。
-- 为 Dfdaemon 筛选最优 Scheduler 集群调度使用。
+- 为 Client 筛选最优 Scheduler 集群调度使用。
 - 提供可视化控制台，方便用户操作管理 P2P 集群。
 
 ### Scheduler
@@ -40,9 +41,9 @@ title: 架构
 - 基于机器学习的多场景自适应智能 P2P 节点调度, 为当前下载节点选择最优父节点。
 - 构建 P2P 下载网络的有向无环图。
 - 根据不同特征值评估节点下载能力, 剔除异常节点。
-- 当下载失败情况，主动通知 Dfdaemon 进行回源下载。
+- 当下载失败情况，主动通知 Client 进行回源下载。
 
-### Dfdaemon
+### Client
 
 - 基于 GRPC 提供下载功能, 并提供多源适配能力。
 - 开启 Seed Peer 模式可以作为 P2P 集群中回源下载节点, 也就是整个集群中下载的根节点。

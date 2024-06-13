@@ -1,19 +1,20 @@
 ---
 id: manager
 title: Manager
+slug: /operations/deployment/applications/manager/
 ---
 
-It plays the role of manager in the multi-P2P cluster deployment process.
+It plays the role of Manager in the multi-P2P cluster deployment process.
 Used to manage the dynamic configuration that each module depends on,
 and provide keepalive and metrics functions.
 
 ## Features {#features}
 
-- Stores dynamic configuration for consumption by seed peer cluster, scheduler cluster and dfdaemon.
-- Maintain the relationship between seed peer cluster and scheduler cluster.
+- Stores dynamic configuration for consumption by seed peer cluster, Scheduler cluster and Client.
+- Maintain the relationship between seed peer cluster and Scheduler cluster.
 - Provide async task management features for image preheat combined with harbor.
-- Keepalive with scheduler instance and seed peer instance.
-- Filter the optimal scheduler cluster for dfdaemon.
+- Keepalive with Scheduler instance and seed peer instance.
+- Filter the optimal Scheduler cluster for Client.
 - Provides a visual console, which is helpful for users to manage the P2P cluster.
 
 ## Relationship {#relationship}
@@ -25,7 +26,7 @@ and provide keepalive and metrics functions.
 ## Manage multiple P2P networks {#manage-multiple-p2p-networks}
 
 Manager can manage multiple P2P networks.
-Usually, a P2P network includes a scheduler cluster, a seed peer clsuter and many dfdaemons.
+Usually, a P2P network includes a Scheduler cluster, a seed peer clsuter and many dfdaemons.
 The service network must be available in a P2P network.
 
-![manage-multiple-p2p-networks](../../resource/architecture/manage-multiple-p2p-networks.png)
+![manage-multiple-p2p-networks](../../../resource/architecture/manage-multiple-p2p-networks.png)

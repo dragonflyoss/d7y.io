@@ -1,9 +1,10 @@
 ---
-id: dfdaemon
-title: Dfdaemon
+id: client
+title: Client
+slug: /operations/deployment/applications/client/
 ---
 
-Dfdaemon is the peer client in P2P network. It will be launched by `dfget` command or be running with `dfget daemon`.
+Client is the peer client in P2P network. Use `dfdaemon` to start, or `dfget` to download and upload.
 
 ## Features {#features}
 
@@ -14,9 +15,11 @@ Dfdaemon is the peer client in P2P network. It will be launched by `dfget` comma
   which is the root peer for download in the entire cluster.
 - Serve proxy for container registry mirror and any other http backend.
 - Download object like via `http`, `https` and other custom protocol.
+- Set disk usage, automatic GC capabilities.
+- Customize the download task piece size.
 
 ## Relationship {#relationship}
 
-- Dfdaemon registers itself to Manager for fetching Scheduler.
-- Dfdaemon registers P2P tasks to Scheduler.
-- Dfdaemon uploads data to other Dfdaemon.
+- Client registers itself to Manager for fetching Scheduler.
+- Client registers P2P tasks to Scheduler.
+- Client uploads data to other Client.

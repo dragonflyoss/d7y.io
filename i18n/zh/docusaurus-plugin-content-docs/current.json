@@ -43,9 +43,13 @@
     "message": "可观测性",
     "description": "The label for category Observability in sidebar docs"
   },
-  "sidebar.docs.category.Terminology": {
-    "message": "术语",
-    "description": "The label for category Terminology in sidebar docs"
+  "sidebar.docs.category.Deployment": {
+    "message": "部署",
+    "description": "The label for category Deployment in sidebar docs"
+  },
+  "sidebar.docs.category.Applications": {
+    "message": "应用领域",
+    "description": "The label for category Deployment in sidebar docs"
   },
   "sidebar.docs.category.Reference": {
     "message": "参考",

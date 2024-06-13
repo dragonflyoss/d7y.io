@@ -1,6 +1,7 @@
 ---
 id: architecture
 title: Architecture
+slug: /operations/deployment/architecture/
 ---
 
 ## Positioning {#positioning}
