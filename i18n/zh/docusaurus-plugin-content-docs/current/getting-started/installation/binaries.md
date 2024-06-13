@@ -14,6 +14,7 @@ slug: /getting-started/installation/binaries/
 | -------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | Git      | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
 | Golang   | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
+| Rust     | 1.6+                         | [rustup.rs](https://rustup.rs/)                                              |
 | Database | Mysql 5.6+ 或 PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
 | Redis    | 3.0+                         | [redis.io](https://redis.io/)                                                |
 
@@ -232,7 +233,7 @@ telnet 127.0.0.1 8002
 # Seed Peer 配置。
 manager:
   addrs:
-    - dragonfly-manager:65003
+    - http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
@@ -273,7 +274,7 @@ telnet 127.0.0.1 4002
 # Peer 配置。
 manager:
   addrs:
-    - dragonfly-manager:65003
+    - http://dragonfly-manager:65003
 ```
 
 把 Dfdaemon 当作 Peer 运行:

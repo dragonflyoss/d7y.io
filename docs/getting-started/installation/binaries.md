@@ -14,6 +14,7 @@ This guide shows how to install the Dragonfly. Dragonfly can be installed either
 | -------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | Git      | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
 | Golang   | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
+| Rust     | 1.6+                         | [rustup.rs](https://rustup.rs/)                                              |
 | Database | Mysql 5.6+ OR PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
 | Redis    | 3.0+                         | [redis.io](https://redis.io/)                                                |
 
@@ -243,7 +244,7 @@ Configuration content is as follows:
 # Seed Peer configuration.
 manager:
   addrs:
-    - dragonfly-manager:65003
+    - http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
@@ -286,7 +287,7 @@ Configuration content is as follows:
 # Peer configuration.
 manager:
   addrs:
-    - dragonfly-manager:65003
+    - http://dragonfly-manager:65003
 ```
 
 Run Dfdaemon as Peer:
