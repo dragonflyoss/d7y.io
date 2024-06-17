@@ -111,7 +111,7 @@ client:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
 NAME: dragonfly
 LAST DEPLOYED: Mon Apr 28 10:59:19 2024
 NAMESPACE: dragonfly-system
@@ -187,80 +187,6 @@ peer_id="172.18.0.4-kind-worker-b1490bd8-2778-405f-8871-cdeb87cf36a7"
 ````
 
 ## 更多配置
-
-### 单镜像仓库
-
-方法 1：使用 Helm Charts 部署，创建 Helm Charts 配置文件 valuse.yaml。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
-
-```yaml
-manager:
-  replicas: 1
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-
-scheduler:
-  replicas: 1
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-
-seedClient:
-  replicas: 1
-  image:
-    repository: dragonflyoss/client
-    tag: latest
-
-client:
-  image:
-    repository: dragonflyoss/client
-    tag: latest
-  dfinit:
-    enable: true
-    image:
-      repository: dragonflyoss/dfinit
-      tag: latest
-    config:
-      containerRuntime:
-        containerd:
-          configPath: /etc/containerd/config.toml
-          registries:
-            - hostNamespace: docker.io
-              serverAddr: https://index.docker.io
-              capabilities: ['pull', 'resolve']
-```
-
-方法 2：更改 containerd 配置文件 `/etc/containerd/config.toml`，详细 containerd 参考文档 [configure-registry-endpoint](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-endpoint)。
-
-> 注意：config_path 为 containerd 查找 registry 配置文件路径。
-
-```toml
-# explicitly use v2 config format
-version = 2
-
-[plugins."io.containerd.grpc.v1.cri".registry]
-  config_path = "/etc/containerd/certs.d"
-```
-
-创建 registry 配置文件 /etc/containerd/certs.d/docker.io/hosts.toml：
-
-> 注意：该镜像 registry 为 `https://index.docker.io`。
-
-```toml
-server = "https://index.docker.io"
-
-[host."http://127.0.0.1:4001"]
-capabilities = ["pull", "resolve"]
-
-[host."http://127.0.0.1:4001".header]
-X-Dragonfly-Registry = "https://index.docker.io"
-```
-
-重新启动 containerd：
-
-```shell
-systemctl restart containerd
-```
 
 ### 多镜像仓库
 

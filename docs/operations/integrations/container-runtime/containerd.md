@@ -112,7 +112,7 @@ Create a Dragonfly cluster using the configuration file:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
 NAME: dragonfly
 LAST DEPLOYED: Mon Apr 28 10:59:19 2024
 NAMESPACE: dragonfly-system
@@ -194,81 +194,6 @@ peer_id="172.18.0.4-kind-worker-b1490bd8-2778-405f-8871-cdeb87cf36a7"
 ```
 
 ## More configurations {#more-configurations}
-
-### Single Registry {single-registry}
-
-Method 1: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
-Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
-
-```yaml
-manager:
-  replicas: 1
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-
-scheduler:
-  replicas: 1
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-
-seedClient:
-  replicas: 1
-  image:
-    repository: dragonflyoss/client
-    tag: latest
-
-client:
-  image:
-    repository: dragonflyoss/client
-    tag: latest
-  dfinit:
-    enable: true
-    image:
-      repository: dragonflyoss/dfinit
-      tag: latest
-    config:
-      containerRuntime:
-        containerd:
-          configPath: /etc/containerd/config.toml
-          registries:
-            - hostNamespace: docker.io
-              serverAddr: https://index.docker.io
-              capabilities: ['pull', 'resolve']
-```
-
-Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
-
-> Notice: config_path is the path where containerd looks for registry configuration files.
-
-```toml
-# explicitly use v2 config format
-version = 2
-
-[plugins."io.containerd.grpc.v1.cri".registry]
-  config_path = "/etc/containerd/certs.d"
-```
-
-Create the registry configuration file `/etc/containerd/certs.d/docker.io/hosts.toml`:
-
-> Notice: The container registry is `https://index.docker.io`.
-
-```toml
-server = "https://index.docker.io"
-
-[host."http://127.0.0.1:4001"]
-capabilities = ["pull", "resolve"]
-
-[host."http://127.0.0.1:4001".header]
-X-Dragonfly-Registry = "https://index.docker.io"
-```
-
-Restart containerd:
-
-```shell
-systemctl restart containerd
-```
 
 ### Multiple Registries {#multiple-registries}
 
