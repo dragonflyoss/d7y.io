@@ -42,7 +42,7 @@ wget -O dragonfly_linux_amd64.tar.gz https://github.com/dragonflyoss/Dragonfly2/
 tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
 ```
 
-我们的 Client [发布页面](https://github.com/dragonflyoss/Dragonfly2/releases) 上提供了二进制文件，这些版本可以手动下载和安装。
+我们的 Client [发布页面](https://github.com/dragonflyoss/client/releases) 上提供了二进制文件，这些版本可以手动下载和安装。
 
 下载 Client 的二进制文件：
 
@@ -84,10 +84,10 @@ cd Dragonfly2
 编译源码并安装二进制可执行程序：
 
 ```bash
-# 构建 manager scheduler
+# 构建 manager scheduler。
 make build-manager &&  make build-scheduler
 
-# 安装二进制文件到 /opt/dragonfly/bin/{manager，scheduler}
+# 安装二进制文件到 /opt/dragonfly/bin/{manager，scheduler}。
 make install-manager
 make install-scheduler
 ```
@@ -105,7 +105,7 @@ cd client
 # 构建 dfdaemon 和 dfget。
 cargo build --release --bins
 
-# 安装二进制文件到 /opt/dragonfly/bin/{dfget,dfdaemon}
+# 安装二进制文件到 /opt/dragonfly/bin/{dfget,dfdaemon}。
 mv target/release/dfget /opt/dragonfly/bin/dfget
 mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
 ```
@@ -125,7 +125,7 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 编辑配置文件 Linux 环境下默认 Manager 配置路径为 `/etc/dragonfly/manager.yaml`，
 参考文档 [Manager](../../reference/configuration/manager.md)。
 
-在 Manager 配置文件下设置 database.mysql.addrs 和 database.redis.addrs 地址为你的实际地址，配置内容如下：
+在 Manager 配置文件下设置 `database.mysql.addrs` 和 `database.redis.addrs` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Manager 配置。
@@ -181,7 +181,7 @@ telnet 127.0.0.1 65003
 编辑配置文件 Linux 环境下默认 Scheduler 配置路径为 `/etc/dragonfly/scheduler.yaml`，
 参考文档 [Scheduler](../../reference/configuration/scheduler.md)。
 
-在 Scheduler 配置文件下设置 database.redis.addrs 和 manager.addr 地址为你的实际地址，配置内容如下：
+在 Scheduler 配置文件下设置 `database.redis.addrs` 和 `manager.addr` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Scheduler 配置。
@@ -227,7 +227,7 @@ telnet 127.0.0.1 8002
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
 
-在 Seed Peer 配置文件下设置 manager.addrs 地址为你的实际地址，配置内容如下：
+在 Seed Peer 配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Seed Peer 配置。
@@ -268,7 +268,7 @@ telnet 127.0.0.1 4002
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
 
-配置文件下设置 manager.addrs 地址为你的实际地址，配置内容如下：
+配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Peer 配置。

@@ -47,7 +47,7 @@ Untar the package:
 tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
 ```
 
-Pre-built binaries are available on our Client [releases page](https://github.com/dragonflyoss/Dragonfly2/releases).
+Pre-built binaries are available on our Client [releases page](https://github.com/dragonflyoss/client/releases).
 These binary versions can be manually downloaded and installed.
 
 Download the Client binaries:
