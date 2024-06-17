@@ -112,7 +112,7 @@ client:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
 NAME: dragonfly
 LAST DEPLOYED: Thu Apr 18 19:26:39 2024
 NAMESPACE: dragonfly-system
@@ -280,62 +280,11 @@ curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
 命令行日志返回预热任务 ID:
 
 ```shell
-{
-  id: 1,
-  created_at: '0001-01-01T00:00:00Z',
-  updated_at: '0001-01-01T00:00:00Z',
-  is_del: 0,
-  task_id: 'group_2bed5b1e-1e36-41d9-b74c-4fd1e10c69ef',
-  bio: '',
-  type: 'preheat',
-  state: 'PENDING',
-  args: {
-    filteredQueryParams: 'Expires\u0026Signature',
-    headers: null,
-    password: '',
-    pieceLength: 4194304,
-    platform: '',
-    tag: '',
-    type: 'image',
-    url: 'https://index.docker.io/v2/library/alpine/manifests/3.19',
-    username: '',
-  },
-  result: null,
-  user_id: 0,
-  user: {
-    id: 0,
-    created_at: '0001-01-01T00:00:00Z',
-    updated_at: '0001-01-01T00:00:00Z',
-    is_del: 0,
-    email: '',
-    name: '',
-    avatar: '',
-    phone: '',
-    state: '',
-    location: '',
-    bio: '',
-    configs: null,
-  },
-  seed_peer_clusters: null,
-  scheduler_clusters: [
-    {
-      id: 1,
-      created_at: '2024-04-19T02:24:44Z',
-      updated_at: '2024-04-19T02:24:44Z',
-      is_del: 0,
-      name: 'cluster-1',
-      bio: '',
-      config: { candidate_parent_limit: 4, filter_parent_limit: 15 },
-      client_config: { load_limit: 200 },
-      scopes: {},
-      is_default: true,
-      seed_peer_clusters: null,
-      schedulers: null,
-      peers: null,
-      jobs: null,
-    },
-  ],
-}
+{"id":1,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"task_id":"group_2717f455-ff0a-435f-a3a7-672828d15a2a","bio":"","type":"preheat","state":"PENDING",
+"args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"","pieceLength":4194304,"platform":"","tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":""},
+"result":null,"user_id":0,
+"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":null,
+"scheduler_clusters":[{"id":1,"created_at":"2024-04-19T02:24:44Z","updated_at":"2024-04-19T02:24:44Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
 ```
 
 使用预热任务 ID 轮训查询任务是否成功:
@@ -349,86 +298,11 @@ curl --request GET 'http://127.0.0.1:8080/oapi/v1/jobs/1' \
 如果返回预热任务状态为 `SUCCESS`，表示预热成功:
 
 ```shell
-{
-  id: 1,
-  created_at: '2024-04-19T02:42:06Z',
-  updated_at: '2024-04-19T02:42:27Z',
-  is_del: 0,
-  task_id: 'group_2bed5b1e-1e36-41d9-b74c-4fd1e10c69ef',
-  bio: '',
-  type: 'preheat',
-  state: 'SUCCESS',
-  args: {
-    filteredQueryParams: 'Expires\u0026Signature',
-    headers: null,
-    password: '',
-    pieceLength: 4194304,
-    platform: '',
-    tag: '',
-    type: 'image',
-    url: 'https://index.docker.io/v2/library/alpine/manifests/3.19',
-    username: '',
-  },
-  result: {
-    CreatedAt: '2024-04-19T02:42:06.202315051Z',
-    GroupUUID: 'group_2bed5b1e-1e36-41d9-b74c-4fd1e10c69ef',
-    JobStates: [
-      {
-        CreatedAt: '2024-04-19T02:42:06.202315051Z',
-        Error: '',
-        Results: [],
-        State: 'SUCCESS',
-        TTL: 0,
-        TaskName: 'preheat',
-        TaskUUID: 'task_064d25a2-e3e7-4be8-8ca9-cad6bd94ad16',
-      },
-      {
-        CreatedAt: '2024-04-19T02:42:06.20404751Z',
-        Error: '',
-        Results: [],
-        State: 'SUCCESS',
-        TTL: 0,
-        TaskName: 'preheat',
-        TaskUUID: 'task_7b921739-2b17-475b-87ac-7afc69d917d8',
-      },
-    ],
-    State: 'SUCCESS',
-  },
-  user_id: 0,
-  user: {
-    id: 0,
-    created_at: '0001-01-01T00:00:00Z',
-    updated_at: '0001-01-01T00:00:00Z',
-    is_del: 0,
-    email: '',
-    name: '',
-    avatar: '',
-    phone: '',
-    state: '',
-    location: '',
-    bio: '',
-    configs: null,
-  },
-  seed_peer_clusters: [],
-  scheduler_clusters: [
-    {
-      id: 1,
-      created_at: '2024-04-19T02:24:44Z',
-      updated_at: '2024-04-19T02:24:44Z',
-      is_del: 0,
-      name: 'cluster-1',
-      bio: '',
-      config: { candidate_parent_limit: 4, filter_parent_limit: 15 },
-      client_config: { load_limit: 200 },
-      scopes: {},
-      is_default: true,
-      seed_peer_clusters: null,
-      schedulers: null,
-      peers: null,
-      jobs: null,
-    },
-  ],
-}
+{"id":1,"created_at":"2024-04-19T02:42:06Z","updated_at":"2024-04-19T02:42:06Z","is_del":0,"task_id":"group_2717f455-ff0a-435f-a3a7-672828d15a2a","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"","pieceLength":4194304,"platform":"",
+"tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":""},
+"result":{"CreatedAt":"2024-04-19T02:42:06.202315051Z","GroupUUID":"group_2717f455-ff0a-435f-a3a7-672828d15a2a","JobStates":[{"CreatedAt":"2024-04-19T02:42:06.202315051Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_a3ca085c-d80d-41e5-9e91-18b910c6653f"},{"CreatedAt":"2024-04-18T08:51:55.326531846Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_b006e4dc-6ed3-4bc2-98f6-86b0234e2d6d"}],"State":"SUCCESS"},"user_id":0,
+"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":[],
+"scheduler_clusters":[{"id":1,"created_at":"2024-04-19T02:24:44Z","updated_at":"2024-04-19T02:24:44Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
 ```
 
 在 `kind-worker` Node 下载 `alpine:3.19` 镜像:
