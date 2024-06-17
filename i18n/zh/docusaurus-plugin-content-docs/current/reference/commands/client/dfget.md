@@ -148,9 +148,9 @@ Header 解释:
 
 `Endpoint`: OSS Endpoint, 参考: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints)。
 
-`AccessKeyID`: OSS AccessKey ID
+`AccessKeyID`: OSS AccessKey ID。
 
-`AccessKeySecret`: OSS AccessKey Secret
+`AccessKeySecret`: OSS AccessKey Secret。
 
 `--filter "Expires&Signature"` 是用来为相同对象在不同机器上下载的时候生成唯一任务 ID 使用的。
 
