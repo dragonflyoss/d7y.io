@@ -10,8 +10,8 @@ slug: /getting-started/installation/binaries/
 
 <!-- markdownlint-disable -->
 
-| 所需软件   | 版本要求                      | 文档                                                                          |
-| -------- | ---------------------------- | ---------------------------------------------------------------------------  |
+| 所需软件 | 版本要求                     | 文档                                                                         |
+| -------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | Git      | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
 | Golang   | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
 | Database | Mysql 5.6+ 或 PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
@@ -34,7 +34,7 @@ VERSION=<your_version>
 wget -O dragonfly_linux_amd64.tar.gz https://github.com/dragonflyoss/Dragonfly2/releases/download/v${VERSION}/dragonfly-${VERSION}-linux-amd64.tar.gz
 ```
 
- 解压压缩包：
+解压压缩包：
 
 ```bash
 # 替换 `/path/to/dragonfly` 为真实安装目录。
@@ -86,7 +86,7 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 编辑配置文件 Linux 环境下默认 Manager 配置路径为 `/etc/dragonfly/manager.yaml`，
 Darwin 环境下默认 Manager 配置路径为 `$HOME/.dragonfly/config/manager.yaml`，参考文档 [Manager](../../reference/configuration/manager.md)。
 
-在 Manager 配置文件下设置 database.mysql.addrs 和 database.redis.addrs  地址为你的实际地址，配置内容如下：
+在 Manager 配置文件下设置 database.mysql.addrs 和 database.redis.addrs 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Manager 配置。
@@ -131,7 +131,7 @@ telnet 127.0.0.1 65003
 
 #### Manager 控制台
 
-可以在 `localhost:8080` 访问控制台，控制台功能预览参考文档 [console preview](../../reference/manage-console.md)。
+可以在 `localhost:8080` 访问控制台，控制台功能预览参考文档 [console preview](../../advanced-guides/web-console.md)。
 
 ![manager-console](../../resource/getting-started/installation/manager-console.png)
 

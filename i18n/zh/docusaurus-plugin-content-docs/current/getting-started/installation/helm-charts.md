@@ -291,9 +291,9 @@ Tracing 详细内容:
 kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080:8080
 ```
 
-使用 Open API 之前请先申请 Personal Access Token，并且 Access Scopes 选择为 `job`，参考文档 [personal-access-tokens](../../reference/personal-access-tokens.md)。
+使用 Open API 之前请先申请 Personal Access Token，并且 Access Scopes 选择为 `job`，参考文档 [personal-access-tokens](../../advanced-guides/personal-access-tokens.md)。
 
-使用 Open API 预热镜像 `alpine:3.19`，参考文档 [preheat](../../reference/preheat.md)。
+使用 Open API 预热镜像 `alpine:3.19`，参考文档 [preheat](../../advanced-guides/preheat.md)。
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \

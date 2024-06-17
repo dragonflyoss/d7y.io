@@ -82,5 +82,13 @@
   "sidebar.docs.category.Singularity/Apptainer": {
     "message": "Singularity/Apptainer",
     "description": "The label for category Singularity/Apptainer in sidebar docs"
+  },
+  "sidebar.docs.category.Advanced Guides": {
+    "message": "高级指南",
+    "description": "The label for category Singularity/Apptainer in sidebar docs"
+  },
+  "sidebar.docs.category.Web Console": {
+    "message": "控制台",
+    "description": "The label for category Singularity/Apptainer in sidebar docs"
   }
 }

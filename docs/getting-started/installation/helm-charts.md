@@ -294,9 +294,9 @@ Expose manager's port `8080`:
 kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080:8080
 ```
 
-Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../reference/personal-access-tokens.md).
+Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../advanced-guides/personal-access-tokens.md).
 
-Use Open API to preheat the image `alpine:3.19` to Seed Peer, refer to [preheat](../../reference/preheat.md).
+Use Open API to preheat the image `alpine:3.19` to Seed Peer, refer to [preheat](../../advanced-guides/preheat.md).
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
