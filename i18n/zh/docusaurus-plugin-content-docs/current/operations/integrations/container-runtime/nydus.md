@@ -223,7 +223,7 @@ kubectl apply -f peer-service-config.yaml
 [nydus-setup-for-containerd-environment](https://github.com/dragonflyoss/image-service/blob/master/docs/containerd-env-setup.md#nydus-setup-for-containerd-environment)。
 下面例子使用 Systemd 管理 `nydus-snapshotter` 服务。
 
-#### 下载安装 Nydus 工具
+#### 使用二进制版本安装 Nydus
 
 下载 `Nydus Snapshotter` 二进制文件, 下载地址为 [nydus-snapshotter/releases](https://github.com/containerd/nydus-snapshotter/releases/latest):
 
@@ -263,10 +263,8 @@ sudo cp nydus-static/nydus-image nydus-static/nydusd nydus-static/nydusify /usr/
 
 #### containerd 集成 Nydus Snapshotter 插件
 
-配置 containerd 使用 `nydus-snapshotter` 插件, 详细文档参考
+更改 containerd 配置文件 `/etc/containerd/config.toml`，详细文档参考
 [configure-and-start-containerd](https://github.com/dragonflyoss/image-service/blob/master/docs/containerd-env-setup.md#configure-and-start-containerd)。
-
-更改 containerd 配置文件 `/etc/containerd/config.toml`。
 
 ```toml
 [proxy_plugins]
@@ -295,10 +293,11 @@ io.containerd.snapshotter.v1          nydus                    -              ok
 
 #### Systemd 启动 Nydus Snapshotter 服务
 
-Nydusd 的 Mirror 模式配置详细文档可以参考
+创建 Nydusd 配置文件 `nydusd-config.json`，`Nydusd Mirror` 模式配置详细文档可以参考
 [enable-mirrors-for-storage-backend](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusd.md#enable-mirrors-for-storage-backend)。
 
-创建 Nydusd 配置文件 `nydusd-config.json`, 配置如下:
+`127.0.0.1:4001` 是 Dragonfly Peer 的 Proxy 地址，
+`X-Dragonfly-Registry` 自定义 Header 是提供给 Dragonfly 回源的源站仓库地址。
 
 在配置文件下设置 `backend.config.mirrors.host` 和 `backend.config.mirrors.ping_url` 地址为你的实际地址，配置内容如下：
 
@@ -315,7 +314,7 @@ Nydusd 的 Mirror 模式配置详细文档可以参考
             "headers": {
               "X-Dragonfly-Registry": "https://index.docker.io"
             },
-            "ping_url": "http:dragonfly:4003/healthy"
+            "ping_url": "http://127.0.0.1:4003/healthy"
           }
         ],
         "scheme": "https",

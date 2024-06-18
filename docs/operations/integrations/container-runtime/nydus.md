@@ -21,7 +21,7 @@ This document will help you experience how to use Dragonfly & Nydus.
 
 ## Install Nydus with Helm
 
-We **recommend** using helm to install Nydus, refer to [Install Dragonfly & Nydus with Helm](https://github.com/dragonflyoss/helm-charts/blob/main/INSTALL.md).
+We **recommend** using helm to install Nydus, please refer to [Install Dragonfly & Nydus with Helm](https://github.com/dragonflyoss/helm-charts/blob/main/INSTALL.md).
 
 ## Install Nydus with Binaries
 
@@ -263,10 +263,8 @@ sudo cp nydus-static/nydus-image nydus-static/nydusd nydus-static/nydusify /usr/
 
 #### Install Nydus Snapshotter plugin for containerd {#install-nydus-snapshotter-plugin-for-containerd}
 
-Configure containerd to use the `nydus-snapshotter` plugin, please refer to
+Modify your `config.toml` (default location: `/etc/containerd/config.toml`), please refer to
 [configure-and-start-containerd](https://github.com/dragonflyoss/image-service/blob/master/docs/containerd-env-setup.md#configure-and-start-containerd).
-
-Modify your `config.toml` (default location: `/etc/containerd/config.toml`).
 
 ```toml
 [proxy_plugins]
@@ -295,10 +293,9 @@ io.containerd.snapshotter.v1          nydus                    -              ok
 
 #### Systemd starts Nydus Snapshotter {#systemd-starts-snapshotter-service}
 
-For detailed configuration documentation based on Nydus Mirror mode, please refer to
-[enable-mirrors-for-storage-backend](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusd.md#enable-mirrors-for-storage-backend).
-
-Create Nydusd configuration file `nydusd-config.json`, configuration content is as follows:
+Create the Nydusd configuration file `nydusd-config.json`.
+Please refer to the [Nydus Mirror](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusd.md#enable-mirrors-for-storage-backend)
+documentation for details.
 
 Set the `backend.config.mirrors.host` and `backend.config.mirrors.ping_url`
 address in the configuration file to your actual address. Configuration content is as follows:
@@ -316,7 +313,7 @@ address in the configuration file to your actual address. Configuration content 
             "headers": {
               "X-Dragonfly-Registry": "https://index.docker.io"
             },
-            "ping_url": "http:dragonfly:4003/healthy"
+            "ping_url": "http://127.0.0.1:4003/healthy"
           }
         ],
         "scheme": "https",
@@ -425,7 +422,7 @@ DOCKERHUB_REPO_NAME=<your_dockerhub_repo_name>
 sudo nydusify convert --nydus-image /usr/local/bin/nydus-image --source alpine:3.19 --target $DOCKERHUB_REPO_NAME/alpine:3.19-nydus
 ```
 
-#### Nydus downloads images through Dragonfly {#nydus-downloads images-through-dragonfly}
+#### Nydus downloads images through Dragonfly {#nydus-downloads-images-through-dragonfly}
 
 Running `alpine:3.19-nydus` with nerdctl:
 
@@ -437,7 +434,7 @@ sudo nerdctl --snapshotter nydus run --rm -it $DOCKERHUB_REPO_NAME/alpine:3.19-n
 
 #### Verify
 
-Check that Nydus is downloaded via dragonfly based on mirror mode:
+Check that Nydus is downloaded via Dragonfly based on mirror mode:
 
 ```shell
 # Check Nydus logs.
