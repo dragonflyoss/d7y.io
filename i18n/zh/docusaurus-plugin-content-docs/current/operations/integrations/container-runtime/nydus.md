@@ -4,7 +4,7 @@ title: Nydus
 slug: /operations/integrations/container-runtime/nydus/
 ---
 
-文档的目标是帮助您将 Dragonfly 的容器运行时设置为 Nydus。
+本文档将帮助您体验如何使用 Dragonfly & Nydus。
 
 ## 依赖
 
@@ -32,6 +32,8 @@ slug: /operations/integrations/container-runtime/nydus/
 基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md)。
 
 #### 准备 Kubernetes 集群
+
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
 创建 Kind 多节点集群配置文件 `kind-config.yaml`, 配置如下:
 
@@ -232,12 +234,14 @@ kubectl apply -f peer-service-config.yaml
 ```shell
 NYDUS_SNAPSHOTTER_VERSION=<your_nydus_snapshotter_version>
 wget  -O nydus-snapshotter_linux_arm64.tar.gz https://github.com/containerd/nydus-snapshotter/releases/download/v$NYDUS_SNAPSHOTTER_VERSION/nydus-snapshotter-v$NYDUS_SNAPSHOTTER_VERSION-linux-arm64.tar.gz
-tar zxvf nydus-snapshotter_linux_arm64.tar.gz
 ```
 
-安装 `containerd-nydus-grpc` 工具:
+解压压缩包：
 
 ```shell
+tar zxvf nydus-snapshotter_linux_arm64.tar.gz
+
+# 安装二进制文件到 /usr/local/bin/{containerd-nydus-grpc}
 sudo cp bin/containerd-nydus-grpc /usr/local/bin/
 ```
 
@@ -248,12 +252,14 @@ sudo cp bin/containerd-nydus-grpc /usr/local/bin/
 ```shell
 NYDUS_VERSION=<your_nydus_version>
 wget -O nydus-image-service-linux-arm64.tgz https://github.com/dragonflyoss/image-service/releases/download/v$NYDUS_VERSION/nydus-static-v$NYDUS_VERSION-linux-arm64.tgz
-tar zxvf nydus-image-service-linux-arm64.tgz
 ```
 
-安装 `nydus-image`、`nydusd` 以及 `nydusify` 工具:
+解压压缩包：
 
 ```shell
+tar zxvf nydus-image-service-linux-arm64.tgz
+
+# 安装二进制文件到 /usr/local/bin/{nydus-image,nydusd,nydusify}
 sudo cp nydus-static/nydus-image nydus-static/nydusd nydus-static/nydusify /usr/local/bin/
 ```
 
@@ -306,7 +312,7 @@ Nydusd 的 Mirror 模式配置详细文档可以参考
       "config": {
         "mirrors": [
           {
-            "host": "http://dragonfly:4001",
+            "host": "http://127.0.0.1:4001",
             "auth_through": false,
             "headers": {
               "X-Dragonfly-Registry": "https://index.docker.io"
@@ -416,12 +422,12 @@ DOCKERHUB_REPO_NAME=<your_dockerhub_repo_name>
 sudo nydusify convert --nydus-image /usr/local/bin/nydus-image --source alpine:3.19 --target $DOCKERHUB_REPO_NAME/alpine:3.19-nydus
 ```
 
-#### Nerdctl 运行 Nydus 镜像
+#### Nydus 通过 Dragonfly 下载镜像
 
 使用 Nerdctl 运行 `alpine:3.19-nydus`, 过程中即通过 Nydus 和 Dragonfly 下载镜像:
 
 ```shell
-sudo nerdctl --snapshotter nydus run --network host --rm -it $DOCKERHUB_REPO_NAME/alpine:3.19-nydus
+sudo nerdctl --snapshotter nydus run --rm -it $DOCKERHUB_REPO_NAME/alpine:3.19-nydus
 ```
 
 <!-- markdownlint-disable -->
@@ -436,10 +442,10 @@ grep mirrors /var/lib/containerd-nydus/logs/**/*log
 ```
 
 ```shell
-[2024-05-28 12:36:24.834434 +00:00] INFO backend config: ConnectionConfig { proxy: ProxyConfig { url: "", ping_url: "", fallback: false, check_interval: 5, use_http: false }, mirrors: [MirrorConfig { host: "http://Dragonfly:4001", ping_url: "http://Dragonfly:4003/healthy", headers: {"X-Dragonfly-Registry": "https://index.docker.io"}, health_check_interval: 5, failure_limit: 5 }], skip_verify: true, timeout: 10, connect_timeout: 10, retry_limit: 2 }
+[2024-05-28 12:36:24.834434 +00:00] INFO backend config: ConnectionConfig { proxy: ProxyConfig { url: "", ping_url: "", fallback: false, check_interval: 5, use_http: false }, mirrors: [MirrorConfig { host: "http://127.0.0.1:4001", ping_url: "http://127.0.0.1:4003/healthy", headers: {"X-Dragonfly-Registry": "https://index.docker.io"}, health_check_interval: 5, failure_limit: 5 }], skip_verify: true, timeout: 10, connect_timeout: 10, retry_limit: 2 }
 ```
 
-可以查看 Dragonfly 日志，判断 alpine:3.19 镜像正常拉取。
+可以查看 Dragonfly 日志，判断 `alpine:3.19` 镜像正常拉取。
 
 ```shell
 # 获取 Pod Name
