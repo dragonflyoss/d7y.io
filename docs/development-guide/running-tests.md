@@ -1,5 +1,5 @@
 ---
-id: running tests
+id: running-tests
 title: Running Tests
 slug: /development-guide/running-tests/
 ---

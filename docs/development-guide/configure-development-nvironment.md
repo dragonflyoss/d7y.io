@@ -1,5 +1,5 @@
 ---
-id: configure the development nvironment
+id: configure-development-environment
 title: Configure the Development Environment
 slug: /development-guide/configure-development-environment/
 ---

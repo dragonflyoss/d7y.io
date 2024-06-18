@@ -59,6 +59,10 @@
     "message": "开发者指南",
     "description": "The label for category Development Guide in sidebar docs"
   },
+  "sidebar.docs.category.Plugins": {
+    "message": "插件",
+    "description": "The label for category Development Guide in sidebar docs"
+  },
   "sidebar.docs.category.Others": {
     "message": "其他",
     "description": "The label for category Others in sidebar docs"

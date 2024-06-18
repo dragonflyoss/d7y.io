@@ -1,5 +1,5 @@
 ---
-id: running tests
+id: running-tests
 title: 运行测试
 slug: /development-guide/running-tests/
 ---
