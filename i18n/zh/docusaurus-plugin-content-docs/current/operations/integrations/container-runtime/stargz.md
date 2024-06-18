@@ -4,7 +4,7 @@ title: eStargz
 slug: /operations/integrations/container-runtime/stargz/
 ---
 
-文档的目标是帮助您将 Dragonfly 的容器运行时设置为 eStarg。
+本文档将帮助您体验如何使用 Dragonfly 和 eStargz。
 
 ## 依赖
 
@@ -17,8 +17,6 @@ slug: /operations/integrations/container-runtime/stargz/
 | containerd         | v1.4.3+  | [containerd.io](https://containerd.io/)                     |
 | Nerdctl            | 0.22+    | [containerd/nerdctl](https://github.com/containerd/nerdctl) |
 
-**注意:** 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
-
 <!-- markdownlint-restore -->
 
 ## Dragonfly Kubernetes 集群搭建
@@ -27,7 +25,9 @@ slug: /operations/integrations/container-runtime/stargz/
 
 ### 准备 Kubernetes 集群
 
-创建 Kind 多节点集群配置文件 `kind-config.yaml`, 配置如下:
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
+
+创建 Kind 多节点集群配置文件 `kind-config.yaml`，配置如下:
 
 ```yaml
 kind: Cluster
@@ -217,7 +217,7 @@ kubectl apply -f peer-service-config.yaml
 [stargz-setup-for-containerd-environment](https://github.com/containerd/stargz-snapshotter/blob/main/docs/INSTALL.md).
 下面例子使用 Systemd 管理 `stargz-snapshotter` 服务。
 
-### 下载安装 Stargz 工具
+### 使用二进制版本安装 Stargz
 
 下载 `containerd-stargz-grpc` 二进制文件, 下载地址为 [stargz-snapshotter/releases](https://github.com/containerd/stargz-snapshotter/releases/latest):
 
@@ -237,10 +237,8 @@ tar -C /usr/local/bin -xvf stargz-snapshotter-linux-arm64.tgz containerd-stargz-
 
 ### containerd 集成 Stargz Snapshotter 插件
 
-配置 Containerd 使用 `stargz-snapshotter` 插件, 详细文档参考
-[configure-and-start-containerd](https://github.com/containerd/stargz-snapshotter/blob/main/docs/INSTALL.md#install-stargz-snapshotter-for-containerd-with-systemd).
-
-更改 containerd 配置文件 `/etc/containerd/config.toml`。
+更改 containerd 配置文件 `/etc/containerd/config.toml`，详细文档参考
+[configure-and-start-containerd](https://github.com/containerd/stargz-snapshotter/blob/main/docs/INSTALL.md#install-stargz-snapshotter-for-containerd-with-systemd)。
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri".containerd]
@@ -268,19 +266,17 @@ io.containerd.snapshotter.v1          stargz                    -              o
 
 ### Systemd 启动 Stargz Snapshotter 服务
 
-Stargz 的 Mirror 模式配置详细文档可以参考
+创建 Stargz 配置文件 `config.toml`, `Stargz Mirror` 模式配置详细文档可以参考
 [stargz-registry-mirrors](https://github.com/containerd/stargz-snapshotter/blob/main/docs/overview.md#registry-mirrors-and-insecure-connection).
 
-`dragonfly:4001` 是 Dragonfly Peer 的 Proxy 地址，
+`127.0.0.1:4001` 是 Dragonfly Peer 的 Proxy 地址，
 `X-Dragonfly-Registry` 自定义 Header 是提供给 Dragonfly 回源的源站仓库地址。
 
-创建 Stargz 配置文件 `config.toml`, 配置如下:
-
-在 `/etc/nydus/config.json` 配置文件下设置 `host` 地址为你的实际地址，配置内容如下：
+在 `config.toml` 配置文件下设置 `host` 地址为你的实际地址，配置内容如下：
 
 ```toml
 [[resolver.host."docker.io".mirrors]]
-  host = "http://dragonfly:4001"
+  host = "http://127.0.0.1:4001"
   insecure = true
   [resolver.host."docker.io".mirrors.header]
     X-Dragonfly-Registry = ["https://index.docker.io"]
@@ -321,7 +317,7 @@ sudo nerdctl image push $DOCKERHUB_REPO_NAME/alpine:3.19-esgz
 
 sudo nerdctl image push $DOCKERHUB_REPO_NAME/registry:2.8.3-esgz
 
-### Nerdctl 运行 Stargz 镜像
+### Stargz 通过 Dragonfly 下载镜像
 
 使用 Nerdctl 运行 `alpine:3.19-esgz`, 过程中即通过 Stargz 和 Dragonfly 下载镜像:
 
