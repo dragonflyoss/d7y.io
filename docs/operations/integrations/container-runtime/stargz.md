@@ -265,9 +265,10 @@ io.containerd.snapshotter.v1          stargz                    -              o
 
 ### Systemd starts Stargz Snapshotter {#systemd-stargz-snapshotter}
 
-Create stargz configuration file `config.toml`, a detailed configuration document for `Stargz Mirror` mode.
-please refer to
-[stargz-registry-mirrors](https://github.com/containerd/stargz-snapshotter/blob/main/docs/overview.md#registry-mirrors-and-insecure-connection).
+Create the Stargz configuration file `config.toml`.
+Please refer to the
+[Stargz Mirror](https://github.com/containerd/stargz-snapshotter/blob/main/docs/overview.md#registry-mirrors-and-insecure-connection)
+documentation for details.
 
 Set the `host` address in the configuration file to your actual address. Configuration content is as follows:
 
@@ -313,7 +314,7 @@ sudo nerdctl image convert --estargz --oci alpine:3.19 $DOCKERHUB_REPO_NAME/alpi
 sudo nerdctl image push $DOCKERHUB_REPO_NAME/alpine:3.19-esgz
 ```
 
-### Stargz downloads images through Dragonfly
+### Stargz downloads images through Dragonfly {#stargz-downloads-images-through-dragonfly}
 
 Running `alpine:3.19-esgz` with nerdctl:
 
