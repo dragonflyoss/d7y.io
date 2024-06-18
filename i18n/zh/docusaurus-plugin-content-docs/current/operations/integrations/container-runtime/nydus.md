@@ -19,8 +19,6 @@ slug: /operations/integrations/container-runtime/nydus/
 
 <!-- markdownlint-restore -->
 
-**注意:** 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
-
 ## 使用 Helm 安装 Nydus
 
 推荐使用 Helm 安装 Nydus，参考文档 [Install Dragonfly & Nydus with Helm](https://github.com/dragonflyoss/helm-charts/blob/main/INSTALL.md).

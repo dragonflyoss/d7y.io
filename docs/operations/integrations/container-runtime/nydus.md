@@ -19,8 +19,6 @@ This document will help you experience how to use Dragonfly & Nydus.
 
 <!-- markdownlint-restore -->
 
-**Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
-
 ## Install Nydus with Helm
 
 We **recommend** using helm to install Nydus, refer to [Install Dragonfly & Nydus with Helm](https://github.com/dragonflyoss/helm-charts/blob/main/INSTALL.md).
