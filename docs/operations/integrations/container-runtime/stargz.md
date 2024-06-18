@@ -265,7 +265,8 @@ io.containerd.snapshotter.v1          stargz                    -              o
 
 ### Systemd starts Stargz Snapshotter {#systemd-stargz-snapshotter}
 
-Create stargz configuration file `config.toml`, a detailed configuration document for `Stargz Mirror` mode. please refer to
+Create stargz configuration file `config.toml`, a detailed configuration document for `Stargz Mirror` mode.
+please refer to
 [stargz-registry-mirrors](https://github.com/containerd/stargz-snapshotter/blob/main/docs/overview.md#registry-mirrors-and-insecure-connection).
 
 Set the `host` address in the configuration file to your actual address. Configuration content is as follows:
