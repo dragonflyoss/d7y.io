@@ -143,8 +143,8 @@ client:
       registryMirror:
         addr: https://index.docker.io
       rules:
-        - regex: blobs/sha256.*
-        - regex: .*amazonaws.*
+        - regex: 'blobs/sha256.*'
+        - regex: '.*amazonaws.*'
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:

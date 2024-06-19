@@ -145,8 +145,8 @@ client:
       registryMirror:
         addr: https://index.docker.io
       rules:
-        - regex: blobs/sha256.*
-        - regex: .*amazonaws.*
+        - regex: 'blobs/sha256.*'
+        - regex: '.*amazonaws.*'
 ```
 
 Create a Dragonfly cluster using the configuration file:
