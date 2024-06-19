@@ -130,9 +130,9 @@ client:
       registryMirror:
         addr: https://index.docker.io
       rules:
-        - regex: blobs/sha256.*
+        - regex: 'blobs/sha256.*'
         # Proxy all http downlowd requests of model bucket path.
-        - regex: .*models.*
+        - regex: '.*models.*'
 ```
 
 Create a Dragonfly cluster using the configuration file:

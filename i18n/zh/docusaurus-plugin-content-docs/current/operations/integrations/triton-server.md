@@ -70,7 +70,7 @@ docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 ```
 
-Kind 集群加载 Dragonfly Latest 镜像:
+Kind 集群加载 Dragonfly latest 镜像:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
@@ -129,9 +129,9 @@ client:
       registryMirror:
         addr: https://index.docker.io
       rules:
-        - regex: blobs/sha256.*
+        - regex: 'blobs/sha256.*'
         # 代理匹配 Model Bucket 的所有 HTTP Downlowd 请求
-        - regex: .*models.*
+        - regex: '.*models.*'
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:
