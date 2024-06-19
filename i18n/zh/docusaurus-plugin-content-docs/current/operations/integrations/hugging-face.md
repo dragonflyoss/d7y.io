@@ -132,7 +132,7 @@ client:
       registryMirror:
         addr: https://cdn-lfs.huggingface.co
       rules:
-        - regex: repos.*
+        - regex: "repos.*"
             useTLS: true
 ```
 
