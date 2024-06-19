@@ -49,6 +49,7 @@ module.exports = {
           type: 'category',
           label: 'Best Practices',
           items: [
+            'operations/best-practices/deployment-best-practices',
             {
               type: 'category',
               label: 'Observability',
@@ -59,6 +60,7 @@ module.exports = {
                 },
               ],
             },
+            'operations/best-practices/security',
           ],
         },
         {
