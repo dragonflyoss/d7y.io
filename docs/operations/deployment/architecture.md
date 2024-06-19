@@ -64,4 +64,5 @@ standard solution in cloud native architectures.
   which is the root peer for download in the entire cluster.
 - Serve proxy for container registry mirror and any other http backend.
 - Download object like via `http`, `https` and other custom protocol.
-- Supports RDMA for faster network transmission in the P2P network. It can better support the loading of AI inference models into memory.
+- Supports RDMA for faster network transmission in the P2P network.
+  It can better support the loading of AI inference models into memory.
