@@ -13,6 +13,7 @@ and triggers the seed peer back-to-source download or Client back-to-source down
 - Build a scheduling directed acyclic graph for the P2P cluster.
 - Remove abnormal peer based on peer multi-feature evaluation results.
 - In the case of scheduling failure, notice peer back-to-source download.
+- Provide metadata storage to support file writing and seeding.
 
 ## Scheduling {#scheduling}
 

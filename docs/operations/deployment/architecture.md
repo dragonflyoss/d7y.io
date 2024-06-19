@@ -29,6 +29,7 @@ standard solution in cloud native architectures.
   of Dragonfly's P2P capabilities through the C/S mode.
 - Support features such as task management, data visualization, and control of multiple P2P clusters.
 - Integration with cloud native ecosystem, such as Harbor, Nydus, etc.
+- Support AI infrastructure to efficiently distribute models and datasets, and integrated with the AI ecosystem.
 
 ## Architecture {#architecture}
 
@@ -38,12 +39,13 @@ standard solution in cloud native architectures.
 
 ### Manager {#manager}
 
-- Stores dynamic configuration for consumption by seed peer cluster, scheduler cluster and dfdaemon.
+- Stores dynamic configuration for consumption by seed peer cluster, scheduler cluster and client.
 - Maintain the relationship between seed peer cluster and scheduler cluster.
 - Provide async task management features for image preheat combined with harbor.
 - Keepalive with scheduler instance and seed peer instance.
-- Filter the optimal scheduler cluster for dfdaemon.
+- Filter the optimal scheduler cluster for client.
 - Provides a visual console, which is helpful for users to manage the P2P cluster.
+- Clearing P2P task cache.
 
 ### Scheduler {#scheduler}
 
@@ -51,8 +53,9 @@ standard solution in cloud native architectures.
 - Build a scheduling directed acyclic graph for the P2P cluster.
 - Remove abnormal peer based on peer multi-feature evaluation results.
 - In the case of scheduling failure, notice peer back-to-source download.
+- Provide metadata storage to support file writing and seeding.
 
-### dfdaemon {#dfdaemon}
+### Client {#client}
 
 - Serve gRPC for `dfget` with downloading feature,
   and provide adaptation to different source protocols.
@@ -61,3 +64,4 @@ standard solution in cloud native architectures.
   which is the root peer for download in the entire cluster.
 - Serve proxy for container registry mirror and any other http backend.
 - Download object like via `http`, `https` and other custom protocol.
+- Supports RDMA for faster network transmission in the P2P network. It can better support the loading of AI inference models into memory.

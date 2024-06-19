@@ -20,6 +20,7 @@ slug: /operations/deployment/architecture/
 - 客户端通过 C/S 模式支持第三方软件原生集成蜻蜓的 P2P 能力。
 - 支持任务管理、数据视图以及全局管控等功能。
 - 与云原生生态融合，比如 Harbor、Nydus 等。
+- 支持 AI 基础设施高效分发模型以及数据集，与 AI 生态融合。
 
 ## 架构设计
 
@@ -35,6 +36,8 @@ slug: /operations/deployment/architecture/
 - 监听各模块是否健康运行。
 - 为 Client 筛选最优 Scheduler 集群调度使用。
 - 提供可视化控制台，方便用户操作管理 P2P 集群。
+- 缓存清理功能，清理特定任务的所有 Cache。
+- 可动态配置 Scheduler 的调度计算权重。
 
 ### Scheduler
 
@@ -42,6 +45,7 @@ slug: /operations/deployment/architecture/
 - 构建 P2P 下载网络的有向无环图。
 - 根据不同特征值评估节点下载能力, 剔除异常节点。
 - 当下载失败情况，主动通知 Client 进行回源下载。
+- 提供元信息存储功能，方便通过 Client 向集群内写入文件和做种。
 
 ### Client
 
@@ -49,3 +53,4 @@ slug: /operations/deployment/architecture/
 - 开启 Seed Peer 模式可以作为 P2P 集群中回源下载节点, 也就是整个集群中下载的根节点。
 - 为镜像仓库或者其他 HTTP 下载任务提供代理服务。
 - 下载任务基于 `HTTP` 或 `HTTPS` 或其他自定义协议。
+- 支持 RDMA 提高系统吞吐量、降低系统的网络通信延迟。可以更好的支持 AI 推理场景将模型从远端加载到内存。

@@ -17,6 +17,8 @@ Client is the peer client in P2P network. Use `dfdaemon` to start, or `dfget` to
 - Download object like via `http`, `https` and other custom protocol.
 - Set disk usage, automatic GC capabilities.
 - Customize the download task piece size.
+- Supports RDMA for faster network transmission in the P2P network. It can better support the loading of AI inference models into memory.
+- Supports file writing and seeding, it can be accessed in the P2P cluster without uploading to other storage. Helps AI models and AI datasets to be read and written faster in the P2P network.
 
 ## Relationship {#relationship}
 
