@@ -142,7 +142,7 @@ docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
@@ -203,8 +203,8 @@ client:
       registryMirror:
         addr: https://index.docker.io
       rules:
-        - regex: blobs/sha256.*
-        - regex: github-cloud.githubusercontent.com.*
+        - regex: 'blobs/sha256.*'
+        - regex: 'github-cloud.githubusercontent.com.*'
 ```
 
 Create a Dragonfly cluster using the configuration file:

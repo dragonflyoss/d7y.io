@@ -198,8 +198,8 @@ client:
       registryMirror:
         addr: https://index.docker.io
       rules:
-        - regex: blobs/sha256.*
-        - regex: github-cloud.githubusercontent.com.*
+        - regex: 'blobs/sha256.*'
+        - regex: 'github-cloud.githubusercontent.com.*'
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:
