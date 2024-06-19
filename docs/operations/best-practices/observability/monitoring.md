@@ -168,7 +168,7 @@ dragonfly-seed-client-1              1/1     Running   0          50m
 dragonfly-seed-client-2              1/1     Running   0          47m
 ```
 
-## Install prometheus and grafana based on Helm Charts{#step-1-install-prometheus-and-grafana}
+## Create Prometheus and Grafana based on Helm Charts{#create-prometheus-and-grafana-based-on-helm-charts}
 
 Install prometheus and grafana based on [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
 
@@ -213,14 +213,14 @@ You can login with username `admin` and password `prom-operator`
 kubectl --namespace prometheus port-forward svc/prometheus-grafana 8080:80
 ```
 
-- ![grafana-login](../../../resource/monitoring/grafana-login.jpg)
+- ![grafana-login](../../../resource/operations/best-practices/observability/monitoring/grafana-login.jpg)
 
 ## Validate metrics {#step-3-validate-metrics}
 
 Visit grafana explore page at `localhost:8080/explore` and
 query `dragonfly_manager_requests_total` to validate that Dragonfly metrics have been collected.
 
-![grafana-validate-metrics](../../../resource/monitoring/grafana-validate-metrics.jpg)
+![grafana-validate-metrics](../../../resource/operations/best-practices/observability/monitoring/grafana-validate-metrics.jpg)
 
 ## Import Dragonfly grafana dashboards {#step-4-import-dragonfly-grafana-dashboards}
 
@@ -239,12 +239,12 @@ Dragonfly grafana dashboard info is:
 
 Import Dragonfly grafana dashboard using ID, IDs are `15945`, `15944`, `21053` and `21054`, refer to [export-import](https://grafana.com/docs/grafana/latest/dashboards/export-import/)
 
-![grafana-import-dashboard](../../../resource/monitoring/grafana-import-dashboard.jpg)
+![grafana-import-dashboard](../../../resource/operations/best-practices/observability/monitoring/grafana-import-dashboard.jpg)
 
 Import Dragonfly grafana dashboard successfully, you can visit the dashboard
 
-![grafana-manager](../../../resource/monitoring/grafana-manager.jpg)
+![grafana-manager](../../../resource/operations/best-practices/observability/monitoring/grafana-manager.jpg)
 
-![grafana-scheduler](../../../resource/monitoring/grafana-scheduler.jpg)
+![grafana-scheduler](../../../resource/operations/best-practices/observability/monitoring/grafana-scheduler.jpg)
 
-![grafana-peer](../../../resource/monitoring/grafana-peer.jpg)
+![grafana-peer](../../../resource/operations/best-practices/observability/monitoring/grafana-peer.jpg)
