@@ -73,7 +73,8 @@ kubectl config use-context kind-kind
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
+docker pull dragonflyoss/dfinit:latest
 ```
 
 Kind 集群加载 Dragonfly latest 镜像:
@@ -81,7 +82,8 @@ Kind 集群加载 Dragonfly latest 镜像:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
+kind load docker-image dragonflyoss/dfinit:latest
 ```
 
 ## 创建 Dragonfly 集群 A
@@ -93,66 +95,49 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 创建 Helm Charts 的 Dragonfly 集群 A 的配置文件 `charts-config-cluster-a.yaml`，配置如下:
 
 ```yaml
-containerRuntime:
-  containerd:
-    enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://ghcr.io'
-
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  nodeSelector:
-    cluster: a
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  nodeSelector:
-    cluster: a
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  nodeSelector:
-    cluster: a
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
 manager:
+  replicas: 1
+  nodeSelector:
+    cluster: a
   image:
     repository: dragonflyoss/manager
     tag: latest
+
+scheduler:
+  replicas: 1
   nodeSelector:
     cluster: a
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
 
-jaeger:
-  enable: true
+seedClient:
+  replicas: 1
+  nodeSelector:
+    cluster: a
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+
+client:
+  nodeSelector:
+    cluster: a
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
 ```
 
 使用配置文件部署 Helm Charts 的 Dragonfly 集群 A:
@@ -163,7 +148,7 @@ jaeger:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace cluster-a dragonfly dragonfly/dragonfly -f charts-config-cluster-a.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Aug  7 22:07:02 2023
+LAST DEPLOYED: Tue Apr 16 16:12:42 2024
 NAMESPACE: cluster-a
 STATUS: deployed
 REVISION: 1
@@ -182,12 +167,6 @@ NOTES:
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
-
-
-4. Get Jaeger query URL by running these commands:
-  export JAEGER_QUERY_PORT=$(kubectl --namespace cluster-a get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
-  kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
-  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
 
 <!-- markdownlint-restore -->
@@ -196,18 +175,17 @@ NOTES:
 
 ```shell
 $ kubectl get po -n cluster-a
-NAME                                 READY   STATUS    RESTARTS      AGE
-dragonfly-dfdaemon-7t6wc             1/1     Running   0             3m18s
-dragonfly-dfdaemon-r45bk             1/1     Running   0             3m18s
-dragonfly-jaeger-84dbfd5b56-fmhh6    1/1     Running   0             3m18s
-dragonfly-manager-75f4c54d6d-tr88v   1/1     Running   0             3m18s
-dragonfly-mysql-0                    1/1     Running   0             3m18s
-dragonfly-redis-master-0             1/1     Running   0             3m18s
-dragonfly-redis-replicas-0           1/1     Running   1 (2m ago)    3m18s
-dragonfly-redis-replicas-1           1/1     Running   0             96s
-dragonfly-redis-replicas-2           1/1     Running   0             45s
-dragonfly-scheduler-0                1/1     Running   0             3m18s
-dragonfly-seed-peer-0                1/1     Running   1 (37s ago)   3m18s
+NAME                                READY   STATUS    RESTARTS   AGE
+dragonfly-client-5gvz7              1/1     Running   0          51m
+dragonfly-client-xvqmq              1/1     Running   0          51m
+dragonfly-manager-dc6dcf87b-l88mr   1/1     Running   0          51m
+dragonfly-mysql-0                   1/1     Running   0          51m
+dragonfly-redis-master-0            1/1     Running   0          51m
+dragonfly-redis-replicas-0          1/1     Running   0          51m
+dragonfly-redis-replicas-1          1/1     Running   0          48m
+dragonfly-redis-replicas-2          1/1     Running   0          39m
+dragonfly-scheduler-0               1/1     Running   0          51m
+dragonfly-seed-client-0             1/1     Running   0          51m
 ```
 
 ### 创建 Manager REST 服务的 NodePort Service 资源
@@ -289,6 +267,10 @@ IDC 在 Scopes 内的优先级高于 Location。
 则 Peer 将自动获取 Expose IP 作为 Advertise IP。当 Peer 上报的 IP 与 Cluster 中的 CIDR 匹配时，Peer 将优先使用 Cluster 的 Scheduler 和 Seed Peer。
 CIDR 在 Scopes 内的优先级高于 IDC。
 
+**Hostnames**: Cluster 需要为 Hostnames 中的所有 Peer 提供服务。输入参数是多个Hostnames 正则表达式。当 Peer 启动时，Hostnames 将在 Peer 配置中报告。
+当主 Hostnames 与 Cluster 的多个 Hostnames 正则表达式匹配时，对等点将优先使用 Cluster 的 Scheduler 和 Seed Peer。在 Scopes 内，Hostnames 的优先级高于 IDC。
+Hostnames 的优先级等于 Scopes 内的 CIDR。
+
 ### 基于 Helm Charts 创建 Dragonfly 集群 B
 
 创建 Helm Charts 文件的内容可以在 Manager 控制台对应的 Dragonfly 集群信息详情中查看。
@@ -297,63 +279,67 @@ CIDR 在 Scopes 内的优先级高于 IDC。
 
 - `Scheduler.config.manager.schedulerClusterID` 是 Manager 控制台的 `cluster-2` 集群信息中的 `Scheduler cluster ID` 值。
 - `Scheduler.config.manager.addr` 是 Manager 的 GRPC 服务地址。
-- `seedPeer.config.scheduler.manager.seedPeer.clusterID` 是 Manager 控制台的 `cluster-2` 集群信息中的 `Seed peer cluster ID` 值。
-- `seedPeer.config.scheduler.manager.netAddrs[0].addr` 是 Manager 的 GRPC 服务地址。
-- `dfdaemon.config.host.idc` 是 Manager 控制台的 `cluster-2` 集群信息中的 `IDC` 值。
-- `dfdaemon.config.scheduler.manager.netAddrs[0].addr` 是 Manager 的 GRPC 服务地址。
+- `seedClient.config.seedPeer.clusterID` 是 Manager 控制台的 `cluster-2` 集群信息中的 `Seed peer cluster ID` 值。
+- `seedClient.config.manager.addrs` 是 Manager 的 GRPC 服务地址。
+- `client.config.host.idc` 是 Manager 控制台的 `cluster-2` 集群信息中的 `IDC` 值。
+- `client.config.manager.addrs` 是 Manager 的 GRPC 服务地址。
 - `externalManager.host` 是 Manager 的 GRPC 服务的 Host。
 - `externalRedis.addrs[0]` 是 Redis 的服务地址。
 
 创建 Helm Charts 的 Dragonfly 集群 B 的配置文件 `charts-config-cluster-b.yaml`，配置如下:
 
 ```yaml
-containerRuntime:
-  containerd:
-    enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://ghcr.io'
-
 scheduler:
-  image: dragonflyoss/scheduler
-  tag: latest
+  replicas: 1
   nodeSelector:
     cluster: b
-  replicas: 1
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
   config:
     manager:
       addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
       schedulerClusterID: 2
 
-seedPeer:
-  image: dragonflyoss/dfdaemon
-  tag: latest
-  nodeSelector:
-    cluster: b
+seedClient:
   replicas: 1
-  config:
-    scheduler:
-      manager:
-        netAddrs:
-          - type: tcp
-            addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
-        seedPeer:
-          enable: true
-          clusterID: 2
-
-dfdaemon:
-  image: dragonflyoss/dfdaemon
-  tag: latest
   nodeSelector:
     cluster: b
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  config:
+    manager:
+      addrs:
+        - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
+    seedPeer:
+      clusterID: 2
+
+client:
+  nodeSelector:
+    cluster: b
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
   config:
     host:
       idc: cluster-2
-    scheduler:
-      manager:
-        netAddrs:
-          - type: tcp
-            addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
+    manager:
+      addrs:
+        - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
 
 manager:
   enable: false
@@ -374,9 +360,6 @@ externalRedis:
 
 mysql:
   enable: false
-
-jaeger:
-  enable: true
 ```
 
 使用配置文件部署 Helm Charts 的 Dragonfly 集群 B:
@@ -386,7 +369,7 @@ jaeger:
 ```shell
 $ helm install --wait --create-namespace --namespace cluster-b dragonfly dragonfly/dragonfly -f charts-config-cluster-b.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Aug  7 22:13:51 2023
+LAST DEPLOYED: Tue Apr 16 15:49:42 2024
 NAMESPACE: cluster-b
 STATUS: deployed
 REVISION: 1
@@ -405,12 +388,6 @@ NOTES:
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
-
-
-4. Get Jaeger query URL by running these commands:
-  export JAEGER_QUERY_PORT=$(kubectl --namespace cluster-b get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
-  kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
-  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
 
 <!-- markdownlint-restore -->
@@ -419,12 +396,11 @@ NOTES:
 
 ```shell
 $ kubectl get po -n cluster-b
-NAME                                READY   STATUS    RESTARTS   AGE
-dragonfly-dfdaemon-q8bsg            1/1     Running   0          67s
-dragonfly-dfdaemon-tsqls            1/1     Running   0          67s
-dragonfly-jaeger-84dbfd5b56-rg5dv   1/1     Running   0          67s
-dragonfly-scheduler-0               1/1     Running   0          67s
-dragonfly-seed-peer-0               1/1     Running   0          67s
+NAME                      READY   STATUS    RESTARTS   AGE
+dragonfly-client-f4897    1/1     Running   0          10m
+dragonfly-client-m9k9f    1/1     Running   0          10m
+dragonfly-scheduler-0     1/1     Running   0          10m
+dragonfly-seed-client-0   1/1     Running   0          10m
 ```
 
 创建 Dragonfly 集群 B 成功。
@@ -435,39 +411,23 @@ dragonfly-seed-peer-0               1/1     Running   0          67s
 
 ### 集群 A 中 containerd 通过 Dragonfly 首次回源拉镜像
 
-在 `kind-worker` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+在 `kind-worker` Node 下载 `alpine:3.19` 镜像:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-暴露 Jaeger `16686` 端口:
-
-```shell
-kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
-Tracing:
-
-![cluster-a-download-back-to-source-search-tracing](../../resource/getting-started/cluster-a-download-back-to-source-search-tracing.jpg)
-
-Tracing 详细内容:
-
-![cluster-a-download-back-to-source-tracing](../../resource/getting-started/cluster-a-download-back-to-source-tracing.jpg)
-
-集群 A 内首次回源时，下载 `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 层需要消耗时间为 `1.47s`。
+集群 A 内首次回源时，下载 `alpine:3.19` 镜像需要消耗时间为 `31.714s`。
 
 ### 集群 A 中 containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
 
-删除 Node 为 `kind-worker` 的 dfdaemon，为了清除 Dragonfly 本地 Peer 的缓存。
+删除 Node 为 `kind-worker` 的 client，为了清除 Dragonfly 本地 Peer 的缓存。
 
 <!-- markdownlint-disable -->
 
 ```shell
 # 获取 Pod Name
-export POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # 删除 Pod
 kubectl delete pod ${POD_NAME} -n cluster-a
@@ -475,71 +435,39 @@ kubectl delete pod ${POD_NAME} -n cluster-a
 
 <!-- markdownlint-restore -->
 
-删除 `kind-worker` Node 的 containerd 中镜像 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 的缓存:
+删除 `kind-worker` Node 的 containerd 中镜像 `alpine:3.19` 的缓存:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
 ```
 
-在 `kind-worker` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+在 `kind-worker` Node 下载 `alpine:3.19` 镜像:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-暴露 Jaeger `16686` 端口:
-
-```shell
-kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
-Tracing:
-
-![cluster-a-hit-remote-peer-cache-search-tracing](../../resource/getting-started/cluster-a-hit-remote-peer-cache-search-tracing.jpg)
-
-Tracing 详细内容:
-
-![cluster-a-hit-remote-peer-cache-tracing](../../resource/getting-started/cluster-a-hit-remote-peer-cache-tracing.jpg)
-
-集群 A 中命中远程 Peer 缓存时，下载 `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 层需要消耗时间为 `37.48ms`。
+集群 A 中命中远程 Peer 缓存时，下载 `alpine:3.19` 镜像需要消耗时间为 `7.304s`。
 
 ### 集群 B 中 containerd 通过 Dragonfly 首次回源拉镜像
 
-在 `kind-worker3` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+在 `kind-worker3` Node 下载 `alpine:3.19` 镜像:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker3 /usr/local/bin/crictl pull alpine:3.19
 ```
 
-暴露 Jaeger `16686` 端口:
-
-```shell
-kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
-Tracing:
-
-![cluster-b-download-back-to-source-search-tracing](../../resource/getting-started/cluster-b-download-back-to-source-search-tracing.jpg)
-
-Tracing 详细内容:
-
-![cluster-b-download-back-to-source-tracing](../../resource/getting-started/cluster-b-download-back-to-source-tracing.jpg)
-
-集群 B 中命中远程 Peer 缓存时，下载 `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 层需要消耗时间为 `4.97s`。
+集群 B 中命中远程 Peer 缓存时，下载 `alpine:3.19` 镜像需要消耗时间为 `36.208s`。
 
 ### 集群 B 中 containerd 下载镜像命中 Dragonfly 远程 Peer 的缓存
 
-删除 Node 为 `kind-worker3` 的 dfdaemon，为了清除 Dragonfly 本地 Peer 的缓存。
+删除 Node 为 `kind-worker3` 的 client，为了清除 Dragonfly 本地 Peer 的缓存。
 
 <!-- markdownlint-disable -->
 
 ```shell
 # 获取 Pod Name
-export POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker3")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker3")].metadata.name}' | head -n 1 )
 
 # 删除 Pod
 kubectl delete pod ${POD_NAME} -n cluster-b
@@ -547,32 +475,16 @@ kubectl delete pod ${POD_NAME} -n cluster-b
 
 <!-- markdownlint-restore -->
 
-删除 `kind-worker3` Node 的 containerd 中镜像 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 的缓存:
+删除 `kind-worker3` Node 的 containerd 中镜像 `alpine:3.19` 的缓存:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker3 /usr/local/bin/crictl rmi alpine:3.19
 ```
 
-在 `kind-worker3` Node 下载 `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` 镜像:
+在 `kind-worker3` Node 下载 `alpine:3.19` 镜像:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker3 /usr/local/bin/crictl pull alpine:3.19
 ```
 
-暴露 Jaeger `16686` 端口:
-
-```shell
-kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-进入 Jaeger 页面 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search)，搜索 Tags 值为
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`
-Tracing:
-
-![cluster-b-hit-remote-peer-cache-search-tracing](../../resource/getting-started/cluster-b-hit-remote-peer-cache-search-tracing.jpg)
-
-Tracing 详细内容:
-
-![cluster-b-hit-remote-peer-cache-tracing](../../resource/getting-started/cluster-b-hit-remote-peer-cache-tracing.jpg)
-
-集群 B 中命中远程 Peer 缓存时，下载 `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 层需要消耗时间为 `14.53ms`。
+集群 B 中命中远程 Peer 缓存时，下载 `alpine:3.19` 镜像需要消耗时间为 `6.963s`。

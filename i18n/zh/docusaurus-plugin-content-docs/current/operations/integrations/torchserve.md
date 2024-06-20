@@ -36,7 +36,7 @@ TorchServe 通过集成 [Dragonfly Endpoint](https://github.com/dragonflyoss/dra
 通过集成 Dragonfly Endpoint 到 TorchServe 中，使下载流量通过 Dragonfly 去拉取 S3，OSS，GCS，ABS 中存储的模型文件,
 并在 TorchServe 中进行注册。TorchServe 插件维护在 [dragonfly-endpoint](https://github.com/dragonflyoss/dragonfly-endpoint) 仓库中。
 
-### 依赖
+### 环境准备
 
 | 所需软件           | 版本   | 链接                                             |
 | ------------------ | ------ | ------------------------------------------------ |
@@ -44,13 +44,13 @@ TorchServe 通过集成 [Dragonfly Endpoint](https://github.com/dragonflyoss/dra
 | Helm               | 3.8.0+ | [helm.sh](https://helm.sh/)                      |
 | TorchServe         | 0.4.0+ | [pytorch.org/serve/](https://pytorch.org/serve/) |
 
-**注意:** 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
-
 ### Dragonfly Kubernetes 集群搭建
 
 基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](https://d7y.io/zh/docs/getting-started/quick-start/kubernetes/)。
 
 #### 准备 Kubernetes 集群
+
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
 创建 Kind 多节点集群配置文件 kind-config.yaml, 配置如下:
 
@@ -82,7 +82,7 @@ kubectl config use-context kind-kind
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
 Kind 集群加载 Dragonfly Latest 镜像:
@@ -90,77 +90,61 @@ Kind 集群加载 Dragonfly Latest 镜像:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
 #### 基于 Helm Charts 创建 Dragonfly 集群
 
-创建 Helm Charts 配置文件 charts-config.yaml。可以根据对象存储的下载路径修改`dfdaemon.config.proxy.proxies.regx`来调整路由匹配规则，示例中默认匹配了 AWS S3 的请求，配置如下:
+创建 Helm Charts 配置文件 charts-config.yaml。可以根据对象存储的下载路径修改`client.config.proxy.rules.regex`来调整路由匹配规则，示例中默认匹配了 AWS S3 的请求，配置如下:
 
 ```yaml
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'Expires&Signature&ns'
-      security:
-        insecure: true
-        cacert: ''
-        cert: ''
-        key: ''
-      tcpListen:
-        namespace: ''
-        port: 65001
-      registryMirror:
-        url: https://index.docker.io
-        insecure: true
-        certs: []
-        direct: false
-      proxies:
-        - regx: blobs/sha256.*
-        - regx: .*amazonaws.*
-
 manager:
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: 'blobs/sha256.*'
+        - regex: '.*amazonaws.*'
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:
@@ -170,7 +154,7 @@ jaeger:
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
-LAST DEPLOYED: Mon Sep  4 10:24:55 2023
+LAST DEPLOYED: Mon June 5 16:53:14 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -204,23 +188,26 @@ NOTES:
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS      AGE
-dragonfly-dfdaemon-7r2cn             1/1     Running   0          3m31s
-dragonfly-dfdaemon-fktl4             1/1     Running   0          3m31s
-dragonfly-jaeger-c7947b579-2xk44     1/1     Running   0          3m31s
-dragonfly-manager-5d4f444c6c-wq8d8   1/1     Running   0          3m31s
-dragonfly-mysql-0                    1/1     Running   0          3m31s
-dragonfly-redis-master-0             1/1     Running   0          3m31s
-dragonfly-redis-replicas-0           1/1     Running   0          3m31s
-dragonfly-redis-replicas-1           1/1     Running   0          3m5s
-dragonfly-redis-replicas-2           1/1     Running   0          2m44s
-dragonfly-scheduler-0                1/1     Running   0          3m31s
-dragonfly-seed-peer-0                1/1     Running   0          3m31s
+dragonfly-client-6jgzn               1/1     Running   0             17m
+dragonfly-client-qzcz9               1/1     Running   0             17m
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0             17m
+dragonfly-mysql-0                    1/1     Running   0             17m
+dragonfly-redis-master-0             1/1     Running   0             17m
+dragonfly-redis-replicas-0           1/1     Running   0             17m
+dragonfly-redis-replicas-1           1/1     Running   0             17m
+dragonfly-redis-replicas-2           1/1     Running   0             17m
+dragonfly-scheduler-0                1/1     Running   0             17m
+dragonfly-scheduler-1                1/1     Running   0             17m
+dragonfly-scheduler-2                1/1     Running   0             17m
+dragonfly-seed-client-0              1/1     Running   0             17m
+dragonfly-seed-client-1              1/1     Running   0             17m
+dragonfly-seed-client-2              1/1     Running   0             17m
 ```
 
 #### 暴露 Proxy 服务端口
 
 创建 dfstore.yaml 配置文件，暴露 Dragonfly Peer 的 HTTP Proxy 服务监听的端口，用于和 TorchServe 交互。
-`targetPort` 如果未在 charts-config.yaml 中修改默认为`65001`， port 可根据实际情况设定值，建议也使用 `65001`。
+`targetPort` 如果未在 charts-config.yaml 中修改默认为`4001`， port 可根据实际情况设定值，建议也使用 `4001`。
 
 ```yaml
 kind: Service
@@ -230,13 +217,13 @@ metadata:
 spec:
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 
   ports:
     - protocol: TCP
-      port: 65001
-      targetPort: 65001
+      port: 4001
+      targetPort: 4001
 
   type: NodePort
 ```
@@ -247,10 +234,10 @@ spec:
 kubectl --namespace dragonfly-system apply -f dfstore.yaml
 ```
 
-将本地的`65001`端口流量转发至 Dragonfly 的 Proxy 服务:
+将本地的 `4001` 端口流量转发至 Dragonfly 的 Proxy 服务:
 
 ```shell
-kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
+kubectl --namespace dragonfly-system port-forward service/dfstore 4001:4001
 ```
 
 ### 安装 Dragonfly Endpoint 插件
@@ -272,9 +259,11 @@ export DRAGONFLY_ENDPOINT_CONFIG=/etc/dragonfly-endpoint/config.json
 
 创建 `config.json` 配置文件，对 Torchserve 插件进行配置。下面是 S3 的配置:
 
+> 注意：config.json 配置文件下设置 `addr` 地址为你的实际地址。
+
 ```json
 {
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "filter": [
     "X-Amz-Algorithm",
@@ -314,11 +303,14 @@ export DRAGONFLY_ENDPOINT_CONFIG=/etc/dragonfly-endpoint/config.json
 ##### 对象存储配置
 
 除 S3 外，Dragonfly 的 TorchServe 插件还支持 OSS，GCS，ABS。不同的对象存储配置如下：
+
+> 注意：OSS，GCS，ABS 配置文件下设置 `addr` 地址为你的实际地址。
+
 OSS(Object Storage Service)
 
 ```json
 {
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "filter": ["Expires", "Signature"],
   "object_storage": {
@@ -334,7 +326,7 @@ OSS(Object Storage Service)
 GCS(Google Cloud Storage)
 
 ```json
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "object_storage": {
     "type": "gcs",
@@ -349,7 +341,7 @@ ABS(Azure Blob Storage)
 
 ```json
 {
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "object_storage": {
     "type": "abs",
@@ -426,9 +418,11 @@ mv build/libs/dragonfly_endpoint-1.0-all.jar  <your plugins-path>
 
 准备插件的配置文件 config.json，对象存储仍以 S3 为例：
 
+> 注意：config.json 配置文件下设置 `addr` 地址为你的实际地址。
+
 ```shell
 {
-	"addr": "http://127.0.0.1:65001",
+	"addr": "http://127.0.0.1:4001",
 	"header": {
 	},
 	"filter": [
@@ -577,9 +571,11 @@ chmod 777 model-store
 
 准备插件的配置文件 config.json，对象存储仍以 S3 为例:
 
+> 注意：config.json 配置文件下设置 `addr` 地址为你的实际地址。
+
 ```shell
 {
-	"addr": "http://127.0.0.1:65001",
+	"addr": "http://127.0.0.1:4001",
 	"header": {
 	},
 	"filter": [

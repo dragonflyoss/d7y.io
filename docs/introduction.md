@@ -19,9 +19,9 @@ Here are some of the features that Dragonfly offers:
 - **Peer configuration**: Load limit, concurrent limit, traffic limit, etc. can be configured.
 - **Consistency**: Ensures downloaded files are consistent even if the user does not check for consistency.
 - **Exception isolation**: Isolate exceptions based on Service level, Peer level and Task level to improve
-download stability.
+  download stability.
 - **Ecosystem**: Provides simple integration with AI infrastructure, container runtimes, container registry,
-download tools, etc.
+  download tools, etc.
 
 ![features](./resource/introduction/features.jpeg)
 
@@ -37,18 +37,16 @@ In April 2021, Dragonfly 2.0 was released after architectural optimization and c
 
 ## Architecture
 
-Dragonfly services could be divided into four categories: Manager, Scheduler, Seed Peer and Peer.
+Dragonfly services could be divided into four categories: Manager, Scheduler, Seed Peer and Peer. Please refer to [Architecture](./operations/deployment/architecture.md).
 
 - **Manager**: Maintain the relationship between each P2P cluster,
-It primarily offers functions such as dynamic configuration management and data collection.
-It also includes a front-end console, enabling users to visually operate and manage the cluster.
+  It primarily offers functions such as dynamic configuration management and data collection.
+  It also includes a front-end console, enabling users to visually operate and manage the cluster.
 - **Scheduler**: Select the best download parent node for the download node. At the appropriate time,
-trigger Seed Peer to perform back-to-source downloading, or Peer to perform back-to-source downloading.
+  trigger Seed Peer to perform back-to-source downloading, or Peer to perform back-to-source downloading.
 - **Seed Peer**: Provides upload and download functions and can serve as a root node in the P2P network,
-allowing the Scheduler to actively initiate back-to-source.
+  allowing the Scheduler to actively initiate back-to-source.
 - **Peer**: Provides upload and download functions.
-
-Below is the Dragonfly architecture diagram. You can find more detailed architecture docs in [Architecture](./concepts/terminology/architecture).
 
 ![arch](./resource/concepts/arch.png)
 

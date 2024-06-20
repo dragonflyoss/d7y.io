@@ -4,7 +4,7 @@ title: TorchServe
 slug: /operations/integrations/torchserve/
 ---
 
-This document will help you experience how to use dragonfly with [TorchServe](https://github.com/pytorch/serve).
+This document will help you experience how to use Dragonfly with [TorchServe](https://github.com/pytorch/serve).
 During the downloading of models, the file size is large and there are many services downloading the files at the same time.
 The bandwidth of the storage will reach the limit and the download will be slow.
 
@@ -45,13 +45,13 @@ The Dragonfly Endpoint plugin is in the [dragonfly-endpoint](https://github.com/
 | Helm               | 3.8.0+  | [helm.sh](https://helm.sh/)                      |
 | TorchServe         | 0.4.0+  | [pytorch.org/serve/](https://pytorch.org/serve/) |
 
-**Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
-
 ### Dragonfly Kubernetes Cluster Setup
 
 For detailed installation documentation, please refer to [quick-start-kubernetes](https://d7y.io/zh/docs/getting-started/quick-start/kubernetes/).
 
 #### Prepare Kubernetes Cluster
+
+[Kind](https://kind.sigs.k8s.io/) is recommended if no Kubernetes cluster is available for testing.
 
 Create kind multi-node cluster configuration file `kind-config.yaml`, configuration content is as follows:
 
@@ -76,103 +76,87 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-#### Kind loads dragonfly image
+#### Kind loads Dragonfly image
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
-#### Create dragonfly cluster based on helm charts
+#### Create Dragonfly cluster based on helm charts
 
-Create helm charts configuration file `charts-config.yaml` and set `dfdaemon.config.proxy.proxies.regx` to
+Create helm charts configuration file `charts-config.yaml` and set `client.config.proxy.rules.regex` to
 match the download path of the object storage, configuration content is as follows:
 
 ```yaml
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'Expires&Signature&ns'
-      security:
-        insecure: true
-        cacert: ''
-        cert: ''
-        key: ''
-      tcpListen:
-        namespace: ''
-        port: 65001
-      registryMirror:
-        url: https://index.docker.io
-        insecure: true
-        certs: []
-        direct: false
-      proxies:
-        - regx: blobs/sha256.*
-        - regx: .*amazonaws.*
-
 manager:
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: 'blobs/sha256.*'
+        - regex: '.*amazonaws.*'
 ```
 
-Create a dragonfly cluster using the configuration file:
+Create a Dragonfly cluster using the configuration file:
 
 <!-- markdownlint-disable -->
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
-LAST DEPLOYED: Mon Sep  4 10:24:55 2023
+LAST DEPLOYED: Mon June 5 16:53:14 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -201,28 +185,31 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly is deployed successfully:
+Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS      AGE
-dragonfly-dfdaemon-7r2cn             1/1     Running   0          3m31s
-dragonfly-dfdaemon-fktl4             1/1     Running   0          3m31s
-dragonfly-jaeger-c7947b579-2xk44     1/1     Running   0          3m31s
-dragonfly-manager-5d4f444c6c-wq8d8   1/1     Running   0          3m31s
-dragonfly-mysql-0                    1/1     Running   0          3m31s
-dragonfly-redis-master-0             1/1     Running   0          3m31s
-dragonfly-redis-replicas-0           1/1     Running   0          3m31s
-dragonfly-redis-replicas-1           1/1     Running   0          3m5s
-dragonfly-redis-replicas-2           1/1     Running   0          2m44s
-dragonfly-scheduler-0                1/1     Running   0          3m31s
-dragonfly-seed-peer-0                1/1     Running   0          3m31s
+dragonfly-client-6jgzn               1/1     Running   0             17m
+dragonfly-client-qzcz9               1/1     Running   0             17m
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0             17m
+dragonfly-mysql-0                    1/1     Running   0             17m
+dragonfly-redis-master-0             1/1     Running   0             17m
+dragonfly-redis-replicas-0           1/1     Running   0             17m
+dragonfly-redis-replicas-1           1/1     Running   0             17m
+dragonfly-redis-replicas-2           1/1     Running   0             17m
+dragonfly-scheduler-0                1/1     Running   0             17m
+dragonfly-scheduler-1                1/1     Running   0             17m
+dragonfly-scheduler-2                1/1     Running   0             17m
+dragonfly-seed-client-0              1/1     Running   0             17m
+dragonfly-seed-client-1              1/1     Running   0             17m
+dragonfly-seed-client-2              1/1     Running   0             17m
 ```
 
 #### Expose the Proxy service port
 
 Create the `dfstore.yaml` configuration to expose the port on which the Dragonfly Peer's HTTP proxy listens.
-The default port is `65001` and set`targetPort` to `65001`.
+The default port is `4001` and set`targetPort` to `4001`.
 
 ```yaml
 kind: Service
@@ -232,13 +219,13 @@ metadata:
 spec:
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 
   ports:
     - protocol: TCP
-      port: 65001
-      targetPort: 65001
+      port: 4001
+      targetPort: 4001
 
   type: NodePort
 ```
@@ -252,7 +239,7 @@ kubectl --namespace dragonfly-system apply -f dfstore.yaml
 Forward request to Dragonfly Peer's HTTP proxy:
 
 ```shell
-kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
+kubectl --namespace dragonfly-system port-forward service/dfstore 4001:4001
 ```
 
 ### Install Dragonfly Endpoint plugin
@@ -274,9 +261,11 @@ The default configuration path is:
 
 Create the `config.json` configuration to configure the Dragonfly Endpoint for S3, the configuration is as follows:
 
+> Notice: Replace the `addr` address with your actual address.
+
 ```json
 {
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "filter": [
     "X-Amz-Algorithm",
@@ -314,11 +303,13 @@ In the filter of the configuration, set different values when using different ob
 In addition to S3, Dragonfly Endpoint plugin also supports OSS, GCS and ABS.
 Different object storage configurations are as follows:
 
+> Notice: Replace the `addr` address with your actual address.
+
 OSS(Object Storage Service)
 
 ```json
 {
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "filter": ["Expires", "Signature"],
   "object_storage": {
@@ -335,7 +326,7 @@ GCS(Google Cloud Storage)
 
 ```json
 {
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "object_storage": {
     "type": "gcs",
@@ -350,7 +341,7 @@ ABS(Azure Blob Storage)
 
 ```json
 {
-  "addr": "http://127.0.0.1:65001",
+  "addr": "http://127.0.0.1:4001",
   "header": {},
   "object_storage": {
     "type": "abs",
@@ -428,9 +419,11 @@ mv build/libs/dragonfly_endpoint-1.0-all.jar  <your plugins-path>
 
 Prepare the plugin configuration `config.json`, and use S3 as the object storage:
 
+> Notice: Replace the `addr` address with your actual address.
+
 ```shell
 {
-	"addr": "http://127.0.0.1:65001",
+	"addr": "http://127.0.0.1:4001",
 	"header": {
 	},
 	"filter": [
@@ -485,7 +478,7 @@ aws configure
 aws s3 cp < local file path > s3://< bucket name >/< Target path >
 ```
 
-TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model)
+TorchServe plugin is named Dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model)
 for details of plugin API. The `url` parameter are not supported and add the `file_name`
 parameter which is the model file name to download.
 Download the model:
@@ -581,9 +574,11 @@ chmod 777 model-store
 
 Prepare the plugin configuration `config.json`, and use S3 as the object storage:
 
+> Notice: Replace the `addr` address with your actual address.
+
 ```shell
 {
-	"addr": "http://127.0.0.1:65001",
+	"addr": "http://127.0.0.1:4001",
 	"header": {
 	},
 	"filter": [
@@ -642,7 +637,7 @@ aws configure
 aws s3 cp < local file path > s3://< bucket name >/< Target path >
 ```
 
-TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model)
+TorchServe plugin is named Dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model)
 for details of plugin API. The `url` parameter are not supported and add the `file_name`
 parameter which is the model file name to download.
 Download a model：

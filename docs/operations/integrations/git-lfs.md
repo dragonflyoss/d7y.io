@@ -76,23 +76,17 @@ Pay attention to the content of `actions` and `download` in the log.
 <!-- markdownlint-disable -->
 
 ```text
-15:31:04.848308 trace git-lfs: HTTP: {"objects":[{"oid":"c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29","size":5242880,"actions":{"download":{"href":"https://github-cloud.githubusercontent.com/alambic/media/376919987/c0/36/c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIMWPLRQEC4XCWWPA%2F20231221%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231221T073104Z&X-Amz-Expires=3600&X-Amz-Signature=4dc757dff0ac96eac3f0cd2eb29ca887035d3a6afba41cb10200ed0aa22812fa&15:31:04.848403 trace git-lfs: HTTP: X-Amz-SignedHeaders=host&actor_id=15955374&key_id=0&repo_id=392935134&token=1","expires_at":"2023-12-21T08:31:04Z","expires_in":3600}}}]}
+18:52:51.137490 trace git-lfs: HTTP: {"objects":[{"oid":"68ac0af011ce9c51a4c74c5ac9a40218e9e67bf55ebe13c8f2d758f710a3163a","size":19670194,"actions":{"download":{"href":"https://github-cloud.githubusercontent.com/alambic/media/730487717/68/ac/68ac0af011ce9c51a4c74c5ac9a40218e9e67bf55ebe13c8f2d758f710a3163a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA5BA2674WPWWEFGQ5%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T105251Z&X-Amz-Expires=3600&X-Amz-Signature=35cf8e02f0d3e2da893aa46fa4929d79ce1abb18aea8e0fabfbb138706d7151818:52:51.137574 trace git-lfs: HTTP: &X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=810214636&token=1","expires_at":"2024-06-05T11:52:51Z","expires_in":3600}}}]}
 ```
 
 <!-- markdownlint-restore -->
 
 The download URL can be found in `actions.download.href` in the `objects`.
 You can find that the content storage of GitHub LFS is actually stored at `github-cloud.githubusercontent.com`.
-And query parameters include `X-Amz-Algorithm`, `X-Amz-Credential`, `X-Amz-Date`, `X-Amz-Expires`,
-`X-Amz-Signature` and `X-Amz-SignedHeaders`.
-The query parameters are [AWS Authenticating Requests parameters](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html).
-The keys of query parameters will be used later when configuring Dragonfly Peer Proxy.
 
 **Information about Git LFS :**
 
-1. The content storage address of Git LFS is `github-cloud.githubusercontent.com`.
-2. The query parameters of the download URL include
-   `X-Amz-Algorithm`, `X-Amz-Credential`, `X-Amz-Date`, `X-Amz-Expires`, `X-Amz-Signature` and `X-Amz-SignedHeaders`.
+The content storage address of Git LFS is `github-cloud.githubusercontent.com`.
 
 ### Installation
 
@@ -102,14 +96,15 @@ The keys of query parameters will be used later when configuring Dragonfly Peer 
 | ------------------ | ------- | --------------------------------------- |
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | 3.8.0+  | [helm.sh](https://helm.sh/)             |
+| Git LFS            | 3.3.0+  | [git-lfs](https://git-lfs.com/)         |
 
-**Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
-
-#### Install dragonfly
+#### Dragonfly Kubernetes Cluster Setup {#dragonfly-kubernetes-cluster-setup}
 
 For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](https://d7y.io/docs/next/getting-started/quick-start/kubernetes/).
 
 ##### Setup kubernetes cluster
+
+[Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
 
 Create kind multi-node cluster configuration file kind-config.yaml, configuration content is as follows:
 
@@ -121,7 +116,7 @@ nodes:
   - role: worker
     extraPortMappings:
       - containerPort: 30950
-        hostPort: 65001
+        hostPort: 4001
   - role: worker
 ```
 
@@ -137,101 +132,82 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-##### Kind loads dragonfly image
+##### Kind loads Dragonfly image
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
-##### Create dragonfly cluster based on helm charts
+##### Create Dragonfly cluster based on helm charts
 
 Create helm charts configuration file charts-config.yaml.
 Add the `github-cloud.githubusercontent.com` rule to `dfdaemon.config.proxy.proxies.regx`
 to forward the HTTP file download of content storage of Git LFS to the P2P network.
-And `dfdaemon.config.proxy.defaultFilter` adds `X-Amz-Algorithm`, `X-Amz-Credential`, `X-Amz-Date`, `X-Amz-Expires`,
-`X-Amz-Signature` and `X-Amz-SignedHeaders` parameters to filter the query parameters.
-Dargonfly generates a unique task id based on the URL, so it is necessary to
-filter the query parameters to generate a unique task id. Configuration content is as follows:
 
 ```yaml
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'X-Amz-Algorithm&X-Amz-Credential&X-Amz-Date&X-Amz-Expires&X-Amz-Signature&X-Amz-SignedHeaders'
-      security:
-        insecure: true
-        cacert: ''
-        cert: ''
-        key: ''
-      tcpListen:
-        namespace: ''
-        port: 65001
-      registryMirror:
-        url: https://index.docker.io
-        insecure: true
-        certs: []
-        direct: false
-      proxies:
-        - regx: blobs/sha256.*
-        - regx: github-cloud.githubusercontent.com.*
-
 manager:
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  hostNetwork: true
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: 'blobs/sha256.*'
+        - regex: 'github-cloud.githubusercontent.com.*'
 ```
 
-Create a dragonfly cluster using the configuration file:
+Create a Dragonfly cluster using the configuration file:
 
 <!-- markdownlint-disable -->
 
@@ -239,7 +215,7 @@ Create a dragonfly cluster using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Thu Dec 21 17:24:37 2023
+LAST DEPLOYED: Mon June 5 12:53:14 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -268,22 +244,25 @@ NOTES:
 
 <!-- markdownlint-restore -->
 
-Check that dragonfly is deployed successfully:
+Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-cttxz             1/1     Running   4 (116s ago)   2m51s
-dragonfly-dfdaemon-k62vd             1/1     Running   4 (117s ago)   2m51s
-dragonfly-jaeger-84dbfd5b56-mxpfs    1/1     Running   0              2m51s
-dragonfly-manager-5c598d5754-fd9tf   1/1     Running   0              2m51s
-dragonfly-mysql-0                    1/1     Running   0              2m51s
-dragonfly-redis-master-0             1/1     Running   0              2m51s
-dragonfly-redis-replicas-0           1/1     Running   0              2m51s
-dragonfly-redis-replicas-1           1/1     Running   0              106s
-dragonfly-redis-replicas-2           1/1     Running   0              78s
-dragonfly-scheduler-0                1/1     Running   0              2m51s
-dragonfly-seed-peer-0                1/1     Running   1 (37s ago)    2m51s
+dragonfly-client-6jgzn               1/1     Running   0              34m
+dragonfly-client-qzcz9               1/1     Running   0              34m
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0              34m
+dragonfly-mysql-0                    1/1     Running   0              34m
+dragonfly-redis-master-0             1/1     Running   0              34m
+dragonfly-redis-replicas-0           1/1     Running   0              34m
+dragonfly-redis-replicas-1           1/1     Running   0              34m
+dragonfly-redis-replicas-2           1/1     Running   0              34m
+dragonfly-scheduler-0                1/1     Running   0              34m
+dragonfly-scheduler-1                1/1     Running   0              34m
+dragonfly-scheduler-2                1/1     Running   0              34m
+dragonfly-seed-client-0              1/1     Running   0              34m
+dragonfly-seed-client-1              1/1     Running   0              34m
+dragonfly-seed-client-2              1/1     Running   0              34m
 ```
 
 Create peer service configuration file peer-service-config.yaml, configuration content is as follows:
@@ -297,12 +276,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: http-65001
+    - name: http-4001
       nodePort: 30950
-      port: 65001
+      port: 4001
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 ```
 
@@ -312,14 +291,16 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-### Git LFS downlads large files via dragonfly
+### Git LFS downlads large files via Dragonfly
 
 Proxy Git LFS download requests to Dragonfly Peer Proxy
 through Git configuration. Set Git configuration includes
-`http.proxy`, `lfs.transfer.enablehrefrewrite` and `url.{YOUR-LFS-CONTENT-STORAGE}.insteadOf` properties.
+`http.proxy`, `lfs.transfer.enablehrefrewrite` and `url.http://github-cloud.githubusercontent.com/.insteadOf` properties.
+
+> Notice: Replace the `http.proxy` address with your actual address.
 
 ```shell
-git config --global http.proxy http://127.0.0.1:65001
+git config --global http.proxy http://127.0.0.1:4001
 git config --global lfs.transfer.enablehrefrewrite true
 git config --global url.http://github-cloud.githubusercontent.com/.insteadOf https://github-cloud.githubusercontent.com/
 ```
@@ -330,24 +311,25 @@ Forward Git LFS download requests to the P2P network via Dragonfly Peer Proxy an
 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
 ```
 
-### Verify large files download with Dragonfly
+### Verify
 
 Execute the command:
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-Example output:
+The expected output is as follows:
 
 <!-- markdownlint-disable -->
 
 ```
-2023-12-21T16:55:20.495+0800	INFO	peer/peertask_conductor.go:1326	peer task done, cost: 2238ms	{"peer": "30.54.146.131-15874-f6729352-950e-412f-b876-0e5c8e3232b1", "task": "70c644474b6c986e3af27d742d3602469e88f8956956817f9f67082c6967dc1a", "component": "PeerTask", "trace": "35c801b7dac36eeb0ea43a58d1c82e77"}
+2024-06-03-13:2024-06-04T13:30:50.644228Z  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded host_id="172.18.0.4-kind-worker" task_id="70c644474b6c986e3af27d742d3602469e88f8956956817f9f67082c6967dc1a" peer_id="172.18.0.4-kind-worker-39ee6e2b-a339-440b-b214-3e8a1a3f1e36"
 ```
 
 <!-- markdownlint-restore -->

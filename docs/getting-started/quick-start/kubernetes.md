@@ -52,15 +52,17 @@ Pull Dragonfly latest images:
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
+docker pull dragonflyoss/dfinit:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
+kind load docker-image dragonflyoss/dfinit:latest
 ```
 
 ## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
@@ -68,58 +70,41 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 Create helm charts configuration file `charts-config.yaml`, configuration content is as follows:
 
 ```yaml
-containerRuntime:
-  containerd:
-    enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://ghcr.io'
-
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
 manager:
+  replicas: 1
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  replicas: 1
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+
+seedClient:
+  replicas: 1
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
 ```
 
 Create a Dragonfly cluster using the configuration file:
@@ -130,7 +115,7 @@ Create a Dragonfly cluster using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Oct 17 18:43:55 2022
+LAST DEPLOYED: Tue Apr 16 11:23:00 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -149,12 +134,6 @@ NOTES:
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
-
-
-4. Get Jaeger query URL by running these commands:
-  export JAEGER_QUERY_PORT=$(kubectl --namespace dragonfly-system get services dragonfly-jaeger-query -o jsonpath="{.spec.ports[0].port}")
-  kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:$JAEGER_QUERY_PORT
-  echo "Visit http://127.0.0.1:16686/search?limit=20&lookback=1h&maxDuration&minDuration&service=dragonfly to query download events"
 ```
 
 <!-- markdownlint-restore -->
@@ -163,55 +142,83 @@ Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
-NAME                                 READY   STATUS    RESTARTS        AGE
-dragonfly-dfdaemon-65rz7             1/1     Running   5 (6m17s ago)   8m43s
-dragonfly-dfdaemon-rnvsj             1/1     Running   5 (6m23s ago)   8m43s
-dragonfly-jaeger-7d58dfcfc8-qmn8c    1/1     Running   0               8m43s
-dragonfly-manager-6f8b4f5c66-qq8sd   1/1     Running   0               8m43s
-dragonfly-mysql-0                    1/1     Running   0               8m43s
-dragonfly-redis-master-0             1/1     Running   0               8m43s
-dragonfly-redis-replicas-0           1/1     Running   0               8m43s
-dragonfly-redis-replicas-1           1/1     Running   0               7m33s
-dragonfly-redis-replicas-2           1/1     Running   0               5m50s
-dragonfly-scheduler-0                1/1     Running   0               8m43s
-dragonfly-seed-peer-0                1/1     Running   3 (5m56s ago)   8m43s
+NAME                                 READY   STATUS     RESTARTS      AGE
+dragonfly-client-dhqfc               1/1     Running    0             13m
+dragonfly-client-h58x6               1/1     Running    0             13m
+dragonfly-manager-7b4fd85458-fjtpk   1/1     Running    0             13m
+dragonfly-mysql-0                    1/1     Running    0             13m
+dragonfly-redis-master-0             1/1     Running    0             13m
+dragonfly-redis-replicas-0           1/1     Running    0             13m
+dragonfly-redis-replicas-1           1/1     Running    0             11m
+dragonfly-redis-replicas-2           1/1     Running    0             10m
+dragonfly-scheduler-0                1/1     Running    0             13m
+dragonfly-seed-client-0              1/1     Running    2 (76s ago)   13m
 ```
 
-## Containerd pull image back-to-source for the first time through Dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
+## Containerd downloads images through Dragonfly {#containerd-downloads-images-through-dragonfly}
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `alpine:3.19` image in kind-worker node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-Expose jaeger's port `16686`:
+### Verify {#verify}
 
-```shell
-kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
-
-![download-back-to-source-search-tracing](../../resource/getting-started/download-back-to-source-search-tracing.jpg)
-
-Tracing details:
-
-![download-back-to-source-tracing](../../resource/getting-started/download-back-to-source-tracing.jpg)
-
-When pull image back-to-source for the first time through Dragonfly, it takes `5.58s` to
-download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
-
-## Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
-
-Delete the dfdaemon whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
+You can execute the following command to check if the `alpine:3.19` image is distributed via Dragonfly.
 
 <!-- markdownlint-disable -->
 
 ```shell
 # Find pod name.
-export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Find task id.
+export TASK_ID=$(kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep -hoP 'library/alpine.*task_id=\"\K[^\"]+' /var/log/dragonfly/dfdaemon/* | head -n 1")
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'"
+
+# Download all logs.
+kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/*" > dfdaemon.log
+```
+
+<!-- markdownlint-restore -->
+
+The expected output is as follows:
+
+```shell
+{
+2024-04-18T08:37:06.790177Z  INFO
+download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded
+host_id="172.18.0.2-kind-worker"
+task_id="a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5"
+peer_id="172.18.0.2-kind-worker-b72b0d50-b839-46ae-9000-83a8bf9ccc5a"
+}
+```
+
+## Performance testing {#performance-testing}
+
+### Containerd pull image back-to-source for the first time through Dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
+
+Pull `alpine:3.19` image in `kind-worker` node:
+
+```shell
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
+```
+
+When pull image back-to-source for the first time through Dragonfly, it takes `37.852s` to download the
+`alpine:3.19` image.
+
+### Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
+
+Delete the client whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
+
+<!-- markdownlint-disable -->
+
+```shell
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # Delete pod.
 kubectl delete pod ${POD_NAME} -n dragonfly-system
@@ -219,67 +226,37 @@ kubectl delete pod ${POD_NAME} -n dragonfly-system
 
 <!-- markdownlint-restore -->
 
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Delete `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-Expose jaeger's port `16686`:
+When pull image hits cache of remote peer, it takes `6.942s` to download the
+`alpine:3.19` image.
+
+### Containerd pull image hits the cache of local peer {#containerd-pull-image-hits-the-cache-of-local-peer}
+
+Delete `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
+docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
 ```
 
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
-
-![hit-remote-peer-cache-search-tracing](../../resource/getting-started/hit-remote-peer-cache-search-tracing.jpg)
-
-Tracing details:
-
-![hit-remote-peer-cache-tracing](../../resource/getting-started/hit-remote-peer-cache-tracing.jpg)
-
-When pull image hits cache of remote peer, it takes `117.98ms` to
-download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
-
-## Containerd pull image hits the cache of local peer {#containerd-pull-image-hits-the-cache-of-local-peer}
-
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
-
-```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
-```
-
-Expose jaeger's port `16686`:
-
-```shell
-kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
-
-![hit-local-peer-cache-search-tracing](../../resource/getting-started/hit-local-peer-cache-search-tracing.jpg)
-
-Tracing details:
-
-![hit-local-peer-cache-tracing](../../resource/getting-started/hit-local-peer-cache-tracing.jpg)
-
-When pull image hits cache of local peer, it takes `65.24ms` to
-download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` layer.
+When pull image hits cache of local peer, it takes `5.540s` to download the
+`alpine:3.19` image.
 
 ## Preheat image {#preheat-image}
 
@@ -289,10 +266,11 @@ Expose manager's port `8080`:
 kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080:8080
 ```
 
-Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../reference/personal-access-tokens.md).
+Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../advanced-guides/personal-access-tokens.md).
 
-Use Open API to preheat the image `ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5` to Seed Peer, refer to [preheat](../../reference/preheat.md).
+Use Open API to preheat the image `alpine:3.19` to Seed Peer, refer to [preheat](../../advanced-guides/preheat.md).
 
+````shell
 ```shell
 curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
@@ -301,18 +279,22 @@ curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
     "type": "preheat",
     "args": {
         "type": "image",
-        "url": "https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5",
+        "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
         "filteredQueryParams": "Expires&Signature",
         "username": "your_registry_username",
         "password": "your_registry_password"
     }
 }'
-```
+````
 
 The command-line log returns the preheat job id:
 
 ```shell
-{"id":1,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","task_id":"group_b376a5cc-adef-4d69-996a-417cd57eeb8e","bio":"","type":"preheat","state":"PENDING","args":{"filteredQueryParams":"","headers":null,"tag":"","type":"image","url":"https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5"},"result":null,"user_id":0,"seed_peer_clusters":null,"scheduler_clusters":[{"id":1,"created_at":"2022-10-17T12:12:30Z","updated_at":"2022-10-17T12:12:30Z","name":"scheduler-cluster-1","bio":"","config":{"filter_parent_limit":4,"filter_parent_range_limit":40},"client_config":{"load_limit":50,"parallel_count":4},"scopes":{},"is_default":true,"seed_peer_clusters":null,"application_id":0,"security_group_id":0,"jobs":null}]}⏎
+{"id":1,"created_at":"2024-04-18T12:06:33Z","updated_at":"2024-04-18T12:06:33Z","is_del":0,"task_id":"group_2717f455-ff0a-435f-a3a7-672828d15a2a","bio":"","type":"preheat","state":"PENDING",
+"args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"","pieceLength":4194304,"platform":"","tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":""},
+"result":null,"user_id":0,
+"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":null,
+"scheduler_clusters":[{"id":1,"created_at":"2024-04-18T10:53:33Z","updated_at":"2024-04-18T10:53:33Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
 ```
 
 Polling the preheating status with job id:
@@ -325,30 +307,19 @@ curl --request GET 'http://127.0.0.1:8080/oapi/v1/jobs/1' \
 
 If the status is `SUCCESS`, the preheating is successful:
 
-```bash
-{"id":1,"created_at":"2022-10-17T13:04:25Z","updated_at":"2022-10-17T13:07:10Z","task_id":"group_15e1bcd5-9a21-4b65-a173-45aef94bdf14","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"","headers":null,"tag":"","type":"image","url":"https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5"},"result":{"CreatedAt":"2022-10-17T13:04:25.065178071Z","GroupUUID":"group_15e1bcd5-9a21-4b65-a173-45aef94bdf14","JobStates":[{"CreatedAt":"2022-10-17T13:04:25.065178071Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_e68c9479-4b00-4375-9769-9037b3e41b23"},{"CreatedAt":"2022-10-17T13:04:25.065884164Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_8c9a274f-cd61-4956-bc5d-7df13ce376d9"},{"CreatedAt":"2022-10-17T13:04:25.066427992Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_9724b6be-c36a-446b-bb88-ecf3524d61a1"},{"CreatedAt":"2022-10-17T13:04:25.067040353Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_5eca1397-e991-401e-bc17-c4a707eef92c"},{"CreatedAt":"2022-10-17T13:04:25.067651957Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_1ae407b7-be7f-44a1-a15e-84812df1090e"},{"CreatedAt":"2022-10-17T13:04:25.06822093Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_08589296-f6ef-4229-9752-be6dd4716421"}],"State":"SUCCESS"},"user_id":0,"seed_peer_clusters":[],"scheduler_clusters":[{"id":1,"created_at":"2022-10-17T12:12:30Z","updated_at":"2022-10-17T12:12:30Z","name":"scheduler-cluster-1","bio":"","config":{"filter_parent_limit":4,"filter_parent_range_limit":40},"client_config":{"load_limit":50,"parallel_count":4},"scopes":{},"is_default":true,"seed_peer_clusters":null,"application_id":0,"security_group_id":0,"jobs":null}]}
+```shell
+{"id":1,"created_at":"2024-04-18T08:51:55Z","updated_at":"2024-04-18T08:51:55Z","is_del":0,"task_id":"group_2717f455-ff0a-435f-a3a7-672828d15a2a","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"","pieceLength":4194304,"platform":"",
+"tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":""},
+"result":{"CreatedAt":"2024-04-18T08:51:55.324823179Z","GroupUUID":"group_2717f455-ff0a-435f-a3a7-672828d15a2a","JobStates":[{"CreatedAt":"2024-04-18T08:51:55.324823179Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_a3ca085c-d80d-41e5-9e91-18b910c6653f"},{"CreatedAt":"2024-04-18T08:51:55.326531846Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_b006e4dc-6ed3-4bc2-98f6-86b0234e2d6d"}],"State":"SUCCESS"},"user_id":0,
+"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":[],
+"scheduler_clusters":[{"id":1,"created_at":"2024-04-18T08:29:15Z","updated_at":"2024-04-18T08:29:15Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5` image in `kind-worker` node:
+Pull `alpine:3.19` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5
+time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-Expose jaeger's port `16686`:
-
-```shell
-kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query 16686:16686
-```
-
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/manager/blobs/sha256:ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0?ns=ghcr.io"`:
-
-![hit-preheat-cache-search-tracing](../../resource/getting-started/hit-preheat-cache-search-tracing.jpg)
-
-Tracing details:
-
-![hit-preheat-cache-tracing](../../resource/getting-started/hit-preheat-cache-tracing.jpg)
-
-When pull image hits preheat cache, it takes `246.03ms` to
-download the `ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0` layer.
+When pull image hits preheat cache, it takes `2.952s` to download the
+`alpine:3.19` image.
