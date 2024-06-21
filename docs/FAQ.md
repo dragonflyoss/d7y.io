@@ -1,6 +1,7 @@
 ---
 id: faq
 title: FAQ
+slug: /faq/
 ---
 
 ## Change log level {#change-log-level}
@@ -29,12 +30,12 @@ change log level to info
 
 **1.** Confirm limit rate.
 
-Set `download.rateLimit` and `upload.rateLimit` in the [dfdaemon.yaml](./reference/configuration/client/dfdaemon)
+Set `download.rateLimit` and `upload.rateLimit` in the [dfdaemon.yaml](./reference/configuration/client/dfdaemon.md)
 configuration file.
 
 **2.** Increase the number of concurrent piece.
 
-Set `download.concurrentPieceCount` in the [dfdaemon.yaml](./reference/configuration/client/dfdaemon)
+Set `download.concurrentPieceCount` in the [dfdaemon.yaml](./reference/configuration/client/dfdaemon.md)
 configuration file.
 
 ```yaml

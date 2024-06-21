@@ -1,6 +1,7 @@
 ---
 id: manager
 title: Manager
+slug: /reference/configuration/manager/
 ---
 
 ## 配置 Manager YAML 文件

@@ -1,6 +1,7 @@
 ---
 id: scheduler
 title: Scheduler
+slug: /reference/commands/scheduler/
 ---
 
 Scheduler 是一个常驻后台运行的进程，用于接收和管理客户端的下载任务，

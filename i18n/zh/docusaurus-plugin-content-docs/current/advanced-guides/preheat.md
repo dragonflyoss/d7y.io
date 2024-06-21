@@ -51,7 +51,33 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 命令行日志返回预热任务 ID。
 
 ```bash
-{"id":1,"created_at":"2024-06-13T12:22:34Z","updated_at":"2024-06-13T12:22:34Z","is_del":0,"task_id":"group_99ae9da4-614f-4f39-af8a-c68289bbd14d","bio":"","type":"preheat","state":"PENDING","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"your_registry_password","pieceLength":4194304,"platform":"","tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":"your_registry_username"},"result":null,"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":null,"scheduler_clusters":[{"id":1,"created_at":"2024-06-13T10:53:33Z","updated_at":"2024-06-13T10:53:33Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+{
+  "id": 1,
+  "created_at": "2024-04-18T08:51:55Z",
+  "updated_at": "2024-04-18T08:51:55Z",
+  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "type": "preheat",
+  "state": "PENDING",
+  "args": {
+    "filteredQueryParams": "Expires&Signature",
+    "headers": null,
+    "password": "",
+    "pieceLength": 4194304,
+    "platform": "",
+    "tag": "",
+    "type": "image",
+    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
+    "username": ""
+  },
+  "scheduler_clusters": [
+    {
+      "id": 1,
+      "created_at": "2024-04-18T08:29:15Z",
+      "updated_at": "2024-04-18T08:29:15Z",
+      "name": "cluster-1"
+    }
+  ]
+}
 ```
 
 使用预热任务 ID 轮训查询任务是否成功。
@@ -65,7 +91,33 @@ curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
 如果返回预热任务状态为 `SUCCESS`，表示预热镜像成功。
 
 ```bash
-{"id":6,"created_at":"2024-06-13T12:22:34Z","updated_at":"2024-06-13T12:22:39Z","is_del":0,"task_id":"group_99ae9da4-614f-4f39-af8a-c68289bbd14d","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"your_registry_password","pieceLength":4194304,"platform":"","tag":"","type":"image","url":"https://index.docker.io/v2/library/alpine/manifests/3.19","username":"your_registry_username"},"result":{"CreatedAt":"2024-06-13T12:22:34.851158047Z","GroupUUID":"group_99ae9da4-614f-4f39-af8a-c68289bbd14d","JobStates":[{"CreatedAt":"2024-06-13T12:22:34.851158047Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_e72976b0-a4f7-4e55-bd1c-5a67981cf70d"},{"CreatedAt":"2024-06-13T12:22:34.851410964Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_cd8e77b8-09b9-4c7b-906a-b3662b17ac0e"}],"State":"SUCCESS"},"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":[],"scheduler_clusters":[{"id":1,"created_at":"2024-06-13T10:53:33Z","updated_at":"2024-06-13T10:53:33Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+{
+  "id": 1,
+  "created_at": "2024-04-18T08:51:55Z",
+  "updated_at": "2024-04-18T08:51:55Z",
+  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "type": "preheat",
+  "state": "SUCCESS",
+  "args": {
+    "filteredQueryParams": "Expires&Signature",
+    "headers": null,
+    "password": "",
+    "pieceLength": 4194304,
+    "platform": "",
+    "tag": "",
+    "type": "file",
+    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
+    "username": ""
+  },
+  "scheduler_clusters": [
+    {
+      "id": 1,
+      "created_at": "2024-04-18T08:29:15Z",
+      "updated_at": "2024-04-18T08:29:15Z",
+      "name": "cluster-1"
+    }
+  ]
+}
 ```
 
 ### 预热文件
@@ -84,7 +136,6 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "type": "file",
         "url": "https://example.com",
-        "filteredQueryParams": "Expires&Signature"
     }
 }'
 ```
@@ -92,7 +143,33 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 命令行日志返回预热任务 ID。
 
 ```bash
-{"id":1,"created_at":"2024-06-13T12:06:33Z","updated_at":"2024-06-13T12:06:33Z","is_del":0,"task_id":"group_03507603-1e3f-4f13-92a5-1644f18afdcc","bio":"","type":"preheat","state":"PENDING","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"","pieceLength":4194304,"platform":"","tag":"","type":"file","url":"https://example.com","username":""},"result":null,"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":null,"scheduler_clusters":[{"id":1,"created_at":"2024-06-13T10:53:33Z","updated_at":"2024-06-13T10:53:33Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+{
+  "id": 1,
+  "created_at": "2024-04-18T08:51:55Z",
+  "updated_at": "2024-04-18T08:51:55Z",
+  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "type": "preheat",
+  "state": "PENDING",
+  "args": {
+    "filteredQueryParams": "Expires&Signature",
+    "headers": null,
+    "password": "",
+    "pieceLength": 4194304,
+    "platform": "",
+    "tag": "",
+    "type": "file",
+    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
+    "username": ""
+  },
+  "scheduler_clusters": [
+    {
+      "id": 1,
+      "created_at": "2024-04-18T08:29:15Z",
+      "updated_at": "2024-04-18T08:29:15Z",
+      "name": "cluster-1"
+    }
+  ]
+}
 ```
 
 使用预热任务 ID 轮训查询任务是否成功。
@@ -106,7 +183,33 @@ curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
 如果返回预热任务状态为 `SUCCESS`，表示预热文件成功。
 
 ```bash
-{"id":1,"created_at":"2024-06-13T11:46:24Z","updated_at":"2024-06-13T11:46:29Z","is_del":0,"task_id":"group_dec2f298-1733-4c0d-a57d-61ce9b54784a","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"Expires\u0026Signature","headers":null,"password":"","pieceLength":4194304,"platform":"","tag":"","type":"file","url":"https://example.com","username":""},"result":{"CreatedAt":"2024-06-13T11:46:24.522180334Z","GroupUUID":"group_dec2f298-1733-4c0d-a57d-61ce9b54784a","JobStates":[{"CreatedAt":"2024-06-13T11:46:24.522180334Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_59dedb3f-40d6-4796-81d8-c1be7d41fdc7"}],"State":"SUCCESS"},"user_id":0,"user":{"id":0,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","is_del":0,"email":"","name":"","avatar":"","phone":"","state":"","location":"","bio":"","configs":null},"seed_peer_clusters":[],"scheduler_clusters":[{"id":1,"created_at":"2024-06-13T10:53:33Z","updated_at":"2024-06-13T10:53:33Z","is_del":0,"name":"cluster-1","bio":"","config":{"candidate_parent_limit":4,"filter_parent_limit":15},"client_config":{"load_limit":200},"scopes":{},"is_default":true,"seed_peer_clusters":null,"schedulers":null,"peers":null,"jobs":null}]}
+{
+  "id": 1,
+  "created_at": "2024-04-18T08:51:55Z",
+  "updated_at": "2024-04-18T08:51:55Z",
+  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "type": "preheat",
+  "state": "SUCCESS",
+  "args": {
+    "filteredQueryParams": "Expires&Signature",
+    "headers": null,
+    "password": "",
+    "pieceLength": 4194304,
+    "platform": "",
+    "tag": "",
+    "type": "file",
+    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
+    "username": ""
+  },
+  "scheduler_clusters": [
+    {
+      "id": 1,
+      "created_at": "2024-04-18T08:29:15Z",
+      "updated_at": "2024-04-18T08:29:15Z",
+      "name": "cluster-1"
+    }
+  ]
+}
 ```
 
 ## 控制台

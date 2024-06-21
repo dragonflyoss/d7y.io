@@ -268,7 +268,7 @@ telnet 127.0.0.1 4002
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../../reference/configuration/client/dfdaemon.md)。
 
-配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
+在 Peer 配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Peer 配置。

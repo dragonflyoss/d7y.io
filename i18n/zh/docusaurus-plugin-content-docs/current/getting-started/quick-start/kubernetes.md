@@ -307,7 +307,7 @@ curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
   "updated_at": "2024-04-18T08:51:55Z",
   "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
   "type": "preheat",
-  "state": "SUCCESS",
+  "state": "PENDING",
   "args": {
     "filteredQueryParams": "Expires&Signature",
     "headers": null,

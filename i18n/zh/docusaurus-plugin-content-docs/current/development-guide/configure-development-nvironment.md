@@ -12,7 +12,6 @@ slug: /development-guide/configure-development-environment/
 
 | 所需软件 | 版本要求                     | 文档                                                                         |
 | -------- | ---------------------------- | ---------------------------------------------------------------------------- |
-| Linux    |                              | [linux.org](https://www.linux.org/)                                          |
 | Git      | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
 | Golang   | 1.16.x                       | [go.dev](https://go.dev/)                                                    |
 | Rust     | 1.6+                         | [rustup.rs](https://rustup.rs/)                                              |
@@ -21,20 +20,13 @@ slug: /development-guide/configure-development-environment/
 
 <!-- markdownlint-restore -->
 
-## 使用源码安装
+## 源码安装 Dragonfly
 
 获取 Dragonfly 的源码：
 
 ```shell
 git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
 cd Dragonfly2
-```
-
-编译源码并安装二进制可执行程序：
-
-```shell
-# 构建 manager scheduler
-make build-manager &&  make build-scheduler
 ```
 
 获取 Client 的源码：
@@ -53,7 +45,7 @@ cd client
 编辑配置文件 Linux 环境下默认 Manager 配置路径为 `/etc/dragonfly/manager.yaml`，
 参考文档 [Manager](../reference/configuration/manager.md)。
 
-在 Manager 配置文件下设置 database.mysql.addrs 和 database.redis.addrs 地址为你的实际地址，配置内容如下：
+在 Manager 配置文件下设置 `database.mysql.addrs` 和 `database.redis.addrs` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Manager 配置。
@@ -102,7 +94,7 @@ telnet 127.0.0.1 65003
 编辑配置文件 Linux 环境下默认 Scheduler 配置路径为 `/etc/dragonfly/scheduler.yaml`，
 参考文档 [Scheduler](../reference/configuration/scheduler.md)。
 
-在 Scheduler 配置文件下设置 database.redis.addrs 和 manager.addr 地址为你的实际地址，配置内容如下：
+在 Scheduler 配置文件下设置 `database.redis.addrs` 和 `manager.addr` 地址为你的实际地址，配置内容如下：
 
 ```yaml
 # Scheduler 配置。
@@ -117,7 +109,7 @@ database:
     backendDB: 2
     networkTopologyDB: 3
  manager:
-  addr: dragonfly-manager:65003
+  addr: 127.0.0.1:65003
   schedulerClusterID: 1
   keepAlive:
     interval: 5s
@@ -142,25 +134,25 @@ telnet 127.0.0.1 8002
 
 ### Dfdaemon
 
-#### 启动 Dfdaemon
+#### 启动 Dfdaemon 作为 Seed Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../reference/configuration/client/dfdaemon.md)。
 
-在 Seed Peer 配置文件下设置 manager.addrs 地址为你的实际地址，配置内容如下：
+在 Seed Peer 配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
 
 ```yaml
-# Dfdaemon 配置。
+# Seed Peer 配置。
 manager:
   addrs:
-    - http://dragonfly-manager:65003
+    - http://127.0.0.1:65003
 seedPeer:
   enable: true
   type: super
   clusterID: 1
 ```
 
-运行 Dfdaemon:
+把 Dfdaemon 当作 Seed Peer 运行:
 
 > 注意 : 在 Client 项目目录下运行 Dfdaemon。
 
@@ -169,9 +161,40 @@ seedPeer:
 cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verbose
 ```
 
-#### 验证 Dfdaemon 是否在运行
+#### 验证 Seed Peer 是否在运行
 
-Dfdaemon 部署完成之后，运行以下命令以检查 **Dfdaemon** 是否正在运行，以及 `4000`，`4001` 和 `4002` 端口是否可用。
+Seed Peer 部署完成之后，运行以下命令以检查 **Seed Peer** 是否正在运行，以及 `4000`，`4001` 和 `4002` 端口是否可用。
+
+```bash
+telnet 127.0.0.1 4000
+telnet 127.0.0.1 4001
+telnet 127.0.0.1 4002
+```
+
+#### 启动 Dfdaemon 作为 Peer
+
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
+参考文档 [Dfdaemon](../reference/configuration/client/dfdaemon.md)。
+
+配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
+
+```yaml
+# Peer 配置。
+manager:
+  addrs:
+    - http://127.0.0.1:65003
+```
+
+> 注意 : 在 Client 项目目录下运行 Dfdaemon。
+
+```bash
+# 启动 Dfdaemon。
+cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verbose
+```
+
+#### 验证 Peer 是否在运行
+
+Peer 部署完成之后，运行以下命令以检查 **Peer** 是否正在运行，以及 `4000`，`4001` 和 `4002` 端口是否可用。
 
 ```bash
 telnet 127.0.0.1 4000

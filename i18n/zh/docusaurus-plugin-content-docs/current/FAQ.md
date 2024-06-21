@@ -1,6 +1,7 @@
 ---
 id: faq
 title: FAQ
+slug: /faq/
 ---
 
 ## 修改日志级别
@@ -30,12 +31,12 @@ change log level to info
 **1.** 确认限速值是否合适。
 
 在 [dfdaemon.yaml](./reference/configuration/client/dfdaemon.md)
-配置文件下设置`download.rateLimit`和`upload.rateLimit`。
+配置文件下设置 `download.rateLimit` 和 `upload.rateLimit`。
 
 **2.** 增加 Piece 并发数。
 
 在 [dfdaemon.yaml](./reference/configuration/client/dfdaemon.md)
-配置文件下设置`download.concurrentPieceCount`。
+配置文件下设置 `download.concurrentPieceCount`。
 
 ```yaml
 download:
@@ -62,7 +63,7 @@ upload:
 
 **1.** 检查日志 /var/log/dragonfly/dfdaemon/
 
-**2.** 检查源站可连接行(DNS 错误 or 证书)
+**2.** 检查源站可连接行(DNS 错误 or 证书)。
 
 示例:
 
@@ -70,4 +71,4 @@ upload:
    curl https://example.harbor.local/
 ```
 
-如果`curl`有报错，请查看具体错误
+如果 `curl` 有报错，请查看具体错误。

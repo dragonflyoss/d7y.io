@@ -20,7 +20,7 @@ This document describes how to configure a local development environment for Dra
 
 <!-- markdownlint-restore -->
 
-## Installing Dragonfly {#installing-dragonfly}
+## Clone Dragonfly {#clone-dragonfly}
 
 Clone the source code of Dragonfly:
 
@@ -45,8 +45,8 @@ cd client
 Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
 refer to [Manager](../reference/configuration/manager.md).
 
-Set the `database.mysql.addrs` and `database.redis.addrs` addresses under the configuration
-file to your actual addresses. Configuration content is as follows:
+Set the `database.mysql.addrs` and `database.redis.addrs` address in the configuration file to your actual address.
+Configuration content is as follows:
 
 ```yaml
 # Manager configuration.
@@ -96,8 +96,8 @@ telnet 127.0.0.1 65003
 Configure Scheduler yaml file, The default path in Linux is `/etc/dragonfly/scheduler.yaml` in linux,
 refer to [Scheduler](../reference/configuration/scheduler.md).
 
-Set the `database.redis.addrs` and `manager.addr` addresses manager.
-under the configuration file to your actual addresses. Configuration content is as follows:
+Set the `database.redis.addrs` and `manager.addr` address in the configuration file to your actual address.
+Configuration content is as follows:
 
 ```yaml
 # Scheduler configuration.
@@ -112,7 +112,7 @@ database:
     backendDB: 2
     networkTopologyDB: 3
  manager:
-  addr: dragonfly-manager:65003
+  addr: 127.0.0.1:65003
   schedulerClusterID: 1
   keepAlive:
     interval: 5s
@@ -138,26 +138,26 @@ telnet 127.0.0.1 8002
 
 ### Dfdaemon {#dfdaemon}
 
-#### Setup Dfdaemon{#setup-dfdaemon-as-seed-peer}
+#### Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer}
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../reference/configuration/client/dfdaemon.md).
 
-Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
+Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
 
 ```yaml
-# Dfdaemon configuration.
+# Seed Peer configuration.
 manager:
   addrs:
-    - http://dragonfly-manager:65003
+    - http://127.0.0.1:65003
 seedPeer:
   enable: true
   type: super
   clusterID: 1
 ```
 
-Run Dfdaemon:
+Run Dfdaemon as Seed Peer:
 
 > Notice : Run Dfdaemon under Client
 
@@ -168,7 +168,42 @@ cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verb
 
 #### Verify {#verify-seed-peer}
 
-After the Dfdaemon deployment is complete, run the following commands to verify if **Dfdaemon** is started,
+After the Seed Peer deployment is complete, run the following commands to verify if **Seed Peer** is started,
+and if Port `4000`, `4001` and `4002` is available.
+
+```bash
+telnet 127.0.0.1 4000
+telnet 127.0.0.1 4001
+telnet 127.0.0.1 4002
+```
+
+#### Setup Dfdaemon as Peer {#setup-dfdaemon-as-Peer}
+
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+refer to [Dfdaemon](../reference/configuration/client/dfdaemon.md).
+
+Set the `manager.addrs` address in the configuration file to your actual address.
+Configuration content is as follows:
+
+```yaml
+# Peer configuration.
+manager:
+  addrs:
+    - http://127.0.0.1:65003
+```
+
+Run Dfdaemon as Peer:
+
+> Notice : Run Dfdaemon under Client
+
+```bash
+# Setup Dfdaemon.
+cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verbose
+```
+
+#### Verify {#verify-peer}
+
+After the Peer deployment is complete, run the following commands to verify if **Peer** is started,
 and if Port `4000`, `4001` and `4002` is available.
 
 ```bash

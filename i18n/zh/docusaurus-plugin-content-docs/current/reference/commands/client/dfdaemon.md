@@ -52,5 +52,6 @@ dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者�
 ### Dfdaemon 日志
 
 ```text
-正常情况日志目录: /var/log/dragonfly/dfdaemon/
+1. 终端日志输出需要增加命令行参数 --verbose
+2. 正常情况日志目录: /var/log/dragonfly/dfdaemon/
 ```

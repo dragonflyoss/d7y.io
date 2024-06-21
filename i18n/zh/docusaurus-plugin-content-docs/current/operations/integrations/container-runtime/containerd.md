@@ -210,27 +210,42 @@ kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/
 
 ```yaml
 manager:
-  replicas: 1
   image:
     repository: dragonflyoss/manager
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 scheduler:
-  replicas: 1
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 seedClient:
-  replicas: 1
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
 
 client:
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:

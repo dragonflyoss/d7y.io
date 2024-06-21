@@ -1,6 +1,7 @@
 ---
 id: scheduler
 title: Scheduler
+slug: /reference/commands/scheduler/
 ---
 
 Scheduler is a long-running process which receives
@@ -42,7 +43,7 @@ version     show version
 
 <!-- markdownlint-restore -->
 
-## Log configuration {#log-configuration}
+## Log {#log}
 
 ```text
 1. set option --console if you want to print logs to Terminal

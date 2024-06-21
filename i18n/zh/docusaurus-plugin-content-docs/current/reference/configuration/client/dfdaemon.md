@@ -1,6 +1,7 @@
 ---
 id: dfdaemon
 title: Dfdaemon
+slug: /reference/configuration/client/dfdaemon/
 ---
 
 ## 配置 Dfdaemon YAML 文件

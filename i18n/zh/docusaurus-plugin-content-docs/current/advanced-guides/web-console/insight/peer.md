@@ -10,7 +10,7 @@ slug: /advanced-guides/web-console/insight/peer/
 
 根据不同的属性展示 Peer 数量，如果对图表表述不清楚，可以点击 `?` 按钮展示具体提示信息。
 
-> 注意: peer 的数据是 T+1。
+> 注意: Peer 的数据是 T+1。
 
 ![peers](../../../resource/advanced-guides/web-console/insight/peer/peers.png)
 

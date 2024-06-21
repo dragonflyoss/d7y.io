@@ -1,6 +1,7 @@
 ---
 id: manager
 title: Manager
+slug: /reference/commands/manager/
 ---
 
 Manager is a process that runs in the background
@@ -42,7 +43,7 @@ version     show version
 
 <!-- markdownlint-restore -->
 
-## Log configuration {#log-configuration}
+## Log {#log}
 
 ```text
 1. set option --console if you want to print logs to Terminal

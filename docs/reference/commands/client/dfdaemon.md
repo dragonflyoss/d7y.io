@@ -50,8 +50,9 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
 <!-- markdownlint-restore -->
 
-### Log configuration {#dfdaemon-log-configuration}
+### Log {#log}
 
 ```text
-log path: /var/log/dragonfly/dfdaemon/
+1. set option --verbose if you want to print logs to Terminal
+2. log path: /var/log/dragonfly/dfdaemon/
 ```

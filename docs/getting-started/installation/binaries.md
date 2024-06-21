@@ -131,8 +131,8 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
 refer to [Manager](../../reference/configuration/manager.md).
 
-Set the `database.mysql.addrs` and `database.redis.addrs` addresses under the configuration
-file to your actual addresses. Configuration content is as follows:
+Set the `database.mysql.addrs` and `database.redis.addrs` address in the configuration file to your actual address.
+Configuration content is as follows:
 
 ```yaml
 # Manager configuration.
@@ -189,8 +189,8 @@ Now you can open brower and visit console by localhost:8080, Console features pr
 Configure Scheduler yaml file, The default path in Linux is `/etc/dragonfly/scheduler.yaml` in linux,
 refer to [Scheduler](../../reference/configuration/scheduler.md).
 
-Set the `database.redis.addrs` and `manager.addr` addresses manager.
-under the configuration file to your actual addresses. Configuration content is as follows:
+Set the `database.redis.addrs` and `manager.addr` address in the configuration file to your actual address.
+Configuration content is as follows:
 
 ```yaml
 # Scheduler configuration.
@@ -237,7 +237,7 @@ telnet 127.0.0.1 8002
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
-Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
+Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
 
 ```yaml

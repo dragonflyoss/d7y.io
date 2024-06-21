@@ -68,7 +68,7 @@ The command-line log returns the preheat job id.
     "pieceLength": 4194304,
     "platform": "",
     "tag": "",
-    "type": "image",
+    "type": "file",
     "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
     "username": ""
   },
@@ -94,8 +94,33 @@ curl --request GET 'http://dragonfly-manager:8080/oapi/v1/jobs/1' \
 If the status is `SUCCESS`, the preheating is successful.
 
 ```bash
-### Preheat file
-
+{
+  "id": 1,
+  "created_at": "2024-04-18T08:51:55Z",
+  "updated_at": "2024-04-18T08:51:55Z",
+  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "type": "preheat",
+  "state": "SUCCESS",
+  "args": {
+    "filteredQueryParams": "Expires&Signature",
+    "headers": null,
+    "password": "",
+    "pieceLength": 4194304,
+    "platform": "",
+    "tag": "",
+    "type": "file",
+    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
+    "username": ""
+  },
+  "scheduler_clusters": [
+    {
+      "id": 1,
+      "created_at": "2024-04-18T08:29:15Z",
+      "updated_at": "2024-04-18T08:29:15Z",
+      "name": "cluster-1"
+    }
+  ]
+}
 ```
 
 ### Preheat file

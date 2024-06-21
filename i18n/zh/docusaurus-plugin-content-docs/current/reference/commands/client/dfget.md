@@ -139,5 +139,6 @@ dfget -O /path/to/output http://example.com/object
 ### 日志
 
 ```text
-正常情况日志目录: /var/log/dragonfly/dfget/
+1. 终端日志输出需要增加命令行参数 --verbose
+2. 正常情况日志目录: /var/log/dragonfly/dfget/
 ```

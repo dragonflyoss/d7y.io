@@ -1,6 +1,7 @@
 ---
 id: dfdaemon
 title: Dfdaemon
+slug: /reference/configuration/client/dfdaemon/
 ---
 
 ## Configure Dfdaemon YAML File {#configure-dfdaemon-yaml-file}
