@@ -159,7 +159,7 @@ seedPeer:
 
 Run Dfdaemon:
 
-> Notice : Run Scheduler under Client
+> Notice : Run Dfdaemon under Client
 
 ```bash
 # Setup Dfdaemon.
