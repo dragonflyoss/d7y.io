@@ -50,7 +50,8 @@ kubectl config use-context kind-kind
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
+docker pull dragonflyoss/dfinit:latest
 ```
 
 Kind 集群加载 Dragonfly latest 镜像:
@@ -58,7 +59,8 @@ Kind 集群加载 Dragonfly latest 镜像:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
+kind load docker-image dragonflyoss/dfinit:latest
 ```
 
 ### 基于 Helm Charts 创建 Dragonfly 集群
@@ -66,12 +68,56 @@ kind load docker-image dragonflyoss/dfdaemon:latest
 创建 Helm Charts 配置文件 `values.yaml`。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
 
 ```yaml
-containerRuntime:
-  containerd:
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
     enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://docker.io'
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag:
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:
@@ -80,9 +126,9 @@ containerRuntime:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Mar  4 16:23:15 2024
+LAST DEPLOYED: Mon Apr 28 10:59:19 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -108,23 +154,17 @@ NOTES:
 
 ```shell
 $ kubectl get po -n dragonfly-system
-NAME                                 READY   STATUS    RESTARTS   AGE
-dragonfly-dfdaemon-f859z             1/1     Running   0          160m
-dragonfly-dfdaemon-gqn62             1/1     Running   0          160m
-dragonfly-manager-6b6d4cdbbf-jkq5t   1/1     Running   0          160m
-dragonfly-manager-6b6d4cdbbf-t4gsm   1/1     Running   0          160m
-dragonfly-manager-6b6d4cdbbf-tcjz6   1/1     Running   0          160m
-dragonfly-mysql-0                    1/1     Running   0          160m
-dragonfly-redis-master-0             1/1     Running   0          160m
-dragonfly-redis-replicas-0           1/1     Running   0          160m
-dragonfly-redis-replicas-1           1/1     Running   0          159m
-dragonfly-redis-replicas-2           1/1     Running   0          159m
-dragonfly-scheduler-0                1/1     Running   0          160m
-dragonfly-scheduler-1                1/1     Running   0          159m
-dragonfly-scheduler-2                1/1     Running   0          158m
-dragonfly-seed-peer-0                1/1     Running   0          160m
-dragonfly-seed-peer-1                1/1     Running   0          159m
-dragonfly-seed-peer-2                1/1     Running   0          158m
+NAME                                 READY   STATUS    RESTARTS      AGE
+dragonfly-client-54vm5               1/1     Running   0             37m
+dragonfly-client-cvbln               1/1     Running   0             37m
+dragonfly-manager-864774f54d-njdhx   1/1     Running   0             37m
+dragonfly-mysql-0                    1/1     Running   0             37m
+dragonfly-redis-master-0             1/1     Running   0             37m
+dragonfly-redis-replicas-0           1/1     Running   0             37m
+dragonfly-redis-replicas-1           1/1     Running   0             5m10s
+dragonfly-redis-replicas-2           1/1     Running   0             4m44s
+dragonfly-scheduler-0                1/1     Running   0             37m
+dragonfly-seed-client-0              1/1     Running   2 (27m ago)   37m
 ```
 
 ### containerd 通过 Dragonfly 下载镜像
@@ -141,91 +181,90 @@ docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 
 ```shell
 # 获取 Pod Name
-export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # 获取 Peer ID
-export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
+export TASK_ID=$(kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep -hoP 'library/alpine.*task_id=\"\K[^\"]+' /var/log/dragonfly/dfdaemon/* | head -n 1")
 
 # 查看下载日志
-kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/daemon/core.log | grep "peer task done"
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'"
 ```
 
 如果正常日志输出如下:
 
 ```shell
 {
-  "level": "info",
-  "ts": "2024-04-01 08:54:04.301",
-  "caller": "peer/peertask_conductor.go:1349",
-  "msg": "peer task done, cost: 2369ms",
-  "peer": "10.244.1.27-647269-b9dbf87c-4b4f-44f2-ae4d-b78c07145801",
-  "task": "0bff62286fe544f598997eed3ecfc8aa9772b8522b9aa22a01c06eef2c8eba66",
-  "component": "PeerTask",
-  "trace": "774255f145bf01f1e9d7d859b2fc4b2b"
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
 ```
 
 ## 更多配置
 
-### 单镜像仓库
-
-方法 1：使用 Helm Charts 部署，创建 Helm Charts 配置文件 valuse.yaml。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
-
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://docker.io'
-```
-
-方法 2：更改 containerd 配置文件 `/etc/containerd/config.toml`，详细 containerd 参考文档 [configure-registry-endpoint](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-endpoint)。
-
-> 注意：config_path 为 containerd 查找 registry 配置文件路径。
-
-```toml
-# explicitly use v2 config format
-version = 2
-
-[plugins."io.containerd.grpc.v1.cri".registry]
-  config_path = "/etc/containerd/certs.d"
-```
-
-创建 registry 配置文件 /etc/containerd/certs.d/docker.io/hosts.toml：
-
-> 注意：该镜像 registry 为 `https://index.docker.io`。
-
-```toml
-server = "https://index.docker.io"
-
-[host."http://127.0.0.1:65001"]
-  capabilities = ["pull", "resolve"]
-[host."http://127.0.0.1:65001".header]
-  X-Dragonfly-Registry = ["https://index.docker.io"]
-```
-
-重新启动 containerd：
-
-```shell
-systemctl restart containerd
-```
-
 ### 多镜像仓库
 
-方法 1：使用 Helm Charts 部署，创建 Helm Charts 配置文件 valuse.yaml。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
+**方法 1**：使用 Helm Charts 部署，创建 Helm Charts 配置文件 valuse.yaml。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
 
 ```yaml
-containerRuntime:
-  containerd:
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
     enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://docker.io'
-      - 'https://ghcr.io'
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
+            - hostNamespace: ghcr.io
+              serverAddr: https://ghcr.io
+              capabilities: ['pull', 'resolve']
 ```
 
-方法 2：更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
+**方法 2**：更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
 
 > 注意：config_path 为 containerd 查找 registry 配置文件路径。
 
@@ -244,10 +283,11 @@ version = 2
 ```toml
 server = "https://index.docker.io"
 
-[host."http://127.0.0.1:65001"]
-  capabilities = ["pull", "resolve"]
-[host."http://127.0.0.1:65001".header]
-  X-Dragonfly-Registry = ["https://index.docker.io"]
+[host."http://127.0.0.1:4001"]
+capabilities = ["pull", "resolve"]
+
+[host."http://127.0.0.1:4001".header]
+X-Dragonfly-Registry = "https://index.docker.io"
 ```
 
 创建 registry 配置文件 /etc/containerd/certs.d/ghcr.io/hosts.toml：
@@ -257,10 +297,11 @@ server = "https://index.docker.io"
 ```toml
 server = "https://ghcr.io"
 
-[host."http://127.0.0.1:65001"]
-  capabilities = ["pull", "resolve"]
-[host."http://127.0.0.1:65001".header]
-  X-Dragonfly-Registry = ["https://ghcr.io"]
+[host."http://127.0.0.1:4001"]
+capabilities = ["pull", "resolve"]
+
+[host."http://127.0.0.1:4001".header]
+X-Dragonfly-Registry = "https://ghcr.io"
 ```
 
 重新启动 containerd：

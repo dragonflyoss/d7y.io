@@ -32,7 +32,7 @@ Dragonfly 是一款基于 P2P 技术的文件分发和镜像加速系统，它�
 ## 架构
 
 Dragonfly 架构主要分为四部分 Manager、Scheduler、Seed Peer 以及 Peer 各司其职组成 P2P 下载网络。
-详细内容可以参考[架构文档](./concepts/terminology/architecture)，下面是各模块功能：
+详细内容可以参考[架构文档](./operations/deployment/architecture.md)，下面是各模块功能：
 
 - **Manager**：Manager 在多 P2P 集群部署的时候扮演管理者的角色。主要提供动态配置管理以及数据收集等功能。也包含了前端控制台，方便用户进行可视化操作集群。
 - **Scheduler**：为当前下载节点寻找一组最优父节点。在适当时候触发 Seed Peer 进行回源下载或让 Peer 进行回源下载。

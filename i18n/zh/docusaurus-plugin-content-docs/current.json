@@ -35,28 +35,40 @@
     "message": "概念",
     "description": "The label for category Concepts in sidebar docs"
   },
+  "sidebar.docs.category.Best Practices": {
+    "message": "最佳实践",
+    "description": "The label for category Observability in sidebar docs"
+  },
   "sidebar.docs.category.Observability": {
     "message": "可观测性",
     "description": "The label for category Observability in sidebar docs"
   },
-  "sidebar.docs.category.Terminology": {
-    "message": "术语",
-    "description": "The label for category Terminology in sidebar docs"
+  "sidebar.docs.category.Deployment": {
+    "message": "部署",
+    "description": "The label for category Deployment in sidebar docs"
+  },
+  "sidebar.docs.category.Applications": {
+    "message": "服务",
+    "description": "The label for category Deployment in sidebar docs"
   },
   "sidebar.docs.category.Reference": {
     "message": "参考",
     "description": "The label for category Reference in sidebar docs"
   },
-  "sidebar.docs.category.Command Line": {
+  "sidebar.docs.category.Commands": {
     "message": "命令行",
-    "description": "The label for category Command Line in sidebar docs"
+    "description": "The label for category Commands in sidebar docs"
   },
   "sidebar.docs.category.Contribute": {
     "message": "贡献",
     "description": "The label for category Contribute in sidebar docs"
   },
-  "sidebar.docs.category.Development Guide": {
+  "sidebar.docs.category.Development Guides": {
     "message": "开发者指南",
+    "description": "The label for category Development Guide in sidebar docs"
+  },
+  "sidebar.docs.category.Plugins": {
+    "message": "插件",
     "description": "The label for category Development Guide in sidebar docs"
   },
   "sidebar.docs.category.Others": {
@@ -81,6 +93,14 @@
   },
   "sidebar.docs.category.Singularity/Apptainer": {
     "message": "Singularity/Apptainer",
+    "description": "The label for category Singularity/Apptainer in sidebar docs"
+  },
+  "sidebar.docs.category.Advanced Guides": {
+    "message": "高级指南",
+    "description": "The label for category Singularity/Apptainer in sidebar docs"
+  },
+  "sidebar.docs.category.Web Console": {
+    "message": "控制台",
     "description": "The label for category Singularity/Apptainer in sidebar docs"
   }
 }

@@ -4,7 +4,7 @@ title: Nydus
 slug: /operations/integrations/container-runtime/nydus/
 ---
 
-This document will help you experience how to use dragonfly with nydus.
+This document will help you experience how to use Dragonfly & Nydus.
 
 ## Prerequisites {#prerequisites}
 
@@ -14,24 +14,24 @@ This document will help you experience how to use dragonfly with nydus.
 | ------------------ | ------- | ----------------------------------------------------------- |
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/)                     |
 | Helm               | 3.8.0+  | [helm.sh](https://helm.sh/)                                 |
-| Containerd         | v1.4.3+ | [containerd.io](https://containerd.io/)                     |
+| containerd         | v1.4.3+ | [containerd.io](https://containerd.io/)                     |
 | Nerdctl            | 0.22+   | [containerd/nerdctl](https://github.com/containerd/nerdctl) |
 
 <!-- markdownlint-restore -->
 
-**Notice:** [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.
-
 ## Install Nydus with Helm
 
-We **recommend** using helm to install Nydus, refer to [Install Dragonfly & Nydus with Helm](https://github.com/dragonflyoss/helm-charts/blob/main/INSTALL.md).
+We **recommend** using helm to install Nydus, please refer to [Install Dragonfly & Nydus with Helm](https://github.com/dragonflyoss/helm-charts/blob/main/INSTALL.md).
 
 ## Install Nydus with Binaries
 
-### Install dragonfly {#install-dragonfly}
+### Dragonfly Kubernetes Cluster Setup {#dragonfly-kubernetes-cluster-setup}
 
 For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md).
 
-### Setup kubernetes cluster {#setup-kubernetes-cluster}
+#### Setup kubernetes cluster {#setup-kubernetes-cluster}
+
+[Kind](https://kind.sigs.k8s.io/) is recommended if no Kubernetes cluster is available for testing.
 
 Create kind multi-node cluster configuration file `kind-config.yaml`, configuration content is as follows:
 
@@ -43,9 +43,9 @@ nodes:
   - role: worker
     extraPortMappings:
       - containerPort: 30950
-        hostPort: 65001
+        hostPort: 4001
       - containerPort: 30951
-        hostPort: 40901
+        hostPort: 4003
   - role: worker
 ```
 
@@ -61,79 +61,82 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-### Kind loads dragonfly image {#kind-loads-dragonfly-image}
+#### Kind loads Dragonfly image {#kind-loads-dragonfly-image}
 
-Pull dragonfly latest images:
+Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
-Kind cluster loads dragonfly latest images:
+Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
-### Create dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
+#### Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create helm charts configuration file `charts-config.yaml` and enable prefetching, configuration content is as follows:
 
 ```yaml
-scheduler:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    download:
-      prefetch: true
-
-dfdaemon:
-  metrics:
-    enable: true
-  hostNetwork: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    download:
-      prefetch: true
-    proxy:
-      defaultFilter: 'Expires&Signature&ns'
-      security:
-        insecure: true
-      tcpListen:
-        listen: 0.0.0.0
-        port: 65001
-      registryMirror:
-        dynamic: true
-        url: https://index.docker.io
-      proxies:
-        - regx: blobs/sha256.*
-
 manager:
-  replicas: 1
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    proxy:
+      prefetch: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  hostNetwork: true
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      prefetch: true
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: 'blobs/sha256.*'
 ```
 
-Create a dragonfly cluster using the configuration file:
+Create a Dragonfly cluster using the configuration file:
 
 <!-- markdownlint-disable -->
 
@@ -141,7 +144,7 @@ Create a dragonfly cluster using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Wed Oct 19 04:23:22 2022
+LAST DEPLOYED: Mon May 27 19:56:34 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -168,17 +171,21 @@ Check that dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
-NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-rhnr6             1/1     Running   4 (101s ago)   3m27s
-dragonfly-dfdaemon-s6sv5             1/1     Running   5 (111s ago)   3m27s
-dragonfly-manager-67f97d7986-8dgn8   1/1     Running   0              3m27s
-dragonfly-mysql-0                    1/1     Running   0              3m27s
-dragonfly-redis-master-0             1/1     Running   0              3m27s
-dragonfly-redis-replicas-0           1/1     Running   1 (115s ago)   3m27s
-dragonfly-redis-replicas-1           1/1     Running   0              95s
-dragonfly-redis-replicas-2           1/1     Running   0              70s
-dragonfly-scheduler-0                1/1     Running   0              3m27s
-dragonfly-seed-peer-0                1/1     Running   2 (95s ago)    3m27s
+NAME                                 READY   STATUS    RESTARTS        AGE
+dragonfly-client-9rkgp               1/1     Running   1 (6h29m ago)   9h
+dragonfly-client-l2czc               1/1     Running   2 (6h29m ago)   9h
+dragonfly-manager-789f57fc65-t44tf   1/1     Running   2 (6h28m ago)   9h
+dragonfly-mysql-0                    1/1     Running   3 (6h28m ago)   9h
+dragonfly-redis-master-0             1/1     Running   3 (6h28m ago)   9h
+dragonfly-redis-replicas-0           1/1     Running   7 (6h28m ago)   9h
+dragonfly-redis-replicas-1           1/1     Running   2 (6h28m ago)   8h
+dragonfly-redis-replicas-2           1/1     Running   2 (6h28m ago)   8h
+dragonfly-scheduler-0                1/1     Running   2 (6h28m ago)   9h
+dragonfly-scheduler-1                1/1     Running   2 (6h28m ago)   8h
+dragonfly-scheduler-2                1/1     Running   2 (6h28m ago)   8h
+dragonfly-seed-client-0              1/1     Running   8 (6h27m ago)   9h
+dragonfly-seed-client-1              1/1     Running   4 (6h27m ago)   8h
+dragonfly-seed-client-2              1/1     Running   4 (6h27m ago)   8h
 ```
 
 Create peer service configuration file `peer-service-config.yaml`, configuration content is as follows:
@@ -192,15 +199,15 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: http-65001
+    - name: http-4001
       nodePort: 30950
-      port: 65001
-    - name: http-40901
+      port: 4001
+    - name: http-4003
       nodePort: 30951
-      port: 40901
+      port: 4003
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 ```
 
@@ -210,48 +217,54 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-### Install nydus for containerd {#install-nydus-for-containerd}
+### Nydus Setup for containerd Environment {#nydus-for-containerd-environment}
 
-For detailed nydus installation documentation based on containerd environment, please refer to
+For detailed Nydus installation documentation based on containerd environment, please refer to
 [nydus-setup-for-containerd-environment](https://github.com/dragonflyoss/image-service/blob/master/docs/containerd-env-setup.md#nydus-setup-for-containerd-environment).
 The example uses Systemd to manage the `nydus-snapshotter` service.
 
-#### Install nydus tools {#install-nydus-tools}
+#### From the Binary Releases {#install-nydus-tools}
 
-Download `containerd-nydus-grpc` binary, please refer to [nydus-snapshotter/releases](https://github.com/containerd/nydus-snapshotter/releases/latest):
+Download the `Nydus Snapshotter` binaries, please refer to [nydus-snapshotter/releases](https://github.com/containerd/nydus-snapshotter/releases/latest):
+
+> Notice: `your_nydus_snapshotter_version` is recommended to use the latest version.
 
 ```shell
-NYDUS_SNAPSHOTTER_VERSION=0.3.3
-wget https://github.com/containerd/nydus-snapshotter/releases/download/v$NYDUS_SNAPSHOTTER_VERSION/nydus-snapshotter-v$NYDUS_SNAPSHOTTER_VERSION-x86_64.tgz
-tar zxvf nydus-snapshotter-v$NYDUS_SNAPSHOTTER_VERSION-x86_64.tgz
+NYDUS_SNAPSHOTTER_VERSION=<your_nydus_snapshotter_version>
+wget  -O nydus-snapshotter_linux_arm64.tar.gz https://github.com/containerd/nydus-snapshotter/releases/download/v$NYDUS_SNAPSHOTTER_VERSION/nydus-snapshotter-v$NYDUS_SNAPSHOTTER_VERSION-linux-arm64.tar.gz
 ```
 
-Install `containerd-nydus-grpc` tool:
+Untar the package:
 
 ```shell
-sudo cp nydus-snapshotter/containerd-nydus-grpc /usr/local/bin/
+tar zxvf nydus-snapshotter_linux_arm64.tar.gz
+
+# Install executable file to  /usr/local/bin/{containerd-nydus-grpc}.
+sudo cp bin/containerd-nydus-grpc /usr/local/bin/
 ```
 
-Download `nydus-image`, `nydusd` and `nydusify` binaries, please refer to [dragonflyoss/image-service](https://github.com/dragonflyoss/image-service/releases/latest):
+Download the `Nydus Image Service` binaries, please refer to [dragonflyoss/image-service](https://github.com/dragonflyoss/image-service/releases/latest):
+
+> Notice: `your_nydus_version` is recommended to use the latest version.
 
 ```shell
-NYDUS_VERSION=2.1.1
-wget https://github.com/dragonflyoss/image-service/releases/download/v$NYDUS_VERSION/nydus-static-v$NYDUS_VERSION-linux-amd64.tgz
-tar zxvf nydus-static-v$NYDUS_VERSION-linux-amd64.tgz
+NYDUS_VERSION=<your_nydus_version>
+wget -O nydus-image-service-linux-arm64.tgz https://github.com/dragonflyoss/image-service/releases/download/v$NYDUS_VERSION/nydus-static-v$NYDUS_VERSION-linux-arm64.tgz
 ```
 
-Install `nydus-image`, `nydusd` and `nydusify` tools:
+Untar the package:
 
 ```shell
+tar zxvf nydus-image-service-linux-arm64.tgz
+
+# Install executable file to  /usr/local/bin/{nydus-image,nydusd,nydusify}.
 sudo cp nydus-static/nydus-image nydus-static/nydusd nydus-static/nydusify /usr/local/bin/
 ```
 
-#### Install nydus snapshotter plugin for containerd {#install-nydus-snapshotter-plugin-for-containerd}
+#### Install Nydus Snapshotter plugin for containerd {#install-nydus-snapshotter-plugin-for-containerd}
 
-Configure containerd to use the `nydus-snapshotter` plugin, please refer to
+Modify your `config.toml` (default location: `/etc/containerd/config.toml`), please refer to
 [configure-and-start-containerd](https://github.com/dragonflyoss/image-service/blob/master/docs/containerd-env-setup.md#configure-and-start-containerd).
-
-Change configuration of containerd in `/etc/containerd/config.toml`:
 
 ```toml
 [proxy_plugins]
@@ -265,7 +278,7 @@ Change configuration of containerd in `/etc/containerd/config.toml`:
     disable_snapshot_annotations = false
 ```
 
-Restart containerd service:
+Restart containerd:
 
 ```shell
 sudo systemctl restart containerd
@@ -278,16 +291,14 @@ $ ctr -a /run/containerd/containerd.sock plugin ls | grep nydus
 io.containerd.snapshotter.v1          nydus                    -              ok
 ```
 
-#### Systemd starts nydus snapshotter service {#systemd-starts-snapshotter-service}
+#### Systemd starts Nydus Snapshotter {#systemd-starts-snapshotter-service}
 
-For detailed configuration documentation based on nydus mirror mode, please refer to
-[enable-mirrors-for-storage-backend](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusd.md#enable-mirrors-for-storage-backend).
+Create the Nydusd configuration file `nydusd-config.json`.
+Please refer to the [Nydus Mirror](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusd.md#enable-mirrors-for-storage-backend)
+documentation for details.
 
-`127.0.0.1:65001` is the proxy address of dragonfly peer,
-and the `X-Dragonfly-Registry` header is the address of origin registry,
-which is provided for dragonfly to download the images.
-
-Create nydusd configuration file `nydusd-config.json`, configuration content is as follows:
+Set the `backend.config.mirrors.host` and `backend.config.mirrors.ping_url`
+address in the configuration file to your actual address. Configuration content is as follows:
 
 ```json
 {
@@ -297,16 +308,16 @@ Create nydusd configuration file `nydusd-config.json`, configuration content is 
       "config": {
         "mirrors": [
           {
-            "host": "http://127.0.0.1:65001",
+            "host": "http://127.0.0.1:4001",
             "auth_through": false,
             "headers": {
               "X-Dragonfly-Registry": "https://index.docker.io"
             },
-            "ping_url": "http://127.0.0.1:40901/server/ping"
+            "ping_url": "http://127.0.0.1:4003/healthy"
           }
         ],
         "scheme": "https",
-        "skip_verify": false,
+        "skip_verify": true,
         "timeout": 10,
         "connect_timeout": 10,
         "retry_limit": 2
@@ -338,7 +349,7 @@ Copy configuration file to `/etc/nydus/config.json`:
 sudo mkdir /etc/nydus && cp nydusd-config.json /etc/nydus/config.json
 ```
 
-Create systemd configuration file `nydus-snapshotter.service` of nydus snapshotter, configuration content is as follows:
+Create systemd configuration file `nydus-snapshotter.service` of Nydus snapshotter, configuration content is as follows:
 
 ```text
 [Unit]
@@ -349,7 +360,7 @@ Before=containerd.service
 [Service]
 Type=simple
 Environment=HOME=/root
-ExecStart=/usr/local/bin/containerd-nydus-grpc --config-path /etc/nydus/config.json
+ExecStart=/usr/local/bin/containerd-nydus-grpc --nydusd-config /etc/nydus/config.json
 Restart=always
 RestartSec=1
 KillMode=process
@@ -392,10 +403,9 @@ Oct 19 08:01:00 kvm-gaius-0 containerd-nydus-grpc[2853636]: time="2022-10-19T08:
 
 <!-- markdownlint-restore -->
 
-#### Convert an image to nydus format {#convert-an-image-to-nydus-format}
+#### Convert an image to Nydus image {#convert-an-image-to-nydus-image}
 
-Convert `python:3.9.15` image to nydus format, you can use
-the converted `dragonflyoss/python:3.9.15-nydus` image and skip this step.
+Convert `alpine:3.19` image to Nydus image,
 Conversion tool can use [nydusify](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusify.md) and [acceld](https://github.com/goharbor/acceleration-service).
 
 Login to Dockerhub:
@@ -404,29 +414,62 @@ Login to Dockerhub:
 docker login
 ```
 
-Convert `python:3.9.15` image to nydus format, and `DOCKERHUB_REPO_NAME` environment variable
+Convert `alpine:3.19` image to Nydus image, and `DOCKERHUB_REPO_NAME` environment variable
 needs to be set to the user's image repository:
 
 ```shell
-DOCKERHUB_REPO_NAME=dragonflyoss
-sudo nydusify convert --nydus-image /usr/local/bin/nydus-image --source python:3.9.15 --target $DOCKERHUB_REPO_NAME/python:3.9.15-nydus
+DOCKERHUB_REPO_NAME=<your_dockerhub_repo_name>
+sudo nydusify convert --nydus-image /usr/local/bin/nydus-image --source alpine:3.19 --target $DOCKERHUB_REPO_NAME/alpine:3.19-nydus
 ```
 
-#### Try nydus with nerdctl {#try-nydus-with-nerdctl}
+#### Nydus downloads images through Dragonfly {#nydus-downloads-images-through-dragonfly}
 
-Running `python:3.9.15-nydus` with nerdctl:
+Running `alpine:3.19-nydus` with nerdctl:
 
 ```shell
-sudo nerdctl --snapshotter nydus run --rm -it $DOCKERHUB_REPO_NAME/python:3.9.15-nydus
+sudo nerdctl --snapshotter nydus run --rm -it $DOCKERHUB_REPO_NAME/alpine:3.19-nydus
 ```
-
-Check that nydus is downloaded via dragonfly based on mirror mode:
 
 <!-- markdownlint-disable -->
 
+#### Verify
+
+Check that Nydus is downloaded via Dragonfly based on mirror mode:
+
 ```shell
-$ grep mirrors /var/lib/containerd-nydus/logs/**/*log
-[2022-10-19 10:16:13.276548 +00:00] INFO [storage/src/backend/connection.rs:271] backend config: ConnectionConfig { proxy: ProxyConfig { url: "", ping_url: "", fallback: false, check_interval: 5, use_http: false }, mirrors: [MirrorConfig { host: "http://127.0.0.1:65001", headers: {"X-Dragonfly-Registry": "https://index.docker.io"}, auth_through: false }], skip_verify: false, timeout: 10, connect_timeout: 10, retry_limit: 2 }
+# Check Nydus logs.
+grep mirrors /var/lib/containerd-nydus/logs/**/*log
+```
+
+The expected output is as follows:
+
+```shell
+[2024-05-28 12:36:24.834434 +00:00] INFO backend config: ConnectionConfig { proxy: ProxyConfig { url: "", ping_url: "", fallback: false, check_interval: 5, use_http: false }, mirrors: [MirrorConfig { host: "http://127.0.0.1:4001", ping_url: "http://127.0.0.1:4003/healthy", headers: {"X-Dragonfly-Registry": "https://index.docker.io"}, health_check_interval: 5, failure_limit: 5 }], skip_verify: true, timeout: 10, connect_timeout: 10, retry_limit: 2 }
+```
+
+You can execute the following command to check if the `alpine:3.19` image is distributed via Dragonfly.
+
+```shell
+# Find pod name.
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# Find task id.
+export TASK_ID=$(kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep -hoP 'alpine.*task_id=\"\K[^\"]+' /var/log/dragonfly/dfdaemon/* | head -n 1")
+
+# Check logs.
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'"
+```
+
+The expected output is as follows:
+
+```shell
+{
+  2024-04-19T02:44:09.259458Z  "INFO"
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
+}
 ```
 
 <!-- markdownlint-restore -->
@@ -434,7 +477,7 @@ $ grep mirrors /var/lib/containerd-nydus/logs/**/*log
 ## Performance testing {#performance-testing}
 
 Test the performance of single-machine image download after the integration of
-`nydus mirror` mode and `dragonfly P2P`.
+`Nydus Mirror` mode and `Dragonfly P2P`.
 Test running version commands using images in different languages.
 For example, the startup command used to run a `python` image is `python -V`.
 The tests were performed on the same machine.
@@ -447,23 +490,23 @@ the download time in different scenarios is very important.
 - OCIv1: Use containerd to pull image directly.
 - Nydus Cold Boot: Use containerd to pull image via nydus-snapshotter and doesn't hit any cache.
 - Nydus & Dragonfly Cold Boot: Use containerd to pull image via nydus-snapshotter.
-  Transfer the traffic to dragonfly P2P based on nydus mirror mode and no cache hits.
+  Transfer the traffic to Dragonfly P2P based on Nydus Mirror mode and no cache hits.
 - Hit Dragonfly Remote Peer Cache: Use containerd to pull image via nydus-snapshotter.
-  Transfer the traffic to dragonfly P2P based on nydus mirror mode and hit the remote peer cache.
+  Transfer the traffic to Dragonfly P2P based on Nydus Mirror mode and hit the remote peer cache.
 - Hit Dragonfly Local Peer Cache: Use containerd to pull image via nydus-snapshotter.
-  Transfer the traffic to dragonfly P2P based on nydus mirror mode and hit the local peer cache.
+  Transfer the traffic to Dragonfly P2P based on Nydus Mirror mode and hit the local peer cache.
 - Hit Nydus Cache: Use containerd to pull image via nydus-snapshotter.
-  Transfer the traffic to dragonfly P2P based on nydus mirror mode and hit the nydus local cache.
+  Transfer the traffic to Dragonfly P2P based on Nydus Mirror mode and hit the nydus local cache.
 
-Test results show `nydus mirror` mode and `dragonfly P2P` integration.
-Use the `nydus` download image to compare the `OCIv1` mode,
+Test results show `Nydus Mirror` mode and `Dragonfly P2P` integration.
+Use the `Nydus` download image to compare the `OCIv1` mode,
 It can effectively reduce the image download time.
-The cold boot of `nydus` and `nydus & dragonfly` are basically close.
-All hits to `dragonfly` cache are better than `nydus` only.
-The most important thing is that if a very large `kubernetes` cluster uses `nydus` to pull images.
+The cold boot of `Nydus` and `Nydus & Dragonfly` are basically close.
+All hits to `Dragonfly` cache are better than `Nydus` only.
+The most important thing is that if a very large `kubernetes` cluster uses `Nydus` to pull images.
 The download of each image layer will be generate as many range requests as needed.
 The `QPS` of the source of the registry is too high.
 Causes the `QPS` of the registry to be relatively high.
 Dragonfly can effectively reduce the number of requests and
 download traffic for back-to-source registry.
-In the best case, `dragonfly` can make the same task back-to-source download only once.
+In the best case, `Dragonfly` can make the same task back-to-source download only once.

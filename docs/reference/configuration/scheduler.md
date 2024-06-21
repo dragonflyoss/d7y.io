@@ -1,6 +1,7 @@
 ---
 id: scheduler
 title: Scheduler
+slug: /reference/configuration/scheduler/
 ---
 
 ## Configure Scheduler YAML File {#configure-scheduler-yaml-file}

@@ -3,10 +3,7 @@ id: singularity
 title: Singularity/Apptainer
 ---
 
-This documentation will help you to integrate Dragonfly into
-Singularity/Apptainer container runtime.
+Documentation for setting Dragonfly's container runtime to Singularity/Apptainer.
 
-Table of contents:
-
-- [Oras Resource Client Mode](./singularity/oras-resource-client.md)
-- [Proxy Mode](./singularity/proxy.md)
+Dragonfly v2.2.0 drops support for `Singularity/Apptainer`. If you want to integrate Singularity/Apptainer,
+please refer to [container-runtime-singularity/apptainer](../../../../versioned_docs/version-v2.1.x/operations/integrations/container-runtime/singularity.md).

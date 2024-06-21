@@ -29,13 +29,13 @@ slug: /operations/integrations/triton-server/
 | Helm               | 3.8.0+    | [helm.sh](https://helm.sh/)                                        |
 | Triton Server      | 23.08-py3 | [Triton Server](https://github.com/triton-inference-server/server) |
 
-**注意:** 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
-
 ### Dragonfly Kubernetes 集群搭建
 
 基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](https://d7y.io/zh/docs/getting-started/quick-start/kubernetes/)。
 
 #### 准备 Kubernetes 集群
+
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
 创建 Kind 多节点集群配置文件 kind-config.yaml, 配置如下:
 
@@ -62,92 +62,76 @@ kubectl config use-context kind-kind
 
 #### Kind 加载 Dragonfly 镜像
 
-下载 Dragonfly Latest 镜像:
+下载 Dragonfly latest 镜像:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
-Kind 集群加载 Dragonfly Latest 镜像:
+Kind 集群加载 Dragonfly latest 镜像:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
 #### 基于 Helm Charts 创建 Dragonfly 集群
 
-创建 Helm Charts 配置文件 charts-config.yaml。可以根据对象存储的下载路径修改 `dfdaemon.config.proxies.regx` 来调整路由匹配规则。
-示例中默认匹配了 AWS S3 的请求，并且添加 `regx:.*models.*` 以匹配存储桶 `models` 的请求，配置如下:
+创建 Helm Charts 配置文件 charts-config.yaml。可以根据对象存储的下载路径修改 `client.config.proxy.rules.regex` 来调整路由匹配规则。
+示例中默认匹配了 AWS S3 的请求，并且添加 `regex:.*models.*` 以匹配存储桶 `models` 的请求，配置如下:
 
 ```yaml
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'Expires&Signature&ns'
-      security:
-        insecure: true
-        cacert: ''
-        cert: ''
-        key: ''
-      tcpListen:
-        namespace: ''
-        port: 65001
-      registryMirror:
-        url: https://index.docker.io
-        insecure: true
-        certs: []
-        direct: false
-      proxies:
-        - regx: blobs/sha256.*
-        # 代理匹配 Model Bucket 的所有 HTTP Downlowd 请求
-        - regx: .*models.*
-
 manager:
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: 'blobs/sha256.*'
+        # 代理匹配 Model Bucket 的所有 HTTP Downlowd 请求
+        - regex: '.*models.*'
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:
@@ -157,7 +141,7 @@ jaeger:
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
-LAST DEPLOYED: Wed Nov 29 21:23:48 2023
+LAST DEPLOYED: Mon June 27 19:56:34 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -191,24 +175,26 @@ NOTES:
 ```shell
 $ kubectl get pod -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-8qcpd             1/1     Running   0              2m45s
-dragonfly-dfdaemon-qhkn8             1/1     Running   0              2m45s
-dragonfly-jaeger-6c44dc44b9-dfjfv    1/1     Running   0              2m45s
-dragonfly-manager-549cd546b9-ps5tf   1/1     Running   0              2m45s
-dragonfly-mysql-0                    1/1     Running   0              2m45s
-dragonfly-redis-master-0             1/1     Running   0              2m45s
-dragonfly-redis-replicas-0           1/1     Running   0              2m45s
-dragonfly-redis-replicas-1           1/1     Running   0              2m7s
-dragonfly-redis-replicas-2           1/1     Running   0              101s
-dragonfly-scheduler-0                1/1     Running   0              2m45s
-dragonfly-seed-peer-0                1/1     Running   0              2m45s
-
+dragonfly-client-qhkn8               1/1     Running   0              21m3s
+dragonfly-client-qzcz9               1/1     Running   0              21m3s
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0              21m3s
+dragonfly-mysql-0                    1/1     Running   0              21m3s
+dragonfly-redis-master-0             1/1     Running   0              21m3s
+dragonfly-redis-replicas-0           1/1     Running   0              21m3s
+dragonfly-redis-replicas-1           1/1     Running   0              21m3s
+dragonfly-redis-replicas-2           1/1     Running   0              21m3s
+dragonfly-scheduler-0                1/1     Running   0              21m3s
+dragonfly-scheduler-1                1/1     Running   0              21m3s
+dragonfly-scheduler-2                1/1     Running   0              21m3s
+dragonfly-seed-client-0              1/1     Running   0              21m3s
+dragonfly-seed-client-1              1/1     Running   0              21m3s
+dragonfly-seed-client-2              1/1     Running   0              21m3s
 ```
 
 #### 暴露 Proxy 服务端口
 
 创建 dfstore.yaml 配置文件，暴露 Dragonfly Peer 的 HTTP Proxy 服务监听的端口，用于和 Triton Server 交互。
-`targetPort` 如果未在 charts-config.yaml 中修改默认为`65001`， port 可根据实际情况设定值，建议也使用 `65001`。
+`targetPort` 如果未在 charts-config.yaml 中修改默认为`4001`， port 可根据实际情况设定值，建议也使用 `4001`。
 
 ```yaml
 kind: Service
@@ -218,13 +204,13 @@ metadata:
 spec:
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 
   ports:
     - protocol: TCP
-      port: 65001
-      targetPort: 65001
+      port: 4001
+      targetPort: 4001
 
   type: NodePort
 ```
@@ -235,10 +221,10 @@ spec:
 kubectl --namespace dragonfly-system apply -f dfstore.yaml
 ```
 
-将本地的`65001`端口流量转发至 Dragonfly 的 Proxy 服务:
+将本地的`4001`端口流量转发至 Dragonfly 的 Proxy 服务:
 
 ```shell
-kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
+kubectl --namespace dragonfly-system port-forward service/dfstore 4001:4001
 ```
 
 ### 安装 Dragonfly Repository Agent 插件
@@ -247,9 +233,11 @@ kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
 
 创建 `dragonfly_config.json` 配置文件，示例如下：
 
+> 注意：config.json 配置文件下设置 `addr` 地址为你的实际地址。
+
 ```shell
 {
-  "proxy": "http://127.0.0.1:65001",
+  "proxy": "http://127.0.0.1:4001",
 	"header": {
 	},
 	"filter": [
@@ -446,20 +434,23 @@ I1130 09:43:22.695843 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8
 执行指令，查看 Dragonfly 日志:
 
 ```shell
-kubectl exec -it -n dragonfly-system dragonfly-dfdaemon-<id> -- tail -f /var/log/dragonfly/daemon/core.log
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# 查看下载日志
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-检查日志是否有以下内容:
+日志输出例子：
 
 ```shell
 {
- "level":"info","ts":"2024-02-02 05:28:02.631",
- "caller":"peer/peertask_conductor.go:1349",
- "msg":"peer task done, cost: 352ms",
- "peer":"10.244.2.3-1-4398a429-d780-423a-a630-57d765f1ccfc",
- "task":"974aaf56d4877cc65888a4736340fb1d8fecc93eadf7507f531f9fae650f1b4d",
- "component":"PeerTask",
- "trace":"4cca9ce80dbf5a445d321cec593aee65"
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-minikube",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-minikube-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
 ```
 

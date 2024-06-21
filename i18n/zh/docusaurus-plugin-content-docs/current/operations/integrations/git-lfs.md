@@ -72,21 +72,17 @@ GIT_CURL_VERBOSE=1 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.gi
 <!-- markdownlint-disable -->
 
 ```text
-15:31:04.848308 trace git-lfs: HTTP: {"objects":[{"oid":"c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29","size":5242880,"actions":{"download":{"href":"https://github-cloud.githubusercontent.com/alambic/media/376919987/c0/36/c036cbb7553a909f8b8877d4461924307f27ecb66cff928eeeafd569c3887e29?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIMWPLRQEC4XCWWPA%2F20231221%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231221T073104Z&X-Amz-Expires=3600&X-Amz-Signature=4dc757dff0ac96eac3f0cd2eb29ca887035d3a6afba41cb10200ed0aa22812fa&15:31:04.848403 trace git-lfs: HTTP: X-Amz-SignedHeaders=host&actor_id=15955374&key_id=0&repo_id=392935134&token=1","expires_at":"2023-12-21T08:31:04Z","expires_in":3600}}}]}
+18:52:51.137490 trace git-lfs: HTTP: {"objects":[{"oid":"68ac0af011ce9c51a4c74c5ac9a40218e9e67bf55ebe13c8f2d758f710a3163a","size":19670194,"actions":{"download":{"href":"https://github-cloud.githubusercontent.com/alambic/media/730487717/68/ac/68ac0af011ce9c51a4c74c5ac9a40218e9e67bf55ebe13c8f2d758f710a3163a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA5BA2674WPWWEFGQ5%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T105251Z&X-Amz-Expires=3600&X-Amz-Signature=35cf8e02f0d3e2da893aa46fa4929d79ce1abb18aea8e0fabfbb138706d7151818:52:51.137574 trace git-lfs: HTTP: &X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=810214636&token=1","expires_at":"2024-06-05T11:52:51Z","expires_in":3600}}}]}
 ```
 
 <!-- markdownlint-restore -->
 
 可以在 `objects` 结构体中 `actions.download.href` 找到具体的下载 URL。这样可以发现 GitHub LFS 的 Content Storage 实际存储在
-`github-cloud.githubusercontent.com`。并且可以找到一些 Query 参数比如
-`X-Amz-Algorithm`、`X-Amz-Credential`、`X-Amz-Date`、`X-Amz-Expires`、`X-Amz-Signature` 以及 `X-Amz-SignedHeaders` 等，
-这些 Query 参数为 AWS 的 [Authenticating Requests](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
-参数。后面在配置 Dragonfly Peer Proxy 的时候会用到这些参数的 Key。
+`github-cloud.githubusercontent.com`。
 
 **Git LFS 关键信息:**
 
-1. Git LFS 的 Content Storage 地址为 `github-cloud.githubusercontent.com`。
-2. 下载 URL 的 Query 参数: `X-Amz-Algorithm`、`X-Amz-Credential`、`X-Amz-Date`、`X-Amz-Expires`、`X-Amz-Signature` 以及 `X-Amz-SignedHeaders`。
+Git LFS 的 Content Storage 地址为 `github-cloud.githubusercontent.com`。
 
 ### 部署 Dragonfly
 
@@ -96,14 +92,15 @@ GIT_CURL_VERBOSE=1 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.gi
 | ------------------ | -------- | --------------------------------------- |
 | Kubernetes cluster | 1.20+    | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | 3.8.0+   | [helm.sh](https://helm.sh/)             |
+| Git LFS            | 3.3.0+   | [git-lfs](https://git-lfs.com/)         |
 
-**注意:** 如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
-
-#### 安装 Dragonfly
+#### Dragonfly Kubernetes 集群搭建
 
 基于 Kubernetes cluster 详细安装文档可以参考 [quick-start-kubernetes](https://d7y.io/zh/docs/next/getting-started/quick-start/kubernetes/)。
 
 ##### 使用 Kind 安装 Kubernetes 集群
+
+如果没有可用的 Kubernetes 集群进行测试，推荐使用 [Kind](https://kind.sigs.k8s.io/)。
 
 创建 Kind 多节点集群配置文件 kind-config.yaml, 配置如下:
 
@@ -115,7 +112,7 @@ nodes:
   - role: worker
     extraPortMappings:
       - containerPort: 30950
-        hostPort: 65001
+        hostPort: 4001
   - role: worker
 ```
 
@@ -138,7 +135,7 @@ kubectl config use-context kind-kind
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
 ```
 
 Kind 集群加载 Dragonfly latest 镜像:
@@ -146,81 +143,63 @@ Kind 集群加载 Dragonfly latest 镜像:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
 ```
 
 ##### 基于 Helm Charts 创建 Dragonfly P2P 集群
 
-创建 Helm Charts 配置文件 charts-config.yaml。在 `dfdaemon.config.proxy.proxies.regx` 增加 `github-cloud.githubusercontent.com` 匹配规则，
+创建 Helm Charts 配置文件 charts-config.yaml。在 `client.config.proxy.rules.regex` 增加 `github-cloud.githubusercontent.com` 匹配规则，
 将 Git LFS 的 Content Storage 的 HTTP 文件下载流量转发至 P2P 网络中。
-并且 `dfdaemon.config.proxy.defaultFilter` 添加 `X-Amz-Algorithm`、`X-Amz-Credential`、`X-Amz-Date`、`X-Amz-Expires`、`X-Amz-Signature`
-以及 `X-Amz-SignedHeaders` 参数，过滤掉可变的 Query 参数。Dargonfly
-是根据 URL 生成唯一 Task ID 的，所以需要过滤掉可变的 Query 参数生成唯一的 Task ID。配置如下:
 
 ```yaml
-scheduler:
-  image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  replicas: 1
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
-    proxy:
-      defaultFilter: 'X-Amz-Algorithm&X-Amz-Credential&X-Amz-Date&X-Amz-Expires&X-Amz-Signature&X-Amz-SignedHeaders'
-      security:
-        insecure: true
-        cacert: ''
-        cert: ''
-        key: ''
-      tcpListen:
-        namespace: ''
-        port: 65001
-      registryMirror:
-        url: https://index.docker.io
-        insecure: true
-        certs: []
-        direct: false
-      proxies:
-        - regx: blobs/sha256.*
-        - regx: github-cloud.githubusercontent.com.*
-
 manager:
   image:
     repository: dragonflyoss/manager
     tag: latest
-  replicas: 1
   metrics:
     enable: true
   config:
     verbose: true
     pprofPort: 18066
 
-jaeger:
-  enable: true
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  hostNetwork: true
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    security:
+      enable: true
+    proxy:
+      server:
+        port: 4001
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: 'blobs/sha256.*'
+        - regex: 'github-cloud.githubusercontent.com.*'
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:
@@ -231,7 +210,7 @@ jaeger:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Thu Dec 21 17:24:37 2023
+LAST DEPLOYED: Mon June 5 12:53:14 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -265,17 +244,20 @@ NOTES:
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS       AGE
-dragonfly-dfdaemon-cttxz             1/1     Running   4 (116s ago)   2m51s
-dragonfly-dfdaemon-k62vd             1/1     Running   4 (117s ago)   2m51s
-dragonfly-jaeger-84dbfd5b56-mxpfs    1/1     Running   0              2m51s
-dragonfly-manager-5c598d5754-fd9tf   1/1     Running   0              2m51s
-dragonfly-mysql-0                    1/1     Running   0              2m51s
-dragonfly-redis-master-0             1/1     Running   0              2m51s
-dragonfly-redis-replicas-0           1/1     Running   0              2m51s
-dragonfly-redis-replicas-1           1/1     Running   0              106s
-dragonfly-redis-replicas-2           1/1     Running   0              78s
-dragonfly-scheduler-0                1/1     Running   0              2m51s
-dragonfly-seed-peer-0                1/1     Running   1 (37s ago)    2m51s
+dragonfly-client-6jgzn               1/1     Running   0              34m
+dragonfly-client-qzcz9               1/1     Running   0              34m
+dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0              34m
+dragonfly-mysql-0                    1/1     Running   0              34m
+dragonfly-redis-master-0             1/1     Running   0              34m
+dragonfly-redis-replicas-0           1/1     Running   0              34m
+dragonfly-redis-replicas-1           1/1     Running   0              34m
+dragonfly-redis-replicas-2           1/1     Running   0              34m
+dragonfly-scheduler-0                1/1     Running   0              34m
+dragonfly-scheduler-1                1/1     Running   0              34m
+dragonfly-scheduler-2                1/1     Running   0              34m
+dragonfly-seed-client-0              1/1     Running   0              34m
+dragonfly-seed-client-1              1/1     Running   0              34m
+dragonfly-seed-client-2              1/1     Running   0              34m
 ```
 
 创建 Peer Service 配置文件 peer-service-config.yaml 配置如下:
@@ -289,12 +271,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: http-65001
+    - name: http-4001
       nodePort: 30950
-      port: 65001
+      port: 4001
   selector:
     app: dragonfly
-    component: dfdaemon
+    component: client
     release: dragonfly
 ```
 
@@ -306,11 +288,13 @@ kubectl apply -f peer-service-config.yaml
 
 ### 通过 Dragonfly 分发 Git LFS 的下载文件流量
 
-通过 Git 配置将请求代理到 Dragonfly Peer Proxy 的 `http://127.0.0.1:65001`。
-主要基于 `http.proxy`、`lfs.transfer.enablehrefrewrite` 以及 `url.{YOUR-LFS-CONTENT-STORAGE}.insteadOf` 属性设置代理。
+通过 Git 配置将请求代理到 Dragonfly Peer Proxy 的 `http://127.0.0.1:4001`。
+主要基于 `http.proxy`、`lfs.transfer.enablehrefrewrite` 以及 `url.http://github-cloud.githubusercontent.com/.insteadOf` 属性设置代理。
+
+> 注意：更换 `http.proxy` 地址为你的实际地址。
 
 ```shell
-git config --global http.proxy http://127.0.0.1:65001
+git config --global http.proxy http://127.0.0.1:4001
 git config --global lfs.transfer.enablehrefrewrite true
 git config --global url.http://github-cloud.githubusercontent.com/.insteadOf https://github-cloud.githubusercontent.com/
 ```
@@ -326,19 +310,26 @@ git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
 执行命令：
 
 ```shell
-# find pods
-kubectl -n dragonfly-system get pod -l component=dfdaemon
-# find logs
-pod_name=dfdaemon-xxxxx
-kubectl -n dragonfly-system exec -it ${pod_name} -- grep "peer task done" /var/log/dragonfly/daemon/core.log
+# 获取 Pod Name
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,
+component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+
+# 查看下载日志
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 ```
 
-日志输出：
+日志输出例子：
 
 <!-- markdownlint-disable -->
 
-```
-2023-12-21T16:55:20.495+0800	INFO	peer/peertask_conductor.go:1326	peer task done, cost: 2238ms	{"peer": "30.54.146.131-15874-f6729352-950e-412f-b876-0e5c8e3232b1", "task": "70c644474b6c986e3af27d742d3602469e88f8956956817f9f67082c6967dc1a", "component": "PeerTask", "trace": "35c801b7dac36eeb0ea43a58d1c82e77"}
+```shell
+{
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-minikube",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-minikube-86e48d67-1653-4571-bf01-7e0c9a0a119d"
+}
 ```
 
 <!-- markdownlint-restore -->

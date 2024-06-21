@@ -50,7 +50,8 @@ Pull Dragonfly latest images:
 ```shell
 docker pull dragonflyoss/scheduler:latest
 docker pull dragonflyoss/manager:latest
-docker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/client:latest
+docker pull dragonflyoss/dfinit:latest
 ```
 
 Kind cluster loads Dragonfly latest images:
@@ -58,7 +59,8 @@ Kind cluster loads Dragonfly latest images:
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
 kind load docker-image dragonflyoss/manager:latest
-kind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/client:latest
+kind load docker-image dragonflyoss/dfinit:latest
 ```
 
 ### Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
@@ -67,12 +69,56 @@ Create the Helm Charts configuration file `values.yaml`. Please refer to the
 [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
-containerRuntime:
-  containerd:
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
     enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://docker.io'
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag:
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
 ```
 
 Create a Dragonfly cluster using the configuration file:
@@ -81,9 +127,9 @@ Create a Dragonfly cluster using the configuration file:
 
 ```shell
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
-$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+$ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Mar  4 16:23:15 2024
+LAST DEPLOYED: Mon Apr 28 10:59:19 2024
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
@@ -110,23 +156,17 @@ Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
-NAME                                READY   STATUS    RESTARTS   AGE
-dragonfly-dfdaemon-2j57h            1/1     Running   0          92s
-dragonfly-dfdaemon-fg575            1/1     Running   0          92s
-dragonfly-manager-6dbfb7b47-9cd6m   1/1     Running   0          92s
-dragonfly-manager-6dbfb7b47-m9nkj   1/1     Running   0          92s
-dragonfly-manager-6dbfb7b47-x2nzg   1/1     Running   0          92s
-dragonfly-mysql-0                   1/1     Running   0          92s
-dragonfly-redis-master-0            1/1     Running   0          92s
-dragonfly-redis-replicas-0          1/1     Running   0          92s
-dragonfly-redis-replicas-1          1/1     Running   0          55s
-dragonfly-redis-replicas-2          1/1     Running   0          34s
-dragonfly-scheduler-0               1/1     Running   0          92s
-dragonfly-scheduler-1               1/1     Running   0          20s
-dragonfly-scheduler-2               0/1     Running   0          10s
-dragonfly-seed-peer-0               1/1     Running   0          92s
-dragonfly-seed-peer-1               1/1     Running   0          31s
-dragonfly-seed-peer-2               0/1     Running   0          11s
+NAME                                 READY   STATUS    RESTARTS      AGE
+dragonfly-client-54vm5               1/1     Running   0             37m
+dragonfly-client-cvbln               1/1     Running   0             37m
+dragonfly-manager-864774f54d-njdhx   1/1     Running   0             37m
+dragonfly-mysql-0                    1/1     Running   0             37m
+dragonfly-redis-master-0             1/1     Running   0             37m
+dragonfly-redis-replicas-0           1/1     Running   0             37m
+dragonfly-redis-replicas-1           1/1     Running   0             5m10s
+dragonfly-redis-replicas-2           1/1     Running   0             4m44s
+dragonfly-scheduler-0                1/1     Running   0             37m
+dragonfly-seed-client-0              1/1     Running   2 (27m ago)   37m
 ```
 
 ### Containerd downloads images through Dragonfly {#containerd-downloads-images-through-dragonfly}
@@ -145,13 +185,13 @@ You can execute the following command to check if the `alpine:3.19` image is dis
 
 ```shell
 # Find pod name.
-export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
+export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
 # Find peer id.
-export PEER_ID=$(kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "alpine" /var/log/dragonfly/daemon/core.log | awk -F'"peer":"' '{print $2}' | awk -F'"' '{print $1}' | head -n 1)
+export TASK_ID=$(kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep -hoP 'library/alpine.*task_id=\"\K[^\"]+' /var/log/dragonfly/dfdaemon/* | head -n 1")
 
 # Check logs.
-kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep ${PEER_ID} /var/log/dragonfly/daemon/core.log | grep "peer task done"
+kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'"
 ```
 
 <!-- markdownlint-restore -->
@@ -160,34 +200,78 @@ The expected output is as follows:
 
 ```shell
 {
-  "level": "info",
-  "ts": "2024-03-05 12:06:31.244",
-  "caller": "peer/peertask_conductor.go:1349",
-  "msg": "peer task done, cost: 2751ms",
-  "peer": "10.244.1.2-54896-5c6cb404-0f2b-4ac6-a18f-d74167a766b4",
-  "task": "0bff62286fe544f598997eed3ecfc8aa9772b8522b9aa22a01c06eef2c8eba66",
-  "component": "PeerTask",
-  "trace": "31fc6650d93ec3992ab9aad245fbef71"
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
 ```
 
 ## More configurations {#more-configurations}
 
-### Single Registry {single-registry}
+### Multiple Registries {#multiple-registries}
 
-Method 1: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
+**Method 1**: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
-containerRuntime:
-  containerd:
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
     enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://docker.io'
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
+            - hostNamespace: ghcr.io
+              serverAddr: https://ghcr.io
+              capabilities: ['pull', 'resolve']
 ```
 
-Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
+**Method 2**: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
 
 > Notice: config_path is the path where containerd looks for registry configuration files.
 
@@ -206,56 +290,11 @@ Create the registry configuration file `/etc/containerd/certs.d/docker.io/hosts.
 ```toml
 server = "https://index.docker.io"
 
-[host."http://127.0.0.1:65001"]
-  capabilities = ["pull", "resolve"]
-[host."http://127.0.0.1:65001".header]
-  X-Dragonfly-Registry = ["https://index.docker.io"]
-```
+[host."http://127.0.0.1:4001"]
+capabilities = ["pull", "resolve"]
 
-Restart containerd:
-
-```shell
-systemctl restart containerd
-```
-
-### Multiple Registries {#multiple-registries}
-
-Method 1: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
-Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
-
-```yaml
-containerRuntime:
-  containerd:
-    enable: true
-    injectConfigPath: true
-    registries:
-      - 'https://docker.io'
-      - 'https://ghcr.io'
-```
-
-Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
-
-> Notice: config_path is the path where containerd looks for registry configuration files.
-
-```toml
-# explicitly use v2 config format
-version = 2
-
-[plugins."io.containerd.grpc.v1.cri".registry]
-  config_path = "/etc/containerd/certs.d"
-```
-
-Create the registry configuration file `/etc/containerd/certs.d/docker.io/hosts.toml`:
-
-> Notice: The container registry is `https://index.docker.io`.
-
-```toml
-server = "https://example.com"
-
-[host."http://127.0.0.1:65001"]
-  capabilities = ["pull", "resolve"]
-[host."http://127.0.0.1:65001".header]
-  X-Dragonfly-Registry = ["https://example.com"]
+[host."http://127.0.0.1:4001".header]
+X-Dragonfly-Registry = "https://index.docker.io"
 ```
 
 Create the registry configuration file `/etc/containerd/certs.d/ghcr.io/hosts.toml`:
@@ -265,10 +304,11 @@ Create the registry configuration file `/etc/containerd/certs.d/ghcr.io/hosts.to
 ```toml
 server = "https://ghcr.io"
 
-[host."http://127.0.0.1:65001"]
-  capabilities = ["pull", "resolve"]
-[host."http://127.0.0.1:65001".header]
-  X-Dragonfly-Registry = ["https://ghcr.io"]
+[host."http://127.0.0.1:4001"]
+capabilities = ["pull", "resolve"]
+
+[host."http://127.0.0.1:4001".header]
+X-Dragonfly-Registry = "https://ghcr.io"
 ```
 
 Restart containerd:
