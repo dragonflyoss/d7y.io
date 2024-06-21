@@ -84,6 +84,16 @@ kind load docker-image dragonflyoss/client:latest
 Create helm charts configuration file `charts-config.yaml` and enable prefetching, configuration content is as follows:
 
 ```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -124,16 +134,6 @@ client:
         addr: https://index.docker.io
       rules:
         - regex: 'blobs/sha256.*'
-
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 ```
 
 Create a Dragonfly cluster using the configuration file:
@@ -463,7 +463,13 @@ kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/
 The expected output is as follows:
 
 ```shell
-2024-05-28T12:36:24.861903Z  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded host_id="127.0.0.1-kind-worker" task_id="4535f073321f0d1908b8c3ad63a1d59324573c0083961c5bcb7f38ac72ad598d" peer_id="127.0.0.1-kind-worker-13095fb5-786a-4908-b8c1-744be144b383"
+{
+  2024-04-19T02:44:09.259458Z  "INFO"
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
+}
 ```
 
 <!-- markdownlint-restore -->

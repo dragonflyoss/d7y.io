@@ -4,8 +4,6 @@ title: Dfdaemon
 slug: /reference/commands/client/dfdaemon/
 ---
 
-## Dfdaemon
-
 Dragonfly 中的高性能 P2P 下载守护进程，可以下载不同协议的资源。当用户触发文件下载任务时，
 dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者，支持其他节点从它下载片段（如果它拥有这些片段）。
 

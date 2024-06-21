@@ -90,7 +90,6 @@ module.exports = {
             'operations/integrations/git-lfs',
             'operations/integrations/torchserve',
             'operations/integrations/triton-server',
-            'operations/integrations/juiceFS',
             'operations/integrations/upgrade',
           ],
         },

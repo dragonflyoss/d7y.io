@@ -12,7 +12,7 @@ slug: /operations/integrations/container-runtime/cri-o/
 | ------------------ | -------- | --------------------------------------- |
 | Kubernetes cluster | 1.19+    | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | v3.8.0+  | [helm.sh](https://helm.sh/)             |
-| CRI-O              | v1.5.0+  | [containerd.io](https://containerd.io/) |
+| CRI-O              | v1.5.0+  | [cri-o.io](https://cri-o.io/)           |
 
 ## 快速开始
 
@@ -52,27 +52,42 @@ minikube image load dragonflyoss/dfinit:latest
 
 ```yaml
 manager:
-  replicas: 1
   image:
     repository: dragonflyoss/manager
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 scheduler:
-  replicas: 1
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 seedClient:
-  replicas: 1
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
 
 client:
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:
@@ -161,10 +176,10 @@ kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/
 
 ```shell
 {
-/var/log/dragonfly/dfdaemon/dfdaemon.2024-04-29-09:2024-04-29T09:42:53.037477Z  INFO
-download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded
-host_id="172.18.0.2-minikube"
-task_id="a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5"
-peer_id="172.18.0.2-minikube-e5df1a32-58af-4814-a89d-f195391beda7"
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-minikube",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-minikube-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
 ```

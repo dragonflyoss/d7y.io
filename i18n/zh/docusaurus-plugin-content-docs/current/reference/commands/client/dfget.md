@@ -4,8 +4,6 @@ title: Dfget
 slug: /reference/commands/client/dfget/
 ---
 
-## Dfget
-
 `dfget` 是 Dragonfly 中用来下载和上传文件的客户端。
 
 ### 用法
@@ -136,34 +134,6 @@ Options:
 
 ```text
 dfget -O /path/to/output http://example.com/object
-```
-
-#### 使用 OSS 协议下载
-
-蜻蜓支持从阿里云对象存储服务（OSS）直接下载对象。直接使用 `dfget` 命令即可。
-
-示例中所有的参数都是必须。
-
-Header 解释:
-
-`Endpoint`: OSS Endpoint, 参考: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints)。
-
-`AccessKeyID`: OSS AccessKey ID。
-
-`AccessKeySecret`: OSS AccessKey Secret。
-
-`--filter "Expires&Signature"` 是用来为相同对象在不同机器上下载的时候生成唯一任务 ID 使用的。
-
-`/path/to/output` 下载文件的存储路径。
-
-`oss://bucket/path/to/object` 是指定 Bucket 和路径的。
-
-```shell
-dfget --header "Endpoint: https://oss-cn-hangzhou.aliyuncs.com" \
-    --header "AccessKeyID: your_access_key_id" \
-    --header "AccessKeySecret: your_access_key_secret" \
-    --output /path/to/output oss://bucket/path/to/object \
-    --filtered-query-param "Expires&Signature"
 ```
 
 ### 日志

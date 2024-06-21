@@ -12,7 +12,7 @@ Documentation for setting Dragonfly's container runtime to CRI-O.
 | ------------------ | ------- | --------------------------------------- |
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | v3.8.0+ | [helm.sh](https://helm.sh/)             |
-| CRI-O              | v1.5.0+ | [containerd.io](https://containerd.io/) |
+| CRI-O              | v1.5.0+ | [cri-o.io](https://cri-o.io/)           |
 
 ## Quick Start {#quick-start}
 
@@ -53,27 +53,42 @@ Create the Helm Charts configuration file `values.yaml`. Please refer to the
 
 ```yaml
 manager:
-  replicas: 1
   image:
     repository: dragonflyoss/manager
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 scheduler:
-  replicas: 1
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 seedClient:
-  replicas: 1
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
 
 client:
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:
@@ -137,7 +152,7 @@ dragonfly-scheduler-0                1/1     Running   0             37m
 dragonfly-seed-client-0              1/1     Running   2 (27m ago)   37m
 ```
 
-### Containerd downloads images through Dragonfly {#containerd-downloads-images-through-dragonfly}
+### CRI-O downloads images through Dragonfly {#crio-downloads-images-through-dragonfly}
 
 Pull `alpine:3.19` image in minikube node:
 
@@ -168,10 +183,10 @@ The expected output is as follows:
 
 ```shell
 {
-2024-04-29T07:55:39.011077Z  INFO
-download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded
-host_id="172.18.0.4-minikube"
-task_id="e6eae29939870e88750daef3369cae2d7f8699ea29e1319efa1c7d4ff72a3317"
-peer_id="172.18.0.4-minikube-b1490bd8-2778-405f-8871-cdeb87cf36a7"
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-minikube",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-minikube-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
 ```

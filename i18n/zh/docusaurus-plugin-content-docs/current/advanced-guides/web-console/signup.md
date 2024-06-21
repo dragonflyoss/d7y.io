@@ -4,8 +4,6 @@ title: Sign up
 slug: /advanced-guides/web-console/sign-up/
 ---
 
-## Sign up
-
 可以在该页面注册新的账号。
 
 ![signup](../../resource/advanced-guides/web-console/login/signup.png)

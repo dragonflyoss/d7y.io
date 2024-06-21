@@ -29,17 +29,6 @@ git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
 cd Dragonfly2
 ```
 
-Compile the source code:
-
-```bash
-# At the same time to build scheduler and manager.
-make build-manager && make build-scheduler
-
-# Install executable file to  /opt/dragonfly/bin/{manager,scheduler}.
-make install-manager
-make install-scheduler
-```
-
 Clone the source code of Client:
 
 ```bash
@@ -47,28 +36,11 @@ git clone https://github.com/dragonflyoss/client.git
 cd client
 ```
 
-Compile the source code:
-
-```bash
-# At the same time to build dfdaemon and dfget.
-cargo build --release --bins
-
-# Install executable file to  /opt/dragonfly/bin/{dfget,dfdaemon}.
-mv target/release/dfget /opt/dragonfly/bin/dfget
-mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
-```
-
-Configuration environment:
-
-```bash
-export PATH="/opt/dragonfly/bin/:$PATH"
-```
-
 ## Operation {#operation}
 
 ### Manager {#manager}
 
-#### Startup Manager {#startup-manager}
+#### Setup Manager {#setup-manager}
 
 Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
 refer to [Manager](../reference/configuration/manager.md).
@@ -100,12 +72,11 @@ database:
 
 Run Manager:
 
-```bash
-# View Manager cli help docs.
-manager --help
+> Notice : Run Manager under Dragonfly2
 
-# Startup Manager.
-manager
+```bash
+# Setup Manager.
+go run cmd/manager/main.go --config /etc/dragonfly/manager.yaml --verbose --console
 ```
 
 #### Verify {#verify-manager}
@@ -118,15 +89,9 @@ telnet 127.0.0.1 8080
 telnet 127.0.0.1 65003
 ```
 
-#### Manager Console {#manager-console}
-
-Now you can open brower and visit console by localhost:8080, Console features preview reference document [console preview](../reference/manage-console.md).
-
-![manager-console](../resource/getting-started/installation/manager-console.png)
-
 ### Scheduler {#scheduler}
 
-#### Startup Scheduler {#startup-scheduler}
+#### Setup Scheduler {#setup-scheduler}
 
 Configure Scheduler yaml file, The default path in Linux is `/etc/dragonfly/scheduler.yaml` in linux,
 refer to [Scheduler](../reference/configuration/scheduler.md).
@@ -155,12 +120,11 @@ database:
 
 Run Scheduler:
 
-```bash
-# View Scheduler cli help docs.
-scheduler --help
+> Notice : Run Scheduler under Dragonfly2
 
-# Startup Scheduler.
-scheduler
+```bash
+# Setup Scheduler.
+go run cmd/scheduler/main.go --config /etc/dragonfly/scheduler.yaml --verbose --console
 ```
 
 #### Verify {#verify-scheduler}
@@ -174,16 +138,16 @@ telnet 127.0.0.1 8002
 
 ### Dfdaemon {#dfdaemon}
 
-#### Startup Dfdaemon as Seed Peer {#startup-dfdaemon-as-seed-peer}
+#### Setup Dfdaemon{#setup-dfdaemon-as-seed-peer}
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../reference/configuration/dfdaemon.md).
+refer to [Dfdaemon](../reference/configuration/client/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
 Configuration content is as follows:
 
 ```yaml
-# Seed Peer configuration.
+# Dfdaemon configuration.
 manager:
   addrs:
     - http://dragonfly-manager:65003
@@ -193,61 +157,18 @@ seedPeer:
   clusterID: 1
 ```
 
-Run Dfdaemon as Seed Peer:
+Run Dfdaemon:
+
+> Notice : Run Scheduler under Client
 
 ```bash
-# View Dfget cli help docs.
-dfget --help
-
-# View Dfdaemon cli help docs.
-dfdaemon --help
-
-# Startup Dfdaemon mode.
-dfdaemon
+# Setup Dfdaemon.
+cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verbose
 ```
 
 #### Verify {#verify-seed-peer}
 
-After the Seed Peer deployment is complete, run the following commands to verify if **Seed Peer** is started,
-and if Port `4000`, `4001` and `4002` is available.
-
-```bash
-telnet 127.0.0.1 4000
-telnet 127.0.0.1 4001
-telnet 127.0.0.1 4002
-```
-
-#### Startup Dfdaemon as Peer {#startup-dfdaemon-as-Peer}
-
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../reference/configuration/dfdaemon.md).
-
-Set the `manager.addrs` address in the configuration file to your actual address.
-Configuration content is as follows:
-
-```yaml
-# Peer configuration.
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-```
-
-Run Dfdaemon as Peer:
-
-```bash
-# View Dfget cli help docs.
-dfget --help
-
-# View Dfdaemon cli help docs.
-dfdaemon --help
-
-# Startup Dfdaemon mode.
-dfdaemon
-```
-
-#### Verify {#verify-peer}
-
-After the Peer deployment is complete, run the following commands to verify if **Peer** is started,
+After the Dfdaemon deployment is complete, run the following commands to verify if **Dfdaemon** is started,
 and if Port `4000`, `4001` and `4002` is available.
 
 ```bash

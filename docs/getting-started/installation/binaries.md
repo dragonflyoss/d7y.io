@@ -126,7 +126,7 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 
 ### Manager {#manager}
 
-#### Startup Manager {#startup-manager}
+#### Setup Manager {#setup-manager}
 
 Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
 refer to [Manager](../../reference/configuration/manager.md).
@@ -162,7 +162,7 @@ Run Manager:
 # View Manager cli help docs.
 manager --help
 
-# Startup Manager.
+# Setup Manager.
 manager
 ```
 
@@ -184,7 +184,7 @@ Now you can open brower and visit console by localhost:8080, Console features pr
 
 ### Scheduler {#scheduler}
 
-#### Startup Scheduler {#startup-scheduler}
+#### Setup Scheduler {#setup-scheduler}
 
 Configure Scheduler yaml file, The default path in Linux is `/etc/dragonfly/scheduler.yaml` in linux,
 refer to [Scheduler](../../reference/configuration/scheduler.md).
@@ -217,7 +217,7 @@ Run Scheduler:
 # View Scheduler cli help docs.
 scheduler --help
 
-# Startup Scheduler.
+# Setup Scheduler.
 scheduler
 ```
 
@@ -232,10 +232,10 @@ telnet 127.0.0.1 8002
 
 ### Dfdaemon {#dfdaemon}
 
-#### Startup Dfdaemon as Seed Peer {#startup-dfdaemon-as-seed-peer}
+#### Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer}
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
+refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -260,7 +260,7 @@ dfget --help
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
-# Startup Dfdaemon mode.
+# Setup Dfdaemon.
 dfdaemon
 ```
 
@@ -275,10 +275,10 @@ telnet 127.0.0.1 4001
 telnet 127.0.0.1 4002
 ```
 
-#### Startup Dfdaemon as Peer {#startup-dfdaemon-as-Peer}
+#### Setup Dfdaemon as Peer {#setup-dfdaemon-as-Peer}
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
+refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -299,7 +299,7 @@ dfget --help
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
-# Startup Dfdaemon mode.
+# Setup Dfdaemon.
 dfdaemon
 ```
 

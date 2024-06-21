@@ -4,6 +4,8 @@ title: User
 slug: /advanced-guides/web-console/user/
 ---
 
+在本文中，我们将向您展示 User 页面相关信息。
+
 ## Users
 
 只有 `root` 角色的用户可以浏览所有用户的信息列表。

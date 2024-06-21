@@ -346,6 +346,18 @@ export TASK_ID=$(kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep -ho
 kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'"
 ```
 
+The expected output is as follows:
+
+```shell
+{
+  2024-04-19T02:44:09.259458Z  "INFO"
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
+}
+```
+
 <!-- markdownlint-restore -->
 
 ## Performance testing {#performance-testing}

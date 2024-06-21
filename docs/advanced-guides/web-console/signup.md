@@ -4,8 +4,6 @@ title: Sign up
 slug: /advanced-guides/web-console/sign-up/
 ---
 
-## Sign up
-
 You can register a new account through the sign up page.
 
 ![signup](../../resource/advanced-guides/web-console/login/signup.png)

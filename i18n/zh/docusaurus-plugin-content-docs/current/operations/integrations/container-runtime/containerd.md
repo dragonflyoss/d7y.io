@@ -69,27 +69,42 @@ kind load docker-image dragonflyoss/dfinit:latest
 
 ```yaml
 manager:
-  replicas: 1
   image:
     repository: dragonflyoss/manager
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 scheduler:
-  replicas: 1
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 seedClient:
-  replicas: 1
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
 
 client:
   image:
     repository: dragonflyoss/client
-    tag: latest
+    tag:
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:
@@ -164,7 +179,7 @@ docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 
 可以查看日志，判断 `alpine:3.19` 镜像正常拉取。
 
-````shell
+```shell
 # 获取 Pod Name
 export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
 
@@ -173,24 +188,25 @@ export TASK_ID=$(kubectl -n dragonfly-system exec ${POD_NAME} -- sh -c "grep -ho
 
 # 查看下载日志
 kubectl -n dragonfly-system exec -it ${POD_NAME} -- sh -c "grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'"
+```
 
 如果正常日志输出如下:
 
 ```shell
 {
-2024-04-29T07:55:39.011077Z  INFO
-download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded
-host_id="172.18.0.4-kind-worker"
-task_id="e6eae29939870e88750daef3369cae2d7f8699ea29e1319efa1c7d4ff72a3317"
-peer_id="172.18.0.4-kind-worker-b1490bd8-2778-405f-8871-cdeb87cf36a7"
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
-````
+```
 
 ## 更多配置
 
 ### 多镜像仓库
 
-方法 1：使用 Helm Charts 部署，创建 Helm Charts 配置文件 valuse.yaml。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
+**方法 1**：使用 Helm Charts 部署，创建 Helm Charts 配置文件 valuse.yaml。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
 
 ```yaml
 manager:
@@ -233,7 +249,7 @@ client:
               capabilities: ['pull', 'resolve']
 ```
 
-方法 2：更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
+**方法 2**：更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
 
 > 注意：config_path 为 containerd 查找 registry 配置文件路径。
 

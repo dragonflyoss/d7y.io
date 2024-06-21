@@ -322,8 +322,14 @@ kubectl -n dragonfly-system exec -it ${POD_NAME} -- grep "download task succeede
 
 <!-- markdownlint-disable -->
 
-```
-2024-06-03-13:2024-06-04T13:30:50.644228Z  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded host_id="172.18.0.4-kind-worker" task_id="70c644474b6c986e3af27d742d3602469e88f8956956817f9f67082c6967dc1a" peer_id="172.18.0.4-kind-worker-39ee6e2b-a339-440b-b214-3e8a1a3f1e36"
+```shell
+{
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-minikube",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-minikube-86e48d67-1653-4571-bf01-7e0c9a0a119d"
+}
 ```
 
 <!-- markdownlint-restore -->

@@ -96,28 +96,39 @@ kind load docker-image dragonflyoss/dfinit:latest
 
 ```yaml
 manager:
-  replicas: 1
   nodeSelector:
     cluster: a
   image:
     repository: dragonflyoss/manager
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 scheduler:
-  replicas: 1
   nodeSelector:
     cluster: a
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 seedClient:
-  replicas: 1
   nodeSelector:
     cluster: a
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
 
 client:
   nodeSelector:
@@ -125,6 +136,10 @@ client:
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:
@@ -251,7 +266,7 @@ Cluster 管辖的 Scopes 信息。Peer 会根据 Dfdaemon 启动的配置文件 
 的内容上报给 Manager。然后 Manager 选择跟 Cluster Scopes 中 IDC、Location 以及 CIDRs 匹配的 Cluster。
 被选中的 Cluster 会提供自身的 Scheduler Cluster 和 Seed Peer Cluster 对
 当前 Peer 进行服务。这样可以通过 Scopes 来区分不同 Cluster 服务的 Peer 群，在多集群场景中非常重要。
-Peer 的配置文件可以参考文档 [dfdaemon config](../../reference/configuration/dfdaemon.md)。
+Peer 的配置文件可以参考文档 [dfdaemon config](../../reference/configuration/client/dfdaemon.md)。
 
 如果 Peer 的 Scopes 信息和 Dragonfly 集群匹配，那么会优先使用当前 Dragonfly 集群的
 Scheduler 和 Seed Peer 提供服务。也就是说当前 Dragonfly 集群内的 Peer 只能在集群内部
@@ -290,25 +305,30 @@ Hostnames 的优先级等于 Scopes 内的 CIDR。
 
 ```yaml
 scheduler:
-  replicas: 1
   nodeSelector:
     cluster: b
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
   config:
+    verbose: true
+    pprofPort: 18066
     manager:
       addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
       schedulerClusterID: 2
 
 seedClient:
-  replicas: 1
   nodeSelector:
     cluster: b
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
   config:
+    verbose: true
     manager:
       addrs:
         - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
@@ -321,6 +341,10 @@ client:
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:

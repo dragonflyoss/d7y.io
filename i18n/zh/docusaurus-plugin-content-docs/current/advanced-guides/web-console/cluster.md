@@ -4,6 +4,8 @@ title: Cluster
 slug: /advanced-guides/web-console/cluster/
 ---
 
+在本文中，我们将向您展示 Cluster 页面相关信息。
+
 ## Clusters
 
 当用户登陆成功会直接重定向到 Clusters 页面，该页面展示所有 Clusters 的列表信息。

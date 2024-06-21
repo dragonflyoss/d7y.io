@@ -97,28 +97,39 @@ Create Dragonfly cluster A charts configuration file `charts-config-cluster-a.ya
 
 ```yaml
 manager:
-  replicas: 1
   nodeSelector:
     cluster: a
   image:
     repository: dragonflyoss/manager
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 scheduler:
-  replicas: 1
   nodeSelector:
     cluster: a
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 seedClient:
-  replicas: 1
   nodeSelector:
     cluster: a
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
 
 client:
   nodeSelector:
@@ -126,6 +137,11 @@ client:
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
   dfinit:
     enable: true
     image:
@@ -254,7 +270,7 @@ The Dragonfly cluster needs to serve the scope. It wil provide scheduler service
 seed peer services to peers in the scope. The scopes of the Dragonfly cluster are configured
 when the console is created and updated. The scopes of the peer are configured in peer YAML config,
 the fields are `host.idc`, `host.location` and `host.advertiseIP`,
-refer to [dfdaemon config](../../reference/configuration/dfdaemon.md).
+refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 If the peer scopes match the Dragonfly cluster scopes, then the peer will use
 the Dragonfly cluster's scheduler and seed peer first, and if there is no matching
@@ -305,25 +321,30 @@ configuration content is as follows:
 
 ```yaml
 scheduler:
-  replicas: 1
   nodeSelector:
     cluster: b
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
   config:
+    verbose: true
+    pprofPort: 18066
     manager:
       addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
       schedulerClusterID: 2
 
 seedClient:
-  replicas: 1
   nodeSelector:
     cluster: b
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
   config:
+    verbose: true
     manager:
       addrs:
         - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
@@ -336,6 +357,10 @@ client:
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:

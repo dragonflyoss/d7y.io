@@ -4,7 +4,7 @@ title: Sign in
 slug: /advanced-guides/web-console/sign-in/
 ---
 
-Default root username: root password: dragonfly.
+The default username and password are `root` and `dragonfly`.
 
 > Note: We strongly recommend that you change the default administrator password.
 

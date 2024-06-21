@@ -21,7 +21,7 @@ slug: /development-guide/configure-development-environment/
 
 <!-- markdownlint-restore -->
 
-## 用 Dragonfly 项目安装
+## 使用源码安装
 
 获取 Dragonfly 的源码：
 
@@ -35,10 +35,6 @@ cd Dragonfly2
 ```shell
 # 构建 manager scheduler
 make build-manager &&  make build-scheduler
-
-# 安装二进制文件到 /opt/dragonfly/bin/{manager，scheduler}
-make install-manager
-make install-scheduler
 ```
 
 获取 Client 的源码：
@@ -46,23 +42,6 @@ make install-scheduler
 ```shell
 git clone --recurse-submodules https://github.com/dragonflyoss/client.git
 cd client
-```
-
-编译源码并安装二进制可执行程序：
-
-```shell
-# 构建 dfdaemon 和 dfget。
-cargo build --release --bins
-
-# 安装二进制文件到 /opt/dragonfly/bin/{dfget,dfdaemon}
-mv target/release/dfget /opt/dragonfly/bin/dfget
-mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
-```
-
-配置环境变量：
-
-```shell
-export PATH="/opt/dragonfly/bin/:$PATH"
 ```
 
 ## 运行
@@ -100,12 +79,11 @@ database:
 
 运行 Manager:
 
-```bash
-# 查看 Manager cli 帮助文档。
-manager --help
+> 注意 : 在 Dragonfly2 项目目录下运行 Manager。
 
+```bash
 # 启动 Manager。
-manager
+go run cmd/manager/main.go --config /etc/dragonfly/manager.yaml --verbose --console
 ```
 
 #### 验证 Manager 是否在运行
@@ -116,12 +94,6 @@ Manager 部署完成之后，运行以下命令以检查 **Manager** 是否正�
 telnet 127.0.0.1 8080
 telnet 127.0.0.1 65003
 ```
-
-#### Manager 控制台
-
-可以在 `localhost:8080` 访问控制台，控制台功能预览参考文档 [console preview](../reference/manage-console.md)。
-
-![manager-console](../resource/getting-started/installation/manager-console.png)
 
 ### Scheduler
 
@@ -153,12 +125,11 @@ database:
 
 运行 Scheduler:
 
-```bash
-# 查看 Scheduler cli 帮助。
-scheduler --help
+> 注意 : 在 Dragonfly2 项目目录下运行 Scheduler。
 
+```bash
 # 启动 Scheduler。
-scheduler
+schedulergo run cmd/scheduler/main.go --config /etc/dragonfly/scheduler.yaml --verbose --console
 ```
 
 #### 验证 Scheduler 是否在运行
@@ -171,15 +142,15 @@ telnet 127.0.0.1 8002
 
 ### Dfdaemon
 
-#### 启动 Dfdaemon 作为 Seed Peer
+#### 启动 Dfdaemon
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
-参考文档 [Dfdaemon](../reference/configuration/dfdaemon.md)。
+参考文档 [Dfdaemon](../reference/configuration/client/dfdaemon.md)。
 
 在 Seed Peer 配置文件下设置 manager.addrs 地址为你的实际地址，配置内容如下：
 
 ```yaml
-# Seed Peer 配置。
+# Dfdaemon 配置。
 manager:
   addrs:
     - http://dragonfly-manager:65003
@@ -189,59 +160,18 @@ seedPeer:
   clusterID: 1
 ```
 
-把 Dfdaemon 当作 Seed Peer 运行:
+运行 Dfdaemon:
+
+> 注意 : 在 Client 项目目录下运行 Dfdaemon。
 
 ```bash
-# 查看 Dfget cli 帮助。
-dfget --help
-
-# 查看 Dfdaemon cli 帮助。
-dfdaemon --help
-
-# 启动 Dfdaemon 模式。
-dfdaemon
+# 启动 Dfdaemon。
+cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verbose
 ```
 
-#### 验证 Seed Peer 是否在运行
+#### 验证 Dfdaemon 是否在运行
 
-Seed Peer 部署完成之后，运行以下命令以检查 **Seed Peer** 是否正在运行，以及 `4000`，`4001` 和 `4002` 端口是否可用。
-
-```bash
-telnet 127.0.0.1 4000
-telnet 127.0.0.1 4001
-telnet 127.0.0.1 4002
-```
-
-#### 启动 Dfdaemon 作为 Peer
-
-编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
-参考文档 [Dfdaemon](../reference/configuration/dfdaemon.md)。
-
-配置文件下设置 manager.addrs 地址为你的实际地址，配置内容如下：
-
-```yaml
-# Peer 配置。
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-```
-
-把 Dfdaemon 当作 Peer 运行:
-
-```bash
-# 查看 Dfget cli 帮助。
-dfget --help
-
-# 查看 Dfdaemon cli 帮助。
-dfdaemon --help
-
-# 启动 Dfdaemon 模式。
-dfdaemon
-```
-
-#### 验证 Peer 是否在运行
-
-Peer 部署完成之后，运行以下命令以检查 **Peer** 是否正在运行，以及 `4000`，`4001` 和 `4002` 端口是否可用。
+Dfdaemon 部署完成之后，运行以下命令以检查 **Dfdaemon** 是否正在运行，以及 `4000`，`4001` 和 `4002` 端口是否可用。
 
 ```bash
 telnet 127.0.0.1 4000

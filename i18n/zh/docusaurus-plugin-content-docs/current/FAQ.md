@@ -27,7 +27,15 @@ change log level to info
 
 ## 下载速度比不用蜻蜓的时候慢
 
-**1.** 确认限速值是否合适 [dfdaemon.yaml](./reference/configuration/dfdaemon.md)
+**1.** 确认限速值是否合适。
+
+在 [dfdaemon.yaml](./reference/configuration/client/dfdaemon.md)
+配置文件下设置`download.rateLimit`和`upload.rateLimit`。
+
+**2.** 增加 Piece 并发数。
+
+在 [dfdaemon.yaml](./reference/configuration/client/dfdaemon.md)
+配置文件下设置`download.concurrentPieceCount`。
 
 ```yaml
 download:
@@ -49,8 +57,6 @@ upload:
     # 上传速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
   rateLimit: 20000000000
 ```
-
-**2.** 确认回源速度是否正常
 
 ## 500 Internal Server Error
 

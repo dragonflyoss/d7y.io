@@ -70,27 +70,42 @@ Create the Helm Charts configuration file `values.yaml`. Please refer to the
 
 ```yaml
 manager:
-  replicas: 1
   image:
     repository: dragonflyoss/manager
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 scheduler:
-  replicas: 1
   image:
     repository: dragonflyoss/scheduler
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
 
 seedClient:
-  replicas: 1
   image:
     repository: dragonflyoss/client
     tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
 
 client:
   image:
     repository: dragonflyoss/client
-    tag: latest
+    tag:
+  metrics:
+    enable: true
+  config:
+    verbose: true
   dfinit:
     enable: true
     image:
@@ -185,11 +200,11 @@ The expected output is as follows:
 
 ```shell
 {
-2024-04-29T07:55:39.011077Z  INFO
-download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded
-host_id="172.18.0.4-kind-worker"
-task_id="e6eae29939870e88750daef3369cae2d7f8699ea29e1319efa1c7d4ff72a3317"
-peer_id="172.18.0.4-kind-worker-b1490bd8-2778-405f-8871-cdeb87cf36a7"
+  2024-04-19T02:44:09.259458Z  INFO
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
 ```
 
@@ -197,7 +212,7 @@ peer_id="172.18.0.4-kind-worker-b1490bd8-2778-405f-8871-cdeb87cf36a7"
 
 ### Multiple Registries {#multiple-registries}
 
-Method 1: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
+**Method 1**: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
@@ -241,7 +256,7 @@ client:
               capabilities: ['pull', 'resolve']
 ```
 
-Method 2: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
+**Method 2**: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
 
 > Notice: config_path is the path where containerd looks for registry configuration files.
 

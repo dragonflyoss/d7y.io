@@ -4,6 +4,8 @@ title: Personal Access Tokens
 slug: /advanced-guides/web-console/developer/personal-access-tokens/
 ---
 
+在本文中，我们将向您展示 Personal Access Token 页面相关信息。
+
 ## Personal Access Tokens
 
 展示所有 Personal Access Tokens 的列表信息。

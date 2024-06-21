@@ -30,18 +30,22 @@ server:
   cacheDir: /var/cache/dragonfly/dfdaemon/
 download:
   server:
-    # socketPath is the unix socket path for dfdaemon GRPC service.
+    # -- socketPath is the unix socket path for dfdaemon GRPC service.
     socketPath: /var/run/dragonfly/dfdaemon.sock
-  #  pieceTimeout is the timeout for downloading a piece from source.
+  # -- rateLimit is the default rate limit of the download speed in bps(bytes per second), default is 20Gbps.
+  rateLimit: 20000000000
+  # --   pieceTimeout is the timeout for downloading a piece from source.
   pieceTimeout: 30s
-  # concurrentPieceCount is the number of concurrent pieces to download.
+  # -- concurrentPieceCount is the number of concurrent pieces to download.
   concurrentPieceCount: 10
 upload:
   server:
-    # port is the port to the grpc server.
+    # -- port is the port to the grpc server.
     port: 4000
     ## ip is the listen ip of the grpc server.
     # ip: ""
+  # -- rateLimit is the default rate limit of the upload speed in bps(bytes per second), default is 20Gbps.
+  rateLimit: 20000000000
 manager:
   # addrs is manager addresses.
   addrs: []

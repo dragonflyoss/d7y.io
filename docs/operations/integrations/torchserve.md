@@ -610,7 +610,7 @@ Mount the `model-store` and dragonfly-endpoint configuration directory. Run the 
 <!-- markdownlint-disable -->
 
 ```shell
-# 使用环境变量的配置路径
+# Environment variable configuration path.
 sudo docker run --rm -it --network host -v $(pwd)/model-store:/home/model-server/model-store  -v ${DRAGONFLY_ENDPOINT_CONFIG}:${DRAGONFLY_ENDPOINT_CONFIG} dragonflyoss/dragonfly-endpoint:latest
 ```
 

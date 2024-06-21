@@ -4,6 +4,8 @@ title: Cluster
 slug: /advanced-guides/web-console/cluster/
 ---
 
+In this article, we will show you Cluster page information.
+
 ## Clusters
 
 When you sign in successfully, you will come to the clusters list page, which will display all of the clusters information.
@@ -112,4 +114,4 @@ Delete seed peer record in database.
 
 Delete inactive schedulers and inactive seed peers record in database.
 
-![delete-seed-peer](../../resource/advanced-guides/web-console/cluster/delete-seed-peer.png)
+![delete-all-inative-instances](../../resource/advanced-guides/web-console/cluster/delete-all-inative-instances.png)

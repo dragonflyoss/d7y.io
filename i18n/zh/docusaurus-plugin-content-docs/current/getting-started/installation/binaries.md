@@ -24,7 +24,7 @@ slug: /getting-started/installation/binaries/
 
 ### 使用二进制版本安装
 
-我们的 Dragonfly [发布页面](https://github.com/dragonflyoss/Dragonfly2/releases) 上提供了二进制文件，这些版本可以手动下载和安装。
+Dragonfly [发布页面](https://github.com/dragonflyoss/Dragonfly2/releases) 获取二进制文件，这些版本可以手动下载和安装。
 
 下载 Dragonfly 的二进制文件：
 
@@ -42,7 +42,7 @@ wget -O dragonfly_linux_amd64.tar.gz https://github.com/dragonflyoss/Dragonfly2/
 tar -zxf dragonfly_linux_amd64.tar.gz -C /path/to/dragonfly
 ```
 
-我们的 Client [发布页面](https://github.com/dragonflyoss/client/releases) 上提供了二进制文件，这些版本可以手动下载和安装。
+Client [发布页面](https://github.com/dragonflyoss/client/releases) 获取二进制文件，这些版本可以手动下载和安装。
 
 下载 Client 的二进制文件：
 
@@ -225,7 +225,7 @@ telnet 127.0.0.1 8002
 #### 启动 Dfdaemon 作为 Seed Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
-参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
+参考文档 [Dfdaemon](../../reference/configuration/client/dfdaemon.md)。
 
 在 Seed Peer 配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
 
@@ -266,7 +266,7 @@ telnet 127.0.0.1 4002
 #### 启动 Dfdaemon 作为 Peer
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
-参考文档 [Dfdaemon](../../reference/configuration/dfdaemon.md)。
+参考文档 [Dfdaemon](../../reference/configuration/client/dfdaemon.md)。
 
 配置文件下设置 `manager.addrs` 地址为你的实际地址，配置内容如下：
 

@@ -76,33 +76,6 @@ kind load docker-image dragonflyoss/dfinit:latest
 [serviceMonitor](https://github.com/dragonflyoss/helm-charts/blob/main/charts/dragonfly/values.yaml#L247)。
 
 ```yaml
-scheduler:
- image:
-    repository: dragonflyoss/scheduler
-    tag: latest
-  metrics:
-    enable: true
-    serviceMonitor:
-      enable: true
-
-seedPeer:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-    serviceMonitor:
-      enable: true
-
-dfdaemon:
-  image:
-    repository: dragonflyoss/dfdaemon
-    tag: latest
-  metrics:
-    enable: true
-    serviceMonitor:
-      enable: true
-
 manager:
   image:
     repository: dragonflyoss/manager
@@ -111,6 +84,86 @@ manager:
     enable: true
     serviceMonitor:
       enable: true
+    prometheusRule:
+      enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+    enableHost: true
+    serviceMonitor:
+      enable: true
+    prometheusRule:
+      enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+    serviceMonitor:
+      enable: true
+    prometheusRule:
+      enable: true
+  config:
+    verbose: true
+    log:
+      level: info
+    proxy:
+      prefetch: true
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: blobs/sha256.*
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+    serviceMonitor:
+      enable: true
+    prometheusRule:
+      enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
+            - hostNamespace: ghcr.io
+              serverAddr: https://ghcr.io
+              capabilities: ['pull', 'resolve']
+  config:
+    verbose: true
+    log:
+      level: info
+    proxy:
+      prefetch: true
+      registryMirror:
+        addr: https://index.docker.io
+      rules:
+        - regex: blobs/sha256.*
 ```
 
 使用配置文件部署 Dragonfly Helm Charts:

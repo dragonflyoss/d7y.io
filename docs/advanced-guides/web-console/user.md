@@ -4,6 +4,8 @@ title: User
 slug: /advanced-guides/web-console/user/
 ---
 
+In this article, we will show you User page information.
+
 ## Users
 
 Only users with the `root` role can view the list of all users.

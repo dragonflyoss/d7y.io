@@ -4,6 +4,8 @@ title: Preheat
 slug: /advanced-guides/web-console/developer/preheat/
 ---
 
+在本文中，我们将向您展示 Preheat 页面相关信息。
+
 ## Preheats
 
 展示所有预热任务列表信息。

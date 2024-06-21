@@ -4,8 +4,6 @@ title: Dfget
 slug: /reference/commands/client/dfget/
 ---
 
-## Dfget {#dfget}
-
 `dfget` is the client of Dragonfly used to download and upload files.
 
 ### Usage {#usage}
@@ -139,36 +137,6 @@ Options:
 
 ```shell
 dfget -O /path/to/output http://example.com/object
-```
-
-#### Download with OSS protocol {#downlad-with-oss}
-
-Dragonfly supports download objects from Alibaba Cloud Object Storage Service (OSS).
-You can download via `dfget` command.
-
-All arguments is necessary to download from private OSS bucket.
-
-Header explain:
-
-`Endpoint`: OSS Endpoint, refer: [Alibaba Cloud](https://www.alibabacloud.com/help/en/object-storage-service/latest/regions-and-endpoints).
-
-`AccessKeyID`: OSS AccessKey ID.
-
-`AccessKeySecret`: OSS AccessKey Secret.
-
-`--filter "Expires&Signature"` is used for generating unique task id for same object
-in different machines.
-
-`/path/to/output` is download storage path.
-
-`oss://bucket/path/to/object` is the object bucket and path.
-
-```shell
-dfget --header "Endpoint: https://oss-cn-hangzhou.aliyuncs.com" \
-    --header "AccessKeyID: your_access_key_id" \
-    --header "AccessKeySecret: your_access_key_secret" \
-    --output /path/to/output oss://bucket/path/to/object \
-    --filtered-query-param "Expires&Signature"
 ```
 
 ### Log configuration {#log-configuration}

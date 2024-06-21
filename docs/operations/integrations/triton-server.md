@@ -450,11 +450,11 @@ The expected output is as follows:
 
 ```shell
 {
-2024-06-4T07:55:39.011077Z  INFO
-download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:276: download task succeeded
-host_id="172.18.0.4-kind-worker"
-task_id="974aaf56d4877cc65888a4736340fb1d8fecc93eadf7507f531f9fae650f1b4d"
-peer_id="172.18.0.4-kind-worker-b1490bd8-2778-405f-8871-cdeb87cf36a7"
+  2024-04-19T02:44:09.259458Z  "INFO"
+  "download_task":"dragonfly-client/src/grpc/dfdaemon_download.rs:276":: "download task succeeded"
+  "host_id": "172.18.0.3-kind-worker",
+  "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
+  "peer_id": "172.18.0.3-kind-worker-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
 ```
 

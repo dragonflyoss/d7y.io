@@ -27,7 +27,15 @@ change log level to info
 
 ## Download slower than without Dragonfly {#download-slower-than-without-dragonfly}
 
-**1.** Confirm limit rate in [dfdaemon.yaml](./reference/configuration/dfdaemon.md)
+**1.** Confirm limit rate.
+
+Set `download.rateLimit` and `upload.rateLimit` in the [dfdaemon.yaml](./reference/configuration/client/dfdaemon)
+configuration file.
+
+**2.** Increase the number of concurrent piece.
+
+Set `download.concurrentPieceCount` in the [dfdaemon.yaml](./reference/configuration/client/dfdaemon)
+configuration file.
 
 ```yaml
 download:
@@ -49,8 +57,6 @@ upload:
   # -- rateLimit is the default rate limit of the upload speed in bps(bytes per second), default is 20Gbps.
   rateLimit: 20000000000
 ```
-
-**2.** Confirm source connection speed in dfdaemon
 
 ## 500 Internal Server Error {#500-internal-server-error}
 
