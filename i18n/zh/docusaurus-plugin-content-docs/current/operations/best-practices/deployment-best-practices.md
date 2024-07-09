@@ -4,11 +4,11 @@ title: 部署
 slug: /operations/best-practices/deployment-best-practices/
 ---
 
-本文档的目标是帮助你在不同规模下部署 Dragonfly 所需容量大小，并帮助您如何优化 Dragonfly 的性能。
+本文档概述了我们计划如何为 Dragonfly 设置容量规划和性能优化.
 
 ## 容量规划
 
-规划资源时需要考虑的一个重要因素是：最高预期文件/镜像存储容量，并且你需要对目前所拥有的机器的内存大小、CPU核心数、磁盘容量有清晰的了解。
+规划容量时需要考虑的一个重要因素是：最高预期文件/镜像存储容量，并且你需要对目前所拥有的机器的内存大小、CPU核心数、磁盘容量有清晰的了解。
 
 如果您没有明确的容量规划，可以使用下面的估算值来预测您的容量，但会根据您的工作需求而有所不同。
 
@@ -40,7 +40,7 @@ slug: /operations/best-practices/deployment-best-practices/
 | ------------ | -------- | ---------------- | ----- |
 | 1K/s         | 8C       | 16G              | 200Gi |
 | 3K/s         | 16C      | 32G              | 200Gi |
-| 5K/s         | 16C      | 64G              | 200Gi |
+| 5K/s         | 32C      | 64G              | 200Gi |
 
 <!-- markdownlint-restore -->
 
@@ -57,13 +57,13 @@ slug: /operations/best-practices/deployment-best-practices/
 | 500/s        | 8C       | 16G              | 500Gi |
 | 1K/s         | 8C       | 16G              | 3Ti   |
 | 3K/s         | 16C      | 32G              | 5Ti   |
-| 5K/s         | 16C      | 64G              | 10Ti  |
+| 5K/s         | 32C      | 64G              | 10Ti  |
 
 <!-- markdownlint-restore -->
 
 ### Cluster
 
-以下数据是 Cluster 中每个组件所使用的资源量。它们基于我们平常使用的经验所得，但会根据您的工作需求而有所不同。
+以下数据是 Cluster 中每个组件所使用的资源。它们基于我们平常使用的经验所得，但会根据您的工作需求而有所不同。
 
 <!-- markdownlint-disable -->
 
@@ -78,9 +78,11 @@ slug: /operations/best-practices/deployment-best-practices/
 
 ## 性能调优
 
-### 上行带宽限速
+### 限速率
 
-主要作用节点 P2P 分享 Piece 的带宽。在不影响其他服务情况下，建议配置和机器上行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
+#### 上行带宽限速
+
+主要作用节点 P2P 分享 Piece 的带宽。当你的峰值带宽大于你的默认上行带宽，你可以设置 `rateLimit` 为合适的值提升上传速度，在不影响其他服务情况下，建议配置和机器上行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
 upload:
@@ -93,9 +95,9 @@ upload:
   rateLimit: 20000000000
 ```
 
-### 下行带宽限速
+#### 下行带宽限速
 
-主要作用节点回源的带宽和从 Remote Peer 下载的带宽。在不影响其他服务情况下，建议配置和机器下行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
+主要作用节点回源的带宽和从 Remote Peer 下载的带宽。当你的峰值带宽大于你的默认上行带宽，你可以设置 `rateLimit` 为合适的值提升下载速度，在不影响其他服务情况下，建议配置和机器下行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
 download:
@@ -143,7 +145,8 @@ gc:
 ### Nydus 缓存
 
 Dragonfly 作为 Nydus 的缓存时，只部署 Manager，Scheduler 以及 Seed Peer 即可。由于 Nydus 会将文件切分成 1MB 左右的 Chunk 请求按需加载文件。
-所以使用 Seed Peer 的 HTTP Proxy 作为 Nydus 的缓存服务器，并且内部进行 P2P 减少回源请求以及回源带宽。做 Nydus 的缓存服务器的时候，Dragonfly 配置需要有一定优化。
+所以使用 Seed Peer 的 HTTP Proxy 作为 Nydus 的缓存服务器，并且传输过程中利用 P2P 的传输方式，减少回源请求以及回源带宽。
+使用 Nydus 的缓存服务器的时候，Dragonfly 配置需要有一定优化。
 
 **1.** 当 `proxy.rules.regex` 正则匹配 Nydus 存储仓库的 URL。这样才能将下载流量转发到 P2P 网络中，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。。
 

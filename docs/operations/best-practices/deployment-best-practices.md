@@ -4,17 +4,16 @@ title: Deployment Best Practices
 slug: /operations/best-practices/deployment-best-practices/
 ---
 
-Documentation on how much capacity is required to deploy
-Dragonfly at different scales and to help you optimize performance.
+This document outlines how we plan to set up capacity planning and performance optimization for Dragonfly.
 
 ## Capacity Planning
 
-A big factor in planning resources is: Maximum expected file/image storage capacity,
+A big factor in planning capacity is: Maximum expected file/image storage capacity,
 And you need to have a clear understanding of the memory size, number of CPU cores,
 and disk capacity of the machine you currently have available.
 
 If you don't have a clear capacity plan, you can use the estimates below to predict your capacity,
-but it will vary based on your workload needs.
+but it will vary based on your job needs.
 
 ### Manager
 
@@ -44,7 +43,7 @@ The deployment Scheduler estimates the amount of resources used based on downloa
 | ----------------------- | -------- | ---------------- | ----- |
 | 1K/s                    | 8C       | 16G              | 200Gi |
 | 3K/s                    | 16C      | 32G              | 200Gi |
-| 5K/s                    | 16C      | 64G              | 200Gi |
+| 5K/s                    | 32C      | 64G              | 200Gi |
 
 <!-- markdownlint-restore -->
 
@@ -61,6 +60,7 @@ The deployment Client estimates the amount of resources used based on download r
 | 500/s                   | 8C       | 16G              | 500Gi |
 | 1K/s                    | 8C       | 16G              | 3Ti   |
 | 3K/s                    | 16C      | 32G              | 5Ti   |
+| 5K/s                    | 32C      | 64G              | 10Ti  |
 
 <!-- markdownlint-restore -->
 
@@ -82,7 +82,9 @@ but will vary based on your job needs.
 
 ## Performance tuning
 
-### Upload Rate
+### Rate Limit
+
+#### Upload Rate
 
 Mainly used for node P2P sharing of Piece bandwidth.
 it is recommended that the configuration be the same as the upstream bandwidth of the machine.
@@ -99,7 +101,7 @@ upload:
   rateLimit: 20000000000
 ```
 
-### Download Rate
+#### Download Rate
 
 It mainly affects the bandwidth of the node returning to the source and the bandwidth downloaded from Remote Peer.
 It is recommended that the configuration be the same as the downlink bandwidth of the machine.
@@ -116,12 +118,12 @@ download:
 
 ### Piece concurrency
 
-When downloading a single task of the main role node,
+When a node downloads a single task,
 the number of concurrent pieces downloaded back to the source and the
 number of concurrent pieces downloaded from the Remote Peer.
 The larger the number of Piece concurrency, the faster the task download, and the more CPU and Memory will be consumed.
-Users can adjust the CPU and Memory configuration of the Client while adjusting the
-number of Piece concurrency according to the actual situation.
+The user adjusts the number of Piece concurrency according to the actual situation.
+and adjust the client’s CPU and memory configuration.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
@@ -154,10 +156,11 @@ gc:
 
 ### Nydus
 
-When Dragonfly serves as Nydus cache, you only need to deploy Manager, Scheduler and Seed Peer.
-Since Nydus will split the file into chunks of about 1MB, it requests to load the file on demand.
-Therefore, Seed Peer's HTTP Proxy is used as the cache server of Nydus
-and P2P is performed internally to reduce return-to-origin requests and return-to-origin bandwidth.
+When Dragonfly is used as a Nydus cache, only the Manager, Scheduler and Seed Peer need to be deployed.
+Nydus will split the file into roughly 1MB chunks and load the file on demand.
+Therefore, Seed Peer's HTTP proxy is used as Nydus' caching server,
+And the P2P transmission method is used during the transmission process to reduce return-to-origin
+requests and return-to-origin bandwidth.
 Please refer to [nydus](../integrations/container-runtime/nydus.md)
 
 **1.** When `proxy.rules.regex` matches the Nydus repository URL.
