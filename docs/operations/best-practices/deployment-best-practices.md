@@ -4,39 +4,47 @@ title: Deployment Best Practices
 slug: /operations/best-practices/deployment-best-practices/
 ---
 
+Documentation on how much capacity is required to deploy
+Dragonfly at different scales and to help you optimize performance.
+
 ## Capacity Planning
 
-First, you need to estimate the highest expected file/image storage capacity for
-the cluster for a considerable period in the future.
+A big factor in planning resources is: Maximum expected file/image storage capacity,
+And you need to have a clear understanding of the memory size, number of CPU cores,
+and disk capacity of the machine you currently have available.
 
-Second, you need to have a clear understanding of the machine resources currently available.
-Know the memory size, CPU core count, and disk capacity of each machine.
+If you don't have a clear capacity plan, you can use the estimates below to predict your capacity,
+but it will vary based on your workload needs.
 
 ### Manager
 
-It is recommended to deploy at least 3 per cluster.
+The Deployment Manager will estimate the amount of resources used based on the number of Peers.
+
+> Run a minimum of 3 replicas.
 
 <!-- markdownlint-disable -->
 
-| Peer Count | CPU | Memory | Disk  |
-| ---------- | --- | ------ | ----- |
-| 1K         | 8C  | 16G    | 200Gi |
-| 5K         | 16C | 32G    | 200Gi |
-| 10K        | 16C | 64G    | 200Gi |
+| Total Number of Peer | CPU core | Estimated memory | Disk  |
+| -------------------- | -------- | ---------------- | ----- |
+| 1K                   | 8C       | 16G              | 200Gi |
+| 5K                   | 16C      | 32G              | 200Gi |
+| 10K                  | 16C      | 64G              | 200Gi |
 
 <!-- markdownlint-restore -->
 
 ### Scheduler
 
-It is recommended to deploy at least 3 per cluster.
+The deployment Scheduler estimates the amount of resources used based on download requests (seconds).
+
+> Run a minimum of 3 replicas.
 
 <!-- markdownlint-disable -->
 
-| Downloads Per Second | CPU | Memory | Disk  |
-| -------------------- | --- | ------ | ----- |
-| 1K                   | 8C  | 16G    | 200Gi |
-| 3K                   | 16C | 32G    | 200Gi |
-| 5K                   | 16C | 64G    | 200Gi |
+| Download request（sec） | CPU core | Estimated memory | Disk  |
+| ----------------------- | -------- | ---------------- | ----- |
+| 1K/s                    | 8C       | 16G              | 200Gi |
+| 3K/s                    | 16C      | 32G              | 200Gi |
+| 5K/s                    | 16C      | 64G              | 200Gi |
 
 <!-- markdownlint-restore -->
 
@@ -44,32 +52,37 @@ It is recommended to deploy at least 3 per cluster.
 
 <!-- markdownlint-disable -->
 
-If it is a Seed Peer, it is recommended to deploy at least 3 per cluster. The Disk size is based on the total size of different files/images in the Cache and is calculated by the user based on needs.
+The deployment Client estimates the amount of resources used based on download requests (seconds).
 
-| Downloads Per Second | CPU | Memory | Disk  |
-| -------------------- | --- | ------ | ----- |
-| 500                  | 8C  | 16G    | 500Gi |
-| 1K                   | 8C  | 16G    | 3Ti   |
-| 3K                   | 16C | 32G    | 5Ti   |
+> If it is a Seed Peer, at least 3 copies should be run. The Disk size is based on the total size of different files/images in the Cache.
+
+| Download request（sec） | CPU core | Estimated memory | Disk  |
+| ----------------------- | -------- | ---------------- | ----- |
+| 500/s                   | 8C       | 16G              | 500Gi |
+| 1K/s                    | 8C       | 16G              | 3Ti   |
+| 3K/s                    | 16C      | 32G              | 5Ti   |
 
 <!-- markdownlint-restore -->
 
 ### Cluster
 
+The following data is an estimate of the amount of resources used. Based on our experience using it,
+but will vary based on your job needs.
+
 <!-- markdownlint-disable -->
 
-| Peer Count | Manager            | Scheduler          | Seed Peer         | Peer        |
-| ---------- | ------------------ | ------------------ | ----------------- | ----------- |
-| 500        | 4C-8G-200Gi \* 3   | 8C-16G-200Gi \* 3  | 8C-16G-1Ti \* 3   | 4C-8G-500Gi |
-| 1K         | 8C-16G-200Gi \* 3  | 8C-16G-200Gi \* 3  | 8C-16G-3Ti \* 3   | 4C-8G-500Gi |
-| 3K         | 16C-32G-200Gi \* 3 | 16C-32G-200Gi \* 3 | 16C-32G-5Ti \* 3  | 4C-8G-500Gi |
-| 5K         | 16C-64G-200Gi \* 3 | 32C-64G-200Gi \* 3 | 32C-64G-10Ti \* 3 | 4C-8G-500Gi |
+| Total Number of Peer | Manager            | Scheduler          | Seed Peer         | Peer        |
+| -------------------- | ------------------ | ------------------ | ----------------- | ----------- |
+| 500                  | 4C-8G-200Gi \* 3   | 8C-16G-200Gi \* 3  | 8C-16G-1Ti \* 3   | 4C-8G-500Gi |
+| 1K                   | 8C-16G-200Gi \* 3  | 8C-16G-200Gi \* 3  | 8C-16G-3Ti \* 3   | 4C-8G-500Gi |
+| 3K                   | 16C-32G-200Gi \* 3 | 16C-32G-200Gi \* 3 | 16C-32G-5Ti \* 3  | 4C-8G-500Gi |
+| 5K                   | 16C-64G-200Gi \* 3 | 32C-64G-200Gi \* 3 | 32C-64G-10Ti \* 3 | 4C-8G-500Gi |
 
 <!-- markdownlint-restore -->
 
 ## Performance tuning
 
-### Upstream bandwidth
+### Upload Rate
 
 Mainly used for node P2P sharing of Piece bandwidth.
 it is recommended that the configuration be the same as the upstream bandwidth of the machine.
@@ -86,7 +99,7 @@ upload:
   rateLimit: 20000000000
 ```
 
-### Downlink bandwidth
+### Download Rate
 
 It mainly affects the bandwidth of the node returning to the source and the bandwidth downloaded from Remote Peer.
 It is recommended that the configuration be the same as the downlink bandwidth of the machine.
@@ -147,8 +160,9 @@ Therefore, Seed Peer's HTTP Proxy is used as the cache server of Nydus
 and P2P is performed internally to reduce return-to-origin requests and return-to-origin bandwidth.
 Please refer to [nydus](../integrations/container-runtime/nydus.md)
 
-**1.** `proxy.rules.regex` is to match the URL of the Nydus repository. In this way,
-traffic can be intercepted and sent to the P2P network.
+**1.** When `proxy.rules.regex` matches the Nydus repository URL.
+Only then can download traffic be forwarded to the P2P network.
+Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:
@@ -180,9 +194,9 @@ Changed `Seed peer load limit` successfully.
 
 ![cluster](../../resource/operations/best-practices/deployment-best-practices/cluster.png)
 
-**3.** When Prefetch is turned on, Nydus will initiate an HTTP Range request of about 1MB to achieve on-demand downloading.
-When Prefetch is turned on, the Seed Peer can prefetch the complete resource after receiving the HTTP Range request,
-improving the cache hit rate. Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+**3.** Nydus will initiate an HTTP Range request of about 1MB to load on demand. When Prefetch is turned on,
+the Seed Peer can prefetch the complete resource after receiving the HTTP Range request.
+Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:
@@ -190,7 +204,8 @@ proxy:
   prefetch: false
 ```
 
-**4.** Proxy's readBufferSize can be adjusted to 64KB to reduce Proxy request time.
+**4.** When the download speed is slow,
+you can adjust the `readBufferSize` value of Proxy to 64KB in order to reduce the Proxy request time.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
