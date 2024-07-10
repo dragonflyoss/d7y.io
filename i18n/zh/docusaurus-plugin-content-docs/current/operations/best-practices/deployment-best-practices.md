@@ -8,9 +8,9 @@ slug: /operations/best-practices/deployment-best-practices/
 
 ## 容量规划
 
-规划容量时需要考虑的一个重要因素是：最高预期文件/镜像存储容量，并且你需要对目前所拥有的机器的内存大小、CPU核心数、磁盘容量有清晰的了解。
+规划容量时需要考虑的一个重要因素是：最高预期存储容量。并且你需要对目前所拥有的机器的内存大小、CPU核心数、磁盘容量有清晰的了解。
 
-如果您没有明确的容量规划，可以使用下面的估算值来预测您的容量，但会根据您的工作需求而有所不同。
+如果您没有明确的容量规划，可以使用下面的估算值来预测您的容量。
 
 ### Manager
 
@@ -20,11 +20,11 @@ slug: /operations/best-practices/deployment-best-practices/
 
 <!-- markdownlint-disable -->
 
-| Total Number of Peer | CPU core | Estimated memory | Disk  |
-| -------------------- | -------- | ---------------- | ----- |
-| 1K                   | 8C       | 16G              | 200Gi |
-| 5K                   | 16C      | 32G              | 200Gi |
-| 10K                  | 16C      | 64G              | 200Gi |
+| Total Number of Peer | CPU core | Memory | Disk  |
+| -------------------- | -------- | ------ | ----- |
+| 1K                   | 8C       | 16G    | 200Gi |
+| 5K                   | 16C      | 32G    | 200Gi |
+| 10K                  | 16C      | 64G    | 200Gi |
 
 <!-- markdownlint-restore -->
 
@@ -36,11 +36,11 @@ slug: /operations/best-practices/deployment-best-practices/
 
 <!-- markdownlint-disable -->
 
-| 下载请求(秒) | CPU core | Estimated memory | Disk  |
-| ------------ | -------- | ---------------- | ----- |
-| 1K/s         | 8C       | 16G              | 200Gi |
-| 3K/s         | 16C      | 32G              | 200Gi |
-| 5K/s         | 32C      | 64G              | 200Gi |
+| Download request(sec) | CPU core | Memory | Disk  |
+| --------------------- | -------- | ------ | ----- |
+| 1K                    | 8C       | 16G    | 200Gi |
+| 3K                    | 16C      | 32G    | 200Gi |
+| 5K                    | 32C      | 64G    | 200Gi |
 
 <!-- markdownlint-restore -->
 
@@ -52,18 +52,18 @@ slug: /operations/best-practices/deployment-best-practices/
 
 <!-- markdownlint-disable -->
 
-| 下载请求(秒) | CPU core | Estimated memory | Disk  |
-| ------------ | -------- | ---------------- | ----- |
-| 500/s        | 8C       | 16G              | 500Gi |
-| 1K/s         | 8C       | 16G              | 3Ti   |
-| 3K/s         | 16C      | 32G              | 5Ti   |
-| 5K/s         | 32C      | 64G              | 10Ti  |
+| Download request(sec) | CPU core | Memory | Disk  |
+| --------------------- | -------- | ------ | ----- |
+| 500                   | 8C       | 16G    | 500Gi |
+| 1K                    | 8C       | 16G    | 3Ti   |
+| 3K                    | 16C      | 32G    | 5Ti   |
+| 5K                    | 32C      | 64G    | 10Ti  |
 
 <!-- markdownlint-restore -->
 
 ### Cluster
 
-以下数据是 Cluster 中每个组件所使用的资源。它们基于我们平常使用的经验所得，但会根据您的工作需求而有所不同。
+以下数据是 Cluster 中每个组件所使用的资源。它们基于我们平常使用的经验所得。
 
 <!-- markdownlint-disable -->
 
@@ -77,6 +77,8 @@ slug: /operations/best-practices/deployment-best-practices/
 <!-- markdownlint-restore -->
 
 ## 性能调优
+
+以下文档会帮助您获得更好的性能，特别是对于大规模运行。
 
 ### 限速率
 
@@ -124,7 +126,7 @@ download:
 
 ### 强制 GC
 
-主要作用节点磁盘中的任务 GC，当内存资源不足时我们可以调整 interval，interval 越小我们内存释放的越快，taskTTL 根据任务需要缓存时间用户自行评估。
+主要作用节点磁盘中的任务 GC，当内存资源不足时我们可以调整 interval，interval 越小内存释放的越快，taskTTL 根据任务需要缓存时间用户自行评估。
 `distHighThresholdPercent` 和 `distLowThresholdPercent` 建议使用默认值，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
@@ -144,11 +146,11 @@ gc:
 
 ### Nydus 缓存
 
-Dragonfly 作为 Nydus 的缓存时，只部署 Manager，Scheduler 以及 Seed Peer 即可。由于 Nydus 会将文件切分成 1MB 左右的 Chunk 请求按需加载文件。
+Dragonfly 作为 Nydus 的缓存时，只需部署 Manager，Scheduler 以及 Seed Peer 即可。由于 Nydus 会将文件切分成 1MB 左右的 Chunk 请求按需加载文件。
 所以使用 Seed Peer 的 HTTP Proxy 作为 Nydus 的缓存服务器，并且传输过程中利用 P2P 的传输方式，减少回源请求以及回源带宽。
 使用 Nydus 的缓存服务器的时候，Dragonfly 配置需要有一定优化。
 
-**1.** 当 `proxy.rules.regex` 正则匹配 Nydus 存储仓库的 URL。这样才能将下载流量转发到 P2P 网络中，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。。
+**1.** 当 `proxy.rules.regex` 正则匹配 Nydus 存储仓库的 URL 时，才能将下载流量转发到 P2P 网络中，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。。
 
 ```yaml
 proxy:
@@ -168,7 +170,7 @@ proxy:
       # filteredQueryParams: []
 ```
 
-**2.** `Seed peer load limit` 推荐改成 10000 或者更高，提高 Seed Peer 之间的 P2P Cache 命中率。
+**2.** 推荐 `Seed peer load limit` 改成 10000 或者更高，提高 Seed Peer 之间的 P2P Cache 命中率。
 
 点击 `UPDATE CLUSTER` 按钮更改 `Seed peer load limit` 为 10000。详情参考 [update-cluster](https://d7y.io/docs/next/advanced-guides/web-console/cluster/#update-cluster)。
 

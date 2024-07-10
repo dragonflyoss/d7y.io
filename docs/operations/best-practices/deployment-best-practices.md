@@ -8,12 +8,11 @@ This document outlines how we plan to set up capacity planning and performance o
 
 ## Capacity Planning
 
-A big factor in planning capacity is: Maximum expected file/image storage capacity,
+A big factor in planning capacity is: Maximum expected storage capacity.
 And you need to have a clear understanding of the memory size, number of CPU cores,
-and disk capacity of the machine you currently have available.
+and disk capacity of your current machine.
 
-If you don't have a clear capacity plan, you can use the estimates below to predict your capacity,
-but it will vary based on your job needs.
+If you don't have a clear capacity plan, you can use the estimates below to predict your capacity.
 
 ### Manager
 
@@ -23,27 +22,27 @@ The Deployment Manager will estimate the amount of resources used based on the n
 
 <!-- markdownlint-disable -->
 
-| Total Number of Peer | CPU core | Estimated memory | Disk  |
-| -------------------- | -------- | ---------------- | ----- |
-| 1K                   | 8C       | 16G              | 200Gi |
-| 5K                   | 16C      | 32G              | 200Gi |
-| 10K                  | 16C      | 64G              | 200Gi |
+| Total Number of Peer | CPU core | Memory | Disk  |
+| -------------------- | -------- | ------ | ----- |
+| 1K                   | 8C       | 16G    | 200Gi |
+| 5K                   | 16C      | 32G    | 200Gi |
+| 10K                  | 16C      | 64G    | 200Gi |
 
 <!-- markdownlint-restore -->
 
 ### Scheduler
 
-The deployment Scheduler estimates the amount of resources used based on download requests (seconds).
+The deployment Scheduler estimates the amount of resources used based on download requests(sec).
 
 > Run a minimum of 3 replicas.
 
 <!-- markdownlint-disable -->
 
-| Download request（sec） | CPU core | Estimated memory | Disk  |
-| ----------------------- | -------- | ---------------- | ----- |
-| 1K/s                    | 8C       | 16G              | 200Gi |
-| 3K/s                    | 16C      | 32G              | 200Gi |
-| 5K/s                    | 32C      | 64G              | 200Gi |
+| Download request(sec) | CPU core | Memory | Disk  |
+| --------------------- | -------- | ------ | ----- |
+| 1K                    | 8C       | 16G    | 200Gi |
+| 3K                    | 16C      | 32G    | 200Gi |
+| 5K                    | 32C      | 64G    | 200Gi |
 
 <!-- markdownlint-restore -->
 
@@ -51,16 +50,16 @@ The deployment Scheduler estimates the amount of resources used based on downloa
 
 <!-- markdownlint-disable -->
 
-The deployment Client estimates the amount of resources used based on download requests (seconds).
+The deployment Client estimates the amount of resources used based on download requests(sec).
 
 > If it is a Seed Peer, at least 3 copies should be run. The Disk size is based on the total size of different files/images in the Cache.
 
-| Download request（sec） | CPU core | Estimated memory | Disk  |
-| ----------------------- | -------- | ---------------- | ----- |
-| 500/s                   | 8C       | 16G              | 500Gi |
-| 1K/s                    | 8C       | 16G              | 3Ti   |
-| 3K/s                    | 16C      | 32G              | 5Ti   |
-| 5K/s                    | 32C      | 64G              | 10Ti  |
+| Download request(sec) | CPU core | Memory | Disk  |
+| --------------------- | -------- | ------ | ----- |
+| 500                   | 8C       | 16G    | 500Gi |
+| 1K                    | 8C       | 16G    | 3Ti   |
+| 3K                    | 16C      | 32G    | 5Ti   |
+| 5K                    | 32C      | 64G    | 10Ti  |
 
 <!-- markdownlint-restore -->
 
@@ -82,12 +81,15 @@ but will vary based on your job needs.
 
 ## Performance tuning
 
+The following documentation may help you to achieve better performance, especially for large-scale runs.
+
 ### Rate Limit
 
-#### Upload Rate
+#### Uplink Rate
 
-Mainly used for node P2P sharing of Piece bandwidth.
-it is recommended that the configuration be the same as the upstream bandwidth of the machine.
+Mainly used for node P2P sharing of Piece bandwidth. When your peak bandwidth is greater than the default upstream bandwidth,
+you can set rateLimit to an appropriate value to increase upload speed.
+It is recommended to configure the same configuration as the upstream bandwidth of the machine.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
@@ -101,10 +103,11 @@ upload:
   rateLimit: 20000000000
 ```
 
-#### Download Rate
+#### Downlink Rate
 
-It mainly affects the bandwidth of the node returning to the source and the bandwidth downloaded from Remote Peer.
-It is recommended that the configuration be the same as the downlink bandwidth of the machine.
+Mainly used for node back-to-source bandwidth and bandwidth downloaded from Remote Peer.
+When your peak bandwidth is greater than your default uplink bandwidth, you can set `rateLimit` to an appropriate value to increase the download speed.
+Without affecting other services, it is recommended to configure the same configuration as the machine's downlink bandwidth.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
@@ -186,7 +189,7 @@ proxy:
 ```
 
 **2.** It is recommended to change the `Seed peer load limit` to 10000 or higher,
-which can improve the P2P Cache hit rate between Seed Peers.
+which can improve the P2P cache hit rate between Seed Peers.
 
 Click the `UPDATE CLUSTER` button to change the `Seed peer load limit` to 10000.
 Please refer to [update-cluster](https://d7y.io/docs/next/advanced-guides/web-console/cluster/#update-cluster).
@@ -197,8 +200,9 @@ Changed `Seed peer load limit` successfully.
 
 ![cluster](../../resource/operations/best-practices/deployment-best-practices/cluster.png)
 
-**3.** Nydus will initiate an HTTP Range request of about 1MB to load on demand. When Prefetch is turned on,
-the Seed Peer can prefetch the complete resource after receiving the HTTP Range request.
+**3.** Nydus will initiate an HTTP Range request of about 1MB to achieve on-demand loading.
+When Prefetch is turned on, the Seed Peer can prefetch the complete resource after receiving the HTTP Range request,
+improving the cache hit rate.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
