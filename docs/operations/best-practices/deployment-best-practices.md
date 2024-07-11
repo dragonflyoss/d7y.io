@@ -4,7 +4,7 @@ title: Deployment Best Practices
 slug: /operations/best-practices/deployment-best-practices/
 ---
 
-Documentation on how to set up capacity planning and performance tuning for Dragonfly.
+Documentation for setting capacity planning and performance tuning for Dragonfly.
 
 ## Capacity Planning
 
@@ -12,27 +12,27 @@ A big factor in planning capacity is: highest expected storage capacity.
 And you need to have a clear understanding of the memory size, CPU core count,
 and disk capacity of the machine you currently have.
 
-If you don't have a clear capacity plan, you can use the estimates below to predict your capacity.
+For predicting your capacity, you can use the estimates from below if you don’t have your capacity plan.
 
 ### Manager
 
-The deployment Manager estimates the amount of resources used based on the number of peers.
+The amount of resources required to deploy the Manager depends on the total number of peers.
 
 > Run a minimum of 3 replicas.
 
 <!-- markdownlint-disable -->
 
-| Total Number of Peer | CPU | Memory | Disk  |
-| -------------------- | --- | ------ | ----- |
-| 1K                   | 8C  | 16G    | 200Gi |
-| 5K                   | 16C | 32G    | 200Gi |
-| 10K                  | 16C | 64G    | 200Gi |
+| Total Number of Peers | CPU | Memory | Disk  |
+| --------------------- | --- | ------ | ----- |
+| 1K                    | 8C  | 16G    | 200Gi |
+| 5K                    | 16C | 32G    | 200Gi |
+| 10K                   | 16C | 64G    | 200Gi |
 
 <!-- markdownlint-restore -->
 
 ### Scheduler
 
-The deployment Scheduler estimates the amount of resources used based on download requests per second.
+The amount of resources required to deploy the Scheduler depends on the request per second.
 
 > Run a minimum of 3 replicas.
 
@@ -50,7 +50,7 @@ The deployment Scheduler estimates the amount of resources used based on downloa
 
 <!-- markdownlint-disable -->
 
-The deployment Client estimates the amount of resources used based on download requests per second.
+The amount of resources required to deploy the Client depends on the request per second.
 
 > If it is a Seed Peer, run a minimum of 3 replicas. Disk size is calculated based on different file storage capacities.
 
@@ -65,30 +65,31 @@ The deployment Client estimates the amount of resources used based on download r
 
 ### Cluster
 
-Deploying a P2P cluster will estimate the amount of resources used by each service based on the number of Peers.
+The amount of resources required to deploy each service in a P2P cluster depends on the total number of Peers.
 
 <!-- markdownlint-disable -->
 
-| Total Number of Peer | Manager            | Scheduler          | Seed Peer         | Peer        |
-| -------------------- | ------------------ | ------------------ | ----------------- | ----------- |
-| 500                  | 4C/8G/200Gi \* 3   | 8C/16G/200Gi \* 3  | 8C/16G/1Ti \* 3   | 4C/8G/500Gi |
-| 1K                   | 8C/16G/200Gi \* 3  | 8C/16G/200Gi \* 3  | 8C/16G/3Ti \* 3   | 4C/8G/500Gi |
-| 3K                   | 16C/32G/200Gi \* 3 | 16C/32G/200Gi \* 3 | 16C/32G/5Ti \* 3  | 4C/8G/500Gi |
-| 5K                   | 16C/64G/200Gi \* 3 | 32C/64G/200Gi \* 3 | 32C/64G/10Ti \* 3 | 4C/8G/500Gi |
+| Total Number of Peers | Manager            | Scheduler          | Seed Peer         | Peer        |
+| --------------------- | ------------------ | ------------------ | ----------------- | ----------- |
+| 500                   | 4C/8G/200Gi \* 3   | 8C/16G/200Gi \* 3  | 8C/16G/1Ti \* 3   | 4C/8G/500Gi |
+| 1K                    | 8C/16G/200Gi \* 3  | 8C/16G/200Gi \* 3  | 8C/16G/3Ti \* 3   | 4C/8G/500Gi |
+| 3K                    | 16C/32G/200Gi \* 3 | 16C/32G/200Gi \* 3 | 16C/32G/5Ti \* 3  | 4C/8G/500Gi |
+| 5K                    | 16C/64G/200Gi \* 3 | 32C/64G/200Gi \* 3 | 32C/64G/10Ti \* 3 | 4C/8G/500Gi |
 
 <!-- markdownlint-restore -->
 
 ## Performance tuning
 
-The following guidelines may help you to achieve better performance especially for large scale runs.
+The following documentation may help you to achieve better performance especially for large scale runs.
 
 ### Rate limits
 
 #### Upstream bandwidth
 
-Mainly used for node P2P sharing of Piece bandwidth. When the peak bandwidth is greater than the default upstream bandwidth,
-`rateLimit` can be set higher to increase upload speed.
-It is recommended that the configuration be the same as the downstream bandwidth of the machine.
+Used for node P2P to share piece bandwidth.
+If the peak bandwidth is greater than the default upstream bandwidth,
+you can set `rateLimit` higher to increase the upload speed.
+It is recommended that the configuration be the same as the downlink bandwidth of the machine.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
@@ -99,8 +100,8 @@ upload:
 
 #### Downstream bandwidth
 
-Mainly used for node back-to-source bandwidth and download bandwidth from Remote Peer.
-When the peak bandwidth is greater than the default upstream bandwidth,
+Used for node back-to-source bandwidth and download bandwidth from remote peer.
+If the peak bandwidth is greater than the default downstream bandwidth,
 `rateLimit` can be set higher to increase download speed.
 It is recommended that the configuration be the same as the upstream bandwidth of the machine.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
@@ -113,8 +114,9 @@ download:
 
 ### Concurrency Control
 
-Mainly used for downloading a single task on a node,
-the number of concurrent Piece downloads back-to-source and concurrent number of Piece downloads from Remote Peer.
+When downloading a single task on a node,
+the number of concurrent pieces back-to-source downloading and
+the number of concurrent pieces downloading from the remote peer.
 The larger the number of Piece concurrency, the faster the task download, and the more CPU and Memory will be consumed.
 The user adjusts the number of Piece concurrency according to the actual situation.
 and adjust the client’s CPU and memory configuration.
@@ -128,7 +130,7 @@ download:
 
 ### GC
 
-Mainly used for Task cache GC in node disk, taskTTL is evaluated based on actual cache time.
+Used for Task cache GC in node disk, taskTTL is calculated based on cache time.
 To avoid cases where GC would be problematic or potentially catastrophi,
 it is recommended to use the default values ​​for `distHighThresholdPercent` and `distLowThresholdPercent`,
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
@@ -150,11 +152,11 @@ gc:
 
 ### Nydus
 
-When using Nydus to download a file, Nydus will split the file into chunks of about 1MB and load them on demand.
-When using Seed Peer HTTP Proxy as Nydus cache server,
-the P2P transmission method is used to reduce back-to-source requests and back-to-source bandwidth,
-further improving download speeds.
-When Dragonfly is used as a cache server for Nydus, the configuration needs to be optimized.
+When Nydus downloads a file, it splits the file into 1MB chunks and loads them on demand.
+Use Seed Peer HTTP proxy as Nydus cache service,
+use P2P transmission method to reduce back-to-source requests and back-to-source bandwidth,
+and improve download speed.
+When Dragonfly is used as a cache service for Nydus, the configuration needs to be optimized.
 
 **1.** `proxy.rules.regex` regularly matches the Nydus storage warehouse URL,
 intercepts the download traffic and forwards it to the P2P network.

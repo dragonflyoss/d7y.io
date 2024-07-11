@@ -20,11 +20,11 @@ slug: /operations/best-practices/deployment-best-practices/
 
 <!-- markdownlint-disable -->
 
-| Total Number of Peer | CPU | Memory | Disk  |
-| -------------------- | --- | ------ | ----- |
-| 1K                   | 8C  | 16G    | 200Gi |
-| 5K                   | 16C | 32G    | 200Gi |
-| 10K                  | 16C | 64G    | 200Gi |
+| Total Number of Peers | CPU | Memory | Disk  |
+| --------------------- | --- | ------ | ----- |
+| 1K                    | 8C  | 16G    | 200Gi |
+| 5K                    | 16C | 32G    | 200Gi |
+| 10K                   | 16C | 64G    | 200Gi |
 
 <!-- markdownlint-restore -->
 
@@ -67,12 +67,12 @@ slug: /operations/best-practices/deployment-best-practices/
 
 <!-- markdownlint-disable -->
 
-| Total Number of Peer | Manager            | Scheduler          | Seed Peer         | Peer        |
-| -------------------- | ------------------ | ------------------ | ----------------- | ----------- |
-| 500                  | 4C/8G/200Gi \* 3   | 8C/16G/200Gi \* 3  | 8C/16G/1Ti \* 3   | 4C/8G/500Gi |
-| 1K                   | 8C/16G/200Gi \* 3  | 8C/16G/200Gi \* 3  | 8C/16G/3Ti \* 3   | 4C/8G/500Gi |
-| 3K                   | 16C/32G/200Gi \* 3 | 16C/32G/200Gi \* 3 | 16C/32G/5Ti \* 3  | 4C/8G/500Gi |
-| 5K                   | 16C/64G/200Gi \* 3 | 32C/64G/200Gi \* 3 | 32C/64G/10Ti \* 3 | 4C/8G/500Gi |
+| Total Number of Peers | Manager            | Scheduler          | Seed Peer         | Peer        |
+| --------------------- | ------------------ | ------------------ | ----------------- | ----------- |
+| 500                   | 4C/8G/200Gi \* 3   | 8C/16G/200Gi \* 3  | 8C/16G/1Ti \* 3   | 4C/8G/500Gi |
+| 1K                    | 8C/16G/200Gi \* 3  | 8C/16G/200Gi \* 3  | 8C/16G/3Ti \* 3   | 4C/8G/500Gi |
+| 3K                    | 16C/32G/200Gi \* 3 | 16C/32G/200Gi \* 3 | 16C/32G/5Ti \* 3  | 4C/8G/500Gi |
+| 5K                    | 16C/64G/200Gi \* 3 | 32C/64G/200Gi \* 3 | 32C/64G/10Ti \* 3 | 4C/8G/500Gi |
 
 <!-- markdownlint-restore -->
 
