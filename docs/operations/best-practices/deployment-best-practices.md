@@ -158,8 +158,8 @@ use P2P transmission method to reduce back-to-source requests and back-to-source
 and improve download speed.
 When Dragonfly is used as a cache service for Nydus, the configuration needs to be optimized.
 
-**1.** `proxy.rules.regex` regularly matches the Nydus storage warehouse URL,
-intercepts the download traffic and forwards it to the P2P network.
+**1.** `proxy.rules.regex` matches the Nydus repository URL,
+intercepts download traffic and forwards it to the P2P network.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
