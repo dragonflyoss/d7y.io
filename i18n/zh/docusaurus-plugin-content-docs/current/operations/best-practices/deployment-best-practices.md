@@ -78,55 +78,45 @@ slug: /operations/best-practices/deployment-best-practices/
 
 ## 性能调优
 
-以下文档会帮助您获得更好的性能，特别是对于大规模运行。
+以下内容可以帮助你实现更好的性能，特别是对于大规模运行。
 
 ### 速率限制
 
 #### 上行带宽
 
-主要作用节点 P2P 分享 Piece 的带宽。当你的峰值带宽大于你的默认上行带宽，你可以设置 `rateLimit` 为合适的值提升上传速度，在不影响其他服务情况下，建议配置和机器上行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
+主要作用节点 P2P 分享 Piece 的带宽。当峰值带宽大于默认上行带宽，可以将 `rateLimit` 设置更高，提升上传速度。在不影响其他服务情况下，建议配置和机器下行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
 upload:
-  server:
-    # grpc 服务器的端口。
-    port: 4000
-    ## GRPC 服务器的监听 ip。
-    # ip: ""
-    # 上传速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
+  # 上传速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
   rateLimit: 20000000000
 ```
 
 #### 下行带宽
 
-主要作用节点回源的带宽和从 Remote Peer 下载的带宽。当你的峰值带宽大于你的默认上行带宽，你可以设置 `rateLimit` 为合适的值提升下载速度，在不影响其他服务情况下，建议配置和机器下行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
+主要作用节点回源带宽和从 Remote Peer 下载带宽。当峰值带宽大于默认上行带宽，可以将 `rateLimit` 设置更高，提升下载速度。在不影响其他服务情况下，建议配置和机器上行带宽相同，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
 download:
-  server:
-    # socketPath 是 dfdaemon GRPC 服务的 unix 套接字路径。
-    socketPath: /var/run/dragonfly/dfdaemon.sock
   # 下载速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
   rateLimit: 20000000000
 ```
 
-### 并发数
+### 并发控制
 
-主要作用节点单个任务下载时，回源下载的 Piece 并发数和从 Remote Peer 下载的 Piece 并发数。默认并发数为 10，可根据机器配置调整。
+主要作用节点单个任务下载时，回源下载 Piece 并发数和从 Remote Peer 下载 Piece 并发数。默认并发数为 10，可根据机器配置调整。
 Piece 并发数越大，任务下载越快，但是消耗 CPU 以及 Memory 会更多。用户根据实际情况在调整 Piece 并发数的同时，
 调整 Client 的 CPU 以及 Memory 配置，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
 download:
-  # 从源下载 piece 的超时时间。
-  pieceTimeout: 30s
   # 下载 piece 的并发数量。
   concurrentPieceCount: 10
 ```
 
 ### GC
 
-主要作用节点磁盘中的任务 GC，taskTTL 根据任务需要缓存时间自行评估。
+主要作用节点磁盘中的 Task 缓存 GC，taskTTL 根据用户实际需要缓存时间评估。
 为了避免 GC 出现问题或可能造成灾难性后果的情况，`distHighThresholdPercent` 和 `distLowThresholdPercent` 建议使用默认值，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
@@ -146,11 +136,11 @@ gc:
 
 ### Nydus
 
-当 Nydus 下载镜像或文件的时候，Nydus 会将文件切分成 1MB 左右的 Chunk 请求按需加载。
-在使用 Seed Peer 的 HTTP Proxy 作为 Nydus 的缓存服务器时，利用 P2P 的传输方式减少回源请求以及回源带宽，进一步提升下载速度。
-Dragonfly 作为 Nydus 的缓存服务器时，配置需要有一定优化。
+当 Nydus 下载镜像或文件的时候，Nydus 会将 Task 切分成 1MB 左右的 Chunk 请求按需加载。
+在使用 Seed Peer 的 HTTP Proxy 作为 Nydus 的缓存服务时，利用 P2P 的传输方式减少回源请求以及回源带宽，进一步提升下载速度。
+Dragonfly 作为 Nydus 的缓存服务，部署 Manager，Scheduler 以及 Seed Peer 即可，配置需要有一定优化。
 
-**1.** `proxy.rules.regex` 正则匹配 Nydus 存储仓库 URL，这样才能将下载流量转发到 P2P 网络中，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
+**1.** `proxy.rules.regex` 正则匹配 Nydus 存储仓库 URL，截获下载流量转发到 P2P 网络中，详情参考 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
 
 ```yaml
 proxy:
@@ -170,13 +160,13 @@ proxy:
       # filteredQueryParams: []
 ```
 
-**2.** 推荐 `Seed peer load limit` 改成 10000 或者更高，提高 Seed Peer 之间的 P2P Cache 命中率。
+**2.** 推荐 `Seed Peer Load Limit` 改成 10000 或者更高，提高 Seed Peer 之间的 P2P 缓存命中率。
 
-点击 `UPDATE CLUSTER` 按钮更改 `Seed peer load limit` 为 10000。详情参考 [update-cluster](https://d7y.io/docs/next/advanced-guides/web-console/cluster/#update-cluster)。
+点击 `UPDATE CLUSTER` 按钮更改 `Seed Peer Load Limit` 为 10000。详情参考 [update-cluster](https://d7y.io/docs/next/advanced-guides/web-console/cluster/#update-cluster)。
 
 ![update-cluster](../../resource/operations/best-practices/deployment-best-practices/update-cluster.png)
 
-更改 `Seed peer load limit` 成功。
+更改 `Seed Peer Load Limit` 成功。
 ![cluster](../../resource/operations/best-practices/deployment-best-practices/cluster.png)
 
 **3.** Nydus 会发起 1MB 左右的 HTTP Range 请求实现按需加载，开启 Prefetch 的情况下 Seed Peer 可以在接受到 HTTP Range 请求后预取完整的资源，
@@ -185,7 +175,7 @@ proxy:
 ```yaml
 proxy:
   # 当请求使用 Range Header，请求部分数据的时候，可以预先获取非 Range 内的数据。
-  prefetch: false
+  prefetch: true
 ```
 
 **4.** 下载速度较慢时，可以调整 Proxy 的 `readBufferSize` 值，适当调至为 64KB，目的是为了减少 Proxy 请求时间，参考文档 [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md)。
