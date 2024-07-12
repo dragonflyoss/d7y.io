@@ -9,14 +9,13 @@ Documentation for setting capacity planning and performance tuning for Dragonfly
 ## Capacity Planning
 
 A big factor in planning capacity is: highest expected storage capacity.
-And you need to have a clear understanding of the memory size, CPU core count,
-and disk capacity of the machine you currently have.
+And know the memory size, CPU core count, and disk capacity of each machine.
 
 For predicting your capacity, you can use the estimates from below if you don’t have your capacity plan.
 
 ### Manager
 
-The amount of resources required to deploy the Manager depends on the total number of peers.
+The resources required to deploy the Manager depends on the total number of peers.
 
 > Run a minimum of 3 replicas.
 
@@ -32,7 +31,7 @@ The amount of resources required to deploy the Manager depends on the total numb
 
 ### Scheduler
 
-The amount of resources required to deploy the Scheduler depends on the request per second.
+The resources required to deploy the Scheduler depends on the request per second.
 
 > Run a minimum of 3 replicas.
 
@@ -50,9 +49,9 @@ The amount of resources required to deploy the Scheduler depends on the request 
 
 <!-- markdownlint-disable -->
 
-The amount of resources required to deploy the Client depends on the request per second.
+The resources required to deploy the Client depends on the request per second.
 
-> If it is a Seed Peer, run a minimum of 3 replicas. Disk size is calculated based on different file storage capacities.
+> If it is a Seed Peer, run a minimum of 3 replicas. Disk are calculated based on file storage capacity.
 
 | Request Per Second | CPU | Memory | Disk  |
 | ------------------ | --- | ------ | ----- |
@@ -65,7 +64,7 @@ The amount of resources required to deploy the Client depends on the request per
 
 ### Cluster
 
-The amount of resources required to deploy each service in a P2P cluster depends on the total number of Peers.
+The resources required to deploy each service in a P2P cluster depends on the total number of Peers.
 
 <!-- markdownlint-disable -->
 
@@ -84,12 +83,12 @@ The following documentation may help you to achieve better performance especiall
 
 ### Rate limits
 
-#### Upstream bandwidth
+#### Outbound Bandwidth
 
 Used for node P2P to share piece bandwidth.
-If the peak bandwidth is greater than the default upstream bandwidth,
+If the peak bandwidth is greater than the default outbound bandwidth,
 you can set `rateLimit` higher to increase the upload speed.
-It is recommended that the configuration be the same as the downlink bandwidth of the machine.
+It is recommended that the configuration be the same as the inbound bandwidth of the machine.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
@@ -98,12 +97,12 @@ upload:
   rateLimit: 20000000000
 ```
 
-#### Downstream bandwidth
+#### Inbound Bandwidth
 
 Used for node back-to-source bandwidth and download bandwidth from remote peer.
-If the peak bandwidth is greater than the default downstream bandwidth,
+If the peak bandwidth is greater than the default inbound bandwidth,
 `rateLimit` can be set higher to increase download speed.
-It is recommended that the configuration be the same as the upstream bandwidth of the machine.
+It is recommended that the configuration be the same as the outbound bandwidth of the machine.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
@@ -112,13 +111,12 @@ download:
   rateLimit: 20000000000
 ```
 
-### Concurrency Control
+### Concurrency control
 
-When downloading a single task on a node,
-the number of concurrent pieces back-to-source downloading and
-the number of concurrent pieces downloading from the remote peer.
-The larger the number of Piece concurrency, the faster the task download, and the more CPU and Memory will be consumed.
-The user adjusts the number of Piece concurrency according to the actual situation.
+When used to download a single task of a node
+the number of concurrent downloads of piece back-to-source and the number of concurrent downloads of piece from remote peer.
+The larger the number of piece concurrency, the faster the task download, and the more CPU and memory will be consumed.
+The user adjusts the number of piece concurrency according to the actual situation.
 and adjust the client’s CPU and memory configuration.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
@@ -130,9 +128,9 @@ download:
 
 ### GC
 
-Used for Task cache GC in node disk, taskTTL is calculated based on cache time.
+Used for task cache GC in node disk, taskTTL is calculated based on cache time.
 To avoid cases where GC would be problematic or potentially catastrophi,
-it is recommended to use the default values ​​for `distHighThresholdPercent` and `distLowThresholdPercent`,
+it is recommended to use the default value.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
@@ -154,7 +152,7 @@ gc:
 
 When Nydus downloads a file, it splits the file into 1MB chunks and loads them on demand.
 Use Seed Peer HTTP proxy as Nydus cache service,
-use P2P transmission method to reduce back-to-source requests and back-to-source bandwidth,
+use P2P transmission method to reduce back-to-source requests and back-to-source traffic,
 and improve download speed.
 When Dragonfly is used as a cache service for Nydus, the configuration needs to be optimized.
 
@@ -192,7 +190,7 @@ Changed `Seed Peer Load Limit` successfully.
 ![cluster](../../resource/operations/best-practices/deployment-best-practices/cluster.png)
 
 **3.** Nydus will initiate an HTTP range request of about 1MB to achieve on-demand loading.
-When Prefetch enabled, the Seed Peer can prefetch the complete resource after receiving the HTTP range request,
+When prefetch enabled, the Seed Peer can prefetch the complete resource after receiving the HTTP range request,
 improving the cache hit rate.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
@@ -203,7 +201,7 @@ proxy:
 ```
 
 **4.** When the download speed is slow,
-you can adjust the `readBufferSize` value of Proxy to 64KB in order to reduce the Proxy request time.
+you can adjust the `readBufferSize` value of proxy to 64KB in order to reduce the proxy request time.
 Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
