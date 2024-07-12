@@ -100,7 +100,7 @@ The content storage address of Git LFS is `github-cloud.githubusercontent.com`.
 
 #### Dragonfly Kubernetes Cluster Setup {#dragonfly-kubernetes-cluster-setup}
 
-For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](https://d7y.io/docs/next/getting-started/quick-start/kubernetes/).
+For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
 
 ##### Setup kubernetes cluster
 
