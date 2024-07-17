@@ -101,7 +101,7 @@ seedClient:
 client:
   image:
     repository: dragonflyoss/client
-    tag:
+    tag: latest
   metrics:
     enable: true
   config:
@@ -309,6 +309,85 @@ capabilities = ["pull", "resolve"]
 
 [host."http://127.0.0.1:4001".header]
 X-Dragonfly-Registry = "https://ghcr.io"
+```
+
+Restart containerd:
+
+```shell
+systemctl restart containerd
+```
+
+### Private Registry {#private-registry}
+
+Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
+Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
+
+```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: your_private_registry_host_addr
+              serverAddr: your_private_registry_server_addr
+              capabilities: ['pull', 'resolve']
+```
+
+Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [configure-registry-credentials](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-credentials).
+
+> Notice：`your_private_registry_host_addr` is your private registry host address.
+
+```toml
+[plugins."io.containerd.grpc.v1.cri".registry.configs."your_private_registry_host_addr".auth]
+  username = "your_private_registry_username"
+  password = "your_private_registry_password"
+  auth = "your_private_registry_token"
+[plugins."io.containerd.grpc.v1.cri".registry.configs."127.0.0.1:4001".auth]
+  username = "your_private_registry_username"
+  password = "your_private_registry_password"
+  auth = "your_private_registry_token"
 ```
 
 Restart containerd:

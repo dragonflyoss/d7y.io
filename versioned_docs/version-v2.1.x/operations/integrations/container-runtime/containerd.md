@@ -196,7 +196,7 @@ The expected output is as follows:
 
 ## More configurations {#more-configurations}
 
-### Single Registry {single-registry}
+### Single Registry {#single-registry}
 
 Method 1: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
