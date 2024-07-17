@@ -93,8 +93,8 @@ Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md
 
 ```yaml
 upload:
-  # -- rateLimit is the default rate limit of the upload speed in bps(bytes per second), default is 20Gbps.
-  rateLimit: 20000000000
+  # -- rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
+  rateLimit: 10GiB
 ```
 
 #### Inbound Bandwidth
@@ -107,8 +107,8 @@ Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md
 
 ```yaml
 download:
-  # -- rateLimit is the default rate limit of the download speed in bps(bytes per second), default is 20Gbps.
-  rateLimit: 20000000000
+  # -- rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
+  rateLimit: 10GiB
 ```
 
 ### Concurrency control

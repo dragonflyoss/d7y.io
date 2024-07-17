@@ -66,5 +66,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  }
+  },
+  "repository": "git@github.com:dragonflyoss/d7y.io.git"
 }
