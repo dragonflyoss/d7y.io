@@ -100,7 +100,7 @@ seedClient:
 client:
   image:
     repository: dragonflyoss/client
-    tag:
+    tag: latest
   metrics:
     enable: true
   config:
@@ -266,7 +266,7 @@ client:
 
 **方法 2**：更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
 
-> 注意：config_path 为 containerd 查找 registry 配置文件路径。
+> 注意：config_path 为 containerd 查找 Registry 配置文件路径。
 
 ```toml
 # explicitly use v2 config format
@@ -308,4 +308,88 @@ X-Dragonfly-Registry = "https://ghcr.io"
 
 ```shell
 systemctl restart containerd
+```
+
+### 私有镜像仓库
+
+使用 Helm Charts 部署，创建 Helm Charts 配置文件 valuse.yaml。详情参考[配置文档](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values)。
+
+```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: your_private_registry_host_addr
+              serverAddr: your_private_registry_server_addr
+              capabilities: ['pull', 'resolve']
+```
+
+更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [configure-registry-credentials](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-credentials)。
+
+> 注意：`your_private_registry_host_addr` 为你的私有镜像仓库 host 地址。
+
+```toml
+[plugins."io.containerd.grpc.v1.cri".registry.configs."your_private_registry_host_addr".auth]
+  username = "your_private_registry_username"
+  password = "your_private_registry_password"
+  auth = "your_private_registry_token"
+[plugins."io.containerd.grpc.v1.cri".registry.configs."127.0.0.1:4001".auth]
+  username = "your_private_registry_username"
+  password = "your_private_registry_password"
+  auth = "your_private_registry_token"
+```
+
+重新启动 containerd：
+
+```shell
+systemctl restart containerd
+```
+
+拉取命令：
+
+```shell
+crictl pull REPO_NAME/NAMESPACE/IMAGE_NAME:TAG
 ```
