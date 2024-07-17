@@ -387,9 +387,3 @@ client:
 ```shell
 systemctl restart containerd
 ```
-
-拉取命令：
-
-```shell
-crictl pull <registry>/<namespace>/<image>:<tag>
-```

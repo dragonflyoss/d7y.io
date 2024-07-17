@@ -395,9 +395,3 @@ Restart containerd:
 ```shell
 systemctl restart containerd
 ```
-
-Pull command:
-
-```shell
-crictl pull <registry>/<namespace>/<image>:<tag>
-```
