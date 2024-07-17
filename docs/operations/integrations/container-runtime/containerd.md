@@ -399,5 +399,5 @@ systemctl restart containerd
 Pull command:
 
 ```shell
-crictl pull REPO_NAME/NAMESPACE/IMAGE_NAME:TAG
+crictl pull <registry>/<namespace>/<image>:<tag>
 ```
