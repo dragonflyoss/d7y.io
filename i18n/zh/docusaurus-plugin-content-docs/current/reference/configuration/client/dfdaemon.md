@@ -33,8 +33,8 @@ download:
   server:
     # dfdaemon GRPC 服务的 Unix 套接字路径。
     socketPath: /var/run/dragonfly/dfdaemon.sock
-  # 下载速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
-  rateLimit: 20000000000
+  # 下载速度的默认速率限制，单位为 KiB/MiB/GiB 每秒，默认为 10GiB/s。
+  rateLimit: 10GiB
   # 从源下载 piece 的超时时间。
   pieceTimeout: 30s
   # 下载 piece 的并发数量。
@@ -45,8 +45,8 @@ upload:
     port: 4000
     ## GRPC 服务器的监听 IP。
     # ip: ""
-  # 上传速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
-  rateLimit: 20000000000
+  # 上传速度的默认速率限制，单位为 KiB/MiB/GiB 每秒，默认为 10GiB/s。
+  rateLimit: 10GiB
 manager:
   # Manager 服务地址。
   addrs: []

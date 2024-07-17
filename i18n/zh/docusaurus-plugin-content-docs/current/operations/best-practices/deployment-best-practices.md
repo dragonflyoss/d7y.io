@@ -88,8 +88,8 @@ slug: /operations/best-practices/deployment-best-practices/
 
 ```yaml
 upload:
-  # 上传速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
-  rateLimit: 20000000000
+  # 上传速度的默认速率限制，单位为 KiB/MiB/GiB 每秒，默认为 10GiB/s。
+  rateLimit: 10GiB
 ```
 
 #### 下行带宽
@@ -98,8 +98,8 @@ upload:
 
 ```yaml
 download:
-  # 下载速度的默认速率限制，单位为 bps（字节每秒），默认为 20Gbps。
-  rateLimit: 20000000000
+  # 下载速度的默认速率限制，单位为 KiB/MiB/GiB 每秒，默认为 10GiB/s。
+  rateLimit: 10GiB
 ```
 
 ### 并发控制
