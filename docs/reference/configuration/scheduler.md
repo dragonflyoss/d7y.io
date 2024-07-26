@@ -233,10 +233,10 @@ network:
   enableIPv6: false
 
 # Console shows log on console.
-console: false
+console: true
 
 # Whether to enable debug level logger and enable pprof.
-verbose: false
+verbose: true
 
 # Listen port for pprof, only valid when the verbose option is true
 # default is -1. If it is 0, pprof will use a random port.
