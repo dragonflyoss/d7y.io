@@ -80,12 +80,6 @@ export default function Home() {
       name: ' DiDi',
     },
     {
-      imgURL: 'img/user/douyin.png',
-      alt: 'douyin',
-      herf: 'https://www.douyin.com/',
-      name: 'Douyin Group',
-    },
-    {
       imgURL: 'img/user/ele.png',
       alt: 'ele',
       herf: 'https://www.ele.me/',
@@ -180,7 +174,6 @@ export default function Home() {
   const PartnersList = [
     { imgURL: 'img/partners/ant-group.svg', alt: 'ant-group' },
     { imgURL: 'img/partners/alibaba-group.svg', alt: 'alibaba-group' },
-    { imgURL: 'img/partners/douyin.png', alt: 'douyin' },
     { imgURL: 'img/partners/kuaishou.svg', alt: 'kuaishou' },
     { imgURL: 'img/partners/baidu.svg', alt: 'baidu' },
     { imgURL: 'img/partners/didi.svg', alt: 'didi' },
