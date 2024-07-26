@@ -1025,11 +1025,11 @@ a {
 }
 
 .imageCard:nth-child(12) .userImage {
-  transform: scale(3);
+  transform: scale(0.9);
 }
 
 .imageCard:nth-child(13) .userImage {
-  transform: scale(0.8);
+  transform: scale(1);
 }
 
 .imageCard:nth-child(14) .userImage {
@@ -1037,11 +1037,11 @@ a {
 }
 
 .imageCard:nth-child(15) .userImage {
-  transform: scale(0.7);
+  transform: scale(0.8);
 }
 
 .imageCard:nth-child(16) .userImage {
-  transform: scale(0.7);
+  transform: scale(1);
 }
 
 .imageCard:nth-child(18) .userImage {
@@ -1049,10 +1049,18 @@ a {
 }
 
 .imageCard:nth-child(19) .userImage {
-  transform: scale(0.7);
+  transform: scale(1);
+}
+
+.imageCard:nth-child(20) .userImage {
+  transform: scale(0.8);
 }
 
 .imageCard:nth-child(21) .userImage {
+  transform: scale(1);
+}
+
+.imageCard:nth-child(22) .userImage {
   transform: scale(0.8);
 }
 
@@ -1069,7 +1077,7 @@ a {
 }
 
 .imageCard:nth-child(26) .userImage {
-  transform: scale(0.7);
+  transform: scale(0.8);
 }
 
 .userLink {
