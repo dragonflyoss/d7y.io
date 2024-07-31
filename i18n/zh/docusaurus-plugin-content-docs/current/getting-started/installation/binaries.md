@@ -72,6 +72,47 @@ mv /path/to/dragonfly/dfdaemon-v${CLIENT_VERSION}-x86_64-unknown-linux-musl /pat
 export PATH="/path/to/dragonfly:$PATH"
 ```
 
+### 使用 RPM 安装 Client
+
+下载并执行安装脚本：
+
+> 注意: version 建议使用最新版本
+
+```bash
+curl \
+  --proto '=https' \
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.rpm \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.rpm
+
+rmp -ivh client-aarch64-unknown-linux-gnu.rpm
+```
+
+确保将 `arch` 替换为以下内容之一：
+
+- `x86_64`
+- `aarch64`
+
+### 使用 DEB 安装 Client
+
+下载并执行安装脚本：
+
+> 注意: version 建议使用最新版本
+
+```bash
+curl \
+  --proto '=https' \
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.deb \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.deb
+
+
+dpkg -i client-{arch}-unknown-linux-gnu.deb
+```
+
+确保将 `arch` 替换为以下内容之一：
+
+- `x86_64`
+- `aarch64`
+
 ### 使用源码安装
 
 获取 Dragonfly 的源码：

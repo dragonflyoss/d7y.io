@@ -78,6 +78,47 @@ Configuration environment:
 export PATH="/path/to/dragonfly:$PATH"
 ```
 
+### Install Client using RPM
+
+Download and execute the install script:
+
+> Notice: version is recommended to use the latest version.
+
+```bash
+curl \
+  --proto '=https' \
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.rpm \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.rpm
+
+rmp -ivh client-aarch64-unknown-linux-gnu.rpm
+```
+
+Make sure to replace {arch} with one of the following:
+
+- `x86_64`
+- `aarch64`
+
+### Install Client using DEB
+
+Download and execute the install script:
+
+> Notice: version is recommended to use the latest version.
+
+```bash
+curl \
+  --proto '=https' \
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.deb \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.deb
+
+
+dpkg -i client-{arch}-unknown-linux-gnu.deb
+```
+
+Make sure to replace {arch} with one of the following:
+
+- `x86_64`
+- `aarch64`
+
 ### From Source {#from-source}
 
 Clone the source code of Dragonfly:
