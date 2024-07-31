@@ -78,7 +78,7 @@ Configuration environment:
 export PATH="/path/to/dragonfly:$PATH"
 ```
 
-### Install Client using RPM
+### Install Client using RPM {#install-client-using-rpm}
 
 Download and execute the install script:
 
@@ -98,7 +98,7 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-### Install Client using DEB
+### Install Client using DEB {#install-client-using-deb}
 
 Download and execute the install script:
 
