@@ -93,7 +93,7 @@ curl \
 rmp -ivh client-aarch64-unknown-linux-gnu.rpm
 ```
 
-Make sure to replace {arch} with one of the following:
+Make sure to replace `arch` with one of the following:
 
 - `x86_64`
 - `aarch64`
@@ -114,7 +114,7 @@ curl \
 dpkg -i client-{arch}-unknown-linux-gnu.deb
 ```
 
-Make sure to replace {arch} with one of the following:
+Make sure to replace `arch` with one of the following:
 
 - `x86_64`
 - `aarch64`
