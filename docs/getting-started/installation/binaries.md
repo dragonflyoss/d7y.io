@@ -87,10 +87,10 @@ Download and execute the install script:
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.rpm \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.rpm
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.rpm \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.rpm
 
-rmp -ivh client-aarch64-unknown-linux-gnu.rpm
+rmp -ivh client-{arch}-unknown-linux-gnu.rpm
 ```
 
 Make sure to replace `arch` with one of the following:
@@ -107,8 +107,8 @@ Download and execute the install script:
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.deb \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.deb
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.deb \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.deb
 
 
 dpkg -i client-{arch}-unknown-linux-gnu.deb
