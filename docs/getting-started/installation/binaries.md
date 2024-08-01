@@ -90,7 +90,7 @@ curl \
   --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.rpm \
   https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.rpm
 
-rmp -ivh client-{arch}-unknown-linux-gnu.rpm
+rpm -ivh client-{arch}-unknown-linux-musl.rpm
 ```
 
 Make sure to replace `arch` with one of the following:
@@ -110,8 +110,7 @@ curl \
   --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.deb \
   https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.deb
 
-
-dpkg -i client-{arch}-unknown-linux-gnu.deb
+dpkg -i client-{arch}-unknown-linux-musl.deb
 ```
 
 Make sure to replace `arch` with one of the following:
@@ -342,6 +341,10 @@ dfdaemon --help
 
 # Setup Dfdaemon.
 dfdaemon
+
+# Download with HTTP protocol
+
+dfget -O /path/to/output http://example.com/object
 ```
 
 #### Verify {#verify-peer}

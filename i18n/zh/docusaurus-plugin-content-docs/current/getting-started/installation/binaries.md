@@ -81,10 +81,10 @@ export PATH="/path/to/dragonfly:$PATH"
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.rpm \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.rpm
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.rpm \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.rpm
 
-rmp -ivh client-aarch64-unknown-linux-gnu.rpm
+rpm -ivh client-{arch}-unknown-linux-musl.rpm
 ```
 
 确保将 `arch` 替换为以下内容之一：
@@ -101,11 +101,10 @@ rmp -ivh client-aarch64-unknown-linux-gnu.rpm
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.deb \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-aarch64-unknown-linux-musl.deb
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.deb \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.deb
 
-
-dpkg -i client-{arch}-unknown-linux-gnu.deb
+dpkg -i client-{arch}-unknown-linux-musl.deb
 ```
 
 确保将 `arch` 替换为以下内容之一：
@@ -329,6 +328,10 @@ dfdaemon --help
 
 # 启动 Dfdaemon 模式。
 dfdaemon
+
+# 使用 HTTP 协议下载
+
+dfget -O /path/to/output http://example.com/object
 ```
 
 #### 验证 Peer 是否在运行
