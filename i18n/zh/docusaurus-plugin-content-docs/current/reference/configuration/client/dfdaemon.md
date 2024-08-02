@@ -9,8 +9,8 @@ slug: /reference/configuration/client/dfdaemon/
 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`。
 
 ```yaml
-# verbose 是否使用调试级别的日志。
-verbose: false
+# verbose 是否日志输出到 Stdout。
+verbose: true
 log:
   # 指定日志记录级别 [trace、debug、info、warn、error]。
   level: info

@@ -9,8 +9,8 @@ slug: /reference/configuration/client/dfdaemon/
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux.
 
 ```yaml
-# bose prints log.
-verbose: false
+# verbose prints log to stdout.
+verbose: true
 log:
   # Specify the logging level [trace, debug, info, warn, error]
   level: info

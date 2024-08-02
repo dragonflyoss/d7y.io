@@ -225,10 +225,10 @@ network:
   enableIPv6: false
 
 # console 是否在控制台程序中显示日志。
-console: false
+console: true
 
 # verbose 是否使用调试级别的日志、是否启用 pprof。
-verbose: false
+verbose: true
 
 # pprof-port pprof 监听的端口，仅在 verbose 为 true 时可用。
 pprof-port: -1
