@@ -92,6 +92,26 @@ rpm -ivh client-{arch}-unknown-linux-musl.rpm
 - `x86_64`
 - `aarch64`
 
+Systemd 启动 dfdaemon 服务:
+
+```shell
+$ sudo systemctl enable dfdaemon
+$ sudo systemctl start dfdaemon
+$ sudo systemctl status dfdaemon
+● dfdaemon.service - Dragonfly’s P2P download daemon
+     Loaded: loaded (/lib/systemd/system/dfdaemon.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2024-08-05 15:14:28 UTC; 10s ago
+       Docs: https://github.com/dragonflyoss/client
+   Main PID: 24194 (dfdaemon)
+      Tasks: 13 (limit: 11017)
+     Memory: 26.5M (max: 4.0G available: 3.9G)
+        CPU: 51ms
+     CGroup: /system.slice/dfdaemon.service
+             └─24194 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml
+
+Aug 05 15:14:28 kind-control-plane systemd[1]: Started dfdaemon.service - Dragonfly’s P2P download daemon.
+```
+
 ### 使用 DEB 安装 Client
 
 下载并执行安装脚本：
@@ -111,6 +131,26 @@ dpkg -i client-{arch}-unknown-linux-musl.deb
 
 - `x86_64`
 - `aarch64`
+
+Systemd 启动 dfdaemon 服务:
+
+```shell
+$ sudo systemctl enable dfdaemon
+$ sudo systemctl start dfdaemon
+$ sudo systemctl status dfdaemon
+● dfdaemon.service - dfdaemon is a high performance P2P download daemon
+     Loaded: loaded (/lib/systemd/system/dfdaemon.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2024-08-05 16:16:10 UTC; 1min 42s ago
+       Docs: https://github.com/dragonflyoss/client
+   Main PID: 24746 (dfdaemon)
+      Tasks: 12 (limit: 11017)
+     Memory: 45.6M (max: 8.0G available: 7.9G)
+        CPU: 83ms
+     CGroup: /system.slice/dfdaemon.service
+             └─24746 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+
+Aug 05 16:16:10 kind-control-plane systemd[1]: Started dfdaemon.service - dfdaemon is a high performance P2P download daemon.
+```
 
 ### 使用源码安装
 
