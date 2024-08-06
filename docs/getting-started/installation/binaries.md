@@ -258,13 +258,12 @@ database:
 
 Run Manager:
 
-- we recommend to start Manager via systemd.
-
 ```bash
 # View Manager cli help docs.
 manager --help
 
 # Setup Manager.
+# We recommend to start Manager via systemd.
 manager
 ```
 
@@ -315,13 +314,12 @@ database:
 
 Run Scheduler:
 
-- we recommend to start Scheduler via systemd.
-
 ```bash
 # View Scheduler cli help docs.
 scheduler --help
 
 # Setup Scheduler.
+# We recommend to start Scheduler via systemd.
 scheduler
 ```
 
@@ -357,13 +355,12 @@ seedPeer:
 
 Run Dfdaemon as Seed Peer:
 
-- we recommend to start Dfdaemon via systemd.
-
 ```bash
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
 # Setup Dfdaemon.
+# We recommend to start Dfdaemon via systemd.
 dfdaemon
 ```
 
@@ -395,13 +392,12 @@ manager:
 
 Run Dfdaemon as Peer:
 
-- we recommend to start Dfdaemon via systemd.
-
 ```bash
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
 # Setup Dfdaemon.
+# We recommend to start Dfdaemon via systemd.
 dfdaemon
 ```
 

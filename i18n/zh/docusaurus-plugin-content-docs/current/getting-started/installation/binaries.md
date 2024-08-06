@@ -251,13 +251,12 @@ database:
 
 运行 Manager:
 
-- 我们推荐使用 systemd 启动 Manager。
-
 ```bash
 # 查看 Manager cli 帮助文档。
 manager --help
 
 # 启动 Manager。
+# 我们推荐使用 systemd 启动 Manager。
 manager
 ```
 
@@ -306,13 +305,12 @@ database:
 
 运行 Scheduler:
 
-- 我们推荐使用 systemd 启动 Scheduler。
-
 ```bash
 # 查看 Scheduler cli 帮助。
 scheduler --help
 
 # 启动 Scheduler。
+# 我们推荐使用 systemd 启动 Scheduler。
 scheduler
 ```
 
@@ -346,13 +344,12 @@ seedPeer:
 
 把 Dfdaemon 当作 Seed Peer 运行:
 
-- 我们推荐使用 systemd 启动 Dfdaemon。
-
 ```bash
 # 查看 Dfdaemon cli 帮助。
 dfdaemon --help
 
 # 启动 Dfdaemon 模式。
+# 我们推荐使用 systemd 启动 Dfdaemon。
 dfdaemon
 ```
 
@@ -382,13 +379,12 @@ manager:
 
 把 Dfdaemon 当作 Peer 运行:
 
-- 我们推荐使用 systemd 启动 Dfdaemon。
-
 ```bash
 # 查看 Dfdaemon cli 帮助。
 dfdaemon --help
 
 # 启动 Dfdaemon 模式。
+# 我们推荐使用 systemd 启动 Dfdaemon。
 dfdaemon
 ```
 
