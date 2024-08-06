@@ -4,7 +4,7 @@ title: Personal Access Tokens
 slug: /advanced-guides/web-console/developer/personal-access-tokens/
 ---
 
-In this article, we will show you Personal Access Tokens page information.
+In this article, you will be shown Personal Access Tokens page information.
 
 ## Personal Access Tokens
 

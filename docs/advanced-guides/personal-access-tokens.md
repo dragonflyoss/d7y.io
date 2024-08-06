@@ -6,7 +6,7 @@ slug: /advanced-guides/personal-access-tokens/
 
 You can use a personal access token to call open API.
 
-In this article, we will show you how to create, use, modify and delete personal access token.
+In this article, you will learn how to create, use, modify and delete personal access token.
 
 ## About personal access tokens
 

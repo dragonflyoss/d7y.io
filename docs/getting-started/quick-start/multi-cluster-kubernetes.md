@@ -18,7 +18,7 @@ and internal peers can only schedule and transmit data in a kubernetes cluster.
 ## Runtime
 
 You can have a quick start following [Helm Charts](../installation/helm-charts.md).
-We recommend to use `containerd`.
+It is recommended to use `containerd`.
 
 | Runtime    | Version  | Document                                                              |
 | ---------- | -------- | --------------------------------------------------------------------- |

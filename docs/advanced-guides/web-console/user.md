@@ -4,7 +4,7 @@ title: User
 slug: /advanced-guides/web-console/user/
 ---
 
-In this article, we will show you User page information.
+In this article, you will be shown User page information.
 
 ## Users
 

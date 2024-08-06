@@ -4,7 +4,7 @@ title: 部署
 slug: /operations/best-practices/deployment-best-practices/
 ---
 
-本文档概述了我们计划如何为 Dragonfly 设置容量规划和性能优化。
+文档的目标是帮助您计划如何为 Dragonfly 设置容量规划和性能优化。
 
 ## 容量规划
 

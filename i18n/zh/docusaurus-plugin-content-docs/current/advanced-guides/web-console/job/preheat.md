@@ -4,7 +4,7 @@ title: Preheat
 slug: /advanced-guides/web-console/developer/preheat/
 ---
 
-在本文中，我们将向您展示 Preheat 页面相关信息。
+在本文中，将向您展示 Preheat 页面相关信息。
 
 ## Preheats
 

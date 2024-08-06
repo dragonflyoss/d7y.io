@@ -4,7 +4,7 @@ title: Peer
 slug: /advanced-guides/web-console/insight/peer/
 ---
 
-In this article, we will show you Peer page information.
+In this article, you will be shown Peer page information.
 
 ## Peers
 

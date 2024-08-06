@@ -125,10 +125,10 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.rpm \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.rpm
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.rpm \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-gnu.rpm
 
-rpm -ivh client-{arch}-unknown-linux-musl.rpm
+rpm -ivh client-{arch}-unknown-linux-gnu.rpm
 ```
 
 确保将 `arch` 替换为以下内容之一：
@@ -175,10 +175,10 @@ dfget -O /path/to/output http://example.com/object
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.deb \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.deb
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.deb \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-gnu.deb
 
-dpkg -i client-{arch}-unknown-linux-musl.deb
+dpkg -i client-{arch}-unknown-linux-gnu.deb
 ```
 
 确保将 `arch` 替换为以下内容之一：
@@ -255,7 +255,7 @@ database:
 # 查看 Manager cli 帮助文档。
 manager --help
 
-# 启动 Manager。
+# 启动 Manager，推荐使用 systemd 启动 Manager。
 manager
 ```
 
@@ -308,7 +308,7 @@ database:
 # 查看 Scheduler cli 帮助。
 scheduler --help
 
-# 启动 Scheduler。
+# 启动 Scheduler，推荐使用 systemd 启动 Scheduler。
 scheduler
 ```
 
@@ -346,7 +346,7 @@ seedPeer:
 # 查看 Dfdaemon cli 帮助。
 dfdaemon --help
 
-# 启动 Dfdaemon 模式。
+# 启动 Dfdaemon 模式，推荐使用 systemd 启动 Dfdaemon。
 dfdaemon
 ```
 
@@ -380,7 +380,7 @@ manager:
 # 查看 Dfdaemon cli 帮助。
 dfdaemon --help
 
-# 启动 Dfdaemon 模式。
+# 启动 Dfdaemon 模式，推荐使用 systemd 启动 Dfdaemon。
 dfdaemon
 ```
 

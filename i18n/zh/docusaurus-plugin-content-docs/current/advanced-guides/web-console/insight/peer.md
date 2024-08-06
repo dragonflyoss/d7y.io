@@ -4,7 +4,7 @@ title: Peer
 slug: /advanced-guides/web-console/insight/peer/
 ---
 
-在本文中，我们将向您展示 Peer 可视化页面相关信息。
+在本文中，将向您展示 Peer 可视化页面相关信息。
 
 ## Peers
 
