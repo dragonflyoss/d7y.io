@@ -100,6 +100,8 @@ Make sure to replace `arch` with one of the following:
 
 Systemd starts dfdaemon service:
 
+> Notice：To start dfdaemon, you need to start the manager and scheduler first.
+
 ```shell
 $ sudo systemctl enable dfdaemon
 $ sudo systemctl start dfdaemon
@@ -114,6 +116,12 @@ $ sudo systemctl status dfdaemon
         CPU: 83ms
      CGroup: /system.slice/dfdaemon.service
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+```
+
+#### Download with HTTP protocol
+
+```shell
+dfget -O /path/to/output http://example.com/object
 ```
 
 ### Install Client using DEB {#install-client-using-deb}
@@ -138,6 +146,8 @@ Make sure to replace `arch` with one of the following:
 
 Systemd starts dfdaemon service:
 
+> Notice：To start dfdaemon, you need to start the manager and scheduler first.
+
 ```shell
 $ sudo systemctl enable dfdaemon
 $ sudo systemctl start dfdaemon
@@ -152,6 +162,12 @@ $ sudo systemctl status dfdaemon
         CPU: 83ms
      CGroup: /system.slice/dfdaemon.service
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+```
+
+#### Download with HTTP protocol
+
+```shell
+dfget -O /path/to/output http://example.com/object
 ```
 
 ### From Source {#from-source}
@@ -338,6 +354,10 @@ dfdaemon --help
 
 # Setup Dfdaemon.
 dfdaemon
+
+# Download with HTTP protocol
+
+dfget -O /path/to/output http://example.com/object
 ```
 
 #### Verify {#verify-seed-peer}

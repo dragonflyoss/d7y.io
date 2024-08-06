@@ -94,6 +94,8 @@ rpm -ivh client-{arch}-unknown-linux-musl.rpm
 
 Systemd 启动 dfdaemon 服务:
 
+> 注意：要启动 dfdaemon，您需要先启动 manager 和 scheduler。
+
 ```shell
 $ sudo systemctl enable dfdaemon
 $ sudo systemctl start dfdaemon
@@ -108,6 +110,12 @@ $ sudo systemctl status dfdaemon
         CPU: 83ms
      CGroup: /system.slice/dfdaemon.service
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+```
+
+#### 使用 HTTP 协议下载
+
+```shell
+dfget -O /path/to/output http://example.com/object
 ```
 
 ### 使用 DEB 安装 Client
@@ -132,6 +140,8 @@ dpkg -i client-{arch}-unknown-linux-musl.deb
 
 Systemd 启动 dfdaemon 服务:
 
+> 注意：要启动 dfdaemon，您需要先启动 manager 和 scheduler。
+
 ```shell
 $ sudo systemctl enable dfdaemon
 $ sudo systemctl start dfdaemon
@@ -146,6 +156,12 @@ $ sudo systemctl status dfdaemon
         CPU: 83ms
      CGroup: /system.slice/dfdaemon.service
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+```
+
+#### 使用 HTTP 协议下载
+
+```shell
+dfget -O /path/to/output http://example.com/object
 ```
 
 ### 使用源码安装
@@ -327,6 +343,10 @@ dfdaemon --help
 
 # 启动 Dfdaemon 模式。
 dfdaemon
+
+# 使用 HTTP 协议下载
+
+dfget -O /path/to/output http://example.com/object
 ```
 
 #### 验证 Seed Peer 是否在运行
