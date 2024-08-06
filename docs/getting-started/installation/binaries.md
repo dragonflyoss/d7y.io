@@ -162,7 +162,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
+Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
 
 ```shell
 # View Dfget cli help docs.
@@ -212,7 +212,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
+Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
 
 ```shell
 # View Dfget cli help docs.
@@ -410,7 +410,7 @@ telnet 127.0.0.1 4002
 
 ### Dfget
 
-Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
+Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
 
 ```shell
 # View Dfget cli help docs.
