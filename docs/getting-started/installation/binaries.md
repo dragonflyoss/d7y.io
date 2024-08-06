@@ -131,10 +131,10 @@ Download and execute the install script:
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.rpm \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.rpm
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.rpm \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-gnu.rpm
 
-rpm -ivh client-{arch}-unknown-linux-musl.rpm
+rpm -ivh client-{arch}-unknown-linux-gnu.rpm
 ```
 
 Make sure to replace `arch` with one of the following:
@@ -181,10 +181,10 @@ Download and execute the install script:
 ```bash
 curl \
   --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.deb \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.deb
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.deb \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-gnu.deb
 
-dpkg -i client-{arch}-unknown-linux-musl.deb
+dpkg -i client-{arch}-unknown-linux-gnu.deb
 ```
 
 Make sure to replace `arch` with one of the following:
@@ -258,6 +258,8 @@ database:
 
 Run Manager:
 
+- we recommend to start Manager via systemd.
+
 ```bash
 # View Manager cli help docs.
 manager --help
@@ -313,6 +315,8 @@ database:
 
 Run Scheduler:
 
+- we recommend to start Scheduler via systemd.
+
 ```bash
 # View Scheduler cli help docs.
 scheduler --help
@@ -353,6 +357,8 @@ seedPeer:
 
 Run Dfdaemon as Seed Peer:
 
+- we recommend to start Dfdaemon via systemd.
+
 ```bash
 # View Dfdaemon cli help docs.
 dfdaemon --help
@@ -388,6 +394,8 @@ manager:
 ```
 
 Run Dfdaemon as Peer:
+
+- we recommend to start Dfdaemon via systemd.
 
 ```bash
 # View Dfdaemon cli help docs.
