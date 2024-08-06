@@ -262,8 +262,7 @@ Run Manager:
 # View Manager cli help docs.
 manager --help
 
-# Setup Manager.
-# It is recommended to start Manager via systemd.
+# Setup Manager, it is recommended to start Manager via systemd.
 manager
 ```
 
@@ -318,8 +317,7 @@ Run Scheduler:
 # View Scheduler cli help docs.
 scheduler --help
 
-# Setup Scheduler.
-# It is recommended to start Scheduler via systemd.
+# Setup Scheduler, it is recommended to start Scheduler via systemd.
 scheduler
 ```
 
@@ -359,8 +357,7 @@ Run Dfdaemon as Seed Peer:
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
-# Setup Dfdaemon.
-# It is recommended to start Dfdaemon via systemd.
+# Setup Dfdaemon, it is recommended to start Dfdaemon via systemd.
 dfdaemon
 ```
 
@@ -396,8 +393,7 @@ Run Dfdaemon as Peer:
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
-# Setup Dfdaemon.
-# It is recommended to start Dfdaemon via systemd.
+# Setup Dfdaemon, it is recommended to start Dfdaemon via systemd.
 dfdaemon
 ```
 
