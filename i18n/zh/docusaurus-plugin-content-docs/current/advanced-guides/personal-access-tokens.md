@@ -5,7 +5,7 @@ title: 个人访问令牌
 
 可以使用 Personal Access Token 来调用 Open API。
 
-在本文中，我们将向您展示如何为 Personal Access Token 创建、使用、修改和删除。
+在本文中，将向您展示如何为 Personal Access Token 创建、使用、修改和删除。
 
 ## 关于 Personal Access Token
 

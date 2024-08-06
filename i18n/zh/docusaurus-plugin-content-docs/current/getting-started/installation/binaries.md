@@ -256,7 +256,7 @@ database:
 manager --help
 
 # 启动 Manager。
-# 我们推荐使用 systemd 启动 Manager。
+# 推荐使用 systemd 启动 Manager。
 manager
 ```
 
@@ -310,7 +310,7 @@ database:
 scheduler --help
 
 # 启动 Scheduler。
-# 我们推荐使用 systemd 启动 Scheduler。
+# 推荐使用 systemd 启动 Scheduler。
 scheduler
 ```
 
@@ -349,7 +349,7 @@ seedPeer:
 dfdaemon --help
 
 # 启动 Dfdaemon 模式。
-# 我们推荐使用 systemd 启动 Dfdaemon。
+# 推荐使用 systemd 启动 Dfdaemon。
 dfdaemon
 ```
 
@@ -384,7 +384,7 @@ manager:
 dfdaemon --help
 
 # 启动 Dfdaemon 模式。
-# 我们推荐使用 systemd 启动 Dfdaemon。
+# 推荐使用 systemd 启动 Dfdaemon。
 dfdaemon
 ```
 

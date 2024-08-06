@@ -4,7 +4,7 @@ title: Cluster
 slug: /advanced-guides/web-console/cluster/
 ---
 
-在本文中，我们将向您展示 Cluster 页面相关信息。
+在本文中，将向您展示 Cluster 页面相关信息。
 
 ## Clusters
 

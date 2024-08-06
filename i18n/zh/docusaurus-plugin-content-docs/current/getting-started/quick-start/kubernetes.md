@@ -10,7 +10,7 @@ slug: /getting-started/quick-start/kubernetes/
 ## 容器运行时
 
 您可以根据 [Helm Charts](../installation/helm-charts.md)文档中的内容快速搭建 Dragonfly 的 Kubernetes 集群。
-我们推荐使用 `containerd`。
+推荐使用 `containerd`。
 
 | 容器运行时 | 版本要求 | 文档                                                                  |
 | ---------- | -------- | --------------------------------------------------------------------- |
