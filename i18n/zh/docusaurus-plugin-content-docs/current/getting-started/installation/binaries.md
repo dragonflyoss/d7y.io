@@ -72,6 +72,50 @@ mv /path/to/dragonfly/dfdaemon-v${CLIENT_VERSION}-x86_64-unknown-linux-musl /pat
 export PATH="/path/to/dragonfly:$PATH"
 ```
 
+### 使用源码安装
+
+获取 Dragonfly 的源码：
+
+```bash
+git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
+cd Dragonfly2
+```
+
+编译源码并安装二进制可执行程序：
+
+```bash
+# 构建 manager scheduler。
+make build-manager &&  make build-scheduler
+
+# 安装二进制文件到 /opt/dragonfly/bin/{manager，scheduler}。
+make install-manager
+make install-scheduler
+```
+
+获取 Client 的源码：
+
+```bash
+git clone --recurse-submodules https://github.com/dragonflyoss/client.git
+cd client
+```
+
+编译源码并安装二进制可执行程序：
+
+```bash
+# 构建 dfdaemon 和 dfget。
+cargo build --release --bins
+
+# 安装二进制文件到 /opt/dragonfly/bin/{dfget,dfdaemon}。
+mv target/release/dfget /opt/dragonfly/bin/dfget
+mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
+```
+
+配置环境变量：
+
+```bash
+export PATH="/opt/dragonfly/bin/:$PATH"
+```
+
 ### 使用 RPM 安装 Client
 
 下载并执行安装脚本：
@@ -115,6 +159,10 @@ $ sudo systemctl status dfdaemon
 使用 dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
 
 ```shell
+# 查看 Dfget cli 帮助。
+dfget --help
+
+# 使用 HTTP 协议下载
 dfget -O /path/to/output http://example.com/object
 ```
 
@@ -161,51 +209,11 @@ $ sudo systemctl status dfdaemon
 使用 dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
 
 ```shell
+# 查看 Dfget cli 帮助。
+dfget --help
+
+# 使用 HTTP 协议下载
 dfget -O /path/to/output http://example.com/object
-```
-
-### 使用源码安装
-
-获取 Dragonfly 的源码：
-
-```bash
-git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
-cd Dragonfly2
-```
-
-编译源码并安装二进制可执行程序：
-
-```bash
-# 构建 manager scheduler。
-make build-manager &&  make build-scheduler
-
-# 安装二进制文件到 /opt/dragonfly/bin/{manager，scheduler}。
-make install-manager
-make install-scheduler
-```
-
-获取 Client 的源码：
-
-```bash
-git clone --recurse-submodules https://github.com/dragonflyoss/client.git
-cd client
-```
-
-编译源码并安装二进制可执行程序：
-
-```bash
-# 构建 dfdaemon 和 dfget。
-cargo build --release --bins
-
-# 安装二进制文件到 /opt/dragonfly/bin/{dfget,dfdaemon}。
-mv target/release/dfget /opt/dragonfly/bin/dfget
-mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
-```
-
-配置环境变量：
-
-```bash
-export PATH="/opt/dragonfly/bin/:$PATH"
 ```
 
 ## 运行
@@ -335,18 +343,11 @@ seedPeer:
 把 Dfdaemon 当作 Seed Peer 运行:
 
 ```bash
-# 查看 Dfget cli 帮助。
-dfget --help
-
 # 查看 Dfdaemon cli 帮助。
 dfdaemon --help
 
 # 启动 Dfdaemon 模式。
 dfdaemon
-
-# 使用 HTTP 协议下载
-
-dfget -O /path/to/output http://example.com/object
 ```
 
 #### 验证 Seed Peer 是否在运行
@@ -376,18 +377,11 @@ manager:
 把 Dfdaemon 当作 Peer 运行:
 
 ```bash
-# 查看 Dfget cli 帮助。
-dfget --help
-
 # 查看 Dfdaemon cli 帮助。
 dfdaemon --help
 
 # 启动 Dfdaemon 模式。
 dfdaemon
-
-# 使用 HTTP 协议下载
-
-dfget -O /path/to/output http://example.com/object
 ```
 
 #### 验证 Peer 是否在运行
@@ -398,4 +392,16 @@ Peer 部署完成之后，运行以下命令以检查 **Peer** 是否正在运�
 telnet 127.0.0.1 4000
 telnet 127.0.0.1 4001
 telnet 127.0.0.1 4002
+```
+
+### Dfget
+
+使用 dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
+
+```shell
+# 查看 Dfget cli 帮助。
+dfget --help
+
+# 使用 HTTP 协议下载
+dfget -O /path/to/output http://example.com/object
 ```

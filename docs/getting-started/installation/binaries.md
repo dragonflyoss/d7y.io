@@ -78,6 +78,50 @@ Configuration environment:
 export PATH="/path/to/dragonfly:$PATH"
 ```
 
+### From Source {#from-source}
+
+Clone the source code of Dragonfly:
+
+```bash
+git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
+cd Dragonfly2
+```
+
+Compile the source code:
+
+```bash
+# At the same time to build scheduler and manager.
+make build-manager && make build-scheduler
+
+# Install executable file to  /opt/dragonfly/bin/{manager,scheduler}.
+make install-manager
+make install-scheduler
+```
+
+Clone the source code of Client:
+
+```bash
+git clone https://github.com/dragonflyoss/client.git
+cd client
+```
+
+Compile the source code:
+
+```bash
+# At the same time to build dfdaemon and dfget.
+cargo build --release --bins
+
+# Install executable file to  /opt/dragonfly/bin/{dfget,dfdaemon}.
+mv target/release/dfget /opt/dragonfly/bin/dfget
+mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
+```
+
+Configuration environment:
+
+```bash
+export PATH="/opt/dragonfly/bin/:$PATH"
+```
+
 ### Install Client using RPM {#install-client-using-rpm}
 
 Download and execute the install script:
@@ -121,6 +165,10 @@ $ sudo systemctl status dfdaemon
 Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
 
 ```shell
+# View Dfget cli help docs.
+dfget --help
+
+# Download with HTTP protocol
 dfget -O /path/to/output http://example.com/object
 ```
 
@@ -167,51 +215,11 @@ $ sudo systemctl status dfdaemon
 Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
 
 ```shell
+# View Dfget cli help docs.
+dfget --help
+
+# Download with HTTP protocol
 dfget -O /path/to/output http://example.com/object
-```
-
-### From Source {#from-source}
-
-Clone the source code of Dragonfly:
-
-```bash
-git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
-cd Dragonfly2
-```
-
-Compile the source code:
-
-```bash
-# At the same time to build scheduler and manager.
-make build-manager && make build-scheduler
-
-# Install executable file to  /opt/dragonfly/bin/{manager,scheduler}.
-make install-manager
-make install-scheduler
-```
-
-Clone the source code of Client:
-
-```bash
-git clone https://github.com/dragonflyoss/client.git
-cd client
-```
-
-Compile the source code:
-
-```bash
-# At the same time to build dfdaemon and dfget.
-cargo build --release --bins
-
-# Install executable file to  /opt/dragonfly/bin/{dfget,dfdaemon}.
-mv target/release/dfget /opt/dragonfly/bin/dfget
-mv target/release/dfdaemon /opt/dragonfly/bin/dfdaemon
-```
-
-Configuration environment:
-
-```bash
-export PATH="/opt/dragonfly/bin/:$PATH"
 ```
 
 ## Operation {#operation}
@@ -346,18 +354,11 @@ seedPeer:
 Run Dfdaemon as Seed Peer:
 
 ```bash
-# View Dfget cli help docs.
-dfget --help
-
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
 # Setup Dfdaemon.
 dfdaemon
-
-# Download with HTTP protocol
-
-dfget -O /path/to/output http://example.com/object
 ```
 
 #### Verify {#verify-seed-peer}
@@ -389,18 +390,11 @@ manager:
 Run Dfdaemon as Peer:
 
 ```bash
-# View Dfget cli help docs.
-dfget --help
-
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
 # Setup Dfdaemon.
 dfdaemon
-
-# Download with HTTP protocol
-
-dfget -O /path/to/output http://example.com/object
 ```
 
 #### Verify {#verify-peer}
@@ -412,4 +406,16 @@ and if Port `4000`, `4001` and `4002` is available.
 telnet 127.0.0.1 4000
 telnet 127.0.0.1 4001
 telnet 127.0.0.1 4002
+```
+
+### Dfget
+
+Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
+
+```shell
+# View Dfget cli help docs.
+dfget --help
+
+# Download with HTTP protocol
+dfget -O /path/to/output http://example.com/object
 ```
