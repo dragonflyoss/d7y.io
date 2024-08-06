@@ -142,7 +142,6 @@ dfget -O /path/to/output http://example.com/object
 ### Log {#log}
 
 ```text
-
 1. set option --verbose if you want to print logs to Terminal
 2. log path: /var/log/dragonfly/dfget/
 ```

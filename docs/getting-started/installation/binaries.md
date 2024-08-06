@@ -122,6 +122,106 @@ Configuration environment:
 export PATH="/opt/dragonfly/bin/:$PATH"
 ```
 
+### Install Client using RPM {#install-client-using-rpm}
+
+Download and execute the install script:
+
+> Notice: version is recommended to use the latest version.
+
+```bash
+curl \
+  --proto '=https' \
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.rpm \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.rpm
+
+rpm -ivh client-{arch}-unknown-linux-musl.rpm
+```
+
+Make sure to replace `arch` with one of the following:
+
+- `x86_64`
+- `aarch64`
+
+Systemd starts dfdaemon service:
+
+> Notice：To start dfdaemon, you need to start the manager and scheduler first.
+
+```shell
+$ sudo systemctl enable dfdaemon
+$ sudo systemctl start dfdaemon
+$ sudo systemctl status dfdaemon
+● dfdaemon.service - dfdaemon is a high performance P2P download daemon
+     Loaded: loaded (/lib/systemd/system/dfdaemon.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2024-08-05 17:46:39 UTC; 4s ago
+       Docs: https://github.com/dragonflyoss/client
+   Main PID: 2118 (dfdaemon)
+      Tasks: 13 (limit: 11017)
+     Memory: 15.0M (max: 8.0G available: 7.9G)
+        CPU: 83ms
+     CGroup: /system.slice/dfdaemon.service
+             └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+```
+
+Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
+
+```shell
+# View Dfget cli help docs.
+dfget --help
+
+# Download with HTTP protocol
+dfget -O /path/to/output http://example.com/object
+```
+
+### Install Client using DEB {#install-client-using-deb}
+
+Download and execute the install script:
+
+> Notice: version is recommended to use the latest version.
+
+```bash
+curl \
+  --proto '=https' \
+  --tlsv1.2 -L -o client-{arch}-unknown-linux-musl.deb \
+  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-musl.deb
+
+dpkg -i client-{arch}-unknown-linux-musl.deb
+```
+
+Make sure to replace `arch` with one of the following:
+
+- `x86_64`
+- `aarch64`
+
+Systemd starts dfdaemon service:
+
+> Notice：To start dfdaemon, you need to start the manager and scheduler first.
+
+```shell
+$ sudo systemctl enable dfdaemon
+$ sudo systemctl start dfdaemon
+$ sudo systemctl status dfdaemon
+● dfdaemon.service - dfdaemon is a high performance P2P download daemon
+     Loaded: loaded (/lib/systemd/system/dfdaemon.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2024-08-05 17:46:39 UTC; 4s ago
+       Docs: https://github.com/dragonflyoss/client
+   Main PID: 2118 (dfdaemon)
+      Tasks: 13 (limit: 11017)
+     Memory: 15.0M (max: 8.0G available: 7.9G)
+        CPU: 83ms
+     CGroup: /system.slice/dfdaemon.service
+             └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+```
+
+Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
+
+```shell
+# View Dfget cli help docs.
+dfget --help
+
+# Download with HTTP protocol
+dfget -O /path/to/output http://example.com/object
+```
+
 ## Operation {#operation}
 
 ### Manager {#manager}
@@ -254,9 +354,6 @@ seedPeer:
 Run Dfdaemon as Seed Peer:
 
 ```bash
-# View Dfget cli help docs.
-dfget --help
-
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
@@ -293,9 +390,6 @@ manager:
 Run Dfdaemon as Peer:
 
 ```bash
-# View Dfget cli help docs.
-dfget --help
-
 # View Dfdaemon cli help docs.
 dfdaemon --help
 
@@ -312,4 +406,16 @@ and if Port `4000`, `4001` and `4002` is available.
 telnet 127.0.0.1 4000
 telnet 127.0.0.1 4001
 telnet 127.0.0.1 4002
+```
+
+### Dfget
+
+Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
+
+```shell
+# View Dfget cli help docs.
+dfget --help
+
+# Download with HTTP protocol
+dfget -O /path/to/output http://example.com/object
 ```
