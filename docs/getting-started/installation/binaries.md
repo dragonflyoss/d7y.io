@@ -118,7 +118,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-#### Download with HTTP protocol
+Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
 
 ```shell
 dfget -O /path/to/output http://example.com/object
@@ -164,7 +164,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-#### Download with HTTP protocol
+Use dfget to download files, refer to [dfget](../../reference/commands/client/dfget.md).
 
 ```shell
 dfget -O /path/to/output http://example.com/object

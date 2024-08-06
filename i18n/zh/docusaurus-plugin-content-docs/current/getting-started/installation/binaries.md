@@ -112,7 +112,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-#### 使用 HTTP 协议下载
+使用 dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
 
 ```shell
 dfget -O /path/to/output http://example.com/object
@@ -158,7 +158,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-#### 使用 HTTP 协议下载
+使用 dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
 
 ```shell
 dfget -O /path/to/output http://example.com/object
