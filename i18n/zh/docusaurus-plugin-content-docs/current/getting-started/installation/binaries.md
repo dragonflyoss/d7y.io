@@ -156,7 +156,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-使用 Dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
+使用 Dfget 下载文件，参考 [Dfget](../../reference/commands/client/dfget.md)。
 
 ```shell
 # 查看 Dfget cli 帮助。
@@ -206,7 +206,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-使用 Dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
+使用 Dfget 下载文件，参考 [Dfget](../../reference/commands/client/dfget.md)。
 
 ```shell
 # 查看 Dfget cli 帮助。
@@ -396,7 +396,7 @@ telnet 127.0.0.1 4002
 
 ### Dfget
 
-使用 Dfget 下载文件，参考 [dfget](../../reference/commands/client/dfget.md)。
+使用 Dfget 下载文件，参考 [Dfget](../../reference/commands/client/dfget.md)。
 
 ```shell
 # 查看 Dfget cli 帮助。
