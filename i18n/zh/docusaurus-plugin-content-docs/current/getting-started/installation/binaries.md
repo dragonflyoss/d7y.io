@@ -50,20 +50,14 @@ Client [发布页面](https://github.com/dragonflyoss/client/releases) 获取二
 
 ```bash
 CLIENT_VERSION=<your_client_version>
-wget -O client_dfget_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/dfget-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
-wget -O client_dfdaemon_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/dfdaemon-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
+wget -O client_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/client-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
 ```
 
 解压压缩包：
 
 ```bash
 # 替换 `/path/to/dragonfly` 为真实安装目录。
-tar -zxf client_dfget_x86_64-unknown-linux-musl.tar.gz -C /path/to/dragonfly
-tar -zxf client_dfdaemon_x86_64-unknown-linux-musl.tar.gz -C /path/to/dragonfly
-
-# 更改文件名。
-mv /path/to/dragonfly/dfget-v${CLIENT_VERSION}-x86_64-unknown-linux-musl /path/to/dragonfly/dfget
-mv /path/to/dragonfly/dfdaemon-v${CLIENT_VERSION}-x86_64-unknown-linux-musl /path/to/dragonfly/dfdaemon
+tar -zxf client_x86_64-unknown-linux-musl.tar.gz --strip-components=1 -C /path/to/dragonfly
 ```
 
 配置环境变量：
