@@ -56,20 +56,14 @@ Download the Client binaries:
 
 ```bash
 CLIENT_VERSION=<your_client_version>
-wget -O client_dfget_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/dfget-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
-wget -O client_dfdaemon_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/dfdaemon-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
+wget -O client_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/client-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
 ```
 
 Untar the package:
 
 ```bash
 # Replace `/path/to/dragonfly` with the installation directory.
-tar -zxf client_dfget_x86_64-unknown-linux-musl.tar.gz -C /path/to/dragonfly
-tar -zxf client_dfdaemon_x86_64-unknown-linux-musl.tar.gz -C /path/to/dragonfly
-
-# mv rename.
-mv /path/to/dragonfly/dfget-v${CLIENT_VERSION}-x86_64-unknown-linux-musl /path/to/dragonfly/dfget
-mv /path/to/dragonfly/dfdaemon-v${CLIENT_VERSION}-x86_64-unknown-linux-musl /path/to/dragonfly/dfdaemon
+tar -zxf client_x86_64-unknown-linux-musl.tar.gz --strip-components=1 -C /path/to/dragonfly
 ```
 
 Configuration environment:
