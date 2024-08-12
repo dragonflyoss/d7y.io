@@ -136,7 +136,45 @@ Options:
 #### Download with HTTP protocol {#downlad-with-http}
 
 ```shell
-dfget -O /path/to/output http://example.com/object
+$ dfget https://<host>:<port>/<path> -O /tmp/file.txt
+```
+
+#### Download with S3 protocol {#downlad-with-s3}
+
+```shell
+$ dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
+```
+
+#### Download with GCS protocol {#downlad-with-gcs}
+
+```shell
+$ dfget gcs://<bucket>/<path> -O /tmp/file.txt --storage-credential=<credential> --storage-endpoint=<endpoint>
+```
+
+#### Download with ABS protocol {#downlad-with-abs}
+
+```shell
+$ dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+```
+
+#### Download with OSS protocol {#downlad-with-oss}
+
+```shell
+$ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+```
+
+#### Download with OBS protocol {#downlad-with-pbs}
+
+```shell
+$ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+```
+
+#### Download with cos protocol {#downlad-with-cos}
+
+> Notice: --storage-endpoint=cos.region.myqcloud.com.
+
+```shell
+$ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 ### Log {#log}

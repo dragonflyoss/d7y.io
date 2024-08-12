@@ -132,8 +132,46 @@ Options:
 
 #### 使用 HTTP 协议下载
 
-```text
-dfget -O /path/to/output http://example.com/object
+```shell
+$ dfget https://<host>:<port>/<path> -O /tmp/file.txt
+```
+
+#### 使用 S3 协议下载
+
+```shell
+$ dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
+```
+
+#### 使用 GCS 协议下载
+
+```shell
+$ dfget gcs://<bucket>/<path> -O /tmp/file.txt --storage-credential=<credential> --storage-endpoint=<endpoint>
+```
+
+#### 使用 ABS 协议下载
+
+```shell
+$ dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+```
+
+#### 使用 OSS 协议下载
+
+```shell
+$ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+```
+
+#### 使用 OBS 协议下载
+
+```shell
+$ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+```
+
+#### 使用 COS 协议下载
+
+> 注意: --storage-endpoint=cos.region.myqcloud.com 即可。
+
+```shell
+$ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 ### 日志
