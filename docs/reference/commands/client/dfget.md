@@ -169,7 +169,7 @@ $ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_k
 $ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-#### Download with cos protocol {#downlad-with-cos}
+#### Download with COS protocol {#downlad-with-cos}
 
 > Notice: --storage-endpoint=cos.region.myqcloud.com.
 
