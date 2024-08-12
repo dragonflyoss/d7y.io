@@ -168,7 +168,7 @@ $ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_k
 
 #### 使用 COS 协议下载
 
-> 注意: --storage-endpoint=cos.region.myqcloud.com 即可。
+> 注意: endpoint 不需要添加 `BucketName-APPID`，--storage-endpoint=cos.region.myqcloud.com 即可。
 
 ```shell
 $ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>

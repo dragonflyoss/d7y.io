@@ -163,7 +163,7 @@ $ dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<accou
 $ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-#### Download with OBS protocol {#downlad-with-pbs}
+#### Download with OBS protocol {#downlad-with-obs}
 
 ```shell
 $ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
@@ -171,7 +171,7 @@ $ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_k
 
 #### Download with COS protocol {#downlad-with-cos}
 
-> Notice: --storage-endpoint=cos.region.myqcloud.com.
+> Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
 
 ```shell
 $ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
