@@ -76,6 +76,39 @@ Options:
       --disable-back-to-source
           Disable back-to-source download when dfget download failed
 
+      --storage-region <STORAGE_REGION>
+          Specify the region for the Object Storage Service
+
+      --storage-endpoint <STORAGE_ENDPOINT>
+          Specify the endpoint for the Object Storage Service
+
+      --storage-access-key-id <STORAGE_ACCESS_KEY_ID>
+          Specify the access key ID for the Object Storage Service
+
+      --storage-access-key-secret <STORAGE_ACCESS_KEY_SECRET>
+          Specify the access key secret for the Object Storage Service
+
+      --storage-session-token <STORAGE_SESSION_TOKEN>
+          Specify the session token for Amazon Simple Storage Service(S3)
+
+      --storage-credential <STORAGE_CREDENTIAL>
+          Specify the credential for Google Cloud Storage Service(GCS)
+
+      --storage-predefined-acl <STORAGE_PREDEFINED_ACL>
+          Specify the predefined ACL for Google Cloud Storage Service(GCS)
+
+          [default: publicRead]
+
+      --max-files <MAX_FILES>
+          Specify the max count of file to download when downloading a directory. If the actual file count is greater than this value, the downloading will be rejected
+
+          [default: 10]
+
+      --max-concurrent-requests <MAX_CONCURRENT_REQUESTS>
+          Specify the max count of concurrent download files when downloading a directory
+
+          [default: 5]
+
   -l, --log-level <LOG_LEVEL>
           Specify the logging level [trace, debug, info, warn, error]
 
@@ -89,35 +122,10 @@ Options:
       --log-max-files <LOG_MAX_FILES>
           Specify the max number of log files
 
-          [default: 24]
+          [default: 6]
 
       --verbose
           Specify whether to print log
-
-  -c, --dfdaemon-config <DFDAEMON_CONFIG>
-          Specify dfdaemon's config file to use
-
-          [default: /etc/dragonfly/dfdaemon.yaml]
-
-      --dfdaemon-lock-path <DFDAEMON_LOCK_PATH>
-          Specify the dfdaemon's lock file path
-
-          [default: /var/lock/dragonfly/dfdaemon.lock]
-
-      --dfdaemon-log-level <DFDAEMON_LOG_LEVEL>
-          Specify the dfdaemon's logging level [trace, debug, info, warn, error]
-
-          [default: info]
-
-      --dfdaemon-log-dir <DFDAEMON_LOG_DIR>
-          Specify the dfdaemon's log directory
-
-          [default: /var/log/dragonfly/dfdaemon]
-
-      --dfdaemon-log-max-files <DFDAEMON_LOG_MAX_FILES>
-          Specify the dfdaemon's max number of log files
-
-          [default: 24]
 
   -h, --help
           Print help (see a summary with '-h')
