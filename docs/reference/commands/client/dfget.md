@@ -185,8 +185,7 @@ dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_i
 # Download a file.
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 
-# 
-
+# Download a directory.
 dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
