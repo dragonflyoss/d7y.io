@@ -142,31 +142,51 @@ dfget https://<host>:<port>/<path> -O /tmp/file.txt
 #### Download with S3 protocol {#downlad-with-s3}
 
 ```shell
+# Download a file.
 dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
+
+# Download a Directory.
+dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
 #### Download with GCS protocol {#downlad-with-gcs}
 
 ```shell
+# Download a file.
 dfget gcs://<bucket>/<path> -O /tmp/file.txt --storage-credential=<credential> --storage-endpoint=<endpoint>
+
+# Download a Directory.
+dfget gcs://<bucket>/<path>/ -O /tmp/path/ --storage-credential=<credential> --storage-endpoint=<endpoint>
 ```
 
 #### Download with ABS protocol {#downlad-with-abs}
 
 ```shell
+# Download a file.
 dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+
+# Download a Directory.
+dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
 ```
 
 #### Download with OSS protocol {#downlad-with-oss}
 
 ```shell
+# Download a file.
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# Download a Directory.
+dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 #### Download with OBS protocol {#downlad-with-obs}
 
 ```shell
+# Download a file.
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# Download a Directory.
+dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 #### Download with COS protocol {#downlad-with-cos}
@@ -174,7 +194,11 @@ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 > Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
 
 ```shell
+# Download a file.
 dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# Download a Directory.
+dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 ### Log {#log}

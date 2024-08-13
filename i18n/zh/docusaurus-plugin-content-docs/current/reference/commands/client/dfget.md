@@ -141,31 +141,51 @@ dfget https://<host>:<port>/<path> -O /tmp/file.txt
 #### 使用 S3 协议下载
 
 ```shell
+# 下载文件
 dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
+
+# 下载目录
+dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
 #### 使用 GCS 协议下载
 
 ```shell
+# 下载文件
 dfget gcs://<bucket>/<path> -O /tmp/file.txt --storage-credential=<credential> --storage-endpoint=<endpoint>
+
+# 下载目录
+dfget gcs://<bucket>/<path>/ -O /tmp/path/ --storage-credential=<credential> --storage-endpoint=<endpoint>
 ```
 
 #### 使用 ABS 协议下载
 
 ```shell
+# 下载文件
 dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+
+# 下载目录
+dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
 ```
 
 #### 使用 OSS 协议下载
 
 ```shell
+# 下载文件
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# 下载目录
+dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 #### 使用 OBS 协议下载
 
 ```shell
+# 下载文件
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# 下载目录
+dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 #### 使用 COS 协议下载
@@ -173,7 +193,11 @@ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 > 注意: endpoint 不需要添加 `BucketName-APPID`，--storage-endpoint=cos.region.myqcloud.com 即可。
 
 ```shell
+# 下载文件
 dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# 下载目录
+dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 <!-- markdownlint-restore -->
