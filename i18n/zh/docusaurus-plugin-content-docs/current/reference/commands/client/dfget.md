@@ -160,10 +160,10 @@ dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id>
 
 ```shell
 # 下载文件
-dfget gcs://<bucket>/<path> -O /tmp/file.txt --storage-credential=<credential> --storage-endpoint=<endpoint>
+dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
 
 # 下载目录
-dfget gcs://<bucket>/<path>/ -O /tmp/path/ --storage-credential=<credential> --storage-endpoint=<endpoint>
+dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
 ```
 
 #### 使用 ABS 协议下载
