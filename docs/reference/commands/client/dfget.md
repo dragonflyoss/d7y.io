@@ -96,8 +96,8 @@ Options:
       --storage-session-token <STORAGE_SESSION_TOKEN>
           Specify the session token for Amazon Simple Storage Service(S3)
 
-      --storage-credential <STORAGE_CREDENTIAL>
-          Specify the credential for Google Cloud Storage Service(GCS)
+      --storage-credential-path <STORAGE_CREDENTIAL_PATH>
+          Specify the local path to credential file for Google Cloud Storage Service(GCS)
 
       --storage-predefined-acl <STORAGE_PREDEFINED_ACL>
           Specify the predefined ACL for Google Cloud Storage Service(GCS)
@@ -161,10 +161,10 @@ dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id>
 
 ```shell
 # Download a file.
-dfget gcs://<bucket>/<path> -O /tmp/file.txt --storage-credential=<credential> --storage-endpoint=<endpoint>
+dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
 
 # Download a directory.
-dfget gcs://<bucket>/<path>/ -O /tmp/path/ --storage-credential=<credential> --storage-endpoint=<endpoint>
+dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
 ```
 
 #### Download with ABS protocol {#downlad-with-abs}
