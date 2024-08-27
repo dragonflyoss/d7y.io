@@ -4,7 +4,8 @@ title: Dfget
 slug: /reference/commands/client/dfget/
 ---
 
-`dfget` 是 Dragonfly 中用来下载和上传文件的客户端。
+`dfget` 是 Dragonfly 中用来下载和上传文件的客户端。dfget 上传和下载过程中需要使用 dfdaemon GRPC 服务的 unix socket,
+使用 dfget 必须开启 dfdaemon。
 
 ### 用法
 

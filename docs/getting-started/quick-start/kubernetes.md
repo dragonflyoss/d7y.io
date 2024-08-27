@@ -285,7 +285,6 @@ Please create personal access Token before calling Open API, and select `job` fo
 
 Use Open API to preheat the image `alpine:3.19` to Seed Peer, refer to [preheat](../../advanced-guides/preheat.md).
 
-````shell
 ```shell
 curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
@@ -300,7 +299,7 @@ curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
         "password": "your_registry_password"
     }
 }'
-````
+```
 
 The command-line log returns the preheat job id:
 
