@@ -152,7 +152,7 @@ NOTES:
 
 检查 Dragonfly 是否部署成功:
 
-````shell
+```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS      AGE
 dragonfly-client-gvspg               1/1     Running   0             34m
@@ -173,7 +173,7 @@ dragonfly-seed-client-0              1/1     Running   5 (21m ago)   34m
 
 ```shell
 docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
-````
+```
 
 ### 验证镜像下载成功
 

@@ -5,6 +5,8 @@ slug: /reference/commands/client/dfget/
 ---
 
 `dfget` is the client of Dragonfly used to download and upload files.
+The unix socket of the dfdaemon GRPC service needs to be used during the upload and download process of dfget.
+To use dfget, dfdaemon must be started.
 
 ### Usage {#usage}
 

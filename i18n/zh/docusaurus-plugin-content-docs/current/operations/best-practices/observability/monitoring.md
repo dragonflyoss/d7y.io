@@ -70,6 +70,53 @@ kind load docker-image dragonflyoss/client:latest
 kind load docker-image dragonflyoss/dfinit:latest
 ```
 
+## 基于 Helm Charts 创建 Prometheus 和 Grafana
+
+基于 [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
+安装 Prometheus 和 Grafana。
+
+<!-- markdownlint-disable -->
+
+```bash
+$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+$ helm install --create-namespace --namespace prometheus prometheus prometheus-community/kube-prometheus-stack -f https://raw.githubusercontent.com/dragonflyoss/monitoring/main/prometheus/values.yaml
+NAME: prometheus
+LAST DEPLOYED: Tue Jun 11 15:37:56 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace default get pods -l "release=prometheus"
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
+```
+
+检查 Prometheus 是否部署成功：
+
+```shell
+$ kubectl get po -n prometheus
+NAME                                                     READY   STATUS    RESTARTS      AGE
+alertmanager-prometheus-kube-prometheus-alertmanager-0   2/2     Running   2 (47m ago)   71m
+prometheus-grafana-7576556869-jzpsf                      3/3     Running   3 (47m ago)   73m
+prometheus-kube-prometheus-operator-fd56bbb4f-29sp6      1/1     Running   2 (47m ago)   73m
+prometheus-kube-state-metrics-7d7654ff7-7vtrg            1/1     Running   2 (47m ago)   73m
+prometheus-prometheus-kube-prometheus-prometheus-0       2/2     Running   2 (47m ago)   71m
+prometheus-prometheus-node-exporter-8dl68                1/1     Running   1 (47m ago)   73m
+prometheus-prometheus-node-exporter-jlgcp                1/1     Running   1 (47m ago)   73m
+prometheus-prometheus-node-exporter-tlhld                1/1     Running   1 (47m ago)   73m
+```
+
+<!-- markdownlint-restore -->
+
+暴露 Grafana 大盘 8080 端口，访问 Grafana 大盘地址为 `localhost:8080`，默认用户名为 `admin`，密码为 `prom-operator`。
+
+```bash
+kubectl --namespace prometheus port-forward svc/prometheus-grafana 8080:80
+```
+
+![grafana-login](../../../resource/operations/best-practices/observability/monitoring/grafana-login.jpg)
+
 ## 基于 Helm Charts 创建 Dragonfly 集群
 
 创建 Helm Charts 配置文件 `values.yaml`，开启 `ServiceMonitor`功能，详情参考
@@ -219,53 +266,6 @@ dragonfly-seed-client-0              1/1     Running   0          63m
 dragonfly-seed-client-1              1/1     Running   0          50m
 dragonfly-seed-client-2              1/1     Running   0          47m
 ```
-
-## 基于 Helm Charts 创建 Prometheus 和 Grafana
-
-基于 [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
-安装 Prometheus 和 Grafana。
-
-<!-- markdownlint-disable -->
-
-```bash
-$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-$ helm install --create-namespace --namespace prometheus prometheus prometheus-community/kube-prometheus-stack -f https://raw.githubusercontent.com/dragonflyoss/monitoring/main/prometheus/values.yaml
-NAME: prometheus
-LAST DEPLOYED: Tue Jun 11 15:37:56 2024
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-NOTES:
-kube-prometheus-stack has been installed. Check its status by running:
-  kubectl --namespace default get pods -l "release=prometheus"
-
-Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
-```
-
-检查 Prometheus 是否部署成功：
-
-```shell
-$ kubectl get po -n prometheus
-NAME                                                     READY   STATUS    RESTARTS      AGE
-alertmanager-prometheus-kube-prometheus-alertmanager-0   2/2     Running   2 (47m ago)   71m
-prometheus-grafana-7576556869-jzpsf                      3/3     Running   3 (47m ago)   73m
-prometheus-kube-prometheus-operator-fd56bbb4f-29sp6      1/1     Running   2 (47m ago)   73m
-prometheus-kube-state-metrics-7d7654ff7-7vtrg            1/1     Running   2 (47m ago)   73m
-prometheus-prometheus-kube-prometheus-prometheus-0       2/2     Running   2 (47m ago)   71m
-prometheus-prometheus-node-exporter-8dl68                1/1     Running   1 (47m ago)   73m
-prometheus-prometheus-node-exporter-jlgcp                1/1     Running   1 (47m ago)   73m
-prometheus-prometheus-node-exporter-tlhld                1/1     Running   1 (47m ago)   73m
-```
-
-<!-- markdownlint-restore -->
-
-暴露 Grafana 大盘 8080 端口，访问 Grafana 大盘地址为 `localhost:8080`，默认用户名为 `admin`，密码为 `prom-operator`。
-
-```bash
-kubectl --namespace prometheus port-forward svc/prometheus-grafana 8080:80
-```
-
-![grafana-login](../../../resource/operations/best-practices/observability/monitoring/grafana-login.jpg)
 
 ## 验证数据是否被采集
 

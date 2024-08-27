@@ -72,6 +72,53 @@ kind load docker-image dragonflyoss/client:latest
 kind load docker-image dragonflyoss/dfinit:latest
 ```
 
+## Create Prometheus and Grafana based on Helm Charts{#create-prometheus-and-grafana-based-on-helm-charts}
+
+Install prometheus and grafana based on [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
+
+<!-- markdownlint-disable -->
+
+```bash
+$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+$ helm install --create-namespace --namespace prometheus prometheus prometheus-community/kube-prometheus-stack -f https://raw.githubusercontent.com/dragonflyoss/monitoring/main/prometheus/values.yaml
+NAME: prometheus
+LAST DEPLOYED: Tue Jun 11 15:37:56 2024
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace default get pods -l "release=prometheus"
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
+```
+
+<!-- markdownlint-restore -->
+
+Check that Prometheus is deployed successfully:
+
+```shell
+$ kubectl get po -n prometheus
+NAME                                                     READY   STATUS    RESTARTS      AGE
+alertmanager-prometheus-kube-prometheus-alertmanager-0   2/2     Running   2 (47m ago)   71m
+prometheus-grafana-7576556869-jzpsf                      3/3     Running   3 (47m ago)   73m
+prometheus-kube-prometheus-operator-fd56bbb4f-29sp6      1/1     Running   2 (47m ago)   73m
+prometheus-kube-state-metrics-7d7654ff7-7vtrg            1/1     Running   2 (47m ago)   73m
+prometheus-prometheus-kube-prometheus-prometheus-0       2/2     Running   2 (47m ago)   71m
+prometheus-prometheus-node-exporter-8dl68                1/1     Running   1 (47m ago)   73m
+prometheus-prometheus-node-exporter-jlgcp                1/1     Running   1 (47m ago)   73m
+prometheus-prometheus-node-exporter-tlhld                1/1     Running   1 (47m ago)   73m
+```
+
+Expose grafana port 8080 and access the address `localhost:8080` to see the grafana dashboard,
+You can login with username `admin` and password `prom-operator`
+
+```bash
+kubectl --namespace prometheus port-forward svc/prometheus-grafana 8080:80
+```
+
+- ![grafana-login](../../../resource/operations/best-practices/observability/monitoring/grafana-login.jpg)
+
 ## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create the Helm Charts configuration file `values.yaml`, Turn on the `ServiceMonitor` function, Please refer to the [serviceMonitor](https://github.com/dragonflyoss/helm-charts/blob/main/charts/dragonfly/values.yaml#L247).
@@ -220,53 +267,6 @@ dragonfly-seed-client-0              1/1     Running   0          63m
 dragonfly-seed-client-1              1/1     Running   0          50m
 dragonfly-seed-client-2              1/1     Running   0          47m
 ```
-
-## Create Prometheus and Grafana based on Helm Charts{#create-prometheus-and-grafana-based-on-helm-charts}
-
-Install prometheus and grafana based on [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
-
-<!-- markdownlint-disable -->
-
-```bash
-$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-$ helm install --create-namespace --namespace prometheus prometheus prometheus-community/kube-prometheus-stack -f https://raw.githubusercontent.com/dragonflyoss/monitoring/main/prometheus/values.yaml
-NAME: prometheus
-LAST DEPLOYED: Tue Jun 11 15:37:56 2024
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-NOTES:
-kube-prometheus-stack has been installed. Check its status by running:
-  kubectl --namespace default get pods -l "release=prometheus"
-
-Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
-```
-
-<!-- markdownlint-restore -->
-
-Check that Prometheus is deployed successfully:
-
-```shell
-$ kubectl get po -n prometheus
-NAME                                                     READY   STATUS    RESTARTS      AGE
-alertmanager-prometheus-kube-prometheus-alertmanager-0   2/2     Running   2 (47m ago)   71m
-prometheus-grafana-7576556869-jzpsf                      3/3     Running   3 (47m ago)   73m
-prometheus-kube-prometheus-operator-fd56bbb4f-29sp6      1/1     Running   2 (47m ago)   73m
-prometheus-kube-state-metrics-7d7654ff7-7vtrg            1/1     Running   2 (47m ago)   73m
-prometheus-prometheus-kube-prometheus-prometheus-0       2/2     Running   2 (47m ago)   71m
-prometheus-prometheus-node-exporter-8dl68                1/1     Running   1 (47m ago)   73m
-prometheus-prometheus-node-exporter-jlgcp                1/1     Running   1 (47m ago)   73m
-prometheus-prometheus-node-exporter-tlhld                1/1     Running   1 (47m ago)   73m
-```
-
-Expose grafana port 8080 and access the address `localhost:8080` to see the grafana dashboard,
-You can login with username `admin` and password `prom-operator`
-
-```bash
-kubectl --namespace prometheus port-forward svc/prometheus-grafana 8080:80
-```
-
-- ![grafana-login](../../../resource/operations/best-practices/observability/monitoring/grafana-login.jpg)
 
 ## Validate metrics {#step-3-validate-metrics}
 
