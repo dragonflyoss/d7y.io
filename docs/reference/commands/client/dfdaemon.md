@@ -54,7 +54,7 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
 ### Download with Proxy
 
-When the dfdameon setup, it setup a HTTP proxy. The user can download traffic is proxied to P2P networks via the HTTP Proxy.
+When the dfdameon setup, it setup a HTTP proxy. Users can download traffic is proxied to P2P networks via the HTTP Proxy.
 
 #### Download with HTTP protocol
 
@@ -62,7 +62,7 @@ Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdae
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path. If the regex matches,
-the intercepts download traffic and forwards it to the P2P network.
+> the intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
@@ -84,7 +84,7 @@ Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdae
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path. If the regex matches,
-the intercepts download traffic and forwards it to the P2P network.
+> the intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
@@ -128,7 +128,7 @@ Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdae
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path. If the regex matches,
-the intercepts download traffic and forwards it to the P2P network.
+> the intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
