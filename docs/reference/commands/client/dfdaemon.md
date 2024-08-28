@@ -61,7 +61,8 @@ When the dfdameon setup, it setup a HTTP proxy. The user can download traffic is
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
-> Notice: set `proxy.rules.regex` to match the download path. If the regex matches, the intercepts download traffic and forwards it to the P2P network.
+> Notice: set `proxy.rules.regex` to match the download path. If the regex matches,
+the intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
@@ -82,7 +83,8 @@ curl -v -x 127.0.0.1:4001 http://example.com/file.txt --output /tmp/file.txt
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
-> Notice: set `proxy.rules.regex` to match the download path. If the regex matches, the intercepts download traffic and forwards it to the P2P network.
+> Notice: set `proxy.rules.regex` to match the download path. If the regex matches,
+the intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
@@ -125,7 +127,8 @@ update-ca-trust
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
-> Notice: set `proxy.rules.regex` to match the download path. If the regex matches, the intercepts download traffic and forwards it to the P2P network.
+> Notice: set `proxy.rules.regex` to match the download path. If the regex matches,
+the intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
