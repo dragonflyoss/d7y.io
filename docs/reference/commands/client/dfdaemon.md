@@ -100,7 +100,7 @@ Download with Insecure HTTPS protocol:
 curl -v -x 127.0.0.1:4001 https://example.com/file.txt --insecure --output /tmp/file.txt
 ```
 
-##### Download with using custom CA certificates HTTPS protocol
+##### Download with HTTPS protocol by using custom CA certificates
 
 Generate a CA certificates:
 
