@@ -8,7 +8,7 @@ slug: /reference/commands/client/dfget/
 The unix socket of the dfdaemon GRPC service needs to be used during the upload and download process of dfget.
 To use dfget, dfdaemon must be started.
 
-### Usage {#usage}
+## Usage {#usage}
 
 dfget is the client of Dragonfly which takes
 a role of peer in a P2P network. When user triggers a file downloading
@@ -24,7 +24,7 @@ dfget -O <OUTPUT> <URL>
 dfget [command]
 ```
 
-### Options {#options}
+## Options {#options}
 
 <!-- markdownlint-disable -->
 
@@ -41,37 +41,37 @@ Options:
 
   -e, --endpoint <ENDPOINT>
           Endpoint of dfdaemon's GRPC server
-          
+
           [default: /var/run/dragonfly/dfdaemon.sock]
 
       --timeout <TIMEOUT>
           Specify the timeout for downloading a file
-          
+
           [default: 2h]
 
       --piece-length <PIECE_LENGTH>
           Specify the byte length of the piece
-          
+
           [default: 4194304]
 
   -d, --digest <DIGEST>
           Verify the integrity of the downloaded file using the specified digest, e.g. md5:86d3f3a95c324c9479bd8986968f4327
-          
+
           [default: ]
 
   -p, --priority <PRIORITY>
           Specify the priority for scheduling task
-          
+
           [default: 6]
 
       --application <APPLICATION>
           Caller application which is used for statistics and access control
-          
+
           [default: ]
 
       --tag <TAG>
           Different tags for the same url will be divided into different tasks
-          
+
           [default: ]
 
   -H, --header <HEADER>
@@ -103,32 +103,32 @@ Options:
 
       --storage-predefined-acl <STORAGE_PREDEFINED_ACL>
           Specify the predefined ACL for Google Cloud Storage Service(GCS)
-          
+
           [default: publicRead]
 
       --max-files <MAX_FILES>
           Specify the max count of file to download when downloading a directory. If the actual file count is greater than this value, the downloading will be rejected
-          
+
           [default: 10]
 
       --max-concurrent-requests <MAX_CONCURRENT_REQUESTS>
           Specify the max count of concurrent download files when downloading a directory
-          
+
           [default: 5]
 
   -l, --log-level <LOG_LEVEL>
           Specify the logging level [trace, debug, info, warn, error]
-          
+
           [default: info]
 
       --log-dir <LOG_DIR>
           Specify the log directory
-          
+
           [default: /var/log/dragonfly/dfget]
 
       --log-max-files <LOG_MAX_FILES>
           Specify the max number of log files
-          
+
           [default: 6]
 
       --verbose
@@ -141,15 +141,15 @@ Options:
           Print version
 ```
 
-### Example {#example}
+## Example {#example}
 
-#### Download with HTTP protocol {#downlad-with-http}
+### Download with HTTP protocol {#downlad-with-http}
 
 ```shell
 dfget https://<host>:<port>/<path> -O /tmp/file.txt
 ```
 
-#### Download with S3 protocol {#downlad-with-s3}
+### Download with S3 protocol {#downlad-with-s3}
 
 ```shell
 # Download a file.
@@ -159,7 +159,7 @@ dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_
 dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
-#### Download with GCS protocol {#downlad-with-gcs}
+### Download with GCS protocol {#downlad-with-gcs}
 
 ```shell
 # Download a file.
@@ -169,7 +169,7 @@ dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credentia
 dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
 ```
 
-#### Download with ABS protocol {#downlad-with-abs}
+### Download with ABS protocol {#downlad-with-abs}
 
 ```shell
 # Download a file.
@@ -179,7 +179,7 @@ dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account
 dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
 ```
 
-#### Download with OSS protocol {#downlad-with-oss}
+### Download with OSS protocol {#downlad-with-oss}
 
 ```shell
 # Download a file.
@@ -189,7 +189,7 @@ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-#### Download with OBS protocol {#downlad-with-obs}
+### Download with OBS protocol {#downlad-with-obs}
 
 ```shell
 # Download a file.
@@ -199,7 +199,7 @@ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-#### Download with COS protocol {#downlad-with-cos}
+### Download with COS protocol {#downlad-with-cos}
 
 > Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
 
@@ -211,7 +211,7 @@ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Log {#log}
+## Log {#log}
 
 ```text
 1. set option --verbose if you want to print logs to Terminal
