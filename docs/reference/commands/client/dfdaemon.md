@@ -54,7 +54,7 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
 ### Download with Proxy
 
-When downloading a task, the download request will be proxied to dfdaemon via the dfdaemon HTTP Proxy.
+When dfdaemon starts, an HTTP Proxy will be started through which users can forward download traffic to the P2P network.
 
 #### Download with HTTP protocol
 
@@ -72,7 +72,7 @@ proxy:
 ```
 
 ```shell
-curl -v -x 127.0.0.1:4001 http://example.com/xxx --output /path
+curl -v -x 127.0.0.1:4001 http://example.com/file.txt --output /tmp/file.txt
 ```
 
 #### Download with HTTPS protocol
@@ -95,7 +95,7 @@ proxy:
 Download with Insecure HTTPS protocol:
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://example.com/xxx --insecure --output /path
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --insecure --output /tmp/file.txt
 ```
 
 ##### Download with using custom CA certificates HTTPS protocol
@@ -140,7 +140,7 @@ proxy:
 Download with HTTPS protocol:
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://example.com/xxx --output /path
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --output /tmp/file.txt
 ```
 
 ## Log {#log}

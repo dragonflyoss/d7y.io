@@ -53,7 +53,7 @@ dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者�
 
 ### 使用 Proxy 下载
 
-当下载一个任务时，通过 dfdaemon 的 HTTP Proxy 将下载请求代理到 dfdaemon。
+dfdaemon 启动会附带启动一个 HTTP Proxy，用户可以通过 HTTP Proxy 将下载流量转发至 P2P 网络。
 
 #### 使用 HTTP 协议下载
 
@@ -71,7 +71,7 @@ proxy:
 ```
 
 ```shell
-curl -v -x 127.0.0.1:4001 http://example.com/xxx --output /path
+curl -v -x 127.0.0.1:4001 http://example.com/file.txt --output /tmp/file.txt
 ```
 
 #### 使用 HTTPS 协议下载
@@ -94,7 +94,7 @@ proxy:
 使用 Insecure HTTPS 请求下载文件
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://example.com/xxx --insecure --output /path
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --insecure --output /tmp/file.txt
 ```
 
 ##### 使用自签 CA 证书进行 HTTPS 协议下载
@@ -138,7 +138,7 @@ rules:
 使用 HTTPS 请求下载文件
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://example.com/xxx --output /path
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --output /tmp/file.txt
 ```
 
 ## Dfdaemon 日志
