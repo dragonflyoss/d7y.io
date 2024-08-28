@@ -7,7 +7,7 @@ slug: /reference/commands/client/dfdaemon/
 Dragonfly 中的高性能 P2P 下载守护进程，可以下载不同协议的资源。当用户触发文件下载任务时，
 dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者，支持其他节点从它下载片段（如果它拥有这些片段）。
 
-### Dfdaemon 可选参数
+## Dfdaemon 可选参数
 
 <!-- markdownlint-disable -->
 
@@ -49,7 +49,99 @@ dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者�
 
 <!-- markdownlint-restore -->
 
-### Dfdaemon 日志
+## 例子
+
+### 使用 Proxy 下载
+
+dfdaemon 启动会附带启动一个 HTTP Proxy，用户可以通过 HTTP Proxy 将下载流量转发至 P2P 网络。
+
+#### 使用 HTTP 协议下载
+
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
+参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
+
+> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。如果匹配的话，流量转发至 P2P 网络。
+
+```yaml
+proxy:
+  server:
+    port: 4001
+  rules:
+    - regex: 'example.*'
+```
+
+```shell
+curl -v -x 127.0.0.1:4001 http://example.com/file.txt --output /tmp/file.txt
+```
+
+#### 使用 HTTPS 协议下载
+
+##### 使用 Insecure HTTPS 协议下载
+
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
+参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
+
+> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。如果匹配的话，流量转发至 P2P 网络。
+
+```yaml
+proxy:
+  server:
+    port: 4001
+  rules:
+    - regex: 'example.*'
+```
+
+使用 Insecure HTTPS 请求下载文件
+
+```shell
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --insecure --output /tmp/file.txt
+```
+
+##### 使用自签 CA 证书进行 HTTPS 协议下载
+
+手动生成自签名证书。
+
+```shell
+openssl req -x509 -sha256 -days 36500 -nodes -newkey rsa:4096 -keyout ca.key -out ca.crt
+```
+
+信任自签名证书。
+
+- Ubuntu:
+
+```shell
+cp ca.crt /usr/local/share/ca-certificates/ca.crt
+update-ca-certificates
+```
+
+- Red Hat (CentOS etc):
+
+```shell
+cp ca.crt /etc/pki/ca-trust/source/anchors/ca.crt
+update-ca-trust
+```
+
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
+参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
+
+> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。如果匹配的话，流量转发至 P2P 网络。
+
+```yaml
+server:
+  port: 4001
+  caCert: ca.crt
+  caKey: ca.key
+rules:
+  - regex: 'example.*'
+```
+
+使用 HTTPS 请求下载文件
+
+```shell
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --output /tmp/file.txt
+```
+
+## Dfdaemon 日志
 
 ```text
 1. 终端日志输出需要增加命令行参数 --verbose

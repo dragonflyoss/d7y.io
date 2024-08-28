@@ -7,7 +7,7 @@ slug: /reference/commands/client/dfget/
 `dfget` 是 Dragonfly 中用来下载和上传文件的客户端。dfget 上传和下载过程中需要使用 dfdaemon GRPC 服务的 unix socket,
 使用 dfget 必须开启 dfdaemon。
 
-### 用法
+## 用法
 
 dfget 是 Dragonfly 中用来下载和上传文件的客户端，也是 p2p 网络中的一个 peer。当用户发起文件下载请求时，
 dfget 将从其他 peer 下载文件。同时，它也能作为上传者，让其他 peer 下载它已拥有的那部分文件。
@@ -18,7 +18,7 @@ dfget -O <OUTPUT> <URL>
 dfget [command]
 ```
 
-### 可选参数
+## 可选参数
 
 <!-- markdownlint-disable -->
 
@@ -137,9 +137,9 @@ Options:
 
 <!-- markdownlint-restore -->
 
-### 例子
+## 例子
 
-#### 使用 HTTP 协议下载
+### 使用 HTTP 协议下载
 
 ```shell
 dfget https://<host>:<port>/<path> -O /tmp/file.txt
@@ -147,7 +147,7 @@ dfget https://<host>:<port>/<path> -O /tmp/file.txt
 
 <!-- markdownlint-disable -->
 
-#### 使用 S3 协议下载
+### 使用 S3 协议下载
 
 ```shell
 # 下载文件
@@ -157,7 +157,7 @@ dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_
 dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
-#### 使用 GCS 协议下载
+### 使用 GCS 协议下载
 
 ```shell
 # 下载文件
@@ -167,7 +167,7 @@ dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credentia
 dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
 ```
 
-#### 使用 ABS 协议下载
+### 使用 ABS 协议下载
 
 ```shell
 # 下载文件
@@ -177,7 +177,7 @@ dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account
 dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
 ```
 
-#### 使用 OSS 协议下载
+### 使用 OSS 协议下载
 
 ```shell
 # 下载文件
@@ -187,7 +187,7 @@ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-#### 使用 OBS 协议下载
+### 使用 OBS 协议下载
 
 ```shell
 # 下载文件
@@ -197,7 +197,7 @@ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-#### 使用 COS 协议下载
+### 使用 COS 协议下载
 
 > 注意: endpoint 不需要添加 `BucketName-APPID`，--storage-endpoint=cos.region.myqcloud.com 即可。
 
@@ -211,7 +211,7 @@ dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_i
 
 <!-- markdownlint-restore -->
 
-### 日志
+## 日志
 
 ```text
 1. 终端日志输出需要增加命令行参数 --verbose

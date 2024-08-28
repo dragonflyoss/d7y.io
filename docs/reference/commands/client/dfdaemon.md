@@ -8,7 +8,7 @@ A high performance P2P download daemon in Dragonfly that can download resources 
 When user triggers a file downloading task, dfdaemon will download the pieces of file from other peers.
 Meanwhile, it will act as an uploader to support other peers to download pieces from it if it owns them.
 
-### Options {#dfdaemon-options}
+## Options {#dfdaemon-options}
 
 <!-- markdownlint-disable -->
 
@@ -50,7 +50,103 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
 <!-- markdownlint-restore -->
 
-### Log {#log}
+## Example
+
+### Download with Proxy
+
+When the dfdameon setups, it setups a HTTP proxy. Users can download traffic is proxied to P2P networks via the HTTP Proxy.
+
+#### Download with HTTP protocol
+
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
+
+> Notice: set `proxy.rules.regex` to match the download path.
+If the regex matches, intercepts download traffic and forwards it to the P2P network.
+
+```yaml
+proxy:
+  server:
+    port: 4001
+  rules:
+    - regex: 'example.*'
+```
+
+```shell
+curl -v -x 127.0.0.1:4001 http://example.com/file.txt --output /tmp/file.txt
+```
+
+#### Download with HTTPS protocol
+
+##### Download with Insecure HTTPS protocol
+
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
+
+> Notice: set `proxy.rules.regex` to match the download path.
+If the regex matches, intercepts download traffic and forwards it to the P2P network.
+
+```yaml
+proxy:
+  server:
+    port: 4001
+  rules:
+    - regex: 'example.*'
+```
+
+Download with Insecure HTTPS protocol:
+
+```shell
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --insecure --output /tmp/file.txt
+```
+
+##### Download with HTTPS protocol by using custom CA certificates
+
+Generate a CA certificates:
+
+```shell
+openssl req -x509 -sha256 -days 36500 -nodes -newkey rsa:4096 -keyout ca.key -out ca.crt
+```
+
+Trust the certificate at the OS level.
+
+- Ubuntu:
+
+```shell
+cp ca.crt /usr/local/share/ca-certificates/ca.crt
+update-ca-certificates
+```
+
+- Red Hat (CentOS etc):
+
+```shell
+cp ca.crt /etc/pki/ca-trust/source/anchors/ca.crt
+update-ca-trust
+```
+
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
+
+> Notice: set `proxy.rules.regex` to match the download path.
+If the regex matches, intercepts download traffic and forwards it to the P2P network.
+
+```yaml
+proxy:
+  server:
+    port: 4001
+    caCert: ca.crt
+    caKey: ca.key
+  rules:
+    - regex: 'example.*'
+```
+
+Download with HTTPS protocol:
+
+```shell
+curl -v -x 127.0.0.1:4001 https://example.com/file.txt --output /tmp/file.txt
+```
+
+## Log {#log}
 
 ```text
 1. set option --verbose if you want to print logs to Terminal
