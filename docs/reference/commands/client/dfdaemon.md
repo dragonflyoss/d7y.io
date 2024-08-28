@@ -54,7 +54,7 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
 ### Download with Proxy
 
-When dfdameon starts, it starts an HTTP Proxy. Users can forward download traffic to P2P networks through HTTP Proxy.
+When the dfdameon starts, it starts a HTTP Proxy. Users can forward download traffic to P2P networks through HTTP Proxy.
 
 #### Download with HTTP protocol
 
