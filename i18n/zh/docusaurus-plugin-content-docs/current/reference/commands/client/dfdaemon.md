@@ -60,7 +60,7 @@ dfdaemon 启动会附带启动一个 HTTP Proxy，用户可以通过 HTTP Proxy 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
 
-> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。
+> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则，如果匹配的话，流量走 P2P 网络。
 
 ```yaml
 proxy:
@@ -81,7 +81,7 @@ curl -v -x 127.0.0.1:4001 http://example.com/file.txt --output /tmp/file.txt
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
 
-> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。
+> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则，如果匹配的话，流量走 P2P 网络。
 
 ```yaml
 proxy:
@@ -124,7 +124,7 @@ update-ca-trust
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
 
-> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。
+> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则，如果匹配的话，流量走 P2P 网络。
 
 ```yaml
 server:
