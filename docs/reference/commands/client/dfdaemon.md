@@ -130,15 +130,15 @@ scheduler:
 
 upload:
   server:
-    port: 5000
+    port: 4000
 
 metrics:
   server:
-    port: 5002
+    port: 4002
 
 proxy:
   server:
-    port: 5001
+    port: 4001
     caCert: ca.crt
     caKey: ca.key
   rules:
