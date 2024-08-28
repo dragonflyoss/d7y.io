@@ -53,6 +53,8 @@ dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者�
 
 ### 使用 Proxy 下载
 
+当下载一个任务时，通过 dfdaemon 的 HTTP Proxy 将下载请求代理到 dfdaemon。
+
 #### 使用 HTTP 协议下载
 
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
@@ -65,11 +67,11 @@ proxy:
   server:
     port: 4001
   rules:
-    - regex: '.*example.*'
+    - regex: 'example.*'
 ```
 
 ```shell
-curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /path/to/example
+curl -v -x 127.0.0.1:4001 http://example.com/xxx --output /path
 ```
 
 #### 使用 HTTPS 协议下载
@@ -86,13 +88,13 @@ proxy:
   server:
     port: 4001
   rules:
-    - regex: '.*example.*'
+    - regex: 'example.*'
 ```
 
 使用 Insecure HTTPS 请求下载文件
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --insecure --output /path/to/example
+curl -v -x 127.0.0.1:4001 https://example.com/xxx --insecure --output /path
 ```
 
 ##### 使用自签 CA 证书进行 HTTPS 协议下载
@@ -130,13 +132,13 @@ server:
   caCert: ca.crt
   caKey: ca.key
 rules:
-  - regex: '.*example.*'
+  - regex: 'example.*'
 ```
 
 使用 HTTPS 请求下载文件
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --output /path/to/example
+curl -v -x 127.0.0.1:4001 https://example.com/xxx --output /path
 ```
 
 ## Dfdaemon 日志

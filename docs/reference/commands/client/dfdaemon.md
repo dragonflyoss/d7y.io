@@ -54,23 +54,25 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
 ### Download with Proxy
 
+When downloading a task, the download request will be proxied to dfdaemon via the dfdaemon HTTP Proxy.
+
 #### Download with HTTP protocol
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
-> Notice: set `cproxy.rules.regex` to match the download path.
+> Notice: set `proxy.rules.regex` to match the download path.
 
 ```yaml
 proxy:
   server:
     port: 4001
   rules:
-    - regex: '.*example.*'
+    - regex: 'example.*'
 ```
 
 ```shell
-curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /path/to/example
+curl -v -x 127.0.0.1:4001 http://example.com/xxx --output /path
 ```
 
 #### Download with HTTPS protocol
@@ -80,20 +82,20 @@ curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /path/to/example
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
-> Notice: set `cproxy.rules.regex` to match the download path.
+> Notice: set `proxy.rules.regex` to match the download path.
 
 ```yaml
 proxy:
   server:
     port: 4001
   rules:
-    - regex: '.*example.*'
+    - regex: 'example.*'
 ```
 
 Download with Insecure HTTPS protocol:
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --insecure --output /path/to/example
+curl -v -x 127.0.0.1:4001 https://example.com/xxx --insecure --output /path
 ```
 
 ##### Download with using custom CA certificates HTTPS protocol
@@ -123,7 +125,7 @@ update-ca-trust
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
-> Notice: set `cproxy.rules.regex` to match the download path.
+> Notice: set `proxy.rules.regex` to match the download path.
 
 ```yaml
 proxy:
@@ -132,13 +134,13 @@ proxy:
     caCert: ca.crt
     caKey: ca.key
   rules:
-    - regex: '.*example.*'
+    - regex: 'example.*'
 ```
 
 Download with HTTPS protocol:
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --output /path/to/example
+curl -v -x 127.0.0.1:4001 https://example.com/xxx --output /path
 ```
 
 ## Log {#log}
