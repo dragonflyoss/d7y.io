@@ -55,8 +55,21 @@ dfdaemon 将从其他 peer 下载文件片段。同时，它将充当上传者�
 
 #### 使用 HTTP 协议下载
 
+编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
+参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
+
+> 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。
+
+```yaml
+proxy:
+  server:
+    port: 4001
+  rules:
+    - regex: '.*example.*'
+```
+
 ```shell
-curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /tmp/file.txt
+curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /path/to/example
 ```
 
 #### 使用 HTTPS 协议下载
@@ -69,39 +82,17 @@ curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /tmp/file.txt
 > 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。
 
 ```yaml
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-
-upload:
-  server:
-    port: 4000
-
-metrics:
-  server:
-    port: 4002
-
 proxy:
   server:
     port: 4001
   rules:
-    - regex: 'blobs/sha256.*'
-```
-
-运行 Dfdaemon:
-
-```bash
-# 查看 Dfdaemon cli 帮助。
-dfdaemon --help
-
-# 启动 Dfdaemon 模式，推荐使用 systemd 启动 Dfdaemon。
-dfdaemon
+    - regex: '.*example.*'
 ```
 
 使用 Insecure HTTPS 请求下载文件
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --insecure --output /tmp/file.txt
+curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --insecure --output /path/to/example
 ```
 
 ##### 使用自签 CA 证书进行 HTTPS 协议下载
@@ -112,47 +103,40 @@ curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --insecure --output /tmp/
 openssl req -x509 -sha256 -days 36500 -nodes -newkey rsa:4096 -keyout ca.key -out ca.crt
 ```
 
+信任自签名证书。
+
+- Ubuntu:
+
+```shell
+cp ca.crt /usr/local/share/ca-certificates/ca.crt
+update-ca-certificates
+```
+
+- Red Hat (CentOS etc):
+
+```shell
+cp ca.crt /etc/pki/ca-trust/source/anchors/ca.crt
+update-ca-trust
+```
+
 编辑配置文件 Linux 环境下默认 Dfdaemon 配置路径为 `/etc/dragonfly/dfdaemon.yaml`，
 参考文档 [Dfdaemon](../../configuration/client/dfdaemon.md)。
 
 > 注意：可以根据下载路径修改 `proxy.rules.regex` 来调整路由匹配规则。
 
 ```yaml
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-
-upload:
-  server:
-    port: 4000
-
-metrics:
-  server:
-    port: 4002
-
-proxy:
-  server:
-    port: 4001
-    caCert: ca.crt
-    caKey: ca.key
-  rules:
-    - regex: 'blobs/sha256.*'
-```
-
-运行 Dfdaemon:
-
-```bash
-# 查看 Dfdaemon cli 帮助。
-dfdaemon --help
-
-# 启动 Dfdaemon 模式，推荐使用 systemd 启动 Dfdaemon。
-dfdaemon
+server:
+  port: 4001
+  caCert: ca.crt
+  caKey: ca.key
+rules:
+  - regex: '.*example.*'
 ```
 
 使用 HTTPS 请求下载文件
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --output /tmp/file.txt
+curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --output /path/to/example
 ```
 
 ## Dfdaemon 日志

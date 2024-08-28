@@ -56,8 +56,21 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
 #### Download with HTTP protocol
 
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
+
+> Notice: set `cproxy.rules.regex` to match the download path.
+
+```yaml
+proxy:
+  server:
+    port: 4001
+  rules:
+    - regex: '.*example.*'
+```
+
 ```shell
-curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /tmp/file.txt
+curl -v -x 127.0.0.1:4001 http://<host>:<port>/<path> --output /path/to/example
 ```
 
 #### Download with HTTPS protocol
@@ -70,39 +83,17 @@ refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 > Notice: set `cproxy.rules.regex` to match the download path.
 
 ```yaml
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-
-upload:
-  server:
-    port: 4000
-
-metrics:
-  server:
-    port: 4002
-
 proxy:
   server:
     port: 4001
   rules:
-    - regex: 'blobs/sha256.*'
-```
-
-Run Dfdaemon as Seed Peer:
-
-```bash
-# View Dfdaemon cli help docs.
-dfdaemon --help
-
-# Setup Dfdaemon, it is recommended to start Dfdaemon via systemd.
-dfdaemon
+    - regex: '.*example.*'
 ```
 
 Download with Insecure HTTPS protocol:
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --insecure --output /tmp/file.txt
+curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --insecure --output /path/to/example
 ```
 
 ##### Download with using custom CA certificates HTTPS protocol
@@ -113,52 +104,41 @@ Generate a CA certificates:
 openssl req -x509 -sha256 -days 36500 -nodes -newkey rsa:4096 -keyout ca.key -out ca.crt
 ```
 
+Trust the certificate at the OS level.
+
+- Ubuntu:
+
+```shell
+cp ca.crt /usr/local/share/ca-certificates/ca.crt
+update-ca-certificates
+```
+
+- Red Hat (CentOS etc):
+
+```shell
+cp ca.crt /etc/pki/ca-trust/source/anchors/ca.crt
+update-ca-trust
+```
+
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `cproxy.rules.regex` to match the download path.
 
 ```yaml
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-
-dynconfig:
-  refreshInterval: 30s
-scheduler:
-  announceInterval: 30s
-
-upload:
-  server:
-    port: 4000
-
-metrics:
-  server:
-    port: 4002
-
 proxy:
   server:
     port: 4001
     caCert: ca.crt
     caKey: ca.key
   rules:
-    - regex: 'blobs/sha256.*'
-```
-
-Run Dfdaemon as Seed Peer:
-
-```bash
-# View Dfdaemon cli help docs.
-dfdaemon --help
-
-# Setup Dfdaemon, it is recommended to start Dfdaemon via systemd.
-dfdaemon
+    - regex: '.*example.*'
 ```
 
 Download with HTTPS protocol:
 
 ```shell
-curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --output /tmp/file.txt
+curl -v -x 127.0.0.1:4001 https://<host>:<port>/<path> --output /path/to/example
 ```
 
 ## Log {#log}
