@@ -149,37 +149,37 @@ Options:
 dfget https://<host>:<port>/<path> -O /tmp/file.txt
 ```
 
-### Download a file from Amazon Simple Storage Service(S3) {#downlad-file-with-s3}
+### Download a file from Amazon Simple Storage Service (S3) {#downlad-file-with-s3}
 
 ```shell
 dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
-### Download a file from Google Cloud Storage Service(GCS) {#downlad-file-with-gcs}
+### Download a file from Google Cloud Storage Service (GCS) {#downlad-file-with-gcs}
 
 ```shell
 dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential_path=<credential_path>
 ```
 
-### Download a file from Azure Blob Storage Service(ABS) {#downlad-file-with-abs}
+### Download a file from Azure Blob Storage Service (ABS) {#downlad-file-with-abs}
 
 ```shell
 dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 ```
 
-### Download a file from Aliyun Object Storage Service(OSS) {#downlad-file-with-oss}
+### Download a file from Aliyun Object Storage Service (OSS) {#downlad-file-with-oss}
 
 ```shell
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download a file from Huawei Cloud Object Storage Service(OBS) {#downlad-file-with-obs}
+### Download a file from Huawei Cloud Object Storage Service (OBS) {#downlad-file-with-obs}
 
 ```shell
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download a file from Tencent Cloud Object Storage Service(COS) {#downlad-file-with-cos}
+### Download a file from Tencent Cloud Object Storage Service (COS) {#downlad-file-with-cos}
 
 > Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
 
