@@ -135,8 +135,6 @@ Options:
           Print version
 ```
 
-<!-- markdownlint-restore -->
-
 ## 例子
 
 ### HTTP server 下载文件 {#downlad-file-with-http}
