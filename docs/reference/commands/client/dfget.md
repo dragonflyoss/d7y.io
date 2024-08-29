@@ -143,49 +143,75 @@ Options:
 
 ## Example {#example}
 
-### Download a file from HTTP server {#downlad-file-with-http}
+### Download with HTTP protocol {#downlad-with-http}
 
 ```shell
 dfget https://<host>:<port>/<path> -O /tmp/file.txt
 ```
 
-### Download a file from Amazon Simple Storage Service (S3) {#downlad-file-with-s3}
+### Download with S3 protocol {#downlad-with-s3}
 
 ```shell
+# Download a file.
 dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
+
+# Download a directory.
+dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
-### Download a file from Google Cloud Storage Service (GCS) {#downlad-file-with-gcs}
+### Download with GCS protocol {#downlad-with-gcs}
 
 ```shell
-dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential_path=<credential_path>
+# Download a file.
+dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
+
+# Download a directory.
+dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
 ```
 
-### Download a file from Azure Blob Storage Service (ABS) {#downlad-file-with-abs}
+### Download with ABS protocol {#downlad-with-abs}
 
 ```shell
-dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
+# Download a file.
+dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+
+# Download a directory.
+dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
 ```
 
-### Download a file from Aliyun Object Storage Service (OSS) {#downlad-file-with-oss}
+### Download with OSS protocol {#downlad-with-oss}
 
 ```shell
+# Download a file.
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# Download a directory.
+dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download a file from Huawei Cloud Object Storage Service (OBS) {#downlad-file-with-obs}
+### Download with OBS protocol {#downlad-with-obs}
 
 ```shell
+# Download a file.
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# Download a directory.
+dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download a file from Tencent Cloud Object Storage Service (COS) {#downlad-file-with-cos}
+### Download with COS protocol {#downlad-with-cos}
 
 > Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
 
 ```shell
+# Download a file.
 dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+# Download a directory.
+dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
+
+<!-- markdownlint-restore -->
 
 ## Log {#log}
 
@@ -193,5 +219,3 @@ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 1. set option --verbose if you want to print logs to Terminal
 2. log path: /var/log/dragonfly/dfget/
 ```
-
-<!-- markdownlint-restore -->
