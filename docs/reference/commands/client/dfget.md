@@ -163,20 +163,20 @@ dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id>
 
 ```shell
 # Download a file.
-dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
+dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path>
 
 # Download a directory.
-dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
+dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path>
 ```
 
 ### Download with ABS protocol {#downlad-with-abs}
 
 ```shell
 # Download a file.
-dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 
 # Download a directory.
-dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 ```
 
 ### Download with OSS protocol {#downlad-with-oss}
@@ -211,11 +211,11 @@ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
+<!-- markdownlint-restore -->
+
 ## Log {#log}
 
 ```text
 1. set option --verbose if you want to print logs to Terminal
 2. log path: /var/log/dragonfly/dfget/
 ```
-
-<!-- markdownlint-restore -->
