@@ -4,27 +4,21 @@ title: Dfget
 slug: /reference/commands/client/dfget/
 ---
 
-`dfget` is the client of Dragonfly used to download and upload files.
-The unix socket of the dfdaemon GRPC service needs to be used during the upload and download process of dfget.
-To use dfget, dfdaemon must be started.
+`dfget` 是 Dragonfly 中用来下载和上传文件的客户端。dfget 上传和下载过程中需要使用 dfdaemon GRPC 服务的 unix socket,
+使用 dfget 必须开启 dfdaemon。
 
-## Usage {#usage}
+## 用法
 
-dfget is the client of Dragonfly which takes
-a role of peer in a P2P network. When user triggers a file downloading
-task, dfget will download the pieces of
-file from other peers. Meanwhile, it will act as an uploader to support other
-peers to download pieces from it if it owns them.
-In addition, dfget has the abilities to provide more advanced
-functionality, such as network bandwidth limit,
-transmission encryption and so on.
+dfget 是 Dragonfly 中用来下载和上传文件的客户端，也是 p2p 网络中的一个 peer。当用户发起文件下载请求时，
+dfget 将从其他 peer 下载文件。同时，它也能作为上传者，让其他 peer 下载它已拥有的那部分文件。
+此外，dfget 还提供了一些高级功能，如网络带宽限制、加密传输等。
 
 ```shell
 dfget -O <OUTPUT> <URL>
 dfget [command]
 ```
 
-## Options {#options}
+## 可选参数
 
 <!-- markdownlint-disable -->
 
@@ -98,8 +92,8 @@ Options:
       --storage-session-token <STORAGE_SESSION_TOKEN>
           Specify the session token for Amazon Simple Storage Service(S3)
 
-      --storage-credential-path <STORAGE_CREDENTIAL_PATH>
-          Specify the local path to credential file for Google Cloud Storage Service(GCS)
+      --storage-credential <STORAGE_CREDENTIAL>
+          Specify the credential for Google Cloud Storage Service(GCS)
 
       --storage-predefined-acl <STORAGE_PREDEFINED_ACL>
           Specify the predefined ACL for Google Cloud Storage Service(GCS)
@@ -141,81 +135,85 @@ Options:
           Print version
 ```
 
-## Example {#example}
+<!-- markdownlint-restore -->
 
-### Download with HTTP protocol {#downlad-with-http}
+## 例子
+
+### 使用 HTTP 协议下载
 
 ```shell
 dfget https://<host>:<port>/<path> -O /tmp/file.txt
 ```
 
-### Download with S3 protocol {#downlad-with-s3}
+<!-- markdownlint-disable -->
+
+### Amazon Simple Storage Service(S3) 下载
 
 ```shell
-# Download a file.
+# 下载文件
 dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 
-# Download a directory.
+# 下载目录
 dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
-### Download with GCS protocol {#downlad-with-gcs}
+### Google Cloud Storage Service(GCS) 下载
 
 ```shell
-# Download a file.
+# 下载文件
 dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path>
 
-# Download a directory.
+# 下载目录
 dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path>
 ```
 
-### Download with ABS protocol {#downlad-with-abs}
+### Azure Blob Storage Service(ABS) 下载
 
 ```shell
-# Download a file.
+# 下载文件
 dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 
-# Download a directory.
+# 下载目录
 dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 ```
 
-### Download with OSS protocol {#downlad-with-oss}
+### Aliyun Object Storage Service(OSS) 下载
 
 ```shell
-# Download a file.
+# 下载文件
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 
-# Download a directory.
+# 下载目录
 dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download with OBS protocol {#downlad-with-obs}
+### Huawei Cloud Object Storage Service(OBS) 下载
 
 ```shell
-# Download a file.
+# 下载文件
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 
-# Download a directory.
+# 下载目录
 dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download with COS protocol {#downlad-with-cos}
+### Tencent Cloud Object Storage Service(COS) 下载
 
-> Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
+> 注意: endpoint 不需要添加 `BucketName-APPID`，--storage-endpoint=cos.region.myqcloud.com 即可。
 
 ```shell
-# Download a file.
+# 下载文件
 dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 
-# Download a directory.
+# 下载目录
 dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 <!-- markdownlint-restore -->
 
-## Log {#log}
+## 日志
 
 ```text
-1. set option --verbose if you want to print logs to Terminal
-2. log path: /var/log/dragonfly/dfget/
+1. 终端日志输出需要增加命令行参数 --verbose
+2. 正常情况日志目录: /var/log/dragonfly/dfget/
 ```
