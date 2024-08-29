@@ -139,74 +139,48 @@ Options:
 
 ## 例子
 
-### 使用 HTTP 协议下载
+### HTTP server 下载文件 {#downlad-file-with-http}
 
 ```shell
 dfget https://<host>:<port>/<path> -O /tmp/file.txt
 ```
 
-<!-- markdownlint-disable -->
-
-### 使用 S3 协议下载
+### Amazon Simple 存储服务 (S3) 下载文件 {#downlad-file-with-s3}
 
 ```shell
-# 下载文件
 dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
-
-# 下载目录
-dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
-### 使用 GCS 协议下载
+### Google Cloud 存储服务 (GCS) 下载文件 {#downlad-file-with-gcs}
 
 ```shell
-# 下载文件
-dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
-
-# 下载目录
-dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path> --storage-endpoint=<endpoint>
+dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential_path=<credential_path>
 ```
 
-### 使用 ABS 协议下载
+### Azure Blob 存储服务 (ABS) 下载文件 {#downlad-file-with-abs}
 
 ```shell
-# 下载文件
-dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
-
-# 下载目录
-dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key> --storage-endpoint=<endpoint>
+dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 ```
 
-### 使用 OSS 协议下载
+### 阿里云对象存储服务（OSS）下载文件 {#downlad-file-with-oss}
 
 ```shell
-# 下载文件
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
-
-# 下载目录
-dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### 使用 OBS 协议下载
+### 华为云对象存储服务(OBS)下载文件 {#downlad-file-with-obs}
 
 ```shell
-# 下载文件
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
-
-# 下载目录
-dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### 使用 COS 协议下载
+### 腾讯云对象存储服务（COS）下载文件 {#downlad-file-with-cos}
 
 > 注意: endpoint 不需要添加 `BucketName-APPID`，--storage-endpoint=cos.region.myqcloud.com 即可。
 
 ```shell
-# 下载文件
 dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
-
-# 下载目录
-dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 <!-- markdownlint-restore -->
