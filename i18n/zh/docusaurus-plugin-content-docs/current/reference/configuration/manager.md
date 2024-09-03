@@ -126,6 +126,14 @@ cache:
 
 # 异步任务配置。
 job:
+  # 限流配置。
+  rateLimit:
+    # 向桶中添加令牌的时间间隔。
+    fillInterval: 1m
+    # 桶的最大容量，即桶中最多可以存储的令牌数量。
+    capacity: 100
+    # 每次添加的令牌数量。
+    quantum: 100
   # 同步 Peer 信息配置。
   syncPeers:
     # 同步 Peer 信息的间隔时间。Manager 同步会从 Scheduler 同步所有的 Peer 信息，并将 Peer 统计信息展示在 Manager 控制台。
