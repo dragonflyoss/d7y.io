@@ -132,6 +132,14 @@ cache:
 
 # Job configuration.
 job:
+  # rateLimit configuration.
+  rateLimit:
+    # fillInterval is the interval for refilling the bucket.
+    fillInterval: 1m
+    # capacity is the maximum number of requests that can be consumed in a single fillInterval.
+    capacity: 100
+    # quantum is the number of tokens taken from the bucket for each request.
+    quantum: 100
   # Sync peers configuration.
   syncPeers:
     # Interval is the interval for syncing all peers information from the scheduler and
