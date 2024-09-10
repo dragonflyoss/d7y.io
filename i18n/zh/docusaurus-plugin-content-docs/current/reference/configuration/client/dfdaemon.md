@@ -125,6 +125,8 @@ proxy:
   # http://example.com/xyz?Expires=e1&Signature=s1&ns=docker.io 和 http://example.com/xyz?Expires=e2&Signature=s2&ns=docker.io
   # 将生成相同的任务 ID.
   # 默认值包括过滤后的s3、gcs、oss、obs、cos的查询参数。
+  # `X-Dragonfly-Use-P2P` 可以代替 rules 中的正则匹配，如果值为 `true`，则直接使用 P2P 下载资源。如果值为 `false`，但
+  # rules 中的正则匹配成功，则仍然使用 P2P 下载资源。
   rules:
     - regex: 'blobs/sha256.*'
       # useTLS: false
