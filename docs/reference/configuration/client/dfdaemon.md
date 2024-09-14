@@ -31,21 +31,23 @@ server:
   cacheDir: /var/cache/dragonfly/dfdaemon/
 download:
   server:
-    # -- socketPath is the unix socket path for dfdaemon GRPC service.
+    # socketPath is the unix socket path for dfdaemon GRPC service.
     socketPath: /var/run/dragonfly/dfdaemon.sock
-  # -- rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
+  # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
-  # --   pieceTimeout is the timeout for downloading a piece from source.
+  # pieceTimeout is the timeout for downloading a piece from source.
   pieceTimeout: 30s
-  # -- concurrentPieceCount is the number of concurrent pieces to download.
+  # concurrentPieceCount is the number of concurrent pieces to download.
   concurrentPieceCount: 10
 upload:
   server:
-    # -- port is the port to the grpc server.
+    # port is the port to the grpc server.
     port: 4000
     ## ip is the listen ip of the grpc server.
     # ip: ""
-  # -- rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
+  # disableShared indicates whether disable to share data for other peers.
+  disableShared: false
+  # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
 manager:
   # addrs is manager addresses.
@@ -150,7 +152,7 @@ proxy:
   disableBackToSource: false
   # prefetch pre-downloads full of the task when download with range request.
   prefetch: false
-  # -- readBufferSize is the buffer size for reading piece from disk, default is 32KB.
+  # readBufferSize is the buffer size for reading piece from disk, default is 32KB.
   readBufferSize: 32768
 security:
   # enable indicates whether enable security.

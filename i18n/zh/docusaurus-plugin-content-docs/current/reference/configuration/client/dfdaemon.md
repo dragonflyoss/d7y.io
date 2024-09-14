@@ -45,6 +45,8 @@ upload:
     port: 4000
     ## GRPC 服务器的监听 IP。
     # ip: ""
+  # peer 是否禁用共享数据，也就是禁止分享数据给其他 peer，默认为 false。
+  disableShared: false
   # 上传速度的默认速率限制，单位为 KiB/MiB/GiB 每秒，默认为 10GiB/s。
   rateLimit: 10GiB
 manager:
