@@ -131,9 +131,15 @@ job:
     # 向桶中添加令牌的时间间隔。
     fillInterval: 1m
     # 桶的最大容量，即桶中最多可以存储的令牌数量。
-    capacity: 10
+    capacity: 5
     # 每次添加的令牌数量。
-    quantum: 10
+    quantum: 5
+  # GC 配置。
+  gc:
+    # Interval 是垃圾回收的间隔时间。
+    interval: 24h
+    # TTL 是任务的生存时间。
+    ttl: 24h
   # 同步 Peer 信息配置。
   syncPeers:
     # 同步 Peer 信息的间隔时间。Manager 同步会从 Scheduler 同步所有的 Peer 信息，并将 Peer 统计信息展示在 Manager 控制台。
