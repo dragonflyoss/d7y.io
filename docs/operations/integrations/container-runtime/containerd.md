@@ -414,7 +414,7 @@ Install Dragonfly with Binaries, refer to [Binaries](../../../getting-started/in
 ##### Setup Dfdaemon as Seed Peer and configure self-signed certificate
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 manager:
@@ -440,7 +440,7 @@ proxy:
 ##### Setup Dfdaemon as Peer and configure self-signed certificate
 
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 manager:
@@ -490,7 +490,7 @@ X-Dragonfly-Registry = "https://yourdomain.com"
 
 To bypass the TLS verification for a private registry at `yourdomain.com`.
 
-```shell
+```toml
 server = "https://yourdomain.com"
 
 [host."http://127.0.0.1:4001"]
