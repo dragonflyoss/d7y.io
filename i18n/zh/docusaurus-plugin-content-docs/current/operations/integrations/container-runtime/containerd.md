@@ -264,7 +264,7 @@ client:
               capabilities: ['pull', 'resolve']
 ```
 
-**方法 2**：更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
+**方法 2**：更改 containerd 配置文件 `/etc/containerd/config.toml`，详情参考 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
 
 > 注意：config_path 为 containerd 查找 Registry 配置文件路径。
 
@@ -367,7 +367,7 @@ client:
               capabilities: ['pull', 'resolve']
 ```
 
-更改 containerd 配置文件 `/etc/containerd/config.toml`，参考文档 [configure-registry-credentials](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-credentials)。
+更改 containerd 配置文件 `/etc/containerd/config.toml`，详情参考 [configure-registry-credentials](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-credentials)。
 
 > 注意：`your_private_registry_host_addr` 为你的私有镜像仓库 host 地址。
 
@@ -386,4 +386,310 @@ client:
 
 ```shell
 systemctl restart containerd
+```
+
+### 使用自签名证书的镜像中心
+
+以 Harbor 为例子使用自签名证书的镜像中心。Harbor 生成自签名证书, 详情参考 [Harbor](https://goharbor.io/docs/2.11.0/install-config/configure-https/)。
+
+#### 使用二进制文件安装 Dragonfly
+
+复制 Harbor 的 ca.crt 文件至 `/etc/certs/yourdomain.crt` 文件。
+
+```shell
+cp ca.crt /etc/certs/yourdomain.crt
+```
+
+二进制文件安装 Dragonfly，详情参考 [Binaries](../../../getting-started/installation/binaries.md)。
+
+##### 启动 Dfdaemon 作为 Seed Peer 并且配置自签名证书
+
+更改 Dfdaemon 配置文件 `/etc/dragonfly/dfdaemon.yaml`，详情参考 [Dfdaemon](../../../reference/configuration/client/dfdaemon.md)。
+
+```shell
+manager:
+  addrs:
+    - http://dragonfly-manager:65003
+seedPeer:
+  enable: true
+  type: super
+  clusterID: 1
+proxy:
+  registryMirror:
+    # 镜像中心地址。
+    # Proxy 会启动一个 Mirror 服务供 Client 拉取镜像。
+    # Client 可以使用配置中默认的 Mirror 服务来拉取镜像。
+    # `X-Dragonfly-Registry` Header 可以代替默认 Mirror 服务。
+    addr: https://yourdomain.com
+    ## certs 是镜像中心 PEM 格式的证书路径。
+    certs: /etc/certs/yourdomain.crt
+```
+
+##### 启动 Dfdaemon 作为 Peer 并且配置自签名证书
+
+更改 Dfdaemon 配置文件 `/etc/dragonfly/dfdaemon.yaml`，详情参考 [Dfdaemon](../../../reference/configuration/client/dfdaemon.md)。
+
+```shell
+manager:
+  addrs:
+    - http://dragonfly-manager:65003
+proxy:
+  registryMirror:
+    # 镜像中心地址。
+    # Proxy 会启动一个 Mirror 服务供 Client 拉取镜像。
+    # Client 可以使用配置中默认的 Mirror 服务来拉取镜像。
+    # `X-Dragonfly-Registry` Header 可以代替默认 Mirror 服务。
+    addr: https://yourdomain.com
+    ## certs 是镜像中心 PEM 格式的证书路径。
+    certs: /etc/certs/yourdomain.crt
+```
+
+##### 配置 containerd 的自签名证书
+
+更改 containerd 配置文件 `/etc/containerd/config.toml`，详情参考 [registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples)。
+
+```toml
+# explicitly use v2 config format
+version = 2
+
+[plugins."io.containerd.grpc.v1.cri".registry]
+  config_path = "/etc/containerd/certs.d"
+```
+
+创建 Registry 配置文件 `/etc/containerd/certs.d/yourdomain.com/hosts.toml`。
+
+> 注意：`https://yourdomain.com` 为 Harbor 服务地址。
+
+```toml
+server = "https://yourdomain.com"
+
+[host."http://127.0.0.1:4001"]
+capabilities = ["pull", "resolve"]
+ca = "/etc/certs/yourdomain.crt"
+
+[host."http://127.0.0.1:4001".header]
+X-Dragonfly-Registry = "https://yourdomain.com"
+```
+
+如果要跳过 TLS 验证, 详情参考 [bypass-tls-verification-example](https://github.com/containerd/containerd/blob/main/docs/hosts.md#bypass-tls-verification-example)。
+
+```toml
+server = "https://yourdomain.com"
+
+[host."http://127.0.0.1:4001"]
+capabilities = ["pull", "resolve"]
+skip_verify = true
+
+[host."http://127.0.0.1:4001".header]
+X-Dragonfly-Registry = "https://yourdomain.com"
+```
+
+重新启动 containerd：
+
+```shell
+systemctl restart containerd
+```
+
+containerd 通过 Dragonfly 下载 Harbor 镜像:
+
+```shell
+crictl pull yourdomain.com/library/alpine:latest
+```
+
+#### 使用 Helm Charts 安装 Dragonfly
+
+创建 Namespace:
+
+```shell
+kubectl create namespace dragonfly-system
+```
+
+##### 启用 Seed Peer 并且配置自签名证书
+
+创建 Seed Client Secret 配置文件 `seed-client-secret.yaml` 配置如下:
+
+> 注意：yourdomain.crt 为 Harbor 的 ca.crt。
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: seed-client-secret
+  namespace: dragonfly-system
+type: Opaque
+data:
+  # 此例中的实际数据被截断。
+  yourdomain.crt: |
+    MIIFwTCCA6mgAwIBAgIUdgmYyNCw4t+Lp/...
+```
+
+使用配置文件部署 Seed Client Secret:
+
+```shell
+kubectl apply -f seed-client-secret.yaml
+```
+
+创建 Helm Charts 配置文件 `values.yaml`, 果要跳过过 TLS 验证, 将 `client.dfinit.containerRuntime.containerd.registries.skipVerify` 设置为 `true`。
+
+```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    proxy:
+      registryMirror:
+        certs: /etc/certs/yourdomain.crt
+  extraVolumes:
+    - name: logs
+      emptyDir: {}
+    - name: seed-client-secret
+      secret:
+        secretName: seed-client-secret
+  extraVolumeMounts:
+    - name: logs
+      mountPath: /var/log/dragonfly/dfdaemon/
+    - name: seed-client-secret
+      mountPath: /etc/certs
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: yourdomain.com
+              serverAddr: https://yourdomain.com
+              capabilities: ['pull', 'resolve']
+              skipVerify: true
+```
+
+##### 启用 Peer 并且配置自签名证书
+
+创建 Client Secret 配置文件 client-secret.yaml 配置如下:
+
+> 注意：yourdomain.crt 为 Harbor 的 ca.crt。
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: client-secret
+  namespace: dragonfly-system
+type: Opaque
+data:
+  # 此例中的实际数据被截断。
+  yourdomain.crt: |
+    MIIFwTCCA6mgAwIBAgIUdgmYyNCw4t+Lp/...
+```
+
+使用配置文件部署 Client Secret:
+
+```shell
+kubectl apply -f client-secret.yaml
+```
+
+创建 Helm Charts 配置文件 `values.yaml`, 如果要跳过 TLS 验证, 将 `client.dfinit.containerRuntime.containerd.registries.skipVerify` 设置为 `true`。
+
+```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    proxy:
+      registryMirror:
+        certs: /etc/certs/yourdomain.crt
+  extraVolumes:
+    - name: logs
+      emptyDir: {}
+    - name: client-secret
+      secret:
+        secretName: client-secret
+  extraVolumeMounts:
+    - name: logs
+      mountPath: /var/log/dragonfly/dfdaemon/
+    - name: client-secret
+      mountPath: /etc/certs
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: yourdomain.com
+              serverAddr: https://yourdomain.com
+              capabilities: ['pull', 'resolve']
+              skipVerify: true
 ```
