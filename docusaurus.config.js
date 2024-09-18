@@ -14,18 +14,6 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'dragonflyoss', // Usually your GitHub org/user name.
   projectName: 'd7y.io', // Usually your repo name.
-  i18n: {
-    defaultLocale: 'zh',
-    locales: ['en', 'zh'],
-    localeConfigs: {
-      en: {
-        label: 'English',
-      },
-      zh: {
-        label: '简体中文',
-      },
-    },
-  },
   clientModules: [require.resolve('./src/clientModules.js')],
   presets: [
     [
@@ -113,11 +101,6 @@ const config = {
           type: 'docsVersionDropdown',
           position: 'right',
         },
-        {
-          type: 'localeDropdown',
-          position: 'right',
-        },
-
         {
           href: 'https://github.com/dragonflyoss/Dragonfly2',
           className: 'header-github-link',

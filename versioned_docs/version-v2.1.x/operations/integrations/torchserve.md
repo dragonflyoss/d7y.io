@@ -49,7 +49,7 @@ The Dragonfly Endpoint plugin is in the [dragonfly-endpoint](https://github.com/
 
 ### Dragonfly Kubernetes Cluster Setup
 
-For detailed installation documentation, please refer to [quick-start-kubernetes](https://d7y.io/zh/docs/getting-started/quick-start/kubernetes/).
+For detailed installation documentation, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
 
 #### Prepare Kubernetes Cluster
 

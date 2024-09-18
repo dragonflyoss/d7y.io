@@ -26,6 +26,3 @@ rm -rf docusaurus.config.js
 mv docusaurus.config.js.bak docusaurus.config.js
 echo "generate ${version} docs"
 
-rm -rf ./i18n/zh/docusaurus-plugin-content-docs/version-"${version}"
-cp -r ./i18n/zh/docusaurus-plugin-content-docs/current ./i18n/zh/docusaurus-plugin-content-docs/version-"${version}"
-echo "generate i18n ${version} docs"
