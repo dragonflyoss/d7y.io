@@ -403,7 +403,7 @@ Harbor generates self-signed certificate, refer to [Harbor](https://goharbor.io/
 
 #### Install Dragonfly with Binaries
 
-Install Harbor's ca.crt file to `/etc/certs/yourdomain.crt`.
+Copy Harbor's ca.crt file to `/etc/certs/yourdomain.crt`.
 
 ```shell
 cp ca.crt /etc/certs/yourdomain.crt
@@ -609,7 +609,7 @@ client:
             - hostNamespace: yourdomain.com
               serverAddr: https://yourdomain.com
               capabilities: ['pull', 'resolve']
-              skipVerify: false
+              skipVerify: true
 ```
 
 ##### Enable Peer and configure self-signed certificate
@@ -706,5 +706,5 @@ client:
             - hostNamespace: yourdomain.com
               serverAddr: https://yourdomain.com
               capabilities: ['pull', 'resolve']
-              skipVerify: false
+              skipVerify: true
 ```

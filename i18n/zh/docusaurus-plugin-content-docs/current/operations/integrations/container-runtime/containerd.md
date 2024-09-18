@@ -596,7 +596,7 @@ client:
             - hostNamespace: yourdomain.com
               serverAddr: https://yourdomain.com
               capabilities: ['pull', 'resolve']
-              skipVerify: false
+              skipVerify: true
 ```
 
 ##### 启用 Peer 并且配置自签名证书
@@ -691,5 +691,5 @@ client:
             - hostNamespace: yourdomain.com
               serverAddr: https://yourdomain.com
               capabilities: ['pull', 'resolve']
-              skipVerify: false
+              skipVerify: true
 ```
