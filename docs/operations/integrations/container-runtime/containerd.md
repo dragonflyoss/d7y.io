@@ -626,7 +626,7 @@ metadata:
   namespace: dragonfly-system
 type: Opaque
 data:
-  # 此例中的实际数据被截断。
+  # the data is abbreviated in this example.
   yourdomain.crt: |
     MIIFwTCCA6mgAwIBAgIUdgmYyNCw4t+Lp/...
 ```
