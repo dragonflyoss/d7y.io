@@ -317,7 +317,7 @@ Restart containerd:
 systemctl restart containerd
 ```
 
-### Private Mirror {#private-mirror}
+### Private project {#private-project}
 
 Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
