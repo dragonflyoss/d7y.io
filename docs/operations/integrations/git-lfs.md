@@ -97,8 +97,7 @@ Install Dragonfly with Binaries, refer to [Binaries](../../getting-started/insta
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
-> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the
-HTTP file download of content storage of Git LFS to the P2P network.
+> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the HTTP file download of content storage of Git LFS to the P2P network.
 
 ```shell
 manager:
@@ -357,7 +356,7 @@ Forward Git LFS download requests to the P2P network via Dragonfly Peer Proxy an
 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
 ```
 
-To bypass the GIT SSL verification:
+Bypass GIT SSL verification.
 
 ```shell
 GIT_SSL_NO_VERIFY=1 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
