@@ -97,7 +97,8 @@ Install Dragonfly with Binaries, refer to [Binaries](../../getting-started/insta
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
-> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the HTTP file download of content storage of Git LFS to the P2P network.
+> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the
+HTTP file download of content storage of Git LFS to the P2P network.
 
 ```shell
 manager:
