@@ -97,7 +97,8 @@ Install Dragonfly with Binaries, refer to [Binaries](../../getting-started/insta
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
-> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the HTTP file download of content storage of Git LFS to the P2P network.
+> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the
+HTTP file download of content storage of Git LFS to the P2P network.
 
 ```shell
 manager:
@@ -119,7 +120,8 @@ proxy:
 Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
 refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
-> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the HTTP file download of content storage of Git LFS to the P2P network.
+> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the
+HTTP file download of content storage of Git LFS to the P2P network.
 
 ```shell
 manager:
@@ -371,9 +373,13 @@ grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
 
 The expected output is as follows:
 
+<!-- markdownlint-disable -->
+
 ```shell
 /var/log/dragonfly/dfdaemon/dfdaemon.log.1:2024-09-20T10:32:15.984695167+03:00  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:385: download task succeeded host_id="172.17.0.4-a1ae91a82fa1-seed" task_id="512567be167c5d40c5237a40eea64ab546872502367d2535d365898b7c0968a4" peer_id="172.17.0.4-a1ae91a82fa1-f5e2cdfb-3dea-44ac-afd8-02c8af340148-seed"
 ```
+
+<!-- markdownlint-restore -->
 
 ### Verify based on Helm Charts
 
