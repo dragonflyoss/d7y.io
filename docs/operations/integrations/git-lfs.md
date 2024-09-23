@@ -88,53 +88,7 @@ You can find that the content storage of GitHub LFS is actually stored at `githu
 
 The content storage address of Git LFS is `github-cloud.githubusercontent.com`.
 
-### Install Dragonfly with Binaries
-
-Install Dragonfly with Binaries, refer to [Binaries](../../getting-started/installation/binaries.md).
-
-#### Setup Dfdaemon as Seed Peer and add Git LFS rule
-
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
-
-> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the
-HTTP file download of content storage of Git LFS to the P2P network.
-
-```shell
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-seedPeer:
-  enable: true
-  type: super
-  clusterID: 1
-proxy:
-  # regex is the regex of the request url.
-  rules:
-    - regex: 'blobs/sha256.*'
-    - regex: 'github-cloud.githubusercontent.com.*'
-```
-
-#### Setup Dfdaemon as Peer and add Git LFS rule
-
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
-refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
-
-> Notice: Add the `github-cloud.githubusercontent.com` rule to `proxy.rules.regex` to forward the
-HTTP file download of content storage of Git LFS to the P2P network.
-
-```shell
-manager:
-  addrs:
-    - http://dragonfly-manager:65003
-proxy:
-  # regex is the regex of the request url.
-  rules:
-    - regex: 'blobs/sha256.*'
-    - regex: 'github-cloud.githubusercontent.com.*'
-```
-
-### Install Dragonfly with Helm Charts
+### Installation
 
 #### Prerequisites
 
@@ -357,31 +311,13 @@ Forward Git LFS download requests to the P2P network via Dragonfly Peer Proxy an
 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
 ```
 
-Bypass GIT SSL verification.
+Skip GIT SSL verification.
 
 ```shell
 GIT_SSL_NO_VERIFY=1 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
 ```
 
-### Verify based on Binaries
-
-Execute the command:
-
-```shell
-grep "download task succeeded" /var/log/dragonfly/dfdaemon/*
-```
-
-The expected output is as follows:
-
-<!-- markdownlint-disable -->
-
-```shell
-/var/log/dragonfly/dfdaemon/dfdaemon.log.1:2024-09-20T10:32:15.984695167+03:00  INFO download_task: dragonfly-client/src/grpc/dfdaemon_download.rs:385: download task succeeded host_id="172.17.0.4-a1ae91a82fa1-seed" task_id="512567be167c5d40c5237a40eea64ab546872502367d2535d365898b7c0968a4" peer_id="172.17.0.4-a1ae91a82fa1-f5e2cdfb-3dea-44ac-afd8-02c8af340148-seed"
-```
-
-<!-- markdownlint-restore -->
-
-### Verify based on Helm Charts
+### Verify
 
 Execute the command:
 
