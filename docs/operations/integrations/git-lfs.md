@@ -153,7 +153,7 @@ kind load docker-image dragonflyoss/client:latest
 ##### Create Dragonfly cluster based on helm charts
 
 Create helm charts configuration file charts-config.yaml.
-Add the `github-cloud.githubusercontent.com` rule to `dfdaemon.config.proxy.proxies.regx`
+Add the `github-cloud.githubusercontent.com` rule to `client.config.proxy.rules.regex`
 to forward the HTTP file download of content storage of Git LFS to the P2P network.
 
 ```yaml
@@ -309,6 +309,12 @@ Forward Git LFS download requests to the P2P network via Dragonfly Peer Proxy an
 
 ```shell
 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
+```
+
+Skip GIT SSL verification.
+
+```shell
+GIT_SSL_NO_VERIFY=1 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
 ```
 
 ### Verify
