@@ -4,7 +4,9 @@ title: Preheat
 slug: /advanced-guides/preheat/
 ---
 
-There are two ways to preheat, one is to preheat through the Open API, and the other is to preheat through the console.
+This document will help you experience how to use Dragonfly's three preheat methods,
+namely Open API preheat, console preheat and harbor preheat.
+
 
 ## Open API
 
@@ -261,3 +263,95 @@ If the status is `SUCCESS`, the preheating is successful.
 If the status is `FAILURE`, the preheating is failure and an error log is displayed.
 
 ![failure-preheat](../resource/advanced-guides/preheat/failure-preheat.png)
+
+## Harbor
+
+Use harbor for preheating, for images preheating.
+
+### Create Personal Access Token {#harbor-create-personal-access-token}
+
+Please create personal access Token before using Harbor Preheat, and select Preheat for access scopes, refer to [personal-access-tokens](./web-console/developer/personal-access-tokens.md).
+
+### Create Instance
+
+Click the `NEW INSTANCE` button to create instances.
+
+![create-instance](../resource/advanced-guides/preheat/create-instance.png)
+
+**Provider** : Select Dragonfly as provider.
+
+**Name**: Instance name.
+
+**Description**: Set a description..
+
+**Endpoint**: Enter Dragonfly manager address。
+
+**Auto Mode**: Select verification method, It is recommended to use `OAuth` for authentication.
+
+- **Token**: Manager personal-access-tokens.
+
+**Options**: Whether uses a self-signed.
+
+- **Enable**: Check or uncheck the Enable checkbox to enable/disable the instance after creation.
+  cd
+- **Skip certificate verification**: Optionally, select the Skip certificate verification check box.
+
+Click the `OK` to generate the instance. The status of instance must be Healthy.
+
+![instance](../resource/advanced-guides/preheat/instance.png)
+
+### Create Preheat Policy
+
+Go to Projects and open your project from the project list, and Open the P2P Preheat tab.
+
+![policies](../resource/advanced-guides/preheat/policies.png)
+
+Click `+ NEW POLICY` button to open the policy creation dialog.
+
+![create-p2p-preheate](../resource/advanced-guides/preheat/create-p2p-preheate.png)
+
+**Proider**: select a pre-configured preheat provider instance as target.
+
+**Name**: Provider name.
+
+**Description**: Set the Provider description.
+
+**Filter**: By setting the Filter parameter, you can specify the image that needs to be preheated.
+
+- **Repositories**: Set the repository filter(required) by following the [doublestar pattern](https://github.com/bmatcuk/doublestar#patterns).
+
+- **Tags**: Set the tags filter(required) by following the same [doublestar pattern](https://github.com/bmatcuk/doublestar#patterns).
+
+- **Labels**: Set the labels filter. Only images with matching labels will be put into the candidate list.
+  Use `,` to split multiple labels.
+
+**Trigger**: Select Manual, manually start the preheating process.
+
+**Scope**: Select single peer to preheat.
+
+Click the `Save` to Create P2P Provider policy.
+
+![policie](../resource/advanced-guides/preheat/policie.png)
+
+### Manage Executions of Preheat Policy
+
+Select the policy by checking the checkbox at front of the row, click `ACTIONS` to open the drop down menu.
+
+![click-exectu](../resource/advanced-guides/preheat/click-exectu.png)
+
+Click `Execute` to start the execution of the preheat task,
+the generated preheat task will not return results immediately and you need to wait.
+
+![p2p-preheat-executions](../resource/advanced-guides/preheat/p2p-preheat-executions.png)
+
+### Preheat Success {#harbor-preheat-success}
+
+If the status is SUCCESS, the preheating is successful.
+
+![executions-success](../resource/advanced-guides/preheat/executions-success.png)
+
+### Preheat Failure {#harbor-preheat-failure}
+
+If the status is FAILURE, the preheating is FAILURE. Click the Logs icon to view the error log.
+
+![executions-failure](../resource/advanced-guides/preheat/executions-failure.png)

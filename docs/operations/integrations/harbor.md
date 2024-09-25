@@ -14,4 +14,4 @@ First, the harbor address should be integrated into dragonfly based on the mirro
 
 Dragonfly 2.0 is compatible with dragonfly 1.0 integrated harbor preheat interface.
 
-Harbor preheat feature integrates dragonfly, please refer to [manager-preheat-providers](https://goharbor.io/docs/2.3.0/administration/p2p-preheat/manage-preheat-providers/).
+Harbor preheat feature integrates dragonfly, please refer to [manager-preheat-providers](https://d7y.io/docs/next/advanced-guides/preheat/#harbor).
