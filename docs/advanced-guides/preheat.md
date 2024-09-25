@@ -7,7 +7,6 @@ slug: /advanced-guides/preheat/
 This document will help you experience how to use Dragonfly's three preheat methods,
 namely Open API preheat, console preheat and harbor preheat.
 
-
 ## Open API
 
 Use Open API to preheat.
@@ -274,27 +273,27 @@ Please create personal access Token before using Harbor Preheat, and select Preh
 
 ### Create Instance
 
-Click the `NEW INSTANCE` button to create instances.
-
-![create-instance](../resource/advanced-guides/preheat/create-instance.png)
+Go to `Distributions` item under `Administration` and click the `NEW INSTANCE` button to create instances.
 
 **Provider** : Select Dragonfly as provider.
 
 **Name**: Instance name.
 
-**Description**: Set a description..
+**Description**: Set a description.
 
-**Endpoint**: Enter Dragonfly manager address。
+**Endpoint**: Enter Manager console address.
 
 **Auto Mode**: Select verification method, It is recommended to use `OAuth` for authentication.
 
-- **Token**: Manager personal-access-tokens.
+- **Token**: Dragonfly personal-access-tokens.
 
 **Options**: Whether uses a self-signed.
 
 - **Enable**: Check or uncheck the Enable checkbox to enable/disable the instance after creation.
-  cd
+
 - **Skip certificate verification**: Optionally, select the Skip certificate verification check box.
+
+![create-instance](../resource/advanced-guides/preheat/create-instance.png)
 
 Click the `OK` to generate the instance. The status of instance must be Healthy.
 
@@ -323,7 +322,7 @@ Click `+ NEW POLICY` button to open the policy creation dialog.
 - **Tags**: Set the tags filter(required) by following the same [doublestar pattern](https://github.com/bmatcuk/doublestar#patterns).
 
 - **Labels**: Set the labels filter. Only images with matching labels will be put into the candidate list.
-  Use `,` to split multiple labels.
+Use `,` to split multiple labels.
 
 **Trigger**: Select Manual, manually start the preheating process.
 
