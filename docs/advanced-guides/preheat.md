@@ -24,10 +24,23 @@ proxy:
   defaultFilter: 'Expires&Signature&ns'
 ```
 
-### Create Personal Access Token
+### Create personal access token
 
-Please create personal access Token before calling Open API, and select `job` for access scopes,
-refer to [personal-access-tokens](./personal-access-tokens.md).
+Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
+
+**Name**: Set your token a descriptive name.
+
+**Description**: Set a description.
+
+**Expiration**: Set your token an expiration.
+
+**Scopes**: Select the access permissions for the token.
+
+![create-token](../resource/advanced-guides/personal-access-tokens/create-token.png)
+
+Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
+
+![copy-token](../resource/advanced-guides/personal-access-tokens/copy-token.png)
 
 ### Preheat image
 
@@ -219,7 +232,7 @@ If the status is `SUCCESS`, the preheating is successful.
 
 ## Console
 
-Use console for preheating, for file preheating.
+Use console for preheating image.
 
 ### Preheat
 
@@ -265,92 +278,79 @@ If the status is `FAILURE`, the preheating is failure and an error log is displa
 
 ## Harbor
 
-Use harbor for preheating, for images preheating.
+Use harbor for preheating image, please refer to the [harbor](https://goharbor.io/docs/2.11.0/administration/p2p-preheat/) documentation for details.
 
-### Create Personal Access Token {#harbor-create-personal-access-token}
+### Create personal access token {#harbor-create-personal-access-token}
 
-Please create personal access Token before using Harbor Preheat, and select Preheat for access scopes, refer to [personal-access-tokens](./web-console/developer/personal-access-tokens.md).
+Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
-### Create Instance
+**Name**: Set your token a descriptive name.
 
-Go to `Distributions` item under `Administration` and click the `NEW INSTANCE` button to create instances.
+**Description**: Set your token a descriptive information.
 
-**Provider** : Select Dragonfly as provider.
+**Expiration**: Set your token an expiration.
 
-**Name**: Instance name.
+**Scopes**: Select the access permissions for the token.
 
-**Description**: Set a description.
+![create-token](../resource/advanced-guides/preheat/create-token.png)
 
-**Endpoint**: Enter Manager console address.
+Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-**Auto Mode**: Select verification method, It is recommended to use `OAuth` for authentication.
+![copy-token](../resource/advanced-guides/personal-access-tokens/copy-token.png)
 
-- **Token**: Dragonfly personal-access-tokens.
+### Create instance
 
-**Options**: Whether uses a self-signed.
+Open the harbor UI, Go to `Distributions` item under `Administration` and click the `NEW INSTANCE` button to create create instance.
 
-- **Enable**: Check or uncheck the Enable checkbox to enable/disable the instance after creation.
+**Step 1:** Enter REST address of the Dragonfly Manager.
 
-- **Skip certificate verification**: Optionally, select the Skip certificate verification check box.
+**Step 2:** Auth Mode selects OAuth for authentication.
+
+**Step 3:** Enter personsal assess token.
 
 ![create-instance](../resource/advanced-guides/preheat/create-instance.png)
 
-Click the `OK` to generate the instance. The status of instance must be Healthy.
+Click the `TEST CONNECTION` button to test the connectivity of the creating instance.
+If the connectivity testing is successful, click the `OK` button to save the creating instance.
+
+> Notice: Instance status must be `Healthy`.
 
 ![instance](../resource/advanced-guides/preheat/instance.png)
 
-### Create Preheat Policy
+### Create P2P provider policy
 
-Go to Projects and open your project from the project list, and Open the P2P Preheat tab.
+Go to `Projects` and open your project from the project list, and open the `P2P Preheat` tab.
 
-![policies](../resource/advanced-guides/preheat/policies.png)
+![p2p-preheat](../resource/advanced-guides/preheat/p2p-preheat.png)
 
-Click `+ NEW POLICY` button to open the policy creation dialog.
+Click the `NEW POLICY` button to create P2P provider policy.
 
-![create-p2p-preheate](../resource/advanced-guides/preheat/create-p2p-preheate.png)
+**Step 1:** Select a pre-configured preheat provider instance as target.
 
-**Proider**: select a pre-configured preheat provider instance as target.
+**Step 2:** By setting the Filter parameter, you can specify the image that needs to be preheated.
 
-**Name**: Provider name.
+**Step 3:** Select `Single Peer` or `All Peers` based on your needs.
 
-**Description**: Set the Provider description.
+- **Single Peer**: Preheat to a seed peer.
 
-**Filter**: By setting the Filter parameter, you can specify the image that needs to be preheated.
+- **All Peers**: Preheat to each peer in the P2P cluster.
 
-- **Repositories**: Set the repository filter(required) by following the [doublestar pattern](https://github.com/bmatcuk/doublestar#patterns).
+![create-policy](../resource/advanced-guides/preheat/create-policy.png)
 
-- **Tags**: Set the tags filter(required) by following the same [doublestar pattern](https://github.com/bmatcuk/doublestar#patterns).
+### Executions Preheat policy
 
-- **Labels**: Set the labels filter. Only images with matching labels will be put into the candidate list.
-Use `,` to split multiple labels.
+Click the `EXECUTE` to execute the preheating task.
 
-**Trigger**: Select Manual, manually start the preheating process.
-
-**Scope**: Select single peer to preheat.
-
-Click the `Save` to Create P2P Provider policy.
-
-![policie](../resource/advanced-guides/preheat/policie.png)
-
-### Manage Executions of Preheat Policy
-
-Select the policy by checking the checkbox at front of the row, click `ACTIONS` to open the drop down menu.
-
-![click-exectu](../resource/advanced-guides/preheat/click-exectu.png)
-
-Click `Execute` to start the execution of the preheat task,
-the generated preheat task will not return results immediately and you need to wait.
-
-![p2p-preheat-executions](../resource/advanced-guides/preheat/p2p-preheat-executions.png)
-
-### Preheat Success {#harbor-preheat-success}
+![exectu-preheat](../resource/advanced-guides/preheat/exectu-preheat.png)
 
 If the status is SUCCESS, the preheating is successful.
 
+![executions](../resource/advanced-guides/preheat/executions.png)
+
+Click the executions `ID` to view the detailed information of the preheating task, and click the Logs icon to view the log.
+
 ![executions-success](../resource/advanced-guides/preheat/executions-success.png)
 
-### Preheat Failure {#harbor-preheat-failure}
+The expected output is as follows.
 
-If the status is FAILURE, the preheating is FAILURE. Click the Logs icon to view the error log.
-
-![executions-failure](../resource/advanced-guides/preheat/executions-failure.png)
+![log](../resource/advanced-guides/preheat/log.png)
