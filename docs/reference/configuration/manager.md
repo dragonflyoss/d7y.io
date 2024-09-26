@@ -157,6 +157,8 @@ job:
   preheat:
     # registryTimeout is the timeout for requesting registry to get token and manifest.
     registryTimeout: 1m
+    # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
+    insecureSkipVerify: false
   # tls:
   #   # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
   #   caCert: ''

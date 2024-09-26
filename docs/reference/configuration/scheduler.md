@@ -171,17 +171,6 @@ networkTopology:
     # count is the number of probing hosts.
     count: 10
 
-# Trainer service configuration.
-trainer:
-  # enable trainer service.
-  enable: false
-  # addr is trainer service address.
-  addr: trainer-service:9090
-  # interval is the interval of training.
-  interval: 168h
-  # uploadTimeout is the timeout of uploading dataset to trainer.
-  uploadTimeout: 1h
-
 # Store task download information.
 storage:
   # maxSize sets the maximum size in megabytes of storage file.

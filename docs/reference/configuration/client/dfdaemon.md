@@ -11,9 +11,11 @@ Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdae
 ```yaml
 # verbose prints log to stdout.
 verbose: true
+
 log:
   # Specify the logging level [trace, debug, info, warn, error]
   level: info
+
 # host is the host configuration for dfdaemon.
 host:
   ## idc is the idc of the host.
@@ -24,11 +26,13 @@ host:
   # hostname: ""
   ## ip is the advertise ip of the host.
   # ip: ""
+
 server:
   # pluginDir is the directory to store plugins.
   pluginDir: /var/lib/dragonfly/plugins/dfdaemon/
   # cacheDir is the directory to store cache files.
   cacheDir: /var/cache/dragonfly/dfdaemon/
+
 download:
   server:
     # socketPath is the unix socket path for dfdaemon GRPC service.
@@ -39,6 +43,7 @@ download:
   pieceTimeout: 30s
   # concurrentPieceCount is the number of concurrent pieces to download.
   concurrentPieceCount: 10
+
 upload:
   server:
     # port is the port to the grpc server.
@@ -49,9 +54,11 @@ upload:
   disableShared: false
   # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
+
 manager:
   # addrs is manager addresses.
   addrs: []
+
 scheduler:
   # announceInterval is the interval to announce peer to the scheduler.
   # Announcer will provide the scheduler with peer information for scheduling,
@@ -64,6 +71,7 @@ scheduler:
   maxScheduleCount: 5
   # enableBackToSource indicates whether enable back-to-source download, when the scheduling failed.
   enableBackToSource: true
+
 seedPeer:
   # enable indicates whether enable seed peer.
   enable: true
@@ -73,9 +81,11 @@ seedPeer:
   clusterID: 1
   # keepaliveInterval is the interval to keep alive with manager.
   keepaliveInterval: 15s
+
 dynconfig:
   # refreshInterval is the interval to refresh dynamic configuration from manager.
   refreshInterval: 1m
+
 storage:
   # dir is the directory to store task's metadata and content.
   dir: /var/lib/dragonfly/
@@ -85,6 +95,7 @@ storage:
   writeBufferSize: 131072
   # readBufferSize is the buffer size for reading piece from disk, default is 128KB.
   readBufferSize: 131072
+
 gc:
   # interval is the interval to do gc.
   interval: 900s
@@ -97,6 +108,7 @@ gc:
     # distLowThresholdPercent is the low threshold percent of the disk usage.
     # If the disk usage is less than the threshold, dfdaemon will stop gc.
     distLowThresholdPercent: 60
+
 proxy:
   server:
     # port is the port to the proxy server.
@@ -154,15 +166,18 @@ proxy:
   prefetch: false
   # readBufferSize is the buffer size for reading piece from disk, default is 32KB.
   readBufferSize: 32768
+
 security:
   # enable indicates whether enable security.
   enable: false
+
 metrics:
   server:
     # port is the port to the metrics server.
     port: 4002
     ## ip is the listen ip of the metrics server.
     # ip: ""
+
 ## tracing is the tracing configuration for dfdaemon.
 # tracing:
 ## addr is the address to report tracing log.
