@@ -301,7 +301,7 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 ### Create instance
 
-Open the harbor UI, Go to `Distributions` item under `Administration`
+Open the harbor UI, go to `Distributions` item under `Administration`
 and click the `NEW INSTANCE` button to create create instance.
 
 **Step 1:** Enter REST address of the Dragonfly Manager.
