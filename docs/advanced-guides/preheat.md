@@ -278,7 +278,8 @@ If the status is `FAILURE`, the preheating is failure and an error log is displa
 
 ## Harbor
 
-Use harbor for preheating image, please refer to the [harbor](https://goharbor.io/docs/2.11.0/administration/p2p-preheat/) documentation for details.
+Use harbor for preheating image, please refer to the
+[harbor](https://goharbor.io/docs/2.11.0/administration/p2p-preheat/) documentation for details.
 
 ### Create personal access token {#harbor-create-personal-access-token}
 
@@ -300,7 +301,8 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 ### Create instance
 
-Open the harbor UI, Go to `Distributions` item under `Administration` and click the `NEW INSTANCE` button to create create instance.
+Open the harbor UI, Go to `Distributions` item under `Administration`
+and click the `NEW INSTANCE` button to create create instance.
 
 **Step 1:** Enter REST address of the Dragonfly Manager.
 
