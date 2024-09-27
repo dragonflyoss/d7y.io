@@ -283,10 +283,10 @@ Use harbor for preheating image, please refer to the
 
 ### Configure self-signed certificates for registry
 
+> Notice: If harbor is not configured self-signed certificates, please ignore the following.
+
 To support preheating for harbor with self-signed certificates,
 the Manager configuration needs to be modified.
-
-> Notice: If harbor is not configured with self-signed certificates, please ignore the following.
 
 Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
 refer to [Manager](../reference/configuration/manager.md).
