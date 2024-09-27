@@ -281,7 +281,7 @@ If the status is `FAILURE`, the preheating is failure and an error log is displa
 Use harbor for preheating image, please refer to the
 [harbor](https://goharbor.io/docs/2.11.0/administration/p2p-preheat/) documentation for details.
 
-## Configure self-signed certificates for registry
+### Configure self-signed certificates for registry
 
 To support preheating for harbor with self-signed certificates, the Manager configuration needs to be modified.
 
