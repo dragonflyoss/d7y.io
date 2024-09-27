@@ -356,3 +356,39 @@ Click the executions `ID` to view the detailed information of the preheating tas
 The expected output is as follows.
 
 ![log](../resource/advanced-guides/preheat/log.png)
+
+## Harbor using self-signed certificates
+
+If you use Harbor with a self-signed certificate for preheat, you will need to modify the Manager configuration.
+
+Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux, refer to [Manager](../reference/configuration/manager.md).
+
+> Notice: `yourdomain.crt` is Harbor's ca.crt.
+
+```shell
+job:
+  # Preheat configuration.
+  preheat:
+    # registryTimeout is the timeout for requesting registry to get token and manifest.
+    registryTimeout: 1m
+    tls:
+      # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
+      insecureSkipVerify: false
+      # # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
+      caCert: /etc/certs/yourdomain.crt
+```
+
+Skip TLS verification, set `job.preheat.tls.insecureSkipVerify` to true.
+
+```shell
+job:
+  # Preheat configuration.
+  preheat:
+    # registryTimeout is the timeout for requesting registry to get token and manifest.
+    registryTimeout: 1m
+    tls:
+      # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
+      insecureSkipVerify: true
+      # # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
+      # caCert: ''
+```
