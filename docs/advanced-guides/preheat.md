@@ -359,9 +359,10 @@ The expected output is as follows.
 
 ## Harbor using self-signed certificates
 
-If you use Harbor with a self-signed certificate for preheat, you will need to modify the Manager configuration.
+If you use harbor with a self-signed certificate for preheat, you will need to modify the Manager configuration.
 
-Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux, refer to [Manager](../reference/configuration/manager.md).
+Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
+refer to [Manager](../reference/configuration/manager.md).
 
 > Notice: `yourdomain.crt` is Harbor's ca.crt.
 
