@@ -207,13 +207,9 @@ Harbor generates self-signed certificate, refer to [Harbor](https://goharbor.io/
 
 #### Install Dragonfly with Helm Charts
 
-Create a Namespace:
+##### Enable Seed Peer and configure self-signed certificate
 
-```shell
-kubectl create namespace dragonfly-system
-```
-
-Create manager secret configuration file `manager-secret.yaml`, configuration content is as follows:
+Create seed client secret configuration file `seed-client-secret.yaml`, configuration content is as follows:
 
 > Notice: yourdomain.crt is Harbor's ca.crt.
 
@@ -221,7 +217,7 @@ Create manager secret configuration file `manager-secret.yaml`, configuration co
 apiVersion: v1
 kind: Secret
 metadata:
-  name: manager-secret
+  name: seed-client-secret
   namespace: dragonfly-system
 type: Opaque
 data:
@@ -233,13 +229,48 @@ data:
 Create the secret through the following command:
 
 ```shell
-kubectl apply -f manager-secret.yaml
+kubectl apply -f seed-client-secret.yaml
 ```
 
-Create helm charts configuration file charts-config.yaml,
-CRI-O skips TLS authentication by default (no certificate is required).
+##### Enable Peer and configure self-signed certificate
 
-> Notice: `yourdomain.com` is the Harbor service address.
+Create client secret configuration file `client-secret.yaml`, configuration content is as follows:
+
+> Notice: yourdomain.crt is Harbor's ca.crt.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: client-secret
+  namespace: dragonfly-system
+type: Opaque
+data:
+  # the data is abbreviated in this example.
+  yourdomain.crt: |
+    MIIFwTCCA6mgAwIBAgIUdgmYyNCw4t+Lp/...
+```
+
+Create the secret through the following command:
+
+```shell
+kubectl apply -f client-secret.yaml
+```
+
+##### Create Dragonfly cluster based on helm charts {#harbor-create-dragonfly-cluster-based-on-helm-charts}
+
+Create helm charts configuration file `values.yaml`, configuration content is as follows:
+
+- Notice: To support preheating for harbor with self-signed certificates,
+  you need to set `manager.config.job.preheat.tls.caCert` to the harbor self-signed certificate address.
+  If you want to bypass TLS verification, please set `manager.config.job.preheat.tls.insecureSkipVerify` to `true`.
+
+- Notice: `client.config.proxy.registryMirror.addr` is the harbor service address and
+  configure self-signed certificate in `client.config.proxy.registryMirror.addr`.
+
+- Notice: To set the CRI-O container registry to harbor,
+  you need to change the `client.dfinit.config.containerRuntime.crio.registries` configuration,
+  `yourdomain.com` is harbor registry host addr. CRI-O skips TLS verification by default (no certificate is required).
 
 ```yaml
 manager:
@@ -255,7 +286,7 @@ manager:
       preheat:
         tls:
           insecureSkipVerify: false
-        caCert: /etc/certs/yourdomain.crt
+          caCert: /etc/certs/yourdomain.crt
   extraVolumes:
     - name: client-secret
       secret:
@@ -291,6 +322,17 @@ client:
     enable: true
   config:
     verbose: true
+    proxy:
+      registryMirror:
+        addr: https://yourdomain.com
+        certs: /etc/certs/yourdomain.crt
+  extraVolumes:
+    - name: client-secret
+      secret:
+        secretName: client-secret
+  extraVolumeMounts:
+    - name: client-secret
+      mountPath: /etc/certs
   dfinit:
     enable: true
     image:
@@ -455,7 +497,7 @@ Restart crio:
 systemctl restart crio
 ```
 
-##### CRI-O downloads harbor images through Dragonfly
+#### CRI-O downloads harbor images through Dragonfly
 
 ```shell
 crictl pull yourdomain.com/alpine:3.19
