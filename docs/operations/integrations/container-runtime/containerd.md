@@ -458,11 +458,12 @@ kubectl apply -f client-secret.yaml
 Create helm charts configuration file `values.yaml`, configuration content is as follows:
 
 - Notice: To support preheating for harbor with self-signed certificates,
-  you need to change the `manager.config.job.preheat.tls.caCert` to the harbor self-signed certificate address.
+  you need to change the `manager.config.job.preheat.tls` configuration,
+  `manager.config.job.preheat.tls.caCert` is a harbor self-signed certificate configuration file.
   If you want to bypass TLS verification, please set `manager.config.job.preheat.tls.insecureSkipVerify` to `true`.
 
 - Notice: `client.config.proxy.registryMirror.addr` is the harbor service address and
-  configure self-signed certificate in `client.config.proxy.registryMirror.addr`.
+  configure self-signed certificate in `client.config.proxy.registryMirror.certs`.
 
 - Notice: To set the containerd container registry to harbor,
   you need to change the `client.dfinit.config.containerRuntime.containerd.registries` configuration,
