@@ -26,6 +26,12 @@ Create a Minikube cluster.
 minikube start --container-runtime=cri-o
 ```
 
+Switch the context of kubectl to minikube cluster:
+
+```shell
+kubectl config use-context minikube
+```
+
 ### Minikube loads Dragonfly image {#minikube-loads-dragonfly-image}
 
 Pull Dragonfly latest images:
@@ -96,6 +102,7 @@ client:
       tag: latest
     config:
       containerRuntime:
+        containerd: null
         crio:
           configPath: /etc/containers/registries.conf
           unqualifiedSearchRegistries: ['registry.fedoraproject.org', 'registry.access.redhat.com', 'docker.io']
@@ -189,4 +196,267 @@ The expected output is as follows:
   "task_id": "a46de92fcb9430049cf9e61e267e1c3c9db1f1aa4a8680a048949b06adb625a5",
   "peer_id": "172.18.0.3-minikube-86e48d67-1653-4571-bf01-7e0c9a0a119d"
 }
+```
+
+## More configurations
+
+### Container Registry using self-signed certificates
+
+Use Harbor as an example of a container registry using self-signed certificates.
+Harbor generates self-signed certificate, refer to [Harbor](https://goharbor.io/docs/2.11.0/install-config/configure-https/).
+
+#### Install Dragonfly with Helm Charts
+
+Create a Namespace:
+
+```shell
+kubectl create namespace dragonfly-system
+```
+
+Create manager secret configuration file `manager-secret.yaml`, configuration content is as follows:
+
+> Notice: yourdomain.crt is Harbor's ca.crt.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: manager-secret
+  namespace: dragonfly-system
+type: Opaque
+data:
+  # the data is abbreviated in this example.
+  yourdomain.crt: |
+    MIIFwTCCA6mgAwIBAgIUdgmYyNCw4t+Lp/...
+```
+
+Create the secret through the following command:
+
+```shell
+kubectl apply -f manager-secret.yaml
+```
+
+Create helm charts configuration file charts-config.yaml,
+CRI-O skips TLS authentication by default (no certificate is required).
+
+> Notice: `yourdomain.com` is the Harbor service address.
+
+```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+    job:
+      preheat:
+        tls:
+          insecureSkipVerify: false
+        caCert: /etc/certs/yourdomain.crt
+  extraVolumes:
+    - name: client-secret
+      secret:
+        secretName: client-secret
+  extraVolumeMounts:
+    - name: client-secret
+      mountPath: /etc/certs
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  config:
+    verbose: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd: null
+        crio:
+          configPath: /etc/containers/registries.conf
+          unqualifiedSearchRegistries: ['registry.fedoraproject.org', 'registry.access.redhat.com', 'docker.io']
+          registries:
+            - prefix: yourdomain.com
+              location: yourdomain.com
+```
+
+#### Install Dragonfly with Binaries
+
+Copy Harbor's ca.crt file to `/etc/containers/certs.d/yourdomain.crt`.
+
+```shell
+cp ca.crt /etc/containers/certs.d/yourdomain.crt
+```
+
+Install Dragonfly with Binaries, refer to [Binaries](../../../getting-started/installation/binaries.md).
+
+##### Setup Manager and configure self-signed certificate
+
+To support preheating for harbor with self-signed certificates, the Manager configuration needs to be modified.
+
+Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
+refer to [Manager](../../../reference/configuration/manager.md).
+
+> Notice: `yourdomain.crt` is Harbor's ca.crt.
+
+```shell
+job:
+  # Preheat configuration.
+  preheat:
+    # registryTimeout is the timeout for requesting registry to get token and manifest.
+    registryTimeout: 1m
+    tls:
+      # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
+      insecureSkipVerify: false
+      # # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
+      caCert: /etc/certs/yourdomain.crt
+```
+
+Skip TLS verification, set `job.preheat.tls.insecureSkipVerify` to true.
+
+```shell
+job:
+  # Preheat configuration.
+  preheat:
+    # registryTimeout is the timeout for requesting registry to get token and manifest.
+    registryTimeout: 1m
+    tls:
+      # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
+      insecureSkipVerify: true
+      # # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
+      # caCert: ''
+```
+
+##### Setup Dfdaemon as Seed Peer and configure self-signed certificate
+
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
+
+```shell
+manager:
+  addrs:
+    - http://dragonfly-manager:65003
+seedPeer:
+  enable: true
+  type: super
+  clusterID: 1
+proxy:
+  registryMirror:
+    # addr is the default address of the registry mirror. Proxy will start a registry mirror service for the
+    # client to pull the image. The client can use the default address of the registry mirror in
+    # configuration to pull the image. The `X-Dragonfly-Registry` header can instead of the default address
+    # of registry mirror.
+    addr: https://yourdomain.com
+    ## certs is the client certs path with PEM format for the registry.
+    ## If registry use self-signed cert, the client should set the
+    ## cert for the registry mirror.
+    certs: /etc/certs/yourdomain.crt
+```
+
+##### Setup Dfdaemon as Peer and configure self-signed certificate
+
+Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
+
+```shell
+manager:
+  addrs:
+    - http://dragonfly-manager:65003
+proxy:
+  registryMirror:
+    # addr is the default address of the registry mirror. Proxy will start a registry mirror service for the
+    # client to pull the image. The client can use the default address of the registry mirror in
+    # configuration to pull the image. The `X-Dragonfly-Registry` header can instead of the default address
+    # of registry mirror.
+    addr: https://yourdomain.com
+    ## certs is the client certs path with PEM format for the registry.
+    ## If registry use self-signed cert, the client should set the
+    ## cert for the registry mirror.
+    certs: /etc/certs/yourdomain.crt
+```
+
+##### Configure CRI-O self-signed certificate
+
+A custom TLS configuration for a container registry can be configured by creating a directory under `/etc/containers/certs.d`.
+The name of the directory must correspond to the host:port of the registry (e.g., yourdomain.com:port),
+refer to [containers-certs.d](https://github.com/containers/image/blob/main/docs/containers-certs.d.5.md).
+
+```shell
+cp yourdomain.com.cert /etc/containers/certs.d/yourdomain.com/
+cp yourdomain.com.key /etc/containers/certs.d/yourdomain.com/
+cp ca.crt /etc/containers/certs.d/yourdomain.com/
+```
+
+The following example illustrates a configuration that uses custom certificates.
+
+```shell
+/etc/containers/certs.d/    <- Certificate directory
+└── yourdomain.com:port     <- Hostname:port
+   ├── yourdomain.com.cert  <- Harbor certificate
+   ├── yourdomain.com.key   <- Harbor key
+   └── ca.crt               <- Certificate authority that signed the registry certificate
+```
+
+Modify your `registries.conf` (default location: `/etc/containers/registries.conf`), refer to [containers-registries.conf](https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md).
+
+> Notice: `yourdomain.com` is the Harbor service address.
+
+```toml
+[[registry]]
+prefix = "yourdomain.com"
+location = "yourdomain.com"
+
+[[registry.mirror]]
+location = "127.0.0.1:4001"
+```
+
+To bypass the TLS verification for a private registry at `yourdomain.com`.
+
+```toml
+[[registry]]
+prefix = "yourdomain.com"
+location = "yourdomain.com"
+
+[[registry.mirror]]
+insecure = true
+location = "127.0.0.1:4001"
+```
+
+Restart crio:
+
+```shell
+systemctl restart crio
+```
+
+##### CRI-O downloads harbor images through Dragonfly
+
+```shell
+crictl pull yourdomain.com/alpine:3.19
 ```
