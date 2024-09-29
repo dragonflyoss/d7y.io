@@ -297,8 +297,6 @@ refer to [Manager](../reference/configuration/manager.md).
 job:
   # Preheat configuration.
   preheat:
-    # registryTimeout is the timeout for requesting registry to get token and manifest.
-    registryTimeout: 1m
     tls:
       # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
       insecureSkipVerify: false
@@ -312,8 +310,6 @@ Skip TLS verification, set `job.preheat.tls.insecureSkipVerify` to true.
 job:
   # Preheat configuration.
   preheat:
-    # registryTimeout is the timeout for requesting registry to get token and manifest.
-    registryTimeout: 1m
     tls:
       # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
       insecureSkipVerify: true
