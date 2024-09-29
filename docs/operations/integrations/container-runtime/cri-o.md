@@ -207,7 +207,7 @@ Harbor generates self-signed certificate, refer to [Harbor](https://goharbor.io/
 
 #### Install Dragonfly with Helm Charts
 
-##### Enable Seed Peer and configure self-signed certificate
+##### Create self-signed certificate secret for Seed Peer
 
 Create seed client secret configuration file `seed-client-secret.yaml`, configuration content is as follows:
 
@@ -232,7 +232,7 @@ Create the secret through the following command:
 kubectl apply -f seed-client-secret.yaml
 ```
 
-##### Enable Peer and configure self-signed certificate
+##### Create self-signed certificate secret for Peer
 
 Create client secret configuration file `client-secret.yaml`, configuration content is as follows:
 
@@ -261,17 +261,20 @@ kubectl apply -f client-secret.yaml
 
 Create helm charts configuration file `values.yaml`, configuration content is as follows:
 
-- To support preheating for harbor with self-signed certificates,
+- Support preheating for harbor with self-signed certificates,
   you need to change the `manager.config.job.preheat.tls` configuration,
-  `manager.config.job.preheat.tls.caCert` is a harbor self-signed certificate configuration file.
-  If you want to bypass TLS verification, please set `manager.config.job.preheat.tls.insecureSkipVerify` to `true`.
+  `/etc/certs/yourdomain.crt` is the harbor self-signed certificate configuration file.
+  If you want to bypass TLS verification, please set `insecureSkipVerify` to `true`.
 
-- `client.config.proxy.registryMirror.addr` is the harbor service address and
-  configure self-signed certificate in `client.config.proxy.registryMirror.certs`.
+- Support dragonfly as registry of containerd for harbor with self-signed certificates,
+  you need to change the `client.config.proxy.registryMirror` configuration and
+  `seedClient.config.proxy.registryMirror` configuration,
+  `https://yourdomain.com` is the harbor service address,
+  `/etc/certs/yourdomain.crt` is the harbor self-signed certificate configuration file.
 
-- To set the CRI-O container registry to harbor,
+- Set the configuration of the containerd for harbor with self-signed certificates,
   you need to change the `client.dfinit.config.containerRuntime.crio.registries` configuration,
-  `yourdomain.com` is harbor registry host addr. CRI-O skips TLS verification by default (no certificate is required).
+  `yourdomain.com` is the harbor registry host address. CRI-O skips TLS verification by default (no certificate required).
 
 ```yaml
 manager:
@@ -314,6 +317,17 @@ seedClient:
     enable: true
   config:
     verbose: true
+    proxy:
+      registryMirror:
+        addr: https://yourdomain.com
+        certs: /etc/certs/yourdomain.crt
+  extraVolumes:
+    - name: seed-client-secret
+      secret:
+        secretName: seed-client-secret
+  extraVolumeMounts:
+    - name: seed-client-secret
+      mountPath: /etc/certs
 
 client:
   image:
@@ -373,8 +387,6 @@ refer to [Manager](../../../reference/configuration/manager.md).
 job:
   # Preheat configuration.
   preheat:
-    # registryTimeout is the timeout for requesting registry to get token and manifest.
-    registryTimeout: 1m
     tls:
       # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
       insecureSkipVerify: false
@@ -388,8 +400,6 @@ Skip TLS verification, set `job.preheat.tls.insecureSkipVerify` to true.
 job:
   # Preheat configuration.
   preheat:
-    # registryTimeout is the timeout for requesting registry to get token and manifest.
-    registryTimeout: 1m
     tls:
       # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
       insecureSkipVerify: true
