@@ -471,7 +471,7 @@ Create helm charts configuration file `values.yaml`, configuration content is as
 - Set the configuration of the containerd for harbor with self-signed certificates,
   you need to change the `client.dfinit.config.containerRuntime.containerd.registries` configuration,
   `yourdomain.com` is harbor registry host address, `https://yourdomain.com` is the Harbor service address.
-  `skipVerify` set to `true` means to skip TLS verification.
+  If you want to bypass TLS verification, please set `skipVerify` to `true`.
 
 ```yaml
 manager:
