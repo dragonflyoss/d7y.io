@@ -459,16 +459,18 @@ Create helm charts configuration file `values.yaml`, configuration content is as
 
 - Support preheating for harbor with self-signed certificates,
   you need to change the `manager.config.job.preheat.tls` configuration,
-  `/etc/certs/yourdomain.crt` is a harbor self-signed certificate configuration file.
+  `/etc/certs/yourdomain.crt` is the harbor self-signed certificate configuration file.
   If you want to bypass TLS verification, please set `insecureSkipVerify` to `true`.
 
 - Support dragonfly as registry of containerd for harbor with self-signed certificates,
-  you need to change the `client.config.proxy.registryMirror` configuration and `seedClient.config.proxy.registryMirror` configuration,
-  `https://yourdomain.com` is the harbor service address, `/etc/certs/yourdomain.crt` is the harbor self-signed certificate configuration file.
+  you need to change the `client.config.proxy.registryMirror` configuration and
+  `seedClient.config.proxy.registryMirror` configuration,
+  `https://yourdomain.com` is the harbor service address,
+  `/etc/certs/yourdomain.crt` is the harbor self-signed certificate configuration file.
 
 - Set the configuration of the containerd for harbor with self-signed certificates,
   you need to change the `client.dfinit.config.containerRuntime.containerd.registries` configuration,
-  `yourdomain.com` is harbor registry host addr and `https://yourdomain.com` is the Harbor service address.
+  `yourdomain.com` is harbor registry host address, `https://yourdomain.com` is the Harbor service address.
   `skipVerify` set to `true` means to skip TLS verification.
 
 ```yaml
