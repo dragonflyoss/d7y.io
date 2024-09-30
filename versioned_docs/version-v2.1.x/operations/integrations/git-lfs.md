@@ -107,7 +107,7 @@ The keys of query parameters will be used later when configuring Dragonfly Peer 
 
 #### Install dragonfly
 
-For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](https://d7y.io/docs/next/getting-started/quick-start/kubernetes/).
+For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
 
 ##### Setup kubernetes cluster
 

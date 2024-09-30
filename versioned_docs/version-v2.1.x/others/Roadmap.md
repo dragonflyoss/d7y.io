@@ -117,9 +117,9 @@ Document:
 AI Infrastructure:
 
 - Supports Triton Inference Server to accelerate model distribution, refer to [dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repository-agent).
-- Supports TorchServer to accelerate model distribution, refer to [document](https://d7y.io/docs/next/setup/integration/torchserve).
-- Supports HuggingFace to accelerate model distribution and dataset distribution, refer to [document](https://d7y.io/docs/next/setup/integration/hugging-face).
-- Supports Git LFS to accelerate file distribution, refer to [document](https://d7y.io/docs/next/setup/integration/git-lfs).
+- Supports TorchServer to accelerate model distribution, refer to [document](../operations/integrations/torchserve.md).
+- Supports HuggingFace to accelerate model distribution and dataset distribution, refer to [document](../operations/integrations/hugging-face.md).
+- Supports Git LFS to accelerate file distribution, refer to [document](../operations/integrations/git-lfs.md).
 - Supports JuiceFS to accelerate file downloads from object storage, JuiceFS read requests via
   peer proxy and write requests via the default client of object storage.
 - Supports Fluid to accelerate model distribution.
