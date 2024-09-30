@@ -297,7 +297,6 @@ database:
     password: your_redis_password
     brokerDB: 1
     backendDB: 2
-    networkTopologyDB: 3
  manager:
   addr: dragonfly-manager:65003
   schedulerClusterID: 1
