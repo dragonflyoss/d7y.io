@@ -181,7 +181,7 @@ proxy:
 **2.** Change `Seed Peer Load Limit` to 10000 or higher to improve the P2P cache hit rate between Seed Peers.
 
 Click the `UPDATE CLUSTER` button to change the `Seed Peer Load Limit` to 10000.
-Please refer to [update-cluster](https://d7y.io/docs/next/advanced-guides/web-console/cluster/#update-cluster).
+Please refer to [update-cluster](../../advanced-guides/web-console/cluster.md#update-cluster).
 
 ![update-cluster](../../resource/operations/best-practices/deployment-best-practices/update-cluster.png)
 
