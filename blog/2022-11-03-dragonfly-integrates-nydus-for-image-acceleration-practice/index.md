@@ -44,7 +44,7 @@ also be used during the transmission process to reduce the back-to-source traffi
 
 ### Install dragonfly {#install-dragonfly}
 
-For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../docs/getting-started/quick-start/kubernetes.md).
+For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](/docs/next/getting-started/quick-start/kubernetes).
 
 ### Setup kubernetes cluster {#setup-kubernetes-cluster}
 
