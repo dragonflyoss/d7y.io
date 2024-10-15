@@ -517,7 +517,7 @@ seedClient:
     proxy:
       registryMirror:
         addr: https://yourdomain.com
-        certs: /etc/certs/yourdomain.crt
+        cert: /etc/certs/yourdomain.crt
   extraVolumes:
     - name: seed-client-secret
       secret:
@@ -537,7 +537,7 @@ client:
     proxy:
       registryMirror:
         addr: https://yourdomain.com
-        certs: /etc/certs/yourdomain.crt
+        cert: /etc/certs/yourdomain.crt
   extraVolumes:
     - name: client-secret
       secret:
@@ -624,10 +624,10 @@ proxy:
     # configuration to pull the image. The `X-Dragonfly-Registry` header can instead of the default address
     # of registry mirror.
     addr: https://yourdomain.com
-    ## certs is the client certs path with PEM format for the registry.
+    ## cert is the client cert path with PEM format for the registry.
     ## If registry use self-signed cert, the client should set the
     ## cert for the registry mirror.
-    certs: /etc/certs/yourdomain.crt
+    cert: /etc/certs/yourdomain.crt
 ```
 
 ##### Setup Dfdaemon as Peer and configure self-signed certificate
@@ -646,10 +646,10 @@ proxy:
     # configuration to pull the image. The `X-Dragonfly-Registry` header can instead of the default address
     # of registry mirror.
     addr: https://yourdomain.com
-    ## certs is the client certs path with PEM format for the registry.
+    ## cert is the client cert path with PEM format for the registry.
     ## If registry use self-signed cert, the client should set the
     ## cert for the registry mirror.
-    certs: /etc/certs/yourdomain.crt
+    cert: /etc/certs/yourdomain.crt
 ```
 
 ##### Configure containerd self-signed certificate

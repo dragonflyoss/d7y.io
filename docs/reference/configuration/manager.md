@@ -14,16 +14,21 @@ and the default path is `$HOME/.dragonfly/config/manager.yaml` in darwin.
 server:
   # GRPC server configure.
   grpc:
-    # # Access ip for other services,
-    # # when local ip is different with access ip, advertiseIP should be set.
-    # advertiseIP: 127.0.0.1
-    # # Listen ip.
-    # listenIP: 0.0.0.0
-    # Listen port.
-    # when this port is not available, manager will try next port.
+  # # Access ip for other services,
+  # # when local ip is different with access ip, advertiseIP should be set.
+  # advertiseIP: 127.0.0.1
+  # # Listen ip.
+  # listenIP: 0.0.0.0
+  # Listen port.
+  # when this port is not available, manager will try next port.
     port:
       start: 65003
       end: 65003
+  # tls:
+  #   # Certificate file path.
+  #   cert: /etc/ssl/certs/server.crt
+  #   # Key file path.
+  #   key: /etc/ssl/private/server.pem
   # REST server configure
   rest:
     # REST server address
@@ -160,8 +165,8 @@ job:
     tls:
       # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
       insecureSkipVerify: false
-      # # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
-      # caCert: ''
+    # # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
+    # caCert: ''
 
 # Object storage service.
 objectStorage:
@@ -193,34 +198,6 @@ metrics:
   addr: ':8000'
   # Enable peer gauge metrics.
   enablePeerGauge: true
-
-# Security configuration.
-security:
-  # autoIssueCert indicates to issue client certificates for all grpc call.
-  # If AutoIssueCert is false, any other option in Security will be ignored.
-  autoIssueCert: false
-  # caCert is the CA certificate for all grpc tls handshake, it can be path or PEM format string.
-  caCert: ''
-  # caKey is the CA private key, it can be path or PEM format string.
-  caKey: ''
-  # tlsPolicy controls the grpc shandshake behaviors:
-  #   force: both ClientHandshake and ServerHandshake are only support tls
-  #   prefer: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support tls
-  #   default: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support insecure (non-tls)
-  # Notice: If the drgaonfly service has been deployed, a two-step upgrade is required.
-  # The first step is to set tlsPolicy to default, and then upgrade the dragonfly services.
-  # The second step is to set tlsPolicy to prefer, and then completely upgrade the dragonfly services.
-  tlsPolicy: 'prefer'
-  certSpec:
-    # dnsNames is a list of dns names be set on the certificate.
-    dnsNames:
-      - 'dragonfly-manager'
-      - 'dragonfly-manager.dragonfly-system.svc'
-      - 'dragonfly-manager.dragonfly-system.svc.cluster.local'
-    # ipAddresses is a list of ip addresses be set on the certificate.
-    ipAddresses:
-    # validityPeriod is the validity period  of certificate.
-    validityPeriod: 87600h
 
 # Network configuration.
 network:
