@@ -517,7 +517,7 @@ seedClient:
     proxy:
       registryMirror:
         addr: https://yourdomain.com
-        certs: /etc/certs/yourdomain.crt
+        cert: /etc/certs/yourdomain.crt
   extraVolumes:
     - name: seed-client-secret
       secret:
@@ -537,7 +537,7 @@ client:
     proxy:
       registryMirror:
         addr: https://yourdomain.com
-        certs: /etc/certs/yourdomain.crt
+        cert: /etc/certs/yourdomain.crt
   extraVolumes:
     - name: client-secret
       secret:
@@ -611,8 +611,7 @@ refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 manager:
-  addrs:
-    - http://dragonfly-manager:65003
+  addr: http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
@@ -624,10 +623,10 @@ proxy:
     # configuration to pull the image. The `X-Dragonfly-Registry` header can instead of the default address
     # of registry mirror.
     addr: https://yourdomain.com
-    ## certs is the client certs path with PEM format for the registry.
+    ## cert is the client cert path with PEM format for the registry.
     ## If registry use self-signed cert, the client should set the
     ## cert for the registry mirror.
-    certs: /etc/certs/yourdomain.crt
+    cert: /etc/certs/yourdomain.crt
 ```
 
 ##### Setup Dfdaemon as Peer and configure self-signed certificate
@@ -637,8 +636,7 @@ refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 manager:
-  addrs:
-    - http://dragonfly-manager:65003
+  addr: http://dragonfly-manager:65003
 proxy:
   registryMirror:
     # addr is the default address of the registry mirror. Proxy will start a registry mirror service for the
@@ -646,10 +644,10 @@ proxy:
     # configuration to pull the image. The `X-Dragonfly-Registry` header can instead of the default address
     # of registry mirror.
     addr: https://yourdomain.com
-    ## certs is the client certs path with PEM format for the registry.
+    ## cert is the client cert path with PEM format for the registry.
     ## If registry use self-signed cert, the client should set the
     ## cert for the registry mirror.
-    certs: /etc/certs/yourdomain.crt
+    cert: /etc/certs/yourdomain.crt
 ```
 
 ##### Configure containerd self-signed certificate

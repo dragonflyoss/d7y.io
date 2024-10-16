@@ -336,8 +336,7 @@ Configuration content is as follows:
 ```yaml
 # Seed Peer configuration.
 manager:
-  addrs:
-    - http://dragonfly-manager:65003
+  addr: http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
@@ -376,8 +375,7 @@ Configuration content is as follows:
 ```yaml
 # Peer configuration.
 manager:
-  addrs:
-    - http://dragonfly-manager:65003
+  addr: http://dragonfly-manager:65003
 ```
 
 Run Dfdaemon as Peer:

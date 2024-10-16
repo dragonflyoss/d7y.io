@@ -148,8 +148,7 @@ Configuration content is as follows:
 ```yaml
 # Seed Peer configuration.
 manager:
-  addrs:
-    - http://127.0.0.1:65003
+  addr: http://127.0.0.1:65003
 seedPeer:
   enable: true
   type: super
@@ -187,8 +186,7 @@ Configuration content is as follows:
 ```yaml
 # Peer configuration.
 manager:
-  addrs:
-    - http://127.0.0.1:65003
+  addr: http://127.0.0.1:65003
 ```
 
 Run Dfdaemon as Peer:

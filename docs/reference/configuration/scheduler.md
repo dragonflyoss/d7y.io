@@ -12,18 +12,26 @@ and the default path is `$HOME/.dragonfly/config/scheduler.yaml` in darwin.
 ```yaml
 # Server scheduler instance configuration.
 server:
-  # # Access ip for other services,
-  # # when local ip is different with access ip, advertiseIP should be set.
-  # advertiseIP: 127.0.0.1
-  # # Access port for other services,
-  # # when local ip is different with access port, advertisePort should be set.
-  # advertisePort: 8002
-  # # Listen ip.
-  # listenIP: 0.0.0.0
-  # Port is the ip and port scheduler server listens on.
+# # Access ip for other services,
+# # when local ip is different with access ip, advertiseIP should be set.
+# advertiseIP: 127.0.0.1
+# # Access port for other services,
+# # when local ip is different with access port, advertisePort should be set.
+# advertisePort: 8002
+# # Listen ip.
+# listenIP: 0.0.0.0
+# Port is the ip and port scheduler server listens on.
   port: 8002
-  # # Server host.
-  # host: localhost
+# # GRPC server tls configuration.
+# tls:
+#   # CA certificate file path for mTLS.
+#   caCert: /etc/ssl/certs/ca.crt
+#   # Certificate file path for mTLS.
+#   cert: /etc/ssl/certs/server.crt
+#   # Key file path for mTLS.
+#   key: /etc/ssl/private/server.pem
+# # Server host.
+# host: localhost
   # WorkHome is working directory.
   # In linux, default value is /usr/local/dragonfly.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly.
@@ -99,22 +107,6 @@ database:
     # Redis backend DB.
     backendDB: 2
 
-# Resource configuration.
-resource:
-  # Task configuration.
-  task:
-    # downloadTiny is the configuration of downloading tiny task by scheduler.
-    downloadTiny:
-      # scheme is download tiny task scheme.
-      scheme: http
-      # Timeout is http request timeout.
-      timeout: 1m
-      # tls is download tiny task TLS configuration.
-      tls:
-        # insecureSkipVerify controls whether a client verifies the
-        # server's certificate chain and hostname.
-        insecureSkipVerify: true
-
 # Dynamic data configuration.
 dynConfig:
   # Dynamic config refresh interval.
@@ -137,6 +129,14 @@ manager:
   keepAlive:
     # KeepAlive interval.
     interval: 5s
+# # GRPC client tls configuration.
+# tls:
+#   # CA certificate file path for mTLS.
+#   caCert: /etc/ssl/certs/ca.crt
+#   # Certificate file path for mTLS.
+#   cert: /etc/ssl/certs/client.crt
+#   # Key file path for mTLS.
+#   key: /etc/ssl/private/client.pem
 
 # Seed peer configuration.
 seedPeer:
@@ -175,33 +175,6 @@ metrics:
   addr: ':8000'
   # Enable host metrics.
   enableHost: false
-
-security:
-  # autoIssueCert indicates to issue client certificates for all grpc call.
-  # If AutoIssueCert is false, any other option in Security will be ignored.
-  autoIssueCert: false
-  # caCert is the root CA certificate for all grpc tls handshake, it can be path or PEM format string.
-  caCert: ''
-  # tlsVerify indicates to verify certificates.
-  tlsVerify: false
-  # tlsPolicy controls the grpc shandshake behaviors:
-  #   force: both ClientHandshake and ServerHandshake are only support tls
-  #   prefer: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support tls
-  #   default: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support insecure (non-tls)
-  # Notice: If the drgaonfly service has been deployed, a two-step upgrade is required.
-  # The first step is to set tlsPolicy to default, and then upgrade the dragonfly services.
-  # The second step is to set tlsPolicy to prefer, and then completely upgrade the dragonfly services.
-  tlsPolicy: 'prefer'
-  certSpec:
-    # dnsNames is a list of dns names be set on the certificate.
-    dnsNames:
-      - 'dragonfly-scheduler'
-      - 'dragonfly-scheduler.dragonfly-system.svc'
-      - 'dragonfly-scheduler.dragonfly-system.svc.cluster.local'
-    # ipAddresses is a list of ip addresses be set on the certificate.
-    ipAddresses:
-    # validityPeriod is the validity period  of certificate.
-    validityPeriod: 4320h
 
 network:
   # Enable ipv6.

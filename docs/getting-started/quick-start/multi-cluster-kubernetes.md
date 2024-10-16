@@ -346,8 +346,7 @@ seedClient:
   config:
     verbose: true
     manager:
-      addrs:
-        - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
+      addr: http://dragonfly-manager.cluster-a.svc.cluster.local:65003
     seedPeer:
       clusterID: 2
 
@@ -378,8 +377,7 @@ client:
     host:
       idc: cluster-2
     manager:
-      addrs:
-        - http://dragonfly-manager.cluster-a.svc.cluster.local:65003
+      addr: http://dragonfly-manager.cluster-a.svc.cluster.local:65003
 
 manager:
   enable: false
