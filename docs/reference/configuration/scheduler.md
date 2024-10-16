@@ -22,6 +22,14 @@ server:
 # listenIP: 0.0.0.0
 # Port is the ip and port scheduler server listens on.
   port: 8002
+# # GRPC server tls configuration.
+# tls:
+#   # CA certificate file path for mTLS.
+#   caCert: /etc/ssl/certs/ca.crt
+#   # Certificate file path for mTLS.
+#   cert: /etc/ssl/certs/server.crt
+#   # Key file path for mTLS.
+#   key: /etc/ssl/private/server.pem
 # # Server host.
 # host: localhost
   # WorkHome is working directory.
@@ -99,22 +107,6 @@ database:
     # Redis backend DB.
     backendDB: 2
 
-# Resource configuration.
-resource:
-  # Task configuration.
-  task:
-    # downloadTiny is the configuration of downloading tiny task by scheduler.
-    downloadTiny:
-      # scheme is download tiny task scheme.
-      scheme: http
-      # Timeout is http request timeout.
-      timeout: 1m
-      # tls is download tiny task TLS configuration.
-      tls:
-        # insecureSkipVerify controls whether a client verifies the
-        # server's certificate chain and hostname.
-        insecureSkipVerify: true
-
 # Dynamic data configuration.
 dynConfig:
   # Dynamic config refresh interval.
@@ -137,6 +129,14 @@ manager:
   keepAlive:
     # KeepAlive interval.
     interval: 5s
+# # GRPC client tls configuration.
+# tls:
+#   # CA certificate file path for mTLS.
+#   caCert: /etc/ssl/certs/ca.crt
+#   # Certificate file path for mTLS.
+#   cert: /etc/ssl/certs/client.crt
+#   # Key file path for mTLS.
+#   key: /etc/ssl/private/client.pem
 
 # Seed peer configuration.
 seedPeer:

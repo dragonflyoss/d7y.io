@@ -611,8 +611,7 @@ refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 manager:
-  addrs:
-    - http://dragonfly-manager:65003
+  addr: http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
@@ -637,8 +636,7 @@ refer to [Dfdaemon](../../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 manager:
-  addrs:
-    - http://dragonfly-manager:65003
+  addr: http://dragonfly-manager:65003
 proxy:
   registryMirror:
     # addr is the default address of the registry mirror. Proxy will start a registry mirror service for the

@@ -122,8 +122,6 @@ client:
     enable: true
   config:
     verbose: true
-    security:
-      enable: true
     proxy:
       server:
         port: 4001

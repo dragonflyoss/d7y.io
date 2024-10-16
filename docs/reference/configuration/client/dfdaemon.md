@@ -50,14 +50,35 @@ upload:
     port: 4000
   # # ip is the listen ip of the grpc server.
   # ip: ""
+  # # CA certificate file path for mTLS.
+  # caCert: /etc/ssl/certs/ca.crt
+  # # GRPC server certificate file path for mTLS.
+  # cert: /etc/ssl/certs/server.crt
+  # # GRPC server key file path for mTLS.
+  # key: /etc/ssl/private/server.pem
+  #
+# # Client configuration for remote peer's upload server.
+# client:
+#   # CA certificate file path for mTLS.
+#   caCert: /etc/ssl/certs/ca.crt
+#   # GRPC client certificate file path for mTLS.
+#   cert: /etc/ssl/certs/client.crt
+#   # GRPC client key file path for mTLS.
+#   key: /etc/ssl/private/client.pem
   # disableShared indicates whether disable to share data for other peers.
   disableShared: false
   # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
 
 manager:
-  # addrs is manager addresses.
-  addrs: []
+  # addr is manager address.
+  addr: http://manager-service:65003
+# # CA certificate file path for mTLS.
+# caCert: /etc/ssl/certs/ca.crt
+# # GRPC client certificate file path for mTLS.
+# cert: /etc/ssl/certs/client.crt
+# # GRPC client key file path for mTLS.
+# key: /etc/ssl/private/client.pem
 
 scheduler:
   # announceInterval is the interval to announce peer to the scheduler.
@@ -71,6 +92,12 @@ scheduler:
   maxScheduleCount: 5
   # enableBackToSource indicates whether enable back-to-source download, when the scheduling failed.
   enableBackToSource: true
+# # CA certificate file path for mTLS.
+# caCert: /etc/ssl/certs/ca.crt
+# # GRPC client certificate file path for mTLS.
+# cert: /etc/ssl/certs/client.crt
+# # GRPC client key file path for mTLS.
+# key: /etc/ssl/private/client.pem
 
 seedPeer:
   # enable indicates whether enable seed peer.
@@ -167,19 +194,14 @@ proxy:
   # readBufferSize is the buffer size for reading piece from disk, default is 32KB.
   readBufferSize: 32768
 
-security:
-  # enable indicates whether enable security.
-  enable: false
-
 metrics:
   server:
     # port is the port to the metrics server.
     port: 4002
   # # ip is the listen ip of the metrics server.
   # ip: ""
-
 # # tracing is the tracing configuration for dfdaemon.
 # tracing:
-  # # addr is the address to report tracing log.
-  # addr: ""
+# # addr is the address to report tracing log.
+# addr: ""
 ```

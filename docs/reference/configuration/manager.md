@@ -14,25 +14,29 @@ and the default path is `$HOME/.dragonfly/config/manager.yaml` in darwin.
 server:
   # GRPC server configure.
   grpc:
-  # # Access ip for other services,
-  # # when local ip is different with access ip, advertiseIP should be set.
-  # advertiseIP: 127.0.0.1
-  # # Listen ip.
-  # listenIP: 0.0.0.0
-  # Listen port.
-  # when this port is not available, manager will try next port.
+    # # Access ip for other services,
+    # # when local ip is different with access ip, advertiseIP should be set.
+    # advertiseIP: 127.0.0.1
+    # # Listen ip.
+    # listenIP: 0.0.0.0
+    # Listen port.
+    # when this port is not available, manager will try next port.
     port:
       start: 65003
       end: 65003
+  # # GRPC server tls configuration.
   # tls:
-  #   # Certificate file path.
+  #   # CA certificate file path for mTLS.
+  #   caCert: /etc/ssl/certs/ca.crt
+  #   # Certificate file path for mTLS.
   #   cert: /etc/ssl/certs/server.crt
-  #   # Key file path.
+  #   # Key file path for mTLS.
   #   key: /etc/ssl/private/server.pem
   # REST server configure
   rest:
     # REST server address
     addr: :8080
+  # # REST server tls configuration.
   # tls:
   #   # Certificate file path.
   #   cert: /etc/ssl/certs/server.crt
