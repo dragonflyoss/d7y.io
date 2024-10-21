@@ -202,6 +202,9 @@ proxy:
   # disableBackToSource indicates whether disable to download back-to-source when download failed.
   disableBackToSource: false
   # prefetch pre-downloads full of the task when download with range request.
+  # X-Dragonfly-Prefetch priority is higher than prefetch in config.
+  # If the value is "true", the range request will prefetch the entire file.
+  # If the value is "false", the range request will fetch the range content.
   prefetch: false
   # readBufferSize is the buffer size for reading piece from disk, default is 32KB.
   readBufferSize: 32768
