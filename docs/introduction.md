@@ -15,7 +15,7 @@ AI model distribution, AI dataset distribution, etc.
 Here are some of the features that Dragonfly offers:
 
 - **P2P technology**: Based on P2P technology, use the idle bandwidth of Peer to improve download speed.
-- **Non-invasive**: Non-intrusive support for multiple container runtimes, download tools, AI infrastructure, etc.
+- **Non-intrusive**: Non-intrusive support for multiple container runtimes, download tools, AI infrastructure, etc.
 - **Peer configuration**: Load limit, concurrent limit, traffic limit, etc. can be configured.
 - **Consistency**: Ensures downloaded files are consistent even if the user does not check for consistency.
 - **Exception isolation**: Isolate exceptions based on Service level, Peer level and Task level to improve

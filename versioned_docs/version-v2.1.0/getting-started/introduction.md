@@ -25,7 +25,7 @@ Dragonfly provides a one-stop solution for large-scale file distribution. The ba
 
 - **P2P File Distribution**：Use P2P technology for file transfer, improve download efficiency,
   and save bandwidth across IDC.
-- **Noninvasive**：Supports multiple containers for distributing images.
+- **Non-intrusive**：Supports multiple containers for distributing images.
 - **Host-level speed limit**：Support for host-level limits speed.
 - **Consistency**：Make sure all downloaded files are consistent.
 - **Isolate abnormal peers**：Automatically isolate abnormal peers to improve download stability.
