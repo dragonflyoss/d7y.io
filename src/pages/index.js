@@ -192,7 +192,7 @@ export default function Home() {
       ),
     },
     {
-      cardTitle: <Translate>Non-invasive</Translate>,
+      cardTitle: <Translate>Non-intrusive</Translate>,
       cardContent: (
         <>
           <Translate>Non-intrusive support for</Translate>
