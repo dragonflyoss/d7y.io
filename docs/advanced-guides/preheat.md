@@ -36,6 +36,8 @@ Use Open API for preheating image. First create a POST request for preheating.
 If the `scheduler_cluster_ids` does not exist,
 it means to preheat all scheduler clusters.
 
+> Notice: The scope parameter selects `single_peer` (Preheat to a seed peer) or `all_peers` (Preheat to each peer in the P2P cluster).
+
 ```bash
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
@@ -47,7 +49,8 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
         "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
         "filteredQueryParams": "Expires&Signature",
         "username": "your_registry_username",
-        "password": "your_registry_password"
+        "password": "your_registry_password",
+        "scope": "single_peer" or "all_peers"
     }
 }'
 ```
@@ -359,6 +362,8 @@ Click the `NEW POLICY` button to create P2P provider policy.
 - **Single Peer**: Preheat to a seed peer.
 
 - **All Peers**: Preheat to each peer in the P2P cluster.
+
+**Step 4:** Enter the cluster id of Dragonfly Manager to specify the preheated cluster. If empty, all clusters will be selected.
 
 ![create-policy](../resource/advanced-guides/preheat/create-policy.png)
 
