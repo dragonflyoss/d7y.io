@@ -12,7 +12,7 @@ Documentation for setting Dragonfly's container runtime to Podman.
 | ------------------ | ------- | --------------------------------------- |
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
 | Helm               | v3.8.0+ | [helm.sh](https://helm.sh/)             |
-| podman             | v1.5.0+ | [podman.io](https://podman.io/)         |
+| Podman             | v1.5.0+ | [podman.io](https://podman.io/)         |
 
 ## Quick Start {#quick-start}
 
