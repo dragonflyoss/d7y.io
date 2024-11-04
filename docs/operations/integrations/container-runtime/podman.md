@@ -8,11 +8,11 @@ Documentation for setting Dragonfly's container runtime to Podman.
 
 ## Prerequisites {#prerequisites}
 
-| Name               | Version | Document                                         |
-| ------------------ | ------- | ------------------------------------------------ |
-| Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/)          |
-| Helm               | v3.8.0+ | [helm.sh](https://helm.sh/)                      |
-| podman             | v1.5.0+ | [podman.io](https://podman.io/) |
+| Name               | Version | Document                                |
+| ------------------ | ------- | --------------------------------------- |
+| Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/) |
+| Helm               | v3.8.0+ | [helm.sh](https://helm.sh/)             |
+| podman             | v1.5.0+ | [podman.io](https://podman.io/)         |
 
 ## Quick Start {#quick-start}
 
@@ -159,7 +159,7 @@ dragonfly-scheduler-0                1/1     Running   0             37m
 dragonfly-seed-client-0              1/1     Running   2 (27m ago)   37m
 ```
 
-### CRI-O downloads images through Dragonfly {#crio-downloads-images-through-dragonfly}
+### Podman downloads images through Dragonfly {#crio-downloads-images-through-dragonfly}
 
 Pull `alpine:3.19` image in minikube node:
 
@@ -273,7 +273,7 @@ Create helm charts configuration file `values.yaml`, configuration content is as
   `/etc/certs/yourdomain.crt` is the harbor self-signed certificate configuration file.
 
 - Set the configuration of the containerd for harbor with self-signed certificates,
-  you need to change the `client.dfinit.config.containerRuntime.crio.registries` configuration,
+  you need to change the `client.dfinit.config.containerRuntime.podman.registries` configuration,
   `yourdomain.com` is the harbor registry host address. CRI-O skips TLS verification by default (no certificate required).
 
 ```yaml
@@ -356,7 +356,7 @@ client:
     config:
       containerRuntime:
         containerd: null
-        crio:
+        podman:
           configPath: /etc/containers/registries.conf
           unqualifiedSearchRegistries: ['registry.fedoraproject.org', 'registry.access.redhat.com', 'docker.io']
           registries:
@@ -453,7 +453,7 @@ proxy:
     cert: /etc/certs/yourdomain.crt
 ```
 
-##### Configure CRI-O self-signed certificate
+##### Configure Podman self-signed certificate
 
 A custom TLS configuration for a container registry can be configured by creating a directory under `/etc/containers/certs.d`.
 The name of the directory must correspond to the host:port of the registry (e.g., yourdomain.com:port),
@@ -500,14 +500,14 @@ insecure = true
 location = "127.0.0.1:4001"
 ```
 
-Restart crio:
+Restart podman:
 
 ```shell
 systemctl restart crio
 ```
 
-#### CRI-O downloads harbor images through Dragonfly
+#### Podman downloads harbor images through Dragonfly
 
 ```shell
-crictl pull yourdomain.com/alpine:3.19
+podman pull yourdomain.com/alpine:3.19
 ```
