@@ -36,7 +36,7 @@ Use Open API for preheating image. First create a POST request for preheating.
 If the `scheduler_cluster_ids` does not exist,
 it means to preheat all scheduler clusters.
 
-> Notice: The scope parameter selects `single_peer` (Preheat to a seed peer) or `all_peers` (Preheat to each peer in the P2P cluster).
+> Notice: The scope parameter selects `single_peer` or `all_peers`.
 
 ```bash
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
@@ -353,17 +353,14 @@ Go to `Projects` and open your project from the project list, and open the `P2P 
 
 Click the `NEW POLICY` button to create P2P provider policy.
 
-**Step 1:** Select a pre-configured preheat provider instance as target.
-
-**Step 2:** By setting the Filter parameter, you can specify the image that needs to be preheated.
-
-**Step 3:** Select `Single Peer` or `All Peers` based on your needs.
+**Step 1:** Select `Single Peer` or `All Peers` based on your needs.
 
 - **Single Peer**: Preheat to a seed peer.
 
 - **All Peers**: Preheat to each peer in the P2P cluster.
 
-**Step 4:** Enter the cluster id of Dragonfly Manager to specify the preheated cluster. If empty, all clusters will be selected.
+**Step 2:** Enter the cluster id of Dragonfly Manager to specify the preheated cluster.
+If empty, all clusters will be selected.
 
 ![create-policy](../resource/advanced-guides/preheat/create-policy.png)
 
