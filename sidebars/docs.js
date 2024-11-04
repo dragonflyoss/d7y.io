@@ -88,6 +88,7 @@ module.exports = {
                 'operations/integrations/container-runtime/singularity',
                 'operations/integrations/container-runtime/docker',
                 'operations/integrations/container-runtime/cri-o',
+                'operations/integrations/container-runtime/podman',
                 'operations/integrations/container-runtime/nydus',
                 'operations/integrations/container-runtime/stargz',
               ],
