@@ -359,8 +359,9 @@ Click the `NEW POLICY` button to create P2P provider policy.
 
 - **All Peers**: Preheat to each peer in the P2P cluster.
 
-**Step 2:** Enter the cluster id of Dragonfly Manager to specify the preheated cluster.
-If empty, all clusters will be selected.
+**Step 2:** Enter the cluster id of Dragonfly Manager in `cluster_ids` to specify the preheated cluster.
+If `cluster_ids` does not exist,
+it means to preheating all clusters.
 
 ![create-policy](../resource/advanced-guides/preheat/create-policy.png)
 
