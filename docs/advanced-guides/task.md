@@ -12,11 +12,13 @@ This document will help you experience how to use the console to find and clear 
 
 **URL**: Query the task cache based on the URL.
 
-**Tag**: When the task URL is the same but the tags are different, they will be distinguished based on the tags, and the queried tasks will also be different.
+**Tag**: When the task URL is the same but the tags are different,
+they will be distinguished based on the tags, and the queried tasks will also be different.
 
 **Application**: Caller application which is used for statistics and access control.
 
-**Filter Query Params**: Filter the query parameters of the downloaded URL. If the download URL is the same, it will be scheduled as the same task.
+**Filter Query Params**: Filter the query parameters of the downloaded URL.
+If the download URL is the same, it will be scheduled as the same task.
 
 ![search-task-by-url](../resource/advanced-guides/task/search-task-by-url.png)
 
