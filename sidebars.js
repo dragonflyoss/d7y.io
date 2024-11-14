@@ -204,6 +204,7 @@ module.exports = {
           ],
         },
         'advanced-guides/preheat',
+        'advanced-guides/task',
         'advanced-guides/personal-access-tokens',
       ],
     },
