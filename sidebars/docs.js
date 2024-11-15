@@ -194,7 +194,7 @@ module.exports = {
           ],
         },
         'advanced-guides/preheat',
-        'advanced-guides/task',
+        'advanced-guides/task-manager',
         'advanced-guides/personal-access-tokens',
       ],
     },
