@@ -50,7 +50,7 @@ If the status is SUCCESS and the Failed list does not exist, it means that the d
 
 ![success-task](../resource/advanced-guides/task/success-task.png)
 
-### Deletion failed
+### Deletion Failed
 
 The Failed list will show the tasks that failed to execute.
 
