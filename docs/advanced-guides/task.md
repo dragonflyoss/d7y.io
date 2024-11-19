@@ -326,7 +326,11 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
     "type": "delete_task",
     "state": "SUCCESS",
     "args": {
-        "task_id": "4bd33d1ac7fb64a1bba7b5f70f384b05beefd11f03bbe60244c4b01c42ac404a",
+      "application": "",
+      "filtered_query_params": "",
+      "tag": "",
+      "task_id": "",
+      "url": "https://example.com"
     },
     "result": {
         "created_at": "2024-11-19T07:51:46.33966588Z",
