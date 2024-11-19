@@ -175,11 +175,7 @@ The command-line log returns the find task job id.
     "type": "get_task",
     "state": "PENDING",
     "args": {
-        "application": "",
-        "filtered_query_params": "",
-        "tag": "",
-        "task_id": "",
-        "url": "https://example.com"
+        "task_id": "your_task_id",
     },
     "result": null,
     "seed_peer_clusters": null,
@@ -214,7 +210,7 @@ If status is `SUCCESS`, it means that the find task is successful.
     "type": "get_task",
     "state": "SUCCESS",
     "args": {
-        "task_id": "",
+        "task_id": "your_task_id",
     },
     "result": {
         "created_at": "2024-11-19T08:08:23.087253883Z",
@@ -273,7 +269,6 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "type": "delete_task",
     "args": {
         "url": "https://example.com",
-        "filtered_query_params": "Expires&Signature",
         "tag": "your_url_tag",
         "application": "your_url_application"
     },
@@ -402,10 +397,7 @@ The command line log returns the deletion task job id.
   "type": "delete_task",
   "state": "PENDING",
   "args": {
-    "application": "",
-    "filtered_query_params": "",
-    "tag": "",
-    "url": "https://example.com"
+    "task_id": "your_task_id",
   },
   "result": null,
   },
@@ -440,7 +432,7 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
     "type": "delete_task",
     "state": "SUCCESS",
     "args": {
-        "task_id": "4bd33d1ac7fb64a1bba7b5f70f384b05beefd11f03bbe60244c4b01c42ac404a",
+        "task_id": "your_task_id",
     },
     "result": {
         "created_at": "2024-11-19T07:51:46.33966588Z",
