@@ -44,13 +44,13 @@ Displays all deleted task.
 
 ![executions](../resource/advanced-guides/task/executions.png)
 
-### Deletion Successful
+### Delete successfully
 
 If the status is SUCCESS and the Failure list does not exist, it means that the deletion task is successful.
 
 ![success-task](../resource/advanced-guides/task/success-task.png)
 
-### Deletion Failed
+### Delete failed
 
 The Failure list will show the tasks that failed to execute.
 
