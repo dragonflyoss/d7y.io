@@ -4,7 +4,8 @@ title: Task Manager
 slug: /advanced-guides/task-manager/
 ---
 
-This document will help you experience how to use Dragonfly's two methods of finding and clearing P2P task caches, namely Open API and console.
+This document will help you experience how to use Dragonfly's two methods of finding and clearing P2P task caches,
+namely Open API and console.
 
 ## Open API
 
@@ -28,9 +29,9 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 ![copy-token](../resource/advanced-guides/personal-access-tokens/copy-token.png)
 
-### Search task
+### Search task {#open-api-search-task}
 
-#### Search by URL
+#### Search by URL {#open-api-search-by-url}
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -147,7 +148,7 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-#### Search by task id
+#### Search by task id {#open-api-search-by-task-id}
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -256,13 +257,14 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-### Delete task
+### Delete task {#open-api-delete-task}
 
 #### Delete by URL
 
 Use Open API for delete task. First create a POST request for delete task.
 
-If `scheduler_cluster_ids` does not exist, it means deleting all caches of the task. `scheduler_cluster_ids` is the `result.job_states.results.scheduler_cluster_id` of the search task.
+If `scheduler_cluster_ids` does not exist, it means deleting all caches of the task.
+`scheduler_cluster_ids` is the `result.job_states.results.scheduler_cluster_id` of the search task.
 
 ```shell
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
@@ -373,7 +375,8 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
 
 Use Open API for delete task. First create a POST request for delete task.
 
-If `scheduler_cluster_ids` does not exist, it means deleting all caches of the task. If `scheduler_cluster_ids` does not exist, it means deleting all caches of the task. `scheduler_cluster_ids` is the `result.job_states.results.scheduler_cluster_id` of the search task.
+If `scheduler_cluster_ids` does not exist, it means deleting all caches of the task.
+`scheduler_cluster_ids` is the `result.job_states.results.scheduler_cluster_id` of the search task.
 
 ```shell
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
