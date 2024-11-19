@@ -47,7 +47,6 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "type": "image",
         "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-        "filteredQueryParams": "Expires&Signature",
         "username": "your_registry_username",
         "password": "your_registry_password",
         "scope": "single_peer" or "all_peers"
@@ -66,7 +65,7 @@ The command-line log returns the preheat job id.
   "type": "preheat",
   "state": "PENDING",
   "args": {
-    "filteredQueryParams": "Expires&Signature",
+    "filteredQueryParams": "",
     "headers": null,
     "password": "",
     "pieceLength": 4194304,
@@ -106,7 +105,7 @@ If the status is `SUCCESS`, the preheating is successful.
   "type": "preheat",
   "state": "SUCCESS",
   "args": {
-    "filteredQueryParams": "Expires&Signature",
+    "filteredQueryParams": "",
     "headers": null,
     "password": "",
     "pieceLength": 4194304,
@@ -159,7 +158,7 @@ The command-line log returns the preheat job id.
   "type": "preheat",
   "state": "PENDING",
   "args": {
-    "filteredQueryParams": "Expires&Signature",
+    "filteredQueryParams": "",
     "headers": null,
     "password": "",
     "pieceLength": 4194304,
@@ -199,7 +198,7 @@ If the status is `SUCCESS`, the preheating is successful.
   "type": "preheat",
   "state": "SUCCESS",
   "args": {
-    "filteredQueryParams": "Expires&Signature",
+    "filteredQueryParams": "",
     "headers": null,
     "password": "",
     "pieceLength": 4194304,

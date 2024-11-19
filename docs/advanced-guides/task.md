@@ -43,7 +43,6 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "type": "get_task",
     "args": {
         "url": "https://example.com",
-        "filtered_query_params": "Expires&Signature",
         "tag": "your_url_tag",
         "application": "your_url_application"
     }
@@ -157,9 +156,9 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer your_dragonfly_personal_access_token' \
 --data-raw '{
-    "type": "delete_task",
+    "type": "get_task",
     "args": {
-        "task_id": "cf0694b42447d5f1e3762ec94c488c58a4973dd4d503c35da570a194e473fe55"
+        "task_id": "your_task_id"
     }
 }'
 ```
@@ -278,7 +277,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
         "tag": "your_url_tag",
         "application": "your_url_application"
     },
-    "scheduler_cluster_ids":[scheduler_cluster_id]
+    "scheduler_cluster_ids":[your_scheduler_cluster_id]
 }'
 ```
 
@@ -387,7 +386,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "task_id": "your_task_id"
     },
-    "scheduler_cluster_ids":[scheduler_cluster_id]
+    "scheduler_cluster_ids":[your_scheduler_cluster_id]
 }'
 ```
 
