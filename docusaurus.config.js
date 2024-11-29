@@ -147,18 +147,6 @@ const config = {
           items: [
             {
               html: `
-              <div class="dingtalk">
-               <a class="dingtalk-label">
-                <img class="socials" src="/img/icon/footer-ding-talk.svg" alt="twitter icon" />
-               </a>
-               <a class="dingtalk-img" aria-label="DingTalk">
-                <img src="https://raw.githubusercontent.com/dragonflyoss/d7y.io/main/static/img/landing/dingtalk.jpg" alt="DingTalk Group"/>
-               </a>
-              </div>
-              `,
-            },
-            {
-              html: `
               <a href="https://twitter.com/dragonfly_oss" target="_blank">
                <img class="socials" src="/img/icon/footer-twitter.svg" alt="youtube icon" />
               </a>
