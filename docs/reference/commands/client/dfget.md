@@ -211,6 +211,12 @@ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
+### Download with HDFS protocol {#downlad-with-hdfs}
+
+```shell
+dfget hdfs://<path>/file.txt -O /tmp/file.txt  --hdfs-delegation-token <hadoop_delegation_token>
+```
+
 <!-- markdownlint-restore -->
 
 ## Log {#log}
