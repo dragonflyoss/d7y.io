@@ -135,7 +135,7 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-#### Step 2: Configure Dfdaemon {#configure-dfdaemon-rpm}
+#### Step 2: Create Dfdaemon Configuration {#create-dfdaemon-configuration-rpm}
 
 Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml`
 and modify the `manager.addrs` in the configuration file to your actual address,
@@ -161,7 +161,7 @@ manager:
   addr: http://dragonfly-manager:65003
 ```
 
-#### Step 3: Systemd {#systemd-dfdaemon-rpm}
+#### Step 3: Run Dfdaemon with Systemd {#run-dfdaemon-with-systemd-rpm}
 
 Systemd starts dfdaemon service.
 
@@ -216,7 +216,7 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-#### Step 2: Configure Dfdaemon {#configure-dfdaemon-deb}
+#### Step 2: Create Dfdaemon Configuration {#create-dfdaemon-configuration-deb}
 
 Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml` and modify the `manager.addrs`
 in the configuration file to your actual address,
@@ -242,7 +242,7 @@ manager:
   addr: http://dragonfly-manager:65003
 ```
 
-#### Step 3: Systemd {#systemd-dfdaemon-deb}
+#### Step 3: Run Dfdaemon with Systemd {#run-dfdaemon-with-systemd-deb}
 
 Systemd starts dfdaemon service.
 
