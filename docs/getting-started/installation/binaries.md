@@ -20,7 +20,7 @@ This guide shows how to install the Dragonfly. Dragonfly can be installed either
 
 <!-- markdownlint-restore -->
 
-## Installing Dragonfly {#installing-dragonfly}
+## Install Dragonfly {#Install-dragonfly}
 
 ### From the Binary Releases {#from-the-binary-releases}
 
@@ -118,7 +118,7 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 
 ### Install Client using RPM {#install-client-using-rpm}
 
-#### Step 1: Installing Client {#install-client-rpm}
+#### Step 1: Install Client {#install-client-rpm}
 
 Download and execute the install script.
 
@@ -197,7 +197,7 @@ dfget -O /path/to/output http://example.com/object
 
 ### Install Client using DEB {#install-client-using-deb}
 
-#### Step 1: Installing Client {#install-client-deb}
+#### Step 1: Install Client {#install-client-deb}
 
 Download and execute the install script.
 

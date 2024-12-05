@@ -19,7 +19,7 @@ This guide shows how to install the Dragonfly. Dragonfly can be installed either
 
 <!-- markdownlint-restore -->
 
-## Installing Dragonfly {#installing-dragonfly}
+## Install Dragonfly {#install-dragonfly}
 
 ### From the Binary Releases {#from-the-binary-releases}
 
