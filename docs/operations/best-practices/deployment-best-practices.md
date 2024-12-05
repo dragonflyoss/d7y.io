@@ -89,7 +89,7 @@ Used for node P2P to share piece bandwidth.
 If the peak bandwidth is greater than the default outbound bandwidth,
 you can set `rateLimit` higher to increase the upload speed.
 It is recommended that the configuration be the same as the inbound bandwidth of the machine.
-Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 upload:
@@ -103,7 +103,7 @@ Used for node back-to-source bandwidth and download bandwidth from remote peer.
 If the peak bandwidth is greater than the default inbound bandwidth,
 `rateLimit` can be set higher to increase download speed.
 It is recommended that the configuration be the same as the outbound bandwidth of the machine.
-Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 download:
@@ -118,7 +118,7 @@ the number of concurrent downloads of piece back-to-source and the number of con
 The larger the number of piece concurrency, the faster the task download, and the more CPU and memory will be consumed.
 The user adjusts the number of piece concurrency according to the actual situation.
 and adjust the client’s CPU and memory configuration.
-Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 download:
@@ -131,7 +131,7 @@ download:
 Used for task cache GC in node disk, taskTTL is calculated based on cache time.
 To avoid cases where GC would be problematic or potentially catastrophi,
 it is recommended to use the default value.
-Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 gc:
@@ -158,7 +158,7 @@ When Dragonfly is used as a cache service for Nydus, the configuration needs to 
 
 **1.** `proxy.rules.regex` matches the Nydus repository URL,
 intercepts download traffic and forwards it to the P2P network.
-Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:
@@ -192,7 +192,7 @@ Changed `Seed Peer Load Limit` successfully.
 **3.** Nydus will initiate an HTTP range request of about 1MB to achieve on-demand loading.
 When prefetch enabled, the Seed Peer can prefetch the complete resource after receiving the HTTP range request,
 improving the cache hit rate.
-Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:
@@ -202,7 +202,7 @@ proxy:
 
 **4.** When the download speed is slow,
 you can adjust the `readBufferSize` value of proxy to 64KB in order to reduce the proxy request time.
-Please refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:

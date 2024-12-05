@@ -43,7 +43,7 @@ cd client
 #### Setup Manager {#setup-manager}
 
 Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
-refer to [Manager](../reference/configuration/manager.md).
+refer to [manager config](../reference/configuration/manager.md).
 
 Set the `database.mysql.addrs` and `database.redis.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -94,7 +94,7 @@ telnet 127.0.0.1 65003
 #### Setup Scheduler {#setup-scheduler}
 
 Configure `scheduler.yaml`, the default path is `/etc/dragonfly/scheduler.yaml`,
-refer to [Scheduler](../reference/configuration/scheduler.md).
+refer to [scheduler config](../reference/configuration/scheduler.md).
 
 Set the `database.redis.addrs` and `manager.addr` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -140,7 +140,7 @@ telnet 127.0.0.1 8002
 #### Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer}
 
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-refer to [Dfdaemon](../reference/configuration/client/dfdaemon.md).
+refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -178,7 +178,7 @@ telnet 127.0.0.1 4002
 #### Setup Dfdaemon as Peer {#setup-dfdaemon-as-Peer}
 
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-refer to [Dfdaemon](../reference/configuration/client/dfdaemon.md).
+refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:

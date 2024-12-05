@@ -278,7 +278,7 @@ To support preheating for harbor with self-signed certificates,
 the Manager configuration needs to be modified.
 
 Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
-refer to [Manager](../reference/configuration/manager.md).
+refer to [manager config](../reference/configuration/manager.md).
 
 > Notice: `yourdomain.crt` is Harbor's ca.crt.
 
