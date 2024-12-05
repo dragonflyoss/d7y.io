@@ -118,7 +118,7 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 
 ### Install Client using RPM {#install-client-using-rpm}
 
-#### Step 1: Installing Client
+#### Step 1: Installing Client {#install-client-rpm}
 
 Download and execute the install script.
 
@@ -135,12 +135,13 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-#### Step 2: Configure dfdaemon
+#### Step 2: Configure dfdaemon {#configure-dfdaemon-rpm}
 
-Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml` and modify the `manager.addrs` in the configuration file to your actual address.
+Create the Dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml`
+and modify the `manager.addrs` in the configuration file to your actual address.
 Refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
-##### Option 1: Setup Dfdaemon as Seed Peer
+##### Option 1: Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer-rpm}
 
 ```shell
 # Seed Peer configuration.
@@ -152,7 +153,7 @@ seedPeer:
   clusterID: 1
 ```
 
-##### Option 2: Setup Dfdaemon as Peer
+##### Option 2: Setup Dfdaemon as Peer {#setup-dfdaemon-as-peer-rpm}
 
 ```shell
 # Peer configuration.
@@ -160,7 +161,7 @@ manager:
   addr: http://dragonfly-manager:65003
 ```
 
-#### Step 3: Systemd
+#### Step 3: Systemd {#systemd-dfdaemon-rpm}
 
 Systemd starts Dfdaemon service.
 
@@ -182,7 +183,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-#### Step 4: Use Dfget to download files
+#### Step 4: Use Dfget to download files {#dfget-to-download-files-rpm}
 
 Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
 
@@ -196,7 +197,7 @@ dfget -O /path/to/output http://example.com/object
 
 ### Install Client using DEB {#install-client-using-deb}
 
-#### Step 1: Installing Client
+#### Step 1: Installing Client {#install-client-deb}
 
 Download and execute the install script.
 
@@ -215,12 +216,13 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-#### Step 2: Configure dfdaemon
+#### Step 2: Configure dfdaemon {#configure-dfdaemon-deb}
 
-Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml` and modify the `manager.addrs` in the configuration file to your actual address.
+Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml` and modify the `manager.addrs`
+in the configuration file to your actual address.
 Refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
-##### Option 1: Setup Dfdaemon as Seed Peer
+##### Option 1: Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer-deb}
 
 ```shell
 # Seed Peer configuration.
@@ -232,7 +234,7 @@ seedPeer:
   clusterID: 1
 ```
 
-##### Option 2: Setup Dfdaemon as Peer
+##### Option 2: Setup Dfdaemon as Peer {#setup-dfdaemon-as-peer-deb}
 
 ```shell
 # Peer configuration.
@@ -240,7 +242,7 @@ manager:
   addr: http://dragonfly-manager:65003
 ```
 
-#### Step 3: Systemd
+#### Step 3: Systemd {#systemd-dfdaemon-deb}
 
 Systemd starts Dfdaemon service.
 
@@ -262,7 +264,7 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
-#### Step 4: Use Dfget to download files
+#### Step 4: Use Dfget to download files {#dfget-to-download-files-deb}
 
 Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
 
