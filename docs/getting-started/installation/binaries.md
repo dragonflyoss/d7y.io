@@ -133,7 +133,8 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-Modify your `dfdaemon.yaml` (default location: /etc/dragonfly/dfdaemon.yaml), please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
+please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
 
@@ -206,7 +207,8 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-Modify your `dfdaemon.yaml` (default location: /etc/dragonfly/dfdaemon.yaml), please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
+please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
 
@@ -266,7 +268,7 @@ dfget -O /path/to/output http://example.com/object
 
 #### Setup Manager {#setup-manager}
 
-Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
+Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
 refer to [Manager](../../reference/configuration/manager.md).
 
 Set the `database.mysql.addrs` and `database.redis.addrs` address in the configuration file to your actual address.
@@ -324,7 +326,7 @@ Now you can open brower and visit console by localhost:8080, Console features pr
 
 #### Setup Scheduler {#setup-scheduler}
 
-Configure Scheduler yaml file, The default path in Linux is `/etc/dragonfly/scheduler.yaml` in linux,
+Configure `scheduler.yaml`, the default path is `/etc/dragonfly/scheduler.yaml`,
 refer to [Scheduler](../../reference/configuration/scheduler.md).
 
 Set the `database.redis.addrs` and `manager.addr` address in the configuration file to your actual address.
@@ -371,7 +373,7 @@ telnet 127.0.0.1 8002
 
 #### Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
@@ -410,7 +412,7 @@ telnet 127.0.0.1 4002
 
 #### Setup Dfdaemon as Peer {#setup-dfdaemon-as-Peer}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
