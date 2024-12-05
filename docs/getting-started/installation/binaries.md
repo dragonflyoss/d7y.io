@@ -138,8 +138,8 @@ Make sure to replace `arch` with one of the following:
 #### Step 2: Configure Dfdaemon {#configure-dfdaemon-rpm}
 
 Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml`
-and modify the `manager.addrs` in the configuration file to your actual address.
-Refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+and modify the `manager.addrs` in the configuration file to your actual address,
+refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ##### Option 1: Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer-rpm}
 
@@ -219,8 +219,8 @@ Make sure to replace `arch` with one of the following:
 #### Step 2: Configure Dfdaemon {#configure-dfdaemon-deb}
 
 Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml` and modify the `manager.addrs`
-in the configuration file to your actual address.
-Refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+in the configuration file to your actual address,
+refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ##### Option 1: Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer-deb}
 
