@@ -6,7 +6,7 @@ slug: /operations/integrations/container-runtime/singularity/proxy/
 
 Documentation for setting up Dragonfly's container runtime as an HTTP Proxy for Singularity/Apptainer.
 
-## Generate CA certificate  {#generate-ca-certificate}
+## Generate CA certificate {#generate-ca-certificate}
 
 Generate an RSA private key.
 
@@ -59,8 +59,8 @@ openssl x509 -req -days 36500 -extfile openssl.conf \
 
 ## Configure dfget daemon {#configure-dfget-daemon}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+Configure Dfdaemon yaml file, the default path in Linux is `/etc/dragonfly/dfget.yaml`,
+the default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
 refer to [Dfdaemon](../../../../reference/configuration/dfdaemon.md).
 
 Set the `registryMirror.url` and `hijackHTTPS.hosts.regx` addresses under the configuration

@@ -89,8 +89,8 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 
 #### Startup Manager {#startup-manager}
 
-Configure Manager yaml file, The default path in Linux is `/etc/dragonfly/manager.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/manager.yaml`,
+Configure `manager.yaml`, the default path in Linux is `/etc/dragonfly/manager.yaml`,
+the default path in Darwin is `$HOME/.dragonfly/config/manager.yaml`,
 refer to [Manager](../../reference/configuration/manager.md).
 
 Set the `database.mysql.addrs` and `database.redis.addrs` addresses under the configuration
@@ -148,8 +148,8 @@ Now you can open brower and visit console by localhost:8080, Console features pr
 
 #### Startup Scheduler {#startup-scheduler}
 
-Configure Scheduler yaml file, The default path in Linux is `/etc/dragonfly/scheduler.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/scheduler.yaml`,
+Configure `scheduler.yaml`, the default path in Linux is `/etc/dragonfly/scheduler.yaml`,
+the default path in Darwin is `$HOME/.dragonfly/config/scheduler.yaml`,
 refer to [Scheduler](../../reference/configuration/scheduler.md).
 
 Set the `database.redis.addrs` and `manager.addr` addresses manager.
@@ -197,8 +197,8 @@ telnet 127.0.0.1 8002
 
 #### Startup Dfdaemon as Seed Peer {#startup-dfdaemon-as-seed-peer}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+Configure `dfdaemon.yaml`, the default path in Linux is `/etc/dragonfly/dfdaemon.yaml`,
+the default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
 refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.
@@ -245,8 +245,8 @@ telnet 127.0.0.1 65002
 
 #### Startup Dfdaemon as Peer {#startup-dfdaemon-as-Peer}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+Configure `dfdaemon.yaml`, the default path in Linux is `/etc/dragonfly/dfdaemon.yaml`,
+the default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
 refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
 Set the `scheduler.manager.netAddrs.addr` address in the configuration file to your actual address.

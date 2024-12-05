@@ -12,8 +12,8 @@ for subsequent file download after downloading the image from source for first t
 
 ## Configure dfget daemon {#configure-dfget-daemon}
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfget.yaml` in linux,
-The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
+Configure Dfdaemon yaml file, the default path in Linux is `/etc/dragonfly/dfget.yaml`,
+the default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
 refer to [Dfdaemon](../../../../reference/configuration/dfdaemon.md).
 
 ```yaml

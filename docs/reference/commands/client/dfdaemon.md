@@ -58,7 +58,7 @@ When the dfdameon setups, it setups a HTTP proxy. Users can download traffic is 
 
 #### Download with HTTP protocol
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path.
@@ -80,7 +80,7 @@ curl -v -x 127.0.0.1:4001 http://example.com/file.txt --output /tmp/file.txt
 
 ##### Download with Insecure HTTPS protocol
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path.
@@ -124,7 +124,7 @@ cp ca.crt /etc/pki/ca-trust/source/anchors/ca.crt
 update-ca-trust
 ```
 
-Configure Dfdaemon yaml file, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml` in linux,
+Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path.
