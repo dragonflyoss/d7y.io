@@ -89,7 +89,7 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 
 #### Startup Manager {#startup-manager}
 
-Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
+Configure `manager.yaml`, The default path in Linux is `/etc/dragonfly/manager.yaml`,
 The default path in Darwin is `$HOME/.dragonfly/config/manager.yaml`,
 refer to [Manager](../../reference/configuration/manager.md).
 
@@ -148,7 +148,7 @@ Now you can open brower and visit console by localhost:8080, Console features pr
 
 #### Startup Scheduler {#startup-scheduler}
 
-Configure `scheduler.yaml`, the default path is `/etc/dragonfly/scheduler.yaml`,
+Configure `scheduler.yaml`, The default path in Linux is `/etc/dragonfly/scheduler.yaml`,
 The default path in Darwin is `$HOME/.dragonfly/config/scheduler.yaml`,
 refer to [Scheduler](../../reference/configuration/scheduler.md).
 
@@ -197,7 +197,7 @@ telnet 127.0.0.1 8002
 
 #### Startup Dfdaemon as Seed Peer {#startup-dfdaemon-as-seed-peer}
 
-Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
+Configure `dfdaemon.yaml`, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml`,
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
 refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
@@ -245,7 +245,7 @@ telnet 127.0.0.1 65002
 
 #### Startup Dfdaemon as Peer {#startup-dfdaemon-as-Peer}
 
-Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
+Configure `dfdaemon.yaml`, The default path in Linux is `/etc/dragonfly/dfdaemon.yaml`,
 The default path in Darwin is `$HOME/.dragonfly/config/dfget.yaml`,
 refer to [Dfdaemon](../../reference/configuration/dfdaemon.md).
 
