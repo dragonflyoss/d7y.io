@@ -123,18 +123,39 @@ Download and execute the install script:
 > Notice: version is recommended to use the latest version.
 
 ```bash
-curl \
-  --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.rpm \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-gnu.rpm
+wget -O dragonfly-client-{arch}-unknown-linux-musl.rpm https://github.com/dragonflyoss/client/releases/download/v{version}/dragonfly-client-v{version}-{arch}-unknown-linux-musl.rpm
 
-rpm -ivh client-{arch}-unknown-linux-gnu.rpm
+rpm -ivh dragonfly-client-{arch}-unknown-linux-musl.rpm
 ```
 
 Make sure to replace `arch` with one of the following:
 
 - `x86_64`
 - `aarch64`
+
+Modify your `dfdaemon.yaml` (default location: /etc/dragonfly/dfdaemon.yaml), please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+
+Set the `manager.addrs` address in the configuration file to your actual address.
+
+Setup Dfdaemon as Seed Peer:
+
+```shell
+# Seed Peer configuration.
+manager:
+  addr: http://dragonfly-manager:65003
+seedPeer:
+  enable: true
+  type: super
+  clusterID: 1
+```
+
+Setup Dfdaemon as Peer:
+
+```shell
+# Peer configuration.
+manager:
+  addr: http://dragonfly-manager:65003
+```
 
 Systemd starts dfdaemon service:
 
@@ -173,18 +194,41 @@ Download and execute the install script:
 > Notice: version is recommended to use the latest version.
 
 ```bash
-curl \
-  --proto '=https' \
-  --tlsv1.2 -L -o client-{arch}-unknown-linux-gnu.deb \
-  https://github.com/dragonflyoss/client/releases/download/v{version}/client-v{version}-{arch}-unknown-linux-gnu.deb
+wget -O  dragonfly-client-{arch}-unknown-linux-musl.deb
+https://github.com/dragonflyoss/client/releases/download/v{version}/dragonfly-client-v{version}-{arch}-unknown-linux-musl.deb
 
-dpkg -i client-{arch}-unknown-linux-gnu.deb
+
+dpkg -i dragonfly-client-{arch}-unknown-linux-musl.deb
 ```
 
 Make sure to replace `arch` with one of the following:
 
 - `x86_64`
 - `aarch64`
+
+Modify your `dfdaemon.yaml` (default location: /etc/dragonfly/dfdaemon.yaml), please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+
+Set the `manager.addrs` address in the configuration file to your actual address.
+
+Setup Dfdaemon as Seed Peer:
+
+```shell
+# Seed Peer configuration.
+manager:
+  addr: http://dragonfly-manager:65003
+seedPeer:
+  enable: true
+  type: super
+  clusterID: 1
+```
+
+Setup Dfdaemon as Peer:
+
+```shell
+# Peer configuration.
+manager:
+  addr: http://dragonfly-manager:65003
+```
 
 Systemd starts dfdaemon service:
 
