@@ -118,7 +118,9 @@ export PATH="/opt/dragonfly/bin/:$PATH"
 
 ### Install Client using RPM {#install-client-using-rpm}
 
-Download and execute the install script:
+#### Step 1: Installing Client
+
+Download and execute the install script.
 
 > Notice: version is recommended to use the latest version.
 
@@ -133,12 +135,12 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+#### Step 2: Configure dfdaemon
 
-Set the `manager.addrs` address in the configuration file to your actual address.
+Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml` and modify the `manager.addrs` in the configuration file to your actual address.
+Refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
-Setup Dfdaemon as Seed Peer:
+##### Option 1: Setup Dfdaemon as Seed Peer
 
 ```shell
 # Seed Peer configuration.
@@ -150,7 +152,7 @@ seedPeer:
   clusterID: 1
 ```
 
-Setup Dfdaemon as Peer:
+##### Option 2: Setup Dfdaemon as Peer
 
 ```shell
 # Peer configuration.
@@ -158,7 +160,9 @@ manager:
   addr: http://dragonfly-manager:65003
 ```
 
-Systemd starts dfdaemon service:
+#### Step 3: Systemd
+
+Systemd starts Dfdaemon service.
 
 > Notice：To start dfdaemon, you need to start the manager and scheduler first.
 
@@ -178,6 +182,8 @@ $ sudo systemctl status dfdaemon
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
 
+#### Step 4: Use Dfget to download files
+
 Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
 
 ```shell
@@ -190,7 +196,9 @@ dfget -O /path/to/output http://example.com/object
 
 ### Install Client using DEB {#install-client-using-deb}
 
-Download and execute the install script:
+#### Step 1: Installing Client
+
+Download and execute the install script.
 
 > Notice: version is recommended to use the latest version.
 
@@ -207,12 +215,12 @@ Make sure to replace `arch` with one of the following:
 - `x86_64`
 - `aarch64`
 
-Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-please refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+#### Step 2: Configure dfdaemon
 
-Set the `manager.addrs` address in the configuration file to your actual address.
+Create the dfdaemon configuration file `/etc/dragonfly/dfdaemon.yaml` and modify the `manager.addrs` in the configuration file to your actual address.
+Refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
-Setup Dfdaemon as Seed Peer:
+##### Option 1: Setup Dfdaemon as Seed Peer
 
 ```shell
 # Seed Peer configuration.
@@ -224,7 +232,7 @@ seedPeer:
   clusterID: 1
 ```
 
-Setup Dfdaemon as Peer:
+##### Option 2: Setup Dfdaemon as Peer
 
 ```shell
 # Peer configuration.
@@ -232,7 +240,9 @@ manager:
   addr: http://dragonfly-manager:65003
 ```
 
-Systemd starts dfdaemon service:
+#### Step 3: Systemd
+
+Systemd starts Dfdaemon service.
 
 > Notice：To start dfdaemon, you need to start the manager and scheduler first.
 
@@ -251,6 +261,8 @@ $ sudo systemctl status dfdaemon
      CGroup: /system.slice/dfdaemon.service
              └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
 ```
+
+#### Step 4: Use Dfget to download files
 
 Use Dfget to download files, refer to [Dfget](../../reference/commands/client/dfget.md).
 
@@ -269,7 +281,7 @@ dfget -O /path/to/output http://example.com/object
 #### Setup Manager {#setup-manager}
 
 Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
-refer to [Manager](../../reference/configuration/manager.md).
+refer to [manager.yaml](../../reference/configuration/manager.md).
 
 Set the `database.mysql.addrs` and `database.redis.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -327,7 +339,7 @@ Now you can open brower and visit console by localhost:8080, Console features pr
 #### Setup Scheduler {#setup-scheduler}
 
 Configure `scheduler.yaml`, the default path is `/etc/dragonfly/scheduler.yaml`,
-refer to [Scheduler](../../reference/configuration/scheduler.md).
+refer to [scheduler.yaml](../../reference/configuration/scheduler.md).
 
 Set the `database.redis.addrs` and `manager.addr` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -374,7 +386,7 @@ telnet 127.0.0.1 8002
 #### Setup Dfdaemon as Seed Peer {#setup-dfdaemon-as-seed-peer}
 
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
@@ -413,7 +425,7 @@ telnet 127.0.0.1 4002
 #### Setup Dfdaemon as Peer {#setup-dfdaemon-as-Peer}
 
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-refer to [Dfdaemon](../../reference/configuration/client/dfdaemon.md).
+refer to [dfdaemon.yaml](../../reference/configuration/client/dfdaemon.md).
 
 Set the `manager.addrs` address in the configuration file to your actual address.
 Configuration content is as follows:
