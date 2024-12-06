@@ -206,6 +206,9 @@ proxy:
   # If the value is "true", the range request will prefetch the entire file.
   # If the value is "false", the range request will fetch the range content.
   prefetch: false
+  # prefetchRateLimit is the rate limit of the prefetch speed in KiB/MiB/GiB per second, default is 2GiB/s.
+  # The prefetch request has lower priority so limit the rate to avoid occupying the bandwidth impact other download tasks.
+  prefetchRateLimit: 2GiB
   # readBufferSize is the buffer size for reading piece from disk, default is 32KB.
   readBufferSize: 32768
 
