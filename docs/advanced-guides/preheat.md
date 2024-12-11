@@ -33,10 +33,15 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 Use Open API for preheating image. First create a POST request for preheating.
 
-If the `scheduler_cluster_ids` does not exist,
-it means to preheat all scheduler clusters.
+**scope:** Select the scope of preheat as needed.
 
-> Notice: The scope parameter selects `single_peer` or `all_peers`.
+- **Single Seed Peer**: Preheat to a seed peer.
+
+- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
+
+- **All Peers**: Preheat to each peer in the P2P cluster.
+
+**scheduler_cluster_ids:** Specify the preheated scheduler cluster id.
 
 ```bash
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
@@ -49,7 +54,8 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
         "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
         "username": "your_registry_username",
         "password": "your_registry_password",
-        "scope": "single_peer" or "all_peers"
+        "scope": "single_seed_peer",
+        "scheduler_cluster_ids":[1]
     }
 }'
 ```
@@ -59,27 +65,25 @@ The command-line log returns the preheat job id.
 ```bash
 {
   "id": 1,
-  "created_at": "2024-04-18T08:51:55Z",
-  "updated_at": "2024-04-18T08:51:55Z",
-  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "created_at": "0001-01-01T00:00:00Z",
+  "updated_at": "0001-01-01T00:00:00Z",
+  "task_id": "group_9523f30a-877d-41f7-a25f-0854228341f6",
+  "bio": "",
   "type": "preheat",
   "state": "PENDING",
   "args": {
-    "filteredQueryParams": "",
-    "headers": null,
-    "password": "",
-    "pieceLength": 4194304,
     "platform": "",
+    "scope": "single_seed_peer",
     "tag": "",
-    "type": "file",
-    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-    "username": ""
+    "type": "image",
+    "url": "https://dockerpull.org/v2/library/alpine/manifests/3.19"
   },
+  "result": null,
   "scheduler_clusters": [
     {
       "id": 1,
-      "created_at": "2024-04-18T08:29:15Z",
-      "updated_at": "2024-04-18T08:29:15Z",
+      "created_at": "2024-12-11T07:57:44Z",
+      "updated_at": "2024-12-11T07:57:44Z",
       "name": "cluster-1"
     }
   ]
@@ -99,27 +103,25 @@ If the status is `SUCCESS`, the preheating is successful.
 ```bash
 {
   "id": 1,
-  "created_at": "2024-04-18T08:51:55Z",
-  "updated_at": "2024-04-18T08:51:55Z",
-  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "created_at": "0001-01-01T00:00:00Z",
+  "updated_at": "0001-01-01T00:00:00Z",
+  "task_id": "group_9523f30a-877d-41f7-a25f-0854228341f6",
+  "bio": "",
   "type": "preheat",
   "state": "SUCCESS",
   "args": {
-    "filteredQueryParams": "",
-    "headers": null,
-    "password": "",
-    "pieceLength": 4194304,
     "platform": "",
+    "scope": "single_seed_peer",
     "tag": "",
-    "type": "file",
-    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-    "username": ""
+    "type": "image",
+    "url": "https://dockerpull.org/v2/library/alpine/manifests/3.19"
   },
+  "result": null,
   "scheduler_clusters": [
     {
       "id": 1,
-      "created_at": "2024-04-18T08:29:15Z",
-      "updated_at": "2024-04-18T08:29:15Z",
+      "created_at": "2024-12-11T07:57:44Z",
+      "updated_at": "2024-12-11T07:57:44Z",
       "name": "cluster-1"
     }
   ]
@@ -130,8 +132,15 @@ If the status is `SUCCESS`, the preheating is successful.
 
 Use Open API for preheating file. First create a POST request for preheating.
 
-If the `scheduler_cluster_ids` does not exist,
-it means to preheat all scheduler clusters.
+**scope:** Select the scope of preheat as needed.
+
+- **Single Seed Peer**: Preheat to a seed peer.
+
+- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
+
+- **All Peers**: Preheat to each peer in the P2P cluster.
+
+**scheduler_cluster_ids:** Specify the preheated scheduler cluster id.
 
 ```bash
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
@@ -142,7 +151,9 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "type": "preheat",
     "args": {
         "type": "file",
-        "url": "https://example.com"
+        "url": "https://example.com",
+        "scope": "single_seed_peer",
+        "scheduler_cluster_ids":[1]
     }
 }'
 ```
@@ -152,27 +163,23 @@ The command-line log returns the preheat job id.
 ```bash
 {
   "id": 1,
-  "created_at": "2024-04-18T08:51:55Z",
-  "updated_at": "2024-04-18T08:51:55Z",
-  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "created_at": "2024-12-11T08:30:12Z",
+  "updated_at": "2024-12-11T08:30:51Z",
+  "task_id": "group_4dd1da54-96ca-48ff-8f20-4fae665f677f",
+  "bio": "",
   "type": "preheat",
   "state": "PENDING",
   "args": {
-    "filteredQueryParams": "",
-    "headers": null,
-    "password": "",
-    "pieceLength": 4194304,
     "platform": "",
-    "tag": "",
+    "scope": "single_seed_peer",
     "type": "file",
-    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-    "username": ""
+    "url": "https://example.com"
   },
   "scheduler_clusters": [
     {
       "id": 1,
-      "created_at": "2024-04-18T08:29:15Z",
-      "updated_at": "2024-04-18T08:29:15Z",
+      "created_at": "2024-12-11T07:57:44Z",
+      "updated_at": "2024-12-11T07:57:44Z",
       "name": "cluster-1"
     }
   ]
@@ -192,27 +199,23 @@ If the status is `SUCCESS`, the preheating is successful.
 ```bash
 {
   "id": 1,
-  "created_at": "2024-04-18T08:51:55Z",
-  "updated_at": "2024-04-18T08:51:55Z",
-  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
+  "created_at": "2024-12-11T08:30:12Z",
+  "updated_at": "2024-12-11T08:30:51Z",
+  "task_id": "group_4dd1da54-96ca-48ff-8f20-4fae665f677f",
+  "bio": "",
   "type": "preheat",
   "state": "SUCCESS",
   "args": {
-    "filteredQueryParams": "",
-    "headers": null,
-    "password": "",
-    "pieceLength": 4194304,
     "platform": "",
-    "tag": "",
+    "scope": "single_seed_peer",
     "type": "file",
-    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-    "username": ""
+    "url": "https://example.com"
   },
   "scheduler_clusters": [
     {
       "id": 1,
-      "created_at": "2024-04-18T08:29:15Z",
-      "updated_at": "2024-04-18T08:29:15Z",
+      "created_at": "2024-12-11T07:57:44Z",
+      "updated_at": "2024-12-11T07:57:44Z",
       "name": "cluster-1"
     }
   ]
@@ -238,6 +241,14 @@ Click the `ADD PREHEAT` button to create preheat task.
 **Clusters**: Used for clusters that need to be preheat.
 
 **URL**: URL address used to specify the resource to be preheat.
+
+**Scope:** Select the scope of preheat as needed.
+
+- **Single Seed Peer**: Preheat to a seed peer.
+
+- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
+
+- **All Peers**: Preheat to each peer in the P2P cluster.
 
 **Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
 tag and the generated preheat task will be different.
