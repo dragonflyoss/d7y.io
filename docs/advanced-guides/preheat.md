@@ -41,7 +41,8 @@ Use Open API for preheating image. First create a POST request for preheating.
 
 - **All Peers**: Preheat to each peer in the P2P cluster.
 
-**scheduler_cluster_ids:** Specify the preheated scheduler cluster id.
+**scheduler_cluster_ids:** Specify the preheated scheduler cluster id,
+if `scheduler_cluster_ids` is empty, it means preheating all scheduler clusters.
 
 ```bash
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
@@ -140,7 +141,8 @@ Use Open API for preheating file. First create a POST request for preheating.
 
 - **All Peers**: Preheat to each peer in the P2P cluster.
 
-**scheduler_cluster_ids:** Specify the preheated scheduler cluster id.
+**scheduler_cluster_ids:** Specify the preheated scheduler cluster id,
+if `scheduler_cluster_ids` is empty, it means preheating all scheduler clusters.
 
 ```bash
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
