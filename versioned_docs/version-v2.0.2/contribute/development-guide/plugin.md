@@ -8,7 +8,7 @@ All compiled plugins need to place in `/usr/local/dragonfly/plugins/`.
 
 ## Plugin Design {#plugin-design}
 
-Dragonfly2 use golang plugin to build its plugins, refer: [https://pkg.go.dev/plugin#section-documentation](https://pkg.go.dev/plugin#section-documentation).
+dragonfly use golang plugin to build its plugins, refer: [https://pkg.go.dev/plugin#section-documentation](https://pkg.go.dev/plugin#section-documentation).
 
 ## Resource Plugin for CDN and Dfget {#resource-plugin-for-cdn-and-dfget}
 
@@ -142,7 +142,7 @@ require (
 )
 
 // fix golang build error: `plugin was built with a different version of package d7y.io/dragonfly/v2/internal/dflog`
-replace d7y.io/dragonfly/v2 => /Dragonfly2
+replace d7y.io/dragonfly/v2 => /dragonfly
 ```
 
 <!-- markdownlint-restore -->
@@ -152,7 +152,7 @@ replace d7y.io/dragonfly/v2 => /Dragonfly2
 > We have created a plugin builder in docker, follow [this document](./plugin-builder.md).
 > With the plugin builder, `go.mod` will be ignored.
 
-#### 1. Build plugin with target Dragonfly2 commit {#1-build-plugin-with-target-dragonfly2-commit}
+#### 1. Build plugin with target dragonfly commit {#1-build-plugin-with-target-dragonfly-commit}
 
 > Update `D7Y_COMMIT` in the following script.
 
@@ -160,14 +160,14 @@ replace d7y.io/dragonfly/v2 => /Dragonfly2
 
 ```shell
 # golang plugin need cgo
-# original Dragonfly2 image is built with CGO_ENABLED=0 for alpine linux
+# original dragonfly image is built with CGO_ENABLED=0 for alpine linux
 # "dfdaemon" and "cdn" need to re-compile with CGO_ENABLED=1
 export CGO_ENABLED="1"
 
 # ensure same commit of code base
 D7Y_COMMIT=01798aa08a6b4510210dd0a901e9f89318405440
-git clone https://github.com/dragonflyoss/dragonfly.git /Dragonfly2 && git reset --hard ${D7Y_COMMIT}
-(cd /Dragonfly2 && make build-dfget build-cdn)
+git clone https://github.com/dragonflyoss/dragonfly.git /dragonfly && git reset --hard ${D7Y_COMMIT}
+(cd /dragonfly && make build-dfget build-cdn)
 
 # build plugin
 BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
@@ -182,7 +182,7 @@ go build -ldflags="-X main.buildTime=${BUILD_TIME} -X main.buildCommit=${BUILD_C
 #### 2. Validate plugin {#2-validate-plugin}
 
 ```shell
-/Dragonfly2/bin/linux_amd64/dfget plugin
+/dragonfly/bin/linux_amd64/dfget plugin
 ```
 
 Example output:

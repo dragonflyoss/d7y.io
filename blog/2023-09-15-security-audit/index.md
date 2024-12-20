@@ -5,8 +5,8 @@ hide_table_of_contents: false
 ---
 
 This summer, over four engineer weeks, [Trail of Bits](https://www.trailofbits.com/) and
-OSTIF collaborated on a security audit of Dragonfly2.
-A [CNCF](https://www.cncf.io/) Incubating Project, [Dragonfly2](https://d7y.io/) functions as
+OSTIF collaborated on a security audit of dragonfly.
+A [CNCF](https://www.cncf.io/) Incubating Project, [dragonfly](https://d7y.io/) functions as
 file distribution for peer-to-peer technologies.
 Included in the scope was the sub-project [Nydus](https://nydus.dev/)’s repository that works in image distribution.
 The engagement was outlined and framed around several goals relevant to the security and longevity of
@@ -17,11 +17,11 @@ By introducing semgrep and CodeQL tooling, performing a manual review of client,
 and fuzz testing on the gRPC handlers, the audit team was able to identify a variety of findings for the project to
 improve their security. In focusing efforts on high-level business logic and externally accessible endpoints,
 the Trail of Bits audit team was able to direct their focus during the audit and
-provide guidance and recommendations for Dragonfly2’s future work.
+provide guidance and recommendations for dragonfly’s future work.
 
 Recorded in the audit report are 19 findings. Five of the findings were ranked as high, one as medium, four low,
 five informational, and four were considered undetermined. Nine of the findings were categorized as
-Data Validation, three of which were high severity. Ranked and reviewed as well was Dragonfly2’s Codebase Maturity,
+Data Validation, three of which were high severity. Ranked and reviewed as well was dragonfly’s Codebase Maturity,
 comprising eleven aspects of project code which are analyzed individually in the report.
 
 This is a large project and could not be reviewed in total due to time constraints and scope.
@@ -30,7 +30,7 @@ this project is a great opportunity for continued audit work to improve and elev
 harden security before graduation. Ongoing efforts for security is critical, as security is a moving target.
 
 We would like to thank the Trail of Bits team, particularly Dan Guido, Jeff Braswell, Paweł Płatek,
-and Sam Alws for their work on this project. Thank you to the Dragonfly2 maintainers and contributors,
+and Sam Alws for their work on this project. Thank you to the dragonfly maintainers and contributors,
 specifically Wenbo Qi, for their ongoing work and contributions to this engagement.
 Finally, we are grateful to the CNCF for funding this audit and supporting open source security efforts.
 

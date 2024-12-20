@@ -14,7 +14,7 @@ First, deploy the dragonfly service according to different environments. Please 
 Configure nydus configuration file. Please refer to [Enable Nydus P2P Proxy](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusd.md#enable-p2p-proxy-for-storage-backend)
 
 Add `device.backend.config.proxy` field to enable dragonfly HTTP proxy for storage backend. For example,
-use dragonfly2 distribution service to reduce network workload and latency in
+use dragonfly distribution service to reduce network workload and latency in
 large scale container cluster (enable centralized dfdaemon mode).
 
 ```json

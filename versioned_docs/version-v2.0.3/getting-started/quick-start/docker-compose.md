@@ -25,7 +25,7 @@ the docker container engine and installed docker-compose on your machine.
 
 ```bash
 git clone https://github.com/dragonflyoss/dragonfly.git
-cd ./Dragonfly2/deploy/docker-compose/
+cd ./dragonfly/deploy/docker-compose/
 
 export IP=<host ip>
 ./run.sh

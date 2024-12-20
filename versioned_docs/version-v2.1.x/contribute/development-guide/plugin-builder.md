@@ -11,7 +11,7 @@ This document describes the out-of-tree plugin builder, which can build dragonfl
 ## Build Builder Image {#build-builder-image}
 
 ```shell
-cd Dragonfly2
+cd dragonfly
 docker build -t dragonfly-plugin-builder -f build/plugin-builder/Dockerfile .
 ```
 

@@ -16,7 +16,7 @@ Enter dragonfly project and start docker-compose.
 
 ```bash
 $ docker-compose up
-Creating network "dragonfly2_default" with the default driver
+Creating network "dragonfly_default" with the default driver
 Creating cdn ... done
 Creating scheduler ... done
 Creating dfdaemon  ... done
@@ -64,7 +64,7 @@ $ docker-compose down
 Removing dfdaemon  ... done
 Removing scheduler ... done
 Removing cdn       ... done
-Removing network dragonfly2_default
+Removing network dragonfly_default
 ```
 
 [docs.docker.com]: https://docs.docker.com

@@ -454,10 +454,10 @@ Create dragonfly cluster B successfully.
 
 ### Containerd pull image back-to-source for the first time through Dragonfly in cluster A
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -467,7 +467,7 @@ kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
 
 ![cluster-a-download-back-to-source-search-tracing](../../resource/getting-started/cluster-a-download-back-to-source-search-tracing.jpg)
 
@@ -494,16 +494,16 @@ kubectl delete pod ${POD_NAME} -n cluster-a
 
 <!-- markdownlint-restore -->
 
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Delete `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -513,7 +513,7 @@ kubectl --namespace cluster-a port-forward service/dragonfly-jaeger-query 16686:
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
 
 ![cluster-a-hit-remote-peer-cache-search-tracing](../../resource/getting-started/cluster-a-hit-remote-peer-cache-search-tracing.jpg)
 
@@ -526,10 +526,10 @@ download the `82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399` 
 
 ### Containerd pull image back-to-source for the first time through dragonfly in cluster B
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker3` node:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -539,7 +539,7 @@ kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
 
 ![cluster-b-download-back-to-source-search-tracing](../../resource/getting-started/cluster-b-download-back-to-source-search-tracing.jpg)
 
@@ -564,16 +564,16 @@ kubectl delete pod ${POD_NAME} -n cluster-b
 
 <!-- markdownlint-restore -->
 
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+Delete `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker3` node:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker3 /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker3` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker3` node:
 
 ```shell
-docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker3 /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -583,7 +583,7 @@ kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
 
 ![cluster-b-hit-remote-peer-cache-search-tracing](../../resource/getting-started/cluster-b-hit-remote-peer-cache-search-tracing.jpg)
 

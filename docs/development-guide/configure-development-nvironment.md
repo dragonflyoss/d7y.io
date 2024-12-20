@@ -26,7 +26,7 @@ Clone the source code of Dragonfly:
 
 ```bash
 git clone --recurse-submodules https://github.com/dragonflyoss/dragonfly.git
-cd Dragonfly2
+cd dragonfly
 ```
 
 Clone the source code of Client:
@@ -72,7 +72,7 @@ database:
 
 Run Manager:
 
-> Notice : Run Manager under Dragonfly2
+> Notice : Run Manager under dragonfly
 
 ```bash
 # Setup Manager.
@@ -119,7 +119,7 @@ database:
 
 Run Scheduler:
 
-> Notice : Run Scheduler under Dragonfly2
+> Notice : Run Scheduler under dragonfly
 
 ```bash
 # Setup Scheduler.

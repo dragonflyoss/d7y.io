@@ -59,7 +59,7 @@ Clone the source code of Dragonfly:
 
 ```bash
 git clone --recurse-submodules https://github.com/dragonflyoss/dragonfly.git
-cd Dragonfly2
+cd dragonfly
 ```
 
 Compile the source code:
