@@ -50,7 +50,7 @@ the executable files separately according to the modules.
 1. Obtain the source code of Dragonfly.
 
    ```bash
-   git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
+   git clone --recurse-submodules https://github.com/dragonflyoss/dragonfly.git
    ```
 
 2. Enter the project directory.

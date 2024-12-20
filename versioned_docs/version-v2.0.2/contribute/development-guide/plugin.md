@@ -166,7 +166,7 @@ export CGO_ENABLED="1"
 
 # ensure same commit of code base
 D7Y_COMMIT=01798aa08a6b4510210dd0a901e9f89318405440
-git clone https://github.com/dragonflyoss/Dragonfly2.git /Dragonfly2 && git reset --hard ${D7Y_COMMIT}
+git clone https://github.com/dragonflyoss/dragonfly.git /Dragonfly2 && git reset --hard ${D7Y_COMMIT}
 (cd /Dragonfly2 && make build-dfget build-cdn)
 
 # build plugin

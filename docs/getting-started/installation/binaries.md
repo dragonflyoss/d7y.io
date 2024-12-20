@@ -77,7 +77,7 @@ export PATH="/path/to/dragonfly:$PATH"
 Clone the source code of Dragonfly:
 
 ```bash
-git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
+git clone --recurse-submodules https://github.com/dragonflyoss/dragonfly.git
 cd Dragonfly2
 ```
 
