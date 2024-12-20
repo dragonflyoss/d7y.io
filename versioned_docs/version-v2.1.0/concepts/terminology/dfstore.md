@@ -147,7 +147,7 @@ Install dragonfly system with object storage, refer to [install dragonfly](../..
 
 ### Step 5: Install the dfstore command-line tool
 
-Install the last version of dfstore. You can install one of the version for Dragonfly on the [github releases page](https://github.com/dragonflyoss/Dragonfly2/releases).
+Install the last version of dfstore. You can install one of the version for Dragonfly on the [github releases page](https://github.com/dragonflyoss/dragonfly/releases).
 
 ```shell
 go install d7y.io/dragonfly/v2/cmd/dfstore@latest

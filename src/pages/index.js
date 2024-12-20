@@ -284,7 +284,7 @@ export default function Home() {
                   <Link className={styles.getStartedButton} to="docs/next/">
                     GET STARTED
                   </Link>
-                  <Link className={styles.githubButton} to="https://github.com/dragonflyoss/Dragonfly2">
+                  <Link className={styles.githubButton} to="https://github.com/dragonflyoss/dragonfly">
                     <img className={styles.githubIcon} src={useBaseUrl('img/icon/github.svg')} alt="button logo" />
                     <span>GITHUB</span>
                   </Link>
@@ -586,7 +586,7 @@ export default function Home() {
                       <Translate>Join our contributors in building the future of Dragonfly.</Translate>
                     </p>
                   </div>
-                  <Link className={styles.communityButton} to="https://github.com/dragonflyoss/Dragonfly2">
+                  <Link className={styles.communityButton} to="https://github.com/dragonflyoss/dragonfly">
                     <img
                       className={styles.communityButtonIcon}
                       src={useBaseUrl('img/icon/community-github-button.svg')}
@@ -606,17 +606,14 @@ export default function Home() {
                     </p>
                   </div>
                   <div className={clsx('row', styles.communityButtonContain)}>
-                    <Link className={styles.communityButton} to="https://github.com/dragonflyoss/Dragonfly2/issues">
+                    <Link className={styles.communityButton} to="https://github.com/dragonflyoss/dragonfly/issues">
                       <img
                         className={styles.communityButtonIcon}
                         src={useBaseUrl('img/icon/community-issues-button.svg')}
                       />
                       Issues
                     </Link>
-                    <Link
-                      className={styles.communityButton}
-                      to="https://github.com/dragonflyoss/Dragonfly2/discussions"
-                    >
+                    <Link className={styles.communityButton} to="https://github.com/dragonflyoss/dragonfly/discussions">
                       <img
                         className={styles.communityButtonIcon}
                         src={useBaseUrl('img/icon/community-discussions-button.svg')}

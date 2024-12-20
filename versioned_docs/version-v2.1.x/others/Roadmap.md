@@ -79,7 +79,7 @@ Client:
 
 Others:
 
-- A third party security audit was performed by Trail of Bits, you can see the full report [here](https://github.com/dragonflyoss/Dragonfly2/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf).
+- A third party security audit was performed by Trail of Bits, you can see the full report [here](https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf).
 - Hiding sensitive information in logs, such as the token in the header.
 
 ## v2.2

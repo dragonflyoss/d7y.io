@@ -115,7 +115,7 @@ server = "https://example.com"
 
 ##### Option 2: Generate hosts.toml automatically {#option-2-generate-hoststoml-automatically}
 
-You can also generate hosts.toml with <https://github.com/dragonflyoss/Dragonfly2/blob/main/hack/gen-containerd-hosts.sh>
+You can also generate hosts.toml with <https://github.com/dragonflyoss/dragonfly/blob/main/hack/gen-containerd-hosts.sh>
 
 ```shell
 bash gen-containerd-hosts.sh example.com

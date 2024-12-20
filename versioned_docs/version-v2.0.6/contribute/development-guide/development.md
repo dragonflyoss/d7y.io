@@ -13,7 +13,7 @@ See documentation on [docs.docker.com]
 ## Step 2: Start dragonfly {#step-2-start-dragonfly}
 
 Enter dragonfly project and start docker-compose,
-refer to [deploy with docker compose](https://github.com/dragonflyoss/Dragonfly2/blob/main/deploy/docker-compose/README.md).
+refer to [deploy with docker compose](https://github.com/dragonflyoss/dragonfly/blob/main/deploy/docker-compose/README.md).
 
 ```bash
 $ cd deploy/docker-compose

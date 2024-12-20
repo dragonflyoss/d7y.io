@@ -25,7 +25,7 @@ This document describes how to configure a local development environment for Dra
 Clone the source code of Dragonfly:
 
 ```bash
-git clone --recurse-submodules https://github.com/dragonflyoss/Dragonfly2.git
+git clone --recurse-submodules https://github.com/dragonflyoss/dragonfly.git
 cd Dragonfly2
 ```
 
