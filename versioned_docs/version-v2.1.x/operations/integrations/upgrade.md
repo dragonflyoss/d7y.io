@@ -11,7 +11,7 @@ The [helm chart](https://github.com/dragonflyoss/helm-charts) is a project manag
 User can query and download the latest version chart or history version
 from [Artifact Hub](https://artifacthub.io/packages/helm/dragonfly/dragonfly).
 
-Before Upgrade, user must read the [Change Log](https://github.com/dragonflyoss/Dragonfly2/blob/main/CHANGELOG.md) to
+Before Upgrade, user must read the [Change Log](https://github.com/dragonflyoss/dragonfly/blob/main/CHANGELOG.md) to
 make sure the breaking changes between the current version and target version.
 
 ```shell script

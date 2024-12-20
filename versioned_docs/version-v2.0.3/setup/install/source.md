@@ -21,7 +21,7 @@ the executable files separately according to the modules.
 ### Download the precompiled binaries {#download-the-precompiled-binaries}
 
 1. Download a binary package. You can download one of the latest builds for Dragonfly on the
-   [github releases page](https://github.com/dragonflyoss/Dragonfly2/releases)
+   [github releases page](https://github.com/dragonflyoss/dragonfly/releases)
 
    > Note: v2.x-rc.x rc indicates the candidate version and is not recommended to be deployed in a production environment
 
@@ -29,7 +29,7 @@ the executable files separately according to the modules.
    version=2.0.2
 
    wget -O Dragonfly2_linux_amd64.tar.gz \
-      https://github.com/dragonflyoss/Dragonfly2/releases/download/v${version}/Dragonfly2-${version}-linux-amd64.tar.gz
+      https://github.com/dragonflyoss/dragonfly/releases/download/v${version}/Dragonfly2-${version}-linux-amd64.tar.gz
    ```
 
 2. Unzip the package.

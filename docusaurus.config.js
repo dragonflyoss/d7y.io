@@ -90,7 +90,7 @@ const config = {
         {
           label: 'Community',
           position: 'left',
-          href: 'https://github.com/dragonflyoss/Dragonfly2#community',
+          href: 'https://github.com/dragonflyoss/dragonfly#community',
         },
         {
           label: 'Nydus',
@@ -102,7 +102,7 @@ const config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/dragonflyoss/Dragonfly2',
+          href: 'https://github.com/dragonflyoss/dragonfly',
           className: 'header-github-link',
           position: 'right',
         },
@@ -154,7 +154,7 @@ const config = {
             },
             {
               html: `
-              <a href="https://github.com/dragonflyoss/Dragonfly2" target="_blank">
+              <a href="https://github.com/dragonflyoss/dragonfly" target="_blank">
                <img class="socials" src="/img/icon/footer-github.svg" alt="github icon" />
               </a>
               `,
