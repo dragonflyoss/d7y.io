@@ -365,15 +365,16 @@ Go to `Projects` and open your project from the project list, and open the `P2P 
 
 Click the `NEW POLICY` button to create P2P provider policy.
 
-**Step 1:** Select `Single Peer` or `All Peers` based on your needs.
+**Scope:** Select the scope of preheat as needed.
 
-- **Single Peer**: Preheat to a seed peer.
+- **Single Seed Peer**: Preheat to a seed peer.
+
+- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
 
 - **All Peers**: Preheat to each peer in the P2P cluster.
 
-**Step 2:** Enter the cluster id of Dragonfly Manager in `cluster_ids` to specify the preheated cluster.
-If `cluster_ids` does not exist,
-it means to preheating all clusters.
+**Step 2:** Enter the cluster id of Dragonfly Manager in `Cluster IDs` to specify the preheated cluster.
+If `Cluster IDs` is empty, it means to preheat all clusters.
 
 ![create-policy](../resource/advanced-guides/preheat/create-policy.png)
 
