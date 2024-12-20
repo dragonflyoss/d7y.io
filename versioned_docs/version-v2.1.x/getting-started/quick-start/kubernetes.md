@@ -181,10 +181,10 @@ dragonfly-seed-peer-0                1/1     Running   3 (5m56s ago)   8m43s
 
 ## Containerd pull image back-to-source for the first time through Dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -194,7 +194,7 @@ kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
 
 ![download-back-to-source-search-tracing](../../resource/getting-started/download-back-to-source-search-tracing.jpg)
 
@@ -221,16 +221,16 @@ kubectl delete pod ${POD_NAME} -n dragonfly-system
 
 <!-- markdownlint-restore -->
 
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Delete `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -240,7 +240,7 @@ kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
 
 ![hit-remote-peer-cache-search-tracing](../../resource/getting-started/hit-remote-peer-cache-search-tracing.jpg)
 
@@ -253,16 +253,16 @@ download the `f643e116a03d9604c344edb345d7592c48cc00f2a4848aaf773411f4fb30d2f5` 
 
 ## Containerd pull image hits the cache of local peer {#containerd-pull-image-hits-the-cache-of-local-peer}
 
-Delete `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Delete `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl rmi ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5` image in `kind-worker` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/scheduler:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/scheduler:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -272,7 +272,7 @@ kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/scheduler/blobs/sha256:8a9fba45626f402c12bafaadb718690187cae6e5d56296a8fe7d7c4ce19038f7?ns=ghcr.io"`:
 
 ![hit-local-peer-cache-search-tracing](../../resource/getting-started/hit-local-peer-cache-search-tracing.jpg)
 
@@ -293,7 +293,7 @@ kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080
 
 Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../reference/personal-access-tokens.md).
 
-Use Open API to preheat the image `ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5` to Seed Peer, refer to [preheat](../../reference/preheat.md).
+Use Open API to preheat the image `ghcr.io/dragonflyoss/dragonfly/manager:v2.0.5` to Seed Peer, refer to [preheat](../../reference/preheat.md).
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
@@ -303,7 +303,7 @@ curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
     "type": "preheat",
     "args": {
         "type": "image",
-        "url": "https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5",
+        "url": "https://ghcr.io/v2/dragonflyoss/dragonfly/manager/manifests/v2.0.5",
         "filteredQueryParams": "Expires&Signature",
         "username": "your_registry_username",
         "password": "your_registry_password"
@@ -314,7 +314,7 @@ curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
 The command-line log returns the preheat job id:
 
 ```shell
-{"id":1,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","task_id":"group_b376a5cc-adef-4d69-996a-417cd57eeb8e","bio":"","type":"preheat","state":"PENDING","args":{"filteredQueryParams":"","headers":null,"tag":"","type":"image","url":"https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5"},"result":null,"user_id":0,"seed_peer_clusters":null,"scheduler_clusters":[{"id":1,"created_at":"2022-10-17T12:12:30Z","updated_at":"2022-10-17T12:12:30Z","name":"scheduler-cluster-1","bio":"","config":{"filter_parent_limit":4,"filter_parent_range_limit":40},"client_config":{"load_limit":50,"parallel_count":4},"scopes":{},"is_default":true,"seed_peer_clusters":null,"application_id":0,"security_group_id":0,"jobs":null}]}⏎
+{"id":1,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z","task_id":"group_b376a5cc-adef-4d69-996a-417cd57eeb8e","bio":"","type":"preheat","state":"PENDING","args":{"filteredQueryParams":"","headers":null,"tag":"","type":"image","url":"https://ghcr.io/v2/dragonflyoss/dragonfly/manager/manifests/v2.0.5"},"result":null,"user_id":0,"seed_peer_clusters":null,"scheduler_clusters":[{"id":1,"created_at":"2022-10-17T12:12:30Z","updated_at":"2022-10-17T12:12:30Z","name":"scheduler-cluster-1","bio":"","config":{"filter_parent_limit":4,"filter_parent_range_limit":40},"client_config":{"load_limit":50,"parallel_count":4},"scopes":{},"is_default":true,"seed_peer_clusters":null,"application_id":0,"security_group_id":0,"jobs":null}]}⏎
 ```
 
 Polling the preheating status with job id:
@@ -328,13 +328,13 @@ curl --request GET 'http://127.0.0.1:8080/oapi/v1/jobs/1' \
 If the status is `SUCCESS`, the preheating is successful:
 
 ```bash
-{"id":1,"created_at":"2022-10-17T13:04:25Z","updated_at":"2022-10-17T13:07:10Z","task_id":"group_15e1bcd5-9a21-4b65-a173-45aef94bdf14","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"","headers":null,"tag":"","type":"image","url":"https://ghcr.io/v2/dragonflyoss/dragonfly2/manager/manifests/v2.0.5"},"result":{"CreatedAt":"2022-10-17T13:04:25.065178071Z","GroupUUID":"group_15e1bcd5-9a21-4b65-a173-45aef94bdf14","JobStates":[{"CreatedAt":"2022-10-17T13:04:25.065178071Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_e68c9479-4b00-4375-9769-9037b3e41b23"},{"CreatedAt":"2022-10-17T13:04:25.065884164Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_8c9a274f-cd61-4956-bc5d-7df13ce376d9"},{"CreatedAt":"2022-10-17T13:04:25.066427992Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_9724b6be-c36a-446b-bb88-ecf3524d61a1"},{"CreatedAt":"2022-10-17T13:04:25.067040353Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_5eca1397-e991-401e-bc17-c4a707eef92c"},{"CreatedAt":"2022-10-17T13:04:25.067651957Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_1ae407b7-be7f-44a1-a15e-84812df1090e"},{"CreatedAt":"2022-10-17T13:04:25.06822093Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_08589296-f6ef-4229-9752-be6dd4716421"}],"State":"SUCCESS"},"user_id":0,"seed_peer_clusters":[],"scheduler_clusters":[{"id":1,"created_at":"2022-10-17T12:12:30Z","updated_at":"2022-10-17T12:12:30Z","name":"scheduler-cluster-1","bio":"","config":{"filter_parent_limit":4,"filter_parent_range_limit":40},"client_config":{"load_limit":50,"parallel_count":4},"scopes":{},"is_default":true,"seed_peer_clusters":null,"application_id":0,"security_group_id":0,"jobs":null}]}
+{"id":1,"created_at":"2022-10-17T13:04:25Z","updated_at":"2022-10-17T13:07:10Z","task_id":"group_15e1bcd5-9a21-4b65-a173-45aef94bdf14","bio":"","type":"preheat","state":"SUCCESS","args":{"filteredQueryParams":"","headers":null,"tag":"","type":"image","url":"https://ghcr.io/v2/dragonflyoss/dragonfly/manager/manifests/v2.0.5"},"result":{"CreatedAt":"2022-10-17T13:04:25.065178071Z","GroupUUID":"group_15e1bcd5-9a21-4b65-a173-45aef94bdf14","JobStates":[{"CreatedAt":"2022-10-17T13:04:25.065178071Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_e68c9479-4b00-4375-9769-9037b3e41b23"},{"CreatedAt":"2022-10-17T13:04:25.065884164Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_8c9a274f-cd61-4956-bc5d-7df13ce376d9"},{"CreatedAt":"2022-10-17T13:04:25.066427992Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_9724b6be-c36a-446b-bb88-ecf3524d61a1"},{"CreatedAt":"2022-10-17T13:04:25.067040353Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_5eca1397-e991-401e-bc17-c4a707eef92c"},{"CreatedAt":"2022-10-17T13:04:25.067651957Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_1ae407b7-be7f-44a1-a15e-84812df1090e"},{"CreatedAt":"2022-10-17T13:04:25.06822093Z","Error":"","Results":[],"State":"SUCCESS","TTL":0,"TaskName":"preheat","TaskUUID":"task_08589296-f6ef-4229-9752-be6dd4716421"}],"State":"SUCCESS"},"user_id":0,"seed_peer_clusters":[],"scheduler_clusters":[{"id":1,"created_at":"2022-10-17T12:12:30Z","updated_at":"2022-10-17T12:12:30Z","name":"scheduler-cluster-1","bio":"","config":{"filter_parent_limit":4,"filter_parent_range_limit":40},"client_config":{"load_limit":50,"parallel_count":4},"scopes":{},"is_default":true,"seed_peer_clusters":null,"application_id":0,"security_group_id":0,"jobs":null}]}
 ```
 
-Pull `ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5` image in `kind-worker` node:
+Pull `ghcr.io/dragonflyoss/dragonfly/manager:v2.0.5` image in `kind-worker` node:
 
 ```shell
-docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly2/manager:v2.0.5
+docker exec -i kind-worker /usr/local/bin/crictl pull ghcr.io/dragonflyoss/dragonfly/manager:v2.0.5
 ```
 
 Expose jaeger's port `16686`:
@@ -344,7 +344,7 @@ kubectl --namespace dragonfly-system port-forward service/dragonfly-jaeger-query
 ```
 
 Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags
-`http.url="/v2/dragonflyoss/dragonfly2/manager/blobs/sha256:ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0?ns=ghcr.io"`:
+`http.url="/v2/dragonflyoss/dragonfly/manager/blobs/sha256:ceba1302dd4fbd8fc7fd7a135c8836c795bc3542b9b134597eba13c75d2d2cb0?ns=ghcr.io"`:
 
 ![hit-preheat-cache-search-tracing](../../resource/getting-started/hit-preheat-cache-search-tracing.jpg)
 
