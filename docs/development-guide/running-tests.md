@@ -35,7 +35,7 @@ make test-coverage
 
 ## E2E tests {#e2e-tests}
 
-E2E tests is in `Dragonfly2/test/e2e` path.
+E2E tests is in `dragonfly/test/e2e` path.
 
 ### Running E2E tests {#running-e2e-tests}
 

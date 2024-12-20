@@ -55,7 +55,7 @@ the executable files separately according to the modules.
 2. Enter the project directory.
 
    ```bash
-   cd Dragonfly2
+   cd dragonfly
    ```
 
 3. Compile the source code.
