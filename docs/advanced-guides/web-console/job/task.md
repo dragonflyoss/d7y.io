@@ -8,7 +8,7 @@ In this article, you will be shown Task page information.
 
 ## Search task
 
-#### Search by URL
+### Search by URL
 
 **URL**: Query the task cache based on the URL.
 
@@ -22,7 +22,7 @@ If the download URL is the same, it will be scheduled as the same task.
 
 ![search-task-by-url](../../../resource/advanced-guides/task/search-task-by-url.png)
 
-#### Search by task id
+### Search by task id
 
 **Task ID**: Query the task cache based on the task id.
 
@@ -44,13 +44,13 @@ Displays all deleted task.
 
 ![executions](../../../resource/advanced-guides/task/executions.png)
 
-#### Delete successfully
+### Delete successfully
 
 If the status is SUCCESS and the Failure list does not exist, it means that the deletion task is successful.
 
 ![success-task](../../../resource/advanced-guides/task/success-task.png)
 
-#### Delete failed
+### Delete failed
 
 The Failure list will show the tasks that failed to execute.
 
