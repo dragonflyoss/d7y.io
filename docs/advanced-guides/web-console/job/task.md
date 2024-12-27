@@ -6,9 +6,7 @@ slug: /advanced-guides/web-console/job/task/
 
 In this article, you will be shown Task page information.
 
-## Task
-
-### Search task
+## Search task
 
 #### Search by URL
 
@@ -30,7 +28,7 @@ If the download URL is the same, it will be scheduled as the same task.
 
 ![search-task-by-task-id](../../../resource/advanced-guides/task/search-task-by-task-id.png)
 
-### Delete task
+## Delete task
 
 Click `DELETE` and delete task.
 
@@ -40,7 +38,7 @@ The deleted task will not return results immediately and you need to wait.
 
 ![pending-task](../../../resource/advanced-guides/task/pending-task.png)
 
-### Executions
+## Executions
 
 Displays all deleted task.
 
