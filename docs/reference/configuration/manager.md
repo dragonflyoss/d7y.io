@@ -135,7 +135,7 @@ cache:
   # Local cache configure.
   local:
     # LFU cache size.
-    size: 200000
+    size: 50000
     # Cache ttl configure.
     ttl: 3m
 
