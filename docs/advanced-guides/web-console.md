@@ -11,5 +11,5 @@ Console page:
 - [Cluster](./web-console/cluster.md)
 - [Personal Access Tokens](./web-console/developer/personal-access-tokens.md)
 - [Preheat](./web-console/job/preheat.md)
-- [Peer](./web-console/insight/peer.md)
+- [Task](./web-console/job/task.md)
 - [User](./web-console/user.md)

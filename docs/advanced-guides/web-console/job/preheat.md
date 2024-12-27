@@ -1,7 +1,7 @@
 ---
 id: preheat
 title: Preheat
-slug: /advanced-guides/web-console/developer/preheat/
+slug: /advanced-guides/web-console/job/preheat/
 ---
 
 In this article, you will be shown Preheat page information.
@@ -46,8 +46,13 @@ Preheat the cluster.
 
 Args used to pass additional configuration options to the preheat task.
 
-**Piece Length**: Piece Length can specify the size of the piece to be downloaded during preheat.
-The default minimum value is 4MiB and the maximum value is 1024MiB.
+**Scope**: Select the scope of preheat as needed.
+
+- **Single Seed Peer**: Preheat to a seed peer.
+
+- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
+
+- **All Peers**: Preheat to each peer in the P2P cluster.
 
 **URL**: URL address used to specify the resource to be preheat.
 

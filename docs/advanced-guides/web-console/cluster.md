@@ -74,6 +74,8 @@ download from the peer until the it has the free load.
 the filter parent limit and evaluate the optimal parents in selecting parents for the peer to download task.
 The number of optimal parent is the scheduling parent limit.
 
+**Job Rate Limit(requests per seconds)**: The rate limit(requests per second) for job Open API, default value is 10.
+
 ## Update Cluster
 
 Update cluster information.
@@ -86,6 +88,12 @@ Delete cluster and at the same time delete scheduler cluster and seed peer clust
 
 ![delete-cluster](../../resource/advanced-guides/web-console/cluster/delete-cluster.png)
 
+## Schedulers
+
+Display the schedulers.
+
+![schedulers](../../resource/advanced-guides/web-console/cluster/schedulers.png)
+
 ## Scheduler
 
 Display the scheduler details.
@@ -97,6 +105,12 @@ Display the scheduler details.
 Delete scheduler record in database.
 
 ![delete-scheduler](../../resource/advanced-guides/web-console/cluster/delete-scheduler.png)
+
+## Delete all inative instances {#delete-all-inative-scheduler-instances}
+
+Delete inactive schedulers record in database.
+
+![delete-scheduler-inative-instances](../../resource/advanced-guides/web-console/cluster/delete-inactive-scheduler.png)
 
 ## Seed Peer
 
@@ -112,6 +126,26 @@ Delete seed peer record in database.
 
 ## Delete all inative instances
 
-Delete inactive schedulers and inactive seed peers record in database.
+Delete inactive seed peers record in database.
 
-![delete-all-inative-instances](../../resource/advanced-guides/web-console/cluster/delete-all-inative-instances.png)
+![delete-all-inative-instances](../../resource/advanced-guides/web-console/cluster/delete-inactive-seed-peer.png)
+
+## Peers
+
+Display the peer information, You can click the `?` button to display prompt information.
+
+> Note: peer data is T+1.
+
+![peers](../../resource/advanced-guides/web-console/cluster/peers.png)
+
+## Refresh Peer Date
+
+Force refresh of peer data.
+
+![refresh-peer](../../resource/advanced-guides/web-console/cluster/refresh-peer.png)
+
+## Export Peer Date
+
+Export the peer data.
+
+![export-peer](../../resource/advanced-guides/web-console/cluster/export-peer.png)
