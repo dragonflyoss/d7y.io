@@ -135,7 +135,7 @@ cache:
   # Local cache configure.
   local:
     # LFU cache size.
-    size: 50000
+    size: 30000
     # Cache ttl configure.
     ttl: 3m
 
@@ -152,9 +152,9 @@ job:
   # gc configuration.
   gc:
     # Interval is the interval for garbage collection.
-    interval: 24h
+    interval: 3h
     # TTL is the time to live for the job.
-    ttl: 24h
+    ttl: 6h
   # Sync peers configuration.
   syncPeers:
     # Interval is the interval for syncing all peers information from the scheduler and
