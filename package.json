@@ -33,9 +33,9 @@
     "three": "^0.171.0"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/config-conventional": "^17.6.0",
     "husky": "^8.0.3",
-    "lint-staged": "^15.3.0",
+    "lint-staged": "^14.0.1",
     "prettier": "^3.0.0"
   },
   "browserslist": {
@@ -69,5 +69,8 @@
   "repository": "git@github.com:dragonflyoss/d7y.io.git",
   "resolutions":{
     "cheerio": "<1.0.0"
-}
+},
+"engines": {
+    "node": "16.x"
+  }
 }
