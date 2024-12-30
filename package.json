@@ -1,6 +1,6 @@
 {
   "name": "d7y-io",
-  "version": "0.1.2",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
