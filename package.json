@@ -67,7 +67,7 @@
     ]
   },
   "repository": "git@github.com:dragonflyoss/d7y.io.git",
-  "resolutions":{
+  "resolutions": {
     "cheerio": "<1.0.0"
-}
+  }
 }
