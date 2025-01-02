@@ -17,9 +17,9 @@
     "version": "./scripts/version.sh"
   },
   "dependencies": {
-    "@docusaurus/core": "3.6.3",
-    "@docusaurus/plugin-content-docs": "3.6.3",
-    "@docusaurus/preset-classic": "3.6.3",
+    "@docusaurus/core": "^3.6.3",
+    "@docusaurus/plugin-content-docs": "^3.6.3",
+    "@docusaurus/preset-classic": "^3.6.3",
     "@mdx-js/react": "^3.0.0",
     "acorn": "^8.7.1",
     "clsx": "^2.0.0",
