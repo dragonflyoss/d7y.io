@@ -73,9 +73,9 @@ version = 2
 
 In this config, registry auth configuration needs to be based on `127.0.0.1:65001`.
 
-> More details about Containerd configuration: <https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-endpoint>
+> More details about Containerd configuration: [https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-endpoint](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/registry.md#configure-registry-endpoint).
 > Containerd has deprecated the above config from v1.4.0,
-> new format for reference: <https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/config.md#registry-configuration>
+> new format for reference: [https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/config.md#registry-configuration](https://github.com/containerd/containerd/blob/v1.5.2/docs/cri/config.md#registry-configuration).
 
 ### Option 2: Multiple Registries {#option-2-multiple-registries}
 
@@ -115,13 +115,13 @@ server = "https://example.com"
 
 ##### Option 2: Generate hosts.toml automatically {#option-2-generate-hoststoml-automatically}
 
-You can also generate hosts.toml with <https://github.com/dragonflyoss/dragonfly/blob/main/hack/gen-containerd-hosts.sh>
+You can also generate hosts.toml with [https://github.com/dragonflyoss/dragonfly/blob/main/hack/gen-containerd-hosts.sh](https://github.com/dragonflyoss/dragonfly/blob/main/hack/gen-containerd-hosts.sh).
 
 ```shell
 bash gen-containerd-hosts.sh example.com
 ```
 
-> More details about registry configuration: <https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples>
+> More details about registry configuration: [https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#registry-configuration---examples).
 
 ## Step 3: Restart Containerd Daemon {#step-3-restart-containerd-daemon}
 

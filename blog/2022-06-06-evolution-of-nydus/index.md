@@ -6,7 +6,6 @@ description: The first native Linux mainline kernel supported solution for conta
 hide_table_of_contents: false
 ---
 
-
 ## The Evolution of the Nydus Image Acceleration
 
 Optimized container images together with technologies such as P2P networks can effectively speed up the process of

@@ -10,7 +10,7 @@ if you need kubernetes related content, you can refer to [Quick Start: Helm Char
 
 If you want to use Dragonfly to complete production-level image and file distribution in the production environment,
 please refer to the detailed production-level configuration parameters of supernode and dfget. If it is kubernetes,
-you can use <https://github.com/dragonflyoss/helm-charts>.
+you can use [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts).
 
 ## Preconditions {#preconditions}
 
