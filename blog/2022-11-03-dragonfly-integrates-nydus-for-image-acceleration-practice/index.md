@@ -1,9 +1,6 @@
 ---
 title: Dragonfly integrates nydus for image acceleration practive
-author: Gaius
-author_title: Dragonfly Maintainer
-author_url: https://github.com/gaius-qi
-author_image_url: https://avatars.githubusercontent.com/u/15955374?s=96&v=4
+authors: gaius
 tags: [dragonfly, container image, OCI, nydus, containerd, cncf]
 description: Introduce how dragonfly integrates nydus to improve image download speed.
 hide_table_of_contents: false
@@ -490,7 +487,8 @@ In the best case, `dragonfly` can make the same task back-to-source download onl
 - Website: [https://d7y.io/](https://d7y.io/)
 - Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
-- Discussion Group: <dragonfly-discuss@googlegroups.com>
+- Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
+
 - Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 ### Nydus community

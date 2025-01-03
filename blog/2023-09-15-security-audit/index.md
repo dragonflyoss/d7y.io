@@ -47,7 +47,7 @@ Finally, we are grateful to the CNCF for funding this audit and supporting open 
 - Website: [https://d7y.io/](https://d7y.io/)
 - Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
-- Discussion Group: <dragonfly-discuss@googlegroups.com>
+- Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 ### Nydus community
