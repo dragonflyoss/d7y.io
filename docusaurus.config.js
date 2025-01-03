@@ -33,7 +33,6 @@ const config = {
           editUrl: 'https://github.com/dragonflyoss/d7y.io/tree/main/',
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
-          onInlineAuthors: 'ignore',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
