@@ -1,6 +1,3 @@
 [build.environment]
 NODE_VERSION = "20"
-
-[build]
-command = "yarn cache clean && yarn install && yarn build"
-publish = "dist"
+NETLIFY_USE_CACHE=false
