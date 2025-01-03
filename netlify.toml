@@ -1,3 +1,6 @@
 [build.environment]
 NODE_VERSION = "20"
-NETLIFY_USE_CACHE=false
+
+[build]
+command = "npm cache clean --force && npm install && npm run build"
+publish = "dist"
