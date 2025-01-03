@@ -263,7 +263,7 @@ export default function Home() {
                 <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
                 <div className={styles.tagline}>
                   <p className={clsx('hero__subtitle', styles.description)}>
-                    <Translate>Provide</Translate>
+                    <Translate>Provides</Translate>
                     <span className={styles.highlight}>
                       <Translate>efficient, stable, secure</Translate>
                     </span>
@@ -330,7 +330,7 @@ export default function Home() {
           </div>
           <div className={clsx('row')}>
             <p className={styles.communitySubtitle}>
-              <Translate>Dragonfly contains many features as a image and file distribution system.</Translate>
+              <Translate>Dragonfly contains many features as an image and file distribution system.</Translate>
             </p>
           </div>
           <div className={clsx('row', styles.featuresCardWrapper)}>
