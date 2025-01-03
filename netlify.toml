@@ -1,3 +1,6 @@
 [build.environment]
 NODE_VERSION = "20"
-NPM_FLAGS = "force"
+NPM_FLAGS = "--prefix=/dev/null"
+[build]
+command = "npx pnpm i --store=node_modules/.pnpm-store && npx pnpm run build"
+publish = "public"
