@@ -1,11 +1,11 @@
 ---
 id: pip
-title: PIP
+title: Pip
 slug: /operations/integrations/pip/
 ---
 
-This document will help you experience how to use Dragonfly with [PIP](https://pypi.org/).
-When installing Python packages, the Python package is large in size and there are multiple services
+This document will help you experience how to use Dragonfly with [Pip](https://pypi.org/).
+When installing Python packages, the Python packages is large in size and there are multiple services
 downloading at the same time. The storage bandwidth will reach its limit and the download speed will be very slow.
 
 Dragonfly can be used to eliminate the bandwidth limit of the storage through P2P technology,
@@ -20,7 +20,7 @@ thereby accelerating file downloading.
 | Kubernetes cluster | 1.20+   | [kubernetes.io](https://kubernetes.io/)   |
 | Helm               | 3.8.0+  | [helm.sh](https://helm.sh/)               |
 | Python             | 3.8.0+  | [python.org](https://www.python.org/)     |
-| pip                | 23.0.1+ | [pypi.org](https://pypi.org/project/pip/) |
+| Pip                | 23.0.1+ | [pypi.org](https://pypi.org/project/pip/) |
 
 <!-- markdownlint-restore -->
 
@@ -259,7 +259,7 @@ $ curl -v $NODE_IP:4003/healthy
 * Connection #0 to host 172.18.0.4 left intact
 ```
 
-#### Create a configuration file for PiP
+#### Create a configuration file for pip
 
 Create the `~/.pip/pip.conf` file and use `global.proxy` to forward Python packages download requests to the Dragonfly HTTP proxy,
 so that it can use the P2P network to distribute file, configuration content is as follows:
@@ -278,7 +278,7 @@ trusted-host = pypi.python.org
                files.pythonhosted.org
 ```
 
-#### PiP downloads packages through Dragonfly
+#### Pip downloads Python package through Dragonfly
 
 Install `torch` via pip:
 
@@ -336,8 +336,20 @@ kubectl exec -n dragonfly-system ${POD_NAME} -- sh -c 'grep "download task succe
 The expected output is as follows:
 
 ```shell
-/var/log/dragonfly/dfdaemon/dfdaemon.log.1:2025-01-23T05:39:15.828741839+00:00  INFO download_task: dragonfly-client/src/grpc/dfdaemon_upload.rs:395: download task succeeded host_id="10.244.2.15-dragonfly-seed-client-2-seed" task_id="92d8d9e20c608edcca38790dfc76b99746e65592321923b552afe6337b275257" peer_id="10.244.2.15-dragonfly-seed-client-2-01f2e222-f517-47d8-98b4-18540e4c5be5-seed"
-/var/log/dragonfly/dfdaemon/dfdaemon.log.1:2025-01-23T05:39:18.955058382+00:00  INFO download_task: dragonfly-client/src/grpc/dfdaemon_upload.rs:395: download task succeeded host_id="10.244.2.15-dragonfly-seed-client-2-seed" task_id="7f684c300a629072a61536344a0369df2e049829ab8ab703e6de145cef18eb14" peer_id="10.244.2.15-dragonfly-seed-client-2-0f27a38b-97af-45c7-9e57-43cbc2bcd8d9-seed"
+{
+  2025-01-23T05:39:15.828741839+00:00  INFO
+  download_task: dragonfly-client/src/grpc/dfdaemon_upload.rs:395: download task succeeded
+  host_id="10.244.2.15-dragonfly-seed-client-2-seed"
+  task_id="92d8d9e20c608edcca38790dfc76b99746e65592321923b552afe6337b275257"
+  peer_id="10.244.2.15-dragonfly-seed-client-2-01f2e222-f517-47d8-98b4-18540e4c5be5-seed"
+}
+{
+  2025-01-23T05:39:18.955058382+00:00
+  INFO download_task: dragonfly-client/src/grpc/dfdaemon_upload.rs:395: download task succeeded
+  host_id="10.244.2.15-dragonfly-seed-client-2-seed"
+  task_id="7f684c300a629072a61536344a0369df2e049829ab8ab703e6de145cef18eb14"
+  peer_id="10.244.2.15-dragonfly-seed-client-2-0f27a38b-97af-45c7-9e57-43cbc2bcd8d9-seed"
+}
 ```
 
 <!-- markdownlint-restore -->
