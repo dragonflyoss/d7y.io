@@ -261,7 +261,8 @@ $ curl -v $NODE_IP:4003/healthy
 
 #### Create a configuration file for pip
 
-Create the `~/.pip/pip.conf` file and use `global.proxy` to forward Python packages download requests to the Dragonfly HTTP proxy,
+Create the `~/.pip/pip.conf` file and use `global.proxy` to forward Python packages
+download requests to the Dragonfly HTTP proxy,
 so that it can use the P2P network to distribute file, configuration content is as follows:
 
 > Notice: Replace the `proxy` address with your actual address.
