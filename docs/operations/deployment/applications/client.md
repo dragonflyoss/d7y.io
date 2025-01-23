@@ -6,6 +6,21 @@ slug: /operations/deployment/applications/client/
 
 Client is the peer client in P2P network. Use `dfdaemon` to start, or `dfget` to download and upload.
 
+## Client written in Rust
+
+Rust language secure design guarantees that an attacker can't compromise the sidecar
+due to problems with memory safety. At the same time,
+since sidecar is responsible for most of the application's system-level functionality,
+it is crucial to minimise sidecar's impact on the performance. As Rust has no runtime
+nor garbage collector, it can run very fast and with small latency.
+
+The client is written in [Rust](https://www.rust-lang.org/),
+offering advantages such as ensuring memory safety, improving performance, etc. The client is a submodule of Dragonfly.
+
+![client-download](../../../resource/operations/deployment/applications/client/client-download.png)
+
+![client-p2p](../../../resource/operations/deployment/applications/client/client-p2p.png)
+
 ## Features {#features}
 
 - Serve gRPC for `dfget` with downloading feature,
