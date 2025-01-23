@@ -4,9 +4,12 @@ title: PIP
 slug: /operations/integrations/pip/
 ---
 
-This document will help you experience how to use Dragonfly with [PIP](https://pypi.org/). When installing Python packages, the Python package is large in size and there are multiple services downloading at the same time. The storage bandwidth will reach its limit and the download speed will be very slow.
+This document will help you experience how to use Dragonfly with [PIP](https://pypi.org/).
+When installing Python packages, the Python package is large in size and there are multiple services
+downloading at the same time. The storage bandwidth will reach its limit and the download speed will be very slow.
 
-Dragonfly can be used to eliminate the bandwidth limit of the storage through P2P technology, thereby accelerating file downloading.
+Dragonfly can be used to eliminate the bandwidth limit of the storage through P2P technology,
+thereby accelerating file downloading.
 
 ## Prerequisites {#prerequisites}
 
@@ -71,7 +74,9 @@ kind load docker-image dragonflyoss/client:latest
 ### Create Dragonfly cluster based on helm charts
 
 Create helm charts configuration file `charts-config.yaml`.
-Add `files.pythonhosted.org/packages/.*\.(whl|tar.gz|zip)`, `pypi.python.org/.*\.(whl|tar.gz|zip)` and `pypi.org/.*\.(whl|tar.gz|zip)` rules in `client.config.proxy.rules.regex` to forward HTTP file downloads of pip packages to the P2P network.
+Add `files.pythonhosted.org/packages/.*\.(whl|tar.gz|zip)`, `pypi.python.org/.*\.(whl|tar.gz|zip)`
+and `pypi.org/.*\.(whl|tar.gz|zip)` rules in `client.config.proxy.rules.regex`
+to forward HTTP file downloads of pip packages to the P2P network.
 
 ```yaml
 manager:
@@ -256,7 +261,8 @@ $ curl -v $NODE_IP:4003/healthy
 
 #### Create a configuration file for PiP
 
-Create the `~/.pip/pip.conf` file and use `global.proxy` to forward pip package download requests to the Dragonfly HTTP proxy, so that it can use the P2P network to distribute file, configuration content is as follows:
+Create the `~/.pip/pip.conf` file and use `global.proxy` to forward pip package download requests to the Dragonfly HTTP proxy,
+so that it can use the P2P network to distribute file, configuration content is as follows:
 
 > Notice: Replace the `proxy` address with your actual address.
 
@@ -281,6 +287,8 @@ pip install torch
 ```
 
 The expected output is as follows:
+
+<!-- markdownlint-disable -->
 
 ```shell
 Looking in indexes: https://pypi.org/simple/
@@ -311,8 +319,6 @@ Installing collected packages: mpmath, typing-extensions, sympy, networkx, Marku
 Successfully installed MarkupSafe-3.0.2 filelock-3.17.0 fsspec-2024.12.0 jinja2-3.1.5 mpmath-1.3.0 networkx-3.4.2 sympy-1.13.1 torch-2.5.1 typing-extensions-4.12.2
 
 ```
-
-<!-- markdownlint-disable -->
 
 #### Verify
 
