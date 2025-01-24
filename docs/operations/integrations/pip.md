@@ -5,8 +5,7 @@ slug: /operations/integrations/pip/
 ---
 
 This document will help you experience how to use Dragonfly with [Pip](https://pypi.org/).
-When installing Python packages, the Python packages is large in size and there are multiple services
-downloading at the same time. The storage bandwidth will reach its limit and the download speed will be very slow.
+When installing large Python packages, simultaneous downloads from multiple services can saturate storage bandwidth, resulting in significantly reduced download speeds.
 
 ![tinstalling-packages](../../resource/operations/integrations/installing-packages.png)
 
@@ -193,9 +192,9 @@ dragonfly-seed-client-2             1/1     Running   0             17m
 
 ### Create a configuration file for pip
 
-Create the `~/.pip/pip.conf` file and use `global.proxy` to forward Python packages
-download requests to the Dragonfly HTTP proxy,
-so that it can use the P2P network to distribute file, configuration content is as follows:
+Create a `~/.pip/pip.conf` file and use `global.proxy` to forward Python package
+download requests to the Dragonfly HTTP proxy so that it can distribute files via the P2P network.
+The configuration content is as follows:
 
 > Notice: Replace the `proxy` address with your actual address.
 
