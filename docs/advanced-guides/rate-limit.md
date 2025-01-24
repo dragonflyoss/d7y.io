@@ -1,11 +1,13 @@
 ---
 id: rate-limit
-title: Rate Limit
+title: Rate Limits
 slug: /advanced-guides/rate-limit/
 ---
 
 This document describes how to configure rate limiting for Dragonfly.
-The following diagram illustrates the usage of download rate limit, upload rate limit, and prefetch rate limit for the client.
+
+The following diagram illustrates the usage of download rate limit, upload rate limit,
+and prefetch rate limit for the client.
 
 ![rate-limit](../resource/advanced-guides/rate-limit/rate-limit.webp)
 
