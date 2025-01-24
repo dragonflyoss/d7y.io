@@ -24,9 +24,7 @@ thereby accelerating file downloading.
 
 <!-- markdownlint-restore -->
 
-## Quick Start
-
-### Prepare Kubernetes Cluster
+## Prepare Kubernetes Cluster
 
 [Kind](https://kind.sigs.k8s.io/) is recommended if no Kubernetes cluster is available for testing.
 
@@ -53,7 +51,7 @@ Switch the context of kubectl to kind cluster:
 kubectl config use-context kind-kind
 ```
 
-### Kind loads Dragonfly image
+## Kind loads Dragonfly image
 
 Pull Dragonfly latest images:
 
@@ -71,11 +69,11 @@ kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 ```
 
-### Create Dragonfly cluster based on helm charts
+## Create Dragonfly cluster based on helm charts
 
 Create helm charts configuration file `charts-config.yaml`.
 Add `files.pythonhosted.org/packages/.*\.(whl|tar.gz|zip)`, `pypi.python.org/.*\.(whl|tar.gz|zip)`
-and `pypi.org/.*\.(whl|tar.gz|zip)` rules in `client.config.proxy.rules.regex`
+and `pypi.org/.*\.(whl|tar.gz|zip)` rules to `client.config.proxy.rules.regex`
 to forward HTTP file downloads of Python packages to the P2P network.
 
 ```yaml
@@ -152,13 +150,13 @@ NOTES:
   kubectl --namespace dragonfly-system port-forward $MANAGER_POD_NAME 8080:$MANAGER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8080 to use your manager"
 
-2. Get the scheduler address by running these commands:
+1. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
 
-3. Configure runtime to use dragonfly:
+1. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
 ```
 
@@ -187,79 +185,9 @@ dragonfly-seed-client-1             1/1     Running   0             17m
 dragonfly-seed-client-2             1/1     Running   0             17m
 ```
 
-### Install Python packages using pip and distribute traffic through Draognfly
+## Install Python packages using pip and distribute traffic through Draognfly
 
-#### Define Environment Variables for Peer
-
-```shell
-kubectl edit daemonset dragonfly-client -n dragonfly-system
-```
-
-Add the following content:
-
-```yaml
-containers:
-  env:
-    - name: NODE_IP
-      valueFrom:
-        fieldRef:
-          fieldPath: status.hostIP
-```
-
-Testing NODE_IP in Pod:
-
-```shell
-$ curl -v $NODE_IP:4003/healthy
-*   Trying 172.18.0.4:4003...
-* Connected to 172.18.0.4 (172.18.0.4) port 4003 (#0)
-> GET /healthy HTTP/1.1
-> Host: 172.18.0.4:4003
-> User-Agent: curl/7.88.1
-> Accept: */*
->
-< HTTP/1.1 200 OK
-< content-length: 0
-< date: Mon, 13 Jan 2025 06:27:02 GMT
-<
-* Connection #0 to host 172.18.0.4 left intact
-```
-
-#### Define Environment Variables for Seed Peer
-
-```shell
-kubectl edit sts dragonfly-seed-client -n dragonfly-system
-```
-
-Add the following content:
-
-```yaml
-containers:
-  env:
-    - name: NODE_IP
-      valueFrom:
-        fieldRef:
-          fieldPath: status.hostIP
-```
-
-Testing NODE_IP in Pod:
-
-```shell
-$ curl -v $NODE_IP:4003/healthy
-*   Trying 172.18.0.4:4003...
-* Connected to 172.18.0.4 (172.18.0.4) port 4003 (#0)
-> GET /healthy HTTP/1.1
-> Host: 172.18.0.4:4003
-> User-Agent: curl/7.88.1
-> Accept: */*
->
-< HTTP/1.1 200 OK
-< content-length: 0
-< date: Mon, 13 Jan 2025 06:27:02 GMT
-<
-* Connection #0 to host 172.18.0.4 left intact
-```
-
-#### Create a configuration file for pip
+### Create a configuration file for pip
 
 Create the `~/.pip/pip.conf` file and use `global.proxy` to forward Python packages
 download requests to the Dragonfly HTTP proxy,
@@ -279,7 +207,7 @@ trusted-host = pypi.python.org
                files.pythonhosted.org
 ```
 
-#### Pip downloads Python package through Dragonfly
+### Pip downloads Python package through Dragonfly
 
 Install `torch` via pip:
 
@@ -321,7 +249,7 @@ Successfully installed MarkupSafe-3.0.2 filelock-3.17.0 fsspec-2024.12.0 jinja2-
 
 ```
 
-#### Verify
+### Verify
 
 Execute the command:
 
