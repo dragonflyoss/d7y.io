@@ -5,7 +5,8 @@ slug: /operations/integrations/pip/
 ---
 
 This document will help you experience how to use Dragonfly with [Pip](https://pypi.org/).
-When installing large Python packages, simultaneous downloads from multiple services can saturate storage bandwidth, resulting in significantly reduced download speeds.
+When installing large Python packages, simultaneous downloads from multiple
+services can saturate storage bandwidth, resulting in significantly reduced download speeds.
 
 ![tinstalling-packages](../../resource/operations/integrations/installing-packages.png)
 
