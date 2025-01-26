@@ -183,6 +183,7 @@ module.exports = {
             'advanced-guides/web-console/user',
           ],
         },
+        'advanced-guides/leech',
         'advanced-guides/preheat',
         'advanced-guides/task-manager',
         'advanced-guides/personal-access-tokens',
