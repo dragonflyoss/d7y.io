@@ -13,7 +13,7 @@ and prefetch rate limit for the client.
 
 ### Outbound Bandwidth
 
-Used for node P2P to share piece bandwidth.
+Used for P2P sharing of piece bandwidth.
 If the peak bandwidth is greater than the default outbound bandwidth,
 you can set `rateLimit` higher to increase the upload speed.
 It is recommended that the configuration be the same as the inbound bandwidth of the machine.
@@ -27,7 +27,7 @@ upload:
 
 ### Inbound Bandwidth
 
-Used for node back-to-source bandwidth and download bandwidth from remote peer.
+Used for back-to-source bandwidth and download bandwidth from remote peer.
 If the peak bandwidth is greater than the default inbound bandwidth,
 `rateLimit` can be set higher to increase download speed.
 It is recommended that the configuration be the same as the outbound bandwidth of the machine.
