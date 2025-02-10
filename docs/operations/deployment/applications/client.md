@@ -6,18 +6,6 @@ slug: /operations/deployment/applications/client/
 
 Client is the peer client in P2P network. Use `dfdaemon` to start, or `dfget` to download and upload.
 
-## Client written in Rust
-
-[Rust](https://www.rust-lang.org/) language secure design guarantees that an attacker can't compromise the sidecar
-due to problems with memory safety. At the same time,
-since sidecar is responsible for most of the application's system-level functionality,
-it is crucial to minimise sidecar's impact on the performance. As Rust has no runtime
-nor garbage collector, it can run very fast and with small latency.
-
-![client-download](../../../resource/operations/deployment/applications/client/client-download.png)
-
-![client-p2p](../../../resource/operations/deployment/applications/client/client-p2p.png)
-
 ## Features {#features}
 
 - Serve gRPC for `dfget` with downloading feature,
@@ -39,3 +27,11 @@ nor garbage collector, it can run very fast and with small latency.
 - Client registers itself to Manager for fetching Scheduler.
 - Client registers P2P tasks to Scheduler.
 - Client uploads data to other Client.
+
+## Description
+
+When the client executes a download task, if this is the first time downloading, the Seed Peer will be triggered to download back-to-source, and the Task will be divided based on the piece level. After successful registration, The peer establishes a connection to the scheduler based on this task, and then schedule the Seed Peer to the Peer for streaming based on piece level. when a piece is successfully downloaded, the piece metadata will be reported to the Scheduler for next scheduling. If this is not the first time downloading, the Scheduler will schedule other Peers for the download. The Peer will download pieces from different Peers, splices and returns the entire file
+
+![client-p2p](../../../resource/operations/deployment/applications/client/client-p2p.svg)
+
+![client-download](../../../resource/operations/deployment/applications/client/client-download.svg)
