@@ -11,7 +11,7 @@ Client is the peer client in P2P network. Use `dfdaemon` to start, or `dfget` to
 When the Peer downloads task, Peer will first register the Task with the Scheduler,
 and the Scheduler will check the Task metadata to determine whether the
 Task is downloaded for the first time in the P2P cluster.
-If this is the first time downloading, the Seed Peer will be triggered to download back-to-origin.
+If this is the first time downloading, the Seed Peer will be triggered to download back-to-source.
 After successful registration, the Peer establishes a connection to the Scheduler based on this task,
 and then schedules the Seed Peer as parent to the Peer for downloading.
 Peer will send the interested piece numbers to Seed Peer, and Seed Peer will return the piece metadatas which has download.
