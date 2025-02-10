@@ -183,6 +183,7 @@ module.exports = {
             'advanced-guides/web-console/user',
           ],
         },
+        'advanced-guides/rate-limit',
         'advanced-guides/leech',
         'advanced-guides/preheat',
         'advanced-guides/task-manager',
