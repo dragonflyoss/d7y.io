@@ -32,6 +32,6 @@ Client is the peer client in P2P network. Use `dfdaemon` to start, or `dfget` to
 
 When the client executes a download task, if this is the first time downloading, the Seed Peer will be triggered to download back-to-source, and the Task will be divided based on the piece level. After successful registration, The peer establishes a connection to the scheduler based on this task, and then schedule the Seed Peer to the Peer for streaming based on piece level. when a piece is successfully downloaded, the piece metadata will be reported to the Scheduler for next scheduling. If this is not the first time downloading, the Scheduler will schedule other Peers for the download. The Peer will download pieces from different Peers, splices and returns the entire file
 
-![client-p2p](../../../resource/operations/deployment/applications/client/client-p2p.svg)
+![client-back-to-source-download](../../../resource/operations/deployment/applications/client/client-back-to-source-download.svg)
 
 ![client-download](../../../resource/operations/deployment/applications/client/client-download.svg)
