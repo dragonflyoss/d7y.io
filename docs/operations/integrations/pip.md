@@ -5,7 +5,7 @@ slug: /operations/integrations/pip/
 ---
 
 This document will help you experience how to use Dragonfly with [Pip](https://pypi.org/).
-When installing large Python packages, simultaneous downloads from multiple
+When installing Python Packages, simultaneous downloads from multiple
 services can saturate storage bandwidth, resulting in significantly reduced download speeds.
 
 ![tinstalling-packages](../../resource/operations/integrations/installing-packages.png)
@@ -78,7 +78,7 @@ kind load docker-image dragonflyoss/client:latest
 Create helm charts configuration file `charts-config.yaml`.
 Add `files.pythonhosted.org/packages/.*\.(whl|tar.gz|zip)`, `pypi.python.org/.*\.(whl|tar.gz|zip)`
 and `pypi.org/.*\.(whl|tar.gz|zip)` rules to `client.config.proxy.rules.regex`
-to forward HTTP file downloads of Python packages to the P2P network.
+to forward HTTP file downloads of pip to the P2P network.
 
 ```yaml
 manager:
