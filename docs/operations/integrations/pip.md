@@ -8,7 +8,7 @@ This document will help you experience how to use Dragonfly with [Pip](https://p
 When installing large Python packages, simultaneous downloads from multiple
 services can saturate storage bandwidth, resulting in significantly reduced download speeds.
 
-![tinstalling-packages](../../resource/operations/integrations/installing-packages.png)
+![installing-packages](../../resource/operations/integrations/installing-packages.png)
 
 Dragonfly can be used to eliminate the bandwidth limit of the storage through P2P technology,
 thereby accelerating file downloading.
