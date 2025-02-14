@@ -4,7 +4,7 @@ title: Security
 slug: /operations/best-practices/security/
 ---
 
-This document outlines the Dragonfly Security strategy.
+This document provides an overview of Dragonfly security considerations.
 Dragonfly Security provides a comprehensive security solution to solve these issues.
 This page gives an overview on how you can use Dragonfly security features to secure your services,
 wherever you run them.
