@@ -53,7 +53,7 @@ proxy:
 
 <!-- markdownlint-restore -->
 
-### Basic Authentication
+### Basic Auth
 
 Using Basic Auth validation in Dragonfly.
 Basic access authentication is the simplest technique for enforcing access control to web resources
