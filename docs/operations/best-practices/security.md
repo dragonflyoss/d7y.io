@@ -6,8 +6,8 @@ slug: /operations/best-practices/security/
 
 This document provides an overview of Dragonfly security considerations.
 Dragonfly security features provide strong identity, powerful policy,
-transparent TLS encryption, and authentication,
-authorization and audit (AAA) tools to protect your services and data.
+transparent TLS encryption, and authentication and
+authorization to protect your services and data.
 
 ## Peer's HTTP proxy
 
@@ -24,7 +24,7 @@ in order to provide a two levels authentication.
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
 
-> Notice: We recommend using `HTTPS`.
+> Notice: It is recommended to use `HTTPS`.
 
 <!-- markdownlint-disable -->
 
@@ -55,11 +55,8 @@ proxy:
 
 ### Basic Auth
 
-Using Basic Auth validation in Dragonfly.
-Basic access authentication is the simplest technique for enforcing access control to web resources
-Please note that Basic Auth is not the most secure access control technique
-and it is not recommended to depend solely to
-Basic Auth when designing the security features of your environment.
+Using Basic Auth validation in Peer's HTTP Proxy.
+Please note that Basic Auth is not the most secure access control technique.
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
 
