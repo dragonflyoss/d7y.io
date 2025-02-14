@@ -18,7 +18,7 @@ Peer's HTTP proxy has a few options for security which are now all enabled by de
 
 ### HTTPS support
 
-If you need to use HTTPS proxy, you must configure the certificate.
+If you need to use HTTPS proxy, you must configure the certificate,
 certificate authentication can be used simultaneously with Basic Authentication
 in order to provide a two levels authentication.
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
