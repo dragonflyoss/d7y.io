@@ -6,7 +6,7 @@ slug: /operations/best-practices/security/
 
 This document provides an overview of Dragonfly security considerations.
 Dragonfly security features provide strong identity, powerful policy,
-transparent TLS encryption, and authentication
+transparent TLS encryption, authentication and
 authorization to protect your services and data.
 
 ## Peer's HTTP proxy
