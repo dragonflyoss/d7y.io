@@ -5,24 +5,26 @@ slug: /operations/best-practices/security/
 ---
 
 This document provides an overview of Dragonfly security considerations.
-Dragonfly Security provides a comprehensive security solution to solve these issues.
-This page gives an overview on how you can use Dragonfly security features to secure your services,
-wherever you run them.
+Dragonfly security features provide strong identity, powerful policy,
+transparent TLS encryption, and authentication,
+authorization and audit (AAA) tools to protect your services and data.
 
 ## Peer's HTTP proxy
 
-Peer's HTTP proxy has a few options for security which are now all enabled by default in Dragonfly V2.20+:
+Peer's HTTP proxy has several security options that you need to configure according to the following documentation.
 
 - connections over TLS (SSL/HTTPS)
 - username+password basic-auth credentials
 
 ### HTTPS support
 
-If you need to use HTTPS proxy, you must configure the certificate,
-certificate authentication can be used simultaneously with Basic Authentication
+If you need to use `HTTPS` proxy, you must configure the certificate,
+`certificate authentication` can be used simultaneously with `Basic Authentication`
 in order to provide a two levels authentication.
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
+
+> Notice: We recommend using `HTTPS`.
 
 <!-- markdownlint-disable -->
 
@@ -36,7 +38,7 @@ proxy:
   # Then set the ca_cert and ca_key to the root CA cert and key path. Dfdaemon generates the server cert
   # and key, and signs the server cert with the root CA cert. When client requests via the proxy,
   # the proxy can intercept the request by the server cert.
-  caCert: ''
+  caCert: 'ca.crt'
 
   # caKey is the root CA key path with PEM format for the proxy server to generate the server cert.
   # If ca_key is empty, proxy will generate a smaple CA key by rcgen::generate_simple_self_signed.
@@ -46,14 +48,18 @@ proxy:
   # Then set the ca_cert and ca_key to the root CA cert and key path. Dfdaemon generates the server cert
   # and key, and signs the server cert with the root CA cert. When client requests via the proxy,
   # the proxy can intercept the request by the server cert.
-  caKey: ''
+  caKey: 'ca.key'
 ```
 
 <!-- markdownlint-restore -->
 
 ### Basic Authentication
 
-Basic authentication uses a simple authentication method based on BASE64 algorithm.
+Using Basic Auth validation in Dragonfly.
+Basic access authentication is the simplest technique for enforcing access control to web resources
+Please note that Basic Auth is not the most secure access control technique
+and it is not recommended to depend solely to
+Basic Auth when designing the security features of your environment.
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
 
