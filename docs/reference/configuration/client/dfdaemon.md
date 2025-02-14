@@ -37,6 +37,8 @@ download:
   server:
     # socketPath is the unix socket path for dfdaemon GRPC service.
     socketPath: /var/run/dragonfly/dfdaemon.sock
+    # request_rate_limit is the rate limit of the download request in the download grpc server, default is 4000 req/s.
+    requestRateLimit: 4000
   # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
   # pieceTimeout is the timeout for downloading a piece from source.
@@ -56,7 +58,8 @@ upload:
   # cert: /etc/ssl/certs/server.crt
   # # GRPC server key file path for mTLS.
   # key: /etc/ssl/private/server.pem
-  #
+    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
+    requestRateLimit: 4000
 # # Client configuration for remote peer's upload server.
 # client:
 #   # CA certificate file path for mTLS.
