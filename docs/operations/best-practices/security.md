@@ -63,6 +63,28 @@ auth:
 
 <!-- markdownlint-restore -->
 
+## Job
+
+### Preheat with Self-Signed Certificate
+
+When preheating the image, dragonfly needs to call the container registry to get the image manifest.
+If container regsitry is configured with a self-signed certificate, then dragonfly must be configured
+with a self-signed certificate. Configure `manager.yaml`,
+the default path is `/etc/dragonfly/manager.yaml`, refer to
+[manager](../../reference/configuration/manager.md) config.
+
+```yaml
+# Job configuration.
+job:
+  # Preheat configuration.
+  preheat:
+    tls:
+      # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
+      insecureSkipVerify: false
+      # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
+      caCert: ca.crt
+```
+
 ## Peer's HTTP proxy
 
 Peer's HTTP proxy has several security options that you need to configure according to the following documentation.
