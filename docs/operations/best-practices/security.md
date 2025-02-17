@@ -76,3 +76,18 @@ proxy:
 ```
 
 <!-- markdownlint-restore -->
+
+## DDoS attacks
+
+According to analysis of Dragonfly architecture, DDoS attackers can be divided into the following types:
+
+- Consumes the bandwidth of target network or service.
+
+- Send a massive amount of traffic to the target network with the
+  goal of consuming so much bandwidth that users are denied access.
+
+- Bandwitdh depletion attack: Flood Attack and Amplification attack.
+
+### What can Dragonfly do against DDoS attacks?
+
+Dragonfly can implement rate limiting to reduce the impact of attacks. Please refer to [Rate limit](../../advanced-guides/rate-limit.md).
