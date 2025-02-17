@@ -4,7 +4,11 @@ title: DDoS attacks
 slug: /operations/best-practices/security/ddos-attacks/
 ---
 
-This document outlines the DDoS attacks for the Dragonfly system. DDoS is where an attacker uses multiple sources, such as distributed groups of malware infected computers, routers, IoT devices and other endpoints to orchestrate an attack against a target, preventing legitimate users from accessing the target.
+This document outlines the DDoS attacks for the Dragonfly system.
+DDoS is where an attacker uses multiple sources,
+such as distributed groups of malware infected computers, routers,
+IoT devices and other endpoints to orchestrate an attack against a target,
+preventing legitimate users from accessing the target.
 
 ## DDoS attacks
 
