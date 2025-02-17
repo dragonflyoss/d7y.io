@@ -95,5 +95,6 @@ According to analysis of Dragonfly architecture, DDoS attackers can be divided i
 
 ### What can Dragonfly do against DDoS attacks?
 
-Dragonfly can implement `Bandwidth` and `Request` limits to reduce the impact of attacks.
+Dragonfly can implement bandwidth limiting and request limiting to
+effectively mitigate the impact of attacks and ensure system stability.
 Please refer to [Rate limit](../../advanced-guides/rate-limit.md).

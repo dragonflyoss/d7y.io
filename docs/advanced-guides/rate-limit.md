@@ -57,6 +57,8 @@ proxy:
 
 ## Request
 
+### Upload Request
+
 Used to rate limit upload requests in grpc server.
 Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
 
@@ -66,6 +68,8 @@ upload:
     # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
     requestRateLimit: 4000
 ```
+
+### Download Request
 
 Used to rate limit download requests in grpc server.
 Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
