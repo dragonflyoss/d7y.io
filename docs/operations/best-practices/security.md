@@ -79,7 +79,10 @@ proxy:
 
 ## DDoS attacks
 
-DDoS is where an attacker uses multiple sources, such as distributed groups of malware infected computers, routers, IoT devices and other endpoints to orchestrate an attack against a target, preventing legitimate users from accessing the target.
+DDoS is where an attacker uses multiple sources,
+such as distributed groups of malware infected computers, routers,
+IoT devices and other endpoints to orchestrate an attack against a target,
+preventing legitimate users from accessing the target.
 
 According to analysis of Dragonfly architecture, DDoS attackers can be divided into the following types:
 
