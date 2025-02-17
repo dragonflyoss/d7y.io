@@ -11,20 +11,18 @@ and prefetch rate limit for the client.
 
 ![rate-limit](../resource/advanced-guides/rate-limit/rate-limit.webp)
 
+## Bandwidth
+
 ### Outbound Bandwidth
 
 Used for P2P sharing of piece bandwidth.
 If the peak bandwidth is greater than the default outbound bandwidth,
-you can set `rateLimit` higher to increase the upload speed,
+you can set `rateLimit` higher to increase the upload speed.
 It is recommended that the configuration be the same as the inbound bandwidth of the machine.
-'requestRateLimit' is the rate limit of the upload request in the upload grpc server.
 Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 upload:
-  server:
-    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
-    requestRateLimit: 4000
   # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
 ```
@@ -33,16 +31,12 @@ upload:
 
 Used for back-to-source bandwidth and download bandwidth from remote peer.
 If the peak bandwidth is greater than the default inbound bandwidth,
-`rateLimit` can be set higher to increase download speed,
+`rateLimit` can be set higher to increase download speed.
 It is recommended that the configuration be the same as the outbound bandwidth of the machine.
-`requestRateLimit` is the rate limit of the download request in the download grpc server.
 Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 download:
-  server:
-    # request_rate_limit is the rate limit of the download request in the download grpc server, default is 4000 req/s.
-    requestRateLimit: 4000
   # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
 ```
@@ -59,4 +53,26 @@ proxy:
   # prefetchRateLimit is the rate limit of the prefetch speed in KiB/MiB/GiB per second, default is 2GiB/s.
   # The prefetch request has lower priority so limit the rate to avoid occupying the bandwidth impact other download tasks.
   prefetchRateLimit: 2GiB
+```
+
+## Request
+
+Used to rate limit upload requests in grpc server.
+Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
+
+```yaml
+upload:
+  server:
+    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
+    requestRateLimit: 4000
+```
+
+Used to rate limit download requests in grpc server.
+Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
+
+```yaml
+download:
+  server:
+    # request_rate_limit is the rate limit of the download request in the download grpc server, default is 4000 req/s.
+    requestRateLimit: 4000
 ```
