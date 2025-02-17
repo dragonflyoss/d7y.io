@@ -9,6 +9,60 @@ Dragonfly security features provide strong identity, powerful policy,
 transparent TLS encryption, authentication and
 authorization to protect your services and data.
 
+## Manager Console
+
+### Console HTTPS support
+
+If you need to use `HTTPS` for the manager console, you must configure the certificate.
+Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
+refer to [manager](../../reference/configuration/manager.md) config.
+
+> Notice: It is recommended to use `HTTPS`.
+
+<!-- markdownlint-disable -->
+
+```yaml
+server:
+  rest:
+    # REST server tls configuration.
+    tls:
+      # Certificate file path.
+      cert: server.crt
+      # Key file path.
+      key: server.pem
+```
+
+<!-- markdownlint-restore -->
+
+### Json Web Token (JWT) for Signining
+
+You can configure the JWT for signing in the manager console. Configure `manager.yaml`,
+the default path is `/etc/dragonfly/manager.yaml`, refer to
+[manager](../../reference/configuration/manager.md) config.
+
+<!-- markdownlint-disable -->
+
+```yaml
+# Auth configuration.
+auth:
+  # JWT configuration used for sigining.
+  jwt:
+    # Realm name to display to the user, default value is Dragonfly.
+    realm: 'Dragonfly'
+    # Key is secret key used for signing, default value is
+    # encoded base64 of dragonfly.
+    # Please change the key in production.
+    key: 'ZHJhZ29uZmx5Cg=='
+    # Timeout is duration that a jwt token is valid,
+    # default duration is two days.
+    timeout: 48h
+    # MaxRefresh field allows clients to refresh their token
+    # until MaxRefresh has passed, default duration is two days.
+    maxRefresh: 48h
+```
+
+<!-- markdownlint-restore -->
+
 ## Peer's HTTP proxy
 
 Peer's HTTP proxy has several security options that you need to configure according to the following documentation.

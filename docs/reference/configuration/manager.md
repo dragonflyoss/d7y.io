@@ -172,28 +172,6 @@ job:
     # # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
     # caCert: ''
 
-# Object storage service.
-objectStorage:
-  # Enable object storage.
-  enable: false
-  # Name is object storage name of type, it can be s3, oss or obs.
-  name: s3
-  # Region is storage region.
-  region: ''
-  # Endpoint is datacenter endpoint.
-  endpoint: ''
-  # AccessKey is access key ID.
-  accessKey: ''
-  # SecretKey is access key secret.
-  secretKey: ''
-  # s3ForcePathStyle sets force path style for s3, true by default.
-  # Set this to `true` to force the request to use path-style addressing,
-  # i.e., `http://s3.amazonaws.com/BUCKET/KEY`. By default, the S3 client
-  # will use virtual hosted bucket addressing when possible
-  # (`http://BUCKET.s3.amazonaws.com/KEY`).
-  # Refer to https://github.com/aws/aws-sdk-go/blob/main/aws/config.go#L118.
-  s3ForcePathStyle: true
-
 # Prometheus metrics.
 metrics:
   # Manager enable metrics service.
