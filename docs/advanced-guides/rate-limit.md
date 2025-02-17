@@ -37,7 +37,7 @@ Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md)
 
 ```yaml
 download:
-  # --  rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
+  # -- rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
   rateLimit: 10GiB
 ```
 
