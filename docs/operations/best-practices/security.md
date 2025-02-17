@@ -130,3 +130,25 @@ proxy:
 ```
 
 <!-- markdownlint-restore -->
+
+## DDoS attacks
+
+DDoS is where an attacker uses multiple sources,
+such as distributed groups of malware infected computers, routers,
+IoT devices and other endpoints to orchestrate an attack against a target,
+preventing legitimate users from accessing the target.
+
+According to analysis of Dragonfly architecture, DDoS attackers can be divided into the following types:
+
+- Consumes the bandwidth of target network or service.
+
+- Send a massive amount of traffic to the target network with the
+  goal of consuming so much bandwidth that users are denied access.
+
+- Bandwitdh depletion attack: Flood Attack and Amplification attack.
+
+### What can Dragonfly do against DDoS attacks?
+
+Dragonfly implements bandwidth and request limiting to effectively mitigate
+the impact of attacks and ensure system stability.
+Please refer to [Rate limit](../../advanced-guides/rate-limit.md).
