@@ -11,7 +11,7 @@ introducing how to find the possible issue by creating a tracing system.
 
 ### Setup OpenTelemetry Component
 
-Let's take the jaeger deployment as an example. More info about jaeger: [https://www.jaegertracing.io/docs/2.3/getting-started/)
+Let's take the jaeger deployment as an example. More info about jaeger: [jaeger getting started guide](https://www.jaegertracing.io/docs/2.3/getting-started/)
 
 ```base
 docker run --rm --name jaeger \
