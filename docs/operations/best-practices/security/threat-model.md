@@ -8,6 +8,67 @@ This document outlines the threat model for the Dragonfly system. The threat mod
 Dragonfly designers and operators, aiming to mitigate risks associated with bypassing, reducing efficacy,
 or misusing the system. Dragonfly community analysts system security based on the [STRIDE model](https://en.wikipedia.org/wiki/STRIDEmodel).
 
+## Mutual TLS
+
+```mermaid
+sequenceDiagram
+    participant cert-manager
+    participant dfdaemon
+    participant manager
+    participant scheduler
+    participant K8s Secret
+
+    loop Certificate Auto Renewal (Every 2/3 validity period)
+        cert-manager->>K8s Secret: Update certificates before expiration
+        Note right of cert-manager: Renew client/server certificates<br/>and CA certificates
+    end
+
+    rect rgb(240, 240, 240)
+        Note over dfdaemon,K8s Secret: Certificate Mounting Phase
+        dfdaemon->>K8s Secret: Mount client certificate (tls.crt/tls.key)
+        manager->>K8s Secret: Mount server certificate + CA certificate (ca.crt)
+        scheduler->>K8s Secret: Mount server certificate + CA certificate (ca.crt)
+    end
+
+    rect rgb(245, 245, 255)
+        Note over dfdaemon,manager: Manager Communication Phase
+        dfdaemon->>manager: Initiate TLS handshake
+        manager->>dfdaemon: Validate client certificate
+        dfdaemon->>manager: Validate server certificate
+        alt Validation successful
+            manager-->>dfdaemon: Establish encrypted channel
+            dfdaemon->>manager: Request dynamic config
+            manager-->>dfdaemon: Return dynamic config
+        else Validation failed
+            manager-->>dfdaemon: Reject connection
+        end
+    end
+
+    rect rgb(245, 255, 245)
+        Note over dfdaemon,scheduler: Scheduler Communication Phase
+        dfdaemon->>scheduler: Initiate TLS handshake (carrying client certificate)
+        scheduler->>dfdaemon: Validate client certificate (using CA certificate chain)
+        dfdaemon->>scheduler: Validate server certificate (using CA certificate chain)
+        alt Mutual validation successful
+            scheduler-->>dfdaemon: Establish encrypted communication channel
+            loop Data Transmission
+                dfdaemon->>scheduler: Encrypted request (e.g., P2P scheduling)
+                scheduler-->>dfdaemon: Encrypted response
+            end
+        else Validation failed
+            scheduler-->>dfdaemon: Reject connection
+        end
+    end
+```
+
+1. Cert-manager will generate a self-signed CA certificate and a server certificate signed by the CA certificate.
+2. Cert-manager will automatically renew the CA certificate and server certificate every 2/3 of their validity period.
+3. Dfdaemon/manager/scheduler will mount the CA certificate and server certificate from the K8s Secret.
+4. Before dfdaemon connects to manager or scheduler, the two side will initiate a TLS handshake with mutual validation.
+5. After TLS handshake, the two side will establish encrypted channel.
+
+> Note: You can trace the communication process by setting up opentelemetry tracing system, refer to [Tracing](../../../operations/best-practices/observability/tracing.md).
+
 ## Threat Model
 
 According to analysis of Dragonfly architecture, the threat attackers are classified into the following categories:
