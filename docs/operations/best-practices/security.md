@@ -19,8 +19,6 @@ authorization to protect your services and data.
 4. Before dfdaemon connects to manager or scheduler, the two side will initiate a TLS handshake with mutual validation.
 5. After TLS handshake, the two side will establish encrypted channel.
 
-> Note: You can trace the communication process by setting up opentelemetry tracing system, refer to [Tracing](../../../operations/best-practices/observability/tracing.md).
-
 ## Manager Console
 
 ### Console HTTPS support
@@ -186,3 +184,17 @@ According to analysis of Dragonfly architecture, DDoS attackers can be divided i
 Dragonfly implements bandwidth and request limiting to effectively mitigate
 the impact of attacks and ensure system stability.
 Please refer to [Rate limit](../../advanced-guides/rate-limit.md).
+
+## Observability
+
+### Monitoring
+
+Monitoring is the process of collecting, analyzing and acting on metrics.
+Monitoring is a key practice in observability, as it provides the data needed to understand
+the state of the system and the impact of changes, refer to [Monitoring](../../operations/best-practices/observability/monitoring.md).
+
+### Tracing
+
+Tracing is a specialized form of monitoring that focuses on the flow of requests through a system.
+Tracing can help you understand the performance of your system and identify bottlenecks and failures,
+refer to [Tracing](../../operations/best-practices/observability/tracing.md).

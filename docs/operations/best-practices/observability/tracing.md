@@ -7,11 +7,9 @@ slug: /operations/best-practices/observability/tracing/
 This documents will give a explanation about the process of encrypting data and
 introducing how to find the possible issue by creating a tracing system.
 
-## Tracing
+### Setup Jaeger
 
-### Setup OpenTelemetry Component
-
-Let's take the jaeger deployment as an example. More info about jaeger: [jaeger getting started guide](https://www.jaegertracing.io/docs/2.3/getting-started/)
+Let's take the jaeger deployment as an example, refer to [jaeger getting started guide](https://www.jaegertracing.io/docs/2.3/getting-started/).
 
 ```base
 docker run --rm --name jaeger \
@@ -23,7 +21,7 @@ docker run --rm --name jaeger \
   jaegertracing/jaeger:2.3.0
 ```
 
-### Configure the endpoint in d7y
+### Configure the endpoint in Dragonfly
 
 #### 1. Add tracing configuration as follows(in manager, scheduler and dfdaemon)
 
@@ -35,7 +33,7 @@ tracing:
 
 #### 2. Make a download request and check the tracing UI
 
-![dfdaemon_trace](../../../resource/operations/best-practices/security/dfdaemon_trace.png)
+Every request details will be recorded in the tracing UI,
+including the validation for the checksum of the request and response.
 
-> Every request details will be recorded in the tracing UI,
-> including the validation for the checksum of the request and response.
+![dfdaemon_trace](../../../resource/operations/best-practices/security/dfdaemon_trace.png)
