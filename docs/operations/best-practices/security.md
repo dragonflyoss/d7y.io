@@ -9,6 +9,18 @@ Dragonfly security features provide strong identity, powerful policy,
 transparent TLS encryption, authentication and
 authorization to protect your services and data.
 
+## Mutual TLS
+
+![mTLS_process](../../resource/operations/security/mtls.png)
+
+1. Cert-manager will generate a self-signed CA certificate and a server certificate signed by the CA certificate.
+2. Cert-manager will automatically renew the CA certificate and server certificate every 2/3 of their validity period.
+3. Dfdaemon/manager/scheduler will mount the CA certificate and server certificate from the K8s Secret.
+4. Before dfdaemon connects to manager or scheduler, the two side will initiate a TLS handshake with mutual validation.
+5. After TLS handshake, the two side will establish encrypted channel.
+
+> Note: You can trace the communication process by setting up opentelemetry tracing system, refer to [Tracing](../../../operations/best-practices/observability/tracing.md).
+
 ## Manager Console
 
 ### Console HTTPS support
