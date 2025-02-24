@@ -11,6 +11,8 @@ and prefetch rate limit for the client.
 
 ![rate-limit](../resource/advanced-guides/rate-limit/rate-limit.webp)
 
+## Bandwidth
+
 ### Outbound Bandwidth
 
 Used for P2P sharing of piece bandwidth.
@@ -51,4 +53,30 @@ proxy:
   # prefetchRateLimit is the rate limit of the prefetch speed in KiB/MiB/GiB per second, default is 2GiB/s.
   # The prefetch request has lower priority so limit the rate to avoid occupying the bandwidth impact other download tasks.
   prefetchRateLimit: 2GiB
+```
+
+## Request
+
+### Upload Request
+
+Used to rate limit upload requests in grpc server.
+Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
+
+```yaml
+upload:
+  server:
+    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
+    requestRateLimit: 4000
+```
+
+### Download Request
+
+Used to rate limit download requests in grpc server.
+Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
+
+```yaml
+download:
+  server:
+    # request_rate_limit is the rate limit of the download request in the download grpc server, default is 4000 req/s.
+    requestRateLimit: 4000
 ```

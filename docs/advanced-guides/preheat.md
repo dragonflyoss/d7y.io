@@ -148,7 +148,6 @@ if `scheduler_cluster_ids` is empty, it means preheating all scheduler clusters.
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer your_dragonfly_personal_access_token' \
---header 'Authorization: token your_example.com_personal_access_token' \
 --data-raw '{
     "type": "preheat",
     "args": {

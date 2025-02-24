@@ -21,6 +21,81 @@ authorization to protect your services and data.
 
 > Note: You can trace the communication process by setting up opentelemetry tracing system, refer to [Tracing](../../../operations/best-practices/observability/tracing.md).
 
+## Manager Console
+
+### Console HTTPS support
+
+If you need to use `HTTPS` for the manager console, you must configure the certificate.
+Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
+refer to [manager](../../reference/configuration/manager.md) config.
+
+> Notice: It is recommended to use `HTTPS`.
+
+<!-- markdownlint-disable -->
+
+```yaml
+server:
+  rest:
+    # REST server tls configuration.
+    tls:
+      # Certificate file path.
+      cert: server.crt
+      # Key file path.
+      key: server.pem
+```
+
+<!-- markdownlint-restore -->
+
+### Json Web Token (JWT) for Signining
+
+You can configure the JWT for signing in the manager console. Configure `manager.yaml`,
+the default path is `/etc/dragonfly/manager.yaml`, refer to
+[manager](../../reference/configuration/manager.md) config.
+
+<!-- markdownlint-disable -->
+
+```yaml
+# Auth configuration.
+auth:
+  # JWT configuration used for sigining.
+  jwt:
+    # Realm name to display to the user, default value is Dragonfly.
+    realm: 'Dragonfly'
+    # Key is secret key used for signing, default value is
+    # encoded base64 of dragonfly.
+    # Please change the key in production.
+    key: 'ZHJhZ29uZmx5Cg=='
+    # Timeout is duration that a jwt token is valid,
+    # default duration is two days.
+    timeout: 48h
+    # MaxRefresh field allows clients to refresh their token
+    # until MaxRefresh has passed, default duration is two days.
+    maxRefresh: 48h
+```
+
+<!-- markdownlint-restore -->
+
+## Job
+
+### Preheat with Self-Signed Certificate
+
+When preheating the image, dragonfly needs to call the container registry to get the image manifest.
+If container regsitry is configured with a self-signed certificate, then dragonfly must be configured
+with a self-signed certificate. Configure `manager.yaml`,
+the default path is `/etc/dragonfly/manager.yaml`, refer to
+[manager](../../reference/configuration/manager.md) config.
+
+```yaml
+# Job configuration.
+job:
+  # Preheat configuration.
+  preheat:
+    tls:
+      # insecureSkipVerify controls whether a client verifies the server's certificate chain and hostname.
+      insecureSkipVerify: false
+      # caCert is the CA certificate for preheat tls handshake, it can be path or PEM format string.
+      caCert: ca.crt
+```
 
 ## Peer's HTTP proxy
 
@@ -89,3 +164,25 @@ proxy:
 ```
 
 <!-- markdownlint-restore -->
+
+## DDoS attacks
+
+DDoS is where an attacker uses multiple sources,
+such as distributed groups of malware infected computers, routers,
+IoT devices and other endpoints to orchestrate an attack against a target,
+preventing legitimate users from accessing the target.
+
+According to analysis of Dragonfly architecture, DDoS attackers can be divided into the following types:
+
+- Consumes the bandwidth of target network or service.
+
+- Send a massive amount of traffic to the target network with the
+  goal of consuming so much bandwidth that users are denied access.
+
+- Bandwitdh depletion attack: Flood Attack and Amplification attack.
+
+### What can Dragonfly do against DDoS attacks?
+
+Dragonfly implements bandwidth and request limiting to effectively mitigate
+the impact of attacks and ensure system stability.
+Please refer to [Rate limit](../../advanced-guides/rate-limit.md).
