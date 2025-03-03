@@ -141,13 +141,15 @@ Options:
           Print version
 ```
 
-## dfget downloads via UDS container
+## Example {#example}
 
-### Prerequisites
+### Download via UDS container
+
+#### Prerequisites
 
 You can have a quick start following [Helm Charts](../../../getting-started/installation/helm-charts.md).
 
-### Create Pod
+#### Create Pod
 
 Create Pod configuration file `dfget-pod-config.yaml` and mount UNIX Domain Socket (UDS) to Pod. The default directory used for the UNIX Domain Socket (UDS) is `/var/run/dragonfly/dfdaemon.sock`, configuration content is as follows:
 
@@ -196,19 +198,17 @@ Getting into a shell of a container running inside a Pod:
 kubectl exec -it dfget -n dfget -- /bin/bash
 ```
 
-### Install Client
+#### Install Client
 
 Install Dragonfly Client in Pod, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md/#install-client-using-rpm-install-client-using-rpm) or [Install Client using DEB](../../../getting-started/installation/binaries.md/#install-client-using-deb-install-client-using-deb).
 
-### Download using dfget
+#### Download using dfget
 
 When using dfget to download, you must add the `--transfer-from-dfdaemon parameter`. It also supports S3, GCS, ABS, OSS, OBS, COS, HDFS, etc.
 
 ```shell
 dfget --transfer-from-dfdaemon https://<host>:<port>/<path> -O /tmp/file.txt
 ```
-
-## Example {#example}
 
 ### Download with HTTP protocol {#downlad-with-http}
 
