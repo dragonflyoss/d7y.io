@@ -165,8 +165,7 @@ spec:
   containers:
     - name: dfget
       image: ubuntu:14.04
-      imagePullPolicy: IfNotPresent
-      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+      command: ['sh', '-c']
       volumeMounts:
         - mountPath: /var/run/dragonfly/dfdaemon.sock
           name: dfdaemon-socket
