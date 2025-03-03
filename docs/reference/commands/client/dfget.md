@@ -141,6 +141,8 @@ Options:
           Print version
 ```
 
+<!-- markdownlint-restore -->
+
 ## Example {#example}
 
 ### Download via UDS container
@@ -151,9 +153,13 @@ You can have a quick start following [Helm Charts](../../../getting-started/inst
 
 #### Create Pod
 
-Create Pod configuration file `dfget-pod-config.yaml` and mount UNIX Domain Socket (UDS) to Pod. The default directory used for the UNIX Domain Socket (UDS) is `/var/run/dragonfly/dfdaemon.sock`, configuration content is as follows:
+Create Pod configuration file `dfget-pod-config.yaml` and mount UNIX Domain Socket (UDS) to Pod.
+The default directory used for the UNIX Domain Socket (UDS) is
+`/var/run/dragonfly/dfdaemon.sock`, configuration content is as follows:
 
 > Notice: Set `metadata.namespace` in the configuration file to your actual namespace.
+
+<!-- markdownlint-disable -->
 
 ```yaml
 apiVersion: v1
@@ -175,6 +181,8 @@ spec:
         path: /var/run/dragonfly/dfdaemon.sock
         type: Socket
 ```
+
+<!-- markdownlint-restore -->
 
 You can start this Pod by running:
 
@@ -199,11 +207,14 @@ kubectl exec -it dfget -n dfget -- /bin/bash
 
 #### Install Client
 
+<!-- markdownlint-disable -->
+
 Install Dragonfly Client in Pod, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md/#install-client-using-rpm-install-client-using-rpm) or [Install Client using DEB](../../../getting-started/installation/binaries.md/#install-client-using-deb-install-client-using-deb).
 
 #### Download using dfget
 
-When using dfget to download, you must add the `--transfer-from-dfdaemon parameter`. It also supports S3, GCS, ABS, OSS, OBS, COS, HDFS, etc.
+When using dfget to download, you must add the `--transfer-from-dfdaemon parameter`.
+It also supports S3, GCS, ABS, OSS, OBS, COS, HDFS, etc.
 
 ```shell
 dfget --transfer-from-dfdaemon https://<host>:<port>/<path> -O /tmp/file.txt
