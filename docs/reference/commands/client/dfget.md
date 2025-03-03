@@ -141,6 +141,73 @@ Options:
           Print version
 ```
 
+## dfget downloads via UDS container
+
+### Prerequisites
+
+You can have a quick start following [Helm Charts](../../../getting-started/installation/helm-charts.md).
+
+### Create Pod
+
+Create Pod configuration file `dfget-pod-config.yaml` and mount UNIX Domain Socket (UDS) to Pod. The default directory used for the UNIX Domain Socket (UDS) is `/var/run/dragonfly/dfdaemon.sock`, configuration content is as follows:
+
+> Notice: Set `metadata.namespace` in the configuration file to your actual namespace.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dfget
+  namespace: dragonfly-system
+spec:
+  containers:
+    - name: dfget
+      image: ubuntu:14.04
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+      volumeMounts:
+        - mountPath: /var/run/dragonfly/dfdaemon.sock
+          name: dfdaemon-socket
+  volumes:
+    - name: dfdaemon-socket
+      hostPath:
+        path: /var/run/dragonfly/dfdaemon.sock
+        type: Socket
+```
+
+You can start this Pod by running:
+
+```shell
+kubectl apply -f dfget-pod-config.yaml
+```
+
+And check on its status with:
+
+```shell
+$ kubectl get pods dfget -n dragonfly-system
+
+NAME                READY   STATUS    RESTARTS      AGE
+dfget   1/1     Running   2 (65m ago)   3h5m
+```
+
+Getting into a shell of a container running inside a Pod:
+
+```shell
+kubectl exec -it dfget -n dfget -- /bin/bash
+```
+
+### Install Client
+
+Install Dragonfly Client in Pod, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md/#install-client-using-rpm-install-client-using-rpm) or [Install Client using DEB](../../../getting-started/installation/binaries.md/#install-client-using-deb-install-client-using-deb).
+
+### Download using dfget
+
+When using dfget to download, you must add the `--transfer-from-dfdaemon parameter`. It also supports S3, GCS, ABS, OSS, OBS, COS, HDFS, etc.
+
+```shell
+dfget --transfer-from-dfdaemon https://<host>:<port>/<path> -O /tmp/file.txt
+```
+
 ## Example {#example}
 
 ### Download with HTTP protocol {#downlad-with-http}
