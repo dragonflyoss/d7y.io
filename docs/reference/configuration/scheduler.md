@@ -79,7 +79,7 @@ scheduler:
     peerGCInterval: 10s
     # peerTTL is the ttl of peer. If the peer has been downloaded by other peers,
     # then PeerTTL will be reset
-    peerTTL: 24h
+    peerTTL:48h
     # taskGCInterval is the interval of task gc. If all the peers have been reclaimed in the task,
     # then the task will also be reclaimed.
     taskGCInterval: 30m
@@ -156,16 +156,6 @@ job:
   schedulerWorkerNum: 500
   # Number of workers in local queue.
   localWorkerNum: 1000
-
-# Store task download information.
-storage:
-  # maxSize sets the maximum size in megabytes of storage file.
-  maxSize: 100
-  # maxBackups sets the maximum number of storage files to retain.
-  maxBackups: 10
-  # bufferSize sets the size of buffer container,
-  # if the buffer is full, write all the records in the buffer to the file.
-  bufferSize: 100
 
 # Enable prometheus metrics.
 metrics:

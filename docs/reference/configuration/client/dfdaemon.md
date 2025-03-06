@@ -39,8 +39,8 @@ download:
     socketPath: /var/run/dragonfly/dfdaemon.sock
     # request_rate_limit is the rate limit of the download request in the download grpc server, default is 4000 req/s.
     requestRateLimit: 4000
-  # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
-  rateLimit: 10GiB
+  # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 50GiB/s.
+  rateLimit: 50GiB
   # pieceTimeout is the timeout for downloading a piece from source.
   pieceTimeout: 30s
   # concurrentPieceCount is the number of concurrent pieces to download.
@@ -70,8 +70,8 @@ upload:
 #   key: /etc/ssl/private/client.pem
   # disableShared indicates whether disable to share data for other peers.
   disableShared: false
-  # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
-  rateLimit: 10GiB
+  # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 50GiB/s.
+  rateLimit: 50GiB
 
 manager:
   # addr is manager address.
@@ -121,10 +121,10 @@ storage:
   dir: /var/lib/dragonfly/
   # keep indicates whether keep the task's metadata and content when the dfdaemon restarts.
   keep: true
-  # writeBufferSize is the buffer size for writing piece to disk, default is 128KB.
-  writeBufferSize: 131072
-  # readBufferSize is the buffer size for reading piece from disk, default is 128KB.
-  readBufferSize: 131072
+  # writeBufferSize is the buffer size for writing piece to disk, default is 4MiB.
+  writeBufferSize: 4194304
+  # readBufferSize is the buffer size for reading piece from disk, default is 4MiB.
+  readBufferSize: 4194304
 
 gc:
   # interval is the interval to do gc.
@@ -209,11 +209,11 @@ proxy:
   # If the value is "true", the range request will prefetch the entire file.
   # If the value is "false", the range request will fetch the range content.
   prefetch: false
-  # prefetchRateLimit is the rate limit of the prefetch speed in KiB/MiB/GiB per second, default is 2GiB/s.
+  # prefetchRateLimit is the rate limit of the prefetch speed in KiB/MiB/GiB per second, default is 5GiB/s.
   # The prefetch request has lower priority so limit the rate to avoid occupying the bandwidth impact other download tasks.
-  prefetchRateLimit: 2GiB
-  # readBufferSize is the buffer size for reading piece from disk, default is 32KB.
-  readBufferSize: 32768
+  prefetchRateLimit: 5GiB
+  # readBufferSize is the buffer size for reading piece from disk, default is 4MiB.
+  readBufferSize: 4194304
 
 metrics:
   server:
