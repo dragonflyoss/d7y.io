@@ -170,7 +170,7 @@ metadata:
 spec:
   containers:
     - name: dfget
-      image: ubuntu:14.04
+      image: example:latest
       command: ['sh', '-c']
       volumeMounts:
         - mountPath: /var/run/dragonfly/dfdaemon.sock
