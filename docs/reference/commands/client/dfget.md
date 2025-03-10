@@ -209,7 +209,7 @@ kubectl exec -it dfget -n dfget -- /bin/bash
 
 <!-- markdownlint-disable -->
 
-Install Dragonfly Client in Pod, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md/#install-client-using-rpm-install-client-using-rpm) or [Install Client using DEB](../../../getting-started/installation/binaries.md/#install-client-using-deb-install-client-using-deb).
+Install Dragonfly Client in Pod, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm-install-client-using-rpm) or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb-install-client-using-deb).
 
 #### Download using dfget
 
