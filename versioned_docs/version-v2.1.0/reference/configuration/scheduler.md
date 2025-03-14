@@ -86,7 +86,7 @@ database:
   redis:
     # Redis addresses.
     addrs:
-      - redis-servive:6379
+      - redis-service:6379
     # Redis sentinel master name.
     masterName: ''
     # Redis username.
