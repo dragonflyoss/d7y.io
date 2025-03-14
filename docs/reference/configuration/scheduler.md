@@ -79,7 +79,7 @@ scheduler:
     peerGCInterval: 10s
     # peerTTL is the ttl of peer. If the peer has been downloaded by other peers,
     # then PeerTTL will be reset
-    peerTTL:48h
+    peerTTL: 48h
     # taskGCInterval is the interval of task gc. If all the peers have been reclaimed in the task,
     # then the task will also be reclaimed.
     taskGCInterval: 30m
