@@ -171,13 +171,13 @@ spec:
     - name: runtime
       image: your-image:tag
       volumeMounts:
-        - mountPath: /var/run/dragonfly/dfdaemon.sock
-          name: dfdaemon-socket
+        - mountPath: /var/run/dragonfly
+          name: dfdaemon-socket-dir
   volumes:
-    - name: dfdaemon-socket
+    - name: dfdaemon-socket-dir
       hostPath:
-        path: /var/run/dragonfly/dfdaemon.sock
-        type: Socket
+        path: /var/run/dragonfly
+        type: DirectoryOrCreate
 ```
 
 #### Install Dfget in the Container Image
