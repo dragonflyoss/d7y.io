@@ -23,11 +23,11 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../resource/advanced-guides/task/create-token.png)
+![create-token](../resource/advanced-guides/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../resource/advanced-guides/personal-access-tokens/copy-token.png)
+![copy-token](../resource/advanced-guides/preheat/copy-token.png)
 
 ### Search task {#open-api-search-task}
 
@@ -45,6 +45,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
         "url": "https://example.com",
         "tag": "your_url_tag",
         "application": "your_url_application"
+        "piece_length": your_piece_length,
     }
 }'
 ```
@@ -63,6 +64,7 @@ The command-line log returns the find task job id.
     "args": {
         "application": "",
         "filtered_query_params": "",
+        "piece_length": null,
         "tag": "",
         "task_id": "",
         "url": "https://example.com"
@@ -101,6 +103,7 @@ If status is `SUCCESS`, it means that the find task is successful.
     "args": {
         "application": "",
         "filtered_query_params": "",
+        "piece_length": null,
         "tag": "",
         "task_id": "",
         "url": "https://example.com"
@@ -271,6 +274,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
         "url": "https://example.com",
         "tag": "your_url_tag",
         "application": "your_url_application"
+        "piece_length": your_piece_length,
     },
     "scheduler_cluster_ids":[your_scheduler_cluster_id]
 }'
@@ -290,6 +294,7 @@ The command line log returns the deletion task job id.
   "args": {
     "application": "",
     "filtered_query_params": "",
+    "piece_length": null,
     "tag": "",
     "url": "https://example.com"
   },
@@ -328,6 +333,7 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
     "args": {
       "application": "",
       "filtered_query_params": "",
+      "piece_length": null,
       "tag": "",
       "task_id": "",
       "url": "https://example.com"
@@ -484,6 +490,9 @@ Use console to find and clear the P2P task cache.
 #### Search by URL
 
 **URL**: Query the task cache based on the URL.
+
+**Piece Length**: When the task URLs are the same but the Piece Length is different,
+they will be distinguished based on the Piece Length, and the queried tasks will also be different.
 
 **Tag**: When the task URL is the same but the tags are different,
 they will be distinguished based on the tags, and the queried tasks will also be different.
