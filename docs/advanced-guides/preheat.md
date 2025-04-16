@@ -23,11 +23,11 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../resource/advanced-guides/personal-access-tokens/create-token.png)
+![create-token](../resource/advanced-guides/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../resource/advanced-guides/personal-access-tokens/copy-token.png)
+![copy-token](../resource/advanced-guides/preheat/copy-token.png)
 
 ### Preheat image
 
@@ -241,9 +241,9 @@ Click the `ADD PREHEAT` button to create preheat task.
 
 **Clusters**: Used for clusters that need to be preheat.
 
-**URL**: URL address used to specify the resource to be preheat.
+**Piece Length**: By setting the piece length, you can define the size of each piece downloaded during preheating. If unspecified, it’s calculated based on content length, defaulting to 4-16 MiB.
 
-**Scope:** Select the scope of preheat as needed.
+**URL**: URL address used to specify the resource to be preheat.
 
 - **Single Seed Peer**: Preheat to a seed peer.
 
@@ -253,6 +253,8 @@ Click the `ADD PREHEAT` button to create preheat task.
 
 **Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
 tag and the generated preheat task will be different.
+
+**Scope:** Select the scope of preheat as needed.
 
 **Filtered Query Params**: By setting the filteredQueryParams parameter, you can specify
 the file type of the resource that needs to be preheated.
@@ -334,7 +336,7 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../resource/advanced-guides/personal-access-tokens/copy-token.png)
+![copy-token](../resource/advanced-guides/preheat/copy-token.png)
 
 ### Create instance
 
