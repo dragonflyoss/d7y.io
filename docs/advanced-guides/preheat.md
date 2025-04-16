@@ -241,7 +241,8 @@ Click the `ADD PREHEAT` button to create preheat task.
 
 **Clusters**: Used for clusters that need to be preheat.
 
-**Piece Length**: By setting the piece length, you can define the size of each piece downloaded during preheating. If unspecified, it’s calculated based on content length, defaulting to 4-16 MiB.
+**Piece Length**: By setting the piece length, you can define the size of each piece downloaded during preheating.
+If unspecified, it’s calculated based on content length, defaulting to 4-16 MiB.
 
 **URL**: URL address used to specify the resource to be preheat.
 
