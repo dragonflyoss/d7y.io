@@ -27,7 +27,7 @@
     "clsx": "^2.0.0",
     "lottie-react": "^2.4.1",
     "lottie-web": "^5.9.6",
-    "prism-react-renderer": "^2.1.0",
+    "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-github-btn": "^1.2.1",
