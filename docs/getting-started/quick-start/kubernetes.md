@@ -10,7 +10,7 @@ Documentation for deploying Dragonfly on kubernetes using helm.
 ## Runtime
 
 You can have a quick start following [Helm Charts](../installation/helm-charts.md).
-It is recommended to use `containerd`.
+It is recommended to use `container`.
 
 | Runtime    | Version  | Document                                                              |
 | ---------- | -------- | --------------------------------------------------------------------- |
