@@ -6,8 +6,8 @@ slug: /getting-started/installation/helm-charts/
 
 Documentation for deploying Dragonfly on kubernetes using helm.
 
-For more integrations such as Docker, CRI-O, Singularity/Apptainer, Nydus, eStargz, Harbor, Git LFS,
-Hugging Face, TorchServe, Triton Server, etc., refer to [Integrations](../../operations/integrations/container-runtime/containerd.md).
+For more integrations such as Docker, CRI-O, Podman, Singularity/Apptainer, Nydus, eStargz, Harbor, Git LFS,
+Hugging Face, TorchServe, Triton Server, Pip, etc. refer to [Integrations](../../operations/integrations/container-runtime/containerd.md).
 
 ## Prerequisites {#prerequisites}
 
