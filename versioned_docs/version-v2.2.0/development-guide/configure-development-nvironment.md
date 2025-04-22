@@ -64,7 +64,7 @@ database:
       - dragonfly-redis
     masterName: your_redis_master_name
     username: your_redis_username
-    password: your_redis_passwprd
+    password: your_redis_password
     db: 0
     brokerDB: 1
     backendDB: 2
