@@ -74,7 +74,7 @@ kind load docker-image dragonflyoss/dfinit:latest
 
 ## Create Prometheus and Grafana based on Helm Charts{#create-prometheus-and-grafana-based-on-helm-charts}
 
-Install prometheus and grafana based on [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
+Install prometheus and grafana based on [kube-prometheus-stack](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack).
 
 <!-- markdownlint-disable -->
 
@@ -111,7 +111,7 @@ prometheus-prometheus-node-exporter-tlhld                1/1     Running   1 (47
 ```
 
 Expose grafana port 8080 and access the address `localhost:8080` to see the grafana dashboard,
-You can login with username `admin` and password `prom-operator`
+You can login with username `admin` and password `prom-operator`.
 
 ```bash
 kubectl --namespace prometheus port-forward svc/prometheus-grafana 8080:80
@@ -184,8 +184,6 @@ client:
       enable: true
     prometheusRule:
       enable: true
-  config:
-    verbose: true
   dfinit:
     enable: true
     image:
@@ -234,12 +232,12 @@ NOTES:
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
 
-1. Get the dfdaemon port by running these commands:
+2. Get the dfdaemon port by running these commands:
   export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
   export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
-1. Configure runtime to use dragonfly:
+3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
 ```
 
@@ -290,7 +288,7 @@ Dragonfly grafana dashboard info is:
 
 <!-- markdownlint-restore -->
 
-Import Dragonfly grafana dashboard using ID, IDs are `15945`, `15944`, `21053` and `21054`, refer to [export-import](https://grafana.com/docs/grafana/latest/dashboards/export-import/)
+Import Dragonfly grafana dashboard using ID, IDs are `15945`, `15944`, `21053` and `21054`, refer to [export-import](https://grafana.com/docs/grafana/latest/dashboards/export-import/).
 
 ![grafana-import-dashboard](../../../resource/operations/best-practices/observability/monitoring/grafana-import-dashboard.jpg)
 
