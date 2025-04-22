@@ -30,7 +30,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-github-btn": "^1.2.1",
+    "react-github-btn": "^1.4.0",
     "react-youtube": "^10.1.0",
     "three": "^0.175.0"
   },
