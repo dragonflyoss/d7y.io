@@ -2,7 +2,7 @@
 
 This repository contains the source code for [d7y.io](https://d7y.io).
 
-It's built by [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+It's built by [Docusaurus 3](https://docusaurus.io/docs/), a modern static website generator.
 
 ## Add or Update Docs
 
