@@ -149,12 +149,6 @@ job:
     capacity: 5
     # quantum is the number of tokens taken from the bucket for each request.
     quantum: 5
-  # gc configuration.
-  gc:
-    # Interval is the interval for garbage collection.
-    interval: 3h
-    # TTL is the time to live for the job.
-    ttl: 6h
   # Sync peers configuration.
   syncPeers:
     # Interval is the interval for syncing all peers information from the scheduler and
