@@ -12,7 +12,7 @@ This document describes how to run unit tests and E2E tests.
 
 | Name   | Version | Document                        |
 | ------ | ------- | ------------------------------- |
-| Golang | 1.16.x  | [go.dev](https://go.dev/)       |
+| Golang | 1.23.8+ | [go.dev](https://go.dev/)       |
 | Rust   | 1.6+    | [rustup.rs](https://rustup.rs/) |
 
 <!-- markdownlint-restore -->
