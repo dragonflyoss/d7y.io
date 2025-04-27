@@ -32,8 +32,6 @@ Token expiration time.
 
 Select the access permissions for the token.
 
-**preheat**: Full control of preheating, it's used for preheating of harbor.
-
 **job**: Full control of job. If you need to call preheat job through open API, it is recommended to use preheat job.
 
 **cluster**: Full control of cluster.
