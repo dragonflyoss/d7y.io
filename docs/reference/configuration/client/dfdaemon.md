@@ -50,24 +50,24 @@ upload:
   server:
     # port is the port to the grpc server.
     port: 4000
-  # # ip is the listen ip of the grpc server.
-  # ip: ""
-  # # CA certificate file path for mTLS.
-  # caCert: /etc/ssl/certs/ca.crt
-  # # GRPC server certificate file path for mTLS.
-  # cert: /etc/ssl/certs/server.crt
-  # # GRPC server key file path for mTLS.
-  # key: /etc/ssl/private/server.pem
+    # # ip is the listen ip of the grpc server.
+    # ip: ""
+    # # CA certificate file path for mTLS.
+    # caCert: /etc/ssl/certs/ca.crt
+    # # GRPC server certificate file path for mTLS.
+    # cert: /etc/ssl/certs/server.crt
+    # # GRPC server key file path for mTLS.
+    # key: /etc/ssl/private/server.pem
     # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
     requestRateLimit: 4000
-# # Client configuration for remote peer's upload server.
-# client:
-#   # CA certificate file path for mTLS.
-#   caCert: /etc/ssl/certs/ca.crt
-#   # GRPC client certificate file path for mTLS.
-#   cert: /etc/ssl/certs/client.crt
-#   # GRPC client key file path for mTLS.
-#   key: /etc/ssl/private/client.pem
+  # # Client configuration for remote peer's upload server.
+  # client:
+  #   # CA certificate file path for mTLS.
+  #   caCert: /etc/ssl/certs/ca.crt
+  #   # GRPC client certificate file path for mTLS.
+  #   cert: /etc/ssl/certs/client.crt
+  #   # GRPC client key file path for mTLS.
+  #   key: /etc/ssl/private/client.pem
   # disableShared indicates whether disable to share data for other peers.
   disableShared: false
   # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 50GiB/s.
@@ -188,7 +188,7 @@ proxy:
   # the request will use P2P technology to distribute the content. If the value is "false",
   # but url matches the regular expression in rules. The request will also use P2P technology to distribute the content.
   rules:
-    - regex: 'blobs/sha256.*'
+    - regex: blobs/sha256.*
       # useTLS: false
       # redirect: ""
       # filteredQueryParams: []
