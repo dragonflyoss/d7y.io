@@ -226,20 +226,3 @@ metrics:
 # # addr is the address to report tracing log.
 # addr: ""
 ```
-
-```yaml
-upload:
-  server:
-    # port is the port to the grpc server.
-    port: 4000
-    # # ip is the listen ip of the grpc server.
-    # ip: ""
-    # # CA certificate file path for mTLS.
-    # caCert: /etc/ssl/certs/ca.crt
-    # # GRPC server certificate file path for mTLS.
-    # cert: /etc/ssl/certs/server.crt
-    # # GRPC server key file path for mTLS.
-    # key: /etc/ssl/private/server.pem
-    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
-    requestRateLimit: 4000`
-```
