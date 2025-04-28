@@ -130,7 +130,7 @@ client:
         addr: https://cdn-lfs.huggingface.co
       rules:
         - regex: repos.*
-            useTLS: true
+          useTLS: true
 ```
 
 Create a Dragonfly cluster using the configuration file:
