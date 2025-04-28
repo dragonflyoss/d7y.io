@@ -69,7 +69,7 @@ proxy:
   server:
     port: 4001
   rules:
-    - regex: 'example.*'
+    - regex: example.*
 ```
 
 ```shell
@@ -91,7 +91,7 @@ proxy:
   server:
     port: 4001
   rules:
-    - regex: 'example.*'
+    - regex: example.*
 ```
 
 Download with Insecure HTTPS protocol:
@@ -137,7 +137,7 @@ proxy:
     caCert: ca.crt
     caKey: ca.key
   rules:
-    - regex: 'example.*'
+    - regex: example.*
 ```
 
 Download with HTTPS protocol:

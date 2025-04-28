@@ -172,7 +172,7 @@ proxy:
   # will generate the same task id.
   # Default value includes the filtered query params of s3, gcs, oss, obs, cos.
   rules:
-    - regex: 'blobs/sha256.*'
+    - regex: blobs/sha256.*
       # useTLS: false
       # redirect: ""
       # filteredQueryParams: []

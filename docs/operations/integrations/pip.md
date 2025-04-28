@@ -125,12 +125,12 @@ client:
       registryMirror:
         addr: https://index.docker.io
       rules:
-        - regex: 'blobs/sha256.*'
-        - regex: 'files.pythonhosted.org/packages/.*\.(whl|tar.gz|zip)'
+        - regex: blobs/sha256.*
+        - regex: files.pythonhosted.org/packages(?::\d+)?/.*\.(whl|tar.gz|zip)
           useTLS: true
-        - regex: 'pypi.python.org/.*\.(whl|tar.gz|zip)'
+        - regex: pypi.python.org(?::\d+)?/.*\.(whl|tar.gz|zip)
           useTLS: true
-        - regex: 'pypi.org/.*\.(whl|tar.gz|zip)'
+        - regex: pypi.org(?::\d+)?/.*\.(whl|tar.gz|zip)
           useTLS: true
 ```
 

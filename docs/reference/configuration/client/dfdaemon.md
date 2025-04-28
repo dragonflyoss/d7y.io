@@ -188,7 +188,7 @@ proxy:
   # the request will use P2P technology to distribute the content. If the value is "false",
   # but url matches the regular expression in rules. The request will also use P2P technology to distribute the content.
   rules:
-    - regex: 'blobs/sha256.*'
+    - regex: blobs/sha256.*
       # useTLS: false
       # redirect: ""
       # filteredQueryParams: []
