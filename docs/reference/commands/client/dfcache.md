@@ -4,7 +4,8 @@ title: Dfcache
 slug: /reference/commands/client/dfcache/
 ---
 
-`dfcache` is the cache client to of dragonfly that communicates with dfdaemon and operates on files in P2P network.
+`dfcache` is the cache client to of dragonfly that communicates with dfdaemon and operates on files in P2P network,
+and it can copy multiple replicas during import. P2P cache is effectively used for fast read and write cache.
 
 ## Usage
 
@@ -33,7 +34,7 @@ dfcache stat <ID>
 <!-- markdownlint-disable -->
 
 ```shell
-dfcache is a cache command line based on P2P technology in Dragonfly.
+A cache command line based on P2P technology in Dragonfly that can import file and export file in P2P network, and it can copy multiple replicas during import. P2P cache is effectively used for fast read and write cache.
 
 Usage: dfcache
        dfcache <COMMAND>
@@ -45,8 +46,11 @@ Commands:
   help    Print this message or the help of the given subcommand(s)
 
 Options:
-  -V, --version  Print version information
-  -h, --help     Print help (see more with '--help')
+  -V, --version
+          Print version information
+
+  -h, --help
+          Print help (see a summary with '-h')
 ```
 
 <!-- markdownlint-restore -->
@@ -65,8 +69,8 @@ Arguments:
           Specify the path of the file to import
 
 Options:
-      --id <ID>
-          Specify the id of the persistent cache task. If id is none, dfdaemon will generate the new task id based on the file content, tag and application by crc32 algorithm.
+      --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID>
+          Specify the content used to calculate the persistent cache task ID. If it is set, use its value to calculate the task ID, Otherwise, calculate the persistent cache task ID based on url, piece-length, tag, application, and filtered-query-params.
 
       --persistent-replica-count <PERSISTENT_REPLICA_COUNT>
           Specify the replica count of the persistent cache task
