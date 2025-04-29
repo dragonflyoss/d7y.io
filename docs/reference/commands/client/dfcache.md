@@ -12,7 +12,7 @@ and it can copy multiple replicas during import. P2P cache is effectively used f
 Import a file into Dragonfly P2P network.
 
 ```shell
-dfcache import --id <ID> <URL>
+dfcache import --content-for-calculating-task-id <ID> <URL>
 ```
 
 Export a file from Dragonfly P2P network.
