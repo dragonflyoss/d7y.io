@@ -12,13 +12,13 @@ and it can copy multiple replicas during import. P2P cache is effectively used f
 Import a file into Dragonfly P2P network.
 
 ```shell
-dfcache import --content-for-calculating-task-id <ID> <URL>
+dfcache import <PATH>
 ```
 
 Export a file from Dragonfly P2P network.
 
 ```shell
-dfcache export <ID> -O <OUTPUT> <URL>
+dfcache export <ID> -O <OUTPUT> <PATH>
 ```
 
 Get file information in Dragonfly P2P network.
@@ -234,6 +234,36 @@ Options:
 ```
 
 <!-- markdownlint-restore -->
+
+## Example
+
+### Import files
+
+When importing a file with default parameters, the persistent replica count defaults to 2 and the ttl defaults to 1h.
+
+```shell
+dfcache import <PATH>
+```
+
+### Import the file and set the persistent replica and TTL
+
+Using the `--persistent-replica-count` and `--ttl` parameters,
+users can set the number of replicas and the lifetime for the persistent cache task.
+
+```shell
+dfcache import --persistent-replica-count 3 --ttl 2h <PATH>
+```
+
+### Import large files
+
+The default ID is calculated based on the CRC32 of the file, which can take a long time to compute for larger files.
+You can specify the `--content-for-calculating-task-id` option to define the uniqueness of the file,
+and by calculating the unique ID using CRC32, the computation time can be significantly reduced.
+For example, `--content-for-calculating-task-id` can be set to the filename, but the filename must guarantee uniqueness.
+
+```shell
+dfcache import --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID> <PATH>
+```
 
 ## Log
 
