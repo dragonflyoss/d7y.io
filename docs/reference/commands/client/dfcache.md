@@ -239,16 +239,15 @@ Options:
 
 ### Import file
 
-When importing a file with default parameters, the persistent replica count defaults to 2 and the ttl defaults to 1h.
+Upon importing a file with no parameters specified, the system initializes the persistent-replica-count to 2 and the Time-to-Live (TTL) to 1 hour.
 
 ```shell
 dfcache import <PATH>
 ```
 
-### Import the file and set the persistent replica and TTL
+### Import the file and set up persistent replication count with TTL.
 
-Using the `--persistent-replica-count` and `--ttl` parameters,
-users can set the number of replicas and the lifetime for the persistent cache task.
+Users can configure the number of persistent replicas and specify the TTL for persistent cache tasks using the `--persistent-replica-count` and `--ttl` parameters.
 
 ```shell
 dfcache import --persistent-replica-count 3 --ttl 2h <PATH>
@@ -256,10 +255,7 @@ dfcache import --persistent-replica-count 3 --ttl 2h <PATH>
 
 ### Import large file
 
-The default ID is calculated based on the CRC32 of the file, which can take a long time to compute for larger files.
-You can specify the `--content-for-calculating-task-id` option to define the uniqueness of the file,
-and by calculating the unique ID using CRC32, the computation time can be significantly reduced.
-For example, `--content-for-calculating-task-id` can be set to the filename, but the filename must guarantee uniqueness.
+The default ID is calculated based on the file's CRC32. For larger files, the calculation time may be longer. You can specify `--content-for-calculating-task-id` to define the file's uniqueness. Using CRC32 to calculate the unique ID can significantly reduce the calculation time. For example, you can set `--content-for-calculating-task-id` to the filename, but the filename must ensure uniqueness.
 
 ```shell
 dfcache import --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID> <PATH>
