@@ -237,7 +237,7 @@ Options:
 
 ## Example
 
-### Import files
+### Import file
 
 When importing a file with default parameters, the persistent replica count defaults to 2 and the ttl defaults to 1h.
 
@@ -254,7 +254,7 @@ users can set the number of replicas and the lifetime for the persistent cache t
 dfcache import --persistent-replica-count 3 --ttl 2h <PATH>
 ```
 
-### Import large files
+### Import large file
 
 The default ID is calculated based on the CRC32 of the file, which can take a long time to compute for larger files.
 You can specify the `--content-for-calculating-task-id` option to define the uniqueness of the file,
