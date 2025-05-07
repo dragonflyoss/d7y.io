@@ -27,9 +27,9 @@ Get file information in Dragonfly P2P network.
 dfcache stat <ID>
 ```
 
-## Options {#dfdaemon-options}
+## Options {#dfcache-options}
 
-### dfcache
+### Dfcache
 
 <!-- markdownlint-disable -->
 
@@ -55,7 +55,7 @@ Options:
 
 <!-- markdownlint-restore -->
 
-### dfcache import
+### Dfcache import
 
 <!-- markdownlint-disable -->
 
@@ -125,7 +125,7 @@ Options:
 
 <!-- markdownlint-restore -->
 
-### dfcache export
+### Dfcache export
 
 <!-- markdownlint-disable -->
 
@@ -192,7 +192,7 @@ Options:
 
 <!-- markdownlint-restore -->
 
-### dfcache stat
+### Dfcache stat
 
 <!-- markdownlint-disable -->
 
@@ -237,24 +237,23 @@ Options:
 
 ## Example
 
-### Basic import
+### Import
 
-If no parameters are provided, the system uses the following default values:
---persistent-replica-count defaults to 2 and --ttl defaults to 1h.
+#### Basic import
 
 ```shell
-dfcache import <PATH>
+dfcache import /tmp/file.txt
 ```
 
-### Configuring persistent replicas and TTL
+#### Configuring persistent replicas and TTL
 
 Use the following parameters to specify the number of replicas and ttl of the persistent cache task.
 
 ```shell
-dfcache import --persistent-replica-count 3 --ttl 2h <PATH>
+dfcache import --persistent-replica-count 3 --ttl 2h /tmp/file.txt
 ```
 
-### Importing large file
+#### Importing large file
 
 The default ID is calculated based on the file's CRC32. For large files,
 this process may take longer. You can specify `--content-for-calculating-task-id` to define the file's uniqueness.
@@ -262,7 +261,69 @@ Using CRC32 to compute a file's unique ID significantly reduces computation time
 `--content-for-calculating-task-id` can be set to the filename, provided it ensures uniqueness.
 
 ```shell
-dfcache import --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID> <PATH>
+dfcache import --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID> /tmp/file.txt
+```
+
+### Export
+
+```shell
+dfcache export <ID> -O /tmp/file.txt
+```
+
+#### Export in Container {#export-in-container}
+
+##### Install Dragonfly in the Kubernetes cluster
+
+Deploy Dragonfly components across your cluster:
+
+```shell
+helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
+helm install --create-namespace -n dragonfly-system dragonfly dragonfly/dragonfly
+```
+
+For detailed installation options, refer to [Helm Charts Installation Guide](../../../getting-started/installation/helm-charts.md).
+
+##### Mount the Unix Domain Socket of dfdaemon to the Pod
+
+Add the following configuration to your Pod definition to mount the Dragonfly daemon's Unix Domain Socket,
+then the container can use the same dfdaemon to export files in the node.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: runtime
+spec:
+  containers:
+    - name: runtime
+      image: your-image:tag
+      volumeMounts:
+        - mountPath: /var/run/dragonfly
+          name: dfdaemon-socket-dir
+  volumes:
+    - name: dfdaemon-socket-dir
+      hostPath:
+        path: /var/run/dragonfly
+        type: DirectoryOrCreate
+```
+
+##### Install dfcache in the Container Image
+
+Install dfcache in the Container Image, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm)
+or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb).
+
+##### Export via UDS(unix domain socket) of dfdaemon in the node
+
+Once set up, use the dfcache command with the `--transfer-from-dfdaemon` flag to export files:
+
+```shell
+dfcache export --transfer-from-dfdaemon <ID> -O /tmp/file.txt
+```
+
+### Stat
+
+```shell
+dfcache stat <ID>
 ```
 
 ## Log
