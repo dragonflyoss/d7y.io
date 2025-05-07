@@ -239,7 +239,8 @@ Options:
 
 ### Basic import
 
-When no parameters are specified, the system defaults to 2 for --persistent-replica-count and 1 hour for --ttl.
+If no parameters are provided, the system uses the following default values:
+--persistent-replica-count defaults to 2 and --ttl defaults to 1h.
 
 ```shell
 dfcache import <PATH>
@@ -247,7 +248,7 @@ dfcache import <PATH>
 
 ### Configuring persistent replicas and TTL
 
-Use the following parameters to customize the `persistent replica count` and `TTL`.
+Use the following parameters to specify the number of replicas and ttl of the persistent cache task.
 
 ```shell
 dfcache import --persistent-replica-count 3 --ttl 2h <PATH>
