@@ -239,6 +239,10 @@ Options:
 
 ### Import
 
+```shell
+dfcache import /tmp/file.txt
+```
+
 #### Configuring persistent replicas and TTL
 
 Use the following parameters to specify the number of replicas and ttl of the persistent cache task.
