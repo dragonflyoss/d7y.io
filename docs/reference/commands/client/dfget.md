@@ -29,6 +29,36 @@ dfget [command]
 <!-- markdownlint-disable -->
 
 ```text
+A download command line based on P2P technology in Dragonfly that can download resources of different protocols.
+
+The full documentation is here: https://d7y.io/docs/next/reference/commands/client/dfget/.
+
+Examples:
+  # Download a file from HTTP server.
+  $ dfget https://<host>:<port>/<path> -O /tmp/file.txt
+
+  # Download a file from HDFS.
+  $ dfget hdfs://<host>:<port>/<path> -O /tmp/file.txt --hdfs-delegation-token=<delegation_token>
+
+  # Download a file from Amazon Simple Storage Service(S3).
+  $ dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
+
+  # Download a file from Google Cloud Storage Service(GCS).
+  $ dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path>
+
+  # Download a file from Azure Blob Storage Service(ABS).
+  $ dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
+
+  # Download a file from Aliyun Object Storage Service(OSS).
+  $ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+  # Download a file from Huawei Cloud Object Storage Service(OBS).
+  $ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+  # Download a file from Tencent Cloud Object Storage Service(COS).
+  $ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+
+
 Usage: dfget [OPTIONS] --output <OUTPUT> <URL>
 
 Arguments:
@@ -36,6 +66,15 @@ Arguments:
           Specify the URL to download
 
 Options:
+      --transfer-from-dfdaemon
+          Specify whether to transfer the content of downloading file from dfdaemon's unix domain socket. If it is true, dfget will call dfdaemon to download the file, and dfdaemon will return the content of downloading file to dfget via unix domain socket, and dfget will copy the content to the output path. If it is false, dfdaemon will download the file and hardlink or copy the file to the output path.
+
+      --force-hard-link
+          Specify whether the download file must be hard linked to the output path. If hard link is failed, download will be failed. If it is false, dfdaemon will copy the file to the output path if hard link is failed.
+
+      --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID>
+          Specify the content used to calculate the task ID. If it is set, use its value to calculate the task ID, Otherwise, calculate the task ID based on url, piece-length, tag, application, and filtered-query-params.
+
   -O, --output <OUTPUT>
           Specify the output path of downloading file
 
@@ -49,11 +88,6 @@ Options:
 
           [default: 2h]
 
-      --piece-length <PIECE_LENGTH>
-          Specify the byte length of the piece
-
-          [default: 4194304]
-
   -d, --digest <DIGEST>
           Verify the integrity of the downloaded file using the specified digest, e.g. md5:86d3f3a95c324c9479bd8986968f4327
 
@@ -64,8 +98,11 @@ Options:
 
           [default: 6]
 
+      --piece-length <PIECE_LENGTH>
+          Specify the piece length for downloading file. If the piece length is not specified, the piece length will be calculated according to the file size. Different piece lengths will be divided into different tasks. The value needs to be set with human readable format and needs to be greater than or equal to 4mib, for example: 4mib, 1gib
+
       --application <APPLICATION>
-          Caller application which is used for statistics and access control
+          Different applications for the same url will be divided into different tasks
 
           [default: ]
 
@@ -99,12 +136,15 @@ Options:
           Specify the session token for Amazon Simple Storage Service(S3)
 
       --storage-credential-path <STORAGE_CREDENTIAL_PATH>
-          Specify the local path to credential file for Google Cloud Storage Service(GCS)
+          Specify the local path to the credential file which is used for OAuth2 authentication for Google Cloud Storage Service(GCS)
 
       --storage-predefined-acl <STORAGE_PREDEFINED_ACL>
           Specify the predefined ACL for Google Cloud Storage Service(GCS)
 
           [default: publicRead]
+
+      --hdfs-delegation-token <HDFS_DELEGATION_TOKEN>
+          Specify the delegation token for Hadoop Distributed File System(HDFS)
 
       --max-files <MAX_FILES>
           Specify the max count of file to download when downloading a directory. If the actual file count is greater than this value, the downloading will be rejected
@@ -134,11 +174,11 @@ Options:
       --verbose
           Specify whether to print log
 
+  -V, --version
+          Print version information
+
   -h, --help
           Print help (see a summary with '-h')
-
-  -V, --version
-          Print version
 ```
 
 ## Example {#example}
