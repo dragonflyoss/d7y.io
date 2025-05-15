@@ -45,8 +45,9 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
         "url": "https://index.docker.io/v2/library/redis/manifests/latest"
         "filteredQueryParams": "Expires&Signature",
         "username": "registry_username",
-        "password": "registry_password",
-    }
+        "password": "registry_password"
+    },
+    "scheduler_cluster_ids":[1]
 }'
 ```
 
