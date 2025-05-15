@@ -55,9 +55,9 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
         "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
         "username": "your_registry_username",
         "password": "your_registry_password",
-        "scope": "single_seed_peer",
-        "scheduler_cluster_ids":[1]
-    }
+        "scope": "single_seed_peer"
+    },
+    "scheduler_cluster_ids":[1]
 }'
 ```
 
@@ -69,11 +69,9 @@ The command-line log returns the preheat job id.
   "created_at": "0001-01-01T00:00:00Z",
   "updated_at": "0001-01-01T00:00:00Z",
   "task_id": "group_9523f30a-877d-41f7-a25f-0854228341f6",
-  "bio": "",
   "type": "preheat",
   "state": "PENDING",
   "args": {
-    "platform": "",
     "scope": "single_seed_peer",
     "tag": "",
     "type": "image",
@@ -107,11 +105,9 @@ If the status is `SUCCESS`, the preheating is successful.
   "created_at": "0001-01-01T00:00:00Z",
   "updated_at": "0001-01-01T00:00:00Z",
   "task_id": "group_9523f30a-877d-41f7-a25f-0854228341f6",
-  "bio": "",
   "type": "preheat",
   "state": "SUCCESS",
   "args": {
-    "platform": "",
     "scope": "single_seed_peer",
     "tag": "",
     "type": "image",
@@ -154,9 +150,9 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "type": "file",
         "url": "https://example.com",
-        "scope": "single_seed_peer",
-        "scheduler_cluster_ids":[1]
-    }
+        "scope": "single_seed_peer"
+    },
+     "scheduler_cluster_ids":[1]
 }'
 ```
 
@@ -168,11 +164,9 @@ The command-line log returns the preheat job id.
   "created_at": "2024-12-11T08:30:12Z",
   "updated_at": "2024-12-11T08:30:51Z",
   "task_id": "group_4dd1da54-96ca-48ff-8f20-4fae665f677f",
-  "bio": "",
   "type": "preheat",
   "state": "PENDING",
   "args": {
-    "platform": "",
     "scope": "single_seed_peer",
     "type": "file",
     "url": "https://example.com"
@@ -204,11 +198,9 @@ If the status is `SUCCESS`, the preheating is successful.
   "created_at": "2024-12-11T08:30:12Z",
   "updated_at": "2024-12-11T08:30:51Z",
   "task_id": "group_4dd1da54-96ca-48ff-8f20-4fae665f677f",
-  "bio": "",
   "type": "preheat",
   "state": "SUCCESS",
   "args": {
-    "platform": "",
     "scope": "single_seed_peer",
     "type": "file",
     "url": "https://example.com"
