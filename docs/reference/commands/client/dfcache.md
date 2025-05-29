@@ -116,7 +116,7 @@ Options:
 
           [default: 6]
 
-      --verbose
+      --console
           Specify whether to print log
 
   -h, --help
@@ -183,7 +183,7 @@ Options:
 
           [default: 6]
 
-      --verbose
+      --console
           Specify whether to print log
 
   -h, --help
@@ -226,7 +226,7 @@ Options:
 
           [default: 6]
 
-      --verbose
+      --console
           Specify whether to print log
 
   -h, --help
@@ -327,6 +327,6 @@ dfcache stat <ID>
 ## Log
 
 ```text
-1. set option --verbose if you want to print logs to Terminal
+1. set option --console if you want to print logs to Terminal
 2. log path: /var/log/dragonfly/dfcache/
 ```

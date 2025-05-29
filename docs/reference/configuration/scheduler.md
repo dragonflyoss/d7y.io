@@ -180,6 +180,7 @@ verbose: true
 # default is -1. If it is 0, pprof will use a random port.
 pprof-port: -1
 
-# Jaeger endpoint url, like: http://jaeger.dragonfly.svc:14268/api/traces.
-jaeger: ''
+tracing:
+  # Jaeger endpoint url, like: jaeger.dragonfly.svc:4317.
+  addr: ''
 ```

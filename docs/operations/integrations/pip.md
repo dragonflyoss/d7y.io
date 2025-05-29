@@ -87,9 +87,6 @@ manager:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 scheduler:
   image:
@@ -97,9 +94,6 @@ scheduler:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 seedClient:
   image:
@@ -107,8 +101,6 @@ seedClient:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
 
 client:
   image:
@@ -118,7 +110,6 @@ client:
   metrics:
     enable: true
   config:
-    verbose: true
     proxy:
       server:
         port: 4001

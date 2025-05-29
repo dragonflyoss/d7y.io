@@ -35,9 +35,6 @@ version     show version
     --config string         the path of configuration file with yaml extension name, default is /etc/dragonfly/manager.yaml, it can also be set by env var: MANAGER_CONFIG
     --console               whether logger output records to the stdout
 -h, --help                  help for manager
-    --jaeger string         jaeger endpoint url, like: http://localhost:14250/api/traces
-    --pprof-port int        listen port for pprof, 0 represents random port (default -1)
-    --service-name string   name of the service for tracer (default "dragonfly-manager")
     --verbose               whether logger use debug level
 ```
 

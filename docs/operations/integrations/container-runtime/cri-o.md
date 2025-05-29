@@ -64,9 +64,6 @@ manager:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 scheduler:
   image:
@@ -74,9 +71,6 @@ scheduler:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 seedClient:
   image:
@@ -84,8 +78,6 @@ seedClient:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
 
 client:
   image:
@@ -93,8 +85,6 @@ client:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
   dfinit:
     enable: true
     image:
@@ -284,8 +274,6 @@ manager:
   metrics:
     enable: true
   config:
-    verbose: true
-    pprofPort: 18066
     job:
       preheat:
         tls:
@@ -305,9 +293,6 @@ scheduler:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 seedClient:
   image:
@@ -316,7 +301,6 @@ seedClient:
   metrics:
     enable: true
   config:
-    verbose: true
     proxy:
       registryMirror:
         addr: https://yourdomain.com
@@ -336,7 +320,6 @@ client:
   metrics:
     enable: true
   config:
-    verbose: true
     proxy:
       registryMirror:
         addr: https://yourdomain.com

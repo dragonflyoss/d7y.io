@@ -27,8 +27,8 @@ docker run --rm --name jaeger \
 
 ```yaml
 tracing:
-#   # addr is the address to report tracing log. 6831 is default udp port.
-  addr: {endpoint}:6831
+#   # addr is the address to report tracing log. 4317 is default grpc port.
+  addr: {endpoint}:4317
 ```
 
 #### 2. Make a download request and check the tracing UI
