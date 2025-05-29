@@ -134,9 +134,6 @@ manager:
       enable: true
     prometheusRule:
       enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 scheduler:
   image:
@@ -149,9 +146,6 @@ scheduler:
       enable: true
     prometheusRule:
       enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 seedClient:
   image:
@@ -164,7 +158,6 @@ seedClient:
     prometheusRule:
       enable: true
   config:
-    verbose: true
     log:
       level: info
     proxy:
@@ -201,9 +194,6 @@ client:
               serverAddr: https://ghcr.io
               capabilities: ['pull', 'resolve']
   config:
-    verbose: true
-    log:
-      level: info
     proxy:
       prefetch: true
       registryMirror:

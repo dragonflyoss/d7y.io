@@ -38,7 +38,7 @@ Meanwhile, it will act as an uploader to support other peers to download pieces 
 
           [default: 24]
 
-      --verbose
+      --console
           Specify whether to print log
 
   -h, --help
@@ -62,7 +62,7 @@ Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path.
-If the regex matches, intercepts download traffic and forwards it to the P2P network.
+> If the regex matches, intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
@@ -84,7 +84,7 @@ Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path.
-If the regex matches, intercepts download traffic and forwards it to the P2P network.
+> If the regex matches, intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
@@ -128,7 +128,7 @@ Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [Dfdaemon](../../configuration/client/dfdaemon.md).
 
 > Notice: set `proxy.rules.regex` to match the download path.
-If the regex matches, intercepts download traffic and forwards it to the P2P network.
+> If the regex matches, intercepts download traffic and forwards it to the P2P network.
 
 ```yaml
 proxy:
@@ -149,6 +149,6 @@ curl -v -x 127.0.0.1:4001 https://example.com/file.txt --output /tmp/file.txt
 ## Log {#log}
 
 ```text
-1. set option --verbose if you want to print logs to Terminal
+1. set option --console if you want to print logs to Terminal
 2. log path: /var/log/dragonfly/dfdaemon/
 ```

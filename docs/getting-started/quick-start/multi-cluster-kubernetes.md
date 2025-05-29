@@ -104,9 +104,6 @@ manager:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 scheduler:
   nodeSelector:
@@ -116,9 +113,6 @@ scheduler:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 seedClient:
   nodeSelector:
@@ -128,8 +122,6 @@ seedClient:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
 
 client:
   nodeSelector:
@@ -139,8 +131,6 @@ client:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
 
   dfinit:
     enable: true
@@ -329,8 +319,6 @@ scheduler:
   metrics:
     enable: true
   config:
-    verbose: true
-    pprofPort: 18066
     manager:
       addr: dragonfly-manager.cluster-a.svc.cluster.local:65003
       schedulerClusterID: 2
@@ -344,7 +332,6 @@ seedClient:
   metrics:
     enable: true
   config:
-    verbose: true
     manager:
       addr: http://dragonfly-manager.cluster-a.svc.cluster.local:65003
     seedPeer:
@@ -358,8 +345,6 @@ client:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
   dfinit:
     enable: true
     image:

@@ -171,7 +171,7 @@ Options:
 
           [default: 6]
 
-      --verbose
+      --console
           Specify whether to print log
 
   -V, --version
@@ -319,6 +319,6 @@ dfget hdfs://<path>/file.txt -O /tmp/file.txt  --hdfs-delegation-token <hadoop_d
 ## Log {#log}
 
 ```text
-1. set option --verbose if you want to print logs to Terminal
+1. set option --console if you want to print logs to Terminal
 2. log path: /var/log/dragonfly/dfget/
 ```
