@@ -4,12 +4,13 @@ title: Tracing
 slug: /operations/best-practices/observability/tracing/
 ---
 
-This documents will give a explanation about the process of encrypting data and
-introducing how to find the possible issue by creating a tracing system.
+This document provides a guide on how to set up tracing for Dragonfly, which is
+essential for monitoring and debugging distributed systems.
 
 ### Setup Jaeger
 
-Let's take the jaeger deployment as an example, refer to [jaeger getting started guide](https://www.jaegertracing.io/docs/2.3/getting-started/).
+Set up a Jaeger instance to collect and visualize tracing data from Dragonfly components, refer to the
+[Jaeger documentation](https://www.jaegertracing.io/docs/2.3/getting-started/) for detailed instructions.
 
 ```base
 docker run --rm --name jaeger \
@@ -21,19 +22,19 @@ docker run --rm --name jaeger \
   jaegertracing/jaeger:2.3.0
 ```
 
-### Configure the endpoint in Dragonfly
+### Configure the tracing endpoint in Dragonfly
 
-#### 1. Add tracing configuration as follows(in manager, scheduler and dfdaemon)
+#### Add tracing configuration as follows(in Manager, Scheduler and Dfdaemon)
 
 ```yaml
 tracing:
-#   # addr is the address to report tracing log. 4317 is default grpc port.
-  addr: {endpoint}:4317
+  # Jaeger endpoint url, like: jaeger.dragonfly.svc:4317.
+  addr: jaeger.dragonfly.svc:4317
 ```
 
-#### 2. Make a download request and check the tracing UI
+#### Access the Jaeger UI
 
-Every request details will be recorded in the tracing UI,
-including the validation for the checksum of the request and response.
+Jaeger will automatically collect the tracing data from Dragonfly components.
+You can access the Jaeger UI at `http://localhost:16686` to visualize the traces.
 
-![dfdaemon_trace](../../../resource/operations/best-practices/security/dfdaemon_trace.png)
+![dfdaemon_trace](../../../resource/operations/best-practices/observability/tracing/tracing.png)
