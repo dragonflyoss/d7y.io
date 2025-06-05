@@ -129,8 +129,8 @@ client:
       registryMirror:
         addr: https://cdn-lfs.huggingface.co
       rules:
-        - regex: "repos.*"
-            useTLS: true
+        - regex: 'repos.*'
+          useTLS: true
 ```
 
 Create a Dragonfly cluster using the configuration file:
