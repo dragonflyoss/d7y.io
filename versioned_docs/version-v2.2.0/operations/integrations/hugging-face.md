@@ -91,9 +91,6 @@ manager:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 scheduler:
   image:
@@ -101,9 +98,6 @@ scheduler:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
-    pprofPort: 18066
 
 seedClient:
   image:
@@ -111,8 +105,6 @@ seedClient:
     tag: latest
   metrics:
     enable: true
-  config:
-    verbose: true
 
 client:
   image:
@@ -122,15 +114,14 @@ client:
   metrics:
     enable: true
   config:
-    verbose: true
     proxy:
       server:
         port: 4001
       registryMirror:
         addr: https://cdn-lfs.huggingface.co
       rules:
-        - regex: "repos.*"
-            useTLS: true
+        - regex: 'repos.*'
+          useTLS: true
 ```
 
 Create a Dragonfly cluster using the configuration file:
