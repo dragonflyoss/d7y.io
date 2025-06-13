@@ -252,4 +252,6 @@ metrics:
 # tracing:
 # # addr is the address to report tracing log.
 # addr: ""
+# # headers is the headers to report tracing log.
+# headers: []
 ```
