@@ -159,6 +159,18 @@ gc:
   policy:
     # taskTTL is the ttl of the task.
     taskTTL: 21600s
+    # # distThreshold optionally defines a specific disk capacity to be used as the base for
+    # # calculating GC trigger points with `distHighThresholdPercent` and `distLowThresholdPercent`.
+    # #
+    # # - If a value is provided (e.g., "500GB"), the percentage-based thresholds (`distHighThresholdPercent`,
+    # #   `distLowThresholdPercent`) are applied relative to this specified capacity.
+    # # - If not provided or set to 0 (the default behavior), these percentage-based thresholds are applied
+    # #   relative to the total actual disk space.
+    # #
+    # # This allows dfdaemon to effectively manage a logical portion of the disk for its cache,
+    # # rather than always considering the entire disk volume.
+    #
+    # distThreshold: 10TiB
     # distHighThresholdPercent is the high threshold percent of the disk usage.
     # If the disk usage is greater than the threshold, dfdaemon will do gc.
     distHighThresholdPercent: 80
