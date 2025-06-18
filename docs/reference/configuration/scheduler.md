@@ -76,15 +76,15 @@ scheduler:
     # pieceDownloadTimeout is the timeout of downloading piece.
     pieceDownloadTimeout: 30m
     # peerGCInterval is the interval of peer gc.
-    peerGCInterval: 10s
+    peerGCInterval: 5m
     # peerTTL is the ttl of peer. If the peer has been downloaded by other peers,
     # then PeerTTL will be reset
-    peerTTL: 48h
+    peerTTL: 720h
     # taskGCInterval is the interval of task gc. If all the peers have been reclaimed in the task,
     # then the task will also be reclaimed.
     taskGCInterval: 30m
     # hostGCInterval is the interval of host gc.
-    hostGCInterval: 6h
+    hostGCInterval: 5m
     # hostTTL is time to live of host. If host announces message to scheduler,
     # then HostTTl will be reset.
     hostTTL: 1h
