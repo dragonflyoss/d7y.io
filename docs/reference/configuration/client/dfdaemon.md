@@ -158,7 +158,7 @@ gc:
   interval: 900s
   policy:
     # taskTTL is the ttl of the task.
-    taskTTL: 21600s
+    taskTTL: 720h
     # # distThreshold optionally defines a specific disk capacity to be used as the base for
     # # calculating GC trigger points with `distHighThresholdPercent` and `distLowThresholdPercent`.
     # #
