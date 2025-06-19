@@ -260,10 +260,15 @@ metrics:
     port: 4002
   # # ip is the listen ip of the metrics server.
   # ip: ""
-# # tracing is the tracing configuration for dfdaemon.
+
+# tracing is the tracing configuration for dfdaemon.
 # tracing:
-# # addr is the address to report tracing log.
-# addr: ""
-# # headers is the grpc's headers to send with tracing log.
-# headers: {}
+#   # Protocol specifies the communication protocol for the tracing server.
+#   # Supported values: "http", "https", "grpc" (default: None).
+#   # This determines how tracing logs are transmitted to the server.
+#   protocol: grpc
+#   # endpoint is the endpoint to report tracing log, example: "localhost:4317".
+#   endpoint: localhost:4317
+#   # headers is the grpc's headers to send with tracing log.
+#   headers: {}
 ```
