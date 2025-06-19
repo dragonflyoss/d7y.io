@@ -180,7 +180,14 @@ verbose: true
 # default is -1. If it is 0, pprof will use a random port.
 pprof-port: -1
 
-tracing:
-  # Jaeger endpoint url, like: jaeger.dragonfly.svc:4317.
-  addr: ''
+# tracing is the tracing configuration for dfdaemon.
+# tracing:
+#   # Protocol specifies the communication protocol for the tracing server.
+#   # Supported values: "http", "https", "grpc" (default: None).
+#   # This determines how tracing logs are transmitted to the server.
+#   protocol: grpc
+#   # endpoint is the endpoint to report tracing log, example: "localhost:4317".
+#   endpoint: localhost:4317
+#   # headers is the grpc's headers to send with tracing log.
+#   headers: {}
 ```
