@@ -28,8 +28,10 @@ docker run --rm --name jaeger \
 
 ```yaml
 tracing:
+  # Protocol to use for tracing.
+  protocol: grpc
   # Jaeger endpoint url, like: jaeger.dragonfly.svc:4317.
-  addr: jaeger.dragonfly.svc:4317
+  endpoint: jaeger.dragonfly.svc:4317
 ```
 
 #### Access the Jaeger UI
