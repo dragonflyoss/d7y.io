@@ -43,6 +43,8 @@ download:
   rateLimit: 50GiB
   # pieceTimeout is the timeout for downloading a piece from source.
   pieceTimeout: 60s
+  # collectedPieceTimeout is the timeout for collecting one piece from the parent in the stream.
+  collectedPieceTimeout: 10s
   # concurrentPieceCount is the number of concurrent pieces to download.
   concurrentPieceCount: 10
 

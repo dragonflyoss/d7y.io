@@ -180,7 +180,7 @@ $ sudo systemctl status dfdaemon
      Memory: 15.0M (max: 8.0G available: 7.9G)
         CPU: 83ms
      CGroup: /system.slice/dfdaemon.service
-             └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+             └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --console
 ```
 
 #### Step 4: Use Dfget to download files {#dfget-to-download-files-rpm}
@@ -261,7 +261,7 @@ $ sudo systemctl status dfdaemon
      Memory: 15.0M (max: 8.0G available: 7.9G)
         CPU: 83ms
      CGroup: /system.slice/dfdaemon.service
-             └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --verbose
+             └─2118 /usr/bin/dfdaemon --config /etc/dragonfly/dfdaemon.yaml --console
 ```
 
 #### Step 4: Use Dfget to download files {#dfget-to-download-files-deb}

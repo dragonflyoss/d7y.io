@@ -36,6 +36,10 @@ server:
   # In linux, default value is /usr/local/dragonfly.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly.
   workHome: ''
+  # logLevel specifies the logging level for the scheduler.
+  # Default: "info"
+  # Supported values: "debug", "info", "warn", "error", "panic", "fatal"
+  logLevel: "info"
   # logDir is the log directory.
   # In linux, default value is /var/log/dragonfly.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/logs.
@@ -173,12 +177,8 @@ network:
 # Console shows log on console.
 console: true
 
-# Whether to enable debug level logger and enable pprof.
-verbose: true
-
-# Listen port for pprof, only valid when the verbose option is true
-# default is -1. If it is 0, pprof will use a random port.
-pprof-port: -1
+# Listen port for pprof, default is -1 (meaning disabled).
+pprofPort: -1
 
 # tracing is the tracing configuration for dfdaemon.
 # tracing:
