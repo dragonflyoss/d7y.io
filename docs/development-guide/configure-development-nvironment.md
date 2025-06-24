@@ -13,7 +13,7 @@ This document describes how to configure a local development environment for Dra
 | Name     | Version                      | Document                                                                     |
 | -------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | Git      | 1.9.1+                       | [git-scm](https://git-scm.com/)                                              |
-| Golang   | 1.23.8+                       | [go.dev](https://go.dev/)                                                    |
+| Golang   | 1.23.8+                      | [go.dev](https://go.dev/)                                                    |
 | Rust     | 1.6+                         | [rustup.rs](https://rustup.rs/)                                              |
 | Database | Mysql 5.6+ OR PostgreSQL 12+ | [mysql](https://www.mysql.com/) OR [postgresql](https://www.postgresql.org/) |
 | Redis    | 3.0+                         | [redis.io](https://redis.io/)                                                |
@@ -76,7 +76,7 @@ Run Manager:
 
 ```bash
 # Setup Manager.
-go run cmd/manager/main.go --config /etc/dragonfly/manager.yaml --verbose --console
+go run cmd/manager/main.go --config /etc/dragonfly/manager.yaml --console
 ```
 
 #### Verify {#verify-manager}
@@ -123,7 +123,7 @@ Run Scheduler:
 
 ```bash
 # Setup Scheduler.
-go run cmd/scheduler/main.go --config /etc/dragonfly/scheduler.yaml --verbose --console
+go run cmd/scheduler/main.go --config /etc/dragonfly/scheduler.yaml --console
 ```
 
 #### Verify {#verify-scheduler}
@@ -161,7 +161,7 @@ Run Dfdaemon as Seed Peer:
 
 ```bash
 # Setup Dfdaemon.
-cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verbose
+cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --console
 ```
 
 #### Verify {#verify-seed-peer}
@@ -195,7 +195,7 @@ Run Dfdaemon as Peer:
 
 ```bash
 # Setup Dfdaemon.
-cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --verbose
+cargo run --bin dfdaemon -- --config /etc/dragonfly/dfdaemon.yaml -l info --console
 ```
 
 #### Verify {#verify-peer}

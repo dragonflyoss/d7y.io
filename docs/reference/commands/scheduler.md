@@ -35,7 +35,6 @@ version     show version
       --config string         the path of configuration file with yaml extension name, default is /etc/dragonfly/scheduler.yaml, it can also be set by env var: SCHEDULER_CONFIG
       --console               whether logger output records to the stdout
   -h, --help                  help for scheduler
-      --verbose               whether logger use debug level
 ```
 
 <!-- markdownlint-restore -->
