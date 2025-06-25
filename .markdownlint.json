@@ -2,6 +2,7 @@
   "whitespace": {
     "code_blocks": false
   },
+  "links": false,
   "line-length": {
     "line_length": 1024,
     "strict": false,
