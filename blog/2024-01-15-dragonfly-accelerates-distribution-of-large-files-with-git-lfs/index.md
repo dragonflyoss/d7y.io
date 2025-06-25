@@ -4,7 +4,7 @@ tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
-CNCF projects highlighted in this post [https://www.cncf.io/blog/2024/01/15/dragonfly-accelerates-distribution-of-large-files-with-git-lfs]
+[CNCF projects highlighted in this post](https://www.cncf.io/blog/2024/01/15/dragonfly-accelerates-distribution-of-large-files-with-git-lfs), and migrated by [mingcheng](https://github.com/mingcheng).
 
 <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly") -->
 
