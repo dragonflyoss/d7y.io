@@ -1,0 +1,23 @@
+{
+  "whitespace": {
+    "code_blocks": false
+  },
+  "line-length": {
+    "line_length": 1024,
+    "strict": false,
+    "code_blocks": false
+  },
+  "code": {
+    "language_only": false
+  },
+  "html": {
+    "allowed_elements": [
+      "table",
+      "tr",
+      "td",
+      "tbody",
+      "a",
+      "strong"
+    ]
+  }
+}

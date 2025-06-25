@@ -198,19 +198,19 @@ Here is the performance statistics under several workloads as below[1].
 
 The following is the performance statistics of file read/randread buffered IO [2]
 
-| read | IOPS | BW | performance
-| -------- | -------- | -------- | -------- |
-| native ext4 | 267K | 1093MB/s | 1 |
-| loop | 240K | 982MB/s | 0.90 |
-| fscache | 227K | 931MB/s | 0.85 |
-| fuse | 191K | 764MB/s | 0.70 |
+| read        | IOPS | BW       | performance |
+| ----------- | ---- | -------- | ----------- |
+| native ext4 | 267K | 1093MB/s | 1           |
+| loop        | 240K | 982MB/s  | 0.90        |
+| fscache     | 227K | 931MB/s  | 0.85        |
+| fuse        | 191K | 764MB/s  | 0.70        |
 
-| randread | IOPS | BW | Performance
-| -------- | -------- | -------- | -------- |
-| native ext4 | 10.1K | 41.2MB/s | 1 |
-| loop | 8.7K | 34.8MB/s | 0.84 |
-| fscache | 9.5K | 38.2MB/s | 0.93 |
-| fuse | 7.6K | 31.2MB/s | 0.76 |
+| randread    | IOPS  | BW       | Performance |
+| ----------- | ----- | -------- | ----------- |
+| native ext4 | 10.1K | 41.2MB/s | 1           |
+| loop        | 8.7K  | 34.8MB/s | 0.84        |
+| fscache     | 9.5K  | 38.2MB/s | 0.93        |
+| fuse        | 7.6K  | 31.2MB/s | 0.76        |
 
 > - "native" means that the test file is directly on the local ext4 filesystem
 > - "loop" means that the test file is inside a erofs image, while the erofs image is mounted through the DIRECT IO
@@ -230,12 +230,12 @@ of native filesystem.
 
 Test the performance of file metadata operations by performing a tar operation [4] on a large number of small files.
 
-| | Time | Performance
-| -------- | -------- | -------- |
-|native ext4|1.04s|1|
-| loop | 0.550s | 1.89 |
-| fscache | 0.570s | 1.82 |
-| fuse | 3.2s | 0.33 |
+|             | Time   | Performance |
+| ----------- | ------ | ----------- |
+| native ext4 | 1.04s  | 1           |
+| loop        | 0.550s | 1.89        |
+| fscache     | 0.570s | 1.82        |
+| fuse        | 3.2s   | 0.33        |
 
 It can be seen that the erofs format is even better than that of the native ext4 filesystem,
 which is caused by the optimized filesystem format of erofs.
@@ -246,12 +246,12 @@ and its metadata is scattered among multiple BGs (block group) .
 
 Test the performance of linux source code compilation [5] as the typical workload.
 
-| Linux Compiling | Time | Performance
-| -------- | -------- | -------- |
-| native ext4 | 156s | 1 |
-| loop | 154s | 1.0 |
-| fscache | 156s | 1.0 |
-| fuse | 200s | 0.78 |
+| Linux Compiling | Time | Performance |
+| --------------- | ---- | ----------- |
+| native ext4     | 156s | 1           |
+| loop            | 154s | 1.0         |
+| fscache         | 156s | 1.0         |
+| fuse            | 200s | 0.78        |
 
 It can be seen that fscache mode is basically the same as that of loop mode and native ext4 filesystem,
 and is better than fuse mode.

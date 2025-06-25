@@ -4,7 +4,7 @@ tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
-CNCF projects highlighted in this post https://www.cncf.io/blog/2025/01/07/dragonfly-v2-2-0-has-been-released/
+CNCF projects highlighted in this post <https://www.cncf.io/blog/2025/01/07/dragonfly-v2-2-0-has-been-released/>
 
 <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly") -->
 
@@ -38,11 +38,11 @@ If the user configures the client to disable sharing, it will become a leech.
 
 ### Optimize client’s performance for handling a large number of small I/Os by Nydus
 
--   Add the X-Dragonfly-Prefetch HTTP header. If X-Dragonfly-Prefetch is set to true and it is a range request, the client will prefetch the entire task. This feature allows Nydus to control which requests need prefetching.
--   The client’s HTTP proxy adds an independent cache to reduce requests to the gRPC server, thereby reducing request latency.
--   Increase the memory cache size in RocksDB and enable prefix search for quickly searching piece metadata.
--   Use the CRC-32-Castagnoli algorithm with hardware acceleration to reduce the hash calculation cost for piece content.
--   Reuse the gRPC connections for downloading and optimize the download logic.
+- Add the X-Dragonfly-Prefetch HTTP header. If X-Dragonfly-Prefetch is set to true and it is a range request, the client will prefetch the entire task. This feature allows Nydus to control which requests need prefetching.
+- The client’s HTTP proxy adds an independent cache to reduce requests to the gRPC server, thereby reducing request latency.
+- Increase the memory cache size in RocksDB and enable prefix search for quickly searching piece metadata.
+- Use the CRC-32-Castagnoli algorithm with hardware acceleration to reduce the hash calculation cost for piece content.
+- Reuse the gRPC connections for downloading and optimize the download logic.
 
 ### Defines the V2 of the P2P transfer protocol
 
@@ -52,9 +52,9 @@ Define the V2 of the P2P transfer protocol to make it more standard, clearer, an
 
 Dragonfly improves its integration with Harbor v2.13 for preheating images, includes the following enhancements:
 
--   Support for preheating multi architecture images.
--   User can select the preheat scope for multi-granularity preheating. (Single Seed Peer, All Seed Peers, All Peers)
--   User can specify the scheduler cluster ids for preheating images to the desired Dragonfly clusters.
+- Support for preheating multi architecture images.
+- User can select the preheat scope for multi-granularity preheating. (Single Seed Peer, All Seed Peers, All Peers)
+- User can specify the scheduler cluster ids for preheating images to the desired Dragonfly clusters.
 
 Refer to [documentation](https://d7y.io/docs/next/advanced-guides/preheat/) for more details.
 
@@ -72,7 +72,7 @@ Manager will regularly synchronize peers’ information and also allows for manu
 
 ![dragonfly dashboard](https://www.cncf.io/wp-content/uploads/2024/12/dragonfly-3.png)
 
-### Add hostname regexes and CIDRs to cluster scopes for matching clients.
+### Add hostname regexes and CIDRs to cluster scopes for matching clients
 
 When the client starts, it reports its hostname and IP to the Manager. The Manager then returns the best matching cluster (including schedulers and seed peers) to the client based on the cluster scopes configuration.
 
@@ -110,13 +110,13 @@ Grafana dashboards are listed below:
 
 Nydus v2.3.0 is released, refer to [Nydus Image Service v2.3.0](https://github.com/dragonflyoss/nydus/releases/tag/v2.3.0) for more details.
 
--   builder: support –parent-bootstrap for merge.
--   builder/nydusd: support batch chunks mergence.
--   nydusify/nydus-snapshotter: support OCI reference types.
--   nydusify: support export/import for remote images.
--   nydusify: support –push-chunk-size for large size image.
--   nydusd/nydus-snapshotter: support basic failover and hot upgrade.
--   nydusd: support overlay writable mount for fusedev.
+- builder: support –parent-bootstrap for merge.
+- builder/nydusd: support batch chunks mergence.
+- nydusify/nydus-snapshotter: support OCI reference types.
+- nydusify: support export/import for remote images.
+- nydusify: support –push-chunk-size for large size image.
+- nydusd/nydus-snapshotter: support basic failover and hot upgrade.
+- nydusd: support overlay writable mount for fusedev.
 
 ## Console
 
@@ -136,13 +136,13 @@ Refactor the website documentation to make Dragonfly simpler and more practical 
 
 The following content only highlights the significant bug fixes in this release.
 
--   Fix the thread safety issue that occurs when constructing the DAG(Directed Acyclic Graph) during scheduling.
--   Fix the memory leak caused by the OpenTelemetry library.
--   Avoid hot reload when dynconfig refresh data from Manager.
--   Prevent concurrent download requests from causing failures in state machine transitions.
--   Use context.Background() to avoid stream cancel by dfdaemon.
--   Fix the database performance issue caused by clearing expired jobs when there are too many job records.
--   Reuse the gRPC connection pool to prevent redundant request construction.
+- Fix the thread safety issue that occurs when constructing the DAG(Directed Acyclic Graph) during scheduling.
+- Fix the memory leak caused by the OpenTelemetry library.
+- Avoid hot reload when dynconfig refresh data from Manager.
+- Prevent concurrent download requests from causing failures in state machine transitions.
+- Use context.Background() to avoid stream cancel by dfdaemon.
+- Fix the database performance issue caused by clearing expired jobs when there are too many job records.
+- Reuse the gRPC connection pool to prevent redundant request construction.
 
 ## AI Infrastructure
 
@@ -164,8 +164,8 @@ Distribute large files downloaded via the Git LFS protocol through Dragonfly P2P
 
 The community has added four new Maintainers, hoping to help more contributors participate in the community.
 
--   [Han Jiang](https://github.com/CormickKneey): He works for Kuaishou and will focus on the engineering work for Dragonfly.
--   [Yuan Yang](https://github.com/yyzai384): He works for Alibaba Group and will focus on the engineering work for Dragonfly.
+- [Han Jiang](https://github.com/CormickKneey): He works for Kuaishou and will focus on the engineering work for Dragonfly.
+- [Yuan Yang](https://github.com/yyzai384): He works for Alibaba Group and will focus on the engineering work for Dragonfly.
 
 ## Other
 
@@ -173,12 +173,12 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 
 ## Links
 
--   Dragonfly Website: [https://d7y.io/](https://d7y.io/)
--   Dragonfly Repository: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
--   Dragonfly Client Repository: [https://github.com/dragonflyoss/client](https://github.com/dragonflyoss/client)
--   Dragonfly Console Repository: [https://github.com/dragonflyoss/console](https://github.com/dragonflyoss/console)
--   Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
--   Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
+- Dragonfly Website: [https://d7y.io/](https://d7y.io/)
+- Dragonfly Repository: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- Dragonfly Client Repository: [https://github.com/dragonflyoss/client](https://github.com/dragonflyoss/client)
+- Dragonfly Console Repository: [https://github.com/dragonflyoss/console](https://github.com/dragonflyoss/console)
+- Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
+- Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
 <!-- ## Dragonfly Github
 
