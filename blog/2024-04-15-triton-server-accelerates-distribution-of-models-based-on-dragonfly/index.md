@@ -4,7 +4,7 @@ tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
-CNCF projects highlighted in this post <https://www.cncf.io/blog/2024/04/15/triton-server-accelerates-distribution-of-models-based-on-dragonfly/>
+CNCF projects highlighted in this post https://www.cncf.io/blog/2024/04/15/triton-server-accelerates-distribution-of-models-based-on-dragonfly
 
  <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly")[![Kubernetes logo](https://landscape.cncf.io/logos/e0303fdc381c96c1b4461ad1a2437c8f050cfb856fcb8710c9104367ca60f316.svg)](https://www.cncf.io/projects/kubernetes "Go to Kubernetes") -->
 

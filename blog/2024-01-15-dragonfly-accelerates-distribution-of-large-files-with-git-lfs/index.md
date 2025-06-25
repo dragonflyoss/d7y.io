@@ -4,7 +4,7 @@ tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
-CNCF projects highlighted in this post <https://www.cncf.io/blog/2024/01/15/dragonfly-accelerates-distribution-of-large-files-with-git-lfs/>
+CNCF projects highlighted in this post https://www.cncf.io/blog/2024/01/15/dragonfly-accelerates-distribution-of-large-files-with-git-lfs
 
 <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly") -->
 
@@ -147,7 +147,7 @@ kubectl apply -f peer-service-config.yaml
 
 ### Git LFS downlads large files via dragonfly
 
-Proxy Git LFS download requests to Dragonfly Peer Proxy(<http://127.0.0.1:65001>) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
+Proxy Git LFS download requests to Dragonfly Peer Proxy(http://127.0.0.1:65001) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
 
 ```bash
 git config --global http.proxy http://127.0.0.1:65001git config --global lfs.transfer.enablehrefrewrite truegit config --global url.http://github-cloud.githubusercontent.com/.insteadOf https://github-cloud.githubusercontent.com/
