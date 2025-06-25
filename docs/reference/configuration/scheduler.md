@@ -188,6 +188,8 @@ pprofPort: -1
 #   protocol: grpc
 #   # endpoint is the endpoint to report tracing log, example: "localhost:4317".
 #   endpoint: localhost:4317
+#   # path is the path to report tracing log, example: "/v1/traces" if the protocol is "http" or "https".
+#   path: "/v1/traces"
 #   # headers is the grpc's headers to send with tracing log.
 #   headers: {}
 ```
