@@ -45,11 +45,11 @@ Investigation of image distribution system based on P2P technology
 
 There are several P2P projects in the open source community. Here is a brief introduction to these projects.
 
-[Dragonfly](https://github.com/dragonflyoss/Dragonfly2)
+[Dragonfly](https://github.com/dragonflyoss/dragonfly)
 
 Architecture
 
-![Diagram flow showing Dragonfly architecture](https://www.cncf.io/wp-content/uploads/2023/04/image1-49.png)
+![Diagram flow showing Dragonfly architecture](../../docs/resource/concepts/arch.png)
 
 Manager
 
@@ -78,7 +78,7 @@ Dfdaemon
 
 Architecture
 
-![Diagram flow showing Kraken architecture](https://www.cncf.io/wp-content/uploads/2023/04/image2-48.jpg)
+![Diagram flow showing Kraken architecture](./diagram-flow-showing-kraken-architecture.jpg)
 
 Agent
 
@@ -142,7 +142,7 @@ Based on Volcano Engine’s demand for the above products, and combined with Dra
 
 Architecture
 
-![Diagram flow showing Volcano Engine architecture combined with Dragonfly's characteristics](https://www.cncf.io/wp-content/uploads/2023/04/image9-12.png)
+![Diagram flow showing Volcano Engine architecture combined with Dragonfly's characteristics](./diagram-flow-showing-volcano-engine-architecture-combined-with-Dragonfly's-characteristics.png)
 
 - Volcano Engine resources belong to the main account, P2P control components divided by the main account level isolation, each master account under a set of P2P control components. server level implementation of P2PManager controller, through the controller to control the control plane of all P2P cgroup parts
 - P2P control components are deployed in CR data plane VPC , through LB exposed to user cluster
@@ -179,11 +179,11 @@ POD Creation to Container Start
 
 Nginx  pods concurrently consume time from creation to startup for all pods of 50, 100, 200, and 500
 
-![Bar chart showing NGinx Pod Creation to Container Start divided by 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1. Dragonfly, Dragonfly & Nydus](https://www.cncf.io/wp-content/uploads/2023/04/image3-37.png)
+![Bar chart showing NGinx Pod Creation to Container Start divided by 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1. Dragonfly, Dragonfly & Nydus](./nginx-bar-chart.png)
 
 TensorFlow  pods concurrently consume time from creation to startup for all pods of 50, 100, 200, 500, respectively
 
-![Bar chart showing TensorFlow Pod Creation to Container Start divided by 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly ad Dragonfly & Nydus](https://www.cncf.io/wp-content/uploads/2023/04/image7-15.png)
+![Bar chart showing TensorFlow Pod Creation to Container Start divided by 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly ad Dragonfly & Nydus](./tensor-flow-bar-chart.png)
 
 In large-scale image scenarios, using Dragonfly and Dragonfly & Nydus scenarios can save more than 90% of container startup time compared to OCIv1 scenarios. The shorter startup time after using Nydus is due to the lazyload feature, which only needs to pull a small part of the metadata  Pod to start.
 
@@ -191,21 +191,21 @@ In large-scale image scenarios, using Dragonfly and Dragonfly & Nydus scenarios 
 
 Nginx Pod concurrent storage peak traffic of 50, 100, 200, and 500, respectively
 
-![Bar Chart showing impact of Nginx on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](https://www.cncf.io/wp-content/uploads/2023/04/image4-29.png)
+![Bar Chart showing impact of Nginx on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-peak-bandwidthon-container-registry-nginx-bar-chart.png)
 
 TensorFlow  Pod concurrent storage peak traffic of 50, 100, 200, 500, respectively
 
-![Bar Chart showing impact of TensorFlow on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](https://www.cncf.io/wp-content/uploads/2023/04/image5-24.png)
+![Bar Chart showing impact of TensorFlow on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-peak-bandwidthon-container-registry-tensor-flow-bar-chart.png)
 
 ### Back-to-source Traffic on Container Registry
 
 Nginx Pod concurrent 50, 100, 200, 500 back to the source traffic respectively
 
-![Bar Chart showing impact of Nginx on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](https://www.cncf.io/wp-content/uploads/2023/04/image6-16.png)
+![Bar Chart showing impact of Nginx on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-traffic-on-container-registry-nginx-bar-chart.png)
 
 TensorFlow  Pod concurrent 50, 100, 200, 500 back to the source traffic respectively
 
-![Bar Chart showing impact of TensorFlow on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](https://www.cncf.io/wp-content/uploads/2023/04/image8-15.png)
+![Bar Chart showing impact of TensorFlow on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-traffic-on-container-registry-tensor-flow-bar-chart.png)
 
 In large-scale scenarios, using Dragonfly back to the source pulls a small number of images, and all images in OCIv1 scenarios have to be back to the source, so using Dragonfly back to the source peak and back to the source traffic is much less than OCIv1. And after using Dragonfly, as the number of concurrency increases, the peak and traffic back to the source will not increase significantly.
 
@@ -219,7 +219,7 @@ Volcano Engine CR [https://www.volcengine.com/product/cr](https://www.volcengine
 
 Dragonfly [https://d7y.io/](https://d7y.io/)
 
-Dragonfly Github Repo [https://github.com/dragonflyoss/Dragonfly2](https://github.com/dragonflyoss/Dragonfly2)
+Dragonfly Github Repo [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 
 Nydus [https://nydus.dev/](https://nydus.dev/)
 

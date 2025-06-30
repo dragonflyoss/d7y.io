@@ -1,5 +1,5 @@
 ---
-title:  Ant Group security technology’s Nydus and Dragonfly image acceleration practices
+title: Ant Group security technology’s Nydus and Dragonfly image acceleration practices
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
@@ -70,7 +70,7 @@ AnolisOS Repository: [https://hub.docker.com/r/openanolis/anolisos/tags](https:/
 
 Reduce unnecessary build resources and time through Dockerfile writing constraints, image inspection, and other means.
 
-Dockerfile Best Practices: [https://docs.docker.com/develop/develop-images/dockerfile\_best-practices/](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+Dockerfile Best Practices: [https://docs.docker.com/develop/develop-images/dockerfile_best-practices/](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
 #### Parallel building and build caching
 
@@ -86,7 +86,7 @@ Issues with OCIv1 and OCIv2 proposals: [https://hackmd.io/@cyphar/ociv2-brainsto
 
 Nydus image files are divided into file chunks, and the metadata layer is flattened (removing intermediate layers). Each chunk is only saved once in the image, and a base image can be specified as a chunk dictionary for other Nydus images. Based on chunk-level deduplication, it provides low-cost data deduplication capabilities between different images, greatly reducing the amount of uploaded and downloaded data for the images.
 
-![image](https://www.cncf.io/wp-content/uploads/2023/05/image-8.png)
+![nydus-image-files](./nydus-image-files.png)
 
 As shown in the figure above, Nydus image 1 and image 2 have the same data blocks B2, C, E1, and F. Image 2 adds E2, G1, H1, and H2. If image 1 already exists in the image repository, image 2 can be built based on image 1. Only E2, G1, H1, and H2 need to be built in one layer, and only this layer needs to be uploaded to the image repository during upload. This achieves the effect of uploading and pulling only file differences, shortens the development cycle.
 
@@ -114,19 +114,19 @@ It can be seen that the steps and data transmission volume for building accelera
 
 The actual usage rate of the image data is very low. For example, [Cern’s paper](https://indico.cern.ch/event/567550/papers/2627182/files/6153-paper.pdf) mentions that only 6% of the content of a general image is actually used. The purpose of on-demand loading is to allow the container runtime to selectively download and extract files from the image layers in the Blob, but the [OCI](https://github.com/opencontainers/image-spec/)/[Docker](https://github.com/moby/moby/blob/master/image/spec/v1.2.md) image specifications package all image layers into a tar or tar.gz archive. This means that even if you want to extract a single file, you still have to scan the entire Blob. If the image is compressed using gzip, it is even more difficult to extract specific files.
 
-![Image](https://www.cncf.io/wp-content/uploads/2023/05/image-6.png)
+![nydus-images-load-on-demand](./nydus-images-load-on-demand.png)
 
-The [RAFS image format](https://d7y.io/blog/2022/06/06/evolution-of-nydus/) is an archive compression format proposed by Nydus. It separates the data (Blobs) and metadata (Bootstrap) of the container image file system, so that the original image layers only store the data part of the files. Furthermore, the files are divided into chunks according to a certain granularity, and the corresponding chunk data is stored in each layer of Blob. Using chunk granularity refines the deduplication granularity, and allows easier sharing of data between layers and images, and easier on-demand loading. The original image layers only store the data part of the files (i.e. the Blob layer in the figure).
+The [RAFS image format](/blog/2022/06/06/evolution-of-nydus) is an archive compression format proposed by Nydus. It separates the data (Blobs) and metadata (Bootstrap) of the container image file system, so that the original image layers only store the data part of the files. Furthermore, the files are divided into chunks according to a certain granularity, and the corresponding chunk data is stored in each layer of Blob. Using chunk granularity refines the deduplication granularity, and allows easier sharing of data between layers and images, and easier on-demand loading. The original image layers only store the data part of the files (i.e. the Blob layer in the figure).
 
 The Blob layer stores the chunk files, which are chunks of file data. For example, a 10MB file can be sliced into 10 1MB blocks, and the offset of each chunk can be recorded in an index. When requesting part of the data from a file, the container runtime can selectively obtain the file from the image repository by combining with the HTTP Range Request supported by the OCI/Docker image repository specification, thus saving unnecessary network overhead. For more details about the Nydus image format, please refer to the [Nydus Image Service project](https://github.com/dragonflyoss/image-service).
 
 The metadata and chunk indexes are combined to form the Meta layer in the figure above, which is the entire filesystem structure that the container can see after all image layers are stacked. It includes the directory tree structure, file metadata, chunk information (block size and offset, as well as metadata such as file name, file type, owner, etc. for each file). With Meta, the required files can be extracted without scanning the entire archive file. In addition, the Meta layer contains a hash tree and the hash of each chunk data block, which ensures that the entire file tree can be verified at runtime, and the signature of the entire Meta layer can be checked to ensure that the runtime data can be detected even if it is tampered with.
 
-![image](https://www.cncf.io/wp-content/uploads/2023/05/image-9.png)
+![nydus-meta-layer](./nydus-meta-layer.png)
 
 Nydus uses the user-mode file system implementation [FUSE](https://www.kernel.org/doc/html/latest/filesystems/fuse.html) to implement on-demand loading by default. The user-mode Nydus daemon process mounts the Nydus image mount point as the container RootFS directory. When the container generates a file system IO such as read(fd, count), the kernel-mode FUSE driver adds the request to the processing queue. The user-mode Nydus daemon reads and processes the request through the FUSE Device, pulls the corresponding number of Chunk data blocks from the remote Registry, and finally replies to the container through the kernel-mode FUSE. Nydus also implements a layer of local cache, where chunks that have been pulled from the remote are uncompressed and cached locally. The cache can be shared between images on a layer-by-layer basis, or at a chunk level.
 
-![image](https://www.cncf.io/wp-content/uploads/2023/05/image-5.png)
+![nydus-uses-the-user-mode-file-system](./nydus-uses-the-user-mode-file-system.png)
 
 After using Nydus for image acceleration, the startup time of different applications has made a qualitative leap, enabling applications to be launched in a very short time, meeting the requirements of rapid scaling in the cloud.
 
@@ -141,15 +141,15 @@ Furthermore, Nydus supports the EROFS over FS-Cache scheme (Linux 5.19-rc1), whe
 | e2e startup wordpress        | 11.704s, 11.651s, 11.330s | 5.237s, 5.489s, 5.337s    | 5.094s, 5.382s, 5.314s   | 10.167s, 9.999s, 9.884s   | 4.659s, 4.541s, 4.658s       |
 | e2e startup Hello bench java | 9.2186s, 8.9132s, 8.8412s | 2.8325s, 2.7671s, 2.7671s | 2.7543s, 2.8104, 2.8692s | 4.6904s, 4.7012s, 4.6654s | 2.9691s, 3.0485s, 3.0294s    |
 
-Currently Nydus has supported this scheme in building, running, and kernel-space (Linux 5.19-rc1). For detailed usage, please refer to the [Nydus EROFS FS-Cache user guide](https://github.com/dragonflyoss/image-service/blob/master/docs/nydus-fscache.md). If you want to learn more about the implementation details of Nydus in kernel-space, you can refer to [Nydus Image Acceleration: The Evolutionary Road of the Kernel](https://d7y.io/blog/2022/06/06/evolution-of-nydus/).
+Currently Nydus has supported this scheme in building, running, and kernel-space (Linux 5.19-rc1). For detailed usage, please refer to the [Nydus EROFS FS-Cache user guide](https://github.com/dragonflyoss/image-service/blob/master/docs/nydus-fscache.md). If you want to learn more about the implementation details of Nydus in kernel-space, you can refer to [Nydus Image Acceleration: The Evolutionary Road of the Kernel](/blog/2022/06/06/evolution-of-nydus).
 
-![image](https://www.cncf.io/wp-content/uploads/2023/05/image-7.png)
+![the-evolution-of-the-nydus-kernel](./the-evolution-of-the-nydus-kernel.png)
 
 #### Dragonfly P2P Accelerates Image Downloading
 
 Both the image repository service and the underlying storage have bandwidth and QPS limitations. If we rely solely on the bandwidth and QPS provided by the server, it is easy to fail to meet the demand. Therefore, P2P needs to be introduced to relieve server pressure, thereby meeting the demand for large-scale concurrent image pulling. In scenarios where large-scale image pulling is required, using Dragonfly&Nydus can save more than 90% of container startup time compared to using OCIv1.
 
-![image](https://www.cncf.io/wp-content/uploads/2023/05/image-9.png)
+![dragonfly-p2p-accelerates-image-downloading](./dragonfly-p2p-accelerates-image-downloading.png)
 
 The shorter startup time after using Nydus is due to the lazy loading feature of the image, where only a small portion of metadata needs to be pulled for the Pod to start. In large-scale scenarios, the number of images pulled back by Dragonfly is very small. In the OCIv1 scenario, all image pulling requires a return to the source, so the peak return to the source and return to the source traffic using Dragonfly are much less than in the OCIv1 scenario. Furthermore, after using Dragonfly, as the concurrency increases, the peak return to the source and traffic do not increase significantly.
 
@@ -178,7 +178,7 @@ Finally, the end-to-end P90 time consumption from an empty ACK node pool expansi
 
 ## The overall solution
 
-![image](https://www.cncf.io/wp-content/uploads/2023/05/image-10.png)
+![the-overall-solution](./the-overall-solution.png)
 
 1. By using a streamlined base image and following Dockerfile conventions, we can reduce the size of our images.
 2. We can utilize the buildkit provided by Ant Group for multistage and parallel image building, and use caching to speed up repeated builds. When directly building Nydus accelerated images, we can deduplicate by analyzing the repetition between images and only upload the different blocks to remote image repositories.
@@ -186,7 +186,7 @@ Finally, the end-to-end P90 time consumption from an empty ACK node pool expansi
 4. We can use the Dragonfly P2P network to accelerate the on-demand pulling of Nydus image blocks.
 5. We can use the ContainerOS operating system on our nodes to improve both OS and image startup speed.
 
-![image](https://www.cncf.io/wp-content/uploads/2023/05/image-4.png)
+![mprove-the-startup-speed-of-the-image](./improve-the-startup-speed-of-the-image.avif)
 
 | Time (3GB image as an example) | Build Image | Push Image | Schedule Node | Pull Image |
 | ------------------------------ | ----------- | ---------- | ------------- | ---------- |
@@ -226,7 +226,7 @@ NOTES:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
 ```
 
-For more details, please refer to: [https://d7y.io/zh/docs/setup/integration/nydus](https://d7y.io/zh/docs/setup/integration/nydus)
+For more details, please refer to: [nydus](/docs/next/operations/integrations/container-runtime/nydus/)
 
 ### Nydus installation
 
@@ -299,7 +299,7 @@ Dragonfly Project: [https://d7y.io/](https://d7y.io/)
 
 \[5\]Docker: [https://github.com/moby/moby/blob/master/image/spec/v1.2.md](https://github.com/moby/moby/blob/master/image/spec/v1.2.md)
 
-\[6\]RAFS image format: [https://d7y.io/blog/2022/06/06/evolution-of-nydus/](https://d7y.io/blog/2022/06/06/evolution-of-nydus/)
+\[6\]RAFS image format: [https://d7y.io/blog/2022/06/06/evolution-of-nydus/](/blog/2022/06/06/evolution-of-nydus)
 
 \[7\]Nydus Image Service project: [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)
 
@@ -307,4 +307,4 @@ Dragonfly Project: [https://d7y.io/](https://d7y.io/)
 
 \[9\]Nydus EROFS fscache user guide: [https://github.com/dragonflyoss/image-service/blob/master/docs/nydus-fscache.md](https://github.com/dragonflyoss/image-service/blob/master/docs/nydus-fscache.md)
 
-\[10\]The path of kernel evolution for Nydus image acceleration: [https://d7y.io/blog/2022/06/06/evolution-of-nydus/](https://d7y.io/blog/2022/06/06/evolution-of-nydus/)\[11\]Alinux2 Optimized-OS: [https://www.alibabacloud.com/help/en/container-service-for-kubernetes/latest/containeros-overview](https://www.alibabacloud.com/help/en/container-service-for-kubernetes/latest/containeros-overview)
+\[10\]The path of kernel evolution for Nydus image acceleration: [https://d7y.io/blog/2022/06/06/evolution-of-nydus/](/blog/2022/06/06/evolution-of-nydus)\[11\]Alinux2 Optimized-OS: [https://www.alibabacloud.com/help/en/container-service-for-kubernetes/latest/containeros-overview](https://www.alibabacloud.com/help/en/container-service-for-kubernetes/latest/containeros-overview)
