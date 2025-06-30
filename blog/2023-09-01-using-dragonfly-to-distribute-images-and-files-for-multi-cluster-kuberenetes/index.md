@@ -483,7 +483,7 @@ When pull image hits cache of remote peer, peer uses cluster-b’s scheduler and
 
 Dragonfly Website: [https://d7y.io/](https://d7y.io/)
 
-Dragonfly Github Repo: [https://github.com/dragonflyoss/Dragonfly2](https://github.com/dragonflyoss/Dragonfly2)
+Dragonfly Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 
 Dragonfly Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 

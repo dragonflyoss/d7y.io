@@ -10,13 +10,13 @@ hide_table_of_contents: false
 
  <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly")[![Kubernetes logo](https://landscape.cncf.io/logos/e0303fdc381c96c1b4461ad1a2437c8f050cfb856fcb8710c9104367ca60f316.svg) ](https://www.cncf.io/projects/kubernetes "Go to Kubernetes")[![Volcano logo](https://landscape.cncf.io/logos/45984434efdb609308838359d65422b44b2c60579df44a3f56c642b4161660d1.svg)](https://www.cncf.io/projects/volcano "Go to Volcano") -->
 
-_Project post originally published on [Github](https://github.com/dragonflyoss/Dragonfly2/releases/tag/v2.0.9) by Dragonfly maintainers_
+_Project post originally published on [Github](https://github.com/dragonflyoss/dragonfly/releases/tag/v2.0.9) by Dragonfly maintainers_
 
-![Dragonfly provide efficient, stable, secure file distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project](https://www.cncf.io/wp-content/uploads/2023/03/20230317123413.jpg)
+![Dragonfly provide efficient, stable, secure file distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project](./dragonfly.avif)
 
 Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform](https://cloud.google.com/) (GCP) Team, [Volcano Engine](https://www.volcengine.com/) Team, and [Baidu AI Cloud](https://intl.cloud.baidu.com/) Team for helping Dragonfly integrate with their public clouds. Welcome to visit [d7y.io](https://d7y.io/) website.
 
-![Github snippit](https://www.cncf.io/wp-content/uploads/2023/03/image-7.jpg)
+![Github snippit](./github-snippit.avif)
 
 ## **Features**
 
@@ -40,23 +40,23 @@ Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform]
 
 ## **Break Change**
 
-- Using the default value for the key used to generate JWT tokens in Manager can lead to security issues. Therefore, Manager has added [JWT Key](https://github.com/dragonflyoss/Dragonfly2/pull/2161) in the configuration, and upgrading Manager requires generating a new JWT Key and setting it in the [Manager configuration](https://github.com/dragonflyoss/d7y.io/blob/main/docs/reference/configuration/manager.md?plain=1#L56).
+- Using the default value for the key used to generate JWT tokens in Manager can lead to security issues. Therefore, Manager has added [JWT Key](https://github.com/dragonflyoss/dragonfly/pull/2161) in the configuration, and upgrading Manager requires generating a new JWT Key and setting it in the [Manager configuration](https://github.com/dragonflyoss/d7y.io/blob/main/docs/reference/configuration/manager.md?plain=1#L56).
 
 ## **Public Cloud Providers**
 
 - **_Google Cloud Platform(GCP)_** – GCP provides click to deploy Dragonfly in [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) (GKE) through [Marketplace](https://console.cloud.google.com/marketplace/product/google/dragonfly), refer to [Click to Deploy Dragonfly](https://console.cloud.google.com/marketplace/product/google/dragonfly).
-- **_Alibaba Cloud(Aliyun)_** – Aliyun provides install Dragonfly 1.x in [Container Registry](https://console.cloud.google.com/marketplace/product/google/dragonfly), refer to Use P2P Acceleration in [ASK](https://www.alibabacloud.com/help/en/container-registry/latest/use-the-p2p-acceleration-feature-in-ask-and-ack-clusters). **Recommend to deploy the more efficient and stable [Dragonfly 2.0](https://github.com/dragonflyoss/Dragonfly2)**, refer to Setup [Dragonfly in Kubernetes](https://d7y.io/docs/getting-started/quick-start/kubernetes/).
+- **_Alibaba Cloud(Aliyun)_** – Aliyun provides install Dragonfly 1.x in [Container Registry](https://console.cloud.google.com/marketplace/product/google/dragonfly), refer to Use P2P Acceleration in [ASK](https://www.alibabacloud.com/help/en/container-registry/latest/use-the-p2p-acceleration-feature-in-ask-and-ack-clusters). **Recommend to deploy the more efficient and stable [Dragonfly 2.0](https://github.com/dragonflyoss/dragonfly)**, refer to Setup [Dragonfly in Kubernetes](/docs/v2.0.9/getting-started/quick-start/kubernetes/).
 - **_Volcano Engine_** – Volcano Engine provides Dragonfly integration in Volcano Engine Kubernetes Engine(VKE) and Container Registry(CR), visit [VKE](https://www.volcengine.com/product/vke) & [CR](https://www.volcengine.com/product/cr) to Learn more.
 - **_Baidu AI Cloud_** – Baidu AI Cloud provides click to P2P Acceleration in [Cloud Container Engine](https://intl.cloud.baidu.com/product/cce.html) (CCE), power by Dragonfly.
 
 ## **Others**
 
-You can see [CHANGELOG](https://github.com/dragonflyoss/Dragonfly2/blob/main/CHANGELOG.md) for more details.
+You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHANGELOG.md) for more details.
 
 ## **Links**
 
 - Dragonfly Website: [https://d7y.io/](https://d7y.io/)
-- Dragonfly Github: [https://github.com/dragonflyoss/Dragonfly2](https://github.com/dragonflyoss/Dragonfly2)
+- Dragonfly Github: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Dragonfly Charts Github: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
 - Dragonfly Monitor Github: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 - Google Kubernetes Engine(GKE): [https://cloud.google.com/kubernetes-engine](https://cloud.google.com/kubernetes-engine)

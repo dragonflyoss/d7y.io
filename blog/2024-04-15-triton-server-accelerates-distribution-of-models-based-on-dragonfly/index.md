@@ -339,7 +339,7 @@ Test results show Triton and Dragonfly integration. It can effectively reduce th
 ### Dragonfly Community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/Dragonfly2](https://github.com/dragonflyoss/Dragonfly2)
+- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Dragonfly Repository Agent Github Repo: [https://github.com/dragonflyoss/dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repository-agent)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
