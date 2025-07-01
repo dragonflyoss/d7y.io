@@ -30,6 +30,7 @@ module.exports = {
           label: 'Sessions in Chinese',
           collapsed: false,
           items: [
+            'sessions/zh/2025-06-10',
             'sessions/zh/2024-09-06',
             'sessions/zh/2024-09-05',
             'sessions/zh/2023-11-04',
