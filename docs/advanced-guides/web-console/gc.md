@@ -4,6 +4,8 @@ title: Garbage Collection
 slug: /advanced-guides/web-console/gc
 ---
 
+In this article, you will be shown Garbage Collection page information.
+
 ## Audit GC History
 
 Displays Audit GC configuration and Audit GC history.
