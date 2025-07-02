@@ -1,7 +1,7 @@
 ---
 id: task
 title: Task
-slug: /advanced-guides/web-console/job/task/
+slug: /advanced-guides/web-console/resource/task/
 ---
 
 In this article, you will be shown Task page information.
@@ -22,11 +22,17 @@ If the download URL is the same, it will be scheduled as the same task.
 
 ![search-task-by-url](../../../resource/advanced-guides/task/search-task-by-url.png)
 
-### Search by task id
+### Search by Task ID
 
 **Task ID**: Query the task cache based on the task id.
 
 ![search-task-by-task-id](../../../resource/advanced-guides/task/search-task-by-task-id.png)
+
+### Search by Content for Calculating Task ID
+
+**Content for Calculating Task ID**: Query the task cache based on the content for calculating task id.
+
+![search-task-by-content-for-calculating-task-id](../../../resource/advanced-guides/task/search-by-content-for-calculating-task-id.png)
 
 ## Delete task
 
