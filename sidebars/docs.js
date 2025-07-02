@@ -206,6 +206,7 @@ module.exports = {
           items: ['development-guide/plugins/out-of-tree-plugins', 'development-guide/plugins/in-tree-plugin'],
         },
         'development-guide/running-tests',
+        'development-guide/system-design-v1.x',
       ],
     },
     {
