@@ -35,6 +35,16 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 Use Open API for find task. First create a POST request for find task.
 
+**URL**: Query the task cache based on the URL.
+
+**Tag**: When the task URL is the same but the tags are different,
+they will be distinguished based on the tags, and the queried tasks will also be different.
+
+**Application**: Caller application which is used for statistics and access control.
+
+**Filter Query Params**: Filter the query parameters of the downloaded URL.
+If the download URL is the same, it will be scheduled as the same task.
+
 ```shell
 curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
 --header 'Content-Type: application/json' \
@@ -44,8 +54,8 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "args": {
         "url": "https://example.com",
         "tag": "your_url_tag",
-        "application": "your_url_application"
-        "piece_length": your_piece_length,
+        "application": "your_url_application",
+        "filtered_query_params": "your_url_filtered_query_params"
     }
 }'
 ```
@@ -58,19 +68,12 @@ The command-line log returns the find task job id.
     "created_at": "0001-01-01T00:00:00Z",
     "updated_at": "0001-01-01T00:00:00Z",
     "task_id": "group_b58cdd29-aaae-498c-beab-a24e5d325366",
-    "bio": "",
     "type": "get_task",
     "state": "PENDING",
     "args": {
-        "application": "",
-        "filtered_query_params": "",
-        "piece_length": null,
-        "tag": "",
-        "task_id": "",
         "url": "https://example.com"
     },
     "result": null,
-    "seed_peer_clusters": null,
     "scheduler_clusters": [
         {
             "id": 1,
@@ -101,19 +104,11 @@ If status is `SUCCESS`, it means that the find task is successful.
     "type": "get_task",
     "state": "SUCCESS",
     "args": {
-        "application": "",
-        "filtered_query_params": "",
-        "piece_length": null,
-        "tag": "",
-        "task_id": "",
         "url": "https://example.com"
     },
     "result": {
-        "created_at": "2024-11-19T08:08:23.087253883Z",
         "job_states": [
             {
-                "created_at": "2024-11-19T08:08:23.087253883Z",
-                "error": "",
                 "results": [
                     {
                         "peers": [
@@ -130,15 +125,11 @@ If status is `SUCCESS`, it means that the find task is successful.
                     }
                 ],
                 "state": "SUCCESS",
-                "task_name": "get_task",
-                "task_uuid": "task_ddc9db9d-cb7f-4abd-b1bc-b4c28f259dcb",
-                "ttl": 0
             },
         ],
         "state": "SUCCESS",
         "updated_at": "2024-11-19T08:08:53.157878758Z"
     },
-    "seed_peer_clusters": [],
     "scheduler_clusters": [
         {
             "id": 1,
@@ -150,7 +141,63 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-#### Search by task id {#open-api-search-by-task-id}
+#### Search by Image Manifest URL {#open-api-search-by-image-manifest-url}
+
+Use Open API for find task. First create a POST request for find task.
+
+```shell
+curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your_dragonfly_personal_access_token' \
+--data-raw '{
+    "type": "get_image_distribution",
+    "args": {
+        "url": "https://example.com"
+    }
+}'
+```
+
+The command-line log returns the find task cache.
+`peers` is the address of the task cache.
+
+```shell
+{
+    image: {
+      layers: [
+        {
+          url: 'https://example.com/blobs/sha256:c7c72808bf776cd122bdaf4630a4a35ea319603d6a3b6cbffddd4c7fd6d2d269',
+        },
+        {
+          url: 'https://example.com/blobs/sha256:9986a736f7d3d24bb01b0a560fa0f19c4b57e56c646e1f998941529d28710e6b',
+        },
+      ],
+    },
+    peers: [
+      {
+        ip: '172.18.0.4',
+        hostname: 'kind-worker2',
+        layers: [
+          {
+            url: 'https://example.com/blobs/sha256:9986a736f7d3d24bb01b0a560fa0f19c4b57e56c646e1f998941529d28710e6b',
+          },
+        ],
+        scheduler_cluster_id: 1,
+      },
+      {
+        ip: '172.18.0.2',
+        hostname: 'kind-worker',
+        layers: [
+          {
+            url: 'https://example.com/blobs/sha256:c7c72808bf776cd122bdaf4630a4a35ea319603d6a3b6cbffddd4c7fd6d2d269',
+          },
+        ],
+        scheduler_cluster_id: 1,
+      },
+    ],
+}
+```
+
+#### Search by Task ID {#open-api-search-by-task-id}
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -174,20 +221,17 @@ The command-line log returns the find task job id.
     "created_at": "0001-01-01T00:00:00Z",
     "updated_at": "0001-01-01T00:00:00Z",
     "task_id": "group_b58cdd29-aaae-498c-beab-a24e5d325366",
-    "bio": "",
     "type": "get_task",
     "state": "PENDING",
     "args": {
         "task_id": "your_task_id",
     },
     "result": null,
-    "seed_peer_clusters": null,
     "scheduler_clusters": [
         {
             "id": 1,
             "created_at": "2024-11-15T08:06:37Z",
             "updated_at": "2024-11-15T08:06:37Z",
-
             "name": "cluster-1",
         },
     ]
@@ -216,10 +260,8 @@ If status is `SUCCESS`, it means that the find task is successful.
         "task_id": "your_task_id",
     },
     "result": {
-        "created_at": "2024-11-19T08:08:23.087253883Z",
         "job_states": [
             {
-                "created_at": "2024-11-19T08:08:23.087253883Z",
                 "results": [
                     {
                         "peers": [
@@ -236,13 +278,9 @@ If status is `SUCCESS`, it means that the find task is successful.
                     }
                 ],
                 "state": "SUCCESS",
-                "task_name": "get_task",
-                "task_uuid": "task_ddc9db9d-cb7f-4abd-b1bc-b4c28f259dcb",
-                "ttl": 0
             },
         ],
         "state": "SUCCESS",
-        "updated_at": "2024-11-19T08:08:53.157878758Z"
     },
     "scheduler_clusters": [
         {
@@ -255,7 +293,7 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-### Search by Content for Calculating Task ID
+#### Search by Content for Calculating Task ID
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -279,14 +317,12 @@ The command-line log returns the find task job id.
     "created_at": "0001-01-01T00:00:00Z",
     "updated_at": "0001-01-01T00:00:00Z",
     "task_id": "group_b58cdd29-aaae-498c-beab-a24e5d325366",
-    "bio": "",
     "type": "get_task",
     "state": "PENDING",
     "args": {
         "content_for_calculating_task_id": "your_content_for_calculating_task_id",
     },
     "result": null,
-    "seed_peer_clusters": null,
     "scheduler_clusters": [
         {
             "id": 1,
@@ -320,10 +356,8 @@ If status is `SUCCESS`, it means that the find task is successful.
         "content_for_calculating_task_id": "your_content_for_calculating_task_id",
     },
     "result": {
-        "created_at": "2024-11-19T08:08:23.087253883Z",
         "job_states": [
             {
-                "created_at": "2024-11-19T08:08:23.087253883Z",
                 "results": [
                     {
                         "peers": [
@@ -340,9 +374,6 @@ If status is `SUCCESS`, it means that the find task is successful.
                     }
                 ],
                 "state": "SUCCESS",
-                "task_name": "get_task",
-                "task_uuid": "task_ddc9db9d-cb7f-4abd-b1bc-b4c28f259dcb",
-                "ttl": 0
             },
         ],
         "state": "SUCCESS",
@@ -431,7 +462,6 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
     "created_at": "2024-11-19T07:51:46Z",
     "updated_at": "2024-11-19T07:52:45Z"
     "task_id": "group_909c09ee-4d4f-4033-be95-08dd800330bd",
-    "bio": "",
     "type": "delete_task",
     "state": "SUCCESS",
     "args": {
@@ -542,7 +572,6 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
     "created_at": "2024-11-19T07:51:46Z",
     "updated_at": "2024-11-19T07:52:45Z"
     "task_id": "group_909c09ee-4d4f-4033-be95-08dd800330bd",
-    "bio": "",
     "type": "delete_task",
     "state": "SUCCESS",
     "args": {
@@ -648,7 +677,6 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
     "created_at": "2024-11-19T07:51:46Z",
     "updated_at": "2024-11-19T07:52:45Z"
     "task_id": "group_909c09ee-4d4f-4033-be95-08dd800330bd",
-    "bio": "",
     "type": "delete_task",
     "state": "SUCCESS",
     "args": {
@@ -714,11 +742,25 @@ If the download URL is the same, it will be scheduled as the same task.
 
 ![search-task-by-url](../resource/advanced-guides/task/search-task-by-url.png)
 
-#### Search by task id
+#### Search by Image Manifest URL
+
+Deletion of the image manifest URL task cache is not supported yet.
+
+**Image Manifest URL**: Query the task cache based on the image manifest URL.
+
+![search-task-by-task-id](../resource/advanced-guides/task/search-task-by-image-manifest-url.png)
+
+#### Search by Task ID
 
 **Task ID**: Query the task cache based on the task id.
 
 ![search-task-by-task-id](../resource/advanced-guides/task/search-task-by-task-id.png)
+
+#### Search by Content for Calculating Task ID
+
+**Content for Calculating Task ID**: Query the task cache based on the content for calculating task id.
+
+![search-task-by-task-id](../resource/advanced-guides/task/search-task-by-content-for-calculating-task-id.png)
 
 ### Delete task
 

@@ -12,6 +12,9 @@ In this article, you will be shown Task page information.
 
 **URL**: Query the task cache based on the URL.
 
+**Piece Length**: When the task URLs are the same but the Piece Length is different,
+they will be distinguished based on the Piece Length, and the queried tasks will also be different.
+
 **Tag**: When the task URL is the same but the tags are different,
 they will be distinguished based on the tags, and the queried tasks will also be different.
 
@@ -21,6 +24,14 @@ they will be distinguished based on the tags, and the queried tasks will also be
 If the download URL is the same, it will be scheduled as the same task.
 
 ![search-task-by-url](../../../resource/advanced-guides/task/search-task-by-url.png)
+
+### Search by Image Manifest URL
+
+Deletion of the image manifest URL task cache is not supported yet.
+
+**Image Manifest URL**: Query the task cache based on the image manifest URL.
+
+![search-task-by-task-id](../../../resource/advanced-guides/task/search-task-by-image-manifest-url.png)
 
 ### Search by Task ID
 
@@ -50,13 +61,13 @@ Displays all deleted task.
 
 ![executions](../../../resource/advanced-guides/task/executions.png)
 
-### Delete successfully
+## Execution
 
 If the status is SUCCESS and the Failure list does not exist, it means that the deletion task is successful.
 
 ![success-task](../../../resource/advanced-guides/task/success-task.png)
 
-### Delete failed
+## Execution failed
 
 The Failure list will show the tasks that failed to execute.
 

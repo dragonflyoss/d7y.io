@@ -6,42 +6,42 @@ slug: /advanced-guides/web-console/gc
 
 In this article, you will be shown Garbage Collection page information.
 
-## Audit GC History
+## Audit garbage collection
 
-Displays Audit GC configuration and Audit GC history.
+Display the Audit garbage collection configuration and the history of all executed garbage collections.
 
 ![audit-history](../../resource/advanced-guides/web-console/gc/audit-history.png)
 
-## Audit Update GC
+## Update the Audit garbage collection configuration
 
-Update Audit Garbage Collection configuration.
+Update the Audit garbage collection configuration.
 
-**Keep the records in this interval**: when executing execute garbage collection, Keep the records in this interval.
+**Keep records in**: Use the Keep records in to configure how long audit logs should be kept. Use the drop down-menu to select Hours or Days. For example, if you set this to 7 days, Dragonfly Manager will only purge audit logs that are 8 or more days old.
 
 ![audit-update-gc](../../resource/advanced-guides/web-console/gc/audit-update-gc.png)
 
-## Audit Execute GC
+## Audit runs garbage collection
 
-Audit Execute Garbage Collection.
+To run garbage collection immediately, click `EXECUTE`.
 
 ![audit-execute-gc](../../resource/advanced-guides/web-console/gc/audit-execute-gc.png)
 
-## Job GC History
+## Job garbage collection
 
-Displays Job GC configuration and Job GC history.
+Display the Job garbage collection configuration and the history of all executed garbage collections.
 
 ![job-history](../../resource/advanced-guides/web-console/gc/job-history.png)
 
-## Job Update GC
+## Update the Job garbage collection configuration
 
-Update Job Garbage Collection configuration.
+Update the Job garbage collection configuration.
 
-**Keep the records in this interval**: when executing execute garbage collection, Keep the records in this interval.
+**Keep records in**: Use the Keep records in to configure how long job should be kept. Use the drop down-menu to select Hours or Days. For example, if you set this to 7 days, Dragonfly Manager will only purge job that are 8 or more days old.
 
 ![job-update-gc](../../resource/advanced-guides/web-console/gc/job-update-gc.png)
 
-## Job Execute GC
+## Job runs garbage collection
 
-Job Execute Garbage Collection.
+To run garbage collection immediately, click `EXECUTE`.
 
 ![job-execute-gc](../../resource/advanced-guides/web-console/gc/job-execute-gc.png)
