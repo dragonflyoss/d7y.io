@@ -293,7 +293,7 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-#### Search by Content for Calculating Task ID
+#### Search by Content for Calculating Task ID {#open-api-search-by-content-for-calculating-task-id}
 
 Use Open API for find task. First create a POST request for find task.
 
