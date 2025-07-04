@@ -1,17 +1,12 @@
 ---
-id: task-manager
-title: Task Manager
-slug: /advanced-guides/task-manager/
+id: task
+title: Task
+slug: /advanced-guides/open-api/task/
 ---
 
-This document will help you experience how to use Dragonfly's two methods of finding and clearing P2P task caches,
-namely Open API and console.
+This document will help you experience how to use Dragonfly's Open API to find and clear the P2P task cache.
 
-## Open API
-
-Use Open API to find and clear the P2P task cache.
-
-### Create personal access token
+## Create personal access token
 
 Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
@@ -23,15 +18,15 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../resource/advanced-guides/preheat/create-token.png)
+![create-token](../../resource/advanced-guides/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../resource/advanced-guides/preheat/copy-token.png)
+![copy-token](../../resource/advanced-guides/preheat/copy-token.png)
 
-### Search task {#open-api-search-task}
+## Search task {#open-api-search-task}
 
-#### Search by URL {#open-api-search-by-url}
+### Search by URL {#open-api-search-by-url}
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -141,7 +136,7 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-#### Search by Image Manifest URL {#open-api-search-by-image-manifest-url}
+### Search by Image Manifest URL {#open-api-search-by-image-manifest-url}
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -197,7 +192,7 @@ The command-line log returns the find task cache.
 }
 ```
 
-#### Search by Task ID {#open-api-search-by-task-id}
+### Search by Task ID {#open-api-search-by-task-id}
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -293,7 +288,7 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-#### Search by Content for Calculating Task ID {#open-api-search-by-content-for-calculating-task-id}
+### Search by Content for Calculating Task ID {#open-api-search-by-content-for-calculating-task-id}
 
 Use Open API for find task. First create a POST request for find task.
 
@@ -390,9 +385,9 @@ If status is `SUCCESS`, it means that the find task is successful.
 }
 ```
 
-### Delete task {#open-api-delete-task}
+## Delete task {#open-api-delete-task}
 
-#### Delete by URL
+### Delete by URL
 
 Use Open API for delete task. First create a POST request for delete task.
 
@@ -509,7 +504,7 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
 }
 ```
 
-#### Delete by task id
+### Delete by task id
 
 Use Open API for delete task. First create a POST request for delete task.
 
@@ -614,7 +609,7 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
 }
 ```
 
-#### Delete by Content for Calculating Task ID
+### Delete by Content for Calculating Task ID
 
 Use Open API for delete task. First create a POST request for delete task.
 
@@ -718,78 +713,3 @@ If the status is SUCCESS and failure_tasks is empty, it means that the deletion 
     ]
 }
 ```
-
-## Console
-
-Use console to find and clear the P2P task cache.
-
-### Search task
-
-#### Search by URL
-
-**URL**: Query the task cache based on the URL.
-
-**Piece Length**: When the task URLs are the same but the Piece Length is different,
-they will be distinguished based on the Piece Length, and the queried tasks will also be different.
-
-**Tag**: When the task URL is the same but the tags are different,
-they will be distinguished based on the tags, and the queried tasks will also be different.
-
-**Application**: Caller application which is used for statistics and access control.
-
-**Filter Query Params**: Filter the query parameters of the downloaded URL.
-If the download URL is the same, it will be scheduled as the same task.
-
-![search-task-by-url](../resource/advanced-guides/task/search-task-by-url.png)
-
-#### Search by Image Manifest URL
-
-Deletion of the image manifest URL task cache is not supported yet.
-
-**Image Manifest URL**: Query the task cache based on the image manifest URL.
-
-![search-task-by-task-id](../resource/advanced-guides/task/search-task-by-image-manifest-url.png)
-
-#### Search by Task ID
-
-**Task ID**: Query the task cache based on the task id.
-
-![search-task-by-task-id](../resource/advanced-guides/task/search-task-by-task-id.png)
-
-#### Search by Content for Calculating Task ID
-
-**Content for Calculating Task ID**: Query the task cache based on the content for calculating task id.
-
-![search-task-by-task-id](../resource/advanced-guides/task/search-task-by-content-for-calculating-task-id.png)
-
-### Delete task
-
-Click `DELETE` and delete task.
-
-![delete-task](../resource/advanced-guides/task/delete-task.png)
-
-The deleted task will not return results immediately and you need to wait.
-
-![pending-task](../resource/advanced-guides/task/pending-task.png)
-
-### Executions
-
-Displays all deleted task.
-
-![executions](../resource/advanced-guides/task/executions.png)
-
-#### Delete successfully
-
-If the status is SUCCESS and the Failure list does not exist, it means that the deletion task is successful.
-
-![success-task](../resource/advanced-guides/task/success-task.png)
-
-#### Delete failed
-
-The Failure list will show the tasks that failed to execute.
-
-![failure-task](../resource/advanced-guides/task/failure-task.png)
-
-Click the `Description` icon to view the failure log.
-
-![error-log](../resource/advanced-guides/task/error-log.png)

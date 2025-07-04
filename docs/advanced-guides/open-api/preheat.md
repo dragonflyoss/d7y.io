@@ -1,17 +1,12 @@
 ---
 id: preheat
 title: Preheat
-slug: /advanced-guides/preheat/
+slug: /advanced-guides/open-api/preheat/
 ---
 
-This document will help you experience how to use Dragonfly's three preheat methods,
-namely Open API preheat, console preheat and harbor preheat.
+This document will help you experience how to use Dragonfly's Open API for preheating.
 
-## Open API
-
-Use Open API to preheat.
-
-### Create personal access token
+## Create personal access token
 
 Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
@@ -23,13 +18,13 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../resource/advanced-guides/preheat/create-token.png)
+![create-token](../../resource/advanced-guides/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../resource/advanced-guides/preheat/copy-token.png)
+![copy-token](../../resource/advanced-guides/preheat/copy-token.png)
 
-### Preheat image
+## Preheat image
 
 Use Open API for preheating image. First create a POST request for preheating.
 
@@ -123,7 +118,7 @@ If the status is `SUCCESS`, the preheating is successful.
 }
 ```
 
-### Preheat file
+## Preheat file
 
 Use Open API for preheating file. First create a POST request for preheating.
 
@@ -215,63 +210,6 @@ If the status is `SUCCESS`, the preheating is successful.
 }
 ```
 
-## Console
-
-Use console for preheating image.
-
-### Preheat
-
-Display all of the preheat tasks.
-
-![preheats](../resource/advanced-guides/preheat/preheats.png)
-
-### Create Preheat
-
-Click the `ADD PREHEAT` button to create preheat task.
-
-**Description**: Set a description.
-
-**Clusters**: Used for clusters that need to be preheat.
-
-**Piece Length**: By setting the piece length, you can define the size of each piece downloaded during preheating.
-If unspecified, it’s calculated based on content length, defaulting to 4-16 MiB.
-
-**URL**: URL address used to specify the resource to be preheat.
-
-- **Single Seed Peer**: Preheat to a seed peer.
-
-- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
-
-- **All Peers**: Preheat to each peer in the P2P cluster.
-
-**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
-tag and the generated preheat task will be different.
-
-**Scope:** Select the scope of preheat as needed.
-
-**Filtered Query Params**: By setting the filteredQueryParams parameter, you can specify
-the file type of the resource that needs to be preheated.
-The filteredQueryParams is used to generate a unique preheat task and filter unnecessary query parameters in the URL.
-
-![create-preheat](../resource/advanced-guides/preheat/create-preheat.png)
-
-Click the `SAVE` to generate the preheat task,the generated preheat task will not return results immediately and
-you need to wait.
-
-![penging-preheat](../resource/advanced-guides/preheat/pending-preheat.png)
-
-### Preheat Success
-
-If the status is `SUCCESS`, the preheating is successful.
-
-![success-preheat](../resource/advanced-guides/preheat/success-preheat.png)
-
-### Preheat Failure
-
-If the status is `FAILURE`, the preheating is failure and an error log is displayed.
-
-![failure-preheat](../resource/advanced-guides/preheat/failure-preheat.png)
-
 ## Harbor
 
 Use harbor for preheating image, please refer to the
@@ -285,7 +223,7 @@ To support preheating for harbor with self-signed certificates,
 the Manager configuration needs to be modified.
 
 Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
-refer to [manager config](../reference/configuration/manager.md).
+refer to [manager config](../../reference/configuration/manager.md).
 
 > Notice: `yourdomain.crt` is Harbor's ca.crt.
 
@@ -325,11 +263,11 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../resource/advanced-guides/preheat/create-token.png)
+![create-token](../../resource/advanced-guides/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../resource/advanced-guides/preheat/copy-token.png)
+![copy-token](../../resource/advanced-guides/preheat/copy-token.png)
 
 ### Create instance
 
@@ -342,20 +280,20 @@ and click the `NEW INSTANCE` button to create create instance.
 
 **Step 3:** Enter personsal assess token.
 
-![create-instance](../resource/advanced-guides/preheat/create-instance.png)
+![create-instance](../../resource/advanced-guides/preheat/create-instance.png)
 
 Click the `TEST CONNECTION` button to test the connectivity of the creating instance.
 If the connectivity testing is successful, click the `OK` button to save the creating instance.
 
 > Notice: Instance status must be `Healthy`.
 
-![instance](../resource/advanced-guides/preheat/instance.png)
+![instance](../../resource/advanced-guides/preheat/instance.png)
 
 ### Create P2P provider policy
 
 Go to `Projects` and open your project from the project list, and open the `P2P Preheat` tab.
 
-![p2p-preheat](../resource/advanced-guides/preheat/p2p-preheat.png)
+![p2p-preheat](../../resource/advanced-guides/preheat/p2p-preheat.png)
 
 Click the `NEW POLICY` button to create P2P provider policy.
 
@@ -370,22 +308,22 @@ Click the `NEW POLICY` button to create P2P provider policy.
 **Step 2:** Enter the cluster id of Dragonfly Manager in `Cluster IDs` to specify the preheated cluster.
 If `Cluster IDs` is empty, it means to preheat all clusters.
 
-![create-policy](../resource/advanced-guides/preheat/create-policy.png)
+![create-policy](../../resource/advanced-guides/preheat/create-policy.png)
 
 ### Executions Preheat policy
 
 Click the `EXECUTE` to execute the preheating task.
 
-![exectu-preheat](../resource/advanced-guides/preheat/exectu-preheat.png)
+![exectu-preheat](../../resource/advanced-guides/preheat/exectu-preheat.png)
 
 If the status is SUCCESS, the preheating is successful.
 
-![executions](../resource/advanced-guides/preheat/executions.png)
+![executions](../../resource/advanced-guides/preheat/executions.png)
 
 Click the executions `ID` to view the detailed information of the preheating task, and click the Logs icon to view the log.
 
-![executions-success](../resource/advanced-guides/preheat/executions-success.png)
+![executions-success](../../resource/advanced-guides/preheat/executions-success.png)
 
 The expected output is as follows.
 
-![log](../resource/advanced-guides/preheat/log.png)
+![log](../../resource/advanced-guides/preheat/log.png)
