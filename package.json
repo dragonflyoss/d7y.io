@@ -32,7 +32,7 @@
     "react-dom": "^19.0.0",
     "react-github-btn": "^1.4.0",
     "react-youtube": "^10.1.0",
-    "three": "^0.177.0"
+    "three": "^0.178.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
