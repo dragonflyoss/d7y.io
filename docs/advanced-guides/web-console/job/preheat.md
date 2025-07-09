@@ -34,25 +34,25 @@ Create a preheat task for image preheating.
 
 ![create-preheat-image](../../../resource/advanced-guides/web-console/job/preheat/create-preheat-image.png)
 
-#### Information {create-preheat-image-information}
+#### Information {#create-preheat-image-information}
 
 The information of Preheat.
 
 **Description**: Set a description.
 
-#### Clusters {create-preheat-image-cluster}
+#### Clusters {#create-preheat-image-cluster}
 
 Preheat the cluster.
 
 **Clusters**: Used for clusters that need to be preheat.
 
-#### URL {create-preheat-image-urel}
+#### URL {#create-preheat-image-urel}
 
 URL address used to specify the resource to be preheat.
 
 **URL**: The URL address is the manifest URL for the image.
 
-#### Args {create-preheat-image-args}
+#### Args {#create-preheat-image-args}
 
 Args used to pass additional configuration options to the preheat task.
 
@@ -106,25 +106,25 @@ Create a preheat task for file preheating.
 
 ![create-preheat-file](../../../resource/advanced-guides/web-console/job/preheat/create-preheat-file.png)
 
-#### Information {create-preheat-file-information}
+#### Information {#create-preheat-file-information}
 
 The information of Preheat.
 
 **Description**: Set a description.
 
-#### Clusters {create-preheat-file-cluster}
+#### Clusters {#create-preheat-file-cluster}
 
 Preheat the cluster.
 
 **Clusters**: Used for clusters that need to be preheat.
 
-#### URL {create-preheat-file-url}
+#### URL {#create-preheat-file-url}
 
 URL address used to specify the resource to be preheat.
 
 - **URL**: Used to specify the URL addresses of resources requiring preheating, supporting multiple URLs in a single preheat request.
 
-#### Args {create-preheat-file-args}
+#### Args {#create-preheat-file-args}
 
 Args used to pass additional configuration options to the preheat task.
 
