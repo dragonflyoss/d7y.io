@@ -28,7 +28,7 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 Use Open API for preheating image. First create a POST request for preheating.
 
-**args**
+**args**: Args is the arguments of the preheating job.
 
 - **url**: URL address used to specify the resource to be preheat.
 
@@ -38,10 +38,10 @@ Use Open API for preheating image. First create a POST request for preheating.
   - **single_seed_peer**: Preheat to a seed peer.
 
   - **all_seed_peers**: Preheat to each seed peer in the P2P cluster.
-    - **count**: Count is the desired number of peers to preheat.
+    - **count**: Count is the desired number of seed peers to preheat.
       This field is used only when 'IPs' is not specified. It has priority over 'Percentage'.
       It must be a value between 1 and 200 (inclusive) if provided.
-    - **percentage**: Percentage is the percentage of available peers to preheat.
+    - **percentage**: Percentage is the percentage of available seed peers to preheat.
       This field has the lowest priority and is only used if both 'IPs' and 'Count' are not provided.
       It must be a value between 1 and 100 (inclusive) if provided.
 
@@ -156,7 +156,7 @@ If the status is `SUCCESS`, the preheating is successful.
 
 Use Open API for preheating file. First create a POST request for preheating.
 
-**args**
+**args**: Args is the arguments of the preheating job.
 
 - **urls**: Used to specify the URL addresses of resources requiring preheating, supporting multiple URLs in a single preheat request.
 
