@@ -18,11 +18,11 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../../resource/advanced-guides/preheat/create-token.png)
+![create-token](../../resource/advanced-guides/open-api/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../../resource/advanced-guides/preheat/copy-token.png)
+![copy-token](../../resource/advanced-guides/open-api/preheat/copy-token.png)
 
 ## Search task {#open-api-search-task}
 
