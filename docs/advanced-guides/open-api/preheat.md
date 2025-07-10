@@ -28,7 +28,7 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 Use Open API for preheating image. First create a POST request for preheating.
 
-**args**: Args is the arguments of the preheating job.
+**args**: Parameters for the preheat job.
 
 - **url**: URL address used to specify the resource to be preheat.
 
@@ -38,33 +38,31 @@ Use Open API for preheating image. First create a POST request for preheating.
   - **single_seed_peer**: Preheat to a seed peer.
 
   - **all_seed_peers**: Preheat to each seed peer in the P2P cluster.
-    - **count**: Count is the desired number of seed peers to preheat.
-      This field is used only when 'IPs' is not specified. It has priority over 'Percentage'.
+    - **count**: The count of preheat seed peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
       It must be a value between 1 and 200 (inclusive) if provided.
-    - **percentage**: Percentage is the percentage of available seed peers to preheat.
-      This field has the lowest priority and is only used if both 'IPs' and 'Count' are not provided.
+    - **percentage**: The percentage of preheat seed peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
       It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a seed peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
 
   - **all_peers**: Preheat to each peer in the P2P cluster.
-    - **Count**: Count is the desired number of peers to preheat.
-      This field is used only when 'IPs' is not specified. It has priority over 'Percentage'.
+    - **count**: The count of preheat peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
       It must be a value between 1 and 200 (inclusive) if provided.
-    - **Percentage**: Percentage is the percentage of available peers to preheat.
-      This field has the lowest priority and is only used if both 'IPs' and 'Count' are not provided.
+    - **percentage**: The percentage of preheat peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
       It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
 
-- **username**: Username is the username for authentication.
+- **username**: The username used to verify the image manifest.
 
-- **password**: Password is the password for authentication.
+- **password**: The password used to verify the image manifest.
 
 - **tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
   tag and the generated preheat task will be different.
 
 - **application**: Application is the application string for preheating.
-
-- **ips**: IPs is a list of specific peer IPs for preheating.
-  This field has the highest priority: if provided, both 'Count' and 'Percentage' will be ignored.
-  Applies to 'all_peers' and 'all_seed_peers' scopes.
 
 - **filtered_query_params**: FilteredQueryParams is the filtered query params for preheating.
 
@@ -156,7 +154,7 @@ If the status is `SUCCESS`, the preheating is successful.
 
 Use Open API for preheating file. First create a POST request for preheating.
 
-**args**: Args is the arguments of the preheating job.
+**args**: Parameters for the preheat job.
 
 - **urls**: Used to specify the URL addresses of resources requiring preheating, supporting multiple URLs in a single preheat request.
 
@@ -164,29 +162,27 @@ Use Open API for preheating file. First create a POST request for preheating.
   - **single_seed_peer**: Preheat to a seed peer.
 
   - **all_seed_peers**: Preheat to each seed peer in the P2P cluster.
-    - **count**: Count is the desired number of peers to preheat.
-      This field is used only when 'IPs' is not specified. It has priority over 'Percentage'.
+    - **count**: The count of preheat seed peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
       It must be a value between 1 and 200 (inclusive) if provided.
-    - **percentage**: Percentage is the percentage of available peers to preheat.
-      This field has the lowest priority and is only used if both 'IPs' and 'Count' are not provided.
+    - **percentage**: The percentage of preheat seed peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
       It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
 
   - **all_peers**: Preheat to each peer in the P2P cluster.
-    - **Count**: Count is the desired number of peers to preheat.
-      This field is used only when 'IPs' is not specified. It has priority over 'Percentage'.
+    - **count**: The count of preheat peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
       It must be a value between 1 and 200 (inclusive) if provided.
-    - **Percentage**: Percentage is the percentage of available peers to preheat.
-      This field has the lowest priority and is only used if both 'IPs' and 'Count' are not provided.
+    - **percentage**: The percentage of preheat peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
       It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a seed peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
 
 - **tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
   tag and the generated preheat task will be different.
 
 - **application**: Application is the application string for preheating.
-
-- **ips**: IPs is a list of specific peer IPs for preheating.
-  This field has the highest priority: if provided, both 'Count' and 'Percentage' will be ignored.
-  Applies to 'all_peers' and 'all_seed_peers' scopes.
 
 - **filtered_query_params**: FilteredQueryParams is the filtered query params for preheating.
 
