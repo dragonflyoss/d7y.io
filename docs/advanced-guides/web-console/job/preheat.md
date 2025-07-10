@@ -148,9 +148,10 @@ Args used to pass additional configuration options to the preheat task.
   - **Percentage**: The percentage of preheat peers desired.
     This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
     It must be a value between 1 and 100 (inclusive) if provided.
-  - **IPs**: By setting the IPs, can specify a seed peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
-    **Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
-    tag and the generated preheat task will be different.
+  - **IPs**: By setting the IPs, can specify a peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
+
+**Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
+tag and the generated preheat task will be different.
 
 **Application**: When the URL of the preheat tasks are the same but the Application are different, they will be distinguished based on the Application and the generated preheat tasks will be different.
 
