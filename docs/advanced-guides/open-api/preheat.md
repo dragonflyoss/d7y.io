@@ -62,7 +62,7 @@ Use Open API for preheating image. First create a POST request for preheating.
 - **tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
   tag and the generated preheat task will be different.
 
-- **application**: Application is the application string for preheating.
+- **application**: When the URL of the preheat tasks are the same but the application are different, they will be distinguished based on the application and the generated preheat tasks will be different.
 
 - **filtered_query_params**: FilteredQueryParams is the filtered query params for preheating.
 
@@ -182,7 +182,7 @@ Use Open API for preheating file. First create a POST request for preheating.
 - **tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
   tag and the generated preheat task will be different.
 
-- **application**: Application is the application string for preheating.
+- **application**: When the URL of the preheat tasks are the same but the Application are different, they will be distinguished based on the Application and the generated preheat tasks will be different.
 
 - **filtered_query_params**: FilteredQueryParams is the filtered query params for preheating.
 
