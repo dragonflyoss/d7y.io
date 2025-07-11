@@ -18,23 +18,55 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../../resource/advanced-guides/preheat/create-token.png)
+![create-token](../../resource/advanced-guides/open-api/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../../resource/advanced-guides/preheat/copy-token.png)
+![copy-token](../../resource/advanced-guides/open-api/preheat/copy-token.png)
 
 ## Preheat image
 
 Use Open API for preheating image. First create a POST request for preheating.
 
-**scope:** Select the scope of preheat as needed.
+**args**: Parameters for the preheat job.
 
-- **Single Seed Peer**: Preheat to a seed peer.
+- **url**: URL used to specify the resource to be preheated.
 
-- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
+- **platform**: The image type preheating task can specify the image architecture type. eg: linux/amd64、linux/arm64.
 
-- **All Peers**: Preheat to each peer in the P2P cluster.
+- **scope**: Select the scope of preheat as needed.
+  - **single_seed_peer**: Preheat to a seed peer.
+
+  - **all_seed_peers**: Preheat to each seed peer in the P2P cluster.
+    - **count**: The count of preheat seed peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
+      It must be a value between 1 and 200 (inclusive) if provided.
+    - **percentage**: The percentage of preheat seed peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
+      It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a seed peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
+
+  - **all_peers**: Preheat to each peer in the P2P cluster.
+    - **count**: The count of preheat peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
+      It must be a value between 1 and 200 (inclusive) if provided.
+    - **percentage**: The percentage of preheat peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
+      It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
+
+- **username**: The username used to authenticate the image manifest.
+
+- **password**: The password used to authenticate the image manifest.
+
+- **tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
+  tag and the generated preheat task will be different.
+
+- **application**: When the URL of the preheat tasks are the same but the application are different, they will be distinguished based on the application and the generated preheat tasks will be different.
+
+- **filtered_query_params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
+
+- **headers**: Add headers for preheat requests.
 
 **scheduler_cluster_ids:** Specify the preheated scheduler cluster id,
 if `scheduler_cluster_ids` is empty, it means preheating all scheduler clusters.
@@ -122,13 +154,39 @@ If the status is `SUCCESS`, the preheating is successful.
 
 Use Open API for preheating file. First create a POST request for preheating.
 
-**scope:** Select the scope of preheat as needed.
+**args**: Parameters for the preheat job.
 
-- **Single Seed Peer**: Preheat to a seed peer.
+- **urls**: Used to specify the URL addresses of resources requiring preheating, supporting multiple URLs in a single preheat request.
 
-- **All Seed Peers**: Preheat to each seed peer in the P2P cluster.
+- **scope**: Select the scope of preheat as needed.
+  - **single_seed_peer**: Preheat to a seed peer.
 
-- **All Peers**: Preheat to each peer in the P2P cluster.
+  - **all_seed_peers**: Preheat to each seed peer in the P2P cluster.
+    - **count**: The count of preheat seed peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
+      It must be a value between 1 and 200 (inclusive) if provided.
+    - **percentage**: The percentage of preheat seed peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
+      It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
+
+  - **all_peers**: Preheat to each peer in the P2P cluster.
+    - **count**: The count of preheat peers desired.
+      This field is used only when `IPs` is not specified. It has priority over `Percentage`.
+      It must be a value between 1 and 200 (inclusive) if provided.
+    - **percentage**: The percentage of preheat peers desired.
+      This field has the lowest priority and is only used if both `IPs` and `Count` are not provided.
+      It must be a value between 1 and 100 (inclusive) if provided.
+    - **ips**: By setting the IPs, can specify a seed peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
+
+- **tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
+  tag and the generated preheat task will be different.
+
+- **application**: When the URL of the preheat tasks are the same but the Application are different, they will be distinguished based on the Application and the generated preheat tasks will be different.
+
+- **filtered_query_params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
+
+- **headers**: Add headers for preheat requests.
 
 **scheduler_cluster_ids:** Specify the preheated scheduler cluster id,
 if `scheduler_cluster_ids` is empty, it means preheating all scheduler clusters.
@@ -141,7 +199,7 @@ curl --location --request POST 'http://dragonfly-manager:8080/oapi/v1/jobs' \
     "type": "preheat",
     "args": {
         "type": "file",
-        "url": "https://example.com",
+        "urls": ["https://example.com"],
         "scope": "single_seed_peer"
     },
     "scheduler_cluster_ids":[1]
@@ -263,11 +321,11 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../../resource/advanced-guides/preheat/create-token.png)
+![create-token](../../resource/advanced-guides/open-api/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../../resource/advanced-guides/preheat/copy-token.png)
+![copy-token](../../resource/advanced-guides/open-api/preheat/copy-token.png)
 
 ### Create instance
 
@@ -280,20 +338,20 @@ and click the `NEW INSTANCE` button to create create instance.
 
 **Step 3:** Enter personsal assess token.
 
-![create-instance](../../resource/advanced-guides/preheat/create-instance.png)
+![create-instance](../../resource/advanced-guides/open-api/preheat/create-instance.png)
 
 Click the `TEST CONNECTION` button to test the connectivity of the creating instance.
 If the connectivity testing is successful, click the `OK` button to save the creating instance.
 
 > Notice: Instance status must be `Healthy`.
 
-![instance](../../resource/advanced-guides/preheat/instance.png)
+![instance](../../resource/advanced-guides/open-api/preheat/instance.png)
 
 ### Create P2P provider policy
 
 Go to `Projects` and open your project from the project list, and open the `P2P Preheat` tab.
 
-![p2p-preheat](../../resource/advanced-guides/preheat/p2p-preheat.png)
+![p2p-preheat](../../resource/advanced-guides/open-api/preheat/p2p-preheat.png)
 
 Click the `NEW POLICY` button to create P2P provider policy.
 
@@ -308,22 +366,22 @@ Click the `NEW POLICY` button to create P2P provider policy.
 **Step 2:** Enter the cluster id of Dragonfly Manager in `Cluster IDs` to specify the preheated cluster.
 If `Cluster IDs` is empty, it means to preheat all clusters.
 
-![create-policy](../../resource/advanced-guides/preheat/create-policy.png)
+![create-policy](../../resource/advanced-guides/open-api/preheat/create-policy.png)
 
 ### Executions Preheat policy
 
 Click the `EXECUTE` to execute the preheating task.
 
-![exectu-preheat](../../resource/advanced-guides/preheat/exectu-preheat.png)
+![exectu-preheat](../../resource/advanced-guides/open-api/preheat/exectu-preheat.png)
 
 If the status is SUCCESS, the preheating is successful.
 
-![executions](../../resource/advanced-guides/preheat/executions.png)
+![executions](../../resource/advanced-guides/open-api/preheat/executions.png)
 
 Click the executions `ID` to view the detailed information of the preheating task, and click the Logs icon to view the log.
 
-![executions-success](../../resource/advanced-guides/preheat/executions-success.png)
+![executions-success](../../resource/advanced-guides/open-api/preheat/executions-success.png)
 
 The expected output is as follows.
 
-![log](../../resource/advanced-guides/preheat/log.png)
+![log](../../resource/advanced-guides/open-api/preheat/log.png)

@@ -18,11 +18,11 @@ Click the `ADD PERSONAL ACCESS TOKENS` button to create personal access token.
 
 **Scopes**: Select the access permissions for the token.
 
-![create-token](../../resource/advanced-guides/preheat/create-token.png)
+![create-token](../../resource/advanced-guides/open-api/preheat/create-token.png)
 
 Click `SAVE` and copy the token and store it. For your security, it doesn't display again.
 
-![copy-token](../../resource/advanced-guides/preheat/copy-token.png)
+![copy-token](../../resource/advanced-guides/open-api/preheat/copy-token.png)
 
 ## Search task {#open-api-search-task}
 
@@ -30,14 +30,14 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 Use Open API for find task. First create a POST request for find task.
 
-**URL**: Query the task cache based on the URL.
+**url**: Query the task cache based on the URL.
 
-**Tag**: When the task URL is the same but the tags are different,
+**tag**: When the task URL is the same but the tags are different,
 they will be distinguished based on the tags, and the queried tasks will also be different.
 
-**Application**: Caller application which is used for statistics and access control.
+**application**: Caller application which is used for statistics and access control.
 
-**Filter Query Params**: Filter the query parameters of the downloaded URL.
+**filtered_query_params**: Filter the query parameters of the downloaded URL.
 If the download URL is the same, it will be scheduled as the same task.
 
 ```shell
