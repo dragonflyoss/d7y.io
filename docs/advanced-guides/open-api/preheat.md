@@ -30,7 +30,7 @@ Use Open API for preheating image. First create a POST request for preheating.
 
 **args**: Parameters for the preheat job.
 
-- **url**: URL address used to specify the resource to be preheat.
+- **url**: URL used to specify the resource to be preheated.
 
 - **platform**: The image type preheating task can specify the image architecture type. eg: linux/amd64、linux/arm64.
 
@@ -55,9 +55,9 @@ Use Open API for preheating image. First create a POST request for preheating.
       It must be a value between 1 and 100 (inclusive) if provided.
     - **ips**: By setting the IPs, can specify a peer IP for preheating. This field has the highest priority: if provided, both `Count` and `Percentage` will be ignored.
 
-- **username**: The username used to verify the image manifest.
+- **username**: The username used to authenticate the image manifest.
 
-- **password**: The password used to verify the image manifest.
+- **password**: The password used to authenticate the image manifest.
 
 - **tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
   tag and the generated preheat task will be different.

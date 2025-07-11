@@ -44,11 +44,11 @@ The information of Preheat.
 
 Preheat the cluster.
 
-**Clusters**: Used for clusters that need to be preheat.
+**Clusters**: Used for clusters that need to be preheated.
 
 #### URL {#create-preheat-image-urel}
 
-URL address used to specify the resource to be preheat.
+URL used to specify the resource to be preheated.
 
 **URL**: The URL address is the manifest URL for the image.
 
@@ -80,9 +80,9 @@ Args used to pass additional configuration options to the preheat task.
     It must be a value between 1 and 100 (inclusive) if provided.
   - **IPs**: By setting the IPs, can specify a peer IP for preheating.
 
-**User Name**: The username used to verify the image manifest.
+**User Name**: The username used to authenticate the image manifest.
 
-**Password**: The password used to verify the image manifest.
+**Password**: The password used to authenticate the image manifest.
 
 **Tag**: When the URL of the preheat task are the same but the Tag are different, they will be distinguished based on the
 tag and the generated preheat task will be different.
@@ -112,11 +112,11 @@ The information of Preheat.
 
 Preheat the cluster.
 
-**Clusters**: Used for clusters that need to be preheat.
+**Clusters**: Used for clusters that need to be preheated.
 
 #### URL {#create-preheat-file-url}
 
-URL address used to specify the resource to be preheat.
+URL used to specify the resource to be preheated.
 
 - **URL**: Used to specify the URL addresses of resources requiring preheating, supporting multiple URLs in a single preheat request.
 
