@@ -64,7 +64,7 @@ Use Open API for preheating image. First create a POST request for preheating.
 
 - **application**: When the URL of the preheat tasks are the same but the application are different, they will be distinguished based on the application and the generated preheat tasks will be different.
 
-- **filtered_query_params**: FilteredQueryParams is the filtered query params for preheating.
+- **filtered_query_params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
 
 - **headers**: Headers is the http headers for authentication.
 
@@ -184,7 +184,7 @@ Use Open API for preheating file. First create a POST request for preheating.
 
 - **application**: When the URL of the preheat tasks are the same but the Application are different, they will be distinguished based on the Application and the generated preheat tasks will be different.
 
-- **filtered_query_params**: FilteredQueryParams is the filtered query params for preheating.
+- **filtered_query_params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
 
 - **headers**: Headers is the http headers for authentication.
 
