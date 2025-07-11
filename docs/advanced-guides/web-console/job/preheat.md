@@ -92,7 +92,7 @@ they will be distinguished based on the Application and the generated preheat ta
 
 **Filtered Query Params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
 
-**ADD Headers**: Add headers for preheat request.
+**ADD Headers**: Add headers for preheat requests.
 
 ### Preheat file
 
@@ -151,4 +151,4 @@ tag and the generated preheat task will be different.
 
 **Filtered Query Params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
 
-**ADD Headers**: Add headers for preheat request.
+**ADD Headers**: Add headers for preheat requests.

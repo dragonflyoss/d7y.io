@@ -30,14 +30,14 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 
 Use Open API for find task. First create a POST request for find task.
 
-**URL**: Query the task cache based on the URL.
+**url**: Query the task cache based on the URL.
 
-**Tag**: When the task URL is the same but the tags are different,
+**tag**: When the task URL is the same but the tags are different,
 they will be distinguished based on the tags, and the queried tasks will also be different.
 
-**Application**: Caller application which is used for statistics and access control.
+**application**: Caller application which is used for statistics and access control.
 
-**Filter Query Params**: Filter the query parameters of the downloaded URL.
+**filtered_query_params**: Filter the query parameters of the downloaded URL.
 If the download URL is the same, it will be scheduled as the same task.
 
 ```shell

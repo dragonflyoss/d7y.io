@@ -66,7 +66,7 @@ Use Open API for preheating image. First create a POST request for preheating.
 
 - **filtered_query_params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
 
-- **headers**: Headers is the http headers for authentication.
+- **headers**: Add headers for preheat requests.
 
 **scheduler_cluster_ids:** Specify the preheated scheduler cluster id,
 if `scheduler_cluster_ids` is empty, it means preheating all scheduler clusters.
@@ -186,7 +186,7 @@ Use Open API for preheating file. First create a POST request for preheating.
 
 - **filtered_query_params**: By setting the filter parameter, you can specify the file type of the resource that needs to be preheated. The filter is used to generate a unique preheat task and filter unnecessary query parameters in the URL, separated by & characters.
 
-- **headers**: Headers is the http headers for authentication.
+- **headers**: Add headers for preheat requests.
 
 **scheduler_cluster_ids:** Specify the preheated scheduler cluster id,
 if `scheduler_cluster_ids` is empty, it means preheating all scheduler clusters.
