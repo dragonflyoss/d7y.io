@@ -56,7 +56,7 @@ Download the Client binaries:
 
 ```bash
 CLIENT_VERSION=<your_client_version>
-wget -O client_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/client-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
+wget -O client_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/dragonfly-client-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
 ```
 
 Untar the package:
@@ -204,7 +204,7 @@ Download and execute the install script.
 > Notice: version is recommended to use the latest version.
 
 ```bash
-wget -O  dragonfly-client-{arch}-unknown-linux-musl.deb
+wget -O dragonfly-client-{arch}-unknown-linux-musl.deb
 https://github.com/dragonflyoss/client/releases/download/v{version}/dragonfly-client-v{version}-{arch}-unknown-linux-musl.deb
 
 
@@ -357,7 +357,7 @@ database:
     password: your_redis_password
     brokerDB: 1
     backendDB: 2
- manager:
+manager:
   addr: dragonfly-manager:65003
   schedulerClusterID: 1
   keepAlive:
