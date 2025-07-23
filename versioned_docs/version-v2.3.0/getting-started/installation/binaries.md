@@ -56,7 +56,7 @@ Download the Client binaries:
 
 ```bash
 CLIENT_VERSION=<your_client_version>
-wget -O client_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/client-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
+wget -O client_x86_64-unknown-linux-musl.tar.gz https://github.com/dragonflyoss/client/releases/download/v${CLIENT_VERSION}/dragonfly-client-v${CLIENT_VERSION}-x86_64-unknown-linux-musl.tar.gz
 ```
 
 Untar the package:
