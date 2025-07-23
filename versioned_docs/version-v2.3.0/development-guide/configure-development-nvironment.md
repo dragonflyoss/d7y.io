@@ -110,7 +110,7 @@ database:
     password: your_redis_password
     brokerDB: 1
     backendDB: 2
- manager:
+manager:
   addr: 127.0.0.1:65003
   schedulerClusterID: 1
   keepAlive:

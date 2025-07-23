@@ -357,7 +357,7 @@ database:
     password: your_redis_password
     brokerDB: 1
     backendDB: 2
- manager:
+manager:
   addr: dragonfly-manager:65003
   schedulerClusterID: 1
   keepAlive:
