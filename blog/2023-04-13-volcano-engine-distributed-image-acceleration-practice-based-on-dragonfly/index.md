@@ -49,7 +49,7 @@ There are several P2P projects in the open source community. Here is a brief int
 
 Architecture
 
-![Diagram flow showing Dragonfly architecture](../../docs/resource/concepts/arch.png)
+![Diagram flow showing Dragonfly architecture](../../docs/resource/operations/deployment/architecture/arch.png)
 
 Manager
 
