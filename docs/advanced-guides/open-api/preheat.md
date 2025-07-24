@@ -32,12 +32,22 @@ Use Open API for preheating image. First create a POST request for preheating.
 
 - **url**: URL used to specify the resource to be preheated.
 
+- **concurrent_task_count**: Used to specify the maximum number of tasks (e.g., image layers) to preheat concurrently.
+  For example, if preheating 100 layers with ConcurrentTaskCount set to 10, up to 10 layers are processed simultaneously.
+  If ConcurrentPeerCount is 10 for 1000 peers, each layer is preheated by 10 peers concurrently.Default is 8, maximum is 100.
+
+- **concurrent_peer_count**: Used to specify the maximum number of peers to preheat concurrently for a single task (e.g., an image layer).
+  For example, if preheating a layer with ConcurrentPeerCount set to 10, up to 10 peers process that layer simultaneously.
+  Default is 500, maximum is 1000.
+
 - **platform**: The image type preheating task can specify the image architecture type. eg: linux/amd64、linux/arm64.
 
 - **scope**: Select the scope of preheat as needed.
+
   - **single_seed_peer**: Preheat to a seed peer.
 
   - **all_seed_peers**: Preheat to each seed peer in the P2P cluster.
+
     - **count**: The count of preheat seed peers desired.
       This field is used only when `IPs` is not specified. It has priority over `Percentage`.
       It must be a value between 1 and 200 (inclusive) if provided.
@@ -158,10 +168,20 @@ Use Open API for preheating file. First create a POST request for preheating.
 
 - **urls**: Used to specify the URL addresses of resources requiring preheating, supporting multiple URLs in a single preheat request.
 
+- **concurrent_task_count**: Used to specify the maximum number of tasks (e.g., image layers) to preheat concurrently.
+  For example, if preheating 100 layers with ConcurrentTaskCount set to 10, up to 10 layers are processed simultaneously.
+  If ConcurrentPeerCount is 10 for 1000 peers, each layer is preheated by 10 peers concurrently.Default is 8, maximum is 100.
+
+- **concurrent_peer_count**: Used to specify the maximum number of peers to preheat concurrently for a single task (e.g., an image layer).
+  For example, if preheating a layer with ConcurrentPeerCount set to 10, up to 10 peers process that layer simultaneously.
+  Default is 500, maximum is 1000.
+
 - **scope**: Select the scope of preheat as needed.
+
   - **single_seed_peer**: Preheat to a seed peer.
 
   - **all_seed_peers**: Preheat to each seed peer in the P2P cluster.
+
     - **count**: The count of preheat seed peers desired.
       This field is used only when `IPs` is not specified. It has priority over `Percentage`.
       It must be a value between 1 and 200 (inclusive) if provided.
