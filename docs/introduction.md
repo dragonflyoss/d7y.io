@@ -48,7 +48,7 @@ Dragonfly services could be divided into four categories: Manager, Scheduler, Se
   allowing the Scheduler to actively initiate back-to-source.
 - **Peer**: Provides upload and download functions.
 
-![arch](./resource/concepts/arch.png)
+![arch](./resource/operations/deployment/architecture/arch.png)
 
 ## How it works
 

@@ -33,7 +33,7 @@ standard solution in cloud native architectures.
 
 ## Architecture {#architecture}
 
-![arch](../../resource/concepts/arch.png)
+![arch](../../resource/operations/deployment/architecture/arch.png)
 
 ## Subsystem features {#subsystem-features}
 

@@ -6,7 +6,7 @@ slug: /advanced-guides/web-console/resource/task/
 
 In this article, you will be shown Task page information.
 
-## Search task
+## Search Task
 
 ### Search by URL
 
