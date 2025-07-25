@@ -55,10 +55,10 @@ Get task_id.
 
 ```shell
 # Find task id.
-$ export TASK_ID=$(grep "https://github.com/dragonflyoss/dragonfly/releases/download/v2.3.0/checksums.txt" /var/log/dragonfly/dfdaemon/* | grep -o 'task_id="[^"]*"')
+$ export TASK_ID=$(grep "https://<host>:<port>/<path>" /var/log/dragonfly/dfdaemon/* | grep -o 'task_id="[^"]*"')
 
 # Check logs.
-$ grep ${TASK_ID} /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'
+$ grep "$TASK_ID" /var/log/dragonfly/dfdaemon/* | grep 'download task succeeded'
 ```
 
 The expected output is as follows:
