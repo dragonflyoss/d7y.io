@@ -169,6 +169,12 @@ export default function Home() {
       herf: 'https://www.yahoo.com/',
       name: ' Yahoo',
     },
+    {
+      imgURL: 'img/user/ppio.png',
+      alt: 'ppio',
+      herf: 'https://ppio.com/',
+      name: ' PPIO',
+    },
   ];
 
   const PartnersList = [
