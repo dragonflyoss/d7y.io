@@ -1,6 +1,6 @@
 ---
 id: persistent-cache-task
-title: Persistent Cache Tasks
+title: Persistent Cache Task
 slug: /concepts/persistent-cache-task/
 ---
 
@@ -24,6 +24,6 @@ $ dfcache export 852606796 -O /tmp/file.txt
 [00:00:00] [############################################################] 8.73 KiB/8.73 KiB (7.30 MiB/s, 0.0s)
 ```
 
-## Persistent Cache Tasks
+## Console
 
-Access the console and view persistent cache tasks, refer to [persistent cache task](../advanced-guides/web-console/resource/persistent-cache-task.md).
+View persistent cache task details or delete a persistent cache task, refer to [persistent cache task](../advanced-guides/web-console/resource/persistent-cache-task.md).
