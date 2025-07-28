@@ -10,7 +10,7 @@ It designs to provide persistent caching for tasks. This tool can import file an
 
 ## Dfcache
 
-Use dfcache to import files, refer to [dfcache](../reference/commands/client/dfcache.md).
+Use dfcache to import files, please refer to [dfcache](../reference/commands/client/dfcache.md).
 
 ```shell
 $ dfcache import /tmp/file.txt
@@ -26,4 +26,4 @@ $ dfcache export 852606796 -O /tmp/file.txt
 
 ## Console
 
-View persistent cache task details or delete a persistent cache task, refer to [persistent cache task](../advanced-guides/web-console/resource/persistent-cache-task.md).
+View persistent cache task details or delete a persistent cache task, please refer to [persistent cache task](../advanced-guides/web-console/resource/persistent-cache-task.md).

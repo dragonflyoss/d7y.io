@@ -8,7 +8,7 @@ The Resource Search feature enables seamless querying of tasks, including files,
 
 ## Dfget
 
-Use dfget to download file, refer to [dfget](../reference/commands/client/dfget.md).
+Use dfget to download file, please refer to [dfget](../reference/commands/client/dfget.md).
 
 ```shell
 $ dfget https://<host>:<port>/<path> -O /tmp/file.txt
@@ -17,4 +17,4 @@ $ dfget https://<host>:<port>/<path> -O /tmp/file.txt
 
 ## Console
 
-View task details or delete a task, refer to [task](../advanced-guides/web-console/resource/task.md#search-by-url).
+View task details or delete a task, please refer to [task](../advanced-guides/web-console/resource/task.md#search-by-url).
