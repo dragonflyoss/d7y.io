@@ -8,7 +8,7 @@ The Resource Search feature enables seamless querying of tasks, including files,
 
 ## Dfget
 
-Download a file using dfget, refer to [dfget](../reference/commands/client/dfget.md).
+Use dfget to download file, refer to [dfget](../reference/commands/client/dfget.md).
 
 ```shell
 $ dfget https://<host>:<port>/<path> -O /tmp/file.txt
