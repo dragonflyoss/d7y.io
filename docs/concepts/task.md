@@ -15,7 +15,7 @@ $ dfget https://<host>:<port>/<path> -O /tmp/file.txt
 [00:00:00] [============================================================] 100% (209.63 KiB/s, 0.0s)
 ```
 
-Access the console and search for tasks by URL. refer to [Search by URL](../advanced-guides/web-console/resource/task.md#search-by-url).
+Access the console and search for tasks by URL. refer to [search by url](../advanced-guides/web-console/resource/task.md#search-by-url).
 
 ## Search by Image Manifest URL
 
@@ -23,7 +23,7 @@ Create a preheat task for image preheating, refer to [preheat-image](../advanced
 
 > Notice: Deletion of the image manifest URL task cache is not supported yet.
 
-Access the console and search for tasks by Image Manifest URL. refer to [Search by Image Manifest URL](../advanced-guides/web-console/resource/task.md#search-by-image-manifest-url).
+Access the console and search for tasks by Image Manifest URL. refer to [search by image manifest url](../advanced-guides/web-console/resource/task.md#search-by-image-manifest-url).
 
 ## Search by Task ID
 
@@ -54,7 +54,7 @@ task_id="475c16c1db17af77359d59e63047fad44c56341e2fa15a744c3890a233fb5852"
 peer_id="172.18.0.4-kind-worker-3aa79d4f-fe54-4b8b-81ef-60a259b30e39"
 ```
 
-Access the console and search for tasks by Task ID. refer to [Search by Task ID](../advanced-guides/web-console/resource/task.md#search-by-task-id).
+Access the console and search for tasks by Task ID. refer to [search by task id](../advanced-guides/web-console/resource/task.md#search-by-task-id).
 
 ## Search by Content for Calculating Task ID
 
@@ -65,4 +65,4 @@ $ dfget --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID> http
 [00:00:00] [============================================================] 100% (209.63 KiB/s, 0.0s)
 ```
 
-Access the console and search for tasks by Content for Calculating Task ID. refer to [Search by Content for Calculating Task ID](../advanced-guides/web-console/resource/task.md#search-by-content-for-calculating-task-id).
+Access the console and search for tasks by Content for Calculating Task ID. refer to [search by content for calculating task id](../advanced-guides/web-console/resource/task.md#search-by-content-for-calculating-task-id).
