@@ -25,7 +25,7 @@ Scheduler maintains task, peer and host resources.
 
 The scheduling process is actually to build a directed acyclic graph according to the peer's load.
 
-![scheduler-dag](../../../resource/architecture/scheduler-dag.png)
+![scheduler-dag](../../../resource/operations/deployment/applications/scheduler/scheduler-dag.png)
 
 ## Peer State Machine {#peer-state-machine}
 
@@ -38,4 +38,4 @@ The Scheduler divides tasks into three types `Tiny`, `Small` and `Normal`.
 Different scheduling strategies are used for different types of download tasks,
 following state transition diagram during the peer scheduling process.
 
-![scheduler-state-machine](../../../resource/architecture/scheduler-state-machine.jpg)
+![scheduler-state-machine](../../../resource/operations/deployment/applications/scheduler/scheduler-state-machine.jpg)
