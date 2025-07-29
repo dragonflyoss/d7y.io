@@ -33,4 +33,4 @@ Manager can manage multiple P2P networks.
 Usually, a P2P network includes a Scheduler cluster, a seed peer clsuter and many dfdaemons.
 The service network must be available in a P2P network.
 
-![manage-multiple-p2p-networks](../../../resource/architecture/manage-multiple-p2p-networks.png)
+![manage-multiple-p2p-networks](../../..//resource/operations/deployment/applications/manager/manage-multiple-p2p-networks.png)
