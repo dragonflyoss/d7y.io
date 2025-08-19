@@ -73,7 +73,7 @@ Options:
           Specify whether the download file must be hard linked to the output path. If hard link is failed, download will be failed. If it is false, dfdaemon will copy the file to the output path if hard link is failed.
 
       --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID>
-          Specify the content used to calculate the task ID. If it is set, use its value to calculate the task ID, Otherwise, calculate the task ID based on url, piece-length, tag, application, and filtered-query-params.
+          Specify the content used to calculate the task ID. If it is set, use its value to calculate the task ID, Otherwise, calculate the task ID based on URL, piece-length, tag, application, and filtered-query-params.
 
   -O, --output <OUTPUT>
           Specify the output path of downloading file
@@ -83,15 +83,16 @@ Options:
 
           [default: /var/run/dragonfly/dfdaemon.sock]
 
+  -r, --recursive
+          Specify whether to download the directory recursively. If it is true, dfget will download all files in the directory. If it is false, dfget will download the single file specified by the URL.
+
       --timeout <TIMEOUT>
           Specify the timeout for downloading a file
 
           [default: 2h]
 
-  -d, --digest <DIGEST>
-          Verify the integrity of the downloaded file using the specified digest, e.g. md5:86d3f3a95c324c9479bd8986968f4327
-
-          [default: ]
+      --digest <DIGEST>
+          Verify the integrity of the downloaded file using the specified digest, support sha256, sha512, crc32. If the digest is not specified, the downloaded file will not be verified. Format: <algorithm>:<digest>. Examples: sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef, crc32:12345678
 
   -p, --priority <PRIORITY>
           Specify the priority for scheduling task
@@ -102,7 +103,7 @@ Options:
           Specify the piece length for downloading file. If the piece length is not specified, the piece length will be calculated according to the file size. Different piece lengths will be divided into different tasks. The value needs to be set with human readable format and needs to be greater than or equal to 4mib, for example: 4mib, 1gib
 
       --application <APPLICATION>
-          Different applications for the same url will be divided into different tasks
+          Different applications for the same URL will be divided into different tasks
 
           [default: ]
 
@@ -112,10 +113,13 @@ Options:
           [default: ]
 
   -H, --header <HEADER>
-          Specify the header for downloading file, e.g. --header='Content-Type: application/json' --header='Accept: application/json'
+          Specify the header for downloading file. Examples: --header='Content-Type: application/json' --header='Accept: application/json'
 
       --filtered-query-param <FILTERED_QUERY_PARAMS>
-          Filter the query parameters of the downloaded URL. If the download URL is the same, it will be scheduled as the same task, e.g. --filtered-query-param='signature' --filtered-query-param='timeout'
+          Filter the query parameters of the downloaded URL. If the download URL is the same, it will be scheduled as the same task. Examples: --filtered-query-param='signature' --filtered-query-param='timeout'
+
+      --include-files <INCLUDE_FILES>
+          Filter files to download in a directory using glob patterns relative to the root URL's path. Examples: --include-files='*.txt' --include-files='subdir/file.txt'
 
       --disable-back-to-source
           Disable back-to-source download when dfget download failed
@@ -253,7 +257,7 @@ dfget https://<host>:<port>/<path> -O /tmp/file.txt
 dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 
 # Download a directory.
-dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
+dfget s3://<bucket/<path> -O /tmp/path/ --recursive --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
 #### Download with GCS protocol
@@ -263,7 +267,7 @@ dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id>
 dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credential_path>
 
 # Download a directory.
-dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path>
+dfget gs://<bucket>/<path> -O /tmp/path/ --recursive --storage-credential-path=<credential_path>
 ```
 
 #### Download with ABS protocol
@@ -273,7 +277,7 @@ dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_
 dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 
 # Download a directory.
-dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
+dfget abs://<container>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 ```
 
 #### Download with OSS protocol
@@ -283,7 +287,7 @@ dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_n
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 
 # Download a directory.
-dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+dfget oss://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 #### Download with OBS protocol
@@ -293,7 +297,7 @@ dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_i
 dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 
 # Download a directory.
-dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+dfget obs://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 #### Download with COS protocol
@@ -305,7 +309,7 @@ dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_i
 dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 
 # Download a directory.
-dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
+dfget cos://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
 #### Download with HDFS protocol
