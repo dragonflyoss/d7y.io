@@ -1,13 +1,12 @@
 ---
-title:  Using dragonfly to distribute images and files for multi-cluster kuberenetes
+title: Using dragonfly to distribute images and files for multi-cluster kuberenetes
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
+
 Posted on September 1, 2023
 
 [CNCF projects highlighted in this post](https://www.cncf.io/blog/2023/09/01/using-dragonfly-to-distribute-images-and-files-for-multi-cluster-kuberenetes/), and migrated by [mingcheng](https://github.com/mingcheng).
-
- <!-- [![containerd logo](https://landscape.cncf.io/logos/f26381b645b2f14293a2a597bc98b5bbe1e5e086029de41830ba7c667353bf3e.svg)](https://www.cncf.io/projects/containerd "Go to containerd")[![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg) ](https://www.cncf.io/projects/dragonfly "Go to Dragonfly")[![Jaeger logo](https://landscape.cncf.io/logos/5877af58428f6cd35e6dc2df2afe82af3b90853bd191670a60111e6e8c01ea54.svg) ](https://www.cncf.io/projects/jaeger "Go to Jaeger")[![Kubernetes logo](https://landscape.cncf.io/logos/e0303fdc381c96c1b4461ad1a2437c8f050cfb856fcb8710c9104367ca60f316.svg)](https://www.cncf.io/projects/kubernetes "Go to Kubernetes") -->
 
 Dragonfly provides efficient, stable, securefile distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation(CNCF) as an Incubating Level Project.
 
@@ -469,7 +468,7 @@ Expose jaeger’s port 16686:
 kubectl --namespace cluster-b port-forward service/dragonfly-jaeger-query 16686:16686
 ```
 
-Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags ```http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"```:
+Visit the Jaeger page in [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search), Search for tracing with Tags `http.url="/v2/dragonflyoss/dragonfly2/scheduler/blobs/sha256:82cbeb56bf8065dfb9ff5a0c6ea212ab3a32f413a137675df59d496e68eaf399?ns=ghcr.io"`:
 
 ![Screenshot showing dragonfly-dfget on Jaeger UI](https://www.cncf.io/wp-content/uploads/2023/09/image6-19.png)
 
@@ -489,7 +488,7 @@ Dragonfly Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dr
 
 Dragonfly Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 
-Dragonfly Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
+Dragonfly Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 Nydus Website: [https://nydus.dev/](https://nydus.dev/)
 

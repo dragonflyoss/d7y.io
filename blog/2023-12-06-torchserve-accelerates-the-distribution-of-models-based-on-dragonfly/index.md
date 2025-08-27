@@ -8,8 +8,6 @@ hide_table_of_contents: false
 
 [CNCF projects highlighted in this post](https://www.cncf.io/blog/2023/12/06/torchserve-accelerates-the-distribution-of-models-based-on-dragonfly/), and migrated by [mingcheng](https://github.com/mingcheng).
 
- <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly")[![Kubernetes logo](https://landscape.cncf.io/logos/e0303fdc381c96c1b4461ad1a2437c8f050cfb856fcb8710c9104367ca60f316.svg)](https://www.cncf.io/projects/kubernetes "Go to Kubernetes") -->
-
 This document will help you experience how to use dragonfly with [TorchServe](https://github.com/pytorch/serve). During the downloading of models, the file size is large and there are many services downloading the files at the same time. The bandwidth of the storage will reach the limit and the download will be slow.
 
 ![Diagram flow showing Model Registry flow from Cluster A and Cluster B](https://www.cncf.io/wp-content/uploads/2023/12/image-5.png)
@@ -115,14 +113,14 @@ dfdaemon:
     verbose: true
     pprofPort: 18066
     proxy:
-      defaultFilter: "Expires&Signature&ns"
+      defaultFilter: 'Expires&Signature&ns'
       security:
         insecure: true
-        cacert: ""
-        cert: ""
-        key: ""
+        cacert: ''
+        cert: ''
+        key: ''
       tcpListen:
-        namespace: ""
+        namespace: ''
         port: 65001
       registryMirror:
         url: https://index.docker.io
@@ -130,8 +128,8 @@ dfdaemon:
         certs: []
         direct: false
       proxies:
-      - regx: blobs/sha256.*
-      - regx: .*amazonaws.*
+        - regx: blobs/sha256.*
+        - regx: .*amazonaws.*
 
 manager:
   replicas: 1
@@ -206,9 +204,9 @@ spec:
     component: dfdaemon
     release: dragonfly
   ports:
-  - protocol: TCP
-    port: 65001
-    targetPort: 65001
+    - protocol: TCP
+      port: 65001
+      targetPort: 65001
   type: NodePort
 ```
 
@@ -228,7 +226,7 @@ kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
 
 ### Set environment variables for Dragonfly Endpoint configuration
 
-Create config.json configuration，and set DRAGONFLY\_ENDPOINT\_CONFIG environment variable for config.json file path.
+Create config.json configuration，and set DRAGONFLY_ENDPOINT_CONFIG environment variable for config.json file path.
 
 ```bash
 export DRAGONFLY_ENDPOINT_CONFIG=/etc/dragonfly-endpoint/config.json
@@ -425,7 +423,7 @@ torchserve --start --model-store <path-to-model-store-file> --plugins-path=<path
 
 #### Verify
 
-Prepare the model. Download a model from [Model ZOO](https://pytorch.org/serve/model_zoo.html#) or package the model refer to [Torch Model archiver for TorchServe](https://github.com/pytorch/serve/tree/master/model-archiver). Use squeezenet1\_1\_scripted.mar model to verify：
+Prepare the model. Download a model from [Model ZOO](https://pytorch.org/serve/model_zoo.html#) or package the model refer to [Torch Model archiver for TorchServe](https://github.com/pytorch/serve/tree/master/model-archiver). Use squeezenet1_1_scripted.mar model to verify：
 
 ```bash
 wget https://torchserve.pytorch.org/mar_files/squeezenet1_1_scripted.mar
@@ -437,7 +435,7 @@ Upload the model to object storage. For detailed uploading the model to S3, plea
 # Download the command line toolpip install awscli# Configure the key as promptedaws configure# Upload fileaws s3 cp < local file path > s3://< bucket name >/< Target path >
 ```
 
-TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model) for details of plugin API. The url parameter are not supported and add the file\_name parameter which is the model file name to download.
+TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model) for details of plugin API. The url parameter are not supported and add the file_name parameter which is the model file name to download.
 
 Download the model:
 
@@ -448,7 +446,9 @@ curl -X POST  "http://localhost:8081/dragonfly/models?file_name=squeezenet1_1.m
 Verify the model download successful:
 
 ```json
-{"Status": "Model \"squeezenet1_1\" Version: 1.0 registered with 0 initial workers. Use scale workers API to add workers for the model."}
+{
+  "Status": "Model \"squeezenet1_1\" Version: 1.0 registered with 0 initial workers. Use scale workers API to add workers for the model."
+}
 ```
 
 Added model worker for inference:
@@ -561,7 +561,7 @@ sudo docker run --rm -it --network host \
 
 #### How to Verify
 
-Prepare the model. Download a model from [Model ZOO](https://pytorch.org/serve/model_zoo.html#) or package the model refer to [Torch Model archiver for TorchServe](https://github.com/pytorch/serve/tree/master/model-archiver). Use squeezenet1\_1\_scripted.mar model to verify：
+Prepare the model. Download a model from [Model ZOO](https://pytorch.org/serve/model_zoo.html#) or package the model refer to [Torch Model archiver for TorchServe](https://github.com/pytorch/serve/tree/master/model-archiver). Use squeezenet1_1_scripted.mar model to verify：
 
 ```bash
 wget https://torchserve.pytorch.org/mar_files/squeezenet1_1_scripted.mar
@@ -580,7 +580,7 @@ aws configure
 aws s3 cp <local file path> s3://<bucket name>/<Target path>
 ```
 
-TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model) for details of plugin API. The url parameter are not supported and add the file\_name parameter which is the model file name to download.
+TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model) for details of plugin API. The url parameter are not supported and add the file_name parameter which is the model file name to download.
 
 Download a model：
 
@@ -591,7 +591,9 @@ curl -X POST  "http://localhost:8081/dragonfly/models?file_name=squeezenet1_1.m
 Verify the model download successful:
 
 ```json
-{"Status": "Model \"squeezenet1_1\" Version: 1.0 registered with 0 initial workers. Use scale workers API to add workers for the model."}
+{
+  "Status": "Model \"squeezenet1_1\" Version: 1.0 registered with 0 initial workers. Use scale workers API to add workers for the model."
+}
 ```
 
 Added model worker for inference:
@@ -668,7 +670,7 @@ Test results show TorchServe and Dragonfly integration. It can effectively reduc
 - Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
-- Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
+- Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 ### Pytorch
 

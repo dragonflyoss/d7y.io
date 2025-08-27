@@ -8,8 +8,6 @@ hide_table_of_contents: false
 
 [CNCF projects highlighted in this post](https://www.cncf.io/blog/2023/03/20/dragonfly-v2-0-9-is-released/), and migrated by [mingcheng](https://github.com/mingcheng).
 
- <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly")[![Kubernetes logo](https://landscape.cncf.io/logos/e0303fdc381c96c1b4461ad1a2437c8f050cfb856fcb8710c9104367ca60f316.svg) ](https://www.cncf.io/projects/kubernetes "Go to Kubernetes")[![Volcano logo](https://landscape.cncf.io/logos/45984434efdb609308838359d65422b44b2c60579df44a3f56c642b4161660d1.svg)](https://www.cncf.io/projects/volcano "Go to Volcano") -->
-
 _Project post originally published on [Github](https://github.com/dragonflyoss/dragonfly/releases/tag/v2.0.9) by Dragonfly maintainers_
 
 ![Dragonfly provide efficient, stable, secure file distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project](./dragonfly.avif)
