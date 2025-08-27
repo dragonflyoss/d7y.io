@@ -6,8 +6,6 @@ hide_table_of_contents: false
 
 [CNCF projects highlighted in this post](https://www.cncf.io/blog/2024/04/15/triton-server-accelerates-distribution-of-models-based-on-dragonfly/), and migrated by [mingcheng](https://github.com/mingcheng).
 
- <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly")[![Kubernetes logo](https://landscape.cncf.io/logos/e0303fdc381c96c1b4461ad1a2437c8f050cfb856fcb8710c9104367ca60f316.svg)](https://www.cncf.io/projects/kubernetes "Go to Kubernetes") -->
-
 Project post by Yufei Chen, Miao Hao, and Min Huang, Dragonfly project
 
 This document will help you experience how to use dragonfly with [TritonServe](https://github.com/pytorch/serve). During the downloading of models, the file size is large and there are many services downloading the files at the same time. The bandwidth of the storage will reach the limit and the download will be slow.
@@ -144,7 +142,7 @@ kubectl --namespace dragonfly-system port-forward service/dfstore 65001:65001
 
 ### Set Dragonfly Repository Agent configuration
 
-Create the dragonfly\_config.jsonconfiguration file, the configuration is as follows:
+Create the dragonfly_config.jsonconfiguration file, the configuration is as follows:
 
 ```json
 {
@@ -175,9 +173,9 @@ In the filter of the configuration, set different values when using different ob
 
 ### Set Model Repository configuration
 
-Create cloud\_credential.json cloud storage credential, the configuration is as follows:
+Create cloud_credential.json cloud storage credential, the configuration is as follows:
 
-```json
+````json
 ```json
 {
   "gs": {
@@ -211,7 +209,7 @@ Create cloud\_credential.json cloud storage credential, the configuration is as 
     }
   }
 }
-```
+````
 
 In order to pull the model through Dragonfly, the model configuration file needs to be added following code in config.pbtxt file:
 
@@ -219,7 +217,7 @@ In order to pull the model through Dragonfly, the model configuration file needs
 model_repository_agents{  agents [    {      name: "dragonfly",    }  ]}
 ```
 
-The [densenet\_onnx example](https://github.com/dragonflyoss/dragonfly-repository-agent/tree/main/examples/model_repository/densenet_onnx) contains modified configuration and model file. Modified config.pbtxt such as:
+The [densenet_onnx example](https://github.com/dragonflyoss/dragonfly-repository-agent/tree/main/examples/model_repository/densenet_onnx) contains modified configuration and model file. Modified config.pbtxt such as:
 
 ```txt
 name: "densenet_onnx"platform: "onnxruntime_onnx"max_batch_size : 0input [  {    name: "data_0"    data_type: TYPE_FP32    format: FORMAT_NCHW    dims: [ 3, 224, 224 ]    reshape { shape: [ 1, 3, 224, 224 ] }  }]output [  {    name: "fc6_1"    data_type: TYPE_FP32    dims: [ 1000 ]    reshape { shape: [ 1, 1000, 1, 1 ] }    label_filename: "densenet_labels.txt"  }]model_repository_agents{  agents [    {      name: "dragonfly",    }  ]}
@@ -241,7 +239,7 @@ Run the container and mount the configuration directory:
 docker run --network host --rm \  -v ${path-to-config-dir}:/home/triton/ \  dragonflyoss/dragonfly-repository-agent:latest tritonserver \  --model-repository=${model-repository-path}
 ```
 
-- path-to-config-dir: The files path of dragonfly\_config.json&cloud\_credential.json.
+- path-to-config-dir: The files path of dragonfly_config.json&cloud_credential.json.
 - model-repository-path: The path of remote model repository.
 
 The correct output is as follows:
@@ -304,7 +302,16 @@ kubectl exec -it -n dragonfly-system dragonfly-dfdaemon-<id> -- tail -f /var/log
 Check downloaded successfully through Dragonfly:
 
 ```json
-{"level":"info","ts":"2024-02-02 05:28:02.631","caller":"peer/peertask_conductor.go:1349","msg":"peer task done, cost: 352ms","peer":"10.244.2.3-1-4398a429-d780-423a-a630-57d765f1ccfc","task":"974aaf56d4877cc65888a4736340fb1d8fecc93eadf7507f531f9fae650f1b4d","component":"PeerTask","trace":"4cca9ce80dbf5a445d321cec593aee65"}
+{
+  "level": "info",
+  "ts": "2024-02-02 05:28:02.631",
+  "caller": "peer/peertask_conductor.go:1349",
+  "msg": "peer task done, cost: 352ms",
+  "peer": "10.244.2.3-1-4398a429-d780-423a-a630-57d765f1ccfc",
+  "task": "974aaf56d4877cc65888a4736340fb1d8fecc93eadf7507f531f9fae650f1b4d",
+  "component": "PeerTask",
+  "trace": "4cca9ce80dbf5a445d321cec593aee65"
+}
 ```
 
 ### Verify
@@ -343,7 +350,7 @@ Test results show Triton and Dragonfly integration. It can effectively reduce th
 - Dragonfly Repository Agent Github Repo: [https://github.com/dragonflyoss/dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repository-agent)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
-- Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
+- Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 ### NVIDIA Triton Inference Server
 

@@ -1,5 +1,5 @@
 ---
-title:  Dragonfly v2.1.0 is released!
+title: Dragonfly v2.1.0 is released!
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
@@ -7,8 +7,6 @@ hide_table_of_contents: false
 <!-- Posted on August 7, 2023 -->
 
 [CNCF projects highlighted in this post](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/), and migrated by [mingcheng](https://github.com/mingcheng).
-
- <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly")[![Volcano logo](https://landscape.cncf.io/logos/45984434efdb609308838359d65422b44b2c60579df44a3f56c642b4161660d1.svg)](https://www.cncf.io/projects/volcano "Go to Volcano") -->
 
 <!-- _Project post from the Dragonfly maintainers_ -->
 
@@ -33,7 +31,7 @@ Dragonfly v2.1.0 is released! 🎉🎉🎉 Thanks to the Xinxin Zhao[\[1\]](http
 - Fix storage can not write records to file when bufferSize is zero.
 - Hiding sensitive information in logs, such as the token in the header.
 - Use unscoped delete when destroying the manager’s resources.
-- Add uk\_scheduler index and uk\_seed\_peer index in the table of the database.
+- Add uk_scheduler index and uk_seed_peer index in the table of the database.
 - Remove security domain feature and security feature in the manager.
 - Add advertise port config to manager and scheduler.
 - Fix fsm changes state failed when register task.
