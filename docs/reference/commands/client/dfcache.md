@@ -253,9 +253,9 @@ dfcache import --persistent-replica-count 3 --ttl 2h /tmp/file.txt
 
 #### Importing large file
 
-The default ID is calculated based on the file's CRC32. For large files,
+The default ID is calculated based on the file's SHA256. For large files,
 this process may take longer. You can specify `--content-for-calculating-task-id` to define the file's uniqueness.
-Using CRC32 to compute a file's unique ID significantly reduces computation time. For example,
+For example,
 `--content-for-calculating-task-id` can be set to the filename, provided it ensures uniqueness.
 
 ```shell
