@@ -46,6 +46,8 @@ Click `DELETE` and delete your personal access token.
 
 ## Use personal access token
 
+### Add personal access token to Authorization header
+
 **Step 1:** Open Postman, and import [postman_collection.json](https://github.com/gaius-qi/dragonfly-docs/blob/main/manager/postman/Dragonfly.postman_collection.json).
 
 **Step 2:** Click **Open API** in the sidebar.
@@ -62,4 +64,20 @@ Click `DELETE` and delete your personal access token.
 
 **Step 6:** If successful, it means that the call to the open API is completed through the personal access token.
 
-![verify-open-api](../resource/advanced-guides/personal-access-tokens/verify-request.png)
+![verify-request](../resource/advanced-guides/personal-access-tokens/verify-request.png)
+
+### Add personal access token to URL query parameter
+
+**Step 1:** Open Postman, and import [postman_collection.json](https://github.com/gaius-qi/dragonfly-docs/blob/main/manager/postman/Dragonfly.postman_collection.json).
+
+**Step 2:** Click **Open API** in the sidebar.
+
+**Step 3:** Add `access_token=your_personal_access_token` to URL query parameter.
+
+![add-token-to-open-api-query-parameter](../resource/advanced-guides/personal-access-tokens/add-token-to-open-api-query-parameter.jpg)
+
+**Step 4:** Click **Send** button to initiate a request.
+
+**Step 5:** If successful, it means that the call to the open API is completed through the personal access token.
+
+![verify-request-query-parameter](../resource/advanced-guides/personal-access-tokens/verify-request-query-parameter.jpg)
