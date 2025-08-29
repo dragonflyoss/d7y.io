@@ -14,13 +14,13 @@ Use dfcache to import files, please refer to [dfcache](../reference/commands/cli
 
 ```shell
 $ dfcache import /tmp/file.txt
-⣷ Done: 852606796
+⣷ Done: e2d0fe1585a63ec6009c8016ff8dda8b17719a637405a4e23c0ff81339148249
 ```
 
 Use dfcache to export files.
 
 ```shell
-$ dfcache export 852606796 -O /tmp/file.txt
+$ dfcache export e2d0fe1585a63ec6009c8016ff8dda8b17719a637405a4e23c0ff81339148249 -O /tmp/file.txt
 [00:00:00] [############################################################] 8.73 KiB/8.73 KiB (7.30 MiB/s, 0.0s)
 ```
 
