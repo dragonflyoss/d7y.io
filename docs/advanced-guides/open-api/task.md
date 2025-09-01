@@ -171,7 +171,7 @@ The command-line log returns the find task cache.
       {
         ip: '172.18.0.4',
         hostname: 'kind-worker2',
-        layers: [
+        cached_layers: [
           {
             url: 'https://example.com/blobs/sha256:9986a736f7d3d24bb01b0a560fa0f19c4b57e56c646e1f998941529d28710e6b',
           },
@@ -181,7 +181,7 @@ The command-line log returns the find task cache.
       {
         ip: '172.18.0.2',
         hostname: 'kind-worker',
-        layers: [
+        cached_layers: [
           {
             url: 'https://example.com/blobs/sha256:c7c72808bf776cd122bdaf4630a4a35ea319603d6a3b6cbffddd4c7fd6d2d269',
           },
