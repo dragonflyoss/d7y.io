@@ -269,21 +269,35 @@ export default function Home() {
                 <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
                 <div className={styles.tagline}>
                   <p className={clsx('hero__subtitle', styles.description)}>
-                    <Translate>Provides</Translate>
-                    <span className={styles.highlight}>
-                      <Translate>efficient, stable, secure</Translate>
-                    </span>
-                    <Translate>
-                      file distribution and image acceleration based on p2p technology to be the best practice and
-                      standard solution in cloud native architectures. It is hosted by the
-                    </Translate>
-                    <span className={styles.highlight}>
-                      <Translate>Cloud Native Computing Foundation(CNCF)</Translate>
-                    </span>
-                    <Translate>as an</Translate>
-                    <span className={styles.highlight}>
-                      <Translate>Incubating Level Project.</Translate>
-                    </span>
+                    <div style={{ textDecoration: 'underline' }}>
+                      <Translate>
+                        Empower AI Infrastructure with Efficient and Reliable Data Distribution.
+                      </Translate>
+                    </div>
+
+                    <div style={{ fontSize: '.8em' }}>
+                      <Translate>Provides</Translate>
+                      <span className={styles.highlight}>
+                        <Translate>efficient, stable, secure</Translate>
+                      </span>
+                      <Translate>
+                        file distribution and image acceleration based on p2p technology to be the best practice and
+                        standard solution in cloud native architectures.
+                      </Translate>
+                    </div>
+
+                    <div style={{ fontSize: '.6em' }}>
+                      <Translate>
+                        It is hosted by the
+                      </Translate>
+                      <span className={styles.highlight}>
+                        <Translate>Cloud Native Computing Foundation(CNCF)</Translate>
+                      </span>
+                      <Translate>as an</Translate>
+                      <span className={styles.highlight}>
+                        <Translate>Incubating Level Project.</Translate>
+                      </span>
+                    </div>
                   </p>
                 </div>
                 <div className={styles.headerButton}>
@@ -492,6 +506,103 @@ export default function Home() {
                 <div className={styles.developmentLine}></div>
               </div>
             </div>
+
+            <div className={styles.developmentCardWrapper}>
+              <div className={styles.developmentCard}>
+                <div className={styles.developmentBox}>
+                  <div className={styles.developmentTitleWrapper}>
+                    <img
+                      className={styles.developmentCardImage}
+                      src={useBaseUrl('img/icon/development-dragonfly2.svg')}
+                    />
+                    <div className={styles.developmentCardTitle}>
+                      <Translate> Dragonfly 2.1</Translate>
+                    </div>
+                  </div>
+                  <div className={styles.developmentCardContent}>
+                    <Translate>v2.1 was released, and provides a new console for users to operate.</Translate>
+                  </div>
+                </div>
+                <div className={styles.developmentCardYear}>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>August</Translate>
+                  </span>
+                  <h2>2023</h2>
+                </div>
+              </div>
+              <div className={styles.developmentLineWarapper}>
+                <div className={styles.developmentLine}></div>
+                <div className={styles.developmentCircle}>5</div>
+                <div className={styles.developmentLine}></div>
+              </div>
+            </div>
+
+            <div className={styles.developmentCardWrapper}>
+              <div className={styles.developmentCards}>
+                <div className={styles.developmentBox}>
+                  <div className={styles.developmentTitleWrapper}>
+                    <img
+                      className={styles.developmentCardImage}
+                      src={useBaseUrl('img/icon/pressure.svg')}
+                    />
+                    <div className={styles.developmentCardTitle}>
+                      <Translate>
+                        Break Through the Bandwidth Limitations
+                      </Translate>
+                    </div>
+                  </div>
+                  <div className={styles.developmentCardContent}>
+                    <Translate>Dragonfly eliminates the bandwidth limit of the local storage solutions.</Translate>
+                  </div>
+                </div>
+                <div className={styles.developmentCardYear}>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>April</Translate>
+                  </span>
+                  <h2>2024</h2>
+                </div>
+              </div>
+              <div className={styles.developmentLineWarapper}>
+                <div className={styles.developmentLine}></div>
+                <div className={styles.developmentCircle}>6</div>
+                <div className={styles.developmentLine}></div>
+              </div>
+            </div>
+
+            <div className={styles.developmentCardWrapper}>
+              <div className={styles.developmentCard}>
+                <div className={styles.developmentBox}>
+                  <div className={styles.developmentTitleWrapper}>
+                    <img
+                      className={styles.developmentCardImage}
+                      src={useBaseUrl('img/icon/features-ecosystem.svg')}
+                    />
+                    <div className={styles.developmentCardTitle}>
+                      <Translate>AI Distribution By Dragonfly</Translate>
+                    </div>
+                  </div>
+                  <div className={styles.developmentCardContent}>
+                    <Translate>
+                      Dragonfly ♥️ AI:
+                      Empower AI Infrastructure with Efficient and Reliable Data Distribution.
+                    </Translate>
+                  </div>
+                </div>
+                <div className={styles.developmentCardYear}>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>July</Translate>
+                  </span>
+                  <h2>2025</h2>
+                </div>
+              </div>
+              <div className={styles.developmentLineWarapper}>
+                <div className={styles.developmentLine}></div>
+                <div className={styles.developmentCircle}>7</div>
+                <div className={styles.developmentLine}></div>
+              </div>
+            </div>
+
+
           </div>
         </div>
       </section>
