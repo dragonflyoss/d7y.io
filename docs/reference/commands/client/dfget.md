@@ -118,8 +118,8 @@ Options:
       --filtered-query-param <FILTERED_QUERY_PARAMS>
           Filter the query parameters of the downloaded URL. If the download URL is the same, it will be scheduled as the same task. Examples: --filtered-query-param='signature' --filtered-query-param='timeout'
 
-      --include-files <INCLUDE_FILES>
-          Filter files to download in a directory using glob patterns relative to the root URL's path. Examples: --include-files='*.txt' --include-files='subdir/file.txt'
+  -I, --include-files <INCLUDE_FILES>
+          Filter files to download in a directory using glob patterns relative to the root URL's path. Examples: --include-files file.txt --include-files subdir/file.txt --include-files subdir/dir/
 
       --disable-back-to-source
           Disable back-to-source download when dfget download failed
