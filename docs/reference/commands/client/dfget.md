@@ -165,16 +165,6 @@ Options:
 
           [default: info]
 
-      --log-dir <LOG_DIR>
-          Specify the log directory
-
-          [default: /var/log/dragonfly/dfget]
-
-      --log-max-files <LOG_MAX_FILES>
-          Specify the max number of log files
-
-          [default: 6]
-
       --console
           Specify whether to print log
 
