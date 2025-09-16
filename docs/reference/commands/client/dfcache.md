@@ -106,16 +106,6 @@ Options:
 
           [default: info]
 
-      --log-dir <LOG_DIR>
-          Specify the log directory
-
-          [default: /var/log/dragonfly/dfcache]
-
-      --log-max-files <LOG_MAX_FILES>
-          Specify the max number of log files
-
-          [default: 6]
-
       --console
           Specify whether to print log
 
@@ -173,16 +163,6 @@ Options:
 
           [default: info]
 
-      --log-dir <LOG_DIR>
-          Specify the log directory
-
-          [default: /var/log/dragonfly/dfcache]
-
-      --log-max-files <LOG_MAX_FILES>
-          Specify the max number of log files
-
-          [default: 6]
-
       --console
           Specify whether to print log
 
@@ -215,16 +195,6 @@ Options:
           Specify the logging level [trace, debug, info, warn, error]
 
           [default: info]
-
-      --log-dir <LOG_DIR>
-          Specify the log directory
-
-          [default: /var/log/dragonfly/dfcache]
-
-      --log-max-files <LOG_MAX_FILES>
-          Specify the max number of log files
-
-          [default: 6]
 
       --console
           Specify whether to print log
