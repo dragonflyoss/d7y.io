@@ -269,12 +269,12 @@ export default function Home() {
                 <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
                 <div className={styles.tagline}>
                   <p className={clsx('hero__subtitle', styles.description)}>
-                    <Translate>Provides</Translate>
+                    <Translate>Delivers</Translate>
                     <span className={styles.highlight}>
-                      <Translate>efficient, stable, secure</Translate>
+                      <Translate>efficient, stable, and secure</Translate>
                     </span>
                     <Translate>
-                      file distribution and image acceleration based on p2p technology to be the best practice and
+                      data distribution and acceleration powered by P2P technology. It aims to be the best practice and
                       standard solution in cloud native architectures. It is hosted by the
                     </Translate>
                     <span className={styles.highlight}>
