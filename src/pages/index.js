@@ -275,7 +275,7 @@ export default function Home() {
                     </span>
                     <Translate>
                       data distribution and acceleration powered by P2P technology. It aims to be the best practice and
-                      standard solution in cloud native architectures. It is hosted by the
+                      standard solution in cloud native architectures and is hosted by the
                     </Translate>
                     <span className={styles.highlight}>
                       <Translate>Cloud Native Computing Foundation(CNCF)</Translate>
