@@ -1,6 +1,6 @@
 ---
 title: Dragonfly Project Paper Accepted by IEEE Transactions on Networking (TON)!
-tags: [dragonfly, model distribution]
+tags: [dragonfly]
 hide_table_of_contents: false
 ---
 
@@ -65,6 +65,3 @@ This paper presents an efficient and scalable peer-to-peer (P2P) model distribut
 <div style="text-align:center">
 <img src="images/github.png"     width="200px"/> 
 </div>
-
-
-
