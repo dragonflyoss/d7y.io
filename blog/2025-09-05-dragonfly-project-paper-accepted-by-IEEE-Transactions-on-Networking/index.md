@@ -35,25 +35,25 @@ With the continuous evolution of Artificial Intelligence Generated Content (AIGC
 </div>
 
 ### Key Design 1: A Lightweight Network Measurement Mechanism
-- Network Latency Probing: Each peer proactively sends probes to a designated set of targets within the cluster, as assigned by the Scheduler, to measure end-to-end latency. This approach ensures efficient probing of all peers in the cluster while operating under constrained network resources.
+- **Network Latency Probing:** Each peer proactively sends probes to a designated set of targets within the cluster, as assigned by the Scheduler, to measure end-to-end latency. This approach ensures efficient probing of all peers in the cluster while operating under constrained network resources.
 <div style="text-align:center">
 <img src="images/probe.png"     width="500px"/> 
 </div>
 
 
-- Network Bandwidth Prediction: We employ non-intrusive measurements by analyzing historical loading data to estimate network bandwidth with reasonable accuracy. When a peer initiates a model loading request, it pulls pieces of the model from other peers and reports the size and loading time of these pieces to the Scheduler. The Scheduler leverages historical data from successful loading operations to predict bandwidth.
+- **Network Bandwidth Prediction:** We employ non-intrusive measurements by analyzing historical loading data to estimate network bandwidth with reasonable accuracy. When a peer initiates a model loading request, it pulls pieces of the model from other peers and reports the size and loading time of these pieces to the Scheduler. The Scheduler leverages historical data from successful loading operations to predict bandwidth.
 <div style="text-align:center">
 <img src="images/bandwidth.png"     width="500px"/> 
 </div>
 
 
 ### Key Design 2: A Scalable Scheduling Framework
-- Separating Inference from Scheduling: To ensure the Scheduler has adequate resources for task scheduling, we separate inference services from scheduling operations.
-- Real-Time Data Synchronization: To maintain data consistency across multiple schedulers, we store and continuously update end-to-end latency information for the entire network, as collected by the lightweight network measurement module.
+- **Separating Inference from Scheduling:** To ensure the Scheduler has adequate resources for task scheduling, we separate inference services from scheduling operations.
+- **Real-Time Data Synchronization:** To maintain data consistency across multiple schedulers, we store and continuously update end-to-end latency information for the entire network, as collected by the lightweight network measurement module.
 
 ### Key Design 3: An Asynchronous Model Training and Inference
-- Asynchronous Model Training:  Asynchronous training and inference are facilitated through collaboration between the Trainer and Triton. The Scheduler retrieves end-to-end latency and bandwidth predictions from Redis and sends them to the Trainer, which then initiates training and persists the updated model. Triton periodically polls for updates and loads the new model for inference in the subsequent cycle.
-- Graph Learning Algorithm:  This algorithm aggregates feature parameters from peers, modeling each sample as an interaction between a peer and its parent. It also incorporates information from neighboring peers to capture similarities within the cluster, thereby improving the accuracy of bandwidth predictions.
+- **Asynchronous Model Training:**  Asynchronous training and inference are facilitated through collaboration between the Trainer and Triton. The Scheduler retrieves end-to-end latency and bandwidth predictions from Redis and sends them to the Trainer, which then initiates training and persists the updated model. Triton periodically polls for updates and loads the new model for inference in the subsequent cycle.
+- **Graph Learning Algorithm:**  This algorithm aggregates feature parameters from peers, modeling each sample as an interaction between a peer and its parent. It also incorporates information from neighboring peers to capture similarities within the cluster, thereby improving the accuracy of bandwidth predictions.
 <div style="text-align:center">
 <img src="images/graph.png"     width="400px"/> 
 </div>
