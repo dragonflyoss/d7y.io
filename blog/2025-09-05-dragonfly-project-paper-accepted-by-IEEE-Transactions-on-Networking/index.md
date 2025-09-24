@@ -62,7 +62,10 @@ With the continuous evolution of Artificial Intelligence Generated Content (AIGC
 
 ## Summary
 
-This paper presents an efficient and scalable peer-to-peer (P2P) model distribution system that optimizes resource utilization and ensures data synchronization through a multi-layered architecture. First, it introduces a lightweight network measurement mechanism that probes latency and infers bandwidth to predict real-time network conditions. Second, it proposes a scalable scheduling framework that separates inference services from scheduling, enhancing both resource efficiency and system responsiveness. Finally, it designs the Trainer module, which integrates asynchronous model training and inference with graph learning algorithms to support incremental learning for bursty tasks.
+This paper presents an efficient and scalable peer-to-peer (P2P) model distribution system that optimizes resource utilization and ensures data synchronization through a multi-layered architecture. 
+- First, it introduces a lightweight network measurement mechanism that probes latency and infers bandwidth to predict real-time network conditions. 
+- Second, it proposes a scalable scheduling framework that separates inference services from scheduling, enhancing both resource efficiency and system responsiveness. 
+- Finally, it designs the Trainer module, which integrates asynchronous model training and inference with graph learning algorithms to support incremental learning for bursty tasks.
 
 ## Github Repository
 
