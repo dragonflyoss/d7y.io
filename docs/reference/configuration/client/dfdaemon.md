@@ -39,6 +39,10 @@ server:
   cacheDir: /var/cache/dragonfly/dfdaemon/
 
 download:
+  # protocol that peers use to download piece (e.g., "tcp", "quic").
+  # When dfdaemon acts as a parent, it announces this protocol so downstream
+  # peers fetch pieces using it.
+  protocol: tcp
   server:
     # socketPath is the unix socket path for dfdaemon GRPC service.
     socketPath: /var/run/dragonfly/dfdaemon.sock
@@ -137,6 +141,11 @@ scheduler:
 # key: /etc/ssl/private/client.pem
 
 seedPeer:
+  server:
+    # port is the port to the tcp server.
+    tcpPort: 4005
+    # port is the port to the quic server.
+    quicPort: 4006
   # enable indicates whether enable seed peer.
   enable: true
   # type is the type of seed peer.
