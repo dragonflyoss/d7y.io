@@ -39,9 +39,12 @@ server:
   cacheDir: /var/cache/dragonfly/dfdaemon/
 
 download:
-  # protocol that peers use to download piece (e.g., "tcp", "quic").
+  # protocol that peers use to download piece, supported values: "tcp", "quic".
   # When dfdaemon acts as a parent, it announces this protocol so downstream
   # peers fetch pieces using it.
+  #
+  # QUIC: Recommended for high-bandwidth, long-RTT, or lossy networks.
+  # TCP: Recommended for high-bandwidth, low-RTT, or local-area network (LAN) environments.
   protocol: tcp
   server:
     # socketPath is the unix socket path for dfdaemon GRPC service.
