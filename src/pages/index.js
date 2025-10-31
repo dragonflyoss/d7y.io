@@ -175,6 +175,12 @@ export default function Home() {
       herf: 'https://ppio.com/',
       name: ' PPIO',
     },
+    {
+      imgURL: 'img/user/datadog.png',
+      alt: 'datadog',
+      herf: 'https://www.datadoghq.com/',
+      name: ' DATADOG',
+    },
   ];
 
   const PartnersList = [
