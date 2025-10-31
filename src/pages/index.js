@@ -280,15 +280,15 @@ export default function Home() {
                       <Translate>efficient, stable, and secure</Translate>
                     </span>
                     <Translate>
-                      data distribution and acceleration powered by P2P technology. It aims to be the best practice and
-                      standard solution in cloud native architectures and is hosted by the
+                      data distribution and acceleration powered by P2P technology, with an optional content‑addressable
+                      filesystem that accelerates OCI container launch. It is hosted by the
                     </Translate>
                     <span className={styles.highlight}>
                       <Translate>Cloud Native Computing Foundation(CNCF)</Translate>
                     </span>
-                    <Translate>as an</Translate>
+                    <Translate>as a</Translate>
                     <span className={styles.highlight}>
-                      <Translate>Incubating Level Project.</Translate>
+                      <Translate>Graduated Project.</Translate>
                     </span>
                   </p>
                 </div>
@@ -302,16 +302,6 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className={styles.partners}>
-            <p className={styles.partnersTitle}>
-              <Translate>Partners</Translate>
-            </p>
-            <div className={styles.partnersWrapper}>
-              {PartnersList.map((img, index) => {
-                return <img className={styles.companyLogo} key={index} src={useBaseUrl(img.imgURL)} alt={img.alt} />;
-              })}
             </div>
           </div>
         </div>
@@ -342,7 +332,7 @@ export default function Home() {
           </div>
           <div className={clsx('row')}>
             <p className={styles.communitySubtitle}>
-              <Translate>Dragonfly contains many features as an image and file distribution system.</Translate>
+              <Translate>Dragonfly contains many features as an data distribution system.</Translate>
             </p>
           </div>
           <div className={clsx('row', styles.featuresCardWrapper)}>
@@ -393,10 +383,10 @@ export default function Home() {
                       className={styles.developmentCardImage}
                       src={useBaseUrl('img/icon/development-dragonfly1.svg')}
                     />
-                    <div className={styles.developmentCardTitle}>Dragonfly 1.x</div>
+                    <div className={styles.developmentCardTitle}>Dragonfly 1.0</div>
                   </div>
                   <div className={styles.developmentCardContent}>
-                    <Translate>v1.x was open source and used in production environments by many companies.</Translate>
+                    <Translate>v1.0 was open sourced and used in production environments by many companies.</Translate>
                   </div>
                 </div>
                 <div className={styles.developmentCardYear}>
@@ -452,7 +442,7 @@ export default function Home() {
                   </div>
                   <div className={styles.developmentCardContent}>
                     <Translate>
-                      The CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an Incubating Project.
+                      The CNCF Technical Oversight Committee (TOC) voted for Dragonfly to became an Incubating Project.
                     </Translate>
                   </div>
                 </div>
@@ -478,7 +468,7 @@ export default function Home() {
                       src={useBaseUrl('img/icon/development-dragonfly2.svg')}
                     />
                     <div className={styles.developmentCardTitle}>
-                      <Translate> Dragonfly 2</Translate>
+                      <Translate> Dragonfly 2.0</Translate>
                     </div>
                   </div>
                   <div className={styles.developmentCardContent}>
@@ -495,6 +485,37 @@ export default function Home() {
               <div className={styles.developmentLineWarapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>4</div>
+                <div className={styles.developmentLine}></div>
+              </div>
+            </div>
+            <div className={styles.developmentCardWrapper}>
+              <div className={styles.developmentCard}>
+                <div className={styles.developmentBox}>
+                  <div className={styles.developmentTitleWrapper}>
+                    <img
+                      className={styles.developmentCardImage}
+                      src={useBaseUrl('img/icon/development-incubating.svg')}
+                    />
+                    <div className={styles.developmentCardTitle}>
+                      <Translate>CNCF Graduated</Translate>
+                    </div>
+                  </div>
+                  <div className={styles.developmentCardContent}>
+                    <Translate>
+                      The CNCF Technical Oversight Committee (TOC) voted for Dragonfly to became a Graduated Project.
+                    </Translate>
+                  </div>
+                </div>
+                <div className={styles.developmentCardYear}>
+                  <span className={styles.developmentCardMoon}>
+                    <Translate>October</Translate>
+                  </span>
+                  <h2>2025</h2>
+                </div>
+              </div>
+              <div className={styles.developmentLineWarapper}>
+                <div className={styles.developmentLine}></div>
+                <div className={styles.developmentCircle}>5</div>
                 <div className={styles.developmentLine}></div>
               </div>
             </div>
