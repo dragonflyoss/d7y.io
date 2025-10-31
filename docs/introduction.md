@@ -1,14 +1,14 @@
 ---
 id: introduction
 title: Introduction
-description: Dragonfly is an file distribution and image acceleration based on p2p technology.It is designed to increase the efficiency of large-scale data distribution and improve idle bandwidth usage of peer. It is widely used in various domains such as image acceleration, file distribution, AI model distribution, AI dataset distribution, etc.
+description: Delivers efficient, stable, and secure data distribution and acceleration powered by P2P technology, with an optional content‑addressable filesystem that accelerates OCI container launch. It aims to provide a best‑practice, standards‑based solution for cloud‑native architectures, improving large‑scale delivery of files, container images, OCI artifacts, AI/ML models, caches, logs, dependencies, etc.
 slug: /
 ---
 
-Dragonfly is an file distribution and image acceleration based on p2p technology.
-It is designed to increase the efficiency of large-scale data distribution and improve idle bandwidth usage of peer.
-It is widely used in various domains such as image acceleration, file distribution,
-AI model distribution, AI dataset distribution, etc.
+Delivers efficient, stable, and secure data distribution and acceleration powered by P2P technology,
+with an optional content‑addressable filesystem that accelerates OCI container launch.
+It aims to provide a best‑practice, standards‑based solution for cloud‑native architectures, improving large‑scale delivery of
+files, container images, OCI artifacts, AI/ML models, caches, logs, dependencies, etc.
 
 ## Features {#features}
 
@@ -27,13 +27,10 @@ Here are some of the features that Dragonfly offers:
 
 ## Milestones {#milestones}
 
-[Dragonfly 1.x](https://github.com/dragonflyoss/Dragonfly) has been open source in November 2017 and used in production
-environments by many companies.
-And joined the CNCF as a sandbox project in October 2018.
-In April 2020, The CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an Incubating Project.
-In April 2021, Dragonfly 2.0 was released after architectural optimization and code refactoring.
+Dragonfly was accepted to CNCF on November 13, 2018, moved to the Incubating maturity level on April 9,
+2020, and then moved to the Graduated maturity level on October 28, 2025.
 
-![milestone](./resource/introduction/milestone.jpeg)
+![milestone](./resource/introduction/milestone.jpg)
 
 ## Architecture
 

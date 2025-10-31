@@ -184,6 +184,7 @@ a {
 .description {
   color: var(--hero-description-font-color);
   text-align: center;
+  max-width: 62rem;
 }
 
 .highlight {
