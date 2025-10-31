@@ -934,7 +934,7 @@ a {
 .userImageBox {
   margin-top: 3rem;
   display: grid;
-  grid-template-columns: repeat(7, 8rem);
+  grid-template-columns: repeat(8, 8rem);
   grid-gap: 1.6rem;
 }
 
