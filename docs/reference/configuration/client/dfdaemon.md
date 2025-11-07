@@ -54,11 +54,11 @@ download:
   # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 50GiB/s.
   rateLimit: 50GiB
   # pieceTimeout is the timeout for downloading a piece from source.
-  pieceTimeout: 60s
+  pieceTimeout: 360s
   # collectedPieceTimeout is the timeout for collecting one piece from the parent in the stream.
-  collectedPieceTimeout: 10s
+  collectedPieceTimeout: 360s
   # concurrentPieceCount is the number of concurrent pieces to download.
-  concurrentPieceCount: 10
+  concurrentPieceCount: 32
 
 upload:
   server:
@@ -188,10 +188,10 @@ gc:
     # distThreshold: 10TiB
     # distHighThresholdPercent is the high threshold percent of the disk usage.
     # If the disk usage is greater than the threshold, dfdaemon will do gc.
-    distHighThresholdPercent: 80
+    distHighThresholdPercent: 90
     # distLowThresholdPercent is the low threshold percent of the disk usage.
     # If the disk usage is less than the threshold, dfdaemon will stop gc.
-    distLowThresholdPercent: 60
+    distLowThresholdPercent: 70
 
 proxy:
   server:
