@@ -76,7 +76,7 @@ The process of interaction between Deamon and Scheduler when downloading a file 
 - ReportPeerResult Reporting Result:
   - After Daemon finishes downloading the file, it reports the download result of this Task. If the Task download fails, the Scheduler will remove all ChildPeers of this Peer, that is, other nodes in the P2P network will no longer use it as a ParentPeer, and notify these ChildPeers through the Stream.
 - LeaveTask Destruction:
-  - When the GC of the data is triggered or the process exits, the Daemn notifies the Scheduler to remove the corresponding PeerTask information from the list, and the Scheduler will no longer send it as the ParentPeer of other nodes.
+  - When the GC of the data is triggered or the process exits, the Daemon notifies the Scheduler to remove the corresponding PeerTask information from the list, and the Scheduler will no longer send it as the ParentPeer of other nodes.
 
 #### Piece Download
 
