@@ -56,7 +56,7 @@ If this is the first time downloading, the Seed Peer will be triggered to downlo
 and the Task will be divided based on the piece level.
 After successful registration, The peer establishes a connection to the scheduler based on this task,
 and then schedule the Seed Peer to the Peer for streaming based on piece level.
-when a piece is successfully downloaded, the piece metadata will be reported to the Scheduler for next scheduling.
+When a piece is successfully downloaded, the piece metadata will be reported to the Scheduler for next scheduling.
 If this is not the first time downloading, the Scheduler will schedule other Peers for the download.
 The Peer will download pieces from different Peers, splices and returns the entire file, then the P2P download is completed.
 
