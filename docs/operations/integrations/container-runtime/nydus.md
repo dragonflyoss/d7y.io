@@ -97,6 +97,11 @@ scheduler:
     tag: latest
   metrics:
     enable: true
+  config:
+    scheduler:
+      retryBackToSourceLimit: 3
+      retryLimit: 5
+      retryInterval: 100ms
 
 seedClient:
   image:
@@ -107,23 +112,17 @@ seedClient:
   config:
     proxy:
       prefetch: true
+      readBufferSize: 65536
+    storage:
+      writePieceTimeout: 30s
+      writeBufferSize: 65536
+      readBufferSize: 65536
+    download:
+      pieceTimeout: 40s
+      collectedPieceTimeout: 5s
 
 client:
-  image:
-    repository: dragonflyoss/client
-    tag: latest
-  hostNetwork: true
-  metrics:
-    enable: true
-  config:
-    proxy:
-      prefetch: true
-      server:
-        port: 4001
-      registryMirror:
-        addr: https://index.docker.io
-      rules:
-        - regex: blobs/sha256.*
+  enable: false
 ```
 
 Create a Dragonfly cluster using the configuration file:
@@ -162,8 +161,6 @@ Check that dragonfly is deployed successfully:
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS        AGE
-dragonfly-client-9rkgp               1/1     Running   1 (6h29m ago)   9h
-dragonfly-client-l2czc               1/1     Running   2 (6h29m ago)   9h
 dragonfly-manager-789f57fc65-t44tf   1/1     Running   2 (6h28m ago)   9h
 dragonfly-mysql-0                    1/1     Running   3 (6h28m ago)   9h
 dragonfly-redis-master-0             1/1     Running   3 (6h28m ago)   9h
@@ -463,6 +460,100 @@ The expected output is as follows:
 ```
 
 <!-- markdownlint-restore -->
+
+## Best Practices for Nydus & Dragonfly Integration {#best-practices-for-nydus-dragonfly-integration}
+
+When Nydus downloads a file, it splits the file into 1MB chunks and loads them on demand.
+Use Seed Peer HTTP proxy as Nydus cache service,
+use P2P transmission method to reduce back-to-source requests and back-to-source traffic,
+and improve download speed.
+When Dragonfly is used as a cache service for Nydus, the configuration needs to be optimized.
+
+**1.** `proxy.rules.regex` matches the Nydus repository URL,
+intercepts download traffic and forwards it to the P2P network.
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+
+```yaml
+proxy:
+  # rules is the list of rules for the proxy server.
+  # regex is the regex of the request url.
+  # useTLS indicates whether use tls for the proxy backend.
+  # redirect is the redirect url.
+  # filteredQueryParams is the filtered query params to generate the task id.
+  # When filter is ["Signature", "Expires", "ns"], for example:
+  # http://example.com/xyz?Expires=e1&Signature=s1&ns=docker.io and http://example.com/xyz?Expires=e2&Signature=s2&ns=docker.io
+  # will generate the same task id.
+  # Default value includes the filtered query params of s3, gcs, oss, obs, cos.
+  rules:
+    - regex: blobs/sha256.*
+      # useTLS: false
+      # redirect: ""
+      # filteredQueryParams: []
+```
+
+**2.** Change `Seed Peer Load Limit` to 10000 or higher to improve the P2P cache hit rate between Seed Peers.
+
+Click the `UPDATE CLUSTER` button to change the `Seed Peer Load Limit` to 10000.
+Please refer to [update-cluster](../../advanced-guides/web-console/cluster.md#update-cluster).
+
+![update-cluster](../../resource/operations/integrations/update-cluster.png)
+
+Changed `Seed Peer Load Limit` successfully.
+
+![cluster](../../resource/operations/integrations/cluster.png)
+
+**3.** Nydus will initiate an HTTP range request of about 1MB to achieve on-demand loading.
+When prefetch enabled, the Seed Peer can prefetch the complete resource after receiving the HTTP range request,
+improving the cache hit rate.
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+
+```yaml
+proxy:
+  # prefetch pre-downloads full of the task when download with range request.
+  prefetch: true
+```
+
+**4.** When the download speed is slow,
+you can adjust the `proxy.readBufferSize`, `storage.writeBufferSize`, `storage.readBufferSize` values to 64KB in order to reduce the proxy request time.
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+
+```yaml
+proxy:
+  # -- readBufferSize is the buffer size for reading piece from disk.
+  readBufferSize: 65536
+storage:
+  # -- writeBufferSize is the buffer size for writing piece to disk.
+  writeBufferSize: 65536
+  # -- readBufferSize is the buffer size for reading piece from disk.
+  readBufferSize: 65536
+```
+
+**5.** Change the `download.pieceTimeout`, `download.collectPieceTimeout` and `storage.writePieceTimeout` values for better performance.
+Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+
+```yaml
+download:
+  # --  pieceTimeout is the timeout for downloading a piece from source.
+  pieceTimeout: 40s
+  # -- collected_piece_timeout is the timeout for collecting one piece from the parent in the stream.
+  collectedPieceTimeout: 5s
+storage:
+  # -- writePieceTimeout is the timeout for writing a piece to storage(e.g., disk or cache).
+  writePieceTimeout: 30s
+```
+
+**6.** Change the `scheduler.retryBackToSourceLimit`, `scheduler.retryLimit` and `scheduler.retryInterval` values for scheduling faster.
+Please refer to [scheduler config](../../reference/configuration/scheduler.md).
+
+```yaml
+scheduler:
+  # -- retryBackToSourceLimit reaches the limit, then the peer back-to-source.
+  retryBackToSourceLimit: 3
+  # -- Retry scheduling limit times.
+  retryLimit: 5
+  # -- Retry scheduling interval.
+  retryInterval: 100ms
+```
 
 ## Performance testing {#performance-testing}
 
