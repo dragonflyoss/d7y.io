@@ -167,6 +167,8 @@ storage:
   writeBufferSize: 4194304
   # readBufferSize is the buffer size for reading piece from disk, default is 4MiB.
   readBufferSize: 4194304
+  # writePieceTimeout is the timeout for writing a piece to storage(e.g., disk or cache).
+  writePieceTimeout: 360s
 
 gc:
   # interval is the interval to do gc.
