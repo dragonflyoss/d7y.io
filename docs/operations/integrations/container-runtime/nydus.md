@@ -461,7 +461,7 @@ The expected output is as follows:
 
 <!-- markdownlint-restore -->
 
-## Best Practices for Nydus & Dragonfly Integration {#best-practices-for-nydus-dragonfly-integration}
+## Deployment Best Practices {#deployment-best-practices}
 
 When Nydus downloads a file, it splits the file into 1MB chunks and loads them on demand.
 Use Seed Peer HTTP proxy as Nydus cache service,
@@ -496,11 +496,11 @@ proxy:
 Click the `UPDATE CLUSTER` button to change the `Seed Peer Load Limit` to 10000.
 Please refer to [update-cluster](../../advanced-guides/web-console/cluster.md#update-cluster).
 
-![update-cluster](../../resource/operations/integrations/update-cluster.png)
+![update-cluster](../../../resource/operations/integrations/update-cluster.png)
 
 Changed `Seed Peer Load Limit` successfully.
 
-![cluster](../../resource/operations/integrations/cluster.png)
+![cluster](../../../resource/operations/integrations/cluster.png)
 
 **3.** Nydus will initiate an HTTP range request of about 1MB to achieve on-demand loading.
 When prefetch enabled, the Seed Peer can prefetch the complete resource after receiving the HTTP range request,
