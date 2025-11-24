@@ -3,6 +3,10 @@ name: Docsearch
 on:
   schedule:
     - cron: '0 4 * * 1'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   crawl:
@@ -19,4 +23,4 @@ jobs:
           docker run \
           -e APPLICATION_ID -e API_KEY \
           -e CONFIG="$(cat docsearch.json)" \
-          algolia/docsearch-scraper:latest
+          algolia/docsearch-scraper:v1.1.0
