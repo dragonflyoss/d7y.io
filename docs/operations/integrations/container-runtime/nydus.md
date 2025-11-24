@@ -471,7 +471,7 @@ When Dragonfly is used as a cache service for Nydus, the configuration needs to 
 
 **1.** `proxy.rules.regex` matches the Nydus repository URL,
 intercepts download traffic and forwards it to the P2P network.
-Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:
@@ -494,7 +494,7 @@ proxy:
 **2.** Change `Seed Peer Load Limit` to 10000 or higher to improve the P2P cache hit rate between Seed Peers.
 
 Click the `UPDATE CLUSTER` button to change the `Seed Peer Load Limit` to 10000.
-Please refer to [update-cluster](../../advanced-guides/web-console/cluster.md#update-cluster).
+Please refer to [update-cluster](../../../advanced-guides/web-console/cluster.md#update-cluster).
 
 ![update-cluster](../../../resource/operations/integrations/update-cluster.png)
 
@@ -505,7 +505,7 @@ Changed `Seed Peer Load Limit` successfully.
 **3.** Nydus will initiate an HTTP range request of about 1MB to achieve on-demand loading.
 When prefetch enabled, the Seed Peer can prefetch the complete resource after receiving the HTTP range request,
 improving the cache hit rate.
-Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:
@@ -515,7 +515,7 @@ proxy:
 
 **4.** When the download speed is slow,
 you can adjust the `proxy.readBufferSize`, `storage.writeBufferSize`, `storage.readBufferSize` values to 64KB in order to reduce the proxy request time.
-Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 proxy:
@@ -529,7 +529,7 @@ storage:
 ```
 
 **5.** Change the `download.pieceTimeout`, `download.collectPieceTimeout` and `storage.writePieceTimeout` values for better performance.
-Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+Please refer to [dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 download:
@@ -543,7 +543,7 @@ storage:
 ```
 
 **6.** Change the `scheduler.retryBackToSourceLimit`, `scheduler.retryLimit` and `scheduler.retryInterval` values for scheduling faster.
-Please refer to [scheduler config](../../reference/configuration/scheduler.md).
+Please refer to [scheduler config](../../../reference/configuration/scheduler.md).
 
 ```yaml
 scheduler:
