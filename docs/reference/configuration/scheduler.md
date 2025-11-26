@@ -15,11 +15,14 @@ server:
 # # Access ip for other services,
 # # when local ip is different with access ip, advertiseIP should be set.
 # advertiseIP: 127.0.0.1
+
 # # Access port for other services,
 # # when local ip is different with access port, advertisePort should be set.
 # advertisePort: 8002
+
 # # Listen ip.
 # listenIP: 0.0.0.0
+
 # Port is the ip and port scheduler server listens on.
   port: 8002
 # # GRPC server tls configuration.
@@ -30,32 +33,41 @@ server:
 #   cert: /etc/ssl/certs/server.crt
 #   # Key file path for mTLS.
 #   key: /etc/ssl/private/server.pem
+
 # # Server host.
 # host: localhost
-  # WorkHome is working directory.
-  # In linux, default value is /usr/local/dragonfly.
-  # In macos(just for testing), default value is /Users/$USER/.dragonfly.
-  workHome: ''
+
   # logLevel specifies the logging level for the scheduler.
   # Default: "info"
   # Supported values: "debug", "info", "warn", "error", "panic", "fatal"
   logLevel: "info"
+
+  # logMaxSize specifies maximum size in megabytes of log files before rotation for the scheduler.
+  # Default: 1024
+  logMaxSize: 1024
+
+  # logMaxAge specifies maximum number of days to retain old log files for the scheduler.
+  # Default: 7
+  logMaxAge: 7
+
+  # logMaxBackups specifies maximum number of old log files to keep for the scheduler.
+  # Default: 20
+  logMaxBackups: 20
+
   # logDir is the log directory.
   # In linux, default value is /var/log/dragonfly.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/logs.
   logDir: ''
+
   # cacheDir is dynconfig cache directory.
   # In linux, default value is /var/cache/dragonfly.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/cache.
   cacheDir: ''
+  
   # pluginDir is the plugin directory.
   # In linux, default value is /usr/local/dragonfly/plugins.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/plugins.
   pluginDir: ''
-  # dataDir is the directory.
-  # In linux, default value is /var/lib/dragonfly.
-  # In macos(just for testing), default value is /Users/$USER/.dragonfly/data.
-  dataDir: ''
 
 # Scheduler policy configuration.
 scheduler:
