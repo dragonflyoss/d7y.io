@@ -62,6 +62,10 @@ server:
   # In linux, default value is /usr/local/dragonfly/plugins.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/plugins.
   pluginDir: ''
+  # dataDir is the data directory.
+  # In linux, default value is /usr/local/dragonfly/data.
+  # In macos(just for testing), default value is /Users/$USER/.dragonfly/data.
+  dataDir: ''
 
 # Auth configuration.
 auth:
