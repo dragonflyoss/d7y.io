@@ -32,6 +32,7 @@ server:
   #   cert: /etc/ssl/certs/server.crt
   #   # Key file path for mTLS.
   #   key: /etc/ssl/private/server.pem
+
   # REST server configure
   rest:
     # REST server address
@@ -42,26 +43,42 @@ server:
   #   cert: /etc/ssl/certs/server.crt
   #   # Key file path.
   #   key: /etc/ssl/private/server.pem
-  # WorkHome is working directory.
-  # In linux, default value is /usr/local/dragonfly.
-  # In macos(just for testing), default value is /Users/$USER/.dragonfly.
-  workHome: ''
+
   # logLevel specifies the logging level for the manager.
   # Default: "info"
   # Supported values: "debug", "info", "warn", "error", "panic", "fatal"
   logLevel: "info"
+
+  # logMaxSize specifies maximum size in megabytes of log files before rotation for the manager.
+  # Default: 1024
+  logMaxSize: 1024
+
+  # logMaxAge specifies maximum number of days to retain old log files for the manager.
+  # Default: 7
+  logMaxAge: 7
+
+  # logMaxBackups specifies maximum number of old log files to keep for the manager.
+  # Default: 20
+  logMaxBackups: 20
+
   # logDir is the log directory.
   # In linux, default value is /var/log/dragonfly.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/logs.
   logDir: ''
+
   # cacheDir is dynconfig cache directory.
   # In linux, default value is /var/cache/dragonfly.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/cache.
   cacheDir: ''
+
   # pluginDir is the plugin directory.
   # In linux, default value is /usr/local/dragonfly/plugins.
   # In macos(just for testing), default value is /Users/$USER/.dragonfly/plugins.
   pluginDir: ''
+  # dataDir is the data directory.
+  # In linux, default value is /usr/local/dragonfly/data.
+  # In macos(just for testing), default value is /Users/$USER/.dragonfly/data.
+  dataDir: ''
 
 # Auth configuration.
 auth:

@@ -25,7 +25,7 @@ and provide keepalive and metrics functions.
 ## Manage multiple P2P networks {#manage-multiple-p2p-networks}
 
 Manager can manage multiple P2P networks.
-Usually, a P2P network includes a scheduler cluster, a cdn clsuter and many dfdaemons.
+Usually, a P2P network includes a scheduler cluster, a cdn cluster and many dfdaemons.
 The service network must be available in a P2P network.
 
 ![manage-multiple-p2p-networks](../../resource/architecture/manage-multiple-p2p-networks.png)
