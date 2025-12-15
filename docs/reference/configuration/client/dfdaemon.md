@@ -284,6 +284,10 @@ metrics:
   # # ip is the listen ip of the metrics server.
   # ip: ""
 
+backend:
+  # requestHeader is the user customized request header which will be applied to the request when proxying to the origin server.
+  requestHeader: {}
+
 # tracing is the tracing configuration for dfdaemon.
 # tracing:
 #   # Protocol specifies the communication protocol for the tracing server.
