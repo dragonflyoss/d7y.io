@@ -169,6 +169,16 @@ storage:
   readBufferSize: 4194304
   # writePieceTimeout is the timeout for writing a piece to storage(e.g., disk or cache).
   writePieceTimeout: 360s
+  server:
+    # port is the port to the quic server.
+    quicPort: 4006
+    # tcp_fastopen indicates whether enable tcp fast open, refer to https://datatracker.ietf.org/doc/html/rfc7413.
+    # Please check `net.ipv4.tcp_fastopen` sysctl is set to `3` to enable tcp fast open for both client and server.
+    tcpFastopen: false
+    # port is the port to the tcp server.
+    tcpPort: 4005
+    # # ip is the listen ip of the storage server.
+    # ip: ""
 
 gc:
   # interval is the interval to do gc.
@@ -284,6 +294,20 @@ metrics:
   # # ip is the listen ip of the metrics server.
   # ip: ""
 
+stats:
+  server:
+    # port is the port to the stats server.
+    port: 4004
+  # # ip is the listen ip of the stats server.
+  # ip: ""
+
+health:
+  server:
+    # port is the port to the health server.
+    port: 4003
+  # # ip is the listen ip of the health server.
+  # ip: ""
+  
 backend:
   # requestHeader is the user customized request header which will be applied to the request when proxying to the origin server.
   requestHeader: {}

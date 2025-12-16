@@ -11,7 +11,7 @@ Documentation for setting capacity planning and performance tuning for Dragonfly
 A big factor in planning capacity is: highest expected storage capacity.
 And know the memory size, CPU core count, and disk capacity of each machine.
 
-For predicting your capacity, you can use the estimates from below if you don’t have your capacity plan.
+For predicting your capacity, you can use the estimates from below if you don't have your capacity plan.
 
 ### Manager
 
