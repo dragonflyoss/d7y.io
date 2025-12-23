@@ -9,13 +9,6 @@ slug: /reference/configuration/client/dfdaemon/
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`.
 
 ```yaml
-# console prints log to stdout.
-console: true
-
-log:
-  # Specify the logging level [trace, debug, info, warn, error]
-  level: info
-
 # host is the host configuration for dfdaemon.
 host:
   # idc is the idc of the host.
