@@ -179,24 +179,24 @@ gc:
   policy:
     # taskTTL is the ttl of the task.
     taskTTL: 720h
-    # # distThreshold optionally defines a specific disk capacity to be used as the base for
-    # # calculating GC trigger points with `distHighThresholdPercent` and `distLowThresholdPercent`.
+    # # diskThreshold optionally defines a specific disk capacity to be used as the base for
+    # # calculating GC trigger points with `diskHighThresholdPercent` and `diskLowThresholdPercent`.
     # #
-    # # - If a value is provided (e.g., "500GB"), the percentage-based thresholds (`distHighThresholdPercent`,
-    # #   `distLowThresholdPercent`) are applied relative to this specified capacity.
+    # # - If a value is provided (e.g., "500GB"), the percentage-based thresholds (`diskHighThresholdPercent`,
+    # #   `diskLowThresholdPercent`) are applied relative to this specified capacity.
     # # - If not provided or set to 0 (the default behavior), these percentage-based thresholds are applied
     # #   relative to the total actual disk space.
     # #
     # # This allows dfdaemon to effectively manage a logical portion of the disk for its cache,
     # # rather than always considering the entire disk volume.
     #
-    # distThreshold: 10TiB
-    # distHighThresholdPercent is the high threshold percent of the disk usage.
+    # diskThreshold: 10TiB
+    # diskHighThresholdPercent is the high threshold percent of the disk usage.
     # If the disk usage is greater than the threshold, dfdaemon will do gc.
-    distHighThresholdPercent: 90
-    # distLowThresholdPercent is the low threshold percent of the disk usage.
+    diskHighThresholdPercent: 90
+    # diskLowThresholdPercent is the low threshold percent of the disk usage.
     # If the disk usage is less than the threshold, dfdaemon will stop gc.
-    distLowThresholdPercent: 70
+    diskLowThresholdPercent: 70
 
 proxy:
   server:
@@ -300,7 +300,7 @@ health:
     port: 4003
   # # ip is the listen ip of the health server.
   # ip: ""
-  
+
 backend:
   # requestHeader is the user customized request header which will be applied to the request when proxying to the origin server.
   requestHeader: {}
