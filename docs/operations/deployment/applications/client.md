@@ -25,9 +25,17 @@ its metadata is reported to the Scheduler for subsequent scheduling. If this is 
 the Scheduler will schedule other Peers for the download. The Peer will download pieces from different Peers,
 splices and returns the entire file, then the P2P download is completed.
 
-![client-back-to-source-download](../../../resource/operations/deployment/applications/client/client-back-to-source-download.svg)
+### Hit Local Peer Cache
 
-![client-download](../../../resource/operations/deployment/applications/client/client-download.svg)
+![client-donwload-hit-local-peer-cache](../../../resource/operations/deployment/applications/client/client-donwload-hit-local-peer-cache.svg)
+
+### Hit Remote Peer Cache
+
+![client-download-hit-remote-peer](../../../resource/operations/deployment/applications/client/client-download-hit-remote-peer.svg)
+
+### Download From Source
+
+![client-download-back-to-source](../../../resource/operations/deployment/applications/client/client-download-back-to-source.svg)
 
 ## Features {#features}
 
