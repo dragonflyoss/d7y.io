@@ -42,8 +42,8 @@ download:
   server:
     # socketPath is the unix socket path for dfdaemon GRPC service.
     socketPath: /var/run/dragonfly/dfdaemon.sock
-    # request_rate_limit is the rate limit of the download request in the download grpc server, default is 4000 req/s.
-    requestRateLimit: 4000
+    # request_rate_limit is the rate limit of the download request in the download grpc server, default is 5000 req/s.
+    requestRateLimit: 5000
   # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 50GiB/s.
   rateLimit: 50GiB
   # pieceTimeout is the timeout for downloading a piece from source.
@@ -65,8 +65,8 @@ upload:
   # cert: /etc/ssl/certs/server.crt
   # # GRPC server key file path for mTLS.
   # key: /etc/ssl/private/server.pem
-    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 4000 req/s.
-    requestRateLimit: 4000
+    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 5000 req/s.
+    requestRateLimit: 5000
 # # Client configuration for remote peer's upload server.
 # client:
 #   # CA certificate file path for mTLS.
@@ -177,8 +177,17 @@ gc:
   # interval is the interval to do gc.
   interval: 900s
   policy:
-    # taskTTL is the ttl of the task.
+    # Task ttl is the ttl of the task. If the task's access time exceeds the ttl, dfdaemon
+    # will delete the task cache.
     taskTTL: 720h
+    # Persistent task ttl is the ttl of the persistent task. If the persistent task's ttl is None
+    # in DownloadPersistentTask grpc request, dfdaemon will use persistent_task_ttl as the
+    # persistent task's ttl.
+    persistentTaskTTL: 24h
+    # Persistent cache task ttl is the ttl of the persistent cache task. If the persistent cache
+    # task's ttl is None in DownloadPersistentTask grpc request, dfdaemon will use
+    # persistent_cache_task_ttl as the persistent cache task's ttl.
+    persistentCacheTaskTTL: 24h
     # # diskThreshold optionally defines a specific disk capacity to be used as the base for
     # # calculating GC trigger points with `diskHighThresholdPercent` and `diskLowThresholdPercent`.
     # #
@@ -262,7 +271,7 @@ proxy:
     # the task ID is derived from the blob digest rather than the full URL. This enables deduplication across
     # registries - the same blob from different registries shares one task ID, eliminating redundant downloads
     # and storage.
-    enableTaskIDBasedBlobDigest: false
+    enableTaskIDBasedBlobDigest: true
   # # cert is the client cert path with PEM format for the registry.
   # # If registry use self-signed cert, the client should set the
   # # cert for the registry mirror.
@@ -314,6 +323,22 @@ backend:
   # cacheTemporaryRedirectTTL is the TTL for cached 307 redirect URLs. After
   # this duration, the cached redirect target will expire and be re-resolved.
   cacheTemporaryRedirectTTL: 600s
+  # Put concurrent chunk count specifies the maximum number of chunks to upload in parallel
+  # to backend storage. Higher values can improve upload throughput by maximizing bandwidth utilization,
+  # but increase memory usage and backend load. Lower values reduce resource consumption but may
+  # underutilize available bandwidth. Tune based on your network capacity and backend concurrency limits.
+  putConcurrentChunkCount: 16
+  # Put chunk size specifies the size of each chunk when uploading data to backend storage.
+  # Larger chunks reduce the total number of requests and API overhead, but require more memory
+  # for buffering and may delay upload start. Smaller chunks reduce memory footprint and provide
+  # faster initial response, but increase request overhead and API costs. Choose based on your
+  # network conditions, available memory, and backend pricing/performance characteristics.
+  putChunkSize: 8MiB
+  # Put timeout specifies the maximum duration allowed for uploading a single object
+  # (potentially consisting of multiple chunks) to the backend storage. If the upload
+  # does not complete within this time window, the operation will be canceled and
+  # treated as a failure.
+  putTimeout: 900s
 
 # tracing is the tracing configuration for dfdaemon.
 # tracing:
