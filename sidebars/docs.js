@@ -220,6 +220,7 @@ module.exports = {
             'advanced-guides/web-console/user',
           ],
         },
+        'advanced-guides/request-sdk',
         'advanced-guides/rate-limit',
         'advanced-guides/leech',
         'advanced-guides/personal-access-tokens',
