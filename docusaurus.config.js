@@ -80,7 +80,7 @@ const config = {
           position: 'left',
         },
         {
-          to: 'videos/sessions/en/2024-03-23',
+          to: 'videos/sessions/en/2025-11-13',
           activeBasePath: 'videos',
           label: 'Video',
           position: 'left',
