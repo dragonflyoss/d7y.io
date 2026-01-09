@@ -64,22 +64,22 @@ module.exports = {
             },
           ],
         },
-        {
-          type: 'category',
-          label: 'Deployment',
-          items: [
-            'operations/deployment/architecture',
-            {
-              type: 'category',
-              label: 'Applications',
-              items: [
-                'operations/deployment/applications/manager',
-                'operations/deployment/applications/scheduler',
-                'operations/deployment/applications/client',
-              ],
-            },
-          ],
-        },
+        // {
+        //   type: 'category',
+        //   label: 'Deployment',
+        //   items: [
+        //     'operations/deployment/architecture',
+        //     {
+        //       type: 'category',
+        //       label: 'Applications',
+        //       items: [
+        //         'operations/deployment/applications/manager',
+        //         'operations/deployment/applications/scheduler',
+        //         'operations/deployment/applications/client',
+        //       ],
+        //     },
+        //   ],
+        // },
         {
           type: 'category',
           label: 'Integrations',
@@ -104,6 +104,25 @@ module.exports = {
             'operations/integrations/triton-server',
             'operations/integrations/pip',
             'operations/integrations/upgrade',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Architecture',
+      link: {
+        type: 'doc',
+        id: 'operations/deployment/architecture',
+      },
+      items: [
+        {
+          type: 'category',
+          label: 'Components',
+          items: [
+            'operations/deployment/applications/manager',
+            'operations/deployment/applications/scheduler',
+            'operations/deployment/applications/client',
           ],
         },
       ],
