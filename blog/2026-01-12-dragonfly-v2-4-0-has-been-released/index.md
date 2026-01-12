@@ -1,4 +1,8 @@
-# Dragonfly v2.4.0 is released
+---
+title: Dragonfly v2.4.0 has been released
+tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
+hide_table_of_contents: false
+---
 
 Dragonfly v2.4.0 is released!🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happend and welcome you to visit [d7y.io](https://d7y.io) website.
 
@@ -119,12 +123,12 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 
 ## Links
 
-- Dragonfly Website: <https://d7y.io/>
-- Dragonfly Repository: <https://github.com/dragonflyoss/dragonfly>
-- Dragonfly Client Repository: <https://github.com/dragonflyoss/client>
-- Dragonfly Console Repository: <https://github.com/dragonflyoss/console>
-- Dragonfly Charts Repository: <https://github.com/dragonflyoss/helm-charts>
-- Dragonfly Monitor Repository: <https://github.com/dragonflyoss/monitoring>
+- Dragonfly Website: [https://d7y.io/](https://d7y.io/)
+- Dragonfly Repository: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- Dragonfly Client Repository: [https://github.com/dragonflyoss/client](https://github.com/dragonflyoss/client)
+- Dragonfly Console Repository: [https://github.com/dragonflyoss/console](https://github.com/dragonflyoss/console)
+- Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
+- Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
 ## Dragonfly Github
 
