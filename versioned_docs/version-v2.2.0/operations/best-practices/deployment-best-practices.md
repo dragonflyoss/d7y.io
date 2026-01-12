@@ -11,7 +11,7 @@ Documentation for setting capacity planning and performance tuning for Dragonfly
 A big factor in planning capacity is: highest expected storage capacity.
 And know the memory size, CPU core count, and disk capacity of each machine.
 
-For predicting your capacity, you can use the estimates from below if you don’t have your capacity plan.
+For predicting your capacity, you can use the estimates from below if you don't have your capacity plan.
 
 ### Manager
 
@@ -117,7 +117,7 @@ When used to download a single task of a node
 the number of concurrent downloads of piece back-to-source and the number of concurrent downloads of piece from remote peer.
 The larger the number of piece concurrency, the faster the task download, and the more CPU and memory will be consumed.
 The user adjusts the number of piece concurrency according to the actual situation.
-and adjust the client’s CPU and memory configuration.
+and adjust the client's CPU and memory configuration.
 Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml

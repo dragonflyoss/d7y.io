@@ -1,6 +1,6 @@
 {
   "name": "d7y-io",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -32,11 +32,11 @@
     "react-dom": "^19.0.0",
     "react-github-btn": "^1.4.0",
     "react-youtube": "^10.1.0",
-    "three": "^0.180.0"
+    "three": "^0.182.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.2.0",
     "husky": "^8.0.3",
     "lint-staged": "^16.0.0",
     "prettier": "^3.0.0"

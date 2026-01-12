@@ -10,6 +10,7 @@ module.exports = {
           label: 'Sessions in English',
           collapsed: false,
           items: [
+            'sessions/en/2025-11-13',
             'sessions/en/2024-03-23',
             'sessions/en/2023-05-02',
             'sessions/en/2023-02-15',
