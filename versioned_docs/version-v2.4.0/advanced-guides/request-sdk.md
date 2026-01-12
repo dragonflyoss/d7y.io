@@ -43,8 +43,6 @@ For example, when Nydus downloads layer chunks via HTTP Range requests through K
 
 ## Usage
 
-crate dependency: http://crates.io/crates/dragonfly-client-util.
-
 Add the dependency to your `Cargo.toml`:
 
 ```toml
@@ -86,4 +84,4 @@ pub trait Request {
 }
 ```
 
-For more details, please refer to `crates.io/crates/dragonfly-client-util`.
+For more details, please refer to [dragonfly-client-util](https://crates.io/crates/dragonfly-client-util).
