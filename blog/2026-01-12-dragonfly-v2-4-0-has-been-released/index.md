@@ -123,12 +123,12 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 
 ## Links
 
-- Dragonfly Website: <https://d7y.io/>
-- Dragonfly Repository: <https://github.com/dragonflyoss/dragonfly>
-- Dragonfly Client Repository: <https://github.com/dragonflyoss/client>
-- Dragonfly Console Repository: <https://github.com/dragonflyoss/console>
-- Dragonfly Charts Repository: <https://github.com/dragonflyoss/helm-charts>
-- Dragonfly Monitor Repository: <https://github.com/dragonflyoss/monitoring>
+- Dragonfly Website: [https://d7y.io/](https://d7y.io/)
+- Dragonfly Repository: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- Dragonfly Client Repository: [https://github.com/dragonflyoss/client](https://github.com/dragonflyoss/client)
+- Dragonfly Console Repository: [https://github.com/dragonflyoss/console](https://github.com/dragonflyoss/console)
+- Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
+- Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
 ## Dragonfly Github
 
