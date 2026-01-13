@@ -536,7 +536,7 @@ download:
   # --  pieceTimeout is the timeout for downloading a piece from source.
   pieceTimeout: 40s
   # -- collected_piece_timeout is the timeout for collecting one piece from the parent in the stream.
-  collectedPieceTimeout: 5s
+  collectedPieceTimeout: 2s
 storage:
   # -- writePieceTimeout is the timeout for writing a piece to storage(e.g., disk or cache).
   writePieceTimeout: 30s
@@ -548,11 +548,11 @@ Please refer to [scheduler config](../../../reference/configuration/scheduler.md
 ```yaml
 scheduler:
   # -- retryBackToSourceLimit reaches the limit, then the peer back-to-source.
-  retryBackToSourceLimit: 3
+  retryBackToSourceLimit: 1
   # -- Retry scheduling limit times.
-  retryLimit: 5
+  retryLimit: 3
   # -- Retry scheduling interval.
-  retryInterval: 100ms
+  retryInterval: 50ms
 ```
 
 ## Performance testing {#performance-testing}
