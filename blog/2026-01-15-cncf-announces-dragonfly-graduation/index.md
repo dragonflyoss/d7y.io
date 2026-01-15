@@ -1,6 +1,6 @@
 ---
 title: Cloud Native Computing Foundation Announces Dragonfly’s Graduation
-tags: [cncf, graduation, dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
+tags: [cncf, graduation, dragonfly, dragonfly client, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
