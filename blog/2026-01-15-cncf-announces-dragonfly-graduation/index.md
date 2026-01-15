@@ -81,7 +81,11 @@ every step has embodied the open source spirit and the tireless efforts of the m
 This graduation marks a new starting point for Dragonfly. I hope that the project will embark on a new journey, continue
 to explore more possibilities in the field of data distribution, and provide greater value!”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Zuozheng Hu, founder of Dragonfly, emeritus maintainer**
+
+<!-- markdownlint-enable MD036 -->
 
 “I am delighted that Dragonfly is now a CNCF graduated project. This is a significant milestone, reflecting the maturity of
 the community, the trust of end users, and the reliability of the service. In the future, with the support of CNCF,
@@ -89,17 +93,29 @@ the Dragonfly team will work together to drive the community’s sustainable gro
 Facing the challenges of large-scale model distribution and data distribution in the GenAI era, our team will continue to
 explore the future of data distribution within the cloud native ecosystem.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Wenbo Qi (Gaius), core Dragonfly maintainer**
+
+<!-- markdownlint-enable MD036 -->
 
 “Since open-sourcing in 2020, Nydus, alongside Dragonfly, has been validated at production scale. Dragonfly’s graduation is
 a key milestone for Nydus as a subproject, allowing the project to continue improving the image filesystem’s usability
 and performance. It will also allow us to further explore ecosystem standardization and AGI use cases that will advance the underlying infrastructure.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Song Yan, core Nydus maintainer**
+
+<!-- markdownlint-enable MD036 -->
 
 “The combination of Dragonfly and Nydus substantially shortens launch times for container images and AI models, enhancing system resilience and efficiency.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Jiang Liu, Nydus maintainer**
+
+<!-- markdownlint-enable MD036 -->
 
 “Thanks to the community’s collective efforts, Dragonfly has evolved from a tool for accelerating container images into
 a secure and stable distribution system widely adopted by many enterprises. Continuous improvements in usability and
@@ -108,7 +124,11 @@ New challenges are emerging for the distribution of model weights and data in th
 a key infrastructure in mitigating these challenges. With the support of the CNCF, Dragonfly will continue to
 drive the future evolution of cloud native distribution technologies.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Yuan Yang, Dragonfly maintainer**
+
+<!-- markdownlint-enable MD036 -->
 
 ### TOC Sponsors
 
@@ -118,13 +138,21 @@ technical reviews. We also thank the project maintainers for their openness and 
 and the end users who met with TOC and TAB members to share their experiences with Dragonfly.
 This level of collaboration is what helps ensure the strength and credibility of the CNCF ecosystem.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Karena Angell, chair, TOC, CNCF**
+
+<!-- markdownlint-enable MD036 -->
 
 “Dragonfly’s graduation is a testament to the project’s technical maturity and the community’s consistent focus on
 performance, reliability, and tangible impact. It’s been impressive to see Dragonfly evolve to meet the needs of
 large-scale production environments and AI workloads. Congratulations to the maintainers and contributors who’ve worked hard to reach this milestone.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Kevin Wang, vice chair, TOC, CNCF**
+
+<!-- markdownlint-enable MD036 -->
 
 ### Project End Users
 
@@ -134,7 +162,11 @@ bandwidth, and the Nydus subproject has additionally helped us to reduce image p
 The project also supports the delivery of large language models within our AI infrastructure. It is a great honor to
 have contributed to Dragonfly and to have shared our practices with the community.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Xu Wang, head of the container infra team, Ant Group, and co-launcher of Kata Containers Project**
+
+<!-- markdownlint-enable MD036 -->
 
 “Dragonfly has become a key infrastructure component of the container image and data distribution system for Alibaba’s
 large-scale distributed systems. In ultra-large-scale scenarios such as the Double 11 (Singles’ Day) shopping festival,
@@ -143,14 +175,22 @@ Facing the new technological challenges of the AI era, Dragonfly has played an i
 cache acceleration, helping us to build a more efficient, intelligent computing platform. We are happy to see Dragonfly
 graduate, which represents an enhancement in community maturity and validates its reliability in large-scale production environments.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Li Yi, director of engineering for container service, Alibaba Cloud & Tao Huang, director of engineering for cloud native transformation project, Alibaba Group**
+
+<!-- markdownlint-enable MD036 -->
 
 “Datadog recently adopted the Dragonfly subproject, Nydus, and it has helped significantly reduce time spent pulling images.
 This includes AI workloads, where image pulls previously took 5 minutes, and node daemonsets, which have startup speeds directly
 related to how quickly applications can be scheduled on nodes. We have seen significant improvements using Nydus,
 now everything starts in a matter of seconds. We are thrilled to see Dragonfly graduate and hope to continue to contribute to this impressive ecosystem!”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Baptiste Girard-Carrabin, Datadog**
+
+<!-- markdownlint-enable MD036 -->
 
 “DiDi uses a distributed cloud platform to handle a large number of user requests and quickly adjust resources, which
 requires very efficient and stable management of resource distribution and image synchronization. Dragonfly is a
@@ -160,7 +200,11 @@ testament to its technical maturity and industry value. We also look forward to 
 the field of cloud native distribution, providing more efficient solutions for large-scale
 file synchronization, image distribution, and other enterprise scenarios.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Feng Wu, head of the Elastic Cloud, DiDi & Rapier Yang, head of the Elastic Cloud, DiDi**
+
+<!-- markdownlint-enable MD036 -->
 
 “At Kuaishou, Dragonfly is considered the cornerstone of our container infrastructure, and it will soon provide
 stable and reliable image distribution capabilities for tens of thousands of services and hundreds of thousands of servers.
@@ -170,7 +214,11 @@ a critical component of our AI infrastructure, providing exceptional acceleratio
 We are deeply honored to partner with the vibrant Dragonfly community in collectively exploring future innovations for
 cloud native distribution technologies.”
 
+<!-- markdownlint-disable MD036 -->
+
 **—Wang Yao, head of container registry service of Kuaishou**
+
+<!-- markdownlint-enable MD036 -->
 
 ### About Cloud Native Computing Foundation
 
