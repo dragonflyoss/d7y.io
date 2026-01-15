@@ -5,3 +5,36 @@
 [build.environment]
 NODE_VERSION = "20"
 NPM_FLAGS = "--version"
+
+[[redirects]]
+  from = "/snapshotter"
+  to = "/snapshotter/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/snapshotter/"
+  to = "/snapshotter/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/dragonfly/v2"
+  to = "/dragonfly/v2/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dragonfly/v2/"
+  to = "/dragonfly/v2/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/api/v2"
+  to = "/api/v2/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v2/"
+  to = "/api/v2/index.html"
+  status = 200
