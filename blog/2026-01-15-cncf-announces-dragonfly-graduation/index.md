@@ -69,7 +69,7 @@ Additionally, a **third-party security audit** of Dragonfly was conducted. The D
 their TOC sponsors, completed both a self-assessment and a joint assessment with **CNCF TAG Security**, then collaborated with
 the Dragonfly security team on a threat model. After this, the team improved the project’s security policy.
 
-Learn more about Dragonfly and join the community: <https://d7y.io/>
+Learn more about Dragonfly and join the community: [https://d7y.io/](https://d7y.io/)
 
 ### Supporting Quotes
 
