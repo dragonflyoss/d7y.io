@@ -17,6 +17,8 @@
     "version": "./scripts/version.sh"
   },
   "dependencies": {
+    "@docsearch/core": "^4.5.0",
+    "@docsearch/react": "^4.5.0",
     "@docusaurus/core": "^3.7.0",
     "@docusaurus/plugin-content-blog": "^3.7.0",
     "@docusaurus/plugin-content-docs": "^3.7.0",
