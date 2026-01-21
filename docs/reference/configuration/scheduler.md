@@ -182,8 +182,9 @@ metrics:
   # Enable host metrics.
   enableHost: false
 
+# Network configuration.
 network:
-  # Enable ipv6.
+  # enableIPv6 indicates whether to enable IPv6 networking.
   enableIPv6: false
 
 # Console shows log on console.

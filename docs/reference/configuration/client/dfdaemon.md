@@ -20,9 +20,9 @@ host:
 # # ip is the advertise ip of the host.
 # ip: ""
 
-# # scheduler_cluster_id is the ID of the cluster to which the scheduler belongs.
-# # NOTE: This field is used to identify the cluster to which the scheduler belongs.
-# # If this flag is set, the idc, location, hostname and ip will be ignored when listing schedulers.
+  # scheduler_cluster_id is the ID of the cluster to which the scheduler belongs.
+  # NOTE: This field is used to identify the cluster to which the scheduler belongs.
+  # If this flag is set, the idc, location, hostname and ip will be ignored when listing schedulers.
   schedulerClusterID: 1
 
 server:
@@ -352,4 +352,9 @@ backend:
 #   path: "/v1/traces"
 #   # headers is the grpc's headers to send with tracing log.
 #   headers: {}
+
+# Network configuration.
+network:
+  # enableIPv6 indicates whether to enable IPv6 networking.
+  enableIPv4: false
 ```
