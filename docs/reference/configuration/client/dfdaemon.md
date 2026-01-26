@@ -44,8 +44,10 @@ download:
     socketPath: /var/run/dragonfly/dfdaemon.sock
     # request_rate_limit is the rate limit of the download request in the download grpc server, default is 5000 req/s.
     requestRateLimit: 5000
-  # rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 50GiB/s.
-  rateLimit: 50GiB
+  # bandwidthLimit is the default rate limit of the download speed in KB/MB/GB per second, default is 50GB/s.
+  bandwidthLimit: 50GB
+  # backToSourceBandwidthLimit is the rate limit of the back to source speed in KB/MB/GB per second, default is 50GB/s.
+  backToSourceBandwidthLimit: 50GB
   # pieceTimeout is the timeout for downloading a piece from source.
   pieceTimeout: 360s
   # collectedPieceTimeout is the timeout for collecting one piece from the parent in the stream.
@@ -77,8 +79,8 @@ upload:
 #   key: /etc/ssl/private/client.pem
   # disableShared indicates whether disable to share data for other peers.
   disableShared: false
-  # rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 50GiB/s.
-  rateLimit: 50GiB
+  # bandwidthLimit is the default rate limit of the upload speed in KB/MB/GB per second, default is 50GB/s.
+  bandwidthLimit: 50GB
 
 manager:
   # addr is manager address.
@@ -283,9 +285,9 @@ proxy:
   # If the value is "true", the range request will prefetch the entire file.
   # If the value is "false", the range request will fetch the range content.
   prefetch: false
-  # prefetchRateLimit is the rate limit of the prefetch speed in KiB/MiB/GiB per second, default is 5GiB/s.
+  # prefetchBandwidthLimit is the rate limit of the prefetch speed in KB/MB/GB per second, default is 10GB/s.
   # The prefetch request has lower priority so limit the rate to avoid occupying the bandwidth impact other download tasks.
-  prefetchRateLimit: 5GiB
+  prefetchBandwidthLimit: 10GB
   # readBufferSize is the buffer size for reading piece from disk, default is 4MiB.
   readBufferSize: 4194304
 
