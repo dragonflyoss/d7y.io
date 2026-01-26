@@ -87,28 +87,28 @@ The following documentation may help you to achieve better performance especiall
 
 Used for node P2P to share piece bandwidth.
 If the peak bandwidth is greater than the default outbound bandwidth,
-you can set `rateLimit` higher to increase the upload speed.
+you can set `bandwidthLimit` higher to increase the upload speed.
 It is recommended that the configuration be the same as the inbound bandwidth of the machine.
 Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 upload:
-  # -- rateLimit is the default rate limit of the upload speed in KiB/MiB/GiB per second, default is 10GiB/s.
-  rateLimit: 10GiB
+  # -- bandwidthLimit is the default bandwidth limit of the upload speed in KB/MB/GB per second, default is 50GB/s.
+  bandwidthLimit: 50GB
 ```
 
 #### Inbound Bandwidth
 
 Used for node back-to-source bandwidth and download bandwidth from remote peer.
 If the peak bandwidth is greater than the default inbound bandwidth,
-`rateLimit` can be set higher to increase download speed.
+`bandwidthLimit` can be set higher to increase download speed.
 It is recommended that the configuration be the same as the outbound bandwidth of the machine.
 Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
 download:
-  # -- rateLimit is the default rate limit of the download speed in KiB/MiB/GiB per second, default is 10GiB/s.
-  rateLimit: 10GiB
+  # -- bandwidthLimit is the default bandwidth limit of the download speed in KB/MB/GB per second, default is 50GB/s.
+  bandwidthLimit: 50GB
 ```
 
 ### Concurrency control
