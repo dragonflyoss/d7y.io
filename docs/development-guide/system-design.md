@@ -15,7 +15,7 @@ to [Architecture](./../operations/deployment/architecture.md).
 
 ### Overview
 
-![sequence-diagram](./../resource/getting-started/sequence-diagram.png)
+![sequence-diagram](./../resource/getting-started/how-it-works.png)
 
 1. The user manually executes Dfget to download the file, and the Daemon process is started locally. The Daemon process
    requests the list of available Schedulers from the Manager and obtains the currently available Scheduler List.

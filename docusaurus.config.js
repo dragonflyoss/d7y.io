@@ -169,10 +169,9 @@ const config = {
       ],
       copyright: `
         <br />
-        <strong>© Dragonfly Authors ${new Date().getFullYear()} | Documentation Distributed under <a href="https://creativecommons.org/licenses/by/4.0">CC-BY-4.0</a> </strong>
+        Copyright Dragonfly a Series of LF Projects, LLC.
         <br />
-        <br />
-        © ${new Date().getFullYear()} The Linux Foundation. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage/"> Trademark Usage</a> page.
+        For website terms of use, trademark policy and other project policies please see <a href="https://lfprojects.org/policies/">lfprojects.org/policies</a>.
       `,
     },
   },
