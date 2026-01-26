@@ -24,8 +24,8 @@ and provide keepalive and metrics functions.
 ## Relationship {#relationship}
 
 - Seed peer cluster and Scheduler cluster have a `1:1` relationship
-- Seed peer cluster and Seed peer instance have a `1:N` relationship
-- Scheduler cluster and Scheduler instance have a `1:N` relationship
+- Seed peer cluster and Seed peer instance have a `1:1` relationship
+- Scheduler cluster and Scheduler instance have a `1:1` relationship
 
 ## Manage multiple P2P networks {#manage-multiple-p2p-networks}
 
