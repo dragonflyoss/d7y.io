@@ -64,22 +64,6 @@ module.exports = {
             },
           ],
         },
-        // {
-        //   type: 'category',
-        //   label: 'Deployment',
-        //   items: [
-        //     'operations/deployment/architecture',
-        //     {
-        //       type: 'category',
-        //       label: 'Applications',
-        //       items: [
-        //         'operations/deployment/applications/manager',
-        //         'operations/deployment/applications/scheduler',
-        //         'operations/deployment/applications/client',
-        //       ],
-        //     },
-        //   ],
-        // },
         {
           type: 'category',
           label: 'Integrations',
