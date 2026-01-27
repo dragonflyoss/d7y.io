@@ -97,16 +97,16 @@ module.exports = {
       label: 'Architecture',
       link: {
         type: 'doc',
-        id: 'operations/deployment/architecture',
+        id: 'operations/architecture/architecture',
       },
       items: [
         {
           type: 'category',
           label: 'Components',
           items: [
-            'operations/deployment/applications/manager',
-            'operations/deployment/applications/scheduler',
-            'operations/deployment/applications/client',
+            'operations/architecture/components/manager',
+            'operations/architecture/components/scheduler',
+            'operations/architecture/components/client',
           ],
         },
       ],
