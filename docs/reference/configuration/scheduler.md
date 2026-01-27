@@ -15,14 +15,12 @@ server:
 # # Access ip for other services,
 # # when local ip is different with access ip, advertiseIP should be set.
 # advertiseIP: 127.0.0.1
-
 # # Access port for other services,
 # # when local ip is different with access port, advertisePort should be set.
 # advertisePort: 8002
-
 # # Listen ip.
 # listenIP: 0.0.0.0
-
+#
 # Port is the ip and port scheduler server listens on.
   port: 8002
 # # GRPC server tls configuration.
@@ -33,9 +31,10 @@ server:
 #   cert: /etc/ssl/certs/server.crt
 #   # Key file path for mTLS.
 #   key: /etc/ssl/private/server.pem
-
-# # Server host.
-# host: localhost
+#
+  # RequestRateLimit is the maximum number of requests per second for the gRPC server. It limits both the rate of
+  # unary gRPC requests and the rate of new stream gRPC connection, default is 4000 req/s.
+  requestRateLimit: 4000
 
   # logLevel specifies the logging level for the scheduler.
   # Default: "info"
@@ -71,13 +70,11 @@ server:
 
 # Scheduler policy configuration.
 scheduler:
-  # Algorithm configuration to use different scheduling algorithms,
-  # default configuration supports "default" and "ml"
-  # "default" is the rule-based scheduling algorithm,
-  # "ml" is the machine learning scheduling algorithm
-  # It also supports user plugin extension, the algorithm value is "plugin",
-  # and the compiled `d7y-scheduler-plugin-evaluator.so` file is added to
-  # the dragonfly working directory plugins.
+  # Algorithm configuration for different scheduling algorithms.
+  # Currently only supports "default".
+  # Also supports custom plugin extensions by setting the algorithm value to "plugin"
+  # and placing the compiled `d7y-scheduler-plugin-evaluator.so` file in the
+  # dragonfly working directory under the plugins folder.
   algorithm: default
   # backToSourceCount is single task allows the peer to back-to-source count.
   backToSourceCount: 200
@@ -86,7 +83,7 @@ scheduler:
   # Retry scheduling limit times.
   retryLimit: 5
   # Retry scheduling interval.
-  retryInterval: 400ms
+  retryInterval: 2s
   # GC metadata configuration.
   gc:
     # pieceDownloadTimeout is the timeout of downloading piece.

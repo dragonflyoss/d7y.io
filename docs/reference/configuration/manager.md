@@ -24,6 +24,10 @@ server:
     port:
       start: 65003
       end: 65003
+    # RequestRateLimit is the maximum number of requests per second for the gRPC server. It limits both the rate of
+    # unary gRPC requests and the rate of new stream gRPC connection, default is 4000 req/s.
+    requestRateLimit: 4000
+
   # # GRPC server tls configuration.
   # tls:
   #   # CA certificate file path for mTLS.
@@ -167,9 +171,16 @@ job:
     # fillInterval is the interval for refilling the bucket.
     fillInterval: 1m
     # capacity is the maximum number of requests that can be consumed in a single fillInterval.
-    capacity: 5
+    capacity: 10
     # quantum is the number of tokens taken from the bucket for each request.
-    quantum: 5
+    quantum: 10
+  # gc configuration.
+  gc:
+    # interval is the interval of gc.
+    interval: 3h
+    # ttl is the ttl of job.
+    ttl: 6h
+
   # Sync peers configuration.
   syncPeers:
     # Interval is the interval for syncing all peers information from the scheduler and
