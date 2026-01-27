@@ -1,7 +1,7 @@
 ---
 id: scheduler
 title: Scheduler
-slug: /operations/architecture/applications/scheduler/
+slug: /operations/architecture/components/scheduler/
 ---
 
 Scheduler selects the optimal parent peer for current peer to be downloaded
