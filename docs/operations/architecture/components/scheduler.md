@@ -1,7 +1,7 @@
 ---
 id: scheduler
 title: Scheduler
-slug: /operations/architecture/components/scheduler/
+slug: /operations/architecture/applications/scheduler/
 ---
 
 Scheduler selects the optimal parent peer for current peer to be downloaded
@@ -27,15 +27,52 @@ The scheduling process is actually to build a directed acyclic graph according t
 
 ![scheduler-dag](../../../resource/operations/architecture/components/scheduler/scheduler-dag.png)
 
-## Peer State Machine {#peer-state-machine}
+### Load-Aware Scheduling Algorithm {#bandwidth-aware-scheduling-algorithm}
 
-The Scheduler divides tasks into three types `Tiny`, `Small` and `Normal`.
+A two-stage scheduling algorithm combining central scheduling with node-level secondary scheduling to
+optimize P2P download performance based on real-time load awareness.
 
-- Tiny: file size is less than 128 bytes
-- Small: only one piece task
-- Normal: tasks with more than one piece
+#### Architecture {#architecture}
 
-Different scheduling strategies are used for different types of download tasks,
-following state transition diagram during the peer scheduling process.
+![scheduling](../../../resource/operations/architecture/components/scheduler/scheduling.svg)
 
-![scheduler-state-machine](../../../resource/operations/architecture/components/scheduler/scheduler-state-machine.jpg)
+#### Stage 1: Central Scheduling {#stage-1-central-scheduling}
+
+The Scheduler evaluates and returns the top N parent for concurrent piece downloads.
+
+##### Total Score Formula {#stage-1-total-score-formula}
+
+```text
+TotalScore = (IDCAffinityScore × 0.2) + (LocationAffinityScore × 0.1) + (LoadQualityScore × 0.6) + (HostTypeScore × 0.1)
+```
+
+| Name                    | Weight | Description                             |
+| ----------------------- | ------ | --------------------------------------- |
+| IDC Affinity Score      | 0.2    | Data center proximity preference        |
+| Location Affinity Score | 0.1    | Geographic location matching            |
+| Load Quality Score      | 0.6    | Load evaluation                         |
+| Host Type Score         | 0.1    | Node type preference (seed, peer, etc.) |
+
+###### Load Quality Score
+
+```text
+LoadQualityScore = (PeakBandwidthUsage × 0.5) + (BandwidthDurationRatio × 0.3) + (ConcurrentEfficiency × 0.2)
+```
+
+| Name                     | Weight | Description |
+| ------------------------ | ------ | ----------- |
+| Peak Bandwidth Usage     | 0.5    |             |
+| Bandwidth Duration Ratio | 0.3    |             |
+| Concurrent Efficiency    | 0.2    |             |
+
+#### Stage 2: Secondary Scheduling {#stage-2-secondary-scheduling}
+
+Real-time parent selection performed by the peer for each piece based on load quality.
+
+![parent-selector](../../../resource/operations/architecture/components/scheduler/parent-selector.svg)
+
+While the central scheduler provides initial candidate selection, the Parent Selector enables dynamic adaptation to:
+
+- Real-time load: Network conditions fluctuate rapidly during downloads.
+- Reduced central load: Distributes scheduling decisions across peers.
+- Lower latency: Local decisions avoid round-trip delays to central scheduler.
