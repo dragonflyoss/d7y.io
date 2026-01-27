@@ -35,7 +35,7 @@ Dragonfly was accepted to CNCF on November 13, 2018, moved to the Incubating mat
 
 ## Architecture
 
-Dragonfly services could be divided into four categories: Manager, Scheduler, Seed Peer and Peer. Please refer to [Architecture](./operations/deployment/architecture.md).
+Dragonfly services could be divided into four categories: Manager, Scheduler, Seed Peer and Peer. Please refer to [Architecture](./operations/architecture/architecture.md).
 
 - **Manager**: Manages relationships across P2P clusters. It provides dynamic configuration management
   and data collection capabilities. It also includes a front-end console that enables users to
@@ -46,7 +46,7 @@ Dragonfly services could be divided into four categories: Manager, Scheduler, Se
   It can be actively triggered by the Scheduler to download from the source and distribute content to other Peers.
 - **Peer**: Provides upload and download capabilities.
 
-![arch](./resource/operations/deployment/architecture/arch.png)
+![arch](./resource/operations/architecture/arch.png)
 
 ## How it works
 

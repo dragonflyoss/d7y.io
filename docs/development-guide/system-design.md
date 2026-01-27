@@ -11,7 +11,7 @@ Note: The above analysis is based on Dragonfly v1.x version, Some details may di
 ### Architecture
 
 Dragonfly services could be divided into four categories: Manager, Scheduler, Seed Peer and Peer. Please refer
-to [Architecture](./../operations/deployment/architecture.md).
+to [Architecture](./../operations/architecture/architecture.md).
 
 ### Overview
 
