@@ -19,8 +19,8 @@ host:
 # hostname: ""
 # # ip is the advertise ip of the host.
 # ip: ""
-
-  # scheduler_cluster_id is the ID of the cluster to which the scheduler belongs.
+#
+  # schedulerClusterID is the ID of the cluster to which the scheduler belongs.
   # NOTE: This field is used to identify the cluster to which the scheduler belongs.
   # If this flag is set, the idc, location, hostname and ip will be ignored when listing schedulers.
   schedulerClusterID: 1
@@ -42,8 +42,18 @@ download:
   server:
     # socketPath is the unix socket path for dfdaemon GRPC service.
     socketPath: /var/run/dragonfly/dfdaemon.sock
-    # request_rate_limit is the rate limit of the download request in the download grpc server, default is 5000 req/s.
+    # The rate limit for the requests on the download gRPC server.
+    #
+    # This limit applies to the total number of gRPC requests per second, including:
+    # - Multiple requests within a single connection.
+    # - Single requests across different connections.
     requestRateLimit: 5000
+    # The buffer size for the request channel on the download gRPC server.
+    #
+    # This controls the capacity of the bounded channel used to queue
+    # incoming gRPC requests before they are processed. If the buffer is full,
+    # new requests will return a `RESOURCE_EXHAUSTED` error.
+    requestBufferSize: 1000
   # bandwidthLimit is the default rate limit of the download speed in KB/MB/GB per second, default is 50GB/s.
   bandwidthLimit: 50GB
   # backToSourceBandwidthLimit is the rate limit of the back to source speed in KB/MB/GB per second, default is 50GB/s.
@@ -67,8 +77,19 @@ upload:
   # cert: /etc/ssl/certs/server.crt
   # # GRPC server key file path for mTLS.
   # key: /etc/ssl/private/server.pem
-    # request_rate_limit is the rate limit of the upload request in the upload grpc server, default is 5000 req/s.
+  #
+    # The rate limit for the requests on the upload gRPC server.
+    #
+    # This limit applies to the total number of gRPC requests per second, including:
+    # - Multiple requests within a single connection.
+    # - Single requests across different connections.
     requestRateLimit: 5000
+    # The buffer size for the request channel on the upload gRPC server.
+    #
+    # This controls the capacity of the bounded channel used to queue
+    # incoming gRPC requests before they are processed. If the buffer is full,
+    # new requests will return a `RESOURCE_EXHAUSTED` error.
+    requestBufferSize: 1000
 # # Client configuration for remote peer's upload server.
 # client:
 #   # CA certificate file path for mTLS.
@@ -97,7 +118,7 @@ scheduler:
   # Announcer will provide the scheduler with peer information for scheduling,
   # peer information includes cpu, memory, etc.
   announceInterval: 1m
-  # schedule_timeout is timeout for the scheduler to respond to a scheduling request from dfdaemon, default is 3 hours.
+  # scheduleTimeout is timeout for the scheduler to respond to a scheduling request from dfdaemon, default is 3 hours.
   #
   # If the scheduler's response time for a scheduling decision exceeds this timeout,
   # dfdaemon will encounter a `TokioStreamElapsed(Elapsed(()))` error.
@@ -200,8 +221,8 @@ gc:
     # #
     # # This allows dfdaemon to effectively manage a logical portion of the disk for its cache,
     # # rather than always considering the entire disk volume.
-    #
     # diskThreshold: 10TiB
+    #
     # diskHighThresholdPercent is the high threshold percent of the disk usage.
     # If the disk usage is greater than the threshold, dfdaemon will do gc.
     diskHighThresholdPercent: 90
