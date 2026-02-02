@@ -15,169 +15,141 @@ export default function Home() {
   const UserList = [
     {
       imgURL: 'img/user/alibaba-group.svg',
-      alt: '', // Redundant with link text " Alibaba Group"
       herf: 'https://www.alibabagroup.com/',
       name: ' Alibaba Group',
     },
     {
       imgURL: 'img/user/alibaba-cloud.png',
-      alt: '', // Redundant with link text "Alibaba Cloud"
       herf: 'https://us.alibabacloud.com/',
       name: 'Alibaba Cloud',
     },
     {
       imgURL: 'img/user/ant-group.png',
-      alt: '', // Redundant with link text " Ant Group"
       herf: 'https://www.antgroup.com/',
       name: ' Ant Group',
     },
     {
       imgURL: 'img/user/amap.png',
-      alt: '', // Redundant with link text "Amap "
       herf: 'https://mobile.amap.com/',
       name: 'Amap ',
     },
     {
       imgURL: 'img/user/baidu.svg',
-      alt: '', // Redundant with link text "Baidu"
       herf: 'https://baidu.com/',
       name: 'Baidu',
     },
     {
       imgURL: 'img/user/bilibili.svg',
-      alt: '', // Redundant with link text "Bilibili"
       herf: 'https://www.bilibili.com.cn/',
       name: 'Bilibili',
     },
     {
       imgURL: 'img/user/cainiao.svg',
-      alt: '', // Redundant with link text "Cai Niao"
       herf: 'https://global.cainiao.com/',
       name: 'Cai Niao',
     },
     {
       imgURL: 'img/user/china-unicom.svg',
-      alt: '', // Redundant with link text " China Unicom"
       herf: 'http://www.chinaunicom.com/',
       name: ' China Unicom',
     },
     {
       imgURL: 'img/user/cloudwise.svg',
-      alt: '', // Redundant with link text " Cloud Wise"
       herf: 'https://www.cloudwise.cool/',
       name: ' Cloud Wise',
     },
     {
       imgURL: 'img/user/daocloud.svg',
-      alt: '', // Redundant with link text "Dao Cloud"
       herf: 'https://www.daocloud.io/',
       name: 'Dao Cloud',
     },
     {
       imgURL: 'img/user/didi.png',
-      alt: '', // Redundant with link text " DiDi"
       herf: 'https://www.didiglobal.com/',
       name: ' DiDi',
     },
     {
       imgURL: 'img/user/ele.png',
-      alt: '', // Redundant with link text "Eleme"
       herf: 'https://www.ele.me/',
       name: 'Eleme',
     },
     {
       imgURL: 'img/user/huawei.svg',
-      alt: '', // Redundant with link text "Huawei"
       herf: 'https://www.huawei.com/cn/',
       name: 'Huawei',
     },
     {
       imgURL: 'img/user/huya.png',
-      alt: '', // Redundant with link text " Huya"
       herf: 'https://www.huya.com/',
       name: ' Huya',
     },
     {
       imgURL: 'img/user/jd.png',
-      alt: '', // Redundant with link text " JD"
       herf: 'https://corporate.jd.com/',
       name: ' JD',
     },
     {
       imgURL: 'img/user/jfrog.svg',
-      alt: '', // Redundant with link text " JFrog"
       herf: 'https://jfrog.com/',
       name: ' JFrog',
     },
     {
       imgURL: 'img/user/kuaishou.svg',
-      alt: '', // Redundant with link text " Kuaishou"
       herf: 'https://kuaishou.com/',
       name: ' Kuaishou',
     },
     {
       imgURL: 'img/user/lazada.svg',
-      alt: '', // Redundant with link text " Lazada"
       herf: 'https://www.lazada.com/',
       name: ' Lazada',
     },
     {
       imgURL: 'img/user/meituan.svg',
-      alt: '', // Redundant with link text " Meituan"
       herf: 'https://about.meituan.com/',
       name: ' Meituan',
     },
     {
       imgURL: 'img/user/neteasegames.png',
-      alt: '', // Redundant with link text " Net Ease"
       herf: 'https://www.neteasegames.com/',
       name: ' Net Ease',
     },
     {
       imgURL: 'img/user/qunar.svg',
-      alt: '', // Redundant with link text " Qunar"
       herf: 'https://www.qunar.com/',
       name: ' Qunar',
     },
     {
       imgURL: 'img/user/shopee.svg',
-      alt: '', // Redundant with link text " Shopee"
       herf: 'https://shopee.com/',
       name: ' Shopee',
     },
     {
       imgURL: 'img/user/vivo.svg',
-      alt: '', // Redundant with link text " Vivo"
       herf: 'https://www.vivo.com/',
       name: ' Vivo',
     },
     {
       imgURL: 'img/user/xiaomi.png',
-      alt: '', // Redundant with link text "Xiaomi"
       herf: 'https://www.mi.com/global/',
       name: 'Xiaomi',
     },
     {
       imgURL: 'img/user/xperi.svg',
-      alt: '', // Redundant with link text " Xperi"
       herf: 'https://xperi.com/',
       name: ' Xperi',
     },
     {
       imgURL: 'img/user/yahoo.svg',
-      alt: '', // Redundant with link text " Yahoo"
       herf: 'https://www.yahoo.com/',
       name: ' Yahoo',
     },
     {
       imgURL: 'img/user/ppio.png',
-      alt: '', // Redundant with link text " PPIO"
       herf: 'https://ppio.com/',
       name: ' PPIO',
     },
     {
       imgURL: 'img/user/datadog.png',
-      alt: '', // Redundant with link text " DATADOG"
       herf: 'https://www.datadoghq.com/',
       name: ' DATADOG',
     },
