@@ -7,7 +7,7 @@ const Style = {
   width: '100%',
 };
 
-const Contact = () => {
-  return <Lottie animationData={ContactAnimation} style={Style} />;
+const Contact = ({ ariaLabel }) => {
+  return <Lottie animationData={ContactAnimation} style={Style} aria-label={ariaLabel} />;
 };
 export default Contact;

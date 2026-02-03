@@ -15,169 +15,141 @@ export default function Home() {
   const UserList = [
     {
       imgURL: 'img/user/alibaba-group.svg',
-      alt: 'alibaba-group',
       herf: 'https://www.alibabagroup.com/',
       name: ' Alibaba Group',
     },
     {
       imgURL: 'img/user/alibaba-cloud.png',
-      alt: 'alibaba-cloud',
       herf: 'https://us.alibabacloud.com/',
       name: 'Alibaba Cloud',
     },
     {
       imgURL: 'img/user/ant-group.png',
-      alt: 'ant-group',
       herf: 'https://www.antgroup.com/',
       name: ' Ant Group',
     },
     {
       imgURL: 'img/user/amap.png',
-      alt: 'amap',
       herf: 'https://mobile.amap.com/',
       name: 'Amap ',
     },
     {
       imgURL: 'img/user/baidu.svg',
-      alt: 'baidu',
       herf: 'https://baidu.com/',
       name: 'Baidu',
     },
     {
       imgURL: 'img/user/bilibili.svg',
-      alt: 'bilibili',
       herf: 'https://www.bilibili.com.cn/',
       name: 'Bilibili',
     },
     {
       imgURL: 'img/user/cainiao.svg',
-      alt: 'cainiao',
       herf: 'https://global.cainiao.com/',
       name: 'Cai Niao',
     },
     {
       imgURL: 'img/user/china-unicom.svg',
-      alt: 'china-unicom',
       herf: 'http://www.chinaunicom.com/',
       name: ' China Unicom',
     },
     {
       imgURL: 'img/user/cloudwise.svg',
-      alt: 'cloud wise',
       herf: 'https://www.cloudwise.cool/',
       name: ' Cloud Wise',
     },
     {
       imgURL: 'img/user/daocloud.svg',
-      alt: 'dao cloud',
       herf: 'https://www.daocloud.io/',
       name: 'Dao Cloud',
     },
     {
       imgURL: 'img/user/didi.png',
-      alt: 'didi',
       herf: 'https://www.didiglobal.com/',
       name: ' DiDi',
     },
     {
       imgURL: 'img/user/ele.png',
-      alt: 'ele',
       herf: 'https://www.ele.me/',
       name: 'Eleme',
     },
     {
       imgURL: 'img/user/huawei.svg',
-      alt: 'huawei',
       herf: 'https://www.huawei.com/cn/',
       name: 'Huawei',
     },
     {
       imgURL: 'img/user/huya.png',
-      alt: 'huya',
       herf: 'https://www.huya.com/',
       name: ' Huya',
     },
     {
       imgURL: 'img/user/jd.png',
-      alt: 'jd',
       herf: 'https://corporate.jd.com/',
       name: ' JD',
     },
     {
       imgURL: 'img/user/jfrog.svg',
-      alt: 'jfrog',
       herf: 'https://jfrog.com/',
       name: ' JFrog',
     },
     {
       imgURL: 'img/user/kuaishou.svg',
-      alt: 'kuaishou',
       herf: 'https://kuaishou.com/',
       name: ' Kuaishou',
     },
     {
       imgURL: 'img/user/lazada.svg',
-      alt: 'lazada',
       herf: 'https://www.lazada.com/',
       name: ' Lazada',
     },
     {
       imgURL: 'img/user/meituan.svg',
-      alt: 'mei tuan',
       herf: 'https://about.meituan.com/',
       name: ' Meituan',
     },
     {
       imgURL: 'img/user/neteasegames.png',
-      alt: 'netease games',
       herf: 'https://www.neteasegames.com/',
       name: ' Net Ease',
     },
     {
       imgURL: 'img/user/qunar.svg',
-      alt: 'qunar',
       herf: 'https://www.qunar.com/',
       name: ' Qunar',
     },
     {
       imgURL: 'img/user/shopee.svg',
-      alt: 'shopee',
       herf: 'https://shopee.com/',
       name: ' Shopee',
     },
     {
       imgURL: 'img/user/vivo.svg',
-      alt: 'vivo',
       herf: 'https://www.vivo.com/',
       name: ' Vivo',
     },
     {
       imgURL: 'img/user/xiaomi.png',
-      alt: 'xiaomi',
       herf: 'https://www.mi.com/global/',
       name: 'Xiaomi',
     },
     {
       imgURL: 'img/user/xperi.svg',
-      alt: 'xperi',
       herf: 'https://xperi.com/',
       name: ' Xperi',
     },
     {
       imgURL: 'img/user/yahoo.svg',
-      alt: 'yahoo',
       herf: 'https://www.yahoo.com/',
       name: ' Yahoo',
     },
     {
       imgURL: 'img/user/ppio.png',
-      alt: 'ppio',
       herf: 'https://ppio.com/',
       name: ' PPIO',
     },
     {
       imgURL: 'img/user/datadog.png',
-      alt: 'datadog',
       herf: 'https://www.datadoghq.com/',
       name: ' DATADOG',
     },
@@ -565,7 +537,7 @@ export default function Home() {
                 );
               })}
               <a href="mailto:dragonfly-discuss@googlegroups.com" className={styles.contactBox}>
-                <LottieContact />
+                <LottieContact ariaLabel="Contact Us icon" />
                 <div className={styles.contact}>
                   <div>CONTACT US</div>
                 </div>
