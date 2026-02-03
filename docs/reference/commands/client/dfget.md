@@ -165,3 +165,23 @@ dfget hdfs://<path>/file.txt -O /tmp/file.txt  --hdfs-delegation-token <hadoop_d
 1. set option --console if you want to print logs to Terminal
 2. log path: /var/log/dragonfly/dfget/
 ```
+
+## Digest
+
+### Download file with digest
+
+```shell
+dfget --digest <algorithm>:<digest> -O <OUTPUT> <URL>
+```
+
+### Download directory with digest-manifest
+
+```shell
+dfget --digest-manifest /tmp/digest-manifest.txt -O <OUTPUT> <URL>
+
+# digest-manifest.txt
+<algorithm1>:<digest1> ./file1
+<algorithm2>:<digest2> ./dir2/file2
+```
+
+See [#1570](https://github.com/dragonflyoss/client/pull/1570) for more details.
