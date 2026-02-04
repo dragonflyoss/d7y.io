@@ -22,6 +22,8 @@ dragonfly has completed the integration with the nydus, allowing the container t
 start downloading images on demand, reducing the amount of downloads. The dragonfly P2P transmission method can
 also be used during the transmission process to reduce the back-to-source traffic and increase the speed.
 
+<!-- truncate -->
+
 ## Quick start {#quick-start}
 
 ### Prerequisites {#prerequisites}

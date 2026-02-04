@@ -28,6 +28,9 @@ Main Dragonfly Features:
 Notable Milestones:
 
 - 7 project maintainers from 4 organizations
+
+<!-- truncate -->
+
 - 67 contributors
 - 21 contributing organizations
 - 4.6k + GitHub stars

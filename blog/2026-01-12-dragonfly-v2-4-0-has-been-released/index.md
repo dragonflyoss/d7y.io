@@ -8,6 +8,8 @@ Dragonfly v2.4.0 is released!🎉🎉🎉 Thanks the [contributors](https://gith
 
 ![dragonfly](images/dragonfly-linear.png)
 
+<!-- truncate -->
+
 ## New features and enhancements {#new-features-and-enhancements}
 
 ### load-aware scheduling algorithm

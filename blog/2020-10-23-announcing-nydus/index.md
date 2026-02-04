@@ -1,8 +1,8 @@
 ---
 title: Introducing Dragonfly Container Image Service
 authors:
-- name: Peng Tao
-- name: Liu Bo
+  - name: Peng Tao
+  - name: Liu Bo
 tags: [dragonfly, container image, OCI, nydus]
 description: Announcing Dragonfly container image service to greatly improve container startup pulling speed and image access security.
 hide_table_of_contents: false
@@ -27,27 +27,29 @@ Conceptually, we pack application's environment into a single image that is more
 Image is then put into a filesystem locally on top of which an application can run. The pieces that are now being
 launched as nydus are the culmination of the years of work and experience of our team in building filesystems.
 Here we introduce the [dragonfly image service (codename nydus)](https://github.com/dragonflyoss/image-service) as
-an extension to the Dragonfly project.  It's software that minimizes download time and provides image integrity check
+an extension to the Dragonfly project. It's software that minimizes download time and provides image integrity check
 across the whole lifetime of a container, enabling users to manage applications fast and safely.
 
 nydus is co-developed by engineers from Alibaba Cloud and Ant Group. It is widely used in the internal production
 deployments. From our experience, we value its container creation speedup and image isolation enhancement the most.
 And we are seeing interesting use cases of it from time to time.
 
+<!-- truncate -->
+
 ### Nydus: Dragonfly Image Service {#nydus-dragonfly-image-service}
 
 The nydus project designs and implements an user space filesystem on top of a container image format that improves over
 the current OCI image specification. Its key features include:
 
-* Container images are downloaded on demand
-* Chunk level data duplication
-* Flatten image metadata and data to remove all intermediate layers
-* Only usable image data is saved when building a container image
-* Only usable image data is downloaded when running a container
-* End-to-end image data integrity
-* Compactible with the OCI artifacts spec and distribution spec
-* Integrated with existing CNCF project dragonfly to support image distribution in large clusters
-* Different container image storage backends are supported
+- Container images are downloaded on demand
+- Chunk level data duplication
+- Flatten image metadata and data to remove all intermediate layers
+- Only usable image data is saved when building a container image
+- Only usable image data is downloaded when running a container
+- End-to-end image data integrity
+- Compactible with the OCI artifacts spec and distribution spec
+- Integrated with existing CNCF project dragonfly to support image distribution in large clusters
+- Different container image storage backends are supported
 
 Nydus mainly consists of a new containier image format and a FUSE (Filesystem in USErspace) daemon to translate it into
 container accessible mountpoint.
@@ -79,7 +81,7 @@ In our tests, we found out that nydus can boost container creation from minutes 
 Another less-obvious but important benefit is runtime data integration check. With OCIv1 container images,
 the image data cannot be verified after being unpacked to local directory, which means if some files in the
 local directories are undermined either intentionally or not, containers will simply take them as is, incurring
-data leaking risk.  In contrast, nydus image won't be unpacked to local directory at all, what's more,
+data leaking risk. In contrast, nydus image won't be unpacked to local directory at all, what's more,
 given that verification can be enforced on every data access to nydus image, the data leak risk
 can be completely avoided by forcing to fetch the data from the trusted image registry again.
 
@@ -106,27 +108,27 @@ this project come to fruition.
 
 #### Q: What are the challenges with oci image spec v1? {#q-what-are-the-challenges-with-oci-image-spec-v1}
 
-* ["The Road to OCIv2 Images: What's Wrong with Tar?"](https://www.cyphar.com/blog/post/20190121-ociv2-images-i-tar)
-written by Aleksa Sarai covers all the challenges with OCIv1, a quick summary of his article is that tar is legacy and
-doesn't fit well to be a container image format.
+- ["The Road to OCIv2 Images: What's Wrong with Tar?"](https://www.cyphar.com/blog/post/20190121-ociv2-images-i-tar)
+  written by Aleksa Sarai covers all the challenges with OCIv1, a quick summary of his article is that tar is legacy and
+  doesn't fit well to be a container image format.
 
 #### Q: How is this different than crfs? {#q-how-is-this-different-than-crfs}
 
-* The basic idea of the two are quite similar. Deep down, the nydus image format supports chunk level data deduplication
-and end-to-end data integraty at runtime, which is an improvement over the stargz format used by crfs.
+- The basic idea of the two are quite similar. Deep down, the nydus image format supports chunk level data deduplication
+  and end-to-end data integraty at runtime, which is an improvement over the stargz format used by crfs.
 
 #### Q: How is this different than Teleport of Azure? {#q-how-is-this-different-than-teleport-of-azure}
 
-* Azure Teleport is like the current OCI image format plus a SMB-enabled snapshotter. It supports container image
-lazy-fetching and suffers from all the Tar format defects. OTOH, nydus deprecates the legacy
-Tar format and takes advantage of the merkle tree format to provide more advantages over the Tar format.
+- Azure Teleport is like the current OCI image format plus a SMB-enabled snapshotter. It supports container image
+  lazy-fetching and suffers from all the Tar format defects. OTOH, nydus deprecates the legacy
+  Tar format and takes advantage of the merkle tree format to provide more advantages over the Tar format.
 
 #### Q: What if network is down while container is running with nydus? {#q-what-if-network-is-down-while-container-is-running-with-nydus}
 
-* With OCIv1, container would fail to start at all should network be down while container image is not fully
-downloaded.  Nydus has changed that a lot because it goes with lazy fetch/load mechanism, a failure in network may
-take down a running container. Nydus addresses the problem with a prefetch mechanism which can be configured to
-* run in background right after starting a container.
+- With OCIv1, container would fail to start at all should network be down while container image is not fully
+  downloaded. Nydus has changed that a lot because it goes with lazy fetch/load mechanism, a failure in network may
+  take down a running container. Nydus addresses the problem with a prefetch mechanism which can be configured to
+- run in background right after starting a container.
 
 ### [1]：OCI Image Specification V2 Requirements {#1oci-image-specification-v2-requirements}
 
@@ -141,16 +143,16 @@ The discussion went from an email thread ([Proposal Draft for OCI Image Spec V2]
 and [a shared document](https://hackmd.io/@cyphar/ociv2-brainstorm) to several OCI community online meetings,
 and the result is quite aspiring. The concluded OCIv2 requirements are:
 
-* Reduced Duplication
-* Canonical Representation (Reproducible Image Building)
-* Explicit (and Minimal) Filesystem Objects and Metadata
-* Mountable Filesystem Format
-* Bill of Materials
-* Lazy Fetch Support
-* Extensibility
-* Verifiability and/or Repairability
-* Reduced Uploading
-* Untrusted Storage
+- Reduced Duplication
+- Canonical Representation (Reproducible Image Building)
+- Explicit (and Minimal) Filesystem Objects and Metadata
+- Mountable Filesystem Format
+- Bill of Materials
+- Lazy Fetch Support
+- Extensibility
+- Verifiability and/or Repairability
+- Reduced Uploading
+- Untrusted Storage
 
 For detailed meaning of each requirement, please refer to [the original shared document](https://hackmd.io/@cyphar/ociv2-brainstorm).
 We actively joined the community discussions and found out that the nydus project fits nicely to these requirements.

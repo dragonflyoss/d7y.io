@@ -29,6 +29,8 @@ multiple specialized features were outside the scope of this audit for those rea
 this project is a great opportunity for continued audit work to improve and elevate code and
 harden security before graduation. Ongoing efforts for security is critical, as security is a moving target.
 
+<!-- truncate -->
+
 We would like to thank the Trail of Bits team, particularly Dan Guido, Jeff Braswell, Paweł Płatek,
 and Sam Alws for their work on this project. Thank you to the dragonfly maintainers and contributors,
 specifically Wenbo Qi, for their ongoing work and contributions to this engagement.

@@ -31,6 +31,8 @@ image format and "EROFS over Fscache" on-demand loading technology.
 Please refer to [Nydus](https://github.com/dragonflyoss/image-service) for more details of this project.
 Now you can experience all these new features with this [user guide](https://github.com/dragonflyoss/image-service/blob/master/docs/nydus-fscache.md).
 
+<!-- truncate -->
+
 ### Nydus Architecture Outline
 
 In brief, Nydus is a *filesystem-based* image acceleration service that designs the RAFS (Registry Acceleration

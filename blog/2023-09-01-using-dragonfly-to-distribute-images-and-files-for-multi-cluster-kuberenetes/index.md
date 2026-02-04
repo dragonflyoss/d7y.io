@@ -16,6 +16,8 @@ The recommended deployment for multi-cluster kubernetes is to use a dragonfly cl
 
 ![Screenshot showing diagram flow between Network A / Kubernetes Cluster A and Network B / Kubernetes Cluster B towards Manager](https://www.cncf.io/wp-content/uploads/2023/09/image16-5.png)
 
+<!-- truncate -->
+
 ## Setup kubernetes cluster
 
 [Kind](https://kind.sigs.k8s.io/) is recommended if no Kubernetes cluster is available for testing.

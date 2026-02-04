@@ -14,6 +14,8 @@ _Project post originally published on [Github](https://github.com/dragonflyoss/d
 
 Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform](https://cloud.google.com/) (GCP) Team, [Volcano Engine](https://www.volcengine.com/) Team, and [Baidu AI Cloud](https://intl.cloud.baidu.com/) Team for helping Dragonfly integrate with their public clouds. Welcome to visit [d7y.io](https://d7y.io/) website.
 
+<!-- truncate -->
+
 ![Github snippit](./github-snippit.avif)
 
 ## **Features**

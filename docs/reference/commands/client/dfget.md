@@ -65,8 +65,8 @@ spec:
 
 #### Install Dfget in the Container Image
 
-Install Dfget in the Container Image, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm-install-client-using-rpm)
-or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb-install-client-using-deb).
+Install Dfget in the Container Image, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm)
+or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb).
 
 #### Download via UDS(unix domain socket) of dfdaemon in the node
 

@@ -28,6 +28,8 @@ Haomiao Jiang, Dalian University of Technology
 Qiufen Xia, Dalian University of Technology
 Guowei Wu, Dalian University of Technology
 
+<!-- truncate -->
+
 ## Background
 
 With the continuous evolution of Artificial Intelligence Generated Content (AIGC) technologies, the distribution of container images and large models has become a challenge. Traditional centralized registry often faces single-node bandwidth bottlenecks during peak concurrent downloads, leading to severe network congestion and excessively long download times. Conversely, while Content Delivery Networks (CDNs) or private links can mitigate some hotspot loads, they fail to fully leverage the idle bandwidth of cluster nodes and introduce additional overhead. Consequently, cloud-native applications and AI services urgently need a dynamic, efficient, scalable, and non-intrusive distribution system for large-scale images and models, compatible with mainstream formats like OCI spec.

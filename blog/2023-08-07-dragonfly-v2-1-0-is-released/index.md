@@ -14,6 +14,8 @@ Dragonfly v2.1.0 is released! 🎉🎉🎉 Thanks to the Xinxin Zhao[\[1\]](http
 
 ![Announcement screenshot from Github mentioning "Dragonfly v2.1.0 is released!"](https://www.cncf.io/wp-content/uploads/2023/08/image-14.png)
 
+<!-- truncate -->
+
 ## [#features](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#features) Features
 
 - Console v1.0.0[\[4\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn4) is released and it provides a new console for users to operate Dragonfly.

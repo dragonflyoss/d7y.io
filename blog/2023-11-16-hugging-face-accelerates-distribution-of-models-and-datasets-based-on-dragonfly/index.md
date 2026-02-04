@@ -20,6 +20,8 @@ Dragonfly can be used to eliminate the bandwidth limit of the storage through P2
 
 ![Diagram flow showing Hugging Face Hub flow from Cluster A and Cluster B](https://www.cncf.io/wp-content/uploads/2023/11/image-37.jpg)
 
+<!-- truncate -->
+
 ## Prerequisites
 
 Notice: [Kind](https://kind.sigs.k8s.io/) is recommended if no kubernetes cluster is available for testing.

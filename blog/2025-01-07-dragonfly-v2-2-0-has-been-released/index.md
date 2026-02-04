@@ -10,6 +10,8 @@ hide_table_of_contents: false
 
 Dragonfly v2.2.0 is released! 🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happend and welcome you to visit [d7y.io](https://d7y.io/) website.
 
+<!-- truncate -->
+
 ## Features
 
 ### Client written in Rust

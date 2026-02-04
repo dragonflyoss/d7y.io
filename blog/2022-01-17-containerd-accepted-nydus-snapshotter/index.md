@@ -14,6 +14,8 @@ particular introductions and tutorial from its [new repository](https://github.c
 We believe that the donation to containerd will attract more users and developers
 for nydus itself and bring much value to the community users.
 
+<!-- truncate -->
+
 Nydus-snapshotter is a containerd's remote snapshotter, it works as a standalone process out of containerd,
 which only pulls nydus image's bootstrap from remote registry and forks another process called **nydusd**.
 Nydusd has a unified architecture, which means it works in form of a FUSE user-space filesystem daemon,

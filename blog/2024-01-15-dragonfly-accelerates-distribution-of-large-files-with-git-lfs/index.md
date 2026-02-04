@@ -44,6 +44,8 @@ Dragonfly can be used to eliminate the bandwidth limit of the storage through P2
 
 ![Diagram flow showing Cluster A and Cluster B  to Large File Storage using Peer and Root Peer](https://www.cncf.io/wp-content/uploads/2024/01/image-35.png)
 
+<!-- truncate -->
+
 ## Dragonfly accelerates downloads with Git LFS
 
 By proxying the HTTP protocol file download request of Git LFS to Dragonfly Peer Proxy, the file download traffic is forwarded to the P2P network. The following documentation is based on GitHub LFS.

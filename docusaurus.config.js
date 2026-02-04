@@ -8,8 +8,14 @@ const config = {
   url: 'https://d7y.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+    mermaid: true,
+  },
+  staticDirectories: ['static', 'docs/resource'],
   organizationName: 'dragonflyoss', // Usually your GitHub org/user name.
   projectName: 'd7y.io', // Usually your repo name.
   clientModules: [require.resolve('./src/clientModules.js')],
@@ -31,6 +37,7 @@ const config = {
           editUrl: 'https://github.com/dragonflyoss/d7y.io/tree/main/',
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
+          onInlineAuthors: 'ignore',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

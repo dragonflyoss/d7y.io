@@ -6,9 +6,9 @@ hide_table_of_contents: true
 
 Guest post by Pengtao and Liubo, Software Engineers at Ant Group
 
-*Tao* is a software engineer at Ant Group. He has been working on Linux file system development for more than 10 years. He is also a core maintainer of Kata Containers project. In recent years, Tao mainly works on container runtime and services. He is a strong believer and advocator for open source and cloud native technology_
+_Tao_ is a software engineer at Ant Group. He has been working on Linux file system development for more than 10 years. He is also a core maintainer of Kata Containers project. In recent years, Tao mainly works on container runtime and services. He is a strong believer and advocator for open source and cloud native technology\_
 
-*Bo Liu*, he has been an active contributor of Linux kernel since 2009, mostly working on the Btrfs Filesystem, and now he is working at Alibaba Group, his main interest is linux filesystems and container technologies.
+_Bo Liu_, he has been an active contributor of Linux kernel since 2009, mostly working on the Btrfs Filesystem, and now he is working at Alibaba Group, his main interest is linux filesystems and container technologies.
 
 ## Small is Fast, Large is Slow
 
@@ -25,6 +25,8 @@ Conceptually, we pack application’s environment into a single image that is mo
 Here we introduce the [dragonfly image service called nydus](https://github.com/dragonflyoss/image-service) as an extension to the Dragonfly project.  It’s software that minimizes download time and provides image integrity check across the whole lifetime of a container, enabling users to manage applications fast and safely.
 
 nydus is co-developed by engineers from Alibaba Cloud and Ant Group. It is widely used in the internal production deployments. From our experience, we value its container creation speedup and image isolation enhancement the most. And we are seeing interesting use cases of it from time to time.
+
+<!-- truncate -->
 
 ## Nydus: Dragonfly Image Service
 

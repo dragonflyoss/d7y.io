@@ -8,6 +8,8 @@ Dragonfly v2.3.0 is released! 🎉🎉🎉 Thanks the [contributors](https://git
 
 ![dragonfly](images/dragonfly-linear.png)
 
+<!-- truncate -->
+
 ## Features
 
 ### Persistent Cache Task
