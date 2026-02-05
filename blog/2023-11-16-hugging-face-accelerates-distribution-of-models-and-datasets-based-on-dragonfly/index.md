@@ -1,5 +1,5 @@
 ---
-title:  Hugging Face accelerates distribution of models and datasets based on Dragonfly
+title: Hugging Face accelerates distribution of models and datasets based on Dragonfly
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
@@ -207,9 +207,9 @@ Any API in the [Hub Python Library](https://huggingface.co/docs/huggingface_hub/
 
 ### Download a single file with Dragonfly
 
-A single file can be downloaded using the [hf\_hub\_download](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.hf_hub_download), distribute traffic through the Dragonfly peer.
+A single file can be downloaded using the [hf_hub_download](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.hf_hub_download), distribute traffic through the Dragonfly peer.
 
-Create hf\_hub\_download\_dragonfly.py file. Use DragonflyAdapter to forward the file download request of the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network to distribute file, content is as follows:
+Create hf_hub_download_dragonfly.py file. Use DragonflyAdapter to forward the file download request of the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network to distribute file, content is as follows:
 
 ```python
 import requests
@@ -270,9 +270,9 @@ peer task done, cost: 28349ms   {"peer": "89.116.64.101-77008-a95a6918-a52b-47f
 
 ### Download a snapshot of the repo with Dragonfly
 
-A snapshot of the repo can be downloaded using the [snapshot\_download](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.snapshot_download), distribute traffic through the Dragonfly peer.
+A snapshot of the repo can be downloaded using the [snapshot_download](https://huggingface.co/docs/huggingface_hub/v0.17.1/en/package_reference/file_download#huggingface_hub.snapshot_download), distribute traffic through the Dragonfly peer.
 
-Create snapshot\_download\_dragonfly.py file. Use DragonflyAdapter to forward the file download request of the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network to distribute file. Only the files of the LFS protocol will be distributed through the Dragonfly P2P network. content is as follows:
+Create snapshot_download_dragonfly.py file. Use DragonflyAdapter to forward the file download request of the LFS protocol to Dragonfly HTTP proxy, so that it can use the P2P network to distribute file. Only the files of the LFS protocol will be distributed through the Dragonfly P2P network. content is as follows:
 
 ```python
 import requests
@@ -345,15 +345,15 @@ peer task done, cost: 28349ms   {"peer": "89.116.64.101-77008-a95a6918-a52b-47f
 
 ## Performance testing
 
-Test the performance of single-machine file download by hf\_hub\_download API after the integration of Hugging Face Python Library and Dragonfly P2P. Due to the influence of the network environment of the machine itself, the actual download time is not important, but the ratio of the increase in the download time in different scenarios is very important.
+Test the performance of single-machine file download by hf_hub_download API after the integration of Hugging Face Python Library and Dragonfly P2P. Due to the influence of the network environment of the machine itself, the actual download time is not important, but the ratio of the increase in the download time in different scenarios is very important.
 
 ![Bar chart showing performance testing result](https://www.cncf.io/wp-content/uploads/2023/11/image-37.png)
 
-- Hugging Face Python Library: Use hf\_hub\_download API to download models directly.
-- Hugging Face Python Library & Dragonfly Cold Boot: Use hf\_hub\_download API to download models via Dragonfly P2P network and no cache hits.
-- Hit Dragonfly Remote Peer Cache: Use hf\_hub\_download API to download models via Dragonfly P2P network and hit the remote peer cache.
-- Hit Dragonfly Local Peer Cache: Use hf\_hub\_download API to download models via Dragonfly P2P network and hit the local peer cache.
-- Hit Hugging Face Cache: Use hf\_hub\_download API to download models via Dragonfly P2P network and hit the Hugging Face local cache.
+- Hugging Face Python Library: Use hf_hub_download API to download models directly.
+- Hugging Face Python Library & Dragonfly Cold Boot: Use hf_hub_download API to download models via Dragonfly P2P network and no cache hits.
+- Hit Dragonfly Remote Peer Cache: Use hf_hub_download API to download models via Dragonfly P2P network and hit the remote peer cache.
+- Hit Dragonfly Local Peer Cache: Use hf_hub_download API to download models via Dragonfly P2P network and hit the local peer cache.
+- Hit Hugging Face Cache: Use hf_hub_download API to download models via Dragonfly P2P network and hit the Hugging Face local cache.
 
 Test results show Hugging Face Python Library and Dragonfly P2P integration. It can effectively reduce the file download time. Note that this test was a single-machine test, which means that in the case of cache hits, the performance limitation is on the disk. If Dragonfly is deployed on multiple machines for P2P download, the models download speed will be faster.
 
@@ -365,11 +365,11 @@ Test results show Hugging Face Python Library and Dragonfly P2P integration. It 
 - Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
-- Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
+- Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 ### Hugging Face
 
 - Website: [https://huggingface.co/](https://huggingface.co/)
-- Github Repo: [https://github.com/huggingface/huggingface\_hub](https://github.com/huggingface/huggingface_hub)
+- Github Repo: [https://github.com/huggingface/huggingface_hub](https://github.com/huggingface/huggingface_hub)
 - Document: [https://huggingface.co/docs](https://huggingface.co/docs)
-- Hub Python Library: [https://huggingface.co/docs/huggingface\_hub/index](https://huggingface.co/docs/huggingface_hub/index)
+- Hub Python Library: [https://huggingface.co/docs/huggingface_hub/index](https://huggingface.co/docs/huggingface_hub/index)

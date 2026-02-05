@@ -6,7 +6,6 @@ description: Announcing Containerd accepted nydus-snapshotter as a sub-project
 hide_table_of_contents: false
 ---
 
-
 ## Containerd Accepted Nydus-snapshotter {#containerd-accepted-nydus-snapshotter}
 
 Early January, Containerd community has taken in nydus-snapshotter as a sub-project. Check out the code,
@@ -41,20 +40,20 @@ Nydus provides following key features:
 - Deleted(whiteout) files in certain layer aren't packed into nydus image, therefore, image size may be reduced
 - E2E image data integrity check. So security issues like "Supply Chain Attack" can be avoided and detected at runtime
 - Integrated with CNCF incubating project Dragonfly to distribute container images in P2P fashion and mitigate
-the pressure on container registries
+  the pressure on container registries
 - Different container image storage backends are supported. For example, Registry, NAS, Aliyun/OSS and applying other
-remote storage backend like AWS S3 is also possible.
+  remote storage backend like AWS S3 is also possible.
 - Record files access pattern during runtime gathering access trace/log, by which user's abnormal behaviors
-are easily caught. So we can ensure the image can be trusted
+  are easily caught. So we can ensure the image can be trusted
 
 Beyond above essential features, nydus can be flexibly configured as a FUSE-base user-space filesystem or
 in-kernel EROFS with an on-demand loader user-space daemon and integrating nydus with VM-based container
 runtime is much easier.
 
 - Lightweight integration with VM-based containers runtime like KataContainers. In fact, KataContainers
-is considering supporting nydus as a **native** image acceleration solution.
+  is considering supporting nydus as a **native** image acceleration solution.
 - Nydus closely cooperates with Linux **in-kernel** disk filesystem Containers' rootfs can directly be set up
-by EROFS with lazy pulling capability. The corresponding changes had been merged into Linux kernel since v5.16
+  by EROFS with lazy pulling capability. The corresponding changes had been merged into Linux kernel since v5.16
 
 To run with runc, nydusd works as FUSE user-space daemon:
 

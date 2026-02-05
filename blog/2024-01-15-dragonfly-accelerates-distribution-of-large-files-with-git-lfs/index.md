@@ -1,5 +1,5 @@
 ---
-title:  Dragonfly accelerates distribution of large files with Git LFS
+title: Dragonfly accelerates distribution of large files with Git LFS
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
@@ -52,7 +52,7 @@ By proxying the HTTP protocol file download request of Git LFS to Dragonfly Peer
 
 ### Get the Content Storage address of Git LFS
 
-Add GIT\_CURL\_VERBOSE=1 to print verbose logs of git clone and get the address of content storage of Git LFS.
+Add GIT_CURL_VERBOSE=1 to print verbose logs of git clone and get the address of content storage of Git LFS.
 
 ```bash
 GIT_CURL_VERBOSE=1 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
@@ -149,14 +149,14 @@ dfdaemon:
     verbose: true
     pprofPort: 18066
     proxy:
-      defaultFilter: "X-Amz-Algorithm&X-Amz-Credential&X-Amz-Date&X-Amz-Expires&X-Amz-Signature&X-Amz-SignedHeaders"
+      defaultFilter: 'X-Amz-Algorithm&X-Amz-Credential&X-Amz-Date&X-Amz-Expires&X-Amz-Signature&X-Amz-SignedHeaders'
       security:
         insecure: true
-        cacert: ""
-        cert: ""
-        key: ""
+        cacert: ''
+        cert: ''
+        key: ''
       tcpListen:
-        namespace: ""
+        namespace: ''
         port: 65001
       registryMirror:
         url: https://index.docker.io
@@ -164,8 +164,8 @@ dfdaemon:
         certs: []
         direct: false
       proxies:
-      - regx: blobs/sha256.*
-      - regx: github-cloud.githubusercontent.com.*
+        - regx: blobs/sha256.*
+        - regx: github-cloud.githubusercontent.com.*
 
 manager:
   image: dragonflyoss/manager
@@ -238,7 +238,7 @@ kubectl apply -f peer-service-config.yaml
 
 ### Git LFS downlads large files via dragonfly
 
-Proxy Git LFS download requests to Dragonfly Peer Proxy(```http://127.0.0.1:65001```) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
+Proxy Git LFS download requests to Dragonfly Peer Proxy(`http://127.0.0.1:65001`) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
 
 ```bash
 git config --global http.proxy http://127.0.0.1:65001git config --global lfs.transfer.enablehrefrewrite truegit config --global url.http://github-cloud.githubusercontent.com/.insteadOf https://github-cloud.githubusercontent.com/
@@ -285,7 +285,7 @@ Test results show Git LFS and Dragonfly P2P integration. It can effectively redu
 - Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
-- Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
+- Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 ### Git LFS
 

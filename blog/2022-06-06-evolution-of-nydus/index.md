@@ -35,15 +35,15 @@ Now you can experience all these new features with this [user guide](https://git
 
 ### Nydus Architecture Outline
 
-In brief, Nydus is a *filesystem-based* image acceleration service that designs the RAFS (Registry Acceleration
+In brief, Nydus is a _filesystem-based_ image acceleration service that designs the RAFS (Registry Acceleration
 File System) disk format, optimizing the startup performance of OCIv1 container images.
 
 The fundamental idea of the container image is to provide the root directory (rootfs) of the container, which can
 be carried by the filesystem or the archive format. Besides, it can also be implemented together with a custom block
-format, but anyway it needs to present as a *directory tree*, providing the file interface to containers.
+format, but anyway it needs to present as a _directory tree_, providing the file interface to containers.
 
 Let's take a look at the OCIv1 standard image format first. The OCIv1 format is an image format specification based on
-the *Docker Image Manifest Version 2 Schema 2*. It consists of a manifest, an image index (optional), a series of
+the _Docker Image Manifest Version 2 Schema 2_. It consists of a manifest, an image index (optional), a series of
 container image layers and configuration files. Essentially, OCIv1 is a layer-based image format, with each layer
 storing file-level diff data in tgz archive format.
 ![ociv1](ociv1.png)
@@ -54,14 +54,14 @@ deduplication granularity, unstable hash digest for each layer, etc.
 As for the custom block format, it also has some flaws by design.
 
 - Since the container image should be eventually presented as a directory tree, a filesystem (such as ext4) is needed
-upon that. In this case the dependency chain is "custom block format + userspace block device + filesystem", which is
-obviously more complex compared to the native filesystem solution;
+  upon that. In this case the dependency chain is "custom block format + userspace block device + filesystem", which is
+  obviously more complex compared to the native filesystem solution;
 - Since the block format is not aware of the upper filesystem, it would be impossible to distinguish the metadata and
-data of the filesystem and process them separately (such as compression);
+  data of the filesystem and process them separately (such as compression);
 - Similarly, it is unable to implement file-based image analysis features such as security scanning, hotspot analysis,
-and runtime interception, etc.;
+  and runtime interception, etc.;
 - Unable to directly merge multiple existing images into one large image without modifying the blob image,
-which is the natural ability of the filesystem solution.
+  which is the natural ability of the filesystem solution.
 
 Therefore, Nydus is a filesystem-based container image acceleration solution. It introduces a RAFS image format, in
 which data (blobs) and metadata (bootstrap) of the image are separated, whilst the image layer only stores the data part.
@@ -81,13 +81,13 @@ Prior to the introduction of RAFS v6 format, Nydus used to handle a fully usersp
 FUSE or virtiofs. However, the userspace filesystem has the following defects:
 
 - The overhead of large amounts of system call cannot be ignored, especially in the case of random small I/Os with depth
-1;
+  1;
 - Frequent file operations will generate a large number of FUSE requests, resulting in frequent switching of kernel/user
-mode context, which becomes the performance bottleneck then;
+  mode context, which becomes the performance bottleneck then;
 - In non-FSDAX scenarios, the buffer copy from user to kernel mode will consume CPUs;
 - In the FSDAX (via virtiofs) scenario, a large number of small files will occupy considerable DAX window resources,
-resulting in potential performance jitter; frequent switching between small files will also generate noticeable DAX
-mapping setup overhead.
+  resulting in potential performance jitter; frequent switching between small files will also generate noticeable DAX
+  mapping setup overhead.
 
 Essentially these problems are caused by the natural limitations of the **userspace** filesystem solution, and if the
 container filesystem is an in-kernel filesystem, the problems above can be resolved in practice. Therefore, we
@@ -103,7 +103,7 @@ list, and the community is quite active.
 EROFS filesystem has the following characteristics:
 
 - Native local read-only block-based filesystem suitable for various scenarios, the disk format has the minimum I/O
-unit definition;
+  unit definition;
 - Page-sized block-aligned uncompressed metadata;
 - Effective space saving through Tail-packing inline technology while keeping high performance;
 - Data is addressed in blocks (mmap I/O friendly, no post I/O processing required);
@@ -216,12 +216,12 @@ The following is the performance statistics of file read/randread buffered IO [2
 
 > - "native" means that the test file is directly on the local ext4 filesystem
 > - "loop" means that the test file is inside a erofs image, while the erofs image is mounted through the DIRECT IO
-mode of the loop device
+>   mode of the loop device
 > - "fscache" means that the test file is inside a erofs image, while the erofs image is mounted through the erofs over
-fscache scheme
+>   fscache scheme
 > - "fuse" means that the test file is in the fuse filesystem [3]
 > - The "Performance" column normalizes the performance statistics of each mode, based on the performance of the native
-ext4 filesystem
+>   ext4 filesystem
 
 It can be seen that the read/randread performance in fscache mode is basically the same as that in loop mode, and is
 better than that in fuse mode; however, there is still a certain gap with the performance of the native ext4 file

@@ -56,9 +56,9 @@ With the continuous evolution of Artificial Intelligence Generated Content (AIGC
 
 ### Key Design 3: An Asynchronous Model Training and Inference
 
-- **Asynchronous Model Training:**  Asynchronous training and inference are facilitated through collaboration between the Trainer and Triton. The Scheduler retrieves end-to-end latency and bandwidth predictions from Redis and sends them to the Trainer, which then initiates training and persists the updated model. Triton periodically polls for updates and loads the new model for inference in the subsequent cycle.
+- **Asynchronous Model Training:** Asynchronous training and inference are facilitated through collaboration between the Trainer and Triton. The Scheduler retrieves end-to-end latency and bandwidth predictions from Redis and sends them to the Trainer, which then initiates training and persists the updated model. Triton periodically polls for updates and loads the new model for inference in the subsequent cycle.
 
-- **Graph Learning Algorithm:**  This algorithm aggregates feature parameters from peers, modeling each sample as an interaction between a peer and its parent. It also incorporates information from neighboring peers to capture similarities within the cluster, thereby improving the accuracy of bandwidth predictions.
+- **Graph Learning Algorithm:** This algorithm aggregates feature parameters from peers, modeling each sample as an interaction between a peer and its parent. It also incorporates information from neighboring peers to capture similarities within the cluster, thereby improving the accuracy of bandwidth predictions.
 
 ![github](images/graph.png)
 
