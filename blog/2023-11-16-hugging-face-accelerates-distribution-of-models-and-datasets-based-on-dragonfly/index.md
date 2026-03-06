@@ -360,7 +360,7 @@ Test results show Hugging Face Python Library and Dragonfly P2P integration. It 
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
@@ -368,6 +368,6 @@ Test results show Hugging Face Python Library and Dragonfly P2P integration. It 
 ### Hugging Face
 
 - Website: [https://huggingface.co/](https://huggingface.co/)
-- Github Repo: [https://github.com/huggingface/huggingface\_hub](https://github.com/huggingface/huggingface_hub)
+- GitHub Repo: [https://github.com/huggingface/huggingface\_hub](https://github.com/huggingface/huggingface_hub)
 - Document: [https://huggingface.co/docs](https://huggingface.co/docs)
 - Hub Python Library: [https://huggingface.co/docs/huggingface\_hub/index](https://huggingface.co/docs/huggingface_hub/index)

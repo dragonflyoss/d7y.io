@@ -26,7 +26,7 @@ Usually Git LFS's content storage uses object storage to store large files.
 
 #### Git LFS manages large files
 
-Github and GitLab usually manage large files based on Git LFS.
+GitHub and GitLab usually manage large files based on Git LFS.
 
 - GitHub uses Git LFS refer to [About Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).
 - GitLab uses Git LFS refer to [Git Large File Storage](https://docs.gitlab.com/ee/topics/git/lfs/).

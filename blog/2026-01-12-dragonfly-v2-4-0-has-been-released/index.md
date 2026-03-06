@@ -130,6 +130,6 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 - Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
 - Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
-## Dragonfly Github
+## Dragonfly GitHub
 
 ![qrcode](images/qrcode.webp)

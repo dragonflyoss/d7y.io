@@ -8,13 +8,13 @@ hide_table_of_contents: false
 
 [CNCF projects highlighted in this post](https://www.cncf.io/blog/2023/03/20/dragonfly-v2-0-9-is-released/), and migrated by [mingcheng](https://github.com/mingcheng).
 
-_Project post originally published on [Github](https://github.com/dragonflyoss/dragonfly/releases/tag/v2.0.9) by Dragonfly maintainers_
+_Project post originally published on [GitHub](https://github.com/dragonflyoss/dragonfly/releases/tag/v2.0.9) by Dragonfly maintainers_
 
 ![Dragonfly provide efficient, stable, secure file distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project](./dragonfly.avif)
 
 Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform](https://cloud.google.com/) (GCP) Team, [Volcano Engine](https://www.volcengine.com/) Team, and [Baidu AI Cloud](https://intl.cloud.baidu.com/) Team for helping Dragonfly integrate with their public clouds. Welcome to visit [d7y.io](https://d7y.io/) website.
 
-![Github snippit](./github-snippit.avif)
+![GitHub snippit](./github-snippit.avif)
 
 ## **Features**
 
@@ -54,9 +54,9 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 ## **Links**
 
 - Dragonfly Website: [https://d7y.io/](https://d7y.io/)
-- Dragonfly Github: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
-- Dragonfly Charts Github: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
-- Dragonfly Monitor Github: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
+- Dragonfly GitHub: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- Dragonfly Charts GitHub: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
+- Dragonfly Monitor GitHub: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 - Google Kubernetes Engine(GKE): [https://cloud.google.com/kubernetes-engine](https://cloud.google.com/kubernetes-engine)
 - Google Cloud Platform(GCP) Dragonfly Marketplace: [https://console.cloud.google.com/marketplace/product/google/dragonfly](https://console.cloud.google.com/marketplace/product/google/dragonfly)
 - Alibaba Cloud Container Registry: [https://www.alibabacloud.com/product/container-registry](https://www.alibabacloud.com/product/container-registry)

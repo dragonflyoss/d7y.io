@@ -12,7 +12,7 @@ hide_table_of_contents: false
 
 Dragonfly v2.1.0 is released! 🎉🎉🎉 Thanks to the Xinxin Zhao[\[1\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn1) for helping to refactor the console[\[2\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn2) and the manager provides a new console for users to operate Dragonfly. Welcome to visit d7y.io[\[3\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn3) website.
 
-![Announcement screenshot from Github mentioning "Dragonfly v2.1.0 is released!"](https://www.cncf.io/wp-content/uploads/2023/08/image-14.png)
+![Announcement screenshot from GitHub mentioning "Dragonfly v2.1.0 is released!"](https://www.cncf.io/wp-content/uploads/2023/08/image-14.png)
 
 ## [#features](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#features) Features
 

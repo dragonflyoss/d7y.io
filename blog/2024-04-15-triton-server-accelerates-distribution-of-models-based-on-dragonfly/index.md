@@ -346,8 +346,8 @@ Test results show Triton and Dragonfly integration. It can effectively reduce th
 ### Dragonfly Community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
-- Dragonfly Repository Agent Github Repo: [https://github.com/dragonflyoss/dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repository-agent)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- Dragonfly Repository Agent GitHub Repo: [https://github.com/dragonflyoss/dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repository-agent)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
@@ -355,10 +355,10 @@ Test results show Triton and Dragonfly integration. It can effectively reduce th
 ### NVIDIA Triton Inference Server
 
 - Website: [https://developer.nvidia.com/triton-inference-server](https://developer.nvidia.com/triton-inference-server)
-- Github Repo: [https://github.com/triton-inference-server/server](https://github.com/triton-inference-server/server)
+- GitHub Repo: [https://github.com/triton-inference-server/server](https://github.com/triton-inference-server/server)
 
 <!-- ## 二维码
 
-Dragonfly Github 仓库:
+Dragonfly GitHub 仓库:
 
 ![QR code](https://www.cncf.io/wp-content/uploads/2024/05/image-3.png) -->

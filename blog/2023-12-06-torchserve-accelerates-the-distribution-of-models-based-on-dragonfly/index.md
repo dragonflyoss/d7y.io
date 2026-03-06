@@ -667,7 +667,7 @@ Test results show TorchServe and Dragonfly integration. It can effectively reduc
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
@@ -675,7 +675,7 @@ Test results show TorchServe and Dragonfly integration. It can effectively reduc
 ### Pytorch
 
 - Website: [https://pytorch.org/](https://pytorch.org/)
-- Github Repo: [https://github.com/pytorch/pytorch](https://github.com/pytorch/pytorch)
+- GitHub Repo: [https://github.com/pytorch/pytorch](https://github.com/pytorch/pytorch)
 - TorchServe Document: [https://pytorch.org/serve/](https://pytorch.org/serve/)
 
-TorchServe Github Repo: [https://github.com/pytorch/serve](https://github.com/pytorch/serve)
+TorchServe GitHub Repo: [https://github.com/pytorch/serve](https://github.com/pytorch/serve)

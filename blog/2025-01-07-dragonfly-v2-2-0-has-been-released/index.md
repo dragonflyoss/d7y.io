@@ -185,6 +185,6 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 - Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
 - Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
-<!-- ## Dragonfly Github
+<!-- ## Dragonfly GitHub
 
 ![QR code](https://www.cncf.io/wp-content/uploads/2025/01/unnamed-75.png) -->

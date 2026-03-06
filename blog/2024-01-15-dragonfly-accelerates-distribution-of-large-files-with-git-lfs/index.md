@@ -20,7 +20,7 @@ Git LFS addresses this issue by storing these large files on a separate server a
 
 #### Git LFS manages large files
 
-Github and GitLab usually manage large files based on Git LFS.
+GitHub and GitLab usually manage large files based on Git LFS.
 
 - GitHub uses Git LFS refer to [About Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).
 - GitLab uses Git LFS refer to [Git Large File Storage](https://docs.gitlab.com/ee/topics/git/lfs/).
@@ -280,7 +280,7 @@ Test results show Git LFS and Dragonfly P2P integration. It can effectively redu
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
@@ -288,5 +288,5 @@ Test results show Git LFS and Dragonfly P2P integration. It can effectively redu
 ### Git LFS
 
 - Website: [https://git-lfs.com/](https://git-lfs.com/)
-- Github Repo: [https://github.com/git-lfs/git-lfs](https://github.com/git-lfs/git-lfs)
+- GitHub Repo: [https://github.com/git-lfs/git-lfs](https://github.com/git-lfs/git-lfs)
 - Document: [https://github.com/git-lfs/git-lfs/tree/main/docs](https://github.com/git-lfs/git-lfs/tree/main/docs)

@@ -217,8 +217,8 @@ Volcano Engine CR [https://www.volcengine.com/product/cr](https://www.volcengine
 
 Dragonfly [https://d7y.io/](https://d7y.io/)
 
-Dragonfly Github Repo [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+Dragonfly GitHub Repo [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 
 Nydus [https://nydus.dev/](https://nydus.dev/)
 
-Nydus Gihtub Repo [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)
+Nydus GitHub Repo [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)
