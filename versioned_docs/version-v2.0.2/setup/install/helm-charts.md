@@ -308,7 +308,7 @@ Console features preview reference document [console preview](../../reference/ma
 
 Use Containerd with CRI as example, more runtimes can be found [here](../../getting-started/quick-start/kubernetes.md)
 
-> This example is for single registry, multiple registries configuration is [here](../../setup/runtime/containerd.md)
+> This example is for single registry, you can also [configure multiple registries](../../setup/runtime/containerd.md)
 
 For private registry:
 
