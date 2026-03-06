@@ -275,7 +275,7 @@ The user-mode processes are even no longer required in this scenario, which prom
 With RAFS v6 image format and erofs over fscache on-demand loading technology,
 Nydus is suitable for both runc and Kata as a one-stop solution for container image distribution in these two scenarios.
 
-More importantly, erofs over fscache is a truly a **one-stop** and **lossless** solution in the following two scenarios
+More importantly, erofs over fscache is truly a **one-stop** and **lossless** solution in the following two scenarios
 of 1) on-demand loading and 2) downloading container images in advance.
 On the one hand, with the on-demand loading feature implemented, it can significantly speed up the container startup,
 as it does not need to download the complete container images to the local. On the other hand, it is compatible with the
