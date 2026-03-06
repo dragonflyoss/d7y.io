@@ -73,7 +73,7 @@ Options:
           Specify whether the download file must be hard linked to the output path. If hard link is failed, download will be failed. If it is false, dfdaemon will copy the file to the output path if hard link is failed.
 
       --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID>
-          Specify the content used to calculate the task ID. If it is set, use its value to calculate the task ID, Otherwise, calculate the task ID based on url, piece-length, tag, application, and filtered-query-params.
+          Specify the content used to calculate the task ID. If it is set, use its value to calculate the task ID. Otherwise, calculate the task ID based on url, piece-length, tag, application, and filtered-query-params.
 
   -O, --output <OUTPUT>
           Specify the output path of downloading file
