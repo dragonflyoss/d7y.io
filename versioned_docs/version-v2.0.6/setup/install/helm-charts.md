@@ -27,8 +27,8 @@ you can skip [Configure Runtime](#configure-runtime-manually) manually.
 > Because the original `daemonset` in
 > Kubernetes did not support `Surging Rolling Update` policy.
 > When kill current dfdaemon pod,
-> the new pod image can not be pulled anymore.
-> If you can not change runtime from docker to others,
+> the new pod image cannot be pulled anymore.
+> If you cannot change runtime from docker to others,
 > remind to choose a plan when upgrade dfdaemon:
 > pull newly dfdaemon image manually before upgrade dragonfly,
 > or use [ImagePullJob](https://openkruise.io/docs/user-manuals/imagepulljob) to

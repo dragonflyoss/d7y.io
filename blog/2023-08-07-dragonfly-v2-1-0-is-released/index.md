@@ -28,7 +28,7 @@ Dragonfly v2.1.0 is released! 🎉🎉🎉 Thanks to the Xinxin Zhao[\[1\]](http
 - Scheduler adds database field in config and moves the redis config to database field.
 - Replace net.Dial with grpc health check in dfdaemon.
 - Fix filtering and evaluation in scheduling. Since the final length of the filter is the candidateParentLimit used, the parents after the filter is wrong.
-- Fix storage can not write records to file when bufferSize is zero.
+- Fix storage cannot write records to file when bufferSize is zero.
 - Hiding sensitive information in logs, such as the token in the header.
 - Use unscoped delete when destroying the manager’s resources.
 - Add uk_scheduler index and uk_seed_peer index in the table of the database.

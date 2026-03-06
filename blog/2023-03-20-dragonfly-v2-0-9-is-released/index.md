@@ -26,7 +26,7 @@ Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform]
 - Refactor dynconfig package to remove json.Unmarshal, improving its runtime efficiency.
 - Fix panic caused by hashring not being built.
 - Previously, most of the pieces were downloaded from the same parent. Now, different pieces are downloaded from different parents to improve download efficiency and distribute bandwidth among multiple parents.
-- If Manager’s searcher can not found candidate scheduler clusters, It will return all the clusters for peers to check health. If check health is successful, the scheduler cluster can be used.
+- If Manager’s searcher cannot found candidate scheduler clusters, It will return all the clusters for peers to check health. If check health is successful, the scheduler cluster can be used.
 - Support [ORAS](https://github.com/oras-project/oras) source client to pull image.
 - Add UDP ping package and GRPC protoc definition for building virtual network topology.
 - The [V2 P2P protocol](https://github.com/dragonflyoss/api/tree/main/proto) has been added, and both Scheduler and Manager have implemented the API of the V2 P2P protocol, in preparation for the future Rust version of Dfdaemon.
