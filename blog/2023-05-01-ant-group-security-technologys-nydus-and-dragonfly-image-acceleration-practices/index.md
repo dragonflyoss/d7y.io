@@ -24,6 +24,8 @@ For container cold start, i.e., when there is no image locally, the image needs 
 
 Although various compromise solutions have been attempted, these solutions all have their shortcomings. Now, in collaboration with multiple technical teams such as Ant Group, Alibaba Cloud, and ByteDance, a more universal solution on public clouds has been developed, which has low transformation costs and good performance, and currently appears to be an ideal solution.
 
+<!-- truncate -->
+
 ## Terminology
 
 OCI: Open Container Initiative, a Linux Foundation project initiated by Docker in June 2015, aimed at designing open standards for operating system-level virtualization, most importantly Linux containers.

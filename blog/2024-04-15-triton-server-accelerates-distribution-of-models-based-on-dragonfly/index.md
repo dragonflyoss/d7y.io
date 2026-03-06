@@ -16,6 +16,8 @@ Dragonfly can be used to eliminate the bandwidth limit of the storage through P2
 
 ![Diagram flow showing Cluster A and Cluster B Peer to Root Peer to Model Registry](https://www.cncf.io/wp-content/uploads/2024/05/image-1.png)
 
+<!-- truncate -->
+
 ## Installation
 
 By integrating Dragonfly Repository Agent into Triton, download traffic through Dragonfly to pull models stored in S3, OSS, GCS, and ABS, and register models in Triton. The Dragonfly Repository Agent is in the [dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repository-agent) repository.

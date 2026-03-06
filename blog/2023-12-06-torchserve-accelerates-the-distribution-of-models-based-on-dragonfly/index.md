@@ -16,6 +16,8 @@ Dragonfly can be used to eliminate the bandwidth limit of the storage through P2
 
 ![Diagram flow showing Model Registry flow from Cluster A and Cluster B](https://www.cncf.io/wp-content/uploads/2023/12/image-7.png)
 
+<!-- truncate -->
+
 ## Architecture
 
 ![Dragonfly Endpoint architecture](https://www.cncf.io/wp-content/uploads/2023/12/dragonfly1.png)

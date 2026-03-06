@@ -28,6 +28,8 @@ Haomiao Jiang, Dalian University of Technology
 Qiufen Xia, Dalian University of Technology
 Guowei Wu, Dalian University of Technology
 
+<!-- truncate -->
+
 ## Background
 
 With the continuous evolution of Artificial Intelligence Generated Content (AIGC) technologies, the distribution of container images and large models has become a challenge. Traditional centralized registry often faces single-node bandwidth bottlenecks during peak concurrent downloads, leading to severe network congestion and excessively long download times. Conversely, while Content Delivery Networks (CDNs) or private links can mitigate some hotspot loads, they fail to fully leverage the idle bandwidth of cluster nodes and introduce additional overhead. Consequently, cloud-native applications and AI services urgently need a dynamic, efficient, scalable, and non-intrusive distribution system for large-scale images and models, compatible with mainstream formats like OCI spec.
@@ -54,9 +56,9 @@ With the continuous evolution of Artificial Intelligence Generated Content (AIGC
 
 ### Key Design 3: An Asynchronous Model Training and Inference
 
-- **Asynchronous Model Training:**  Asynchronous training and inference are facilitated through collaboration between the Trainer and Triton. The Scheduler retrieves end-to-end latency and bandwidth predictions from Redis and sends them to the Trainer, which then initiates training and persists the updated model. Triton periodically polls for updates and loads the new model for inference in the subsequent cycle.
+- **Asynchronous Model Training:** Asynchronous training and inference are facilitated through collaboration between the Trainer and Triton. The Scheduler retrieves end-to-end latency and bandwidth predictions from Redis and sends them to the Trainer, which then initiates training and persists the updated model. Triton periodically polls for updates and loads the new model for inference in the subsequent cycle.
 
-- **Graph Learning Algorithm:**  This algorithm aggregates feature parameters from peers, modeling each sample as an interaction between a peer and its parent. It also incorporates information from neighboring peers to capture similarities within the cluster, thereby improving the accuracy of bandwidth predictions.
+- **Graph Learning Algorithm:** This algorithm aggregates feature parameters from peers, modeling each sample as an interaction between a peer and its parent. It also incorporates information from neighboring peers to capture similarities within the cluster, thereby improving the accuracy of bandwidth predictions.
 
 ![github](images/graph.png)
 
