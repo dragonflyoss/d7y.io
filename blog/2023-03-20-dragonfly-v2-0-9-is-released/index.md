@@ -63,4 +63,4 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 - Alibaba Cloud Container Service for Kubernetes (ACK): [https://www.alibabacloud.com/product/kubernetes](https://www.alibabacloud.com/product/kubernetes)
 - Volcano Engine Kubernetes Engine(VKE): [https://www.volcengine.com/product/vke](https://www.volcengine.com/product/vke)
 - Volcano Engine Container Registry(CR): [https://www.volcengine.com/product/cr](https://www.volcengine.com/product/cr)
-- Baidu AI Cloud Cloud Container Engine(CCE): [https://intl.cloud.baidu.com/product/cce.html](https://intl.cloud.baidu.com/product/cce.html)
+- Baidu AI Cloud Container Engine(CCE): [https://intl.cloud.baidu.com/product/cce.html](https://intl.cloud.baidu.com/product/cce.html)
