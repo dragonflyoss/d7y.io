@@ -213,9 +213,9 @@ The following is the performance statistics of file read/randread buffered IO [2
 | fuse        | 7.6K  | 31.2MB/s | 0.76        |
 
 > - "native" means that the test file is directly on the local ext4 filesystem
-> - "loop" means that the test file is inside a erofs image, while the erofs image is mounted through the DIRECT IO
+> - "loop" means that the test file is inside an erofs image, while the erofs image is mounted through the DIRECT IO
 mode of the loop device
-> - "fscache" means that the test file is inside a erofs image, while the erofs image is mounted through the erofs over
+> - "fscache" means that the test file is inside an erofs image, while the erofs image is mounted through the erofs over
 fscache scheme
 > - "fuse" means that the test file is in the fuse filesystem [3]
 > - The "Performance" column normalizes the performance statistics of each mode, based on the performance of the native
