@@ -86,7 +86,7 @@ Others:
 
 Manager:
 
-- Peer features are configurable. For example, you can make the peer can not be uploaded and can only be downloaded.
+- Peer features are configurable. For example, you can allow the peer to be downloaded and prevent the peer from being uploaded.
 - Configure the weight of the scheduling.
 - Add clearing P2P task cache.
 - Display P2P traffic distribution.
