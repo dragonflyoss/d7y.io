@@ -157,6 +157,25 @@ dfget cos://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<a
 dfget hdfs://<path>/file.txt -O /tmp/file.txt  --hdfs-delegation-token <hadoop_delegation_token>
 ```
 
+#### Download with Hugging Face protocol
+
+```shell
+# Download a single file from a model repository.
+dfget hf://<owner>/<repo>/<path> -O /tmp/model.safetensors
+
+# Download a single file with authentication for private repositories.
+dfget hf://<owner>/<repo>/<path> -O /tmp/model.safetensors --hf-token=<token>
+
+# Download an entire repository.
+dfget hf://<owner>/<repo> -O /tmp/repo/ --recursive
+
+# Download a file from a dataset repository.
+dfget hf://datasets/<owner>/<repo>/<path> -O /tmp/train.json
+
+# Download from a specific revision (branch, tag, or commit).
+dfget hf://<owner>/<repo>/<path>@<revision> -O /tmp/model.safetensors
+```
+
 <!-- markdownlint-restore -->
 
 ## Log {#log}
