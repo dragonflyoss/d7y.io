@@ -304,7 +304,7 @@ export default function Home() {
           </div>
           <div className={clsx('row')}>
             <p className={styles.communitySubtitle}>
-              <Translate>Dragonfly contains many features as an data distribution system.</Translate>
+              <Translate>Dragonfly contains many features as a data distribution system.</Translate>
             </p>
           </div>
           <div className={clsx('row', styles.featuresCardWrapper)}>
