@@ -20,11 +20,11 @@ and internal peers can only schedule and transmit data in a kubernetes cluster.
 You can have a quick start following [Helm Charts](../installation/helm-charts.md).
 It is recommended to use `containerd`.
 
-| Runtime    | Version  | Document                                                              |
-| ---------- | -------- | --------------------------------------------------------------------- |
-| containerd | v1.1.0+  | [Link](../../operations/integrations/container-runtime/containerd.md) |
-| Docker     | v20.0.1+ | [Link](../../operations/integrations/container-runtime/docker.md)     |
-| CRI-O      | All      | [Link](../../operations/integrations/container-runtime/cri-o.md)      |
+| Runtime                                                                     | Version  |
+| --------------------------------------------------------------------------- | -------- |
+| [containerd](../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
+| [Docker](../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
+| [CRI-O](../../operations/integrations/container-runtime/cri-o.md)           | All      |
 
 ## Setup kubernetes cluster
 
