@@ -86,7 +86,7 @@ scheduler:
   # peer information includes cpu, memory, etc.
   announceInterval: 1m
   # scheduleTimeout is the timeout for scheduling. If the scheduling timesout, dfdaemon will back-to-source
-  # download if enableBackToSource is true, otherwise dfdaemon will return download failed.
+  # download if enableBackToSource is true; otherwise, dfdaemon will return download failed.
   scheduleTimeout: 30s
   # maxScheduleCount is the max count of schedule.
   maxScheduleCount: 5
