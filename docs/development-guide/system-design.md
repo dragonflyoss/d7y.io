@@ -35,7 +35,7 @@ to [Architecture](./../operations/architecture/architecture.md).
      two-way Stream with the Scheduler, and notify the Scheduler of the piece information that has been downloaded, as
      well as the piece information to be downloaded and the piece information that failed to download. After receiving the
      information reported by the Peer, the Scheduler will decide which ParentPeer the Peer should download the unfinished
-     piece from based on the internal algorithm, or fallback to the data source to download directly back to the source.
+     piece from based on the internal algorithm, or fall back to the data source to download directly back to the source.
    - P2P download between peers: After receiving the ParentPeer specified by the Scheduler, the Daemon process will
      start a two-way Stream with the ParentPeer. The Daemon process will periodically send the Piece information that
      needs to be downloaded to the ParentPeer. If there is an available Piece on the ParentPeer, the detailed information

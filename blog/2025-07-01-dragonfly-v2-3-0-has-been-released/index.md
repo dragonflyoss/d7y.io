@@ -120,7 +120,7 @@ This feature ensures efficient monitoring and management of GC processes, offeri
 File download needs to be done in a way that is efficient and secure. If users are downloading a large file,
 it is not efficient to download the file and copy to the output path. Instead, we can create a hard link to
 the file and send the link to the user. This way, we can avoid copying the file and save time and resources.
-If hard link fails (e.g. due to different file systems), dfdaemon will fallback to copying the file.
+If hard link fails (e.g. due to different file systems), dfdaemon will fall back to copying the file.
 
 For more information, please refer to the [file download workflow](https://github.com/dragonflyoss/design/blob/main/systems-analysis/file-download-workflow-with-hard-link/README.md).
 

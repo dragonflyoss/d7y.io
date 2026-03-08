@@ -22,7 +22,7 @@ you can skip [Configure Runtime](#configure-runtime-manually) manually.
 > **We did not recommend to using dragonfly
 > with docker in Kubernetes**
 > due to many reasons:
-> no fallback image pulling policy.
+> no fall back image pulling policy.
 > deprecated in Kubernetes.
 > Because the original `daemonset` in
 > Kubernetes did not support `Surging Rolling Update` policy.
