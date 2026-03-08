@@ -121,7 +121,7 @@ download:
   prefetch: false
   # Golang transport option.
   transportOption:
-    # Ddial timeout.
+    # Dial timeout.
     dialTimeout: 2s
     # Keep alive.
     keepAlive: 30s
