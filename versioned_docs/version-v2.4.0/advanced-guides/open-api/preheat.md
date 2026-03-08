@@ -356,7 +356,7 @@ and click the `NEW INSTANCE` button to create create instance.
 
 **Step 2:** Auth Mode selects OAuth for authentication.
 
-**Step 3:** Enter personsal assess token.
+**Step 3:** Enter personsal access token.
 
 ![create-instance](../../resource/advanced-guides/open-api/preheat/create-instance.png)
 
