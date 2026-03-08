@@ -26,7 +26,7 @@ Client now supports rate limiting for prefetch requests, which can prevent netwo
 
 ![code](https://www.cncf.io/wp-content/uploads/2025/01/unnamed-64.jpg)
 
-The following diagram illustrates the usage of download rate limit, upload rate limir, and prefetct rate limit for the client.
+The following diagram illustrates the usage of download rate limit, upload rate limir, and prefetch rate limit for the client.
 
 ![rate limit](https://www.cncf.io/wp-content/uploads/2024/12/dragonfly-1.png)
 
