@@ -202,7 +202,7 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-## Use Hub Python Library to download files and distribute traffic through Draognfly {#use-hub-python-library-to-download-files-and-distribute-traffic-through-draognfly}
+## Use Hub Python Library to download files and distribute traffic through Dragonfly {#use-hub-python-library-to-download-files-and-distribute-traffic-through-dragonfly}
 
 Any API in the [Hub Python Library](https://huggingface.co/docs/huggingface_hub/index)
 that uses `Requests` library for downloading files can

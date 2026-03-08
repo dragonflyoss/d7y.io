@@ -162,7 +162,7 @@ Add the `github-cloud.githubusercontent.com` rule to `dfdaemon.config.proxy.prox
 to forward the HTTP file download of content storage of Git LFS to the P2P network.
 And `dfdaemon.config.proxy.defaultFilter` adds `X-Amz-Algorithm`, `X-Amz-Credential`, `X-Amz-Date`, `X-Amz-Expires`,
 `X-Amz-Signature` and `X-Amz-SignedHeaders` parameters to filter the query parameters.
-Dargonfly generates a unique task id based on the URL, so it is necessary to
+Dragonfly generates a unique task id based on the URL, so it is necessary to
 filter the query parameters to generate a unique task id. Configuration content is as follows:
 
 ```yaml

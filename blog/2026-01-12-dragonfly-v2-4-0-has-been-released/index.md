@@ -80,7 +80,7 @@ eliminating redundant redirect requests and reducing latency.
 The Go client has been deprecated and replaced by the [Rust Client](https://github.com/dragonflyoss/client). All future development and maintenance will focus
 exclusively on the Rust client, which offers improved performance, stability, and reliability.
 
-For more information, please refer to the [dragoflyoss/client](https://github.com/dragonflyoss/client).
+For more information, please refer to the [dragonflyoss/client](https://github.com/dragonflyoss/client).
 
 ### Additional Enhancements
 
