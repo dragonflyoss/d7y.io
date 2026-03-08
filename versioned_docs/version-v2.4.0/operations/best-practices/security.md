@@ -44,7 +44,7 @@ server:
 
 <!-- markdownlint-restore -->
 
-### Json Web Token (JWT) for Signining
+### Json Web Token (JWT) for Signing
 
 You can configure the JWT for signing in the manager console. Configure `manager.yaml`,
 the default path is `/etc/dragonfly/manager.yaml`, refer to
@@ -55,7 +55,7 @@ the default path is `/etc/dragonfly/manager.yaml`, refer to
 ```yaml
 # Auth configuration.
 auth:
-  # JWT configuration used for sigining.
+  # JWT configuration used for signing.
   jwt:
     # Realm name to display to the user, default value is Dragonfly.
     realm: 'Dragonfly'

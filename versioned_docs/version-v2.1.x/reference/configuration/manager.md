@@ -51,7 +51,7 @@ server:
 
 # Auth configuration.
 auth:
-  # JWT configuration used for sigining.
+  # JWT configuration used for signing.
   jwt:
     # Realm name to display to the user, default value is Dragonfly.
     realm: 'Dragonfly'
