@@ -256,7 +256,7 @@ The filteredQueryParams is used to generate a unique preheat task and filter unn
 Click the `SAVE` to generate the preheat task,the generated preheat task will not return results immediately and
 you need to wait.
 
-![penging-preheat](../resource/advanced-guides/preheat/pending-preheat.png)
+![pending-preheat](../resource/advanced-guides/preheat/pending-preheat.png)
 
 ### Preheat Success
 
