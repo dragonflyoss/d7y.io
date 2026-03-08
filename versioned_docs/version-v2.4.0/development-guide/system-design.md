@@ -100,7 +100,7 @@ The logic of selecting Parent Peer is:
    - FreeUploadScore, this value is used to reflect the busyness of the Host where the Candidate Parent Peer is located. It is calculated by the concurrent file upload volume of the current Host. Through this value, the currently relatively idle Host can be selected.
    - HostTypeScore, this value is used to reflect the type of the Candidate Parent Peer. Its main function is to give priority to SeedPeer for file downloading when the Task is downloaded for the first time.
    - IDCAffinityScore, this value is used to reflect the IDC information where the Candidate Parent Peer is located. Peer nodes with the same IDC are given priority for Piece transmission.
-   - LocationAffinityScore, this value is similar to IDCAffinityScroe, and is used to reflect the Location information where the Candidate Parent Peer is located. Peer nodes with the same Location are given priority for Piece transmission.
+   - LocationAffinityScore, this value is similar to IDCAffinityScore, and is used to reflect the Location information where the Candidate Parent Peer is located. Peer nodes with the same Location are given priority for Piece transmission.
 
 #### Failover
 
