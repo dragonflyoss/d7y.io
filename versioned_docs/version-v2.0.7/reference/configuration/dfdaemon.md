@@ -246,7 +246,7 @@ storage:
   # Disk used percent gc threshold, when the disk used percent exceeds, the oldest tasks will be reclaimed.
   # eg, diskGCThresholdPercent=80, when the disk usage is above 80%, start to gc the oldest tasks.
   diskGCThresholdPercent: 80
-  # Set to ture for reusing underlying storage for same task id.
+  # Set to true for reusing underlying storage for same task id.
   multiplex: true
 
 # Health service option.
