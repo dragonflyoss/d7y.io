@@ -4,7 +4,7 @@ tags: [audit, dragonfly, container image, OCI, nydus, nydus-snapshotter, contain
 hide_table_of_contents: true
 ---
 
-This post was migrated by [mingcheng](https://github.com/mingcheng) from the CNCF Blog, [the orginal post can be found here](https://www.cncf.io/blog/2020/04/09/toc-votes-to-move-dragonfly-into-cncf-incubator/).
+This post was migrated by [mingcheng](https://github.com/mingcheng) from a [CNCF Blog post](https://www.cncf.io/blog/2020/04/09/toc-votes-to-move-dragonfly-into-cncf-incubator/).
 
 Today, the CNCF Technical Oversight Committee (TOC) voted to accept Dragonfly as an incubation-level hosted project.
 
