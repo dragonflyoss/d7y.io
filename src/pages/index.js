@@ -16,7 +16,7 @@ export default function Home() {
     {
       imgURL: 'img/user/alibaba-group.svg',
       herf: 'https://www.alibabagroup.com/',
-      name: ' Alibaba Group',
+      name: 'Alibaba Group',
     },
     {
       imgURL: 'img/user/alibaba-cloud.png',
@@ -26,12 +26,12 @@ export default function Home() {
     {
       imgURL: 'img/user/ant-group.png',
       herf: 'https://www.antgroup.com/',
-      name: ' Ant Group',
+      name: 'Ant Group',
     },
     {
       imgURL: 'img/user/amap.png',
       herf: 'https://mobile.amap.com/',
-      name: 'Amap ',
+      name: 'Amap',
     },
     {
       imgURL: 'img/user/baidu.svg',
@@ -51,12 +51,12 @@ export default function Home() {
     {
       imgURL: 'img/user/china-unicom.svg',
       herf: 'http://www.chinaunicom.com/',
-      name: ' China Unicom',
+      name: 'China Unicom',
     },
     {
       imgURL: 'img/user/cloudwise.svg',
       herf: 'https://www.cloudwise.cool/',
-      name: ' Cloud Wise',
+      name: 'Cloud Wise',
     },
     {
       imgURL: 'img/user/daocloud.svg',
@@ -66,7 +66,7 @@ export default function Home() {
     {
       imgURL: 'img/user/didi.png',
       herf: 'https://www.didiglobal.com/',
-      name: ' DiDi',
+      name: 'DiDi',
     },
     {
       imgURL: 'img/user/ele.png',
@@ -81,52 +81,52 @@ export default function Home() {
     {
       imgURL: 'img/user/huya.png',
       herf: 'https://www.huya.com/',
-      name: ' Huya',
+      name: 'Huya',
     },
     {
       imgURL: 'img/user/jd.png',
       herf: 'https://corporate.jd.com/',
-      name: ' JD',
+      name: 'JD',
     },
     {
       imgURL: 'img/user/jfrog.svg',
       herf: 'https://jfrog.com/',
-      name: ' JFrog',
+      name: 'JFrog',
     },
     {
       imgURL: 'img/user/kuaishou.svg',
       herf: 'https://kuaishou.com/',
-      name: ' Kuaishou',
+      name: 'Kuaishou',
     },
     {
       imgURL: 'img/user/lazada.svg',
       herf: 'https://www.lazada.com/',
-      name: ' Lazada',
+      name: 'Lazada',
     },
     {
       imgURL: 'img/user/meituan.svg',
       herf: 'https://about.meituan.com/',
-      name: ' Meituan',
+      name: 'Meituan',
     },
     {
       imgURL: 'img/user/neteasegames.png',
       herf: 'https://www.neteasegames.com/',
-      name: ' Net Ease',
+      name: 'Net Ease',
     },
     {
       imgURL: 'img/user/qunar.svg',
       herf: 'https://www.qunar.com/',
-      name: ' Qunar',
+      name: 'Qunar',
     },
     {
       imgURL: 'img/user/shopee.svg',
       herf: 'https://shopee.com/',
-      name: ' Shopee',
+      name: 'Shopee',
     },
     {
       imgURL: 'img/user/vivo.svg',
       herf: 'https://www.vivo.com/',
-      name: ' Vivo',
+      name: 'Vivo',
     },
     {
       imgURL: 'img/user/xiaomi.png',
@@ -136,22 +136,22 @@ export default function Home() {
     {
       imgURL: 'img/user/xperi.svg',
       herf: 'https://xperi.com/',
-      name: ' Xperi',
+      name: 'Xperi',
     },
     {
       imgURL: 'img/user/yahoo.svg',
       herf: 'https://www.yahoo.com/',
-      name: ' Yahoo',
+      name: 'Yahoo',
     },
     {
       imgURL: 'img/user/ppio.png',
       herf: 'https://ppio.com/',
-      name: ' PPIO',
+      name: 'PPIO',
     },
     {
       imgURL: 'img/user/datadog.png',
       herf: 'https://www.datadoghq.com/',
-      name: ' DATADOG',
+      name: 'DATADOG',
     },
   ];
 
