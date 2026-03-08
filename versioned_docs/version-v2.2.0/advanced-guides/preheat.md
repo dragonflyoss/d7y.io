@@ -338,7 +338,7 @@ and click the `NEW INSTANCE` button to create an instance.
 
 **Step 2:** Auth Mode selects OAuth for authentication.
 
-**Step 3:** Enter personsal access token.
+**Step 3:** Enter personal access token.
 
 ![create-instance](../resource/advanced-guides/preheat/create-instance.png)
 
