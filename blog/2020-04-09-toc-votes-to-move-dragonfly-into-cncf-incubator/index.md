@@ -16,7 +16,7 @@ The goal of Dragonfly is to tackle distribution problems in cloud native scenari
 
 “Dragonfly improves the user experience by taking advantage of a P2P image and file distribution protocol and easing the network load of the image registry,” said Sheng Liang, TOC member and project sponsor. “As organizations across the world migrate their workloads onto container stacks, we expect the adoption of Dragonfly to continue to increase significantly.”
 
-Dragonfly integrates with other CNCF projects, including Prometheus, containerd, Habor, Kubernetes, and Helm. Project maintainers come from Alibaba, ByteDance, eBay, and Meitu, and there are more than 20 contributing companies, including NetEase, JD.com, Walmart, VMware, Shopee, ChinaMobile, Qunar, ZTE, Qiniu, NVIDIA, and others.
+Dragonfly integrates with other CNCF projects, including Prometheus, containerd, Harbor, Kubernetes, and Helm. Project maintainers come from Alibaba, ByteDance, eBay, and Meitu, and there are more than 20 contributing companies, including NetEase, JD.com, Walmart, VMware, Shopee, ChinaMobile, Qunar, ZTE, Qiniu, NVIDIA, and others.
 
 Main Dragonfly Features:
 
