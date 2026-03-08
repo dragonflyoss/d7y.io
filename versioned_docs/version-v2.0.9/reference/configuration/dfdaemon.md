@@ -156,7 +156,7 @@ download:
       expectContinueTimeout: 10s
       # Same with http.Transport.TLSClientConfig.InsecureSkipVerify.
       # Caution: the value default is true, please keep it false in production.
-      # We will make the vaule false by default in future.
+      # We will make the value false by default in future.
       insecureSkipVerify: true
     # The http resources, most of it is same with https scheme.
     http:
@@ -196,7 +196,7 @@ download:
       expectContinueTimeout: 10s
       # Same with http.Transport.TLSClientConfig.InsecureSkipVerify.
       # Caution: the value default is true, please keep it false in production.
-      # We will make the vaule false by default in future.
+      # We will make the value false by default in future.
       insecureSkipVerify: true
   # Concurrent option for back source, default: empty.
   # if you want to enable concurrent option, thresholdSize and goroutineCount is enough, keep other options empty is okay.
