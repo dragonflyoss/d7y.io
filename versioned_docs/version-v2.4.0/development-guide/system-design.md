@@ -24,7 +24,7 @@ to [Architecture](./../operations/deployment/architecture.md).
    by the same Scheduler node. These Daemon processes are perceived by the Scheduler and form a P2P network.
 3. The Scheduler receives the registration message of the PeerTask and records the mapping relationship between the Task
    and the Peer in the memory. If the Task is created for the first time, it means that there is no existing file data
-   in the current cluster, triggering the data back-to-source download. The Scheulder initiates an ObtainSeed request to
+   in the current cluster, triggering the data back-to-source download. The Scheduler initiates an ObtainSeed request to
    the SeedPeer node, and also adds the SeedPeer node as a PeerTask to the Peer list of this Task.
 4. Next, the Peers will communicate in parallel and download pieces from each other:
    - SeedPeer data back to the source: The SeedPeer node will first obtain the size of the data to be downloaded from
