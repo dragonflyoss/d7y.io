@@ -117,7 +117,7 @@ refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
 ```yaml
 proxy:
   # caCert is the root CA cert path with PEM format for the proxy server to generate the server cert.
-  # If ca_cert is empty, proxy will generate a smaple CA cert by rcgen::generate_simple_self_signed.
+  # If ca_cert is empty, proxy will generate a sample CA cert by rcgen::generate_simple_self_signed.
   # When client requests via the proxy, the client should not verify the server cert and set
   # insecure to true. If ca_cert is not empty, proxy will sign the server cert with the CA cert. If openssl is installed,
   # you can use openssl to generate the root CA cert and make the system trust the root CA cert.
@@ -127,7 +127,7 @@ proxy:
   caCert: 'ca.crt'
 
   # caKey is the root CA key path with PEM format for the proxy server to generate the server cert.
-  # If ca_key is empty, proxy will generate a smaple CA key by rcgen::generate_simple_self_signed.
+  # If ca_key is empty, proxy will generate a sample CA key by rcgen::generate_simple_self_signed.
   # When client requests via the proxy, the client should not verify the server cert and set
   # insecure to true. If ca_key is not empty, proxy will sign the server cert with the CA cert. If openssl is installed,
   # you can use openssl to generate the root CA cert and make the system trust the root CA cert.
