@@ -242,7 +242,7 @@ Create dragonfly cluster B record successfully.
 
 ### Use scopes to distinguish different dragonfly clusters
 
-The dragonfly cluster needs to serve the scope. It wil provide scheduler services and seed peer services to peers in the scope. The scopes of the dragonfly cluster are configured when the console is created and updated. The scopes of the peer are configured in peer YAML config, the fields are host.idc, host.location and host.advertiseIP, refer to [dfdaemon config](https://d7y.io/docs/next/reference/configuration/dfdaemon).
+The dragonfly cluster needs to serve the scope. It will provide scheduler services and seed peer services to peers in the scope. The scopes of the dragonfly cluster are configured when the console is created and updated. The scopes of the peer are configured in peer YAML config, the fields are host.idc, host.location and host.advertiseIP, refer to [dfdaemon config](https://d7y.io/docs/next/reference/configuration/dfdaemon).
 
 If the peer scopes match the dragonfly cluster scopes, then the peer will use the dragonfly cluster’s scheduler and seed peer first, and if there is no matching dragonfly cluster then use the default dragonfly cluster.
 
