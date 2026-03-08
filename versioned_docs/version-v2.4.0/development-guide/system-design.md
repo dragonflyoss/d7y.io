@@ -67,7 +67,7 @@ to [Architecture](./../operations/deployment/architecture.md).
 
 ![peer-state](./../resource/development-guide/system-design/peer-state.png)
 
-The process of interaction between Deamon and Scheduler when downloading a file is divided into 4 stages, and each stage corresponds to a gRPC interface on Scheduler.
+The process of interaction between Daemon and Scheduler when downloading a file is divided into 4 stages, and each stage corresponds to a gRPC interface on Scheduler.
 
 - registerPeerTask registration:
   - When starting to download, Peer first registers its current Task with Scheduler. Scheduler will create a new PeerTask for this registration and maintain it in memory. If this PeerTask is the first time this Task is created, then Scheduler will initiate a back-to-source download request to SeedPeer node. There is a detail here. Scheduler will behave differently according to the size of the file to be downloaded. If the file is too small, then Scheduler will find a Peer to download the file back and return all the data directly when registering.
