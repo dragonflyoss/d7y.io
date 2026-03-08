@@ -286,7 +286,7 @@ export default function Home() {
           <div className="row">
             <div className={styles.featuresTitleBox}>
               <h1 className={styles.mainModuleTitle}>
-                <span className={styles.featuresTitleHighling}>
+                <span className={styles.featuresTitleHighlight}>
                   <Translate>Features</Translate>
                 </span>
               </h1>
@@ -325,7 +325,7 @@ export default function Home() {
         <div className={styles.developmentContainer}>
           <div className="row">
             <h1 className={styles.mainModuleTitle}>
-              <span className={styles.userTitleHighling}>
+              <span className={styles.userTitleHighlight}>
                 <Translate>Milestones</Translate>
               </span>
             </h1>
@@ -501,7 +501,7 @@ export default function Home() {
           <div className={styles.userWrapper}>
             <h1 className={styles.useTitle}>
               <Translate>Who is</Translate>
-              <div className={styles.userTitleHighling}>
+              <div className={styles.userTitleHighlight}>
                 <Translate>Using</Translate>
               </div>
               <Translate>Dragonfly</Translate>
@@ -549,7 +549,7 @@ export default function Home() {
           <div className={styles.communityWrapper}>
             <h1 className={styles.communityTitle}>
               <Translate>Join the</Translate>
-              <div className={styles.userTitleHighling}>
+              <div className={styles.userTitleHighlight}>
                 <Translate>Community</Translate>
               </div>
             </h1>
