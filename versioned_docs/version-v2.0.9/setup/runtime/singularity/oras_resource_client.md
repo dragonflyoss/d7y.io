@@ -16,7 +16,7 @@ for subsequent file download after downloading the image from source for first t
 
 ### Step 1: Configure dfget daemon {#step-1-configure-dfget-daemon}
 
-To use oras resource client to pull image ensure below configuraion in `/etc/dragonfly/dfget.yaml:`.
+To use oras resource client to pull image ensure below configuration in `/etc/dragonfly/dfget.yaml:`.
 
 ```yaml
 # Peer task storage option.
