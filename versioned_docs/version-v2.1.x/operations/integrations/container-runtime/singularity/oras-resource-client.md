@@ -7,7 +7,7 @@ slug: /operations/integrations/container-runtime/singularity/oras-resource-clien
 Documentation for setting Dragonfly's container runtime to ORAS Resource Client.
 
 This method of image pull through Dragonfly is more efficient when compared to proxy method as
-it avoids TLS termination, reduces CPU time and download time as it creates hardlink(insead of copy)
+it avoids TLS termination, reduces CPU time and download time as it creates hardlink(instead of copy)
 for subsequent file download after downloading the image from source for first time.
 
 ## Configure dfget daemon {#configure-dfget-daemon}

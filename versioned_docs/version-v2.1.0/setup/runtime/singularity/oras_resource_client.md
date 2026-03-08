@@ -9,7 +9,7 @@ slug: /setup/runtime/singularity/oras-resource-client
 We can use oras resource client to pull image using Dragonfly, the key is the scheme used for the resource client.
 
 This method of image pull through Dragonfly is more efficient when compared to proxy method as
-it avoids TLS termination, reduces CPU time and download time as it creates hardlink(insead of copy)
+it avoids TLS termination, reduces CPU time and download time as it creates hardlink(instead of copy)
 for subsequent file download after downloading the image from source for first time.
 
 ## Quick Start {#quick-start}
