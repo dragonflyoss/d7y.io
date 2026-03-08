@@ -432,7 +432,12 @@ wget https://torchserve.pytorch.org/mar_files/squeezenet1_1_scripted.mar
 Upload the model to object storage. For detailed uploading the model to S3, please refer to [S3](https://aws.amazon.com/s3/?nc1=h_ls)。
 
 ```bash
-# Download the command line toolpip install awscli# Configure the key as promptedaws configure# Upload fileaws s3 cp < local file path > s3://< bucket name >/< Target path >
+# Download the command line tool
+pip install awscli
+# Configure the key as prompted
+aws configure
+# Upload file
+aws s3 cp < local file path > s3://< bucket name >/< Target path >
 ```
 
 TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model) for details of plugin API. The url parameter are not supported and add the file_name parameter which is the model file name to download.

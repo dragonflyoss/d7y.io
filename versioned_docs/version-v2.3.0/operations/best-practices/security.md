@@ -78,7 +78,7 @@ auth:
 ### Preheat with Self-Signed Certificate
 
 When preheating the image, dragonfly needs to call the container registry to get the image manifest.
-If container regsitry is configured with a self-signed certificate, then dragonfly must be configured
+If container registry is configured with a self-signed certificate, then dragonfly must be configured
 with a self-signed certificate. Configure `manager.yaml`,
 the default path is `/etc/dragonfly/manager.yaml`, refer to
 [manager](../../reference/configuration/manager.md) config.
