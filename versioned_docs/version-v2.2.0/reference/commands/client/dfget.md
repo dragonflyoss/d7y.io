@@ -143,13 +143,13 @@ Options:
 
 ## Example {#example}
 
-### Download with HTTP protocol {#downlad-with-http}
+### Download with HTTP protocol {#download-with-http}
 
 ```shell
 dfget https://<host>:<port>/<path> -O /tmp/file.txt
 ```
 
-### Download with S3 protocol {#downlad-with-s3}
+### Download with S3 protocol {#download-with-s3}
 
 ```shell
 # Download a file.
@@ -159,7 +159,7 @@ dfget s3://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_
 dfget s3://<bucket/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret>
 ```
 
-### Download with GCS protocol {#downlad-with-gcs}
+### Download with GCS protocol {#download-with-gcs}
 
 ```shell
 # Download a file.
@@ -169,7 +169,7 @@ dfget gs://<bucket>/<path> -O /tmp/file.txt --storage-credential-path=<credentia
 dfget gs://<bucket>/<path>/ -O /tmp/path/ --storage-credential-path=<credential_path>
 ```
 
-### Download with ABS protocol {#downlad-with-abs}
+### Download with ABS protocol {#download-with-abs}
 
 ```shell
 # Download a file.
@@ -179,7 +179,7 @@ dfget abs://<container>/<path> -O /tmp/file.txt --storage-access-key-id=<account
 dfget abs://<container>/<path>/ -O /tmp/path/ --storage-access-key-id=<account_name> --storage-access-key-secret=<account_key>
 ```
 
-### Download with OSS protocol {#downlad-with-oss}
+### Download with OSS protocol {#download-with-oss}
 
 ```shell
 # Download a file.
@@ -189,7 +189,7 @@ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget oss://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download with OBS protocol {#downlad-with-obs}
+### Download with OBS protocol {#download-with-obs}
 
 ```shell
 # Download a file.
@@ -199,7 +199,7 @@ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget obs://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download with COS protocol {#downlad-with-cos}
+### Download with COS protocol {#download-with-cos}
 
 > Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
 
@@ -211,7 +211,7 @@ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget cos://<bucket>/<path>/ -O /tmp/path/ --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
-### Download with HDFS protocol {#downlad-with-hdfs}
+### Download with HDFS protocol {#download-with-hdfs}
 
 ```shell
 dfget hdfs://<path>/file.txt -O /tmp/file.txt  --hdfs-delegation-token <hadoop_delegation_token>

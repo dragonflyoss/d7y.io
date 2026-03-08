@@ -234,7 +234,7 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-### Git LFS downlads large files via dragonfly
+### Git LFS downloads large files via dragonfly
 
 Proxy Git LFS download requests to Dragonfly Peer Proxy(```http://127.0.0.1:65001```) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
 

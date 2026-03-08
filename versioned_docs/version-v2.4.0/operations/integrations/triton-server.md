@@ -120,7 +120,7 @@ client:
         addr: https://index.docker.io
       rules:
         - regex: blobs/sha256.*
-        # Proxy all http downlowd requests of model bucket path.
+        # Proxy all http download requests of model bucket path.
         - regex: .*models.*
 ```
 
