@@ -49,7 +49,7 @@ the current OCI image specification. Its key features include:
 * Integrated with existing CNCF project dragonfly to support image distribution in large clusters
 * Different container image storage backends are supported
 
-Nydus mainly consists of a new containier image format and a FUSE (Filesystem in USErspace) daemon to translate it into
+Nydus mainly consists of a new container image format and a FUSE (Filesystem in USErspace) daemon to translate it into
 container accessible mountpoint.
 
 ![nydus-architecture| center | 768x356](nydus-architecture.png)

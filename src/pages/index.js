@@ -243,7 +243,7 @@ export default function Home() {
         <div className={styles.headerWrapper}>
           <div className={styles.headerContainer}>
             <div className={styles.containerInfo}>
-              <div className={styles.heroContiner}>
+              <div className={styles.heroContainer}>
                 <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
                 <div className={styles.tagline}>
                   <p className={clsx('hero__subtitle', styles.description)}>
