@@ -122,7 +122,7 @@ Mitigation
 
 Recommendations
 
-- The origin needs to pervent the attacker from uploading the malicious files.
+- The origin needs to prevent the attacker from uploading the malicious files.
 - Use the TLS to protect the communication between the origin and the peer.
 
 ### Attack surface of internal malicious attackers
