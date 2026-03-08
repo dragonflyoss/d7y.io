@@ -374,7 +374,7 @@ If `Cluster IDs` is empty, it means to preheat all clusters.
 
 Click the `EXECUTE` to execute the preheating task.
 
-![exectu-preheat](../resource/advanced-guides/preheat/exectu-preheat.png)
+![execute-preheat](../resource/advanced-guides/preheat/execute-preheat.png)
 
 If the status is SUCCESS, the preheating is successful.
 
