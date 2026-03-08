@@ -62,7 +62,7 @@ It can also optionally use a local directory to cache all container image data t
 
 Internally, nydus splits a container image into two parts: a metadata layer and a data layer. The metadata layer is
 a self-verifiable [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree). Each file and directory
-is a node in the merkle tree with a hash aloneside. A file's hash is the hash of its file content,
+is a node in the merkle tree with a hash alongside. A file's hash is the hash of its file content,
 and a directory's hash is the hash of all of its descendents. Each file is divided into even sized chunks and saved
 in a data layer. File chunks can be shared among different container images by letting file nodes pointing inside
 them point to the same chunk location in the shared data layer.
