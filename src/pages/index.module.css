@@ -423,7 +423,7 @@ a {
     width: 10rem !important;
   }
 
-  .developmentLineWarapper {
+  .developmentLineWrapper {
     display: none !important;
   }
 
@@ -752,13 +752,13 @@ a {
   padding-bottom: 1rem;
 }
 
-.developmentLineWarapper {
+.developmentLineWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.developmentLineWarapper {
+.developmentLineWrapper {
   display: flex;
   align-items: center;
   position: relative;

@@ -368,7 +368,7 @@ export default function Home() {
                   <h2>2017</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>1</div>
                 <div className={styles.developmentLine}></div>
@@ -394,7 +394,7 @@ export default function Home() {
                   <h2>2018</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>2</div>
                 <div className={styles.developmentLine}></div>
@@ -425,7 +425,7 @@ export default function Home() {
                   <h2>2020</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>3</div>
                 <div className={styles.developmentLine}></div>
@@ -454,7 +454,7 @@ export default function Home() {
                   <h2>2021</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>4</div>
                 <div className={styles.developmentLine}></div>
@@ -485,7 +485,7 @@ export default function Home() {
                   <h2>2025</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>5</div>
                 <div className={styles.developmentLine}></div>
