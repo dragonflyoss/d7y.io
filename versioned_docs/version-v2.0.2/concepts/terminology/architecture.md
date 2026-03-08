@@ -59,7 +59,7 @@ data market, multi-tenancy, and permission control, etc.
 
 ## Architecture {#architecture}
 
-![arch](../../resource/concetps/arch.png)
+![arch](../../resource/concepts/arch.png)
 
 ## Subsystem features {#subsystem-features}
 
