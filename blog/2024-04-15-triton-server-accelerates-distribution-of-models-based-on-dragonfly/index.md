@@ -59,13 +59,17 @@ kubectl config use-context kind-kind
 Pull dragonfly latest images:
 
 ```bash
-docker pull dragonflyoss/scheduler:latestdocker pull dragonflyoss/manager:latestdocker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
 Kind cluster loads dragonfly latest images:
 
 ```bash
-kind load docker-image dragonflyoss/scheduler:latestkind load docker-image dragonflyoss/manager:latestkind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
 ### Create dragonfly cluster based on helm charts
@@ -73,7 +77,59 @@ kind load docker-image dragonflyoss/scheduler:latestkind load docker-image drago
 Create helm charts configuration file charts-config.yamland set dfdaemon.config.agents.regx to match the download path of the object storage. Example: add regx:.\*models.\* to match download request from object storage bucket models. Configuration content is as follows:
 
 ```bash
-scheduler:  image: dragonflyoss/scheduler  tag: latest  replicas: 1  metrics:    enable: true  config:    verbose: true    pprofPort: 18066seedPeer:  image: dragonflyoss/dfdaemon  tag: latest  replicas: 1  metrics:    enable: true  config:    verbose: true    pprofPort: 18066dfdaemon:  image: dragonflyoss/dfdaemon  tag: latest  metrics:    enable: true  config:    verbose: true    pprofPort: 18066    proxy:      defaultFilter: 'Expires&Signature&ns'      security:        insecure: true        cacert: ''        cert: ''        key: ''      tcpListen:        namespace: ''        port: 65001      registryMirror:        url: https://index.docker.io        insecure: true        certs: []        direct: false      proxies:        - regx: blobs/sha256.*        # Proxy all http download requests of model bucket path.        - regx: .*models.*manager:  image: dragonflyoss/manager  tag: latest  replicas: 1  metrics:    enable: true  config:    verbose: true    pprofPort: 18066jaeger:  enable: true
+scheduler:
+  image: dragonflyoss/scheduler
+  tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+seedPeer:
+  image: dragonflyoss/dfdaemon
+  tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+dfdaemon:
+  image: dragonflyoss/dfdaemon
+  tag: latest
+  metrics:
+    enable: true
+  config:    verbose: true
+    pprofPort: 18066
+    proxy:
+      defaultFilter: 'Expires&Signature&ns'
+      security:
+        insecure: true
+        cacert: ''
+        cert: ''
+        key: ''
+      tcpListen:
+        namespace: ''
+        port: 65001
+      registryMirror:
+        url: https://index.docker.io
+        insecure: true
+        certs: []
+        direct: false
+      proxies:
+        - regx: blobs/sha256.*
+        # Proxy all http download requests of model bucket path.
+        - regx: .*models.*manager:
+  image: dragonflyoss/manager
+  tag: latest
+  replicas: 1
+  metrics:
+    enable: true
+  config:
+    verbose: true
+    pprofPort: 18066
+jaeger:  enable: true
 ```
 
 Create a dragonfly cluster using the configuration file:

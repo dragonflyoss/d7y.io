@@ -75,13 +75,17 @@ kubectl config use-context kind-kind
 Pull dragonfly latest images:
 
 ```bash
-docker pull dragonflyoss/scheduler:latestdocker pull dragonflyoss/manager:latestdocker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
 Kind cluster loads dragonfly latest images:
 
 ```bash
-kind load docker-image dragonflyoss/scheduler:latestkind load docker-image dragonflyoss/manager:latestkind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
 ### Create dragonfly cluster based on helm charts
