@@ -177,7 +177,7 @@ According to analysis of Dragonfly architecture, DDoS attackers can be divided i
 - Send a massive amount of traffic to the target network with the
   goal of consuming so much bandwidth that users are denied access.
 
-- Bandwitdh depletion attack: Flood Attack and Amplification attack.
+- Bandwidth depletion attack: Flood Attack and Amplification attack.
 
 ### What can Dragonfly do against DDoS attacks?
 
