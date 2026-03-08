@@ -1,5 +1,5 @@
 ---
-title: Using dragonfly to distribute images and files for multi-cluster kuberenetes
+title: Using dragonfly to distribute images and files for multi-cluster kubernetes
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
