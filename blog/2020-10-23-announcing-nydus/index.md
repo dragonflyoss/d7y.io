@@ -83,7 +83,7 @@ data leaking risk.  In contrast, nydus image won't be unpacked to local director
 given that verification can be enforced on every data access to nydus image, the data leak risk
 can be completely avoided by forcing to fetch the data from the trusted image registry again.
 
-![nydus-integraty| center | 768x356](nydus-integrity.png)
+![nydus-integrity| center | 768x356](nydus-integrity.png)
 
 ### The Future of Nydus {#the-future-of-nydus}
 
@@ -113,7 +113,7 @@ doesn't fit well to be a container image format.
 #### Q: How is this different than crfs? {#q-how-is-this-different-than-crfs}
 
 * The basic idea of the two are quite similar. Deep down, the nydus image format supports chunk level data deduplication
-and end-to-end data integraty at runtime, which is an improvement over the stargz format used by crfs.
+and end-to-end data integrity at runtime, which is an improvement over the stargz format used by crfs.
 
 #### Q: How is this different than Teleport of Azure? {#q-how-is-this-different-than-teleport-of-azure}
 
