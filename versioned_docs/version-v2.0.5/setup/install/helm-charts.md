@@ -72,7 +72,7 @@ Advantages:
 
 > In this mode, when dfdaemon pod deleted,
 > the `preStop` hook will remove all injected hosts info in /etc/hosts,
-> all images traffic fallbacks to original registries.
+> all images traffic falls back to original registries.
 
 Limitations:
 
