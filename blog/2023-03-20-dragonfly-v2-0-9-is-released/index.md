@@ -22,7 +22,7 @@ Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform]
 - Scheduler adds PieceDownloadTimeout parameter, which indicates that if the piece download times out, the scheduler will change the task state to TaskStateFailed.
 - Add health service to each GRPC service.
 - Add reflection to each GRPC service.
-- Manager supports redis sentinal model.
+- Manager supports redis sentinel model.
 - Refactor dynconfig package to remove json.Unmarshal, improving its runtime efficiency.
 - Fix panic caused by hashring not being built.
 - Previously, most of the pieces were downloaded from the same parent. Now, different pieces are downloaded from different parents to improve download efficiency and distribute bandwidth among multiple parents.
