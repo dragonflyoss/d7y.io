@@ -202,7 +202,10 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-## Use dfget to download files with hf:// protocol {#use-dfget-to-download-files-with-hf-protocol}
+## Use dfget to download files with `hf://` protocol {#use-dfget-to-download-files-with-hf-protocol}
+
+> Note: To use dfget inside an inference container, you must install dfget and transfer file content from dfdaemon's Unix
+> domain socket. For details, refer to [Download in Container](../../reference/commands/client/dfget.md#download-in-container).
 
 Dragonfly's `dfget` command natively supports the `hf://` protocol, enabling direct P2P downloads from
 Hugging Face Hub without any proxy configuration. This is the simplest way to download models and datasets
