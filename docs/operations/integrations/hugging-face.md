@@ -246,6 +246,14 @@ Use the `--recursive` flag to download all files in a repository:
 dfget hf://meta-llama/Llama-2-7b -O /tmp/llama-2-7b/ --recursive
 ```
 
+### Download from a specific revision {#download-from-a-specific-revision-with-dfget}
+
+Set `--hf-revision` to download from a specific branch, tag, or commit:
+
+```shell
+dfget hf://meta-llama/Llama-2-7b --hf-revision v1.0 -O /tmp/llama-2-7b/ --recursive
+```
+
 ### Download a dataset {#download-a-dataset-with-dfget}
 
 Prefix the URL with `datasets/` to download from a dataset repository:
@@ -256,14 +264,6 @@ dfget hf://datasets/rajpurkar/squad/train-v2.0.json -O /tmp/train.json
 
 # Download an entire dataset.
 dfget hf://datasets/rajpurkar/squad -O /tmp/squad/ --recursive
-```
-
-### Download from a specific revision {#download-from-a-specific-revision-with-dfget}
-
-Append `@<revision>` to the URL to download from a specific branch, tag, or commit:
-
-```shell
-dfget hf://meta-llama/Llama-2-7b/config.json@v1.0 -O /tmp/config.json
 ```
 
 ## Use Hub Python Library to download files and distribute traffic through Draognfly {#use-hub-python-library-to-download-files-and-distribute-traffic-through-draognfly}
