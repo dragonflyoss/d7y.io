@@ -216,7 +216,7 @@ with Dragonfly acceleration.
 The `hf://` URL format is:
 
 ```text
-hf://[<repo_type>/]<owner>/<repo>[/<path>][@<revision>]
+hf://[<repo_type>/]<owner>/<repo>[/<path>]
 ```
 
 - **repo_type** (optional): `datasets`, `spaces`, or `models` (default).
@@ -235,7 +235,7 @@ dfget hf://meta-llama/Llama-2-7b/config.json -O /tmp/config.json
 For private repositories or to increase rate limits, use the `--hf-token` flag:
 
 ```shell
-dfget hf://meta-llama/Llama-2-7b/config.json -O /tmp/config.json --hf-token=<your_hf_token>
+dfget hf://meta-llama/Llama-2-7b/config.json -O /tmp/config.json --hf-token=<token>
 ```
 
 ### Download an entire repository {#download-an-entire-repository-with-dfget}
