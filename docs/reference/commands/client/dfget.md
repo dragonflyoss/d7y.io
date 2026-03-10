@@ -176,6 +176,25 @@ $ dfget hf://<owner>/<repo> --hf-revision main -O /tmp/repo/ -r
 dfget hf://datasets/<owner>/<repo>/<path> -O /tmp/train.json
 ```
 
+#### Download with ModelScope protocol
+
+```shell
+# Download a single file from a model repository.
+dfget modelscope://<owner>/<repo>/<path> -O /tmp/model.safetensors
+
+# Download a single file with authentication for private repositories.
+dfget modelscope://<owner>/<repo>/<path> -O /tmp/model.safetensors --ms-token=<token>
+
+# Download an entire repository.
+dfget modelscope://<owner>/<repo> -O /tmp/repo/ --recursive
+
+# Download an entire repository from ModelScope Hub with specified revision. If the revision is not specified, the default value is `master`.
+$ dfget modelscope://<owner>/<repo> --ms-revision main -O /tmp/repo/ -r
+
+# Download a file from a dataset repository.
+dfget modelscope://datasets/<owner>/<repo>/<path> -O /tmp/train.json
+```
+
 <!-- markdownlint-restore -->
 
 ## Log {#log}
