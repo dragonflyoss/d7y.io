@@ -227,4 +227,4 @@ public, private, and hybrid clouds. The Cloud Native Computing Foundation (CNCF)
 the global technology infrastructure, including Kubernetes, Prometheus, and Envoy. CNCF brings together the
 industry’s top developers, end users, and vendors and runs the largest open source developer conferences in the world.
 Supported by nearly 800 members, including the world’s largest cloud computing and software companies, as well as
-over 200 innovative startups, CNCF is part of the nonprofit Linux Foundation. For more information, please visit www.cncf.io.
+over 200 innovative startups, CNCF is part of the nonprofit Linux Foundation. For more information, please visit [www.cncf.io](https://www.cncf.io).

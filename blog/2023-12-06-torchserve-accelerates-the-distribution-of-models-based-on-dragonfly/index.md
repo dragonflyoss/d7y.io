@@ -75,13 +75,17 @@ kubectl config use-context kind-kind
 Pull dragonfly latest images:
 
 ```bash
-docker pull dragonflyoss/scheduler:latestdocker pull dragonflyoss/manager:latestdocker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
 Kind cluster loads dragonfly latest images:
 
 ```bash
-kind load docker-image dragonflyoss/scheduler:latestkind load docker-image dragonflyoss/manager:latestkind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
 ### Create dragonfly cluster based on helm charts
@@ -432,7 +436,12 @@ wget https://torchserve.pytorch.org/mar_files/squeezenet1_1_scripted.mar
 Upload the model to object storage. For detailed uploading the model to S3, please refer to [S3](https://aws.amazon.com/s3/?nc1=h_ls)。
 
 ```bash
-# Download the command line toolpip install awscli# Configure the key as promptedaws configure# Upload fileaws s3 cp < local file path > s3://< bucket name >/< Target path >
+# Download the command line tool
+pip install awscli
+# Configure the key as prompted
+aws configure
+# Upload file
+aws s3 cp < local file path > s3://< bucket name >/< Target path >
 ```
 
 TorchServe plugin is named dragonfly, please refer to [TorchServe Register API](https://pytorch.org/serve/management_api.html#register-a-model) for details of plugin API. The url parameter are not supported and add the file_name parameter which is the model file name to download.
@@ -667,7 +676,7 @@ Test results show TorchServe and Dragonfly integration. It can effectively reduc
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
@@ -675,7 +684,7 @@ Test results show TorchServe and Dragonfly integration. It can effectively reduc
 ### Pytorch
 
 - Website: [https://pytorch.org/](https://pytorch.org/)
-- Github Repo: [https://github.com/pytorch/pytorch](https://github.com/pytorch/pytorch)
+- GitHub Repo: [https://github.com/pytorch/pytorch](https://github.com/pytorch/pytorch)
 - TorchServe Document: [https://pytorch.org/serve/](https://pytorch.org/serve/)
 
-TorchServe Github Repo: [https://github.com/pytorch/serve](https://github.com/pytorch/serve)
+TorchServe GitHub Repo: [https://github.com/pytorch/serve](https://github.com/pytorch/serve)

@@ -61,13 +61,17 @@ kubectl config use-context kind-kind
 Pull dragonfly latest images:
 
 ```bash
-docker pull dragonflyoss/scheduler:latestdocker pull dragonflyoss/manager:latestdocker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
 Kind cluster loads dragonfly latest images:
 
 ```bash
-kind load docker-image dragonflyoss/scheduler:latestkind load docker-image dragonflyoss/manager:latestkind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
 ### Create dragonfly cluster based on helm charts
@@ -199,7 +203,7 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-## Use Hub Python Library to download files and distribute traffic through Draognfly
+## Use Hub Python Library to download files and distribute traffic through Dragonfly
 
 Any API in the [Hub Python Library](https://huggingface.co/docs/huggingface_hub/index) that uses Requests library for downloading files can distribute the download traffic in the P2P network by setting DragonflyAdapter to the requests Session.
 
@@ -360,7 +364,7 @@ Test results show Hugging Face Python Library and Dragonfly P2P integration. It 
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
@@ -368,6 +372,6 @@ Test results show Hugging Face Python Library and Dragonfly P2P integration. It 
 ### Hugging Face
 
 - Website: [https://huggingface.co/](https://huggingface.co/)
-- Github Repo: [https://github.com/huggingface/huggingface\_hub](https://github.com/huggingface/huggingface_hub)
+- GitHub Repo: [https://github.com/huggingface/huggingface\_hub](https://github.com/huggingface/huggingface_hub)
 - Document: [https://huggingface.co/docs](https://huggingface.co/docs)
 - Hub Python Library: [https://huggingface.co/docs/huggingface\_hub/index](https://huggingface.co/docs/huggingface_hub/index)

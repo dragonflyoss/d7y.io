@@ -22,13 +22,13 @@ you can skip [Configure Runtime](#configure-runtime-manually) manually.
 > **We did not recommend to using dragonfly
 > with docker in Kubernetes**
 > due to many reasons:
-> no fallback image pulling policy.
+> no fall back image pulling policy.
 > deprecated in Kubernetes.
 > Because the original `daemonset` in
 > Kubernetes did not support `Surging Rolling Update` policy.
 > When kill current dfdaemon pod,
-> the new pod image can not be pulled anymore.
-> If you can not change runtime from docker to others,
+> the new pod image cannot be pulled anymore.
+> If you cannot change runtime from docker to others,
 > remind to choose a plan when upgrade dfdaemon:
 > pull newly dfdaemon image manually before upgrade dragonfly,
 > or use [ImagePullJob](https://openkruise.io/docs/user-manuals/imagepulljob) to
@@ -72,7 +72,7 @@ Advantages:
 
 > In this mode, when dfdaemon pod deleted,
 > the `preStop` hook will remove all injected hosts info in /etc/hosts,
-> all images traffic fallbacks to original registries.
+> all images traffic falls back to original registries.
 
 Limitations:
 
@@ -312,9 +312,9 @@ Console features preview reference document [console preview](../../reference/ma
 
 ## Configure Runtime Manually {#configure-runtime-manually}
 
-Use Containerd with CRI as example, more runtimes can be found [here](../../getting-started/quick-start/kubernetes.md)
+Use Containerd with CRI as example, [more runtimes are available](../../getting-started/quick-start/kubernetes.md)
 
-> This example is for single registry, multiple registries configuration is [here](../../setup/runtime/containerd.md)
+> This example is for single registry, you can also [configure multiple registries](../../setup/runtime/containerd.md)
 
 For private registry:
 

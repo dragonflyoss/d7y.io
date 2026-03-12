@@ -283,7 +283,7 @@ Create the `config.json` configuration to configure the Dragonfly Endpoint for S
 }
 ```
 
-- addr: The address of Drangonfly's Peer HTTP proxy.
+- addr: The address of Dragonfly's Peer HTTP proxy.
 - header: Adds a request header to the request.
 - filter: Used to generate unique tasks and filter unnecessary query parameters in the URL.
 - object_storage: The object storage configuration, where type can be s3, oss, abs and gcs.

@@ -9,14 +9,14 @@ slug: /setup/runtime/singularity/oras-resource-client
 We can use oras resource client to pull image using Dragonfly, the key is the scheme used for the resource client.
 
 This method of image pull through Dragonfly is more efficient when compared to proxy method as
-it avoids TLS termination, reduces CPU time and download time as it creates hardlink(insead of copy)
+it avoids TLS termination, reduces CPU time and download time as it creates hardlink(instead of copy)
 for subsequent file download after downloading the image from source for first time.
 
 ## Quick Start {#quick-start}
 
 ### Step 1: Configure dfget daemon {#step-1-configure-dfget-daemon}
 
-To use oras resource client to pull image ensure below configuraion in `/etc/dragonfly/dfget.yaml:`.
+To use oras resource client to pull image ensure below configuration in `/etc/dragonfly/dfget.yaml:`.
 
 ```yaml
 # Peer task storage option.
@@ -30,7 +30,7 @@ storage:
   # Disk used percent gc threshold, when the disk used percent exceeds, the oldest tasks will be reclaimed.
   # eg, diskGCThresholdPercent=80, when the disk usage is above 80%, start to gc the oldest tasks.
   diskGCThresholdPercent: 80
-  # Set to ture for reusing underlying storage for same task id.
+  # Set to true for reusing underlying storage for same task id.
   multiplex: true
 
 # The singularity oras resources, most of it is same with https scheme

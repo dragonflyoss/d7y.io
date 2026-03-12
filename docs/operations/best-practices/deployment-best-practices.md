@@ -129,7 +129,7 @@ download:
 ### GC
 
 Used for task cache GC in node disk, taskTTL is calculated based on cache time.
-To avoid cases where GC would be problematic or potentially catastrophi,
+To avoid cases where GC would be problematic or potentially catastrophic,
 it is recommended to use the default value.
 Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 

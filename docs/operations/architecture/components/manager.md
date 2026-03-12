@@ -16,7 +16,7 @@ and provide keepalive and metrics functions.
 - Keepalive with Scheduler instance and seed peer instance.
 - Filter the optimal Scheduler cluster for Client.
 - Provides a visual console, which is helpful for users to manage the P2P cluster.
-- Peer features are configurable. For example, you can make the peer can not be uploaded and can only be downloaded.
+- Peer features are configurable. For example, you can allow the peer to be downloaded and prevent the peer from being uploaded.
 - Clear P2P task cache.
 - Display P2P traffic distribution.
 - Peer information display, including CPU, Memory, etc.

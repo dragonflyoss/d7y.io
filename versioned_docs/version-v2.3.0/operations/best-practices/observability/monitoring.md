@@ -272,7 +272,7 @@ Dragonfly grafana dashboard info is:
 | Name                  | ID    | Link                                         | Description                                                       |
 | :-------------------- | :---- | :------------------------------------------- | :---------------------------------------------------------------- |
 | Dragonfly Manager     | 15945 | https://grafana.com/grafana/dashboards/15945 | Grafana dashboard for dragonfly manager.                          |
-| Dragonfly Scheduler   | 15944 | https://grafana.com/grafana/dashboards/15944 | Granafa dashboard for dragonfly scheduler.                        |
+| Dragonfly Scheduler   | 15944 | https://grafana.com/grafana/dashboards/15944 | Grafana dashboard for dragonfly scheduler.                        |
 | Dragonfly Client      | 21053 | https://grafana.com/grafana/dashboards/21053 | Grafana dashboard for dragonfly client and dragonfly seed client. |
 | Dragonfly Seed Client | 21054 | https://grafana.com/grafana/dashboards/21054 | Grafana dashboard for dragonfly seed client.                      |
 

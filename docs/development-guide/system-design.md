@@ -24,7 +24,7 @@ to [Architecture](./../operations/architecture/architecture.md).
    by the same Scheduler node. These Daemon processes are perceived by the Scheduler and form a P2P network.
 3. The Scheduler receives the registration message of the PeerTask and records the mapping relationship between the Task
    and the Peer in the memory. If the Task is created for the first time, it means that there is no existing file data
-   in the current cluster, triggering the data back-to-source download. The Scheulder initiates an ObtainSeed request to
+   in the current cluster, triggering the data back-to-source download. The Scheduler initiates an ObtainSeed request to
    the SeedPeer node, and also adds the SeedPeer node as a PeerTask to the Peer list of this Task.
 4. Next, the Peers will communicate in parallel and download pieces from each other:
    - SeedPeer data back to the source: The SeedPeer node will first obtain the size of the data to be downloaded from
@@ -35,7 +35,7 @@ to [Architecture](./../operations/architecture/architecture.md).
      two-way Stream with the Scheduler, and notify the Scheduler of the piece information that has been downloaded, as
      well as the piece information to be downloaded and the piece information that failed to download. After receiving the
      information reported by the Peer, the Scheduler will decide which ParentPeer the Peer should download the unfinished
-     piece from based on the internal algorithm, or fallback to the data source to download directly back to the source.
+     piece from based on the internal algorithm, or fall back to the data source to download directly back to the source.
    - P2P download between peers: After receiving the ParentPeer specified by the Scheduler, the Daemon process will
      start a two-way Stream with the ParentPeer. The Daemon process will periodically send the Piece information that
      needs to be downloaded to the ParentPeer. If there is an available Piece on the ParentPeer, the detailed information
@@ -67,7 +67,7 @@ to [Architecture](./../operations/architecture/architecture.md).
 
 ![peer-state](./../resource/development-guide/system-design/peer-state.png)
 
-The process of interaction between Deamon and Scheduler when downloading a file is divided into 4 stages, and each stage corresponds to a gRPC interface on Scheduler.
+The process of interaction between Daemon and Scheduler when downloading a file is divided into 4 stages, and each stage corresponds to a gRPC interface on Scheduler.
 
 - registerPeerTask registration:
   - When starting to download, Peer first registers its current Task with Scheduler. Scheduler will create a new PeerTask for this registration and maintain it in memory. If this PeerTask is the first time this Task is created, then Scheduler will initiate a back-to-source download request to SeedPeer node. There is a detail here. Scheduler will behave differently according to the size of the file to be downloaded. If the file is too small, then Scheduler will find a Peer to download the file back and return all the data directly when registering.
@@ -100,7 +100,7 @@ The logic of selecting Parent Peer is:
    - FreeUploadScore, this value is used to reflect the busyness of the Host where the Candidate Parent Peer is located. It is calculated by the concurrent file upload volume of the current Host. Through this value, the currently relatively idle Host can be selected.
    - HostTypeScore, this value is used to reflect the type of the Candidate Parent Peer. Its main function is to give priority to SeedPeer for file downloading when the Task is downloaded for the first time.
    - IDCAffinityScore, this value is used to reflect the IDC information where the Candidate Parent Peer is located. Peer nodes with the same IDC are given priority for Piece transmission.
-   - LocationAffinityScore, this value is similar to IDCAffinityScroe, and is used to reflect the Location information where the Candidate Parent Peer is located. Peer nodes with the same Location are given priority for Piece transmission.
+   - LocationAffinityScore, this value is similar to IDCAffinityScore, and is used to reflect the Location information where the Candidate Parent Peer is located. Peer nodes with the same Location are given priority for Piece transmission.
 
 #### Failover
 

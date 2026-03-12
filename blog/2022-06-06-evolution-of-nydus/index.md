@@ -213,9 +213,9 @@ The following is the performance statistics of file read/randread buffered IO [2
 | fuse        | 7.6K  | 31.2MB/s | 0.76        |
 
 > - "native" means that the test file is directly on the local ext4 filesystem
-> - "loop" means that the test file is inside a erofs image, while the erofs image is mounted through the DIRECT IO
+> - "loop" means that the test file is inside an erofs image, while the erofs image is mounted through the DIRECT IO
 mode of the loop device
-> - "fscache" means that the test file is inside a erofs image, while the erofs image is mounted through the erofs over
+> - "fscache" means that the test file is inside an erofs image, while the erofs image is mounted through the erofs over
 fscache scheme
 > - "fuse" means that the test file is in the fuse filesystem [3]
 > - The "Performance" column normalizes the performance statistics of each mode, based on the performance of the native
@@ -275,7 +275,7 @@ The user-mode processes are even no longer required in this scenario, which prom
 With RAFS v6 image format and erofs over fscache on-demand loading technology,
 Nydus is suitable for both runc and Kata as a one-stop solution for container image distribution in these two scenarios.
 
-More importantly, erofs over fscache is a truly a **one-stop** and **lossless** solution in the following two scenarios
+More importantly, erofs over fscache is truly a **one-stop** and **lossless** solution in the following two scenarios
 of 1) on-demand loading and 2) downloading container images in advance.
 On the one hand, with the on-demand loading feature implemented, it can significantly speed up the container startup,
 as it does not need to download the complete container images to the local. On the other hand, it is compatible with the

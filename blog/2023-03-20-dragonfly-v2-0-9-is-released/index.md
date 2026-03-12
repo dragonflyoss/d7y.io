@@ -8,13 +8,13 @@ hide_table_of_contents: false
 
 [CNCF projects highlighted in this post](https://www.cncf.io/blog/2023/03/20/dragonfly-v2-0-9-is-released/), and migrated by [mingcheng](https://github.com/mingcheng).
 
-_Project post originally published on [Github](https://github.com/dragonflyoss/dragonfly/releases/tag/v2.0.9) by Dragonfly maintainers_
+_Project post originally published on [GitHub](https://github.com/dragonflyoss/dragonfly/releases/tag/v2.0.9) by Dragonfly maintainers_
 
 ![Dragonfly provide efficient, stable, secure file distribution and image acceleration based on p2p technology to be the best practice and standard solution in cloud native architectures. It is hosted by the Cloud Native Computing Foundation (CNCF) as an Incubating Level Project](./dragonfly.avif)
 
 Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform](https://cloud.google.com/) (GCP) Team, [Volcano Engine](https://www.volcengine.com/) Team, and [Baidu AI Cloud](https://intl.cloud.baidu.com/) Team for helping Dragonfly integrate with their public clouds. Welcome to visit [d7y.io](https://d7y.io/) website.
 
-![Github snippit](./github-snippit.avif)
+![GitHub snippit](./github-snippit.avif)
 
 ## **Features**
 
@@ -22,11 +22,11 @@ Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform]
 - Scheduler adds PieceDownloadTimeout parameter, which indicates that if the piece download times out, the scheduler will change the task state to TaskStateFailed.
 - Add health service to each GRPC service.
 - Add reflection to each GRPC service.
-- Manager supports redis sentinal model.
+- Manager supports redis sentinel model.
 - Refactor dynconfig package to remove json.Unmarshal, improving its runtime efficiency.
 - Fix panic caused by hashring not being built.
 - Previously, most of the pieces were downloaded from the same parent. Now, different pieces are downloaded from different parents to improve download efficiency and distribute bandwidth among multiple parents.
-- If Manager’s searcher can not found candidate scheduler clusters, It will return all the clusters for peers to check health. If check health is successful, the scheduler cluster can be used.
+- If Manager’s searcher cannot found candidate scheduler clusters, It will return all the clusters for peers to check health. If check health is successful, the scheduler cluster can be used.
 - Support [ORAS](https://github.com/oras-project/oras) source client to pull image.
 - Add UDP ping package and GRPC protoc definition for building virtual network topology.
 - The [V2 P2P protocol](https://github.com/dragonflyoss/api/tree/main/proto) has been added, and both Scheduler and Manager have implemented the API of the V2 P2P protocol, in preparation for the future Rust version of Dfdaemon.
@@ -54,13 +54,13 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 ## **Links**
 
 - Dragonfly Website: [https://d7y.io/](https://d7y.io/)
-- Dragonfly Github: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
-- Dragonfly Charts Github: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
-- Dragonfly Monitor Github: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
+- Dragonfly GitHub: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- Dragonfly Charts GitHub: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
+- Dragonfly Monitor GitHub: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 - Google Kubernetes Engine(GKE): [https://cloud.google.com/kubernetes-engine](https://cloud.google.com/kubernetes-engine)
 - Google Cloud Platform(GCP) Dragonfly Marketplace: [https://console.cloud.google.com/marketplace/product/google/dragonfly](https://console.cloud.google.com/marketplace/product/google/dragonfly)
 - Alibaba Cloud Container Registry: [https://www.alibabacloud.com/product/container-registry](https://www.alibabacloud.com/product/container-registry)
 - Alibaba Cloud Container Service for Kubernetes (ACK): [https://www.alibabacloud.com/product/kubernetes](https://www.alibabacloud.com/product/kubernetes)
 - Volcano Engine Kubernetes Engine(VKE): [https://www.volcengine.com/product/vke](https://www.volcengine.com/product/vke)
 - Volcano Engine Container Registry(CR): [https://www.volcengine.com/product/cr](https://www.volcengine.com/product/cr)
-- Baidu AI Cloud Cloud Container Engine(CCE): [https://intl.cloud.baidu.com/product/cce.html](https://intl.cloud.baidu.com/product/cce.html)
+- Baidu AI Cloud Container Engine(CCE): [https://intl.cloud.baidu.com/product/cce.html](https://intl.cloud.baidu.com/product/cce.html)

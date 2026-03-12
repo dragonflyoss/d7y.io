@@ -4,7 +4,7 @@ tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
-Dragonfly v2.4.0 is released!🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happend and welcome you to visit [d7y.io](https://d7y.io) website.
+Dragonfly v2.4.0 is released!🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happen and welcome you to visit [d7y.io](https://d7y.io) website.
 
 ![dragonfly](images/dragonfly-linear.png)
 
@@ -80,7 +80,7 @@ eliminating redundant redirect requests and reducing latency.
 The Go client has been deprecated and replaced by the [Rust Client](https://github.com/dragonflyoss/client). All future development and maintenance will focus
 exclusively on the Rust client, which offers improved performance, stability, and reliability.
 
-For more information, please refer to the [dragoflyoss/client](https://github.com/dragonflyoss/client).
+For more information, please refer to the [dragonflyoss/client](https://github.com/dragonflyoss/client).
 
 ### Additional Enhancements
 
@@ -130,6 +130,6 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 - Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
 - Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
-## Dragonfly Github
+## Dragonfly GitHub
 
 ![qrcode](images/qrcode.webp)

@@ -12,7 +12,7 @@ hide_table_of_contents: false
 
 Dragonfly v2.1.0 is released! 🎉🎉🎉 Thanks to the Xinxin Zhao[\[1\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn1) for helping to refactor the console[\[2\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn2) and the manager provides a new console for users to operate Dragonfly. Welcome to visit d7y.io[\[3\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn3) website.
 
-![Announcement screenshot from Github mentioning "Dragonfly v2.1.0 is released!"](https://www.cncf.io/wp-content/uploads/2023/08/image-14.png)
+![Announcement screenshot from GitHub mentioning "Dragonfly v2.1.0 is released!"](https://www.cncf.io/wp-content/uploads/2023/08/image-14.png)
 
 ## [#features](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#features) Features
 
@@ -28,7 +28,7 @@ Dragonfly v2.1.0 is released! 🎉🎉🎉 Thanks to the Xinxin Zhao[\[1\]](http
 - Scheduler adds database field in config and moves the redis config to database field.
 - Replace net.Dial with grpc health check in dfdaemon.
 - Fix filtering and evaluation in scheduling. Since the final length of the filter is the candidateParentLimit used, the parents after the filter is wrong.
-- Fix storage can not write records to file when bufferSize is zero.
+- Fix storage cannot write records to file when bufferSize is zero.
 - Hiding sensitive information in logs, such as the token in the header.
 - Use unscoped delete when destroying the manager’s resources.
 - Add uk_scheduler index and uk_seed_peer index in the table of the database.
@@ -48,7 +48,7 @@ You can see Manager Console[\[5\]](https://www.cncf.io/blog/2023/08/07/dragonfly
 
 ## [#ai-infrastructure](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#ai-infrastructure) AI Infrastructure
 
-- Triton Inference Server[\[6\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn6) uses Dragonfly to distribute model files, refer to #2185[\[7\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn7). If there are developers who are interested in the drgaonfly repository agent[\[8\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn8) project, please contact [gaius.qi@gmail.com](mailto:gaius.qi@gmail.com).
+- Triton Inference Server[\[6\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn6) uses Dragonfly to distribute model files, refer to #2185[\[7\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn7). If there are developers who are interested in the dragonfly repository agent[\[8\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn8) project, please contact [gaius.qi@gmail.com](mailto:gaius.qi@gmail.com).
 - TorchServer[\[9\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn9) uses Dragonfly to distribute model files. Developers have already participated in the dragonfly endpoint[\[10\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn10) project, and the feature will be released in v2.1.1.
 - Fluid[\[11\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn11) downloads data through Dragonfly when running based on JuiceFS[\[12\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn12), the feature will be released in v2.1.1.
 - Dragonfly helps Volcano Engine AIGC inference to accelerate image through p2p technology[\[13\]](https://www.cncf.io/blog/2023/08/07/dragonfly-v2-1-0-is-released/#fn13).

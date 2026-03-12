@@ -109,9 +109,9 @@ Dragonfly grafana dashboard info is:
 
 | Name                | ID    | Link                                         | Description                                |
 | :------------------ | :---- | :------------------------------------------- | :----------------------------------------- |
-| Dragonfly Manager   | 15945 | https://grafana.com/grafana/dashboards/15945 | Granafa dashboard for dragonfly manager.   |
-| Dragonfly Scheduler | 15944 | https://grafana.com/grafana/dashboards/15944 | Granafa dashboard for dragonfly scheduler. |
-| Dragonfly Seed Peer | 16349 | https://grafana.com/grafana/dashboards/16349 | Granafa dashboard for dragonfly seed peer. |
+| Dragonfly Manager   | 15945 | https://grafana.com/grafana/dashboards/15945 | Grafana dashboard for dragonfly manager.   |
+| Dragonfly Scheduler | 15944 | https://grafana.com/grafana/dashboards/15944 | Grafana dashboard for dragonfly scheduler. |
+| Dragonfly Seed Peer | 16349 | https://grafana.com/grafana/dashboards/16349 | Grafana dashboard for dragonfly seed peer. |
 
 <!-- markdownlint-restore -->
 

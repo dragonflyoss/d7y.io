@@ -485,7 +485,7 @@ In the best case, `dragonfly` can make the same task back-to-source download onl
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 
@@ -494,5 +494,5 @@ In the best case, `dragonfly` can make the same task back-to-source download onl
 ### Nydus community
 
 - Website: [https://nydus.dev/](https://nydus.dev/)
-- Github Repo: [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)
+- GitHub Repo: [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)
 - Slack Channel: [#nydus](https://join.slack.com/t/nydusimageservice/shared_invite/zt-pz4qvl4y-WIh4itPNILGhPS8JqdFm_w)

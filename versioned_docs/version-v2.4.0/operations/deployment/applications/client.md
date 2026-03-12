@@ -27,7 +27,7 @@ splices and returns the entire file, then the P2P download is completed.
 
 ### Hit Local Peer Cache
 
-![client-donwload-hit-local-peer-cache](../../../resource/operations/deployment/applications/client/client-donwload-hit-local-peer-cache.svg)
+![client-download-hit-local-peer-cache](../../../resource/operations/deployment/applications/client/client-download-hit-local-peer-cache.svg)
 
 ### Hit Remote Peer Cache
 

@@ -136,7 +136,7 @@ dfdaemon:
       proxies:
         - regx: blobs/sha256.*
         - regx: .*amazonaws.*
-        # Proxy all http downlowd requests of model bucket path.
+        # Proxy all http download requests of model bucket path.
         - regx: .*models.*
 
 manager:

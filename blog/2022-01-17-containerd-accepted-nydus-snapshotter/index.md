@@ -27,7 +27,7 @@ Millions of containers are created based on nydus image each day in Alibaba Clou
 The underlying technique is a newly designed, container optimized and oriented read-only filesystem named **Rafs**.
 Several approaches are provided to create rafs format container image.
 The image can be pushed and stored in standard registry since it is compatible with OCI image
-and distribution specifications. A nydus image can be converted from a OCI source image where metadata and files
+and distribution specifications. A nydus image can be converted from an OCI source image where metadata and files
 data are split into a "bootstrap" and one or more "blobs" together with necessary manifest.json and config.json.
 Development of integration with Buildkit is in progress.
 

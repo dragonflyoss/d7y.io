@@ -49,7 +49,7 @@ the current OCI image specification. Its key features include:
 * Integrated with existing CNCF project dragonfly to support image distribution in large clusters
 * Different container image storage backends are supported
 
-Nydus mainly consists of a new containier image format and a FUSE (Filesystem in USErspace) daemon to translate it into
+Nydus mainly consists of a new container image format and a FUSE (Filesystem in USErspace) daemon to translate it into
 container accessible mountpoint.
 
 ![nydus-architecture| center | 768x356](nydus-architecture.png)
@@ -62,7 +62,7 @@ It can also optionally use a local directory to cache all container image data t
 
 Internally, nydus splits a container image into two parts: a metadata layer and a data layer. The metadata layer is
 a self-verifiable [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree). Each file and directory
-is a node in the merkle tree with a hash aloneside. A file's hash is the hash of its file content,
+is a node in the merkle tree with a hash alongside. A file's hash is the hash of its file content,
 and a directory's hash is the hash of all of its descendents. Each file is divided into even sized chunks and saved
 in a data layer. File chunks can be shared among different container images by letting file nodes pointing inside
 them point to the same chunk location in the shared data layer.
@@ -83,7 +83,7 @@ data leaking risk.  In contrast, nydus image won't be unpacked to local director
 given that verification can be enforced on every data access to nydus image, the data leak risk
 can be completely avoided by forcing to fetch the data from the trusted image registry again.
 
-![nydus-integraty| center | 768x356](nydus-integrity.png)
+![nydus-integrity| center | 768x356](nydus-integrity.png)
 
 ### The Future of Nydus {#the-future-of-nydus}
 
@@ -113,7 +113,7 @@ doesn't fit well to be a container image format.
 #### Q: How is this different than crfs? {#q-how-is-this-different-than-crfs}
 
 * The basic idea of the two are quite similar. Deep down, the nydus image format supports chunk level data deduplication
-and end-to-end data integraty at runtime, which is an improvement over the stargz format used by crfs.
+and end-to-end data integrity at runtime, which is an improvement over the stargz format used by crfs.
 
 #### Q: How is this different than Teleport of Azure? {#q-how-is-this-different-than-teleport-of-azure}
 
