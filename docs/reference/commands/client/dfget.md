@@ -157,6 +157,44 @@ dfget cos://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<a
 dfget hdfs://<path>/file.txt -O /tmp/file.txt  --hdfs-delegation-token <hadoop_delegation_token>
 ```
 
+#### Download with Hugging Face protocol
+
+```shell
+# Download a single file from a model repository.
+dfget hf://<owner>/<repo>/<path> -O /tmp/model.safetensors
+
+# Download a single file with authentication for private repositories.
+dfget hf://<owner>/<repo>/<path> -O /tmp/model.safetensors --hf-token=<token>
+
+# Download an entire repository.
+dfget hf://<owner>/<repo> -O /tmp/repo/ --recursive
+
+# Download an entire repository from Hugging Face Hub with specified revision. If the revision is not specified, the default value is `main`.
+$ dfget hf://<owner>/<repo> --hf-revision main -O /tmp/repo/ -r
+
+# Download a file from a dataset repository.
+dfget hf://datasets/<owner>/<repo>/<path> -O /tmp/train.json
+```
+
+#### Download with ModelScope protocol
+
+```shell
+# Download a single file from a model repository.
+dfget modelscope://<owner>/<repo>/<path> -O /tmp/model.safetensors
+
+# Download a single file with authentication for private repositories.
+dfget modelscope://<owner>/<repo>/<path> -O /tmp/model.safetensors --ms-token=<token>
+
+# Download an entire repository.
+dfget modelscope://<owner>/<repo> -O /tmp/repo/ --recursive
+
+# Download an entire repository from ModelScope Hub with specified revision. If the revision is not specified, the default value is `master`.
+$ dfget modelscope://<owner>/<repo> --ms-revision main -O /tmp/repo/ -r
+
+# Download a file from a dataset repository.
+dfget modelscope://datasets/<owner>/<repo>/<path> -O /tmp/train.json
+```
+
 <!-- markdownlint-restore -->
 
 ## Log {#log}
