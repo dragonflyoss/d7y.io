@@ -15,143 +15,143 @@ export default function Home() {
   const UserList = [
     {
       imgURL: 'img/user/alibaba-group.svg',
-      herf: 'https://www.alibabagroup.com/',
-      name: ' Alibaba Group',
+      href: 'https://www.alibabagroup.com/',
+      name: 'Alibaba Group',
     },
     {
       imgURL: 'img/user/alibaba-cloud.png',
-      herf: 'https://us.alibabacloud.com/',
+      href: 'https://us.alibabacloud.com/',
       name: 'Alibaba Cloud',
     },
     {
       imgURL: 'img/user/ant-group.png',
-      herf: 'https://www.antgroup.com/',
-      name: ' Ant Group',
+      href: 'https://www.antgroup.com/',
+      name: 'Ant Group',
     },
     {
       imgURL: 'img/user/amap.png',
-      herf: 'https://mobile.amap.com/',
-      name: 'Amap ',
+      href: 'https://mobile.amap.com/',
+      name: 'Amap',
     },
     {
       imgURL: 'img/user/baidu.svg',
-      herf: 'https://baidu.com/',
+      href: 'https://baidu.com/',
       name: 'Baidu',
     },
     {
       imgURL: 'img/user/bilibili.svg',
-      herf: 'https://www.bilibili.com.cn/',
+      href: 'https://www.bilibili.com.cn/',
       name: 'Bilibili',
     },
     {
       imgURL: 'img/user/cainiao.svg',
-      herf: 'https://global.cainiao.com/',
+      href: 'https://global.cainiao.com/',
       name: 'Cai Niao',
     },
     {
       imgURL: 'img/user/china-unicom.svg',
-      herf: 'http://www.chinaunicom.com/',
-      name: ' China Unicom',
+      href: 'http://www.chinaunicom.com/',
+      name: 'China Unicom',
     },
     {
       imgURL: 'img/user/cloudwise.svg',
-      herf: 'https://www.cloudwise.cool/',
-      name: ' Cloud Wise',
+      href: 'https://www.cloudwise.cool/',
+      name: 'Cloud Wise',
     },
     {
       imgURL: 'img/user/daocloud.svg',
-      herf: 'https://www.daocloud.io/',
+      href: 'https://www.daocloud.io/',
       name: 'Dao Cloud',
     },
     {
       imgURL: 'img/user/didi.png',
-      herf: 'https://www.didiglobal.com/',
-      name: ' DiDi',
+      href: 'https://www.didiglobal.com/',
+      name: 'DiDi',
     },
     {
       imgURL: 'img/user/ele.png',
-      herf: 'https://www.ele.me/',
+      href: 'https://www.ele.me/',
       name: 'Eleme',
     },
     {
       imgURL: 'img/user/huawei.svg',
-      herf: 'https://www.huawei.com/cn/',
+      href: 'https://www.huawei.com/cn/',
       name: 'Huawei',
     },
     {
       imgURL: 'img/user/huya.png',
-      herf: 'https://www.huya.com/',
-      name: ' Huya',
+      href: 'https://www.huya.com/',
+      name: 'Huya',
     },
     {
       imgURL: 'img/user/jd.png',
-      herf: 'https://corporate.jd.com/',
-      name: ' JD',
+      href: 'https://corporate.jd.com/',
+      name: 'JD',
     },
     {
       imgURL: 'img/user/jfrog.svg',
-      herf: 'https://jfrog.com/',
-      name: ' JFrog',
+      href: 'https://jfrog.com/',
+      name: 'JFrog',
     },
     {
       imgURL: 'img/user/kuaishou.svg',
-      herf: 'https://kuaishou.com/',
-      name: ' Kuaishou',
+      href: 'https://kuaishou.com/',
+      name: 'Kuaishou',
     },
     {
       imgURL: 'img/user/lazada.svg',
-      herf: 'https://www.lazada.com/',
-      name: ' Lazada',
+      href: 'https://www.lazada.com/',
+      name: 'Lazada',
     },
     {
       imgURL: 'img/user/meituan.svg',
-      herf: 'https://about.meituan.com/',
-      name: ' Meituan',
+      href: 'https://about.meituan.com/',
+      name: 'Meituan',
     },
     {
       imgURL: 'img/user/neteasegames.png',
-      herf: 'https://www.neteasegames.com/',
-      name: ' Net Ease',
+      href: 'https://www.neteasegames.com/',
+      name: 'Net Ease',
     },
     {
       imgURL: 'img/user/qunar.svg',
-      herf: 'https://www.qunar.com/',
-      name: ' Qunar',
+      href: 'https://www.qunar.com/',
+      name: 'Qunar',
     },
     {
       imgURL: 'img/user/shopee.svg',
-      herf: 'https://shopee.com/',
-      name: ' Shopee',
+      href: 'https://shopee.com/',
+      name: 'Shopee',
     },
     {
       imgURL: 'img/user/vivo.svg',
-      herf: 'https://www.vivo.com/',
-      name: ' Vivo',
+      href: 'https://www.vivo.com/',
+      name: 'Vivo',
     },
     {
       imgURL: 'img/user/xiaomi.png',
-      herf: 'https://www.mi.com/global/',
+      href: 'https://www.mi.com/global/',
       name: 'Xiaomi',
     },
     {
       imgURL: 'img/user/xperi.svg',
-      herf: 'https://xperi.com/',
-      name: ' Xperi',
+      href: 'https://xperi.com/',
+      name: 'Xperi',
     },
     {
       imgURL: 'img/user/yahoo.svg',
-      herf: 'https://www.yahoo.com/',
-      name: ' Yahoo',
+      href: 'https://www.yahoo.com/',
+      name: 'Yahoo',
     },
     {
       imgURL: 'img/user/ppio.png',
-      herf: 'https://ppio.com/',
-      name: ' PPIO',
+      href: 'https://ppio.com/',
+      name: 'PPIO',
     },
     {
       imgURL: 'img/user/datadog.png',
-      herf: 'https://www.datadoghq.com/',
-      name: ' DATADOG',
+      href: 'https://www.datadoghq.com/',
+      name: 'DATADOG',
     },
   ];
 
@@ -243,7 +243,7 @@ export default function Home() {
         <div className={styles.headerWrapper}>
           <div className={styles.headerContainer}>
             <div className={styles.containerInfo}>
-              <div className={styles.heroContiner}>
+              <div className={styles.heroContainer}>
                 <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
                 <div className={styles.tagline}>
                   <p className={clsx('hero__subtitle', styles.description)}>
@@ -286,7 +286,7 @@ export default function Home() {
           <div className="row">
             <div className={styles.featuresTitleBox}>
               <h1 className={styles.mainModuleTitle}>
-                <span className={styles.featuresTitleHighling}>
+                <span className={styles.featuresTitleHighlight}>
                   <Translate>Features</Translate>
                 </span>
               </h1>
@@ -304,7 +304,7 @@ export default function Home() {
           </div>
           <div className={clsx('row')}>
             <p className={styles.communitySubtitle}>
-              <Translate>Dragonfly contains many features as an data distribution system.</Translate>
+              <Translate>Dragonfly contains many features as a data distribution system.</Translate>
             </p>
           </div>
           <div className={clsx('row', styles.featuresCardWrapper)}>
@@ -325,7 +325,7 @@ export default function Home() {
         <div className={styles.developmentContainer}>
           <div className="row">
             <h1 className={styles.mainModuleTitle}>
-              <span className={styles.userTitleHighling}>
+              <span className={styles.userTitleHighlight}>
                 <Translate>Milestones</Translate>
               </span>
             </h1>
@@ -368,7 +368,7 @@ export default function Home() {
                   <h2>2017</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>1</div>
                 <div className={styles.developmentLine}></div>
@@ -394,7 +394,7 @@ export default function Home() {
                   <h2>2018</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>2</div>
                 <div className={styles.developmentLine}></div>
@@ -425,7 +425,7 @@ export default function Home() {
                   <h2>2020</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>3</div>
                 <div className={styles.developmentLine}></div>
@@ -454,7 +454,7 @@ export default function Home() {
                   <h2>2021</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>4</div>
                 <div className={styles.developmentLine}></div>
@@ -485,7 +485,7 @@ export default function Home() {
                   <h2>2025</h2>
                 </div>
               </div>
-              <div className={styles.developmentLineWarapper}>
+              <div className={styles.developmentLineWrapper}>
                 <div className={styles.developmentLine}></div>
                 <div className={styles.developmentCircle}>5</div>
                 <div className={styles.developmentLine}></div>
@@ -501,7 +501,7 @@ export default function Home() {
           <div className={styles.userWrapper}>
             <h1 className={styles.useTitle}>
               <Translate>Who is</Translate>
-              <div className={styles.userTitleHighling}>
+              <div className={styles.userTitleHighlight}>
                 <Translate>Using</Translate>
               </div>
               <Translate>Dragonfly</Translate>
@@ -529,7 +529,7 @@ export default function Home() {
               {UserList.map((item, index) => {
                 return (
                   <div className={styles.imageCard} key={index}>
-                    <a href={item.herf} target="_blank" className={styles.userLink}>
+                    <a href={item.href} target="_blank" className={styles.userLink}>
                       <img className={styles.userImage} src={useBaseUrl(item.imgURL)} alt={item.alt} />
                       <div className={styles.userName}>{item.name}</div>
                     </a>
@@ -549,7 +549,7 @@ export default function Home() {
           <div className={styles.communityWrapper}>
             <h1 className={styles.communityTitle}>
               <Translate>Join the</Translate>
-              <div className={styles.userTitleHighling}>
+              <div className={styles.userTitleHighlight}>
                 <Translate>Community</Translate>
               </div>
             </h1>

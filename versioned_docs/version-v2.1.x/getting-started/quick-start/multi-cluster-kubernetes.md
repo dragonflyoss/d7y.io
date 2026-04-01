@@ -20,11 +20,11 @@ and internal peers can only schedule and transmit data in a kubernetes cluster.
 You can have a quick start following [Helm Charts](../installation/helm-charts.md).
 We recommend to use `containerd`.
 
-| Runtime    | Version  | Document                                                              |
-| ---------- | -------- | --------------------------------------------------------------------- |
-| containerd | v1.1.0+  | [Link](../../operations/integrations/container-runtime/containerd.md) |
-| Docker     | v20.0.1+ | [Link](../../operations/integrations/container-runtime/docker.md)     |
-| CRI-O      | All      | [Link](../../operations/integrations/container-runtime/cri-o.md)      |
+| Runtime                                                                     | Version  |
+| --------------------------------------------------------------------------- | -------- |
+| [containerd](../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
+| [Docker](../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
+| [CRI-O](../../operations/integrations/container-runtime/cri-o.md)           | All      |
 
 ## Setup kubernetes cluster
 
@@ -274,7 +274,7 @@ Create Dragonfly cluster B record successfully.
 
 ### Use scopes to distinguish different Dragonfly clusters
 
-The Dragonfly cluster needs to serve the scope. It wil provide scheduler services and
+The Dragonfly cluster needs to serve the scope. It will provide scheduler services and
 seed peer services to peers in the scope. The scopes of the Dragonfly cluster are configured
 when the console is created and updated. The scopes of the peer are configured in peer YAML config,
 the fields are `host.idc`, `host.location` and `host.advertiseIP`,

@@ -180,7 +180,7 @@ dragonfly-seed-client-1             1/1     Running   0             17m
 dragonfly-seed-client-2             1/1     Running   0             17m
 ```
 
-## Install Python packages using pip and distribute traffic through Draognfly
+## Install Python packages using pip and distribute traffic through Dragonfly
 
 ### Create a configuration file for pip
 

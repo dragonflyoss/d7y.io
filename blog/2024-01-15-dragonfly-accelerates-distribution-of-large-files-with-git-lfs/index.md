@@ -20,7 +20,7 @@ Git LFS addresses this issue by storing these large files on a separate server a
 
 #### Git LFS manages large files
 
-Github and GitLab usually manage large files based on Git LFS.
+GitHub and GitLab usually manage large files based on Git LFS.
 
 - GitHub uses Git LFS refer to [About Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).
 - GitLab uses Git LFS refer to [Git Large File Storage](https://docs.gitlab.com/ee/topics/git/lfs/).
@@ -106,18 +106,22 @@ kubectl config use-context kind-kind
 Pull dragonfly latest images:
 
 ```bash
-docker pull dragonflyoss/scheduler:latestdocker pull dragonflyoss/manager:latestdocker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
 Kind cluster loads dragonfly latest images:
 
 ```bash
-kind load docker-image dragonflyoss/scheduler:latestkind load docker-image dragonflyoss/manager:latestkind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
 ##### Create dragonfly cluster based on helm charts
 
-Create helm charts configuration file charts-config.yaml. Add the github-cloud.githubusercontent.com rule to dfdaemon.config.proxy.proxies.regx to forward the HTTP file download of content storage of Git LFS to the P2P network. And dfdaemon.config.proxy.defaultFilter adds X-Amz-Algorithm, X-Amz-Credential, X-Amz-Date, X-Amz-Expires, X-Amz-Signature and X-Amz-SignedHeaders parameters to filter the query parameters. Dargonfly generates a unique task id based on the URL, so it is necessary to filter the query parameters to generate a unique task id. Configuration content is as follows:
+Create helm charts configuration file charts-config.yaml. Add the github-cloud.githubusercontent.com rule to dfdaemon.config.proxy.proxies.regx to forward the HTTP file download of content storage of Git LFS to the P2P network. And dfdaemon.config.proxy.defaultFilter adds X-Amz-Algorithm, X-Amz-Credential, X-Amz-Date, X-Amz-Expires, X-Amz-Signature and X-Amz-SignedHeaders parameters to filter the query parameters. Dragonfly generates a unique task id based on the URL, so it is necessary to filter the query parameters to generate a unique task id. Configuration content is as follows:
 
 ```yaml
 scheduler:
@@ -236,7 +240,7 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-### Git LFS downlads large files via dragonfly
+### Git LFS downloads large files via dragonfly
 
 Proxy Git LFS download requests to Dragonfly Peer Proxy(`http://127.0.0.1:65001`) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
 
@@ -282,7 +286,7 @@ Test results show Git LFS and Dragonfly P2P integration. It can effectively redu
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
 - Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
@@ -290,5 +294,5 @@ Test results show Git LFS and Dragonfly P2P integration. It can effectively redu
 ### Git LFS
 
 - Website: [https://git-lfs.com/](https://git-lfs.com/)
-- Github Repo: [https://github.com/git-lfs/git-lfs](https://github.com/git-lfs/git-lfs)
+- GitHub Repo: [https://github.com/git-lfs/git-lfs](https://github.com/git-lfs/git-lfs)
 - Document: [https://github.com/git-lfs/git-lfs/tree/main/docs](https://github.com/git-lfs/git-lfs/tree/main/docs)

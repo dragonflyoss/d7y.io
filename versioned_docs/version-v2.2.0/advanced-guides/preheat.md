@@ -256,7 +256,7 @@ The filteredQueryParams is used to generate a unique preheat task and filter unn
 Click the `SAVE` to generate the preheat task,the generated preheat task will not return results immediately and
 you need to wait.
 
-![penging-preheat](../resource/advanced-guides/preheat/pending-preheat.png)
+![pending-preheat](../resource/advanced-guides/preheat/pending-preheat.png)
 
 ### Preheat Success
 
@@ -332,13 +332,13 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 ### Create instance
 
 Open the harbor UI, go to `Distributions` item under `Administration`
-and click the `NEW INSTANCE` button to create create instance.
+and click the `NEW INSTANCE` button to create an instance.
 
 **Step 1:** Enter REST address of the Dragonfly Manager.
 
 **Step 2:** Auth Mode selects OAuth for authentication.
 
-**Step 3:** Enter personsal assess token.
+**Step 3:** Enter personal access token.
 
 ![create-instance](../resource/advanced-guides/preheat/create-instance.png)
 
@@ -374,7 +374,7 @@ If `Cluster IDs` is empty, it means to preheat all clusters.
 
 Click the `EXECUTE` to execute the preheating task.
 
-![exectu-preheat](../resource/advanced-guides/preheat/exectu-preheat.png)
+![execute-preheat](../resource/advanced-guides/preheat/execute-preheat.png)
 
 If the status is SUCCESS, the preheating is successful.
 

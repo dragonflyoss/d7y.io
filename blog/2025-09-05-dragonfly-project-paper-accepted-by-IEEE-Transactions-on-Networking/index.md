@@ -72,6 +72,6 @@ This paper presents an efficient and scalable peer-to-peer (P2P) model distribut
 
 - Finally, it designs the Trainer module, which integrates asynchronous model training and inference with graph learning algorithms to support incremental learning for bursty tasks.
 
-## Github Repository
+## GitHub Repository
 
 ![github](images/github.png)

@@ -1,5 +1,5 @@
 ---
-title: Using dragonfly to distribute images and files for multi-cluster kuberenetes
+title: Using dragonfly to distribute images and files for multi-cluster kubernetes
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
@@ -244,7 +244,7 @@ Create dragonfly cluster B record successfully.
 
 ### Use scopes to distinguish different dragonfly clusters
 
-The dragonfly cluster needs to serve the scope. It wil provide scheduler services and seed peer services to peers in the scope. The scopes of the dragonfly cluster are configured when the console is created and updated. The scopes of the peer are configured in peer YAML config, the fields are host.idc, host.location and host.advertiseIP, refer to [dfdaemon config](https://d7y.io/docs/next/reference/configuration/dfdaemon).
+The dragonfly cluster needs to serve the scope. It will provide scheduler services and seed peer services to peers in the scope. The scopes of the dragonfly cluster are configured when the console is created and updated. The scopes of the peer are configured in peer YAML config, the fields are host.idc, host.location and host.advertiseIP, refer to [dfdaemon config](https://d7y.io/docs/next/reference/configuration/dfdaemon).
 
 If the peer scopes match the dragonfly cluster scopes, then the peer will use the dragonfly cluster’s scheduler and seed peer first, and if there is no matching dragonfly cluster then use the default dragonfly cluster.
 
@@ -484,7 +484,7 @@ When pull image hits cache of remote peer, peer uses cluster-b’s scheduler and
 
 Dragonfly Website: [https://d7y.io/](https://d7y.io/)
 
-Dragonfly Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+Dragonfly GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 
 Dragonfly Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 
@@ -494,4 +494,4 @@ Dragonfly Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 Nydus Website: [https://nydus.dev/](https://nydus.dev/)
 
-Nydus Github Repo: [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)
+Nydus GitHub Repo: [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)

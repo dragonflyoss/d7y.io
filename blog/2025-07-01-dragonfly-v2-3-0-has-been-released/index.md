@@ -4,7 +4,7 @@ tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
-Dragonfly v2.3.0 is released! 🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happend and welcome you to visit [d7y.io](https://d7y.io) website.
+Dragonfly v2.3.0 is released! 🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happen and welcome you to visit [d7y.io](https://d7y.io) website.
 
 ![dragonfly](images/dragonfly-linear.png)
 
@@ -122,7 +122,7 @@ This feature ensures efficient monitoring and management of GC processes, offeri
 File download needs to be done in a way that is efficient and secure. If users are downloading a large file,
 it is not efficient to download the file and copy to the output path. Instead, we can create a hard link to
 the file and send the link to the user. This way, we can avoid copying the file and save time and resources.
-If hard link fails (e.g. due to different file systems), dfdaemon will fallback to copying the file.
+If hard link fails (e.g. due to different file systems), dfdaemon will fall back to copying the file.
 
 For more information, please refer to the [file download workflow](https://github.com/dragonflyoss/design/blob/main/systems-analysis/file-download-workflow-with-hard-link/README.md).
 
@@ -192,6 +192,6 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 - Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
 - Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
-## Dragonfly Github
+## Dragonfly GitHub
 
 ![p13](images/p13.webp)

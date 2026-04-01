@@ -123,7 +123,7 @@ download:
   prefetch: false
   # Golang transport option.
   transportOption:
-    # Ddial timeout.
+    # Dial timeout.
     dialTimeout: 2s
     # Keep alive.
     keepAlive: 30s
@@ -251,7 +251,7 @@ storage:
   # Disk used percent gc threshold, when the disk used percent exceeds, the oldest tasks will be reclaimed.
   # eg, diskGCThresholdPercent=80, when the disk usage is above 80%, start to gc the oldest tasks.
   diskGCThresholdPercent: 80
-  # Set to ture for reusing underlying storage for same task id.
+  # Set to true for reusing underlying storage for same task id.
   multiplex: true
 
 # Health service option.
@@ -375,7 +375,7 @@ security:
   #   force: both ClientHandshake and ServerHandshake are only support tls
   #   prefer: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support tls
   #   default: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support insecure (non-tls)
-  # Notice: If the drgaonfly service has been deployed, a two-step upgrade is required.
+  # Notice: If the dragonfly service has been deployed, a two-step upgrade is required.
   # The first step is to set tlsPolicy to default, and then upgrade the dragonfly services.
   # The second step is to set tlsPolicy to prefer, and then completely upgrade the dragonfly services.
   tlsPolicy: 'prefer'

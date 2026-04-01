@@ -8,7 +8,7 @@ hide_table_of_contents: false
 
 <!-- [![Dragonfly logo](https://landscape.cncf.io/logos/60b07adb6812ca92688c7a1c33b13001022b0dd73cd3b8e64a415e4f003cde16.svg)](https://www.cncf.io/projects/dragonfly "Go to Dragonfly") -->
 
-Dragonfly v2.2.0 is released! 🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happend and welcome you to visit [d7y.io](https://d7y.io/) website.
+Dragonfly v2.2.0 is released! 🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happen and welcome you to visit [d7y.io](https://d7y.io/) website.
 
 <!-- truncate -->
 
@@ -28,7 +28,7 @@ Client now supports rate limiting for prefetch requests, which can prevent netwo
 
 ![code](https://www.cncf.io/wp-content/uploads/2025/01/unnamed-64.jpg)
 
-The following diagram illustrates the usage of download rate limit, upload rate limir, and prefetct rate limit for the client.
+The following diagram illustrates the usage of download rate limit, upload rate limir, and prefetch rate limit for the client.
 
 ![rate limit](https://www.cncf.io/wp-content/uploads/2024/12/dragonfly-1.png)
 
@@ -105,7 +105,7 @@ Grafana dashboards are listed below:
 | **Name**              | **ID** | **Link**                                                                                     | **Description**                                                   |
 | --------------------- | ------ | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | Dragonfly Manager     | 15945  | [https://grafana.com/grafana/dashboards/15945](https://grafana.com/grafana/dashboards/15945) | Grafana dashboard for dragonfly manager.                          |
-| Dragonfly Scheduler   | 15944  | [https://grafana.com/grafana/dashboards/15944](https://grafana.com/grafana/dashboards/15944) | Granafa dashboard for dragonfly scheduler.                        |
+| Dragonfly Scheduler   | 15944  | [https://grafana.com/grafana/dashboards/15944](https://grafana.com/grafana/dashboards/15944) | Grafana dashboard for dragonfly scheduler.                        |
 | Dragonfly Client      | 21053  | [https://grafana.com/grafana/dashboards/21053](https://grafana.com/grafana/dashboards/21053) | Grafana dashboard for dragonfly client and dragonfly seed client. |
 | Dragonfly Seed Client | 21054  | [https://grafana.com/grafana/dashboards/21054](https://grafana.com/grafana/dashboards/21054) | Grafana dashboard for dragonfly seed client.                      |
 
@@ -187,6 +187,6 @@ You can see [CHANGELOG](https://github.com/dragonflyoss/dragonfly/blob/main/CHAN
 - Dragonfly Charts Repository: [https://github.com/dragonflyoss/helm-charts](https://github.com/dragonflyoss/helm-charts)
 - Dragonfly Monitor Repository: [https://github.com/dragonflyoss/monitoring](https://github.com/dragonflyoss/monitoring)
 
-<!-- ## Dragonfly Github
+<!-- ## Dragonfly GitHub
 
 ![QR code](https://www.cncf.io/wp-content/uploads/2025/01/unnamed-75.png) -->

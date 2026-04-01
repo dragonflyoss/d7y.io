@@ -209,7 +209,7 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-## Install Stargz Snapshotter for containerd with Systemd {#install-stargz-Snapshotter-for-containerd-withs-ystemd}
+## Install Stargz Snapshotter for containerd with Systemd {#install-stargz-Snapshotter-for-containerd-with-systemd}
 
 For detailed stargz installation documentation based on containerd environment, please refer to
 [stargz-setup-for-containerd-environment](https://github.com/containerd/stargz-snapshotter/blob/main/docs/INSTALL.md).

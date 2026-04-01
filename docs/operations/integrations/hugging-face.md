@@ -202,6 +202,70 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
+## Use dfget to download files with `hf://` protocol {#use-dfget-to-download-files-with-hf-protocol}
+
+> Note: To use dfget inside an inference container, you must install dfget and transfer file content from dfdaemon's Unix
+> domain socket. For details, refer to [Download in Container](../../reference/commands/client/dfget.md#download-in-container).
+
+Dragonfly's `dfget` command natively supports the `hf://` protocol, enabling direct P2P downloads from
+Hugging Face Hub without any proxy configuration. This is the simplest way to download models and datasets
+with Dragonfly acceleration.
+
+### URL Format {#url-format}
+
+The `hf://` URL format is:
+
+```text
+hf://[<repo_type>/]<owner>/<repo>[/<path>]
+```
+
+- **repo_type** (optional): `datasets`, `spaces`, or `models` (default).
+- **owner/repo**: The repository ID (e.g., `meta-llama/Llama-2-7b`).
+- **path** (optional): A specific file within the repository.
+- **revision** (optional): A branch, tag, or commit hash (defaults to `main`).
+
+### Download a single file {#download-a-single-file-with-dfget}
+
+```shell
+dfget hf://meta-llama/Llama-2-7b/config.json -O /tmp/config.json
+```
+
+### Download a single file with authentication {#download-a-single-file-with-authentication}
+
+For private repositories or to increase rate limits, use the `--hf-token` flag:
+
+```shell
+dfget hf://meta-llama/Llama-2-7b/config.json -O /tmp/config.json --hf-token=<token>
+```
+
+### Download an entire repository {#download-an-entire-repository-with-dfget}
+
+Use the `--recursive` flag to download all files in a repository:
+
+```shell
+dfget hf://meta-llama/Llama-2-7b -O /tmp/llama-2-7b/ --recursive
+```
+
+### Download from a specific revision {#download-from-a-specific-revision-with-dfget}
+
+Set `--hf-revision` to download from a specific branch, tag, or commit:
+
+```shell
+dfget hf://meta-llama/Llama-2-7b --hf-revision v1.0 -O /tmp/llama-2-7b/ --recursive
+```
+
+### Download a dataset {#download-a-dataset-with-dfget}
+
+Prefix the URL with `datasets/` to download from a dataset repository:
+
+```shell
+# Download a specific file from a dataset.
+dfget hf://datasets/rajpurkar/squad/train-v2.0.json -O /tmp/train.json
+
+# Download an entire dataset.
+dfget hf://datasets/rajpurkar/squad -O /tmp/squad/ --recursive
+```
+
 ## Use Hub Python Library to download files and distribute traffic through Draognfly {#use-hub-python-library-to-download-files-and-distribute-traffic-through-draognfly}
 
 Any API in the [Hub Python Library](https://huggingface.co/docs/huggingface_hub/index)

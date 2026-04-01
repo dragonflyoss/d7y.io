@@ -70,13 +70,13 @@ dfget [command]
 
 ### Example {#example}
 
-#### Download with HTTP protocol {#downlad-with-http}
+#### Download with HTTP protocol {#download-with-http}
 
 ```shell
 dfget -u "http://example.com/object" -O /path/to/output
 ```
 
-#### Download with OSS protocol {#downlad-with-oss}
+#### Download with OSS protocol {#download-with-oss}
 
 Dragonfly supports download objects from Alibaba Cloud Object Storage Service (OSS).
 You can download via `dfget` command.

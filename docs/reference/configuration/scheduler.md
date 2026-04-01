@@ -153,10 +153,14 @@ manager:
 
 # Seed peer configuration.
 seedPeer:
-  # Scheduler enable seed peer as P2P peer,
-  # if the value is false, P2P network will not be back-to-source through
-  # seed peer but by peer and preheat feature does not work.
-  enable: true
+  # # GRPC client tls configuration.
+  # tls:
+  #   # CA certificate file path for mTLS.
+  #   caCert: /etc/ssl/certs/ca.crt
+  #   # Certificate file path for mTLS.
+  #   cert: /etc/ssl/certs/client.crt
+  #   # Key file path for mTLS.
+  #   key: /etc/ssl/private/client.pem
 
 # Machinery async job configuration,
 # see https://github.com/RichardKnop/machinery.
