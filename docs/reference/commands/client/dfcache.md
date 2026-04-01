@@ -4,7 +4,7 @@ title: Dfcache
 slug: /reference/commands/client/dfcache/
 ---
 
-`dfcache` is the cache client to of dragonfly that communicates with dfdaemon and operates on files in P2P network,
+`dfcache` is the command-line tool of dragonfly that communicates with dfdaemon and operates on files in P2P network,
 and it can copy multiple replicas during import. P2P cache is effectively used for fast read and write cache.
 
 ## Usage
