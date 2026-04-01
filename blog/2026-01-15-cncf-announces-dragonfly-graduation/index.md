@@ -130,6 +130,8 @@ drive the future evolution of cloud native distribution technologies.”
 
 <!-- markdownlint-enable MD036 -->
 
+<!-- truncate -->
+
 ### TOC Sponsors
 
 “We’re grateful to the TOC members who dedicated significant time to the technical due diligence required for

@@ -39,6 +39,8 @@ Here is a brief introduction of the two scenarios that are currently encountered
 
 Whether it is the image repository service itself or the underlying storage, there will be bandwidth and QPS limitations in the end. If you rely solely on the bandwidth and QPS provided by the server, it is easy to be unable to meet the demand. Therefore, P2P needs to be introduced to reduce server pressure and meet the demand for large-scale concurrent image pulling.
 
+<!-- truncate -->
+
 Investigation of image distribution system based on P2P technology
 
 There are several P2P projects in the open source community. Here is a brief introduction to these projects.
