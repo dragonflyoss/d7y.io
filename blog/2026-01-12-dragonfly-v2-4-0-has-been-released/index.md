@@ -17,7 +17,7 @@ Dragonfly v2.4.0 is released!🎉🎉🎉 Thanks the [contributors](https://gith
 A two-stage scheduling algorithm combining central scheduling with node-level secondary scheduling to
 optimize P2P download performance based on real-time load awareness.
 
-![p1](images/p1.svg)
+<img src={require('./images/p1.svg').default} alt="p1" />
 
 For more information, please refer to the [Scheduling](https://d7y.io/docs/next/operations/deployment/applications/scheduler/#scheduling).
 
@@ -33,7 +33,7 @@ For more information, please refer to the [TCP Protocol Support for P2P File Tra
 
 A SDK for routing User requests to Seed Peers using consistent hashing, replacing the previous Kubernetes Service load balancing approach.
 
-![p2](images/p2.svg)
+<img src={require('./images/p2.svg').default} alt="p2" />
 
 For more details, please refer to [Request SDK](https://d7y.io/docs/next/advanced-guides/request-sdk/).
 

@@ -16,6 +16,8 @@ Dragonfly v2.0.9 is released! 🎉🎉🎉 Thanks to the [Google Cloud Platform]
 
 ![GitHub snippit](./github-snippit.avif)
 
+<!-- truncate -->
+
 ## **Features**
 
 - Download tasks based on priority. Priority can be passed as parameter during the download task, or can be associated with priority in the application of the Manager console, refer to priority [protoc definition](https://github.com/dragonflyoss/api/blob/main/pkg/apis/common/v2/common.proto#L74).
