@@ -12,6 +12,7 @@ const config = {
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownImages: 'ignore', // 忽略 SVG 图片尺寸读取警告
     },
     mermaid: true,
   },
@@ -25,7 +26,8 @@ const config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars/docs.js'),
-          editUrl: function ({ locale, docPath }) {
+          // @ts-ignore
+          editUrl: function ({ docPath }) {
             return `https://github.com/dragonflyoss/d7y.io/edit/main/docs/${docPath}`;
           },
           showLastUpdateAuthor: true,

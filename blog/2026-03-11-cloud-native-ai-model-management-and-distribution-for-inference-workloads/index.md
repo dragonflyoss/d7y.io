@@ -15,6 +15,8 @@ _Reviewer:_
 - _Sascha Grunert, CRI-O Maintainer_
 - _Wei Fu, containerd Maintainer_
 
+<!-- truncate -->
+
 ## The weight of AI models: Why infrastructure always arrives slowly
 
 As AI adoption accelerates across industries, organizations face a critical bottleneck that is often overlooked until it
