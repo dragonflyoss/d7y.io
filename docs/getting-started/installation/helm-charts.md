@@ -168,8 +168,6 @@ Pull `alpine:3.19` image in kind-worker node:
 docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 ```
 
-### Verify {#verify}
-
 You can execute the following command to check if the `alpine:3.19` image is distributed via Dragonfly.
 
 <!-- markdownlint-disable -->
@@ -263,7 +261,286 @@ time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
 When pull image hits cache of local peer, it takes `7.432s` to download the
 `alpine:3.19` image.
 
-## Preheat image {#preheat-image}
+## Advanced Features & Scenarios {#advanced-features-and-scenarios}
+
+### Using Dragonfly with webhook injection {#using-dragonfly-with-webhook-injection}
+
+Dragonfly provides a webhook injector that automatically injects Dragonfly client binaries and configurations into
+application Pods via a Kubernetes mutating admission webhook. This enables any Pod to use Dragonfly for downloading
+files without modifying the container image.
+
+#### Prerequisites for webhook {#prerequisites-for-webhook}
+
+The webhook injector requires cert-manager to manage TLS certificates for the webhook server.
+
+Install cert-manager:
+
+```shell
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+```
+
+Wait for cert-manager to be ready:
+
+```shell
+kubectl wait --for=condition=Available deployment --all -n cert-manager --timeout=300s
+```
+
+#### Deploy Dragonfly with webhook injector {#deploy-dragonfly-with-webhook-injector}
+
+Create the Helm Charts configuration file `values.yaml` with the webhook injector enabled:
+
+```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
+
+injector:
+  enable: true
+  replicas: 2
+  image:
+    registry: docker.io
+    repository: dragonflyoss/injector
+    tag: latest
+  initContainerImage:
+    registry: docker.io
+    repository: dragonflyoss/client
+    tag: latest
+  certManager:
+    enable: true
+    issuer:
+      name: ''
+      kind: Issuer
+      create: true
+```
+
+Create a Dragonfly cluster using the configuration file:
+
+<!-- markdownlint-disable -->
+
+```shell
+$ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
+$ helm install --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f values.yaml
+NAME: dragonfly
+LAST DEPLOYED: Fri Apr  3 11:25:25 2026
+NAMESPACE: dragonfly-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the manager address by running these commands:
+  export MANAGER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=manager" -o jsonpath={.items[0].metadata.name})
+  export MANAGER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $MANAGER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace dragonfly-system port-forward $MANAGER_POD_NAME 8080:$MANAGER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8080 to use your manager"
+
+2. Get the scheduler address by running these commands:
+  export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
+  export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8002 to use your scheduler"
+
+3. Configure runtime to use dragonfly:
+  https://d7y.io/docs/getting-started/quick-start/kubernetes/
+```
+
+<!-- markdownlint-restore -->
+
+#### Inject Dragonfly Binaries into a Pod {#inject-dragonfly-binaries-into-a-pod}
+
+Create a Pod configuration file pod.yaml with Dragonfly injection annotations:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod
+  annotations:
+    dragonfly.io/inject: 'true'
+    dragonfly.io/init-container-image: 'dragonflyoss/client:latest'
+    dragonfly.io/skip-unix-sock-inject: 'false'
+spec:
+  containers:
+    - name: busybox-container
+      image: debian:stable-slim
+      imagePullPolicy: IfNotPresent
+      command: ['/bin/sh', '-c', "echo 'Hello from BusyBox!'; sleep 3600"]
+      resources:
+        limits:
+          memory: '128Mi'
+          cpu: '100m'
+        requests:
+          memory: '64Mi'
+          cpu: '50m'
+```
+
+Install the Pod:
+
+```shell
+kubectl apply -f pod.yaml
+```
+
+Check that the Pod is running:
+
+```shell
+$ kubectl get po -owide
+NAME       READY   STATUS    RESTARTS   AGE   IP            NODE                 NOMINATED NODE   READINESS GATES
+test-pod   1/1     Running   0          38s   10.244.0.41   kind-control-plane   <none>           <none>
+```
+
+#### Verify webhook injection {#verify-webhook-injection}
+
+Describe the Pod to verify the webhook injected the init container, volumes, and volume mounts:
+
+```shell
+$ kubectl describe po test-pod
+Name:             test-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             kind-control-plane/192.168.97.2
+Start Time:       Fri, 03 Apr 2026 11:34:29 +0800
+Labels:           <none>
+Annotations:      dragonfly.io/init-container-image: dragonflyoss/client:latest
+                  dragonfly.io/inject: true
+                  dragonfly.io/skip-unix-sock-inject: false
+Status:           Running
+IP:               10.244.0.41
+IPs:
+  IP:  10.244.0.41
+Init Containers:
+  dragonfly-binaries:
+    Container ID:  containerd://32e5f73e389c2222e01e64220ae1c5b25792e3716d39e8b49cd642ac8246cb6d
+    Image:         dragonflyoss/client:latest
+    Image ID:      docker.io/library/import-2026-04-03@sha256:9dca0342ee7b9320d1a87d7f6e98a11aa05f2fc716e12b370484dd3d0e1eab3d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      install
+      -D
+      /usr/local/bin/dfget
+      /usr/local/bin/dfcache
+      /usr/local/bin/dfstore
+      /usr/local/bin/dfdaemon
+      -t
+      /dragonfly/bin/
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Fri, 03 Apr 2026 11:34:29 +0800
+      Finished:     Fri, 03 Apr 2026 11:34:30 +0800
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /dragonfly/bin from dragonfly-binaries-volume (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-prcc6 (ro)
+Containers:
+  busybox-container:
+    Container ID:  containerd://f184c726f011d538685b6658bea97353300b4b91b728422c5841de9f6c8089d0
+    Image:         debian:stable-slim
+    Image ID:      docker.io/library/debian@sha256:99fc6d2a0882fcbcdc452948d2d54eab91faafc7db037df82425edcdcf950e1f
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -c
+      echo 'Hello from BusyBox!'; sleep 3600
+    State:          Running
+      Started:      Fri, 03 Apr 2026 11:35:05 +0800
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  128Mi
+    Requests:
+      cpu:        50m
+      memory:     64Mi
+    Environment:  <none>
+    Mounts:
+      /dragonfly/bin from dragonfly-binaries-volume (rw)
+      /usr/local/bin/dfcache from dragonfly-binaries-volume (ro,path="dfcache")
+      /usr/local/bin/dfdaemon from dragonfly-binaries-volume (ro,path="dfdaemon")
+      /usr/local/bin/dfget from dragonfly-binaries-volume (ro,path="dfget")
+      /usr/local/bin/dfstore from dragonfly-binaries-volume (ro,path="dfstore")
+      /var/run/dragonfly/dfdaemon.sock from dfdaemon-unix-sock (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-prcc6 (ro)
+...
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  57s   default-scheduler  Successfully assigned default/test-pod to kind-control-plane
+  Normal  Pulled     57s   kubelet            Container image "dragonflyoss/client:latest" already present on machine
+  Normal  Created    57s   kubelet            Created container dragonfly-binaries
+  Normal  Started    57s   kubelet            Started container dragonfly-binaries
+  Normal  Pulling    55s   kubelet            Pulling image "debian:stable-slim"
+  Normal  Pulled     21s   kubelet            Successfully pulled image "debian:stable-slim" in 33.986s (33.986s including waiting). Image size: 30148894 bytes.
+  Normal  Created    21s   kubelet            Created container busybox-container
+  Normal  Started    21s   kubelet            Started container busybox-container
+```
+
+Verify that the Dragonfly binaries are available inside the container:
+
+```shell
+$ kubectl exec -it test-pod -- bash
+$ which dfget dfcache dfstore dfdaemon
+/usr/local/bin/dfget
+/usr/local/bin/dfcache
+/usr/local/bin/dfstore
+/usr/local/bin/dfdaemon
+```
+
+#### Download files using dfget {#download-files-using-dfget}
+
+Use dfget inside the injected Pod to download files through Dragonfly:
+
+<!-- markdownlint-disable -->
+
+```shell
+$ kubectl exec -it test-pod -- dfget https://github.com/dragonflyoss/client/releases/download/v1.2.17/dragonfly-client-v1.2.17-x86_64-unknown-linux-musl.tar.gz --output dragonfly-client.tar.gz
+/dragonflyoss/client/releases/download/v1.2.17/dragonfly-client-v1.2.17-x86_64-unknown-linux-musl.tar.gz
+[00:00:18] [============================================================] 100% (1.48 MiB/s, 0.0s)
+```
+
+<!-- markdownlint-restore -->
+
+### Preheat image {#preheat-image}
 
 Expose manager's port `8080`:
 
