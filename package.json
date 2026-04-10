@@ -73,7 +73,8 @@
   },
   "repository": "git@github.com:dragonflyoss/d7y.io.git",
   "resolutions": {
-    "cheerio": "<1.0.0"
+    "cheerio": "<1.0.0",
+    "webpackbar": "^7.0.0"
   },
   "engines": {
     "node": ">=18.0"
