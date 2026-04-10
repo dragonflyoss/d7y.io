@@ -11,6 +11,7 @@ module.exports = {
           collapsed: false,
           items: [
             'sessions/en/2026-04-03',
+            'sessions/en/2026-03-26',
             'sessions/en/2025-11-13',
             'sessions/en/2024-03-23',
             'sessions/en/2023-05-02',
