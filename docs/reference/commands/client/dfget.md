@@ -76,10 +76,10 @@ Once set up, use the dfget command with the `--transfer-from-dfdaemon` flag to d
 dfget --transfer-from-dfdaemon https://<host>:<port>/<path> -O /tmp/file.txt
 ```
 
-`--transfer-from-dfdaemon` specify whether to transfer the content of downloading file from dfdaemon's unix domain socket. If it is `true`,
-dfget will call dfdaemon to download the file, and dfdaemon will return the content of downloading file to
-dfget via unix domain socket, and dfget will copy the content to the output path. If it is `false`, dfdaemon will
-download the file and hardlink or copy the file to the output path.
+`--transfer-from-dfdaemon` specify whether to transfer the content of downloading file from dfdaemon's unix domain
+socket. If it is `true`, dfget will call dfdaemon to download the file, and dfdaemon will return the content
+of downloading file to dfget via unix domain socket, and dfget will copy the content to the output path.
+If it is `false`, dfdaemon will download the file and hardlink or copy the file to the output path.
 
 ### Download with different protocols {#download-with-different-protocols}
 
@@ -121,6 +121,8 @@ dfget abs://<container>/<path> -O /tmp/path/ --recursive --storage-access-key-id
 
 #### Download with OSS protocol
 
+<!-- markdownlint-disable -->
+
 ```shell
 # Download a file.
 dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
@@ -129,7 +131,11 @@ dfget oss://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget oss://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
+<!-- markdownlint-restore -->
+
 #### Download with OBS protocol
+
+<!-- markdownlint-disable -->
 
 ```shell
 # Download a file.
@@ -139,9 +145,13 @@ dfget obs://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget obs://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
+<!-- markdownlint-restore -->
+
 #### Download with COS protocol
 
 > Note: The endpoint does not require `BucketName-APPID`, just --storage-endpoint=cos.region.myqcloud.com.
+
+<!-- markdownlint-disable -->
 
 ```shell
 # Download a file.
@@ -151,6 +161,8 @@ dfget cos://<bucket>/<path> -O /tmp/file.txt --storage-access-key-id=<access_key
 dfget cos://<bucket>/<path> -O /tmp/path/ --recursive --storage-access-key-id=<access_key_id> --storage-access-key-secret=<access_key_secret> --storage-endpoint=<endpoint>
 ```
 
+<!-- markdownlint-restore -->
+
 #### Download with HDFS protocol
 
 ```shell
@@ -158,6 +170,8 @@ dfget hdfs://<path>/file.txt -O /tmp/file.txt  --hdfs-delegation-token <hadoop_d
 ```
 
 #### Download with Hugging Face protocol
+
+<!-- markdownlint-disable -->
 
 ```shell
 # Download a single file from a model repository.
@@ -176,7 +190,11 @@ $ dfget hf://<owner>/<repo> --hf-revision main -O /tmp/repo/ -r
 dfget hf://datasets/<owner>/<repo>/<path> -O /tmp/train.json
 ```
 
+<!-- markdownlint-restore -->
+
 #### Download with ModelScope protocol
+
+<!-- markdownlint-disable -->
 
 ```shell
 # Download a single file from a model repository.

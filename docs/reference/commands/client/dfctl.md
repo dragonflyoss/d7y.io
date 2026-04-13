@@ -23,6 +23,22 @@ Delete a task in client's local storage.
 dfctl task rm <ID>
 ```
 
+Preheat a file task.
+
+```shell
+dfctl task preheat http://example.com/file.txt --scheduler-endpoint http://scheduler-service:8002
+```
+
+<!-- markdownlint-disable -->
+
+Preheat a image task.
+
+```shell
+dfctl task preheat oci://docker.io/library/nginx:latest --scheduler-endpoint http://scheduler-service:8002 --username <USERNAME>  --password <PASSWORD>
+```
+
+<!-- markdownlint-restore -->
+
 ### Persistent Task
 
 List all persistent tasks in client's local storage.
