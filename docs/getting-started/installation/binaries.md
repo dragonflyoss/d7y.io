@@ -145,12 +145,13 @@ refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 # Seed Peer configuration.
+host:
+  schedulerClusterID: 1
 manager:
   addr: http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
-  clusterID: 1
 ```
 
 ##### Option 2: Setup Dfdaemon as Peer {#setup-dfdaemon-as-peer-rpm}
@@ -226,12 +227,13 @@ refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
 
 ```shell
 # Seed Peer configuration.
+host:
+  schedulerClusterID: 1
 manager:
   addr: http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
-  clusterID: 1
 ```
 
 ##### Option 2: Setup Dfdaemon as Peer {#setup-dfdaemon-as-peer-deb}
@@ -395,12 +397,13 @@ Configuration content is as follows:
 
 ```yaml
 # Seed Peer configuration.
+host:
+  schedulerClusterID: 1
 manager:
   addr: http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
-  clusterID: 1
 ```
 
 Run Dfdaemon as Seed Peer:
