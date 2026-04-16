@@ -574,12 +574,13 @@ Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
 refer to [dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 ```shell
+host:
+  schedulerClusterID: 1
 manager:
   addr: http://dragonfly-manager:65003
 seedPeer:
   enable: true
   type: super
-  clusterID: 1
 proxy:
   registryMirror:
     # addr is the default address of the registry mirror. Proxy will start a registry mirror service for the

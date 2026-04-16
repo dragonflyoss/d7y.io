@@ -147,12 +147,13 @@ Configuration content is as follows:
 
 ```yaml
 # Seed Peer configuration.
+host:
+  schedulerClusterID: 1
 manager:
   addr: http://127.0.0.1:65003
 seedPeer:
   enable: true
   type: super
-  clusterID: 1
 ```
 
 Run Dfdaemon as Seed Peer:
