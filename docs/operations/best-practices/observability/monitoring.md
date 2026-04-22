@@ -186,13 +186,7 @@ client:
       containerRuntime:
         containerd:
           configPath: /etc/containerd/config.toml
-          registries:
-            - hostNamespace: docker.io
-              serverAddr: https://index.docker.io
-              capabilities: ['pull', 'resolve']
-            - hostNamespace: ghcr.io
-              serverAddr: https://ghcr.io
-              capabilities: ['pull', 'resolve']
+          proxyAllregistries: true
   config:
     proxy:
       prefetch: true

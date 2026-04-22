@@ -106,10 +106,7 @@ client:
       containerRuntime:
         containerd:
           configPath: /etc/containerd/config.toml
-          registries:
-            - hostNamespace: docker.io
-              serverAddr: https://index.docker.io
-              capabilities: ['pull', 'resolve']
+          proxyAllRegistries: true
 ```
 
 Create a Dragonfly cluster using the configuration file:

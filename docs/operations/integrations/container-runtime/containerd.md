@@ -105,10 +105,7 @@ client:
       containerRuntime:
         containerd:
           configPath: /etc/containerd/config.toml
-          registries:
-            - hostNamespace: docker.io
-              serverAddr: https://index.docker.io
-              capabilities: ['pull', 'resolve']
+          proxyAllRegistries: true
 ```
 
 Create a Dragonfly cluster using the configuration file:
@@ -201,6 +198,78 @@ The expected output is as follows:
 ## More configurations {#more-configurations}
 
 ### Multiple Registries {#multiple-registries}
+
+#### Proxy all registries to Dragonfly {#proxy-all-registries-to-dragonfly}
+
+**Method 1**: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
+Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
+
+```yaml
+manager:
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          proxyAllRegistries: true
+```
+
+**Method 2**: Modify your `config.toml` (default location: `/etc/containerd/config.toml`), refer to [default-registry-configuration-examples](https://github.com/containerd/containerd/blob/main/docs/hosts.md#setup-default-mirror-for-all-registries).
+
+> Notice: config_path is the path where containerd looks for registry configuration files.
+
+```toml
+# explicitly use v2 config format
+version = 2
+
+[plugins."io.containerd.grpc.v1.cri".registry]
+  config_path = "/etc/containerd/certs.d"
+```
+
+Create the default registry configuration file `/etc/containerd/certs.d/_default/hosts.toml`:
+
+```toml
+[host."http://127.0.0.1:4001"]
+  capabilities = ["pull", "resolve"]
+```
+
+Restart containerd:
+
+```shell
+systemctl restart containerd
+```
+
+#### Proxy specific registries to Dragonfly {#proxy-specific-registries-to-dragonfly}
 
 **Method 1**: Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
