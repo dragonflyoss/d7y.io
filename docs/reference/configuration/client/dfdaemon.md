@@ -336,6 +336,10 @@ health:
 backend:
   # requestHeader is the user customized request header which will be applied to the request when proxying to the origin server.
   requestHeader: {}
+  # The maximum number of retry attempts when a chunk request to the backend
+  # storage fails. Once this limit is reached, the request will be considered
+  # failed and an error will be returned.
+  maxRetries: 1
   # enableCacheTemporaryRedirect enables caching of 307 redirect URLs.
   #
   # Motivation: Dragonfly splits a download URL into multiple pieces and performs multiple
