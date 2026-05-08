@@ -150,6 +150,17 @@ database:
     brokerDB: 1
     # Redis backend DB.
     backendDB: 2
+  # # Redis TLS client configuration.
+  # tls:
+  #   # caCert is the CA certificate file path for Redis TLS handshake.
+  #   caCert: /etc/dragonfly/redis/ca.crt
+  #   # cert is the client certificate file path for Redis mTLS handshake.
+  #   cert: /etc/dragonfly/redis/tls.crt
+  #   # key is the client key file path for Redis mTLS handshake.
+  #   key: /etc/dragonfly/redis/tls.key
+  #   # insecureSkipVerify controls whether the client verifies the server's
+  #   # certificate chain and hostname.
+  #   insecureSkipVerify: false
 
 # Manager server cache.
 cache:
