@@ -34,7 +34,7 @@ the default cluster will be used.
 
 ### Scopes
 
-The cluster needs to serve the scope. It wil provide scheduler services and seed peer services to peers in the scope.
+The cluster needs to serve the scope. It will provide scheduler services and seed peer services to peers in the scope.
 
 **Location**: The cluster needs to serve all peers in the location. When the location in the peer configuration matches
 the location in the cluster, the peer will preferentially use the scheduler and the seed peer of the cluster.
