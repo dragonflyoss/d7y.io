@@ -451,6 +451,7 @@ Init Containers:
       /usr/local/bin/dfget
       /usr/local/bin/dfcache
       /usr/local/bin/dfstore
+      /usr/local/bin/dfctl
       /usr/local/bin/dfdaemon
       -t
       /dragonfly/bin/
@@ -513,12 +514,56 @@ Verify that the Dragonfly binaries are available inside the container:
 
 ```shell
 $ kubectl exec -it test-pod -- bash
-$ which dfget dfcache dfstore dfdaemon
+$ which dfget dfcache dfstore dfctl dfdaemon
 /usr/local/bin/dfget
 /usr/local/bin/dfcache
 /usr/local/bin/dfstore
+/usr/local/bin/dfctl
 /usr/local/bin/dfdaemon
 ```
+
+#### Namespace-level injection {#namespace-level-injection}
+
+Instead of annotating each Pod individually, you can label a namespace to inject all Pods created in it:
+
+```shell
+kubectl label namespace default dragonfly.io/inject=true
+```
+
+Any Pod created in that namespace will get the Dragonfly binaries and unix socket injected automatically.
+If a Pod also has the `dragonfly.io/inject` annotation, the annotation takes priority over the namespace label.
+
+To disable injection for a specific Pod in a labeled namespace, set the annotation to `false`:
+
+```yaml
+metadata:
+  annotations:
+    dragonfly.io/inject: 'false'
+```
+
+#### Injector configuration reference {#injector-configuration-reference}
+
+The injector reads its config from a ConfigMap mounted at `/etc/dragonfly/injector.yaml`.
+When deployed via Helm, this is the `injector.initContainerImage` section in `values.yaml`.
+
+| Field | Description | Default |
+| --- | --- | --- |
+| `initContainerImage.registry` | Container registry | `docker.io` |
+| `initContainerImage.repository` | Image repository | `dragonflyoss/client` |
+| `initContainerImage.tag` | Image tag | `latest` |
+| `initContainerImage.digest` | Image digest (overrides tag if set) | `""` |
+| `initContainerImage.pullPolicy` | Image pull policy | `IfNotPresent` |
+| `initContainerImage.pullSecrets` | Image pull secrets | `[]` |
+
+The injector reloads this config every 30 seconds. Changes to the ConfigMap take effect without restarting the injector Pod.
+
+Per-Pod annotations:
+
+| Annotation | Description |
+| --- | --- |
+| `dragonfly.io/inject` | Set to `true` to inject a Pod (or `false` to skip in a labeled namespace) |
+| `dragonfly.io/init-container-image` | Override the init container image for this Pod |
+| `dragonfly.io/skip-unix-sock-inject` | Set to `true` to skip dfdaemon unix socket mount |
 
 #### Download files using dfget {#download-files-using-dfget}
 
