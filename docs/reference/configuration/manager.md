@@ -103,7 +103,7 @@ auth:
 
 # Database info used for server.
 database:
-  # Database type, supported types include mysql, mariadb and postgres.
+  # Database type, supported types include mysql, mariadb, postgres and polardb.
   type: mysql
   # Mysql configure.
   mysql:
@@ -122,6 +122,14 @@ database:
     dbname: manager
     sslMode: disable
     timezone: UTC
+    migrate: true
+  # Polardb configure.
+  polardb:
+    user: dragonfly
+    password: dragonfly
+    # addrList format: "host1:port1" or "host1:port1,host2:port2" for HA.
+    addrList: 127.0.0.1:8527
+    dbname: manager
     migrate: true
   # tlsConfig: preferred
   # tls:
