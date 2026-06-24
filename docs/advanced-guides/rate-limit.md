@@ -93,3 +93,38 @@ download:
     # request_rate_limit is the rate limit of the download request in the download grpc server, default is 4000 req/s.
     requestRateLimit: 4000
 ```
+
+## Adaptive
+
+When system CPU or memory usage exceeds the configured thresholds, the limiter
+estimates capacity via `max_pass × min_rt × bucket_count / 1000` and sheds
+incoming requests whose in-flight count exceeds this estimate. A cooldown
+period prevents rapid oscillation between shedding and accepting.
+Please refer to [dfdaemon config](../reference/configuration/client/dfdaemon.md).
+
+```yaml
+server:
+  # BBR-inspired adaptive rate limiter configuration for gRPC servers (download & upload).
+  # When system CPU or memory usage exceeds the configured thresholds, the limiter
+  # estimates capacity via `max_pass × min_rt × bucket_count / 1000` and sheds
+  # incoming requests whose in-flight count exceeds this estimate. A cooldown
+  # period prevents rapid oscillation between shedding and accepting.
+  adaptiveRateLimit:
+    # Number of time buckets in the rolling window for metric aggregation.
+    bucketCount: 50
+    # Duration of each time bucket (e.g., 200ms).
+    bucketInterval: 200ms
+    # CPU usage percentage threshold (0–100) above which the system is
+    # considered overloaded. If threshold is 100, CPU usage is ignored
+    # for overload detection.
+    cpuThreshold: 100
+    # Memory usage percentage threshold (0–100) above which the system is
+    # considered overloaded. If threshold is 100, Memory usage is ignored
+    # for overload detection.
+    memoryThreshold: 90
+    # Duration to continue shedding incoming requests after the first drop
+    # event, preventing rapid oscillation between shedding and accepting.
+    shedCooldown: 5s
+    # How often the background task collects CPU/memory usage metrics.
+    collectInterval: 3s
+```

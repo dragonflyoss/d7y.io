@@ -227,6 +227,7 @@ module.exports = {
         'advanced-guides/request-sdk',
         'advanced-guides/rate-limit',
         'advanced-guides/leech',
+        'advanced-guides/blocklist',
         'advanced-guides/personal-access-tokens',
       ],
     },
