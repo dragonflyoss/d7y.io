@@ -30,6 +30,29 @@ server:
   pluginDir: /var/lib/dragonfly/plugins/dfdaemon/
   # cacheDir is the directory to store cache files.
   cacheDir: /var/cache/dragonfly/dfdaemon/
+  # BBR-inspired adaptive rate limiter configuration for gRPC servers (download & upload).
+  # When system CPU or memory usage exceeds the configured thresholds, the limiter
+  # estimates capacity via `max_pass × min_rt × bucket_count / 1000` and sheds
+  # incoming requests whose in-flight count exceeds this estimate. A cooldown
+  # period prevents rapid oscillation between shedding and accepting.
+  adaptiveRateLimit:
+    # Number of time buckets in the rolling window for metric aggregation.
+    bucketCount: 50
+    # Duration of each time bucket (e.g., 200ms).
+    bucketInterval: 200ms
+    # CPU usage percentage threshold (0–100) above which the system is
+    # considered overloaded. If threshold is 100, CPU usage is ignored
+    # for overload detection.
+    cpuThreshold: 100
+    # Memory usage percentage threshold (0–100) above which the system is
+    # considered overloaded. If threshold is 100, Memory usage is ignored
+    # for overload detection.
+    memoryThreshold: 90
+    # Duration to continue shedding incoming requests after the first drop
+    # event, preventing rapid oscillation between shedding and accepting.
+    shedCooldown: 5s
+    # How often the background task collects CPU/memory usage metrics.
+    collectInterval: 3s
 
 download:
   # protocol that peers use to download piece, supported values: "tcp", "quic".
@@ -47,13 +70,13 @@ download:
     # This limit applies to the total number of gRPC requests per second, including:
     # - Multiple requests within a single connection.
     # - Single requests across different connections.
-    requestRateLimit: 5000
+    requestRateLimit: 400
     # The buffer size for the request channel on the download gRPC server.
     #
     # This controls the capacity of the bounded channel used to queue
     # incoming gRPC requests before they are processed. If the buffer is full,
     # new requests will return a `RESOURCE_EXHAUSTED` error.
-    requestBufferSize: 1000
+    requestBufferSize: 50
   # bandwidthLimit is the default rate limit of the download speed in KB/MB/GB per second, default is 50GB/s.
   bandwidthLimit: 50GB
   # backToSourceBandwidthLimit is the rate limit of the back to source speed in KB/MB/GB per second, default is 50GB/s.
@@ -83,13 +106,13 @@ upload:
     # This limit applies to the total number of gRPC requests per second, including:
     # - Multiple requests within a single connection.
     # - Single requests across different connections.
-    requestRateLimit: 5000
+    requestRateLimit: 400
     # The buffer size for the request channel on the upload gRPC server.
     #
     # This controls the capacity of the bounded channel used to queue
     # incoming gRPC requests before they are processed. If the buffer is full,
     # new requests will return a `RESOURCE_EXHAUSTED` error.
-    requestBufferSize: 1000
+    requestBufferSize: 50
 # # Client configuration for remote peer's upload server.
 # client:
 #   # CA certificate file path for mTLS.
