@@ -181,6 +181,8 @@ const config = {
         Copyright Dragonfly a Series of LF Projects, LLC.
         <br />
         For website terms of use, trademark policy and other project policies please see <a href="https://lfprojects.org/policies/">lfprojects.org/policies</a>.
+        <!-- Scarf analytics pixel for anonymous adoption metrics -->
+        <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=c715dd71-d4a5-4994-88a4-c0d78eb1e8e7" />
       `,
     },
   },
