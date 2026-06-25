@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="687" height="456" style="background-color:#fff" viewBox="-0.5 -0.5 687 456">
+    <defs>
+        <linearGradient id="a" x1="0%" x2="0%" y1="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#dae8fc;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#7ea6e0;stop-opacity:1"/>
+        </linearGradient>
+        <linearGradient id="b" x1="0%" x2="0%" y1="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#fff2cc;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#ffd966;stop-opacity:1"/>
+        </linearGradient>
+        <linearGradient id="c" x1="0%" x2="0%" y1="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#d5e8d4;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#97d077;stop-opacity:1"/>
+        </linearGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="#fff"/>
+    <g data-cell-id="0">
+        <g data-cell-id="1">
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-1">
+                <path fill="#004c99" stroke="#006eaf" stroke-width="1.5" d="M1.5 0h639v81H1.5z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:424px;height:1px;padding-top:27px;margin-left:2px">
+                            <div data-drawio-colors="color: #ffffff;" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#fff;line-height:1.2;pointer-events:all;white-space:normal;overflow-wrap:normal">
+                                    <font style="font-size:16px">
+                                        <b>
+                                            P2P Scheduling FLow
+                                        </b>
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="214" y="31" fill="#fff" font-family="&quot;Helvetica&quot;" font-size="12" text-anchor="middle">P2P Scheduling FLow</text>
+                </switch>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-2">
+                <path fill="url(#a)" stroke="#1a1a1a" stroke-width="1.5" d="M30 151.5h189v63H30z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:124px;height:1px;padding-top:122px;margin-left:21px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;white-space:normal;overflow-wrap:normal">
+                                    Peer
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="83" y="126" font-family="&quot;Helvetica&quot;" font-size="12" text-anchor="middle">Peer</text>
+                </switch>
+            </g>
+            <path fill="#d5e8d4" stroke="#82b366" stroke-dasharray="4.5 4.5" stroke-width="1.5" d="M301.5 118.5H639V249H301.5z" data-cell-id="ZB1O8y_H92JBNyRyHTRn-3" pointer-events="all"/>
+            <path fill="#fff2cc" stroke="#d6b656" stroke-dasharray="4.5 4.5" stroke-width="1.5" d="M0 292.5h643.5v162H0z" data-cell-id="ZB1O8y_H92JBNyRyHTRn-4" pointer-events="all"/>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-6">
+                <path fill="url(#b)" stroke="#1a1a1a" stroke-width="1.5" d="M40.5 363h153v58.5h-153z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:100px;height:1px;padding-top:262px;margin-left:28px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;font-style:italic;white-space:normal;overflow-wrap:normal">
+                                    <span style="font-style:normal">
+                                        Parent A
+                                    </span>
+                                    <div>
+                                        40%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="78" y="265" font-family="&quot;Helvetica&quot;" font-size="12" font-style="italic" text-anchor="middle">Parent A...</text>
+                </switch>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-8">
+                <path fill="url(#b)" stroke="#1a1a1a" stroke-width="1.5" d="M245.25 361.5h153V420h-153z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:100px;height:1px;padding-top:261px;margin-left:165px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;font-style:italic;white-space:normal;overflow-wrap:normal">
+                                    <span style="font-style:normal">
+                                        Parent B
+                                    </span>
+                                    <div>
+                                        35%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="215" y="264" font-family="&quot;Helvetica&quot;" font-size="12" font-style="italic" text-anchor="middle">Parent B...</text>
+                </switch>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-9">
+                <path fill="url(#b)" stroke="#1a1a1a" stroke-width="1.5" d="M450 360h153v58.5H450z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:100px;height:1px;padding-top:260px;margin-left:301px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;font-style:italic;white-space:normal;overflow-wrap:normal">
+                                    <span style="font-style:normal">
+                                        Parent N
+                                    </span>
+                                    <div>
+                                        n%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="351" y="263" font-family="&quot;Helvetica&quot;" font-size="12" font-style="italic" text-anchor="middle">Parent N...</text>
+                </switch>
+            </g>
+            <g stroke="#000" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="ZB1O8y_H92JBNyRyHTRn-10">
+                <path fill="none" d="m219 183 72.95.22" pointer-events="stroke"/>
+                <path d="m299.82 183.24-10.51 5.22 2.64-5.24-2.61-5.26Z" pointer-events="all"/>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-11">
+                <path fill="none" d="M211.5 144h90v45h-90z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:58px;height:1px;padding-top:111px;margin-left:142px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;white-space:normal;overflow-wrap:normal">
+                                    <i>
+                                        Stage 1
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="171" y="115" font-family="&quot;Helvetica&quot;" font-size="12" text-anchor="middle">Stage 1</text>
+                </switch>
+            </g>
+            <g stroke="#000" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="ZB1O8y_H92JBNyRyHTRn-12">
+                <path fill="none" d="M124.5 214.5v68.45" pointer-events="stroke"/>
+                <path d="m124.5 290.82-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all"/>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-13">
+                <path fill="none" d="M115.5 231h90v45h-90z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:58px;height:1px;padding-top:169px;margin-left:78px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;white-space:normal;overflow-wrap:normal">
+                                    <i>
+                                        Stage 2
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="107" y="173" font-family="&quot;Helvetica&quot;" font-size="12" text-anchor="middle">Stage 2</text>
+                </switch>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-15">
+                <path fill="none" d="M120 301.5h403.5v45H120z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:267px;height:1px;padding-top:216px;margin-left:81px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;white-space:normal;overflow-wrap:normal">
+                                    <u>
+                                        <i>
+                                            Secondary Scheduling (
+                                        </i>
+                                        <i style="background-color:initial">
+                                            Per-Piece Selection)
+                                        </i>
+                                    </u>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="215" y="220" font-family="&quot;Helvetica&quot;" font-size="12" text-anchor="middle">Secondary Scheduling (Per-Piece Selection)</text>
+                </switch>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-18">
+                <path fill="url(#c)" stroke="#1a1a1a" stroke-width="1.5" d="M333 168h277.5v60H333z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:183px;height:1px;padding-top:132px;margin-left:223px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;white-space:normal;overflow-wrap:normal">
+                                    Scheduler
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="315" y="136" font-family="&quot;Helvetica&quot;" font-size="12" text-anchor="middle">Scheduler</text>
+                </switch>
+            </g>
+            <g data-cell-id="ZB1O8y_H92JBNyRyHTRn-19">
+                <path fill="none" d="M258 117h427.5v45H258z" pointer-events="all"/>
+                <switch transform="matrix(1.5 0 0 1.5 -.5 -.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:283px;height:1px;padding-top:93px;margin-left:173px">
+                            <div data-drawio-colors="color: rgb(0, 0, 0);" style="box-sizing:border-box;font-size:0;text-align:center">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:#000;line-height:1.2;pointer-events:all;font-style:italic;text-decoration:underline;white-space:normal;overflow-wrap:normal">
+                                    <article class="4ever-article" data-clipboard-cangjie="[&quot;root&quot;,{&quot;copyFrom&quot;:&quot;im-native&quot;},[&quot;p&quot;,{},[&quot;span&quot;,{&quot;data-type&quot;:&quot;text&quot;},[&quot;span&quot;,{&quot;data-type&quot;:&quot;leaf&quot;},&quot;Centra Scheduling (Top N Parents)&quot;]]]]">
+                                        <p>
+                                            Central Scheduling (Top N Parents)
+                                        </p>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="315" y="97" font-family="&quot;Helvetica&quot;" font-size="12" font-style="italic" text-anchor="middle" text-decoration="underline">Central Scheduling (Top N Parents)</text>
+                </switch>
+            </g>
+        </g>
+    </g>
+</svg>

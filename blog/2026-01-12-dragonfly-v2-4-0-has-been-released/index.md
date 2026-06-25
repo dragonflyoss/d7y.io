@@ -4,11 +4,11 @@ tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
 
+<!-- truncate -->
+
 Dragonfly v2.4.0 is released!🎉🎉🎉 Thanks the [contributors](https://github.com/dragonflyoss/dragonfly/graphs/contributors) who made this release happen and welcome you to visit [d7y.io](https://d7y.io) website.
 
 ![dragonfly](images/dragonfly-linear.png)
-
-<!-- truncate -->
 
 ## New features and enhancements {#new-features-and-enhancements}
 
@@ -17,7 +17,7 @@ Dragonfly v2.4.0 is released!🎉🎉🎉 Thanks the [contributors](https://gith
 A two-stage scheduling algorithm combining central scheduling with node-level secondary scheduling to
 optimize P2P download performance based on real-time load awareness.
 
-<img src={require('./images/p1.svg').default} alt="p1" />
+![p1](images/p1.svg)
 
 For more information, please refer to the [Scheduling](https://d7y.io/docs/next/operations/deployment/applications/scheduler/#scheduling).
 
@@ -33,7 +33,7 @@ For more information, please refer to the [TCP Protocol Support for P2P File Tra
 
 A SDK for routing User requests to Seed Peers using consistent hashing, replacing the previous Kubernetes Service load balancing approach.
 
-<img src={require('./images/p2.svg').default} alt="p2" />
+![p2](images/p2.svg)
 
 For more details, please refer to [Request SDK](https://d7y.io/docs/next/advanced-guides/request-sdk/).
 
