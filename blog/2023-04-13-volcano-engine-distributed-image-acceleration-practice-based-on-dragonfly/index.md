@@ -39,6 +39,8 @@ Here is a brief introduction of the two scenarios that are currently encountered
 
 Whether it is the image repository service itself or the underlying storage, there will be bandwidth and QPS limitations in the end. If you rely solely on the bandwidth and QPS provided by the server, it is easy to be unable to meet the demand. Therefore, P2P needs to be introduced to reduce server pressure and meet the demand for large-scale concurrent image pulling.
 
+<!-- truncate -->
+
 Investigation of image distribution system based on P2P technology
 
 There are several P2P projects in the open source community. Here is a brief introduction to these projects.
@@ -189,11 +191,11 @@ In large-scale image scenarios, using Dragonfly and Dragonfly & Nydus scenarios 
 
 Nginx Pod concurrent storage peak traffic of 50, 100, 200, and 500, respectively
 
-![Bar Chart showing impact of Nginx on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-peak-bandwidthon-container-registry-nginx-bar-chart.png)
+![Bar Chart showing impact of Nginx on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-peak-bandwidth-on-container-registry-nginx-bar-chart.png)
 
 TensorFlow  Pod concurrent storage peak traffic of 50, 100, 200, 500, respectively
 
-![Bar Chart showing impact of TensorFlow on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-peak-bandwidthon-container-registry-tensor-flow-bar-chart.png)
+![Bar Chart showing impact of TensorFlow on Container Registry divided in 50 Pods, 100 Pods, 200 Pods and 500 Pods in OCI v1, Dragonfly](./back-to-source-peak-bandwidth-on-container-registry-tensor-flow-bar-chart.png)
 
 ### Back-to-source Traffic on Container Registry
 
@@ -217,8 +219,8 @@ Volcano Engine CR [https://www.volcengine.com/product/cr](https://www.volcengine
 
 Dragonfly [https://d7y.io/](https://d7y.io/)
 
-Dragonfly Github Repo [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+Dragonfly GitHub Repo [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 
 Nydus [https://nydus.dev/](https://nydus.dev/)
 
-Nydus Gihtub Repo [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)
+Nydus GitHub Repo [https://github.com/dragonflyoss/image-service](https://github.com/dragonflyoss/image-service)

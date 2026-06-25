@@ -1,11 +1,11 @@
 ---
 id: introduction
 title: Introduction
-description: Dragonfly is an file distribution and image acceleration based on p2p technology.It is designed to increase the efficiency of large-scale data distribution and improve idle bandwidth usage of peer. It is widely used in various domains such as image acceleration, file distribution, AI model distribution, AI dataset distribution, etc.
+description: Dragonfly is a file distribution and image acceleration based on p2p technology.It is designed to increase the efficiency of large-scale data distribution and improve idle bandwidth usage of peer. It is widely used in various domains such as image acceleration, file distribution, AI model distribution, AI dataset distribution, etc.
 slug: /
 ---
 
-Dragonfly is an file distribution and image acceleration based on p2p technology.
+Dragonfly is a file distribution and image acceleration based on p2p technology.
 It is designed to increase the efficiency of large-scale data distribution and improve idle bandwidth usage of peer.
 It is widely used in various domains such as image acceleration, file distribution,
 AI model distribution, AI dataset distribution, etc.

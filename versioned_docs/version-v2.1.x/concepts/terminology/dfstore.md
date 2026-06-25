@@ -141,7 +141,7 @@ objectStorage:
     port: 65004
 ```
 
-### Step 4: Install dragofly system
+### Step 4: Install dragonfly system
 
 Install dragonfly system with object storage, refer to [install dragonfly](../../getting-started/installation/helm-charts.md).
 

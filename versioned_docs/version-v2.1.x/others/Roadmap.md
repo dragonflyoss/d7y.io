@@ -66,7 +66,7 @@ Scheduler:
 - Scheduler adds database field in config and moves the redis config to database field.
 - Fix filtering and evaluation in scheduling. Since the final length of the filter is
   the candidateParentLimit used, the parents after the filter is wrong.
-- Fix storage can not write records to file when bufferSize is zero.
+- Fix storage cannot write records to file when bufferSize is zero.
 - Add advertise port config.
 - Fix fsm changes state failed when register task.
 
@@ -79,14 +79,14 @@ Client:
 
 Others:
 
-- A third party security audit was performed by Trail of Bits, you can see the full report [here](https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf).
+- A third party security audit was performed by Trail of Bits, you can see the [full report](https://github.com/dragonflyoss/dragonfly/blob/main/docs/security/dragonfly-comprehensive-report-2023.pdf).
 - Hiding sensitive information in logs, such as the token in the header.
 
 ## v2.2
 
 Manager:
 
-- Peer features are configurable. For example, you can make the peer can not be uploaded and can only be downloaded.
+- Peer features are configurable. For example, you can allow the peer to be downloaded and prevent the peer from being uploaded.
 - Configure the weight of the scheduling.
 - Add clearing P2P task cache.
 - Display P2P traffic distribution.

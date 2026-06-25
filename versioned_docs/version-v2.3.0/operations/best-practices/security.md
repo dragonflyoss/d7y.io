@@ -44,7 +44,7 @@ server:
 
 <!-- markdownlint-restore -->
 
-### Json Web Token (JWT) for Signining
+### Json Web Token (JWT) for Signing
 
 You can configure the JWT for signing in the manager console. Configure `manager.yaml`,
 the default path is `/etc/dragonfly/manager.yaml`, refer to
@@ -55,7 +55,7 @@ the default path is `/etc/dragonfly/manager.yaml`, refer to
 ```yaml
 # Auth configuration.
 auth:
-  # JWT configuration used for sigining.
+  # JWT configuration used for signing.
   jwt:
     # Realm name to display to the user, default value is Dragonfly.
     realm: 'Dragonfly'
@@ -78,7 +78,7 @@ auth:
 ### Preheat with Self-Signed Certificate
 
 When preheating the image, dragonfly needs to call the container registry to get the image manifest.
-If container regsitry is configured with a self-signed certificate, then dragonfly must be configured
+If container registry is configured with a self-signed certificate, then dragonfly must be configured
 with a self-signed certificate. Configure `manager.yaml`,
 the default path is `/etc/dragonfly/manager.yaml`, refer to
 [manager](../../reference/configuration/manager.md) config.
@@ -117,7 +117,7 @@ refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
 ```yaml
 proxy:
   # caCert is the root CA cert path with PEM format for the proxy server to generate the server cert.
-  # If ca_cert is empty, proxy will generate a smaple CA cert by rcgen::generate_simple_self_signed.
+  # If ca_cert is empty, proxy will generate a sample CA cert by rcgen::generate_simple_self_signed.
   # When client requests via the proxy, the client should not verify the server cert and set
   # insecure to true. If ca_cert is not empty, proxy will sign the server cert with the CA cert. If openssl is installed,
   # you can use openssl to generate the root CA cert and make the system trust the root CA cert.
@@ -127,7 +127,7 @@ proxy:
   caCert: 'ca.crt'
 
   # caKey is the root CA key path with PEM format for the proxy server to generate the server cert.
-  # If ca_key is empty, proxy will generate a smaple CA key by rcgen::generate_simple_self_signed.
+  # If ca_key is empty, proxy will generate a sample CA key by rcgen::generate_simple_self_signed.
   # When client requests via the proxy, the client should not verify the server cert and set
   # insecure to true. If ca_key is not empty, proxy will sign the server cert with the CA cert. If openssl is installed,
   # you can use openssl to generate the root CA cert and make the system trust the root CA cert.
@@ -177,7 +177,7 @@ According to analysis of Dragonfly architecture, DDoS attackers can be divided i
 - Send a massive amount of traffic to the target network with the
   goal of consuming so much bandwidth that users are denied access.
 
-- Bandwitdh depletion attack: Flood Attack and Amplification attack.
+- Bandwidth depletion attack: Flood Attack and Amplification attack.
 
 ### What can Dragonfly do against DDoS attacks?
 

@@ -101,7 +101,7 @@ a {
   max-width: 50rem;
 }
 
-.heroContiner {
+.heroContainer {
   display: flex;
   flex-direction: column;
 }
@@ -188,7 +188,7 @@ a {
 }
 
 .highlight {
-  color: var(--ifm-color-higlight);
+  color: var(--ifm-color-highlight);
   font-weight: 600;
   font-family: HFP;
   margin: 0 0.5rem;
@@ -423,7 +423,7 @@ a {
     width: 10rem !important;
   }
 
-  .developmentLineWarapper {
+  .developmentLineWrapper {
     display: none !important;
   }
 
@@ -608,7 +608,7 @@ a {
   align-items: center;
 }
 
-.featuresTitleHighling {
+.featuresTitleHighlight {
   font-size: 2.5rem;
   top: -0.3rem;
   margin: 0 0.5rem;
@@ -685,13 +685,13 @@ a {
 }
 
 .featuresHighlight {
-  color: var(--ifm-color-higlight);
+  color: var(--ifm-color-highlight);
   margin: 0 0.3rem;
   font-weight: 600;
 }
 
 .featuresInitialHighlight {
-  color: var(--ifm-color-higlight);
+  color: var(--ifm-color-highlight);
   margin: 0 0.3rem 0 0;
   font-weight: 600;
 }
@@ -752,13 +752,13 @@ a {
   padding-bottom: 1rem;
 }
 
-.developmentLineWarapper {
+.developmentLineWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.developmentLineWarapper {
+.developmentLineWrapper {
   display: flex;
   align-items: center;
   position: relative;
@@ -922,7 +922,7 @@ a {
   margin: 0.5rem 0;
 }
 
-.userTitleHighling {
+.userTitleHighlight {
   font-size: 2.5rem;
   top: -0.3rem;
   margin: 0 0.5rem;
@@ -945,7 +945,7 @@ a {
 }
 
 .imageCard:hover .userLink {
-  color: var(--ifm-color-higlight);
+  color: var(--ifm-color-highlight);
 }
 
 .userName {
@@ -1094,7 +1094,7 @@ a {
 }
 
 .userLink:hover {
-  color: var(--ifm-color-higlight);
+  color: var(--ifm-color-highlight);
 }
 
 .community {

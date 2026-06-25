@@ -7,7 +7,7 @@ slug: /operations/integrations/container-runtime/singularity/oras-resource-clien
 Documentation for setting Dragonfly's container runtime to ORAS Resource Client.
 
 This method of image pull through Dragonfly is more efficient when compared to proxy method as
-it avoids TLS termination, reduces CPU time and download time as it creates hardlink(insead of copy)
+it avoids TLS termination, reduces CPU time and download time as it creates hardlink(instead of copy)
 for subsequent file download after downloading the image from source for first time.
 
 ## Configure dfget daemon {#configure-dfget-daemon}
@@ -28,7 +28,7 @@ storage:
   # Disk used percent gc threshold, when the disk used percent exceeds, the oldest tasks will be reclaimed.
   # eg, diskGCThresholdPercent=80, when the disk usage is above 80%, start to gc the oldest tasks.
   diskGCThresholdPercent: 80
-  # Set to ture for reusing underlying storage for same task id.
+  # Set to true for reusing underlying storage for same task id.
   multiplex: true
 
 # The singularity ORAS resources, most of it is same with https scheme.

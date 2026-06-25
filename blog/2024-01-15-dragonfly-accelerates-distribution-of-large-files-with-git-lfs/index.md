@@ -1,5 +1,5 @@
 ---
-title:  Dragonfly accelerates distribution of large files with Git LFS
+title: Dragonfly accelerates distribution of large files with Git LFS
 tags: [dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd]
 hide_table_of_contents: false
 ---
@@ -20,7 +20,7 @@ Git LFS addresses this issue by storing these large files on a separate server a
 
 #### Git LFS manages large files
 
-Github and GitLab usually manage large files based on Git LFS.
+GitHub and GitLab usually manage large files based on Git LFS.
 
 - GitHub uses Git LFS refer to [About Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).
 - GitLab uses Git LFS refer to [Git Large File Storage](https://docs.gitlab.com/ee/topics/git/lfs/).
@@ -44,13 +44,15 @@ Dragonfly can be used to eliminate the bandwidth limit of the storage through P2
 
 ![Diagram flow showing Cluster A and Cluster B  to Large File Storage using Peer and Root Peer](https://www.cncf.io/wp-content/uploads/2024/01/image-35.png)
 
+<!-- truncate -->
+
 ## Dragonfly accelerates downloads with Git LFS
 
 By proxying the HTTP protocol file download request of Git LFS to Dragonfly Peer Proxy, the file download traffic is forwarded to the P2P network. The following documentation is based on GitHub LFS.
 
 ### Get the Content Storage address of Git LFS
 
-Add GIT\_CURL\_VERBOSE=1 to print verbose logs of git clone and get the address of content storage of Git LFS.
+Add GIT_CURL_VERBOSE=1 to print verbose logs of git clone and get the address of content storage of Git LFS.
 
 ```bash
 GIT_CURL_VERBOSE=1 git clone git@github.com:{YOUR-USERNAME}/{YOUR-REPOSITORY}.git
@@ -104,18 +106,22 @@ kubectl config use-context kind-kind
 Pull dragonfly latest images:
 
 ```bash
-docker pull dragonflyoss/scheduler:latestdocker pull dragonflyoss/manager:latestdocker pull dragonflyoss/dfdaemon:latest
+docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
+docker pull dragonflyoss/dfdaemon:latest
 ```
 
 Kind cluster loads dragonfly latest images:
 
 ```bash
-kind load docker-image dragonflyoss/scheduler:latestkind load docker-image dragonflyoss/manager:latestkind load docker-image dragonflyoss/dfdaemon:latest
+kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
+kind load docker-image dragonflyoss/dfdaemon:latest
 ```
 
 ##### Create dragonfly cluster based on helm charts
 
-Create helm charts configuration file charts-config.yaml. Add the github-cloud.githubusercontent.com rule to dfdaemon.config.proxy.proxies.regx to forward the HTTP file download of content storage of Git LFS to the P2P network. And dfdaemon.config.proxy.defaultFilter adds X-Amz-Algorithm, X-Amz-Credential, X-Amz-Date, X-Amz-Expires, X-Amz-Signature and X-Amz-SignedHeaders parameters to filter the query parameters. Dargonfly generates a unique task id based on the URL, so it is necessary to filter the query parameters to generate a unique task id. Configuration content is as follows:
+Create helm charts configuration file charts-config.yaml. Add the github-cloud.githubusercontent.com rule to dfdaemon.config.proxy.proxies.regx to forward the HTTP file download of content storage of Git LFS to the P2P network. And dfdaemon.config.proxy.defaultFilter adds X-Amz-Algorithm, X-Amz-Credential, X-Amz-Date, X-Amz-Expires, X-Amz-Signature and X-Amz-SignedHeaders parameters to filter the query parameters. Dragonfly generates a unique task id based on the URL, so it is necessary to filter the query parameters to generate a unique task id. Configuration content is as follows:
 
 ```yaml
 scheduler:
@@ -147,14 +153,14 @@ dfdaemon:
     verbose: true
     pprofPort: 18066
     proxy:
-      defaultFilter: "X-Amz-Algorithm&X-Amz-Credential&X-Amz-Date&X-Amz-Expires&X-Amz-Signature&X-Amz-SignedHeaders"
+      defaultFilter: 'X-Amz-Algorithm&X-Amz-Credential&X-Amz-Date&X-Amz-Expires&X-Amz-Signature&X-Amz-SignedHeaders'
       security:
         insecure: true
-        cacert: ""
-        cert: ""
-        key: ""
+        cacert: ''
+        cert: ''
+        key: ''
       tcpListen:
-        namespace: ""
+        namespace: ''
         port: 65001
       registryMirror:
         url: https://index.docker.io
@@ -162,8 +168,8 @@ dfdaemon:
         certs: []
         direct: false
       proxies:
-      - regx: blobs/sha256.*
-      - regx: github-cloud.githubusercontent.com.*
+        - regx: blobs/sha256.*
+        - regx: github-cloud.githubusercontent.com.*
 
 manager:
   image: dragonflyoss/manager
@@ -234,9 +240,9 @@ Create a peer service using the configuration file:
 kubectl apply -f peer-service-config.yaml
 ```
 
-### Git LFS downlads large files via dragonfly
+### Git LFS downloads large files via dragonfly
 
-Proxy Git LFS download requests to Dragonfly Peer Proxy(```http://127.0.0.1:65001```) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
+Proxy Git LFS download requests to Dragonfly Peer Proxy(`http://127.0.0.1:65001`) through Git configuration. Set Git configuration includes http.proxy, lfs.transfer.enablehrefrewrite and url.`{YOUR-LFS-CONTENT-STORAGE}`.insteadOf properties.
 
 ```bash
 git config --global http.proxy http://127.0.0.1:65001git config --global lfs.transfer.enablehrefrewrite truegit config --global url.http://github-cloud.githubusercontent.com/.insteadOf https://github-cloud.githubusercontent.com/
@@ -280,13 +286,13 @@ Test results show Git LFS and Dragonfly P2P integration. It can effectively redu
 ### Dragonfly community
 
 - Website: [https://d7y.io/](https://d7y.io/)
-- Github Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
+- GitHub Repo: [https://github.com/dragonflyoss/dragonfly](https://github.com/dragonflyoss/dragonfly)
 - Slack Channel: [#dragonfly](https://cloud-native.slack.com/messages/dragonfly/) on [CNCF Slack](https://slack.cncf.io/)
 - Discussion Group: [dragonfly-discuss@googlegroups.com](mailto:dragonfly-discuss@googlegroups.com)
-- Twitter: [@dragonfly\_oss](https://twitter.com/dragonfly_oss)
+- Twitter: [@dragonfly_oss](https://twitter.com/dragonfly_oss)
 
 ### Git LFS
 
 - Website: [https://git-lfs.com/](https://git-lfs.com/)
-- Github Repo: [https://github.com/git-lfs/git-lfs](https://github.com/git-lfs/git-lfs)
+- GitHub Repo: [https://github.com/git-lfs/git-lfs](https://github.com/git-lfs/git-lfs)
 - Document: [https://github.com/git-lfs/git-lfs/tree/main/docs](https://github.com/git-lfs/git-lfs/tree/main/docs)

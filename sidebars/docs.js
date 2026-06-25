@@ -66,22 +66,6 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Deployment',
-          items: [
-            'operations/deployment/architecture',
-            {
-              type: 'category',
-              label: 'Applications',
-              items: [
-                'operations/deployment/applications/manager',
-                'operations/deployment/applications/scheduler',
-                'operations/deployment/applications/client',
-              ],
-            },
-          ],
-        },
-        {
-          type: 'category',
           label: 'Integrations',
           items: [
             {
@@ -99,11 +83,31 @@ module.exports = {
             },
             'operations/integrations/harbor',
             'operations/integrations/hugging-face',
+            'operations/integrations/model-scope',
             'operations/integrations/git-lfs',
             'operations/integrations/torchserve',
             'operations/integrations/triton-server',
             'operations/integrations/pip',
             'operations/integrations/upgrade',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Architecture',
+      link: {
+        type: 'doc',
+        id: 'operations/architecture/architecture',
+      },
+      items: [
+        {
+          type: 'category',
+          label: 'Components',
+          items: [
+            'operations/architecture/components/manager',
+            'operations/architecture/components/scheduler',
+            'operations/architecture/components/client',
           ],
         },
       ],
@@ -223,6 +227,7 @@ module.exports = {
         'advanced-guides/request-sdk',
         'advanced-guides/rate-limit',
         'advanced-guides/leech',
+        'advanced-guides/blocklist',
         'advanced-guides/personal-access-tokens',
       ],
     },

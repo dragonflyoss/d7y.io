@@ -168,7 +168,7 @@ download:
       expectContinueTimeout: 10s
       # Same with http.Transport.TLSClientConfig.InsecureSkipVerify.
       # Caution: the value default is true, please keep it false in production.
-      # We will make the vaule false by default in futrue.
+      # We will make the value false by default in future.
       insecureSkipVerify: true
     # The http resources, most of it is same with https scheme.
     http:
@@ -208,7 +208,7 @@ download:
       expectContinueTimeout: 10s
       # Same with http.Transport.TLSClientConfig.InsecureSkipVerify.
       # Caution: the value default is true, please keep it false in production.
-      # We will make the vaule false by default in futrue.
+      # We will make the value false by default in future.
       insecureSkipVerify: true
   # Concurrent option for back source, default: empty.
   # if you want to enable concurrent option, thresholdSize and goroutineCount is enough, keep other options empty is okay.
@@ -324,7 +324,7 @@ storage:
   # Disk used percent gc threshold, when the disk used percent exceeds, the oldest tasks will be reclaimed.
   # eg, diskGCThresholdPercent=80, when the disk usage is above 80%, start to gc the oldest tasks.
   diskGCThresholdPercent: 80
-  # Set to ture for reusing underlying storage for same task id.
+  # Set to true for reusing underlying storage for same task id.
   multiplex: true
 
 # Health service option.
@@ -448,7 +448,7 @@ security:
   #   force: both ClientHandshake and ServerHandshake are only support tls
   #   prefer: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support tls
   #   default: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support insecure (non-tls)
-  # Notice: If the drgaonfly service has been deployed, a two-step upgrade is required.
+  # Notice: If the dragonfly service has been deployed, a two-step upgrade is required.
   # The first step is to set tlsPolicy to default, and then upgrade the dragonfly services.
   # The second step is to set tlsPolicy to prefer, and then completely upgrade the dragonfly services.
   tlsPolicy: 'prefer'

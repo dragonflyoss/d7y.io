@@ -16,7 +16,7 @@ Display the Audit garbage collection configuration and the history of all execut
 
 Update the Audit garbage collection configuration.
 
-**Keep records in**: Use the Keep records in to configure how long audit logs should be kept. Use the drop down-menu to select Hours or Days. For example, if you set this to 7 days, Dragonfly Manager will only purge audit logs that are 8 or more days old.
+**Keep records in**: Use the Keep records to configure how long audit logs should be kept. Use the drop down-menu to select Hours or Days. For example, if you set this to 7 days, Dragonfly Manager will only purge audit logs that are 8 or more days old.
 
 ![audit-update-gc](../../resource/advanced-guides/web-console/gc/audit-update-gc.png)
 
@@ -36,7 +36,7 @@ Display the Job garbage collection configuration and the history of all executed
 
 Update the Job garbage collection configuration.
 
-**Keep records in**: Use the Keep records in to configure how long job should be kept. Use the drop down-menu to select Hours or Days. For example, if you set this to 7 days, Dragonfly Manager will only purge job that are 8 or more days old.
+**Keep records in**: Use the Keep records to configure how long job should be kept. Use the drop down-menu to select Hours or Days. For example, if you set this to 7 days, Dragonfly Manager will only purge job that are 8 or more days old.
 
 ![job-update-gc](../../resource/advanced-guides/web-console/gc/job-update-gc.png)
 

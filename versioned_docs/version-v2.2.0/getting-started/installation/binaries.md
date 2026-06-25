@@ -332,7 +332,7 @@ telnet 127.0.0.1 65003
 
 #### Manager Console {#manager-console}
 
-Now you can open brower and visit console by localhost:8080, Console features preview reference document [console preview](../../advanced-guides/web-console.md).
+Now you can open browser and visit console by localhost:8080, Console features preview reference document [console preview](../../advanced-guides/web-console.md).
 
 ![manager-console](../../resource/getting-started/installation/manager-console.png)
 

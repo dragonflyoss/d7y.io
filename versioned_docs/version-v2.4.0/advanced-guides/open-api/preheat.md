@@ -350,13 +350,13 @@ Click `SAVE` and copy the token and store it. For your security, it doesn't disp
 ### Create instance
 
 Open the harbor UI, go to `Distributions` item under `Administration`
-and click the `NEW INSTANCE` button to create create instance.
+and click the `NEW INSTANCE` button to create an instance.
 
 **Step 1:** Enter REST address of the Dragonfly Manager.
 
 **Step 2:** Auth Mode selects OAuth for authentication.
 
-**Step 3:** Enter personsal assess token.
+**Step 3:** Enter personal access token.
 
 ![create-instance](../../resource/advanced-guides/open-api/preheat/create-instance.png)
 
@@ -392,7 +392,7 @@ If `Cluster IDs` is empty, it means to preheat all clusters.
 
 Click the `EXECUTE` to execute the preheating task.
 
-![exectu-preheat](../../resource/advanced-guides/open-api/preheat/exectu-preheat.png)
+![execute-preheat](../../resource/advanced-guides/open-api/preheat/execute-preheat.png)
 
 If the status is SUCCESS, the preheating is successful.
 

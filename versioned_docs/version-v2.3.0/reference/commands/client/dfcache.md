@@ -70,7 +70,7 @@ Arguments:
 
 Options:
       --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID>
-          Specify the content used to calculate the persistent cache task ID. If it is set, use its value to calculate the task ID, Otherwise, calculate the persistent cache task ID based on url, piece-length, tag, application, and filtered-query-params.
+          Specify the content used to calculate the persistent cache task ID. If it is set, use its value to calculate the task ID. Otherwise, calculate the persistent cache task ID based on url, piece-length, tag, application, and filtered-query-params.
 
       --persistent-replica-count <PERSISTENT_REPLICA_COUNT>
           Specify the replica count of the persistent cache task

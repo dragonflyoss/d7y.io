@@ -165,7 +165,7 @@ security:
   #   force: both ClientHandshake and ServerHandshake are only support tls
   #   prefer: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support tls
   #   default: ServerHandshake supports tls and insecure (non-tls), ClientHandshake will only support insecure (non-tls)
-  # Notice: If the drgaonfly service has been deployed, a two-step upgrade is required.
+  # Notice: If the dragonfly service has been deployed, a two-step upgrade is required.
   # The first step is to set tlsPolicy to default, and then upgrade the dragonfly services.
   # The second step is to set tlsPolicy to prefer, and then completely upgrade the dragonfly services.
   tlsPolicy: 'prefer'

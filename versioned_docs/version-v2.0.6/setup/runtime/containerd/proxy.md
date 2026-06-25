@@ -87,7 +87,7 @@ proxy:
 
 ### Step 3: Configure containerd {#step-3-configure-containerd}
 
-Set dfget damone as `HTTP_PROXY` and `HTTPS_PROXY` for containerd in
+Set dfget daemon as `HTTP_PROXY` and `HTTPS_PROXY` for containerd in
 `/etc/systemd/system/containerd.service.d/http-proxy.conf`:
 
 ```toml

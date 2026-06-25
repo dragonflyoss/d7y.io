@@ -90,7 +90,7 @@ An attacker gets access to the database and can control the database to perform 
 Impact
 
 The attacker can delete the data in the database, which will cause the system to be unavailable. The peer and seed peer
-can not find the available scheduler to schedule the download task and the scheduler can not find the available seed peer
+cannot find the available scheduler to schedule the download task and the scheduler cannot find the available seed peer
 to trigger download task back-to-origin.
 
 Mitigation
@@ -122,7 +122,7 @@ Mitigation
 
 Recommendations
 
-- The origin needs to pervent the attacker from uploading the malicious files.
+- The origin needs to prevent the attacker from uploading the malicious files.
 - Use the TLS to protect the communication between the origin and the peer.
 
 ### Attack surface of internal malicious attackers

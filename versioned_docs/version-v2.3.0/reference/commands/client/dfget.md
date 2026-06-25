@@ -73,7 +73,7 @@ Options:
           Specify whether the download file must be hard linked to the output path. If hard link is failed, download will be failed. If it is false, dfdaemon will copy the file to the output path if hard link is failed.
 
       --content-for-calculating-task-id <CONTENT_FOR_CALCULATING_TASK_ID>
-          Specify the content used to calculate the task ID. If it is set, use its value to calculate the task ID, Otherwise, calculate the task ID based on url, piece-length, tag, application, and filtered-query-params.
+          Specify the content used to calculate the task ID. If it is set, use its value to calculate the task ID. Otherwise, calculate the task ID based on url, piece-length, tag, application, and filtered-query-params.
 
   -O, --output <OUTPUT>
           Specify the output path of downloading file
@@ -222,8 +222,8 @@ spec:
 
 #### Install Dfget in the Container Image
 
-Install Dfget in the Container Image, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm-install-client-using-rpm)
-or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb-install-client-using-deb).
+Install Dfget in the Container Image, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm)
+or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb).
 
 #### Download via UDS(unix domain socket) of dfdaemon in the node
 
@@ -238,7 +238,7 @@ dfget will call dfdaemon to download the file, and dfdaemon will return the cont
 dfget via unix domain socket, and dfget will copy the content to the output path. If it is `false`, dfdaemon will
 download the file and hardlink or copy the file to the output path.
 
-### Dwonload with different protocols {#download-with-different-protocols}
+### Download with different protocols {#download-with-different-protocols}
 
 #### Download with HTTP protocol
 

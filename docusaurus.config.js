@@ -8,8 +8,15 @@ const config = {
   url: 'https://d7y.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownImages: 'ignore', // 忽略 SVG 图片尺寸读取警告
+    },
+    mermaid: true,
+  },
+  staticDirectories: ['static', 'docs/resource'],
   organizationName: 'dragonflyoss', // Usually your GitHub org/user name.
   projectName: 'd7y.io', // Usually your repo name.
   clientModules: [require.resolve('./src/clientModules.js')],
@@ -19,7 +26,8 @@ const config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars/docs.js'),
-          editUrl: function ({ locale, docPath }) {
+          // @ts-ignore
+          editUrl: function ({ docPath }) {
             return `https://github.com/dragonflyoss/d7y.io/edit/main/docs/${docPath}`;
           },
           showLastUpdateAuthor: true,
@@ -31,6 +39,7 @@ const config = {
           editUrl: 'https://github.com/dragonflyoss/d7y.io/tree/main/',
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
+          onInlineAuthors: 'ignore',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -80,7 +89,7 @@ const config = {
           position: 'left',
         },
         {
-          to: 'videos/sessions/en/2025-11-13',
+          to: 'videos/sessions/en/2026-04-03',
           activeBasePath: 'videos',
           label: 'Video',
           position: 'left',

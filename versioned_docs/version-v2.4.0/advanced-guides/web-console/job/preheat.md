@@ -46,7 +46,7 @@ Preheat the cluster.
 
 **Clusters**: Used for clusters that need to be preheated.
 
-#### URL {#create-preheat-image-urel}
+#### URL {#create-preheat-image-url}
 
 URL used to specify the resource to be preheated.
 

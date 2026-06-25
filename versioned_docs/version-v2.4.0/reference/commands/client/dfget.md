@@ -65,8 +65,8 @@ spec:
 
 #### Install Dfget in the Container Image
 
-Install Dfget in the Container Image, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm-install-client-using-rpm)
-or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb-install-client-using-deb).
+Install Dfget in the Container Image, refer to [Install Client using RPM](../../../getting-started/installation/binaries.md#install-client-using-rpm)
+or [Install Client using DEB](../../../getting-started/installation/binaries.md#install-client-using-deb).
 
 #### Download via UDS(unix domain socket) of dfdaemon in the node
 
@@ -81,7 +81,7 @@ dfget will call dfdaemon to download the file, and dfdaemon will return the cont
 dfget via unix domain socket, and dfget will copy the content to the output path. If it is `false`, dfdaemon will
 download the file and hardlink or copy the file to the output path.
 
-### Dwonload with different protocols {#download-with-different-protocols}
+### Download with different protocols {#download-with-different-protocols}
 
 #### Download with HTTP protocol
 

@@ -6,9 +6,9 @@ hide_table_of_contents: true
 
 Guest post by Pengtao and Liubo, Software Engineers at Ant Group
 
-*Tao* is a software engineer at Ant Group. He has been working on Linux file system development for more than 10 years. He is also a core maintainer of Kata Containers project. In recent years, Tao mainly works on container runtime and services. He is a strong believer and advocator for open source and cloud native technology_
+_Tao_ is a software engineer at Ant Group. He has been working on Linux file system development for more than 10 years. He is also a core maintainer of Kata Containers project. In recent years, Tao mainly works on container runtime and services. He is a strong believer and advocator for open source and cloud native technology\_
 
-*Bo Liu*, he has been an active contributor of Linux kernel since 2009, mostly working on the Btrfs Filesystem, and now he is working at Alibaba Group, his main interest is linux filesystems and container technologies.
+_Bo Liu_, he has been an active contributor of Linux kernel since 2009, mostly working on the Btrfs Filesystem, and now he is working at Alibaba Group, his main interest is linux filesystems and container technologies.
 
 ## Small is Fast, Large is Slow
 
@@ -25,6 +25,8 @@ Conceptually, we pack application’s environment into a single image that is mo
 Here we introduce the [dragonfly image service called nydus](https://github.com/dragonflyoss/image-service) as an extension to the Dragonfly project.  It’s software that minimizes download time and provides image integrity check across the whole lifetime of a container, enabling users to manage applications fast and safely.
 
 nydus is co-developed by engineers from Alibaba Cloud and Ant Group. It is widely used in the internal production deployments. From our experience, we value its container creation speedup and image isolation enhancement the most. And we are seeing interesting use cases of it from time to time.
+
+<!-- truncate -->
 
 ## Nydus: Dragonfly Image Service
 
@@ -46,7 +48,7 @@ Nydus mainly consists of a new container image format and a FUSE (Filesystem in 
 
 The FUSE daemon takes in either FUSE or [virtiofs](https://virtio-fs.gitlab.io/) protocol to service POD created by conventional [runc](https://github.com/opencontainers/runc) containers or [Kata Containers](https://katacontainers.io/). It supports pulling container image data from container image registry, [OSS](https://www.alibabacloud.com/product/oss), NAS, as well as Dragonfly supernode and node peers. It can also optionally use a local directory to cache all container image data to speed up future container creation.
 
-Internally, nydus splits a container image into two parts: a metadata layer and a data layer. The metadata layer is a self-verifiable [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree). Each file and directory is a node in the merkle tree with a hash aloneside. A file’s hash is the hash of its file content, and a directory’s hash is the hash of all of its descendents. Each file is divided into even sized chunks and saved in a data layer. File chunks can be shared among different container images by letting file nodes pointing inside them point to the same chunk location in the shared data layer.
+Internally, nydus splits a container image into two parts: a metadata layer and a data layer. The metadata layer is a self-verifiable [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree). Each file and directory is a node in the merkle tree with a hash alongside. A file’s hash is the hash of its file content, and a directory’s hash is the hash of all of its descendents. Each file is divided into even sized chunks and saved in a data layer. File chunks can be shared among different container images by letting file nodes pointing inside them point to the same chunk location in the shared data layer.
 
 ![Nydus architecture](https://www.cncf.io/wp-content/uploads/2022/08/1597746776484-4b1b9a1c-3a4b-42d4-9d12-08844a172998.pngalignleftdisplayinlineheight394marginobject-Objectnameimage.pngoriginHeight788originWidth1438size875936statusdonestylenonewidth719.png)
 
