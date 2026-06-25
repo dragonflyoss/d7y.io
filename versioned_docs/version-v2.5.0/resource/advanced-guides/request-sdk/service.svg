@@ -1,0 +1,313 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="744" height="873" style="background:#fff;background-color:light-dark(#fff,var(--ge-dark-color, #121212));color-scheme:light dark">
+    <rect width="100%" height="100%" fill="#fff" style="fill:light-dark(#fff,var(--ge-dark-color, #121212))"/>
+    <g data-cell-id="0">
+        <g data-cell-id="1">
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-26">
+                <path fill="none" d="M187.5 390q0 45-48.75 45T90 470.45" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m90 478.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-28">
+                <path fill="none" d="M367.5 390v80.45" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m367.5 478.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-2">
+                <path fill="#d5e8d4" stroke="#82b366" stroke-width="1.5" d="M270 210h195v60H270z" pointer-events="all" style="fill:light-dark(#d5e8d4,#1f2f1e);stroke:light-dark(#82b366,#446e2c)" transform="translate(.5 .5)"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:128px;height:1px;padding-top:160px;margin-left:181px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font style="font-size:11px">
+                                        Seed Peer Service
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="245" y="164" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Seed Peer Service</text>
+                </switch>
+            </g>
+            <g stroke="#000" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-10">
+                <path fill="none" d="M367.5 165v35.45" pointer-events="stroke" style="stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+                <path d="m367.5 208.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#000,#fff);stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-3">
+                <path fill="#fff2cc" stroke="#d6b656" stroke-miterlimit="10" stroke-width="1.5" d="M333.75 90c0-36 0-54 33.75-54-22.5 0-22.5-36 0-36s22.5 36 0 36c33.75 0 33.75 18 33.75 54Z" pointer-events="all" style="fill:light-dark(#fff2cc,#281d00);stroke:light-dark(#d6b656,#6d5100)" transform="translate(.5 .5)"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:43px;height:1px;padding-top:30px;margin-left:224px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font style="font-size:9px">
+                                        User
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="245" y="34" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">User</text>
+                </switch>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-4">
+                <path fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5" d="M0 480h180v90H0z" pointer-events="all" style="fill:light-dark(#e1d5e7,#392f3f);stroke:light-dark(#9673a6,#9577a3)" transform="translate(.5 .5)"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:118px;height:1px;padding-top:350px;margin-left:1px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font style="font-size:11px">
+                                        Seed Peer 1
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="60" y="354" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Seed Peer 1</text>
+                </switch>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-16">
+                <path fill="none" d="M367.5 690v50.45" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m367.5 748.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-7">
+                <path fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5" d="M277.5 480h180v90h-180z" pointer-events="all" style="fill:light-dark(#e1d5e7,#392f3f);stroke:light-dark(#9673a6,#9577a3)" transform="translate(.5 .5)"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:118px;height:1px;padding-top:350px;margin-left:186px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font style="font-size:11px">
+                                        Seed Peer 2
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="245" y="354" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Seed Peer 2</text>
+                </switch>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-8">
+                <path fill="#e1d5e7" stroke="#9673a6" stroke-width="1.5" d="M555 480h180v90H555z" pointer-events="all" style="fill:light-dark(#e1d5e7,#392f3f);stroke:light-dark(#9673a6,#9577a3)" transform="translate(.5 .5)"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:118px;height:1px;padding-top:350px;margin-left:371px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font style="font-size:11px">
+                                        Seed Peer 3
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="430" y="354" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Seed Peer 3</text>
+                </switch>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-9">
+                <g stroke="#b85450" stroke-miterlimit="10" stroke-width="3" pointer-events="all">
+                    <path fill="#f8cecc" d="M258.75 850v-80c0-11.05 48.69-20 108.75-20s108.75 8.95 108.75 20v80c0 11.05-48.69 20-108.75 20s-108.75-8.95-108.75-20Z" style="fill:light-dark(#f8cecc,#512d2b);stroke:light-dark(#b85450,#d7817e)" transform="translate(.5 .5)"/>
+                    <path fill="none" d="M258.75 770c0 11.05 48.69 20 108.75 20s108.75-8.95 108.75-20" style="stroke:light-dark(#b85450,#d7817e)" transform="translate(.5 .5)"/>
+                </g>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:143px;height:1px;padding-top:540px;margin-left:174px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <div>
+                                        <font style="font-size:11px">
+                                            <br/>
+                                        </font>
+                                    </div>
+                                    <font style="font-size:11px">
+                                        OCI registry
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="245" y="544" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">OCI registry</text>
+                </switch>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-27">
+                <path fill="none" d="M562.5 390q0 45 45.4 45 45.41 0 45.39 35.99" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m653.28 478.86-5.24-10.5 5.25 2.63 5.25-2.62Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-29">
+                <path fill="none" d="M120 690q0 120 129.2 120" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m257.07 810-10.5 5.25 2.63-5.25-2.63-5.25Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-30">
+                <path fill="none" d="M630 690q0 120-144.2 120" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m477.93 810 10.5-5.25-2.63 5.25 2.63 5.25Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-31">
+                <path fill="none" d="M90 570q0 37.5-18.75 37.5t-18.75 30 20.45 30" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m80.82 667.5-10.5 5.25 2.63-5.25-2.63-5.25Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-20">
+                <path fill="none" d="M83 645.5h75v45H83z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:48px;height:1px;padding-top:445px;margin-left:56px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;color:light-dark(#f93,#a95100)">
+                                        Layer1
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="80" y="449" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Layer1</text>
+                </switch>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-32">
+                <path fill="none" d="M367.5 570v65.45" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m367.5 643.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-22">
+                <path fill="none" d="M330.5 645.5h75v45h-75z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:48px;height:1px;padding-top:445px;margin-left:221px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;color:light-dark(#f93,#a95100)">
+                                        Layer1
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="245" y="449" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Layer1</text>
+                </switch>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-33">
+                <path fill="none" d="M645 570q0 37.5 26.25 37.5t26.25 30-20.45 30" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m669.18 667.5 10.5-5.25-2.63 5.25 2.63 5.25Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-21">
+                <path fill="none" d="M593 645.5h75v45h-75z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:48px;height:1px;padding-top:445px;margin-left:396px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;color:light-dark(#f93,#a95100)">
+                                        Layer1
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="420" y="449" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Layer1</text>
+                </switch>
+            </g>
+            <g stroke="#000" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-34">
+                <path fill="none" d="M367.5 90v20.45" pointer-events="stroke" style="stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+                <path d="m367.5 118.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#000,#fff);stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-19">
+                <path fill="none" d="M323 120.5h90v45h-90z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:58px;height:1px;padding-top:95px;margin-left:216px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;color:light-dark(#7f35ff,#cc8cff)">
+                                        Request
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="245" y="99" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Request</text>
+                </switch>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-38">
+                <path fill="none" d="M318.75 270q.06 37.5-54.35 37.5-54.4 0-54.4 27.95" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m210 343.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-35">
+                <path fill="none" d="M165.5 345.5h90v45h-90z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:58px;height:1px;padding-top:245px;margin-left:111px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;background-color:light-dark(#fff,var(--ge-dark-color, #121212));color:light-dark(#f66,#e05d5d)">
+                                        Chunk 1
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="140" y="249" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Chunk 1</text>
+                </switch>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-39">
+                <path fill="none" d="M367.5 270v65.45" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m367.5 343.32-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-36">
+                <path fill="none" d="M323 345.5h90v45h-90z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:58px;height:1px;padding-top:245px;margin-left:216px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;color:light-dark(#f66,#e05d5d)">
+                                        Chunk 2
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="245" y="249" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Chunk 2</text>
+                </switch>
+            </g>
+            <g stroke="#10739e" stroke-miterlimit="10" stroke-width="1.5" data-cell-id="AwbTmIjEsDTj4YUOEjYn-40">
+                <path fill="none" d="M416.25 270q.06 37.5 63.98 37.5t63.91 28.22" pointer-events="stroke" style="stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+                <path fill="#10739e" d="m544.14 343.59-5.25-10.5 5.25 2.63 5.25-2.63Z" pointer-events="all" style="fill:light-dark(#10739e,#54a9ce);stroke:light-dark(#10739e,#54a9ce)" transform="translate(.5 .5)"/>
+            </g>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-37">
+                <path fill="none" d="M495.5 345.5h90v45h-90z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:58px;height:1px;padding-top:245px;margin-left:331px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;color:light-dark(#f66,#e05d5d)">
+                                        Chunk 3
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="360" y="249" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Chunk 3</text>
+                </switch>
+            </g>
+            <path fill="none" stroke="#000" stroke-dasharray="4.5 4.5" stroke-width="1.5" d="M63.75 345h607.5v45H63.75z" data-cell-id="AwbTmIjEsDTj4YUOEjYn-50" pointer-events="all" style="stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+            <g data-cell-id="AwbTmIjEsDTj4YUOEjYn-51">
+                <path fill="none" d="M668 345.5h75v45h-75z" pointer-events="all"/>
+                <switch transform="scale(1.5)">
+                    <foreignObject width="100%" height="100%" pointer-events="none" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow:visible;text-align:left">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:48px;height:1px;padding-top:245px;margin-left:446px">
+                            <div style="box-sizing:border-box;font-size:0;text-align:center;color:#000">
+                                <div style="display:inline-block;font-size:12px;font-family:Helvetica;color:light-dark(#000,#fff);line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
+                                    <font face="Comic Sans MS" style="font-size:10px;color:light-dark(#f93,#a95100)">
+                                        Layer1
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="470" y="249" fill="light-dark(#000000, #ffffff)" font-family="Helvetica" font-size="12" text-anchor="middle">Layer1</text>
+                </switch>
+            </g>
+            <path fill="none" stroke="#000" stroke-dasharray="4.5 4.5" stroke-width="1.5" d="M165 352.5h90v30h-90z" data-cell-id="AwbTmIjEsDTj4YUOEjYn-83" pointer-events="all" style="stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+            <path fill="none" stroke="#000" stroke-dasharray="4.5 4.5" stroke-width="1.5" d="M322.5 352.5h90v30h-90z" data-cell-id="AwbTmIjEsDTj4YUOEjYn-84" pointer-events="all" style="stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+            <path fill="none" stroke="#000" stroke-dasharray="4.5 4.5" stroke-width="1.5" d="M495 352.5h90v30h-90z" data-cell-id="AwbTmIjEsDTj4YUOEjYn-86" pointer-events="all" style="stroke:light-dark(#000,#fff)" transform="translate(.5 .5)"/>
+        </g>
+    </g>
+</svg>
