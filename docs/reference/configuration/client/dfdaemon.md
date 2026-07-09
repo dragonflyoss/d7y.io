@@ -257,6 +257,8 @@ proxy:
   server:
     # port is the port to the proxy server.
     port: 4001
+    # requestRateLimit is the rate limit of the proxy server, default is 400 req/s.
+    requestRateLimit: 400
   # # ip is the listen ip of the proxy server.
   # ip: ""
   # # caCert is the root CA cert path with PEM format for the proxy server to generate the server cert.
