@@ -202,10 +202,10 @@ storage:
   dir: /var/lib/dragonfly/
   # keep indicates whether keep the task's metadata and content when the dfdaemon restarts.
   keep: true
-  # writeBufferSize is the buffer size for writing piece to disk, default is 4MiB.
-  writeBufferSize: 4194304
-  # readBufferSize is the buffer size for reading piece from disk, default is 4MiB.
-  readBufferSize: 4194304
+  # writeBufferSize is the buffer size for writing piece to disk, default is 512KiB.
+  writeBufferSize: 524288
+  # readBufferSize is the buffer size for reading piece from disk, default is 512KiB.
+  readBufferSize: 524288
   # writePieceTimeout is the timeout for writing a piece to storage(e.g., disk or cache).
   writePieceTimeout: 360s
   server:
@@ -334,8 +334,8 @@ proxy:
   # prefetchBandwidthLimit is the rate limit of the prefetch speed in KB/MB/GB per second, default is 10GB/s.
   # The prefetch request has lower priority so limit the rate to avoid occupying the bandwidth impact other download tasks.
   prefetchBandwidthLimit: 10GB
-  # readBufferSize is the buffer size for reading piece from disk, default is 4MiB.
-  readBufferSize: 4194304
+  # readBufferSize is the buffer size for reading piece from disk, default is 512KiB.
+  readBufferSize: 524288
 
 metrics:
   server:
