@@ -83,7 +83,7 @@ scheduler:
   # Retry scheduling limit times.
   retryLimit: 5
   # Retry scheduling interval.
-  retryInterval: 2s
+  retryInterval: 1s
   # GC metadata configuration.
   gc:
     # pieceDownloadTimeout is the timeout of downloading piece.
