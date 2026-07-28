@@ -126,9 +126,12 @@ upload:
   # bandwidthLimit is the default rate limit of the upload speed in KB/MB/GB per second, default is 50GB/s.
   bandwidthLimit: 50GB
 
-manager:
-  # addr is manager address.
-  addr: http://manager-service:65003
+# manager:
+  # # addr is manager address. The addr is optional. If the addr is not configured,
+  # # dfdaemon runs without the manager, and the dynamic configuration is loaded
+  # # from the local dynconfig.yaml file instead of being fetched from the manager,
+  # # refer to Configure Dfdaemon Dynconfig YAML File.
+  # addr: http://manager-service:65003
 # # CA certificate file path for mTLS.
 # caCert: /etc/ssl/certs/ca.crt
 # # GRPC client certificate file path for mTLS.
@@ -194,7 +197,8 @@ seedPeer:
   type: super
 
 dynconfig:
-  # refreshInterval is the interval to refresh dynamic configuration from manager.
+  # refreshInterval is the interval to refresh dynamic configuration from the manager,
+  # or from the local dynconfig.yaml file when the manager address is not configured.
   refreshInterval: 1m
 
 storage:
@@ -409,4 +413,96 @@ backend:
 network:
   # enableIPv6 indicates whether to enable IPv6 networking.
   enableIPv4: false
+```
+
+## Configure Dfdaemon Dynconfig YAML File {#configure-dfdaemon-dynconfig-yaml-file}
+
+When `manager.addr` is not configured, dfdaemon runs without the manager and loads the
+dynamic configuration from a local `dynconfig.yaml` file (typically mounted as a
+Kubernetes ConfigMap) instead of fetching it from the manager.
+
+Configure `dynconfig.yaml`, the default path is `/etc/dragonfly/dynconfig.yaml`. The path can
+be overridden with the `--dynconfig` flag or the `DFDAEMON_DYNCONFIG` environment variable.
+If the file does not exist, it is generated with the default values on startup. The
+configuration is refreshed periodically according to the `dynconfig.refreshInterval` in
+`dfdaemon.yaml`, default is `1m`.
+
+Scheduler discovery supports two modes: if the static address list `scheduler.addrs` is
+non-empty, it takes precedence; otherwise dfdaemon resolves the scheduler headless service
+address `scheduler.addr` via DNS to obtain the list of scheduler addresses. Each discovered
+scheduler is health-checked, and unhealthy schedulers are filtered out.
+
+```yaml
+scheduler:
+  # addr is the address of the scheduler headless service with port, resolved via DNS
+  # to discover all scheduler addresses.
+  addr: 'scheduler-headless.default.svc:8002'
+# # addrs is the static list of scheduler addresses with port.
+# # When non-empty, it takes precedence over addr.
+# addrs: ['192.168.1.10:8002', '192.168.1.11:8002']
+
+# clientConfig is the block list configuration for clients running as normal peers.
+clientConfig:
+  blockList:
+    task:
+      download:
+        # applications is the blocked application names.
+        applications: []
+        # urls is the blocked URL regex patterns.
+        urls: []
+        # tags is the blocked tags.
+        tags: []
+        # priorities is the blocked priorities.
+        priorities: []
+    persistentTask:
+      upload:
+        applications: []
+        urls: []
+        tags: []
+      download:
+        applications: []
+        urls: []
+        tags: []
+        priorities: []
+    persistentCacheTask:
+      upload:
+        applications: []
+        urls: []
+        tags: []
+      download:
+        applications: []
+        urls: []
+        tags: []
+        priorities: []
+
+# seedClientConfig is the block list configuration for clients running as seed peers,
+# the structure is the same as clientConfig.
+seedClientConfig:
+  blockList:
+    task:
+      download:
+        applications: []
+        urls: []
+        tags: []
+        priorities: []
+    persistentTask:
+      upload:
+        applications: []
+        urls: []
+        tags: []
+      download:
+        applications: []
+        urls: []
+        tags: []
+        priorities: []
+    persistentCacheTask:
+      upload:
+        applications: []
+        urls: []
+        tags: []
+      download:
+        applications: []
+        urls: []
+        tags: []
+        priorities: []
 ```

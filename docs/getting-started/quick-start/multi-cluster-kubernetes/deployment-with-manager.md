@@ -1,30 +1,30 @@
 ---
-id: multi-cluster-kubernetes
-title: Multi-cluster Kubernetes
-description: Multi-cluster kubernetes
-slug: /getting-started/quick-start/multi-cluster-kubernetes/
+id: deployment-with-manager
+title: Deployment with Manager
+description: Multi-cluster kubernetes deployment with Manager
+slug: /getting-started/quick-start/multi-cluster-kubernetes/deployment-with-manager/
 ---
 
 Documentation for deploying Dragonfly on multi-cluster kubernetes using helm. A Dragonfly cluster manages cluster within
 a network. If you have two clusters with disconnected networks, you can use two Dragonfly clusters to manage their own clusters.
 
-The recommended deployment in a multi-cluster kubernetes is to use a Dragonfly cluster to manage a kubernetes cluster,
+The deployment in a multi-cluster kubernetes is to use a Dragonfly cluster to manage a kubernetes cluster,
 and use a centralized manager service to manage multiple Dragonfly clusters. Because peer can only transmit data in
 its own Dragonfly cluster, if a kubernetes cluster deploys a Dragonfly cluster, then a kubernetes cluster forms a p2p network,
 and internal peers can only schedule and transmit data in a kubernetes cluster.
 
-![multi-cluster-kubernetes](../../resource/getting-started/multi-cluster-kubernetes.png)
+![multi-cluster-kubernetes](../../../resource/getting-started/multi-cluster-kubernetes.png)
 
 ## Runtime
 
-You can have a quick start following [Helm Charts](../installation/helm-charts.md).
+You can have a quick start following [Helm Charts](../../installation/helm-charts.md).
 It is recommended to use `containerd`.
 
 | Runtime                                                                     | Version  |
 | --------------------------------------------------------------------------- | -------- |
-| [containerd](../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
-| [Docker](../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
-| [CRI-O](../../operations/integrations/container-runtime/cri-o.md)           | All      |
+| [containerd](../../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
+| [Docker](../../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
+| [CRI-O](../../../operations/integrations/container-runtime/cri-o.md)           | All      |
 
 ## Setup kubernetes cluster
 
@@ -103,6 +103,8 @@ Create Dragonfly cluster A charts configuration file `charts-config-cluster-a.ya
 
 ```yaml
 manager:
+  # Enable manager. The manager is disabled by default.
+  enable: true
   nodeSelector:
     cluster: a
   image:
@@ -110,6 +112,14 @@ manager:
     tag: latest
   metrics:
     enable: true
+
+# MySQL and Redis are the dependencies of the manager,
+# and they are disabled by default.
+mysql:
+  enable: true
+
+redis:
+  enable: true
 
 scheduler:
   nodeSelector:
@@ -175,16 +185,17 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Get the scheduler address by running these commands:
+1. Get the manager address by running these commands:
+  export MANAGER_POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=manager" -o jsonpath={.items[0].metadata.name})
+  export MANAGER_CONTAINER_PORT=$(kubectl get pod --namespace cluster-a $MANAGER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace cluster-a port-forward $MANAGER_POD_NAME 8080:$MANAGER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8080 to use your manager"
+
+2. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace cluster-a $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace cluster-a port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
-
-2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
-  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace cluster-a $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
@@ -243,14 +254,14 @@ kubectl apply -f manager-rest-svc.yaml -n cluster-a
 Visit address `localhost:8080` to see the manager console. Sign in the console with the default root user,
 the username is `root` and password is `dragonfly`.
 
-![signin](../../resource/getting-started/signin.png)
+![signin](../../../resource/getting-started/signin.png)
 
-![clusters](../../resource/getting-started/clusters.png)
+![clusters](../../../resource/getting-started/clusters.png)
 
 By default, Dragonfly will automatically create Dragonfly cluster A record in manager when
 it is installed for the first time. You can click Dragonfly cluster A to view the details.
 
-![cluster-a](../../resource/getting-started/cluster-a.png)
+![cluster-a](../../../resource/getting-started/cluster-a.png)
 
 ### Create Dragonfly cluster B {#create-dragonfly-cluster-b-simple}
 
@@ -262,11 +273,11 @@ and the schedulers, seed peers and peers included in the Dragonfly cluster shoul
 Visit manager console and click the `ADD CLUSTER` button to add Dragonfly cluster B record.
 Note that the IDC is set to `cluster-2` to match the peer whose IDC is `cluster-2`.
 
-![create-cluster-b](../../resource/getting-started/create-cluster-b.png)
+![create-cluster-b](../../../resource/getting-started/create-cluster-b.png)
 
 Create Dragonfly cluster B record successfully.
 
-![create-cluster-b-successfully](../../resource/getting-started/create-cluster-b-successfully.png)
+![create-cluster-b-successfully](../../../resource/getting-started/create-cluster-b-successfully.png)
 
 #### Use schedulerClusterID to distinguish different Dragonfly clusters
 
@@ -275,7 +286,7 @@ The schedulerClusterID of the peer are configured in peer YAML config,
 the fields are `host.schedulerClusterID`. If this field configured,
 other fields such as `host.location`, `host.idc`, `host.ip` and `host.hostname`
 will be ignored for listing schedulers.
-Refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+Refer to [dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 **SchedulerClusterID**: The id of the scheduler cluster,
 the peer will use this id to distinguish different Dragonfly scheduler clusters.
@@ -285,15 +296,12 @@ You can get the id after creating the cluster from the manager console.
 
 Create charts configuration with cluster information in the manager console.
 
-![cluster-b-information](../../resource/getting-started/cluster-b-information.png)
+![cluster-b-information](../../../resource/getting-started/cluster-b-information.png)
 
 - `scheduler.config.manager.schedulerClusterID` using the `Scheduler cluster ID`
   from `cluster-2` information in the manager console to specify the scheduler cluster.
-- `scheduler.config.manager.addr` is address of the manager GRPC server.
-- `seedClient.config.manager.addrs` is address of the manager GRPC server.
 - `client.config.host.schedulerClusterID` using the `Scheduler cluster ID`
   from `cluster-2` information in the manager console to specify the scheduler cluster.
-- `client.config.manager.addrs` is address of the manager GRPC server.
 - `externalManager.host` is host of the manager GRPC server.
 - `externalRedis.addrs[0]` is address of the redis.
 
@@ -393,12 +401,7 @@ NOTES:
   kubectl --namespace cluster-b port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
 
-2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
-  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace cluster-b $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
-
-3. Configure runtime to use dragonfly:
+2. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
 ```
 
@@ -417,7 +420,7 @@ dragonfly-seed-client-0   1/1     Running   0          10m
 
 Create dragonfly cluster B successfully.
 
-![install-cluster-b-successfully](../../resource/getting-started/install-cluster-b-successfully.png)
+![install-cluster-b-successfully](../../../resource/getting-started/install-cluster-b-successfully.png)
 
 ## Using Dragonfly to distribute images for multi-cluster kubernetes
 

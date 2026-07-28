@@ -8,6 +8,11 @@ It plays the role of Manager in the multi-P2P cluster deployment process.
 Used to manage the dynamic configuration that each module depends on,
 and provide keepalive and metrics functions.
 
+The Manager is optional at deployment. If the Manager is not deployed, the Scheduler and
+Client load the dynamic configuration from the local `dynconfig.yaml` file instead of
+fetching it from the Manager, refer to
+[Deployment Models](../../deployment/deployment-models.md).
+
 ## Features {#features}
 
 - Stores dynamic configuration for consumption by seed peer cluster, Scheduler cluster and Client.

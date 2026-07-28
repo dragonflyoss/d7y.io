@@ -1,22 +1,27 @@
 ---
-id: kubernetes
-title: Kubernetes
-description: Kubernetes
-slug: /getting-started/quick-start/kubernetes/
+id: lightweight-deployment
+title: Lightweight Deployment
+description: Kubernetes lightweight deployment
+slug: /getting-started/quick-start/kubernetes/lightweight-deployment/
 ---
 
 Documentation for deploying Dragonfly on kubernetes using helm.
 
+This is the recommended lightweight deployment, which runs Dragonfly without the Manager
+and its MySQL and Redis dependencies. The scheduler and client load the dynamic configuration
+from the local `dynconfig.yaml` file mounted as a ConfigMap instead of fetching it from the
+Manager, and clients discover schedulers via the scheduler headless service.
+
 ## Runtime
 
-You can have a quick start following [Helm Charts](../installation/helm-charts.md).
+You can have a quick start following [Helm Charts](../../installation/helm-charts.md).
 It is recommended to use `containerd`.
 
 | Runtime                                                                     | Version  |
 | --------------------------------------------------------------------------- | -------- |
-| [containerd](../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
-| [Docker](../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
-| [CRI-O](../../operations/integrations/container-runtime/cri-o.md)           | All      |
+| [containerd](../../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
+| [Docker](../../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
+| [CRI-O](../../../operations/integrations/container-runtime/cri-o.md)           | All      |
 
 ## Setup kubernetes cluster {#setup-kubernetes-cluster}
 
@@ -51,7 +56,6 @@ Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
-docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 docker pull dragonflyoss/dfinit:latest
 ```
@@ -60,23 +64,19 @@ Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
-kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 kind load docker-image dragonflyoss/dfinit:latest
 ```
 
 ## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
-Create helm charts configuration file `charts-config.yaml`, configuration content is as follows:
+Create helm charts configuration file `charts-config.yaml`, configuration content is as follows.
+The Manager, MySQL and Redis are disabled by default, so the scheduler and client load the
+dynamic configuration from the local `dynconfig.yaml` file mounted as a ConfigMap, refer to
+[scheduler config](../../../reference/configuration/scheduler.md) and
+[dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -117,22 +117,22 @@ Create a Dragonfly cluster using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace dragonfly-system dragonfly dragonfly/dragonfly -f charts-config.yaml
 NAME: dragonfly
-LAST DEPLOYED: Tue Apr 16 11:23:00 2024
+LAST DEPLOYED: Mon Jul 27 21:23:00 2026
 NAMESPACE: dragonfly-system
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Get the scheduler address by running these commands:
+1. Dragonfly is running without the manager. The scheduler and client load the dynamic
+   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
+   discover schedulers via the scheduler headless service:
+  dragonfly-scheduler.dragonfly-system.svc.cluster.local:8002
+
+2. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
-
-2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
-  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
@@ -144,17 +144,11 @@ Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
-NAME                                 READY   STATUS     RESTARTS      AGE
-dragonfly-client-dhqfc               1/1     Running    0             13m
-dragonfly-client-h58x6               1/1     Running    0             13m
-dragonfly-manager-7b4fd85458-fjtpk   1/1     Running    0             13m
-dragonfly-mysql-0                    1/1     Running    0             13m
-dragonfly-redis-master-0             1/1     Running    0             13m
-dragonfly-redis-replicas-0           1/1     Running    0             13m
-dragonfly-redis-replicas-1           1/1     Running    0             11m
-dragonfly-redis-replicas-2           1/1     Running    0             10m
-dragonfly-scheduler-0                1/1     Running    0             13m
-dragonfly-seed-client-0              1/1     Running    2 (76s ago)   13m
+NAME                      READY   STATUS    RESTARTS   AGE
+dragonfly-client-dhqfc    1/1     Running   0          3m
+dragonfly-client-h58x6    1/1     Running   0          3m
+dragonfly-scheduler-0     1/1     Running   0          3m
+dragonfly-seed-client-0   1/1     Running   0          3m
 ```
 
 ## Containerd downloads images through Dragonfly {#containerd-downloads-images-through-dragonfly}
@@ -262,109 +256,5 @@ When pull image hits cache of local peer, it takes `5.540s` to download the
 
 ## Preheat image {#preheat-image}
 
-Expose manager's port `8080`:
-
-```shell
-kubectl --namespace dragonfly-system port-forward service/dragonfly-manager 8080:8080
-```
-
-Please create personal access Token before calling Open API, and select `job` for access scopes, refer to [personal-access-tokens](../../advanced-guides/personal-access-tokens.md).
-
-Use Open API to preheat the image `alpine:3.19` to Seed Peer, refer to [preheat](../../advanced-guides/open-api/preheat.md).
-
-```shell
-curl --location --request POST 'http://127.0.0.1:8080/oapi/v1/jobs' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer your_personal_access_token' \
---data-raw '{
-    "type": "preheat",
-    "args": {
-        "type": "image",
-        "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-        "filteredQueryParams": "Expires&Signature",
-        "username": "your_registry_username",
-        "password": "your_registry_password"
-    }
-}'
-```
-
-The command-line log returns the preheat job id:
-
-```json
-{
-  "id": 1,
-  "created_at": "2024-04-18T08:51:55Z",
-  "updated_at": "2024-04-18T08:51:55Z",
-  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
-  "type": "preheat",
-  "state": "SUCCESS",
-  "args": {
-    "filteredQueryParams": "Expires&Signature",
-    "headers": null,
-    "password": "",
-    "pieceLength": 4194304,
-    "platform": "",
-    "tag": "",
-    "type": "image",
-    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-    "username": ""
-  },
-  "scheduler_clusters": [
-    {
-      "id": 1,
-      "created_at": "2024-04-18T08:29:15Z",
-      "updated_at": "2024-04-18T08:29:15Z",
-      "name": "cluster-1"
-    }
-  ]
-}
-```
-
-Polling the preheating status with job id:
-
-```shell
-curl --request GET 'http://127.0.0.1:8080/oapi/v1/jobs/1' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer your_personal_access_token'
-```
-
-If the status is `SUCCESS`, the preheating is successful:
-
-```json
-{
-  "id": 1,
-  "created_at": "2024-04-18T08:51:55Z",
-  "updated_at": "2024-04-18T08:51:55Z",
-  "task_id": "group_2717f455-ff0a-435f-a3a7-672828d15a2a",
-  "type": "preheat",
-  "state": "PENDING",
-  "args": {
-    "filteredQueryParams": "Expires&Signature",
-    "headers": null,
-    "password": "",
-    "pieceLength": 4194304,
-    "platform": "",
-    "tag": "",
-    "type": "image",
-    "url": "https://index.docker.io/v2/library/alpine/manifests/3.19",
-    "username": ""
-  },
-  "scheduler_clusters": [
-    {
-      "id": 1,
-      "created_at": "2024-04-18T08:29:15Z",
-      "updated_at": "2024-04-18T08:29:15Z",
-      "name": "cluster-1"
-    }
-  ]
-}
-```
-
-Pull `alpine:3.19` image in `kind-worker` node:
-
-```shell
-time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
-```
-
-When pull image hits preheat cache, it takes `2.952s` to download the
-`alpine:3.19` image.
+Use `dfctl` to preheat images without the Manager, refer to
+[Preheat](../../../advanced-guides/preheat.md).

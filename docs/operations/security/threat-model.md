@@ -1,7 +1,7 @@
 ---
 id: threat-model
 title: Threat Model
-slug: /operations/best-practices/security/threat-model/
+slug: /operations/security/threat-model/
 ---
 
 This document outlines the threat model for the Dragonfly system. The threat model outlines potential threats faced by
@@ -22,7 +22,7 @@ According to analysis of Dragonfly architecture, the threat attackers are classi
 Considering the external malicious attackers and the architecture of the Dragonfly system, the following attack surfaces
 are identified:
 
-![external-attackers](../../../resource/operations/best-practices/security/external-attackers.png)
+![external-attackers](../../resource/operations/best-practices/security/external-attackers.png)
 
 #### Threat ID 1：Attacker gets access to valid credentials for the manager
 
@@ -130,7 +130,7 @@ Recommendations
 Considering the internal malicious attackers and the architecture of the Dragonfly system, the following attack surfaces
 are identified:
 
-![internal-attackers](../../../resource/operations/best-practices/security/internal-attackers.png)
+![internal-attackers](../../resource/operations/best-practices/security/internal-attackers.png)
 
 #### Threat ID 4: Attacker hijacks communication between the manager and the scheduler
 

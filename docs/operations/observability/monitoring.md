@@ -1,7 +1,7 @@
 ---
 id: monitoring
 title: Monitoring
-slug: /operations/best-practices/observability/monitoring/
+slug: /operations/observability/monitoring/
 ---
 
 Dragonfly is recommending to use [prometheus](https://prometheus.io/) for monitoring.
@@ -117,7 +117,7 @@ You can login with username `admin` and password `prom-operator`.
 kubectl --namespace prometheus port-forward svc/prometheus-grafana 8080:80
 ```
 
-- ![grafana-login](../../../resource/operations/best-practices/observability/monitoring/grafana-login.jpg)
+- ![grafana-login](../../resource/operations/best-practices/observability/monitoring/grafana-login.jpg)
 
 ## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
@@ -125,6 +125,7 @@ Create the Helm Charts configuration file `values.yaml`, Turn on the `ServiceMon
 
 ```yaml
 manager:
+  enable: true
   image:
     repository: dragonflyoss/manager
     tag: latest
@@ -134,6 +135,12 @@ manager:
       enable: true
     prometheusRule:
       enable: true
+
+mysql:
+  enable: true
+
+redis:
+  enable: true
 
 scheduler:
   image:
@@ -255,7 +262,7 @@ dragonfly-seed-client-2              1/1     Running   0          47m
 Visit grafana explore page at `localhost:8080/explore` and
 query `dragonfly_manager_requests_total` to validate that Dragonfly metrics have been collected.
 
-![grafana-validate-metrics](../../../resource/operations/best-practices/observability/monitoring/grafana-validate-metrics.jpg)
+![grafana-validate-metrics](../../resource/operations/best-practices/observability/monitoring/grafana-validate-metrics.jpg)
 
 ## Import Dragonfly grafana dashboards {#step-4-import-dragonfly-grafana-dashboards}
 
@@ -274,12 +281,12 @@ Dragonfly grafana dashboard info is:
 
 Import Dragonfly grafana dashboard using ID, IDs are `15945`, `15944`, `21053` and `21054`, refer to [export-import](https://grafana.com/docs/grafana/latest/dashboards/export-import/).
 
-![grafana-import-dashboard](../../../resource/operations/best-practices/observability/monitoring/grafana-import-dashboard.jpg)
+![grafana-import-dashboard](../../resource/operations/best-practices/observability/monitoring/grafana-import-dashboard.jpg)
 
 Import Dragonfly grafana dashboard successfully, you can visit the dashboard
 
-![grafana-manager](../../../resource/operations/best-practices/observability/monitoring/grafana-manager.jpg)
+![grafana-manager](../../resource/operations/best-practices/observability/monitoring/grafana-manager.jpg)
 
-![grafana-scheduler](../../../resource/operations/best-practices/observability/monitoring/grafana-scheduler.jpg)
+![grafana-scheduler](../../resource/operations/best-practices/observability/monitoring/grafana-scheduler.jpg)
 
-![grafana-peer](../../../resource/operations/best-practices/observability/monitoring/grafana-peer.jpg)
+![grafana-peer](../../resource/operations/best-practices/observability/monitoring/grafana-peer.jpg)

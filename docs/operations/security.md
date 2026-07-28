@@ -1,7 +1,7 @@
 ---
 id: security
 title: Security
-slug: /operations/best-practices/security/
+slug: /operations/security/
 ---
 
 This document provides an overview of Dragonfly security considerations.
@@ -11,7 +11,7 @@ authorization to protect your services and data.
 
 ## Mutual TLS
 
-![mTLS_process](../../resource/operations/security/mtls.png)
+![mTLS_process](../resource/operations/security/mtls.png)
 
 1. Cert-manager will generate a self-signed CA certificate and a server certificate signed by the CA certificate.
 2. Cert-manager will automatically renew the CA certificate and server certificate every 2/3 of their validity period.
@@ -25,7 +25,7 @@ authorization to protect your services and data.
 
 If you need to use `HTTPS` for the manager console, you must configure the certificate.
 Configure `manager.yaml`, the default path is `/etc/dragonfly/manager.yaml`,
-refer to [manager](../../reference/configuration/manager.md) config.
+refer to [manager](../reference/configuration/manager.md) config.
 
 > Notice: It is recommended to use `HTTPS`.
 
@@ -48,7 +48,7 @@ server:
 
 You can configure the JWT for signing in the manager console. Configure `manager.yaml`,
 the default path is `/etc/dragonfly/manager.yaml`, refer to
-[manager](../../reference/configuration/manager.md) config.
+[manager](../reference/configuration/manager.md) config.
 
 <!-- markdownlint-disable -->
 
@@ -81,7 +81,7 @@ When preheating the image, dragonfly needs to call the container registry to get
 If container registry is configured with a self-signed certificate, then dragonfly must be configured
 with a self-signed certificate. Configure `manager.yaml`,
 the default path is `/etc/dragonfly/manager.yaml`, refer to
-[manager](../../reference/configuration/manager.md) config.
+[manager](../reference/configuration/manager.md) config.
 
 ```yaml
 # Job configuration.
@@ -108,7 +108,7 @@ If you need to use `HTTPS` proxy, you must configure the certificate,
 `certificate authentication` can be used simultaneously with `Basic Authentication`
 in order to provide a two levels authentication.
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
+refer to [dfdaemon](../reference/configuration/client/dfdaemon.md) config.
 
 > Notice: It is recommended to use `HTTPS`.
 
@@ -144,7 +144,7 @@ proxy:
 Using Basic Auth validation in Peer's HTTP Proxy.
 Please note that Basic Auth is not the most secure access control technique.
 Configure `dfdaemon.yaml`, the default path is `/etc/dragonfly/dfdaemon.yaml`,
-refer to [dfdaemon](../../reference/configuration/client/dfdaemon.md) config.
+refer to [dfdaemon](../reference/configuration/client/dfdaemon.md) config.
 
 <!-- markdownlint-disable -->
 
@@ -183,7 +183,7 @@ According to analysis of Dragonfly architecture, DDoS attackers can be divided i
 
 Dragonfly implements bandwidth and request limiting to effectively mitigate
 the impact of attacks and ensure system stability.
-Please refer to [Rate limit](../../advanced-guides/rate-limit.md).
+Please refer to [Rate limit](../advanced-guides/rate-limit.md).
 
 ## Observability
 
@@ -191,10 +191,10 @@ Please refer to [Rate limit](../../advanced-guides/rate-limit.md).
 
 Monitoring is the process of collecting, analyzing and acting on metrics.
 Monitoring is a key practice in observability, as it provides the data needed to understand
-the state of the system and the impact of changes, refer to [Monitoring](../../operations/best-practices/observability/monitoring.md).
+the state of the system and the impact of changes, refer to [Monitoring](./observability/monitoring.md).
 
 ### Tracing
 
 Tracing is a specialized form of monitoring that focuses on the flow of requests through a system.
 Tracing can help you understand the performance of your system and identify bottlenecks and failures,
-refer to [Tracing](../../operations/best-practices/observability/tracing.md).
+refer to [Tracing](./observability/tracing.md).

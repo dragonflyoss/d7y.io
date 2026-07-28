@@ -1,11 +1,11 @@
 ---
 id: metrics
 title: Prometheus Metrics
-slug: /operations/best-practices/observability/prometheus-metrics/
+slug: /operations/observability/prometheus-metrics/
 ---
 
 This doc contains all the metrics that Dragonfly components currently support.
-Now we support metrics for Client, Seed Client, Manager and Scheduler.
+Now we support metrics for Client, Seed Client, Scheduler and Manager.
 The metrics path is fixed to `/metrics`. The following metrics are exported.
 
 ## Client{#client}
@@ -48,22 +48,6 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 | delete_host_failure_total             |                                               | counter   | Counter of the number of failed of the delete host.       |
 | disk_space_total                      |                                               | gauge     | Gauge of the disk space in bytes                          |
 | disk_usage_space_total                |                                               | gauge     | Gauge of the disk usage space in bytes                    |
-
-<!-- markdownlint-restore -->
-
-## Manager {#manager}
-
-GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
-
-<!-- markdownlint-disable -->
-
-| Name                                                     | Labels                                                                                       | Type    | Description                                                     |
-| :------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------- |
-| dragonfly_manager_search_scheduler_cluster_total         | version, commit                                                                              | counter | Counter of the number of searching scheduler cluster.           |
-| dragonfly_manager_search_scheduler_cluster_failure_total | version, commit                                                                              | counter | Counter of the number of failed of searching scheduler cluster. |
-| dragonfly_manager_create_job_total                       | name                                                                                         | counter | Counter of the number of creating job.                          |
-| dragonfly_manager_create_job_success_total               | name                                                                                         | counter | Counter of the number of succeeded of creating job.             |
-| dragonfly_manager_version                                | major, minor, git_version, git_commit, platform, build_time, go_version, go_tags, go_gcflags | gauge   | Version info of the service.                                    |
 
 <!-- markdownlint-restore -->
 
@@ -135,5 +119,21 @@ GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosys
 | dragonfly_scheduler_download_persistent_cache_piece_finished_total         | host_type                                                                                                            | counter | Counter of the number of the download persistent cache piece.                  |
 | dragonfly_scheduler_download_persistent_cache_piece_finished_failure_total | host_type                                                                                                            | counter | Counter of the number of failed of the download persistent cache piece.        |
 | dragonfly_scheduler_version                                                | major, minor, git_version, git_commit, platform, build_time, go_version, go_tags, go_gcflags                         | gauge   | Version info of the service.                                                   |
+
+<!-- markdownlint-restore -->
+
+## Manager {#manager}
+
+GRPC metrics are exposed via [go-grpc-prometheus](https://github.com/grpc-ecosystem/go-grpc-prometheus).
+
+<!-- markdownlint-disable -->
+
+| Name                                                     | Labels                                                                                       | Type    | Description                                                     |
+| :------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------- |
+| dragonfly_manager_search_scheduler_cluster_total         | version, commit                                                                              | counter | Counter of the number of searching scheduler cluster.           |
+| dragonfly_manager_search_scheduler_cluster_failure_total | version, commit                                                                              | counter | Counter of the number of failed of searching scheduler cluster. |
+| dragonfly_manager_create_job_total                       | name                                                                                         | counter | Counter of the number of creating job.                          |
+| dragonfly_manager_create_job_success_total               | name                                                                                         | counter | Counter of the number of succeeded of creating job.             |
+| dragonfly_manager_version                                | major, minor, git_version, git_commit, platform, build_time, go_version, go_tags, go_gcflags | gauge   | Version info of the service.                                    |
 
 <!-- markdownlint-restore -->

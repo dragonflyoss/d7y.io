@@ -1,7 +1,7 @@
 ---
 id: deployment-best-practices
 title: Deployment Best Practices
-slug: /operations/best-practices/deployment-best-practices/
+slug: /operations/deployment/deployment-best-practices/
 ---
 
 Documentation for setting capacity planning and performance tuning for Dragonfly.

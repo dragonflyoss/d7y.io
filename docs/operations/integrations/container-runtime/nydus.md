@@ -27,7 +27,7 @@ We **recommend** using helm to install Nydus, please refer to [Install Dragonfly
 
 ### Dragonfly Kubernetes Cluster Setup {#dragonfly-kubernetes-cluster-setup}
 
-For detailed installation documentation based on kubernetes cluster, please refer to [quick-start-kubernetes](../../../getting-started/quick-start/kubernetes.md).
+For detailed installation documentation based on kubernetes cluster, please refer to [Lightweight Deployment](../../../getting-started/quick-start/kubernetes/lightweight-deployment.md).
 
 #### Setup kubernetes cluster {#setup-kubernetes-cluster}
 
@@ -67,7 +67,6 @@ Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
-docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 ```
 
@@ -75,7 +74,6 @@ Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
-kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 ```
 
@@ -84,13 +82,6 @@ kind load docker-image dragonflyoss/client:latest
 Create helm charts configuration file `charts-config.yaml` and enable prefetching, configuration content is as follows:
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -139,16 +130,16 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Get the scheduler address by running these commands:
+1. Dragonfly is running without the manager. The scheduler and client load the dynamic
+   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
+   discover schedulers via the scheduler headless service:
+  dragonfly-scheduler.dragonfly-system.svc.cluster.local:8002
+
+2. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
-
-2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
-  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
@@ -161,12 +152,6 @@ Check that dragonfly is deployed successfully:
 ```shell
 $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS        AGE
-dragonfly-manager-789f57fc65-t44tf   1/1     Running   2 (6h28m ago)   9h
-dragonfly-mysql-0                    1/1     Running   3 (6h28m ago)   9h
-dragonfly-redis-master-0             1/1     Running   3 (6h28m ago)   9h
-dragonfly-redis-replicas-0           1/1     Running   7 (6h28m ago)   9h
-dragonfly-redis-replicas-1           1/1     Running   2 (6h28m ago)   8h
-dragonfly-redis-replicas-2           1/1     Running   2 (6h28m ago)   8h
 dragonfly-scheduler-0                1/1     Running   2 (6h28m ago)   9h
 dragonfly-scheduler-1                1/1     Running   2 (6h28m ago)   8h
 dragonfly-scheduler-2                1/1     Running   2 (6h28m ago)   8h
