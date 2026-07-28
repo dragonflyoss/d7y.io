@@ -1,7 +1,7 @@
 ---
 id: tracing
 title: Tracing
-slug: /operations/best-practices/observability/tracing/
+slug: /operations/observability/tracing/
 ---
 
 This document provides a guide on how to set up tracing for Dragonfly, which is
@@ -39,4 +39,4 @@ tracing:
 Jaeger will automatically collect the tracing data from Dragonfly components.
 You can access the Jaeger UI at `http://localhost:16686` to visualize the traces.
 
-![dfdaemon_trace](../../../resource/operations/best-practices/observability/tracing/tracing.png)
+![dfdaemon_trace](../../resource/operations/best-practices/observability/tracing/tracing.png)

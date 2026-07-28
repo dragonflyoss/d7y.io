@@ -1,9 +1,8 @@
 ---
-id: multi-cluster-kubernetes
-title: Multi-cluster Kubernetes
-description: Multi-cluster kubernetes
-slug: /getting-started/quick-start/multi-cluster-kubernetes/
-sidebar_position: 2
+id: lightweight-deployment
+title: Lightweight Deployment
+description: Multi-cluster kubernetes lightweight deployment
+slug: /getting-started/quick-start/multi-cluster-kubernetes/lightweight-deployment/
 ---
 
 Documentation for deploying Dragonfly on multi-cluster kubernetes using helm. A Dragonfly cluster manages cluster within
@@ -18,14 +17,14 @@ schedule and transmit data in a kubernetes cluster.
 
 ## Runtime
 
-You can have a quick start following [Helm Charts](../installation/helm-charts.md).
+You can have a quick start following [Helm Charts](../../installation/helm-charts.md).
 It is recommended to use `containerd`.
 
 | Runtime                                                                     | Version  |
 | --------------------------------------------------------------------------- | -------- |
-| [containerd](../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
-| [Docker](../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
-| [CRI-O](../../operations/integrations/container-runtime/cri-o.md)           | All      |
+| [containerd](../../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
+| [Docker](../../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
+| [CRI-O](../../../operations/integrations/container-runtime/cri-o.md)           | All      |
 
 ## Setup kubernetes cluster
 

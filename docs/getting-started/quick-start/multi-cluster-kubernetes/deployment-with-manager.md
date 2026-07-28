@@ -1,9 +1,8 @@
 ---
-id: multi-cluster-kubernetes-with-manager
-title: Multi-cluster Kubernetes with Manager
-description: Multi-cluster kubernetes with Manager
-slug: /getting-started/quick-start/multi-cluster-kubernetes-with-manager/
-sidebar_position: 4
+id: deployment-with-manager
+title: Deployment with Manager
+description: Multi-cluster kubernetes deployment with Manager
+slug: /getting-started/quick-start/multi-cluster-kubernetes/deployment-with-manager/
 ---
 
 Documentation for deploying Dragonfly on multi-cluster kubernetes using helm. A Dragonfly cluster manages cluster within
@@ -14,18 +13,18 @@ and use a centralized manager service to manage multiple Dragonfly clusters. Bec
 its own Dragonfly cluster, if a kubernetes cluster deploys a Dragonfly cluster, then a kubernetes cluster forms a p2p network,
 and internal peers can only schedule and transmit data in a kubernetes cluster.
 
-![multi-cluster-kubernetes](../../resource/getting-started/multi-cluster-kubernetes.png)
+![multi-cluster-kubernetes](../../../resource/getting-started/multi-cluster-kubernetes.png)
 
 ## Runtime
 
-You can have a quick start following [Helm Charts](../installation/helm-charts.md).
+You can have a quick start following [Helm Charts](../../installation/helm-charts.md).
 It is recommended to use `containerd`.
 
 | Runtime                                                                     | Version  |
 | --------------------------------------------------------------------------- | -------- |
-| [containerd](../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
-| [Docker](../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
-| [CRI-O](../../operations/integrations/container-runtime/cri-o.md)           | All      |
+| [containerd](../../../operations/integrations/container-runtime/containerd.md) | v1.1.0+  |
+| [Docker](../../../operations/integrations/container-runtime/docker.md)         | v20.0.1+ |
+| [CRI-O](../../../operations/integrations/container-runtime/cri-o.md)           | All      |
 
 ## Setup kubernetes cluster
 
@@ -255,14 +254,14 @@ kubectl apply -f manager-rest-svc.yaml -n cluster-a
 Visit address `localhost:8080` to see the manager console. Sign in the console with the default root user,
 the username is `root` and password is `dragonfly`.
 
-![signin](../../resource/getting-started/signin.png)
+![signin](../../../resource/getting-started/signin.png)
 
-![clusters](../../resource/getting-started/clusters.png)
+![clusters](../../../resource/getting-started/clusters.png)
 
 By default, Dragonfly will automatically create Dragonfly cluster A record in manager when
 it is installed for the first time. You can click Dragonfly cluster A to view the details.
 
-![cluster-a](../../resource/getting-started/cluster-a.png)
+![cluster-a](../../../resource/getting-started/cluster-a.png)
 
 ### Create Dragonfly cluster B {#create-dragonfly-cluster-b-simple}
 
@@ -274,11 +273,11 @@ and the schedulers, seed peers and peers included in the Dragonfly cluster shoul
 Visit manager console and click the `ADD CLUSTER` button to add Dragonfly cluster B record.
 Note that the IDC is set to `cluster-2` to match the peer whose IDC is `cluster-2`.
 
-![create-cluster-b](../../resource/getting-started/create-cluster-b.png)
+![create-cluster-b](../../../resource/getting-started/create-cluster-b.png)
 
 Create Dragonfly cluster B record successfully.
 
-![create-cluster-b-successfully](../../resource/getting-started/create-cluster-b-successfully.png)
+![create-cluster-b-successfully](../../../resource/getting-started/create-cluster-b-successfully.png)
 
 #### Use schedulerClusterID to distinguish different Dragonfly clusters
 
@@ -287,7 +286,7 @@ The schedulerClusterID of the peer are configured in peer YAML config,
 the fields are `host.schedulerClusterID`. If this field configured,
 other fields such as `host.location`, `host.idc`, `host.ip` and `host.hostname`
 will be ignored for listing schedulers.
-Refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+Refer to [dfdaemon config](../../../reference/configuration/client/dfdaemon.md).
 
 **SchedulerClusterID**: The id of the scheduler cluster,
 the peer will use this id to distinguish different Dragonfly scheduler clusters.
@@ -297,7 +296,7 @@ You can get the id after creating the cluster from the manager console.
 
 Create charts configuration with cluster information in the manager console.
 
-![cluster-b-information](../../resource/getting-started/cluster-b-information.png)
+![cluster-b-information](../../../resource/getting-started/cluster-b-information.png)
 
 - `scheduler.config.manager.schedulerClusterID` using the `Scheduler cluster ID`
   from `cluster-2` information in the manager console to specify the scheduler cluster.
@@ -421,7 +420,7 @@ dragonfly-seed-client-0   1/1     Running   0          10m
 
 Create dragonfly cluster B successfully.
 
-![install-cluster-b-successfully](../../resource/getting-started/install-cluster-b-successfully.png)
+![install-cluster-b-successfully](../../../resource/getting-started/install-cluster-b-successfully.png)
 
 ## Using Dragonfly to distribute images for multi-cluster kubernetes
 

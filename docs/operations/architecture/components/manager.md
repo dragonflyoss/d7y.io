@@ -11,7 +11,7 @@ and provide keepalive and metrics functions.
 The Manager is optional at deployment. If the Manager is not deployed, the Scheduler and
 Client load the dynamic configuration from the local `dynconfig.yaml` file instead of
 fetching it from the Manager, refer to
-[Deployment Models](../../../getting-started/deployment-models.md).
+[Deployment Models](../../deployment/deployment-models.md).
 
 ## Features {#features}
 

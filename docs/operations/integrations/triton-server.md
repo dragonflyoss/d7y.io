@@ -30,7 +30,7 @@ the [dragonfly-repository-agent](https://github.com/dragonflyoss/dragonfly-repos
 
 ### Dragonfly Kubernetes Cluster Setup
 
-For detailed installation documentation, please refer to [quick-start-kubernetes](../../getting-started/quick-start/kubernetes.md).
+For detailed installation documentation, please refer to [Lightweight Deployment](../../getting-started/quick-start/kubernetes/lightweight-deployment.md).
 
 #### Prepare Kubernetes Cluster
 

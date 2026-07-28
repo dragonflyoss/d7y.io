@@ -1,7 +1,7 @@
 ---
 id: metrics
 title: Prometheus Metrics
-slug: /operations/best-practices/observability/prometheus-metrics/
+slug: /operations/observability/prometheus-metrics/
 ---
 
 This doc contains all the metrics that Dragonfly components currently support.

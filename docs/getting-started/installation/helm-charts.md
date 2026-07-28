@@ -7,7 +7,7 @@ slug: /getting-started/installation/helm-charts/
 Documentation for deploying Dragonfly on kubernetes using helm.
 
 Dragonfly supports multiple deployment modes, refer to
-[Deployment Models](../deployment-models.md) for the features of each deployment model:
+[Deployment Models](../../operations/deployment/deployment-models.md) for the features of each deployment model:
 
 - **Lightweight deployment (recommended)**: Deploy without the Manager and its MySQL and
   Redis dependencies. The scheduler and client load the dynamic configuration from the local
@@ -169,7 +169,7 @@ dragonfly-seed-client-0   1/1     Running   0          3m
 
 If you need the persistent task and persistent cache task features, deploy Redis in addition
 to the lightweight deployment, since their metadata is stored in Redis, refer to
-[Deployment Models](../deployment-models.md).
+[Deployment Models](../../operations/deployment/deployment-models.md).
 
 Create the Helm Charts configuration file `values.yaml`, configuration content is as follows:
 

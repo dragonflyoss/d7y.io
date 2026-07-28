@@ -8,7 +8,7 @@ Preheating downloads files or images to the seed peers or peers ahead of time,
 so that the following downloads hit the cache of the P2P cluster directly.
 
 Dragonfly provides different ways to preheat depending on the deployment model,
-refer to [Deployment Models](../getting-started/deployment-models.md):
+refer to [Deployment Models](../operations/deployment/deployment-models.md):
 
 - **Without Manager**: use `dfctl` to preheat, which calls the scheduler gRPC directly.
 - **With Manager**: use the Open API or the web console to preheat.

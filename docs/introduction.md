@@ -41,7 +41,7 @@ Dragonfly services could be divided into four categories: Manager, Scheduler, Se
   and data collection capabilities. It also includes a front-end console that enables users to
   visually operate and manage clusters. If the Manager is not deployed, the Scheduler and Peer
   load the dynamic configuration from the local file, refer to
-  [Deployment Models](./getting-started/deployment-models.md).
+  [Deployment Models](./operations/deployment/deployment-models.md).
 - **Scheduler**: Selects the optimal parents for each downloading Peer. It triggers Seed Peers or Peers to download directly
   from the origin when necessary.
 - **Seed Peer**: Optional component that serves as a root Peer in the P2P network, providing both upload and download capabilities.
