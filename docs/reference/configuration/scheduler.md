@@ -103,22 +103,22 @@ scheduler:
     hostTTL: 1h
 
 # Database info used for server.
-database:
-  # Redis configuration.
-  redis:
-    # Redis addresses.
-    addrs:
-      - redis-service:6379
-    # Redis sentinel master name.
-    masterName: ''
-    # Redis username.
-    username: ''
-    # Redis password.
-    password: ''
-    # Redis broker DB.
-    brokerDB: 1
-    # Redis backend DB.
-    backendDB: 2
+# database:
+  # # Redis configuration.
+  # redis:
+    # # Redis addresses.
+    # addrs:
+    # - redis-service:6379
+    # # Redis sentinel master name.
+    # masterName: ''
+    # # Redis username.
+    # username: ''
+    # # Redis password.
+    # password: ''
+    # # Redis broker DB.
+    # brokerDB: 1
+    # # Redis backend DB.
+    # backendDB: 2
   # # Redis TLS client configuration.
   # tls:
   #   # caCert is the CA certificate file path for Redis TLS handshake.
@@ -143,16 +143,20 @@ host:
   # location is the location of scheduler instance.
   location: ''
 
-# Manager configuration.
-manager:
-  # addr is manager access address.
-  addr: manager-service:65003
-  # schedulerClusterID cluster id to which scheduler instance belongs.
-  schedulerClusterID: 1
-  # keepAlive keep alive configuration.
-  keepAlive:
-    # KeepAlive interval.
-    interval: 5s
+# Manager configuration. The addr is optional. If the addr is not configured,
+# the scheduler runs without the manager: the dynamic configuration is loaded
+# from the local dynconfig.yaml file instead of being fetched from the manager,
+# and the manager-dependent features (e.g. announcer) are disabled, refer to
+# Configure Scheduler Dynconfig YAML File.
+# manager:
+  # # addr is manager access address.
+  # addr: manager-service:65003
+  # # schedulerClusterID cluster id to which scheduler instance belongs.
+  # schedulerClusterID: 1
+  # # keepAlive keep alive configuration.
+  # keepAlive:
+    # # KeepAlive interval.
+    # interval: 5s
 # # GRPC client tls configuration.
 # tls:
 #   # CA certificate file path for mTLS.
@@ -217,4 +221,38 @@ pprofPort: -1
 #   path: "/v1/traces"
 #   # headers is the grpc's headers to send with tracing log.
 #   headers: {}
+```
+
+## Configure Scheduler Dynconfig YAML File {#configure-scheduler-dynconfig-yaml-file}
+
+When `manager.addr` is not configured, the scheduler runs without the manager and loads
+the dynamic configuration from a local `dynconfig.yaml` file (typically mounted as a
+Kubernetes ConfigMap) instead of fetching it from the manager.
+
+The default path for the scheduler dynconfig yaml configuration file is `/etc/dragonfly/dynconfig.yaml`
+in linux, and the default path is `$HOME/.dragonfly/config/dynconfig.yaml` in darwin. The path can be
+overridden with the `--dynconfig` flag. If the file does not exist, it is generated with the default
+values on startup. The configuration is refreshed periodically according to the
+`dynConfig.refreshInterval` in `scheduler.yaml`, default is `1m`.
+
+```yaml
+# applications is the applications configuration.
+applications: []
+
+# seedPeerClusterConfig is the seed peer cluster configuration.
+seedPeerClusterConfig:
+  # loadLimit is the seed peer concurrent upload limit.
+  loadLimit: 2000
+
+# schedulerClusterConfig is the scheduler cluster configuration.
+schedulerClusterConfig:
+  # candidateParentLimit is the candidate parent limit for scheduling.
+  candidateParentLimit: 3
+  # filterParentLimit is the filter parent limit for scheduling.
+  filterParentLimit: 15
+
+# schedulerClusterClientConfig is the client configuration.
+schedulerClusterClientConfig:
+  # loadLimit is the peer concurrent upload limit.
+  loadLimit: 200
 ```

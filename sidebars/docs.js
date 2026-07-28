@@ -9,6 +9,10 @@ module.exports = {
       label: 'Getting Started',
       items: [
         {
+          type: 'doc',
+          id: 'getting-started/deployment-models',
+        },
+        {
           type: 'category',
           label: 'Quick Start',
           link: {
@@ -224,6 +228,7 @@ module.exports = {
             'advanced-guides/web-console/user',
           ],
         },
+        'advanced-guides/preheat',
         'advanced-guides/request-sdk',
         'advanced-guides/rate-limit',
         'advanced-guides/leech',

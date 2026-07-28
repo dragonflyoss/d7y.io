@@ -125,6 +125,7 @@ Create the Helm Charts configuration file `values.yaml`, Turn on the `ServiceMon
 
 ```yaml
 manager:
+  enable: true
   image:
     repository: dragonflyoss/manager
     tag: latest
@@ -134,6 +135,12 @@ manager:
       enable: true
     prometheusRule:
       enable: true
+
+mysql:
+  enable: true
+
+redis:
+  enable: true
 
 scheduler:
   image:

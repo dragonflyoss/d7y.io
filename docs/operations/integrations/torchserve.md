@@ -82,7 +82,6 @@ Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
-docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 ```
 
@@ -90,7 +89,6 @@ Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
-kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 ```
 
@@ -100,13 +98,6 @@ Create helm charts configuration file `charts-config.yaml` and set `client.confi
 match the download path of the object storage, configuration content is as follows:
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -151,16 +142,16 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Get the scheduler address by running these commands:
+1. Dragonfly is running without the manager. The scheduler and client load the dynamic
+   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
+   discover schedulers via the scheduler headless service:
+  dragonfly-scheduler.dragonfly-system.svc.cluster.local:8002
+
+2. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
-
-2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
-  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
@@ -181,12 +172,6 @@ $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS      AGE
 dragonfly-client-6jgzn               1/1     Running   0             17m
 dragonfly-client-qzcz9               1/1     Running   0             17m
-dragonfly-manager-6bc4454d94-ldsk7   1/1     Running   0             17m
-dragonfly-mysql-0                    1/1     Running   0             17m
-dragonfly-redis-master-0             1/1     Running   0             17m
-dragonfly-redis-replicas-0           1/1     Running   0             17m
-dragonfly-redis-replicas-1           1/1     Running   0             17m
-dragonfly-redis-replicas-2           1/1     Running   0             17m
 dragonfly-scheduler-0                1/1     Running   0             17m
 dragonfly-scheduler-1                1/1     Running   0             17m
 dragonfly-scheduler-2                1/1     Running   0             17m

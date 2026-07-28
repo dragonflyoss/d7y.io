@@ -1,17 +1,17 @@
 ---
-id: kubernetes
-title: Kubernetes
-description: Kubernetes
-slug: /getting-started/quick-start/kubernetes/
-sidebar_position: 1
+id: kubernetes-with-manager
+title: Kubernetes with Manager
+description: Kubernetes with Manager
+slug: /getting-started/quick-start/kubernetes-with-manager/
+sidebar_position: 3
 ---
 
-Documentation for deploying Dragonfly on kubernetes using helm.
+Documentation for deploying Dragonfly with the Manager on kubernetes using helm.
 
-This is the recommended lightweight deployment, which runs Dragonfly without the Manager
-and its MySQL and Redis dependencies. The scheduler and client load the dynamic configuration
-from the local `dynconfig.yaml` file mounted as a ConfigMap instead of fetching it from the
-Manager, and clients discover schedulers via the scheduler headless service.
+The Manager provides the web console, Open API, preheating and multi-cluster management,
+and it depends on MySQL and Redis. If you only need the P2P distribution capabilities,
+it is recommended to use the lightweight deployment without the Manager, refer to
+[Kubernetes](./kubernetes.md).
 
 ## Runtime
 
@@ -57,6 +57,7 @@ Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 docker pull dragonflyoss/dfinit:latest
 ```
@@ -65,6 +66,7 @@ Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 kind load docker-image dragonflyoss/dfinit:latest
 ```
@@ -72,12 +74,27 @@ kind load docker-image dragonflyoss/dfinit:latest
 ## Create Dragonfly cluster based on helm charts {#create-dragonfly-cluster-based-on-helm-charts}
 
 Create helm charts configuration file `charts-config.yaml`, configuration content is as follows.
-The Manager, MySQL and Redis are disabled by default, so the scheduler and client load the
-dynamic configuration from the local `dynconfig.yaml` file mounted as a ConfigMap, refer to
-[scheduler config](../../reference/configuration/scheduler.md) and
-[dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+The Manager, MySQL and Redis are disabled by default, so they need to be enabled explicitly
+when deploying with the Manager.
 
 ```yaml
+manager:
+  # Enable manager. The manager is disabled by default.
+  enable: true
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+
+# MySQL and Redis are the dependencies of the manager,
+# and they are disabled by default.
+mysql:
+  enable: true
+
+redis:
+  enable: true
+
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -124,10 +141,11 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Dragonfly is running without the manager. The scheduler and client load the dynamic
-   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
-   discover schedulers via the scheduler headless service:
-  dragonfly-scheduler.dragonfly-system.svc.cluster.local:8002
+1. Get the manager address by running these commands:
+  export MANAGER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=manager" -o jsonpath={.items[0].metadata.name})
+  export MANAGER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $MANAGER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace dragonfly-system port-forward $MANAGER_POD_NAME 8080:$MANAGER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8080 to use your manager"
 
 2. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
@@ -145,11 +163,17 @@ Check that Dragonfly is deployed successfully:
 
 ```shell
 $ kubectl get po -n dragonfly-system
-NAME                      READY   STATUS    RESTARTS   AGE
-dragonfly-client-dhqfc    1/1     Running   0          3m
-dragonfly-client-h58x6    1/1     Running   0          3m
-dragonfly-scheduler-0     1/1     Running   0          3m
-dragonfly-seed-client-0   1/1     Running   0          3m
+NAME                                 READY   STATUS     RESTARTS      AGE
+dragonfly-client-dhqfc               1/1     Running    0             13m
+dragonfly-client-h58x6               1/1     Running    0             13m
+dragonfly-manager-7b4fd85458-fjtpk   1/1     Running    0             13m
+dragonfly-mysql-0                    1/1     Running    0             13m
+dragonfly-redis-master-0             1/1     Running    0             13m
+dragonfly-redis-replicas-0           1/1     Running    0             13m
+dragonfly-redis-replicas-1           1/1     Running    0             11m
+dragonfly-redis-replicas-2           1/1     Running    0             10m
+dragonfly-scheduler-0                1/1     Running    0             13m
+dragonfly-seed-client-0              1/1     Running    2 (76s ago)   13m
 ```
 
 ## Containerd downloads images through Dragonfly {#containerd-downloads-images-through-dragonfly}
@@ -194,68 +218,7 @@ The expected output is as follows:
 }
 ```
 
-## Performance testing {#performance-testing}
-
-### Containerd pull image back-to-source for the first time through Dragonfly {#containerd-pull-image-back-to-source-for-the-first-time-through-dragonfly}
-
-Pull `alpine:3.19` image in `kind-worker` node:
-
-```shell
-time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
-```
-
-When pull image back-to-source for the first time through Dragonfly, it takes `37.852s` to download the
-`alpine:3.19` image.
-
-### Containerd pull image hits the cache of remote peer {#containerd-pull-image-hits-the-cache-of-remote-peer}
-
-Delete the client whose Node is `kind-worker` to clear the cache of Dragonfly local Peer.
-
-<!-- markdownlint-disable -->
-
-```shell
-# Find pod name.
-export POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=client" -o=jsonpath='{.items[?(@.spec.nodeName=="kind-worker")].metadata.name}' | head -n 1 )
-
-# Delete pod.
-kubectl delete pod ${POD_NAME} -n dragonfly-system
-```
-
-<!-- markdownlint-restore -->
-
-Delete `alpine:3.19` image in `kind-worker` node:
-
-```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
-```
-
-Pull `alpine:3.19` image in `kind-worker` node:
-
-```shell
-time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
-```
-
-When pull image hits cache of remote peer, it takes `6.942s` to download the
-`alpine:3.19` image.
-
-### Containerd pull image hits the cache of local peer {#containerd-pull-image-hits-the-cache-of-local-peer}
-
-Delete `alpine:3.19` image in `kind-worker` node:
-
-```shell
-docker exec -i kind-worker /usr/local/bin/crictl rmi alpine:3.19
-```
-
-Pull `alpine:3.19` image in `kind-worker` node:
-
-```shell
-time docker exec -i kind-worker /usr/local/bin/crictl pull alpine:3.19
-```
-
-When pull image hits cache of local peer, it takes `5.540s` to download the
-`alpine:3.19` image.
-
 ## Preheat image {#preheat-image}
 
-Use `dfctl` to preheat images without the Manager, refer to
-[Preheat](../../advanced-guides/preheat.md).
+Use the Open API or the web console to preheat images to Dragonfly,
+refer to [Preheat](../../advanced-guides/preheat.md).

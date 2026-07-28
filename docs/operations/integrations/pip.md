@@ -61,7 +61,6 @@ Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
-docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 ```
 
@@ -69,7 +68,6 @@ Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
-kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 ```
 
@@ -81,13 +79,6 @@ and `pypi.org/.*\.(whl|tar.gz|zip)` rules to `client.config.proxy.rules.regex`
 to forward HTTP file downloads of Python packages to the P2P network.
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -139,11 +130,10 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Get the manager address by running these commands:
-  export MANAGER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=manager" -o jsonpath={.items[0].metadata.name})
-  export MANAGER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $MANAGER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  kubectl --namespace dragonfly-system port-forward $MANAGER_POD_NAME 8080:$MANAGER_CONTAINER_PORT
-  echo "Visit http://127.0.0.1:8080 to use your manager"
+1. Dragonfly is running without the manager. The scheduler and client load the dynamic
+   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
+   discover schedulers via the scheduler headless service:
+  dragonfly-scheduler.dragonfly-system.svc.cluster.local:8002
 
 1. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
@@ -164,14 +154,6 @@ $ kubectl get po -n dragonfly-system
 NAME                                READY   STATUS    RESTARTS      AGE
 dragonfly-client-dfjrj              1/1     Running   0             17m
 dragonfly-client-kzskj              1/1     Running   0             17m
-dragonfly-manager-89df99478-gf6bm   1/1     Running   1 (17m ago)   17m
-dragonfly-manager-89df99478-lh5wm   1/1     Running   0             17m
-dragonfly-manager-89df99478-ljt2r   1/1     Running   0             17m
-dragonfly-mysql-0                   1/1     Running   0             17m
-dragonfly-redis-master-0            1/1     Running   0             17m
-dragonfly-redis-replicas-0          1/1     Running   0             17m
-dragonfly-redis-replicas-1          1/1     Running   0             17m
-dragonfly-redis-replicas-2          1/1     Running   0             17m
 dragonfly-scheduler-0               1/1     Running   0             17m
 dragonfly-scheduler-1               1/1     Running   0             17m
 dragonfly-scheduler-2               1/1     Running   0             17m

@@ -37,16 +37,20 @@ Dragonfly was accepted to CNCF on November 13, 2018, moved to the Incubating mat
 
 Dragonfly services could be divided into four categories: Manager, Scheduler, Seed Peer and Peer. Please refer to [Architecture](./operations/architecture/architecture.md).
 
-- **Manager**: Manages relationships across P2P clusters. It provides dynamic configuration management
+- **Manager**: Optional component that manages relationships across P2P clusters. It provides dynamic configuration management
   and data collection capabilities. It also includes a front-end console that enables users to
-  visually operate and manage clusters.
+  visually operate and manage clusters. If the Manager is not deployed, the Scheduler and Peer
+  load the dynamic configuration from the local file, refer to
+  [Deployment Models](./getting-started/deployment-models.md).
 - **Scheduler**: Selects the optimal parents for each downloading Peer. It triggers Seed Peers or Peers to download directly
-  from the source when necessary.
-- **Seed Peer**: Serves as a root Peer in the P2P network, providing both upload and download capabilities.
-  It can be actively triggered by the Scheduler to download from the source and distribute content to other Peers.
+  from the origin when necessary.
+- **Seed Peer**: Optional component that serves as a root Peer in the P2P network, providing both upload and download capabilities.
+  It can be actively triggered by the Scheduler to download from the origin and distribute content to other Peers.
+  If the Seed Peer is not deployed, the Scheduler triggers the Peer to download directly from
+  the origin when necessary.
 - **Peer**: Provides upload and download capabilities.
 
-![arch](./resource/operations/architecture/arch.png)
+![arch](./resource/operations/architecture/arch.svg)
 
 ## How it works
 
@@ -54,7 +58,7 @@ When downloading container images or files, clients can initiate requests to the
 The Peer first registers the Task with the Scheduler, which then checks the Task metadata to determine whether this Task
 is being downloaded for the first time within the P2P cluster.
 
-**First-time Download in P2P Cluster:** If this is the first download, the Scheduler triggers the Seed Peer to download directly from the source.
+**First-time Download in P2P Cluster:** If this is the first download, the Scheduler triggers the Seed Peer to download directly from the origin.
 The Task is then divided into pieces. After successful registration, the Peer establishes a connection with the Scheduler for this Task.
 The Scheduler then coordinates streaming from the Seed Peer to the Peer on a piece-by-piece basis. As each piece is successfully downloaded,
 its metadata is reported back to the Scheduler to facilitate subsequent scheduling.

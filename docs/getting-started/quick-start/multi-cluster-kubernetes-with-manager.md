@@ -1,20 +1,20 @@
 ---
-id: multi-cluster-kubernetes
-title: Multi-cluster Kubernetes
-description: Multi-cluster kubernetes
-slug: /getting-started/quick-start/multi-cluster-kubernetes/
-sidebar_position: 2
+id: multi-cluster-kubernetes-with-manager
+title: Multi-cluster Kubernetes with Manager
+description: Multi-cluster kubernetes with Manager
+slug: /getting-started/quick-start/multi-cluster-kubernetes-with-manager/
+sidebar_position: 4
 ---
 
 Documentation for deploying Dragonfly on multi-cluster kubernetes using helm. A Dragonfly cluster manages cluster within
 a network. If you have two clusters with disconnected networks, you can use two Dragonfly clusters to manage their own clusters.
 
-Without the Manager, deploy a Dragonfly cluster per kubernetes cluster. Each deployment has its
-own scheduler headless service and `dynconfig.yaml` ConfigMap, and clients only discover the
-schedulers of their own deployment, so each deployment forms an isolated P2P network. Because
-peer can only transmit data in its own Dragonfly cluster, if a kubernetes cluster deploys a
-Dragonfly cluster, then a kubernetes cluster forms a p2p network, and internal peers can only
-schedule and transmit data in a kubernetes cluster.
+The deployment in a multi-cluster kubernetes is to use a Dragonfly cluster to manage a kubernetes cluster,
+and use a centralized manager service to manage multiple Dragonfly clusters. Because peer can only transmit data in
+its own Dragonfly cluster, if a kubernetes cluster deploys a Dragonfly cluster, then a kubernetes cluster forms a p2p network,
+and internal peers can only schedule and transmit data in a kubernetes cluster.
+
+![multi-cluster-kubernetes](../../resource/getting-started/multi-cluster-kubernetes.png)
 
 ## Runtime
 
@@ -39,6 +39,9 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
   - role: worker
+    extraPortMappings:
+      - containerPort: 30950
+        hostPort: 8080
     labels:
       cluster: a
   - role: worker
@@ -58,7 +61,7 @@ Create cluster using the configuration file:
 kind create cluster --config kind-config.yaml
 ```
 
-Switch the context of kubectl to kind cluster:
+Switch the context of kubectl to kind cluster A:
 
 ```shell
 kubectl config use-context kind-kind
@@ -70,6 +73,7 @@ Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
+docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 docker pull dragonflyoss/dfinit:latest
 ```
@@ -78,23 +82,46 @@ Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
+kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 kind load docker-image dragonflyoss/dfinit:latest
 ```
 
 ## Create Dragonfly cluster
 
-Each Dragonfly cluster is deployed as an independent helm release in its own namespace.
-The clients of each release use the scheduler headless service of their own release for
-scheduler discovery, so the two Dragonfly clusters are isolated from each other.
+The simple method means distinguishing clusters by directly specifying the schedulerClusterID.
+The user directly specifies the cluster ID in dfdaemon to explicitly tell dfdaemon which scheduler cluster to connect to,
+thus listing the corresponding schedulers from manager that should be used.
 
 ### Create Dragonfly cluster A
+
+Create Dragonfly cluster A, the schedulers, seed peers, peers and centralized manager included in
+the cluster should be installed using helm.
 
 #### Create Dragonfly cluster A based on helm charts
 
 Create Dragonfly cluster A charts configuration file `charts-config-cluster-a.yaml`, configuration content is as follows:
 
 ```yaml
+manager:
+  # Enable manager. The manager is disabled by default.
+  enable: true
+  nodeSelector:
+    cluster: a
+  image:
+    repository: dragonflyoss/manager
+    tag: latest
+  metrics:
+    enable: true
+
+# MySQL and Redis are the dependencies of the manager,
+# and they are disabled by default.
+mysql:
+  enable: true
+
+redis:
+  enable: true
+
 scheduler:
   nodeSelector:
     cluster: a
@@ -103,6 +130,10 @@ scheduler:
     tag: latest
   metrics:
     enable: true
+  config:
+    manager:
+      # Specify the schedulerClusterID to distinguish different Dragonfly clusters.
+      schedulerClusterID: 1
 
 seedClient:
   nodeSelector:
@@ -112,6 +143,10 @@ seedClient:
     tag: latest
   metrics:
     enable: true
+  config:
+    host:
+      # Specify the schedulerClusterID to distinguish different Dragonfly clusters.
+      schedulerClusterID: 1
 
 client:
   nodeSelector:
@@ -121,6 +156,10 @@ client:
     tag: latest
   metrics:
     enable: true
+  config:
+    host:
+      # Specify the schedulerClusterID to distinguish different Dragonfly clusters.
+      schedulerClusterID: 1
   dfinit:
     enable: true
     image:
@@ -141,16 +180,17 @@ Create Dragonfly cluster A using the configuration file:
 $ helm repo add dragonfly https://dragonflyoss.github.io/helm-charts/
 $ helm install --wait --create-namespace --namespace cluster-a dragonfly dragonfly/dragonfly -f charts-config-cluster-a.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Jul 27 21:23:00 2026
+LAST DEPLOYED: Tue Apr 16 16:12:42 2024
 NAMESPACE: cluster-a
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Dragonfly is running without the manager. The scheduler and client load the dynamic
-   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
-   discover schedulers via the scheduler headless service:
-  dragonfly-scheduler.cluster-a.svc.cluster.local:8002
+1. Get the manager address by running these commands:
+  export MANAGER_POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=manager" -o jsonpath={.items[0].metadata.name})
+  export MANAGER_CONTAINER_PORT=$(kubectl get pod --namespace cluster-a $MANAGER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  kubectl --namespace cluster-a port-forward $MANAGER_POD_NAME 8080:$MANAGER_CONTAINER_PORT
+  echo "Visit http://127.0.0.1:8080 to use your manager"
 
 2. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace cluster-a -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
@@ -168,18 +208,106 @@ Check that Dragonfly cluster A is deployed successfully:
 
 ```shell
 $ kubectl get po -n cluster-a
-NAME                      READY   STATUS    RESTARTS   AGE
-dragonfly-client-5gvz7    1/1     Running   0          3m
-dragonfly-client-xvqmq    1/1     Running   0          3m
-dragonfly-scheduler-0     1/1     Running   0          3m
-dragonfly-seed-client-0   1/1     Running   0          3m
+NAME                                READY   STATUS    RESTARTS   AGE
+dragonfly-client-5gvz7              1/1     Running   0          51m
+dragonfly-client-xvqmq              1/1     Running   0          51m
+dragonfly-manager-dc6dcf87b-l88mr   1/1     Running   0          51m
+dragonfly-mysql-0                   1/1     Running   0          51m
+dragonfly-redis-master-0            1/1     Running   0          51m
+dragonfly-redis-replicas-0          1/1     Running   0          51m
+dragonfly-redis-replicas-1          1/1     Running   0          48m
+dragonfly-redis-replicas-2          1/1     Running   0          39m
+dragonfly-scheduler-0               1/1     Running   0          51m
+dragonfly-seed-client-0             1/1     Running   0          51m
 ```
 
-### Create Dragonfly cluster B
+#### Create NodePort service of the manager REST service {#create-nodeport-service-of-the-manager-rest-service-simple}
 
-#### Create Dragonfly cluster B based on helm charts
+Create the manager REST service configuration file `manager-rest-svc.yaml`,
+configuration content is as follows:
 
-Create Dragonfly cluster B charts configuration file `charts-config-cluster-b.yaml`, configuration content is as follows:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: manager-rest
+  namespace: cluster-a
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      nodePort: 30950
+      port: 8080
+  selector:
+    app: dragonfly
+    component: manager
+    release: dragonfly
+```
+
+Create manager REST service using the configuration file:
+
+```shell
+kubectl apply -f manager-rest-svc.yaml -n cluster-a
+```
+
+#### Visit manager console {#visit-manager-console-simple}
+
+Visit address `localhost:8080` to see the manager console. Sign in the console with the default root user,
+the username is `root` and password is `dragonfly`.
+
+![signin](../../resource/getting-started/signin.png)
+
+![clusters](../../resource/getting-started/clusters.png)
+
+By default, Dragonfly will automatically create Dragonfly cluster A record in manager when
+it is installed for the first time. You can click Dragonfly cluster A to view the details.
+
+![cluster-a](../../resource/getting-started/cluster-a.png)
+
+### Create Dragonfly cluster B {#create-dragonfly-cluster-b-simple}
+
+Create Dragonfly cluster B, you need to create a Dragonfly cluster record in the manager console first,
+and the schedulers, seed peers and peers included in the Dragonfly cluster should be installed using helm.
+
+#### Create Dragonfly cluster B in the manager console {#create-dragonfly-cluster-b-in-the-manager-console-simple}
+
+Visit manager console and click the `ADD CLUSTER` button to add Dragonfly cluster B record.
+Note that the IDC is set to `cluster-2` to match the peer whose IDC is `cluster-2`.
+
+![create-cluster-b](../../resource/getting-started/create-cluster-b.png)
+
+Create Dragonfly cluster B record successfully.
+
+![create-cluster-b-successfully](../../resource/getting-started/create-cluster-b-successfully.png)
+
+#### Use schedulerClusterID to distinguish different Dragonfly clusters
+
+The peer needs the schedulerClusterID for listing schedulers from manager,
+The schedulerClusterID of the peer are configured in peer YAML config,
+the fields are `host.schedulerClusterID`. If this field configured,
+other fields such as `host.location`, `host.idc`, `host.ip` and `host.hostname`
+will be ignored for listing schedulers.
+Refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.md).
+
+**SchedulerClusterID**: The id of the scheduler cluster,
+the peer will use this id to distinguish different Dragonfly scheduler clusters.
+You can get the id after creating the cluster from the manager console.
+
+#### Create Dragonfly cluster B based on helm charts {#create-dragonfly-cluster-b-based-on-helm-charts-simple}
+
+Create charts configuration with cluster information in the manager console.
+
+![cluster-b-information](../../resource/getting-started/cluster-b-information.png)
+
+- `scheduler.config.manager.schedulerClusterID` using the `Scheduler cluster ID`
+  from `cluster-2` information in the manager console to specify the scheduler cluster.
+- `client.config.host.schedulerClusterID` using the `Scheduler cluster ID`
+  from `cluster-2` information in the manager console to specify the scheduler cluster.
+- `externalManager.host` is host of the manager GRPC server.
+- `externalRedis.addrs[0]` is address of the redis.
+
+Create Dragonfly cluster B charts configuration file `charts-config-cluster-b.yaml`,
+configuration content is as follows:
 
 ```yaml
 scheduler:
@@ -190,6 +318,10 @@ scheduler:
     tag: latest
   metrics:
     enable: true
+  config:
+    manager:
+      # Specify the schedulerClusterID to distinguish different Dragonfly clusters.
+      schedulerClusterID: 2
 
 seedClient:
   nodeSelector:
@@ -199,6 +331,10 @@ seedClient:
     tag: latest
   metrics:
     enable: true
+  config:
+    host:
+      # Specify the schedulerClusterID to distinguish different Dragonfly clusters.
+      schedulerClusterID: 2
 
 client:
   nodeSelector:
@@ -208,6 +344,10 @@ client:
     tag: latest
   metrics:
     enable: true
+  config:
+    host:
+      # Specify the schedulerClusterID to distinguish different Dragonfly clusters.
+      schedulerClusterID: 2
   dfinit:
     enable: true
     image:
@@ -217,7 +357,30 @@ client:
       containerRuntime:
         containerd:
           configPath: /etc/containerd/config.toml
-          proxyAllRegistries: true
+          registries:
+            - hostNamespace: docker.io
+              serverAddr: https://index.docker.io
+              capabilities: ['pull', 'resolve']
+
+manager:
+  enable: false
+
+externalManager:
+  enable: true
+  host: dragonfly-manager.cluster-a.svc.cluster.local
+  restPort: 8080
+  grpcPort: 65003
+
+redis:
+  enable: false
+
+externalRedis:
+  addrs:
+    - dragonfly-redis-master.cluster-a.svc.cluster.local:6379
+  password: dragonfly
+
+mysql:
+  enable: false
 ```
 
 Create Dragonfly cluster B using the configuration file:
@@ -227,24 +390,19 @@ Create Dragonfly cluster B using the configuration file:
 ```shell
 $ helm install --wait --create-namespace --namespace cluster-b dragonfly dragonfly/dragonfly -f charts-config-cluster-b.yaml
 NAME: dragonfly
-LAST DEPLOYED: Mon Jul 27 21:26:00 2026
+LAST DEPLOYED: Tue Apr 16 15:49:42 2024
 NAMESPACE: cluster-b
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Dragonfly is running without the manager. The scheduler and client load the dynamic
-   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
-   discover schedulers via the scheduler headless service:
-  dragonfly-scheduler.cluster-b.svc.cluster.local:8002
-
-2. Get the scheduler address by running these commands:
+1. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace cluster-b -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace cluster-b $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace cluster-b port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
 
-3. Configure runtime to use dragonfly:
+2. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
 ```
 
@@ -255,11 +413,15 @@ Check that Dragonfly cluster B is deployed successfully:
 ```shell
 $ kubectl get po -n cluster-b
 NAME                      READY   STATUS    RESTARTS   AGE
-dragonfly-client-f4897    1/1     Running   0          3m
-dragonfly-client-m9k9f    1/1     Running   0          3m
-dragonfly-scheduler-0     1/1     Running   0          3m
-dragonfly-seed-client-0   1/1     Running   0          3m
+dragonfly-client-f4897    1/1     Running   0          10m
+dragonfly-client-m9k9f    1/1     Running   0          10m
+dragonfly-scheduler-0     1/1     Running   0          10m
+dragonfly-seed-client-0   1/1     Running   0          10m
 ```
+
+Create dragonfly cluster B successfully.
+
+![install-cluster-b-successfully](../../resource/getting-started/install-cluster-b-successfully.png)
 
 ## Using Dragonfly to distribute images for multi-cluster kubernetes
 

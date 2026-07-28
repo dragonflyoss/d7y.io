@@ -49,7 +49,6 @@ Pull Dragonfly latest images:
 
 ```shell
 docker pull dragonflyoss/scheduler:latest
-docker pull dragonflyoss/manager:latest
 docker pull dragonflyoss/client:latest
 docker pull dragonflyoss/dfinit:latest
 ```
@@ -58,7 +57,6 @@ Kind cluster loads Dragonfly latest images:
 
 ```shell
 kind load docker-image dragonflyoss/scheduler:latest
-kind load docker-image dragonflyoss/manager:latest
 kind load docker-image dragonflyoss/client:latest
 kind load docker-image dragonflyoss/dfinit:latest
 ```
@@ -69,13 +67,6 @@ Create the Helm Charts configuration file `values.yaml`. Please refer to the
 [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -122,16 +113,16 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
-1. Get the scheduler address by running these commands:
+1. Dragonfly is running without the manager. The scheduler and client load the dynamic
+   configuration from the local dynconfig.yaml file mounted as a ConfigMap, and clients
+   discover schedulers via the scheduler headless service:
+  dragonfly-scheduler.dragonfly-system.svc.cluster.local:8002
+
+2. Get the scheduler address by running these commands:
   export SCHEDULER_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=scheduler" -o jsonpath={.items[0].metadata.name})
   export SCHEDULER_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $SCHEDULER_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace dragonfly-system port-forward $SCHEDULER_POD_NAME 8002:$SCHEDULER_CONTAINER_PORT
   echo "Visit http://127.0.0.1:8002 to use your scheduler"
-
-2. Get the dfdaemon port by running these commands:
-  export DFDAEMON_POD_NAME=$(kubectl get pods --namespace dragonfly-system -l "app=dragonfly,release=dragonfly,component=dfdaemon" -o jsonpath={.items[0].metadata.name})
-  export DFDAEMON_CONTAINER_PORT=$(kubectl get pod --namespace dragonfly-system $DFDAEMON_POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  You can use $DFDAEMON_CONTAINER_PORT as a proxy port in Node.
 
 3. Configure runtime to use dragonfly:
   https://d7y.io/docs/getting-started/quick-start/kubernetes/
@@ -146,12 +137,6 @@ $ kubectl get po -n dragonfly-system
 NAME                                 READY   STATUS    RESTARTS      AGE
 dragonfly-client-54vm5               1/1     Running   0             37m
 dragonfly-client-cvbln               1/1     Running   0             37m
-dragonfly-manager-864774f54d-njdhx   1/1     Running   0             37m
-dragonfly-mysql-0                    1/1     Running   0             37m
-dragonfly-redis-master-0             1/1     Running   0             37m
-dragonfly-redis-replicas-0           1/1     Running   0             37m
-dragonfly-redis-replicas-1           1/1     Running   0             5m10s
-dragonfly-redis-replicas-2           1/1     Running   0             4m44s
 dragonfly-scheduler-0                1/1     Running   0             37m
 dragonfly-seed-client-0              1/1     Running   2 (27m ago)   37m
 ```
@@ -205,13 +190,6 @@ The expected output is as follows:
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -275,13 +253,6 @@ systemctl restart containerd
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -372,13 +343,6 @@ Deploy using Helm Charts and create the Helm Charts configuration file `values.y
 Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
 
 ```yaml
-manager:
-  image:
-    repository: dragonflyoss/manager
-    tag: latest
-  metrics:
-    enable: true
-
 scheduler:
   image:
     repository: dragonflyoss/scheduler
@@ -514,6 +478,7 @@ Create helm charts configuration file `values.yaml`, configuration content is as
 
 ```yaml
 manager:
+  enable: true
   image:
     repository: dragonflyoss/manager
     tag: latest
@@ -533,6 +498,12 @@ manager:
   extraVolumeMounts:
     - name: client-secret
       mountPath: /etc/certs
+
+mysql:
+  enable: true
+
+redis:
+  enable: true
 
 scheduler:
   image:
