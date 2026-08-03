@@ -252,7 +252,8 @@ kubectl apply -f manager-rest-svc.yaml -n cluster-a
 #### Visit manager console {#visit-manager-console-simple}
 
 Visit address `localhost:8080` to see the manager console. Sign in the console with the default root user,
-the username is `root` and password is `dragonfly`.
+the username is `root` and password is `dragonfly`. To customize the initial password, refer to
+[Sign in](../../../advanced-guides/web-console/signin.md).
 
 ![signin](../../../resource/getting-started/signin.png)
 
