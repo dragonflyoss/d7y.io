@@ -61,21 +61,21 @@ Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-dragonfly-client-request = "1.5.0"
+dragonfly-client-request = "1.5.1"
 ```
 
 Send a GET request via the Dragonfly and process the response body as a stream:
 
 ```rust
-use dragonfly_client_request::{GetRequest, Proxy, Request};
+use dragonfly_client_request::{Builder, Client, GetRequest};
 use futures::TryStreamExt;
 
-let proxy = Proxy::builder()
+let client = Builder::default()
     .scheduler_endpoint("http://127.0.0.1:8002".to_string())
     .build()
     .await?;
 
-let response = proxy
+let response = client
     .get(&GetRequest {
         url: "https://example.com/file.txt".to_string(),
         ..Default::default()
@@ -95,7 +95,7 @@ Or write the response body directly into a buffer for smaller or fixed-size resp
 use bytes::BytesMut;
 
 let mut buf = BytesMut::new();
-let response = proxy
+let response = client
     .get_into(
         &GetRequest {
             url: "https://example.com/file.txt".to_string(),
@@ -116,7 +116,7 @@ the available seed peers. The default replicas is 2:
 ```rust
 use dragonfly_client_request::PreheatRequest;
 
-proxy
+client
     .preheat(&PreheatRequest {
         url: "https://example.com/file.txt".to_string(),
         replicas: 3,
@@ -124,7 +124,7 @@ proxy
     })
     .await?;
 
-let response = proxy
+let response = client
     .get(&GetRequest {
         url: "https://example.com/file.txt".to_string(),
         replicas: 3,
@@ -134,19 +134,30 @@ let response = proxy
 ```
 
 Look up the endpoints of the seed peers serving a request, then download from
-the looked-up endpoints directly, scattering the request across them:
+the looked-up endpoints directly with `ClientWithEndpoints`, scattering each
+request across them by picking a random one, retrying on the others up to the
+max retries. `ClientWithEndpoints` never connects to the scheduler or syncs
+seed peers, sending requests only to the given endpoints, so the endpoints
+can also be provided by an external system:
 
 ```rust
+use dragonfly_client_request::{BuilderWithEndpoints, ClientWithEndpoints};
+
 let request = GetRequest {
     url: "https://example.com/file.txt".to_string(),
     ..Default::default()
 };
 
-let endpoints = proxy.lookup_endpoints(&request).await?;
-let response = proxy.get_with_endpoints(&endpoints, &request).await?;
+let endpoints = client.lookup_endpoints(&request).await?;
+
+let client_with_endpoints = BuilderWithEndpoints::default()
+    .endpoints(endpoints)
+    .max_retries(3)
+    .build()?;
+let response = client_with_endpoints.get(&request).await?;
 
 // Or write the response body directly into a buffer:
-// let response = proxy.get_into_with_endpoints(&endpoints, &request, &mut buf).await?;
+// let response = client_with_endpoints.get_into(&request, &mut buf).await?;
 ```
 
 The `preheat` feature enables preheating OCI images by resolving manifests from
@@ -154,13 +165,13 @@ the registry and triggering seed peers to download each blob:
 
 ```toml
 [dependencies]
-dragonfly-client-request = { version = "1.5.0", features = ["preheat"] }
+dragonfly-client-request = { version = "1.5.1", features = ["preheat"] }
 ```
 
 ```rust
 use dragonfly_client_request::PreheatImageRequest;
 
-proxy
+client
     .preheat_image(&PreheatImageRequest {
         image: "docker.io/library/nginx:latest".to_string(),
         ..Default::default()
@@ -185,18 +196,18 @@ Send a GET request via the Dragonfly:
 import (
     "context"
 
-    request "d7y.io/dragonfly-sdk/client-request/go"
+    dfclient "d7y.io/dragonfly-sdk/client-request/go"
 )
 
 func main() {
     ctx := context.Background()
-    proxy, err := request.New(ctx, "http://127.0.0.1:8002")
+    client, err := dfclient.New(ctx, "http://127.0.0.1:8002")
     if err != nil {
         panic(err)
     }
-    defer proxy.Close()
+    defer client.Close()
 
-    resp, err := proxy.Get(ctx, request.NewGetRequest("https://example.com/file.txt"))
+    resp, err := client.Get(ctx, dfclient.NewGetRequest("https://example.com/file.txt"))
     if err != nil {
         panic(err)
     }
@@ -208,22 +219,22 @@ func main() {
 Optional request parameters are set with `With*` options:
 
 ```go
-req := request.NewGetRequest(
+req := dfclient.NewGetRequest(
     "https://example.com/file.txt",
-    request.WithGetRequestTag("tag"),
-    request.WithGetRequestApplication("app"),
-    request.WithGetRequestTimeout(30*time.Second),
+    dfclient.WithGetRequestTag("tag"),
+    dfclient.WithGetRequestApplication("app"),
+    dfclient.WithGetRequestTimeout(30*time.Second),
 )
 ```
 
 Preheat a file or an OCI image to the seed peers:
 
 ```go
-if err := proxy.Preheat(ctx, request.NewPreheatRequest("https://example.com/file.txt")); err != nil {
+if err := client.Preheat(ctx, dfclient.NewPreheatRequest("https://example.com/file.txt")); err != nil {
     panic(err)
 }
 
-if err := proxy.PreheatImage(ctx, request.NewPreheatImageRequest("docker.io/library/nginx:latest")); err != nil {
+if err := client.PreheatImage(ctx, dfclient.NewPreheatImageRequest("docker.io/library/nginx:latest")); err != nil {
     panic(err)
 }
 ```
@@ -231,11 +242,11 @@ if err := proxy.PreheatImage(ctx, request.NewPreheatImageRequest("docker.io/libr
 Preheat with multiple replicas and scatter downloads across them:
 
 ```go
-if err := proxy.Preheat(ctx, request.NewPreheatRequest("https://example.com/file.txt", request.WithPreheatRequestReplicas(3))); err != nil {
+if err := client.Preheat(ctx, dfclient.NewPreheatRequest("https://example.com/file.txt", dfclient.WithPreheatRequestReplicas(3))); err != nil {
     panic(err)
 }
 
-resp, err := proxy.Get(ctx, request.NewGetRequest("https://example.com/file.txt", request.WithGetRequestReplicas(3)))
+resp, err := client.Get(ctx, dfclient.NewGetRequest("https://example.com/file.txt", dfclient.WithGetRequestReplicas(3)))
 if err != nil {
     panic(err)
 }
@@ -243,23 +254,32 @@ defer resp.Body.Close()
 ```
 
 Look up the endpoints of the seed peers serving a request, then download from
-the looked-up endpoints directly, scattering the request across them:
+the looked-up endpoints directly with `ClientWithEndpoints`, scattering each
+request across them by picking a random one, retrying on the others up to the
+max retries. `ClientWithEndpoints` never connects to the scheduler or syncs
+seed peers, sending requests only to the given endpoints, so the endpoints
+can also be provided by an external system:
 
 ```go
-req := request.NewGetRequest("https://example.com/file.txt")
-endpoints, err := proxy.LookupEndpoints(ctx, req)
+req := dfclient.NewGetRequest("https://example.com/file.txt")
+endpoints, err := client.LookupEndpoints(ctx, req)
 if err != nil {
     panic(err)
 }
 
-resp, err := proxy.GetWithEndpoints(ctx, endpoints, req)
+clientWithEndpoints, err := dfclient.NewWithEndpoints(ctx, endpoints, dfclient.WithClientWithEndpointsMaxRetries(3))
+if err != nil {
+    panic(err)
+}
+
+resp, err := clientWithEndpoints.Get(ctx, req)
 if err != nil {
     panic(err)
 }
 defer resp.Body.Close()
 
 // Or write the response body directly into a writer:
-// resp, err := proxy.GetIntoWithEndpoints(ctx, endpoints, req, w)
+// resp, err := clientWithEndpoints.GetInto(ctx, req, w)
 ```
 
 For more details, please refer to [pkg.go.dev](https://pkg.go.dev/d7y.io/dragonfly-sdk/client-request/go)
