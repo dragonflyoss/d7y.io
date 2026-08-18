@@ -4,8 +4,9 @@ title: Request SDK
 slug: /advanced-guides/request-sdk/
 ---
 
-[![Crates.io](https://img.shields.io/crates/v/dragonfly-client-util)](https://crates.io/crates/dragonfly-client-util)
-[![GitHub](https://img.shields.io/badge/GitHub-View%20Source-blue?logo=github)](https://github.com/dragonflyoss/client/blob/main/dragonfly-client-util/src/request/mod.rs)
+[![Crates.io](https://img.shields.io/crates/v/dragonfly-client-request.svg)](https://crates.io/crates/dragonfly-client-request)
+[![Go Reference](https://pkg.go.dev/badge/d7y.io/dragonfly-sdk/client-request/go.svg)](https://pkg.go.dev/d7y.io/dragonfly-sdk/client-request/go)
+[![GitHub](https://img.shields.io/badge/GitHub-View%20Source-blue?logo=github)](https://github.com/dragonflyoss/dragonfly-sdk)
 
 ## Background
 
@@ -31,7 +32,7 @@ For example, when Nydus downloads layer chunks via HTTP Range requests through K
 
 ### Task ID-Based Routing
 
-- Generate Task ID using `dragonfly_client_util::id_generator::IDGenerator`.
+- Generate Task ID from the request URL and metadata, identical across the Rust and Go SDKs.
 - Route all chunks of the same layer to the same Seed Peer via consistent hashing.
 
 ### Consistent Hash Implementation
@@ -41,47 +42,225 @@ For example, when Nydus downloads layer chunks via HTTP Range requests through K
 - Uses virtual nodes for load distribution.
 - Seed Peers run as StatefulSet ensuring stable IP/Port.
 
+## SDKs
+
+The SDKs are maintained in the [dragonfly-sdk](https://github.com/dragonflyoss/dragonfly-sdk) repository,
+sending requests to remote servers via the Dragonfly P2P network, supporting streaming and buffered GET requests
+and preheating files or OCI images through seed peers.
+
+| Package                                                                                                        | Description                                                                                                            |
+| :------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| [dragonfly-client-request (Rust)](https://github.com/dragonflyoss/dragonfly-sdk/tree/main/client-request/rust) | Request library for the Dragonfly client, published on [crates.io](https://crates.io/crates/dragonfly-client-request). |
+| [client-request (Go)](https://github.com/dragonflyoss/dragonfly-sdk/tree/main/client-request/go)               | Go implementation of the request library, generating identical task ids and seed peer selections as the Rust crate.    |
+
 ## Usage
+
+### Rust
 
 Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-dragonfly-client-util = "1"
+dragonfly-client-request = "1.5.0"
 ```
 
-The SDK provides a Request trait that enables efficient communication with Dragonfly Seed Peers through consistent hashing.
-This approach ensures that all chunks of the same layer are routed to the same Seed Peer, significantly improving cache
-hit rates and reducing redundant origin downloads.
+Send a GET request via the Dragonfly and process the response body as a stream:
 
 ```rust
-/// Defines the interface for sending requests via the Dragonfly.
-///
-/// This trait enables interaction with remote servers through the Dragonfly, providing methods
-/// for performing GET requests with flexible response handling. It is designed for clients that
-/// need to communicate with Dragonfly seed client efficiently, supporting both streaming and buffered
-/// response processing. The trait shields the complex request logic between the client and the
-/// Dragonfly seed client's proxy, abstracting the underlying communication details to simplify
-/// client implementation and usage.
-#[tonic::async_trait]
-pub trait Request {
-    /// Sends an GET request to a remote server via the Dragonfly and returns a response
-    /// with a streaming body.
-    ///
-    /// This method is designed for scenarios where the response body is expected to be processed as a
-    /// stream, allowing efficient handling of large or continuous data. The response includes metadata
-    /// such as status codes and headers, along with a streaming `Body` for accessing the response content.
-    async fn get(&self, request: GetRequest) -> Result<GetResponse<Body>>;
+use dragonfly_client_request::{GetRequest, Proxy, Request};
+use futures::TryStreamExt;
 
-    /// Sends an GET request to a remote server via the Dragonfly and writes the response
-    /// body directly into the provided buffer.
-    ///
-    /// This method is optimized for scenarios where the response body needs to be stored directly in
-    /// memory, avoiding the overhead of streaming for smaller or fixed-size responses. The provided
-    /// `BytesMut` buffer is used to store the response content, and the response metadata (e.g., status
-    /// and headers) is returned separately.
-    async fn get_into(&self, request: GetRequest, buf: &mut BytesMut) -> Result<GetResponse>;
+let proxy = Proxy::builder()
+    .scheduler_endpoint("http://127.0.0.1:8002".to_string())
+    .build()
+    .await?;
+
+let response = proxy
+    .get(&GetRequest {
+        url: "https://example.com/file.txt".to_string(),
+        ..Default::default()
+    })
+    .await?;
+
+// The body is a stream of zero-copy `Bytes` chunks.
+let mut body = response.body.unwrap();
+while let Some(chunk) = body.try_next().await? {
+    // Consume the chunk...
 }
 ```
 
-For more details, please refer to [dragonfly-client-util](https://crates.io/crates/dragonfly-client-util).
+Or write the response body directly into a buffer for smaller or fixed-size responses:
+
+```rust
+use bytes::BytesMut;
+
+let mut buf = BytesMut::new();
+let response = proxy
+    .get_into(
+        &GetRequest {
+            url: "https://example.com/file.txt".to_string(),
+            ..Default::default()
+        },
+        &mut buf,
+    )
+    .await?;
+```
+
+Preheat with multiple replicas and scatter downloads across them. Preheating
+writes the file to the given number of distinct seed peers, and downloading
+scatters each request across those replicas by picking a random one, retrying
+on the others up to the max retries. Preheating fails when the available seed
+peers are fewer than the replicas, while downloading clamps the replicas to
+the available seed peers. The default replicas is 2:
+
+```rust
+use dragonfly_client_request::PreheatRequest;
+
+proxy
+    .preheat(&PreheatRequest {
+        url: "https://example.com/file.txt".to_string(),
+        replicas: 3,
+        ..Default::default()
+    })
+    .await?;
+
+let response = proxy
+    .get(&GetRequest {
+        url: "https://example.com/file.txt".to_string(),
+        replicas: 3,
+        ..Default::default()
+    })
+    .await?;
+```
+
+Look up the endpoints of the seed peers serving a request, then download from
+the looked-up endpoints directly, scattering the request across them:
+
+```rust
+let request = GetRequest {
+    url: "https://example.com/file.txt".to_string(),
+    ..Default::default()
+};
+
+let endpoints = proxy.lookup_endpoints(&request).await?;
+let response = proxy.get_with_endpoints(&endpoints, &request).await?;
+
+// Or write the response body directly into a buffer:
+// let response = proxy.get_into_with_endpoints(&endpoints, &request, &mut buf).await?;
+```
+
+The `preheat` feature enables preheating OCI images by resolving manifests from
+the registry and triggering seed peers to download each blob:
+
+```toml
+[dependencies]
+dragonfly-client-request = { version = "1.5.0", features = ["preheat"] }
+```
+
+```rust
+use dragonfly_client_request::PreheatImageRequest;
+
+proxy
+    .preheat_image(&PreheatImageRequest {
+        image: "docker.io/library/nginx:latest".to_string(),
+        ..Default::default()
+    })
+    .await?;
+```
+
+For more details, please refer to [dragonfly-client-request](https://crates.io/crates/dragonfly-client-request)
+and the [runnable examples](https://github.com/dragonflyoss/dragonfly-sdk/tree/main/client-request/rust/examples).
+
+### Go
+
+Install the package:
+
+```console
+go get d7y.io/dragonfly-sdk/client-request/go
+```
+
+Send a GET request via the Dragonfly:
+
+```go
+import (
+    "context"
+
+    request "d7y.io/dragonfly-sdk/client-request/go"
+)
+
+func main() {
+    ctx := context.Background()
+    proxy, err := request.New(ctx, "http://127.0.0.1:8002")
+    if err != nil {
+        panic(err)
+    }
+    defer proxy.Close()
+
+    resp, err := proxy.Get(ctx, request.NewGetRequest("https://example.com/file.txt"))
+    if err != nil {
+        panic(err)
+    }
+    defer resp.Body.Close()
+    // Read resp.Body...
+}
+```
+
+Optional request parameters are set with `With*` options:
+
+```go
+req := request.NewGetRequest(
+    "https://example.com/file.txt",
+    request.WithGetRequestTag("tag"),
+    request.WithGetRequestApplication("app"),
+    request.WithGetRequestTimeout(30*time.Second),
+)
+```
+
+Preheat a file or an OCI image to the seed peers:
+
+```go
+if err := proxy.Preheat(ctx, request.NewPreheatRequest("https://example.com/file.txt")); err != nil {
+    panic(err)
+}
+
+if err := proxy.PreheatImage(ctx, request.NewPreheatImageRequest("docker.io/library/nginx:latest")); err != nil {
+    panic(err)
+}
+```
+
+Preheat with multiple replicas and scatter downloads across them:
+
+```go
+if err := proxy.Preheat(ctx, request.NewPreheatRequest("https://example.com/file.txt", request.WithPreheatRequestReplicas(3))); err != nil {
+    panic(err)
+}
+
+resp, err := proxy.Get(ctx, request.NewGetRequest("https://example.com/file.txt", request.WithGetRequestReplicas(3)))
+if err != nil {
+    panic(err)
+}
+defer resp.Body.Close()
+```
+
+Look up the endpoints of the seed peers serving a request, then download from
+the looked-up endpoints directly, scattering the request across them:
+
+```go
+req := request.NewGetRequest("https://example.com/file.txt")
+endpoints, err := proxy.LookupEndpoints(ctx, req)
+if err != nil {
+    panic(err)
+}
+
+resp, err := proxy.GetWithEndpoints(ctx, endpoints, req)
+if err != nil {
+    panic(err)
+}
+defer resp.Body.Close()
+
+// Or write the response body directly into a writer:
+// resp, err := proxy.GetIntoWithEndpoints(ctx, endpoints, req, w)
+```
+
+For more details, please refer to [pkg.go.dev](https://pkg.go.dev/d7y.io/dragonfly-sdk/client-request/go)
+and the [runnable examples](https://github.com/dragonflyoss/dragonfly-sdk/tree/main/client-request/go/examples).
