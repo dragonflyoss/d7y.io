@@ -61,7 +61,7 @@ Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-dragonfly-client-request = "1.5.0"
+dragonfly-client-request = "1.6.0"
 ```
 
 Send a GET request via the Dragonfly and process the response body as a stream:
@@ -133,20 +133,29 @@ let response = proxy
     .await?;
 ```
 
-Look up the endpoints of the seed peers serving a request, then download from
-the looked-up endpoints directly, scattering the request across them:
+Look up the endpoints of the seed peers serving a request, then create a proxy
+bound to those endpoints and download from them directly, scattering the
+request across them. The endpoints proxy keeps a client with a reusable
+connection pool per endpoint and doesn't sync seed peers from the scheduler:
 
 ```rust
+use dragonfly_client_request::{ProxyWithEndpoints, RequestWithEndpoints};
+
 let request = GetRequest {
     url: "https://example.com/file.txt".to_string(),
     ..Default::default()
 };
 
 let endpoints = proxy.lookup_endpoints(&request).await?;
-let response = proxy.get_with_endpoints(&endpoints, &request).await?;
+let proxy_with_endpoints = ProxyWithEndpoints::builder()
+    .endpoints(endpoints)
+    .build()
+    .await?;
+
+let response = proxy_with_endpoints.get(&request).await?;
 
 // Or write the response body directly into a buffer:
-// let response = proxy.get_into_with_endpoints(&endpoints, &request, &mut buf).await?;
+// let response = proxy_with_endpoints.get_into(&request, &mut buf).await?;
 ```
 
 The `preheat` feature enables preheating OCI images by resolving manifests from
@@ -154,7 +163,7 @@ the registry and triggering seed peers to download each blob:
 
 ```toml
 [dependencies]
-dragonfly-client-request = { version = "1.5.0", features = ["preheat"] }
+dragonfly-client-request = { version = "1.6.0", features = ["preheat"] }
 ```
 
 ```rust
@@ -242,8 +251,10 @@ if err != nil {
 defer resp.Body.Close()
 ```
 
-Look up the endpoints of the seed peers serving a request, then download from
-the looked-up endpoints directly, scattering the request across them:
+Look up the endpoints of the seed peers serving a request, then create a proxy
+bound to those endpoints and download from them directly, scattering the
+request across them. The endpoints proxy keeps a client with a reusable
+connection pool per endpoint and doesn't sync seed peers from the scheduler:
 
 ```go
 req := request.NewGetRequest("https://example.com/file.txt")
@@ -252,14 +263,19 @@ if err != nil {
     panic(err)
 }
 
-resp, err := proxy.GetWithEndpoints(ctx, endpoints, req)
+proxyWithEndpoints, err := request.NewWithEndpoints(endpoints)
+if err != nil {
+    panic(err)
+}
+
+resp, err := proxyWithEndpoints.Get(ctx, req)
 if err != nil {
     panic(err)
 }
 defer resp.Body.Close()
 
 // Or write the response body directly into a writer:
-// resp, err := proxy.GetIntoWithEndpoints(ctx, endpoints, req, w)
+// resp, err := proxyWithEndpoints.GetInto(ctx, req, w)
 ```
 
 For more details, please refer to [pkg.go.dev](https://pkg.go.dev/d7y.io/dragonfly-sdk/client-request/go)
