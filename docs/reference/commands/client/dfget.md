@@ -215,6 +215,29 @@ dfget modelscope://datasets/<owner>/<repo>/<path> -O /tmp/train.json
 
 <!-- markdownlint-restore -->
 
+#### Download with OpenCSG protocol
+
+<!-- markdownlint-disable -->
+
+```shell
+# Download a single file from a model repository.
+dfget opencsg://models/<owner>/<repo>/<path> -O /tmp/model.safetensors
+
+# Download a single file with authentication for private repositories.
+dfget opencsg://models/<owner>/<repo>/<path> -O /tmp/model.safetensors --csg-token=<token>
+
+# Download an entire repository.
+dfget opencsg://models/<owner>/<repo> -O /tmp/repo/ --recursive
+
+# Download an entire repository from OpenCSG Hub with specified revision. If the revision is not specified, the default value is `main`.
+$ dfget opencsg://models/<owner>/<repo> --csg-revision main -O /tmp/repo/ -r
+
+# Download a file from a dataset repository.
+dfget opencsg://datasets/<owner>/<repo>/<path> -O /tmp/train.json
+```
+
+<!-- markdownlint-restore -->
+
 ## Log {#log}
 
 ```text
