@@ -45,8 +45,8 @@ For example, when Nydus downloads layer chunks via HTTP Range requests through K
 ## SDKs
 
 The SDKs are maintained in the [dragonfly-sdk](https://github.com/dragonflyoss/dragonfly-sdk) repository,
-sending requests to remote servers via the Dragonfly P2P network, supporting streaming and buffered GET requests
-and preheating files or OCI images through seed peers.
+sending requests to remote servers via the Dragonfly P2P network, supporting streaming and buffered GET requests,
+preheating files or OCI images through seed peers, and querying the distribution of OCI images in the seed peers.
 
 | Package                                                                                                        | Description                                                                                                            |
 | :------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
@@ -61,7 +61,7 @@ Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-dragonfly-client-request = "1.6.0"
+dragonfly-client-request = "1.6.1"
 ```
 
 Send a GET request via the Dragonfly and process the response body as a stream:
@@ -159,11 +159,12 @@ let response = proxy_with_endpoints.get(&request).await?;
 ```
 
 The `preheat` feature enables preheating OCI images by resolving manifests from
-the registry and triggering seed peers to download each blob:
+the registry and triggering seed peers to download each blob, and querying the
+distribution of an OCI image with the layers cached by each seed peer:
 
 ```toml
 [dependencies]
-dragonfly-client-request = { version = "1.6.0", features = ["preheat"] }
+dragonfly-client-request = { version = "1.6.1", features = ["preheat"] }
 ```
 
 ```rust
@@ -175,6 +176,37 @@ proxy
         ..Default::default()
     })
     .await?;
+```
+
+Query the distribution of an OCI image, listing the layers cached by each
+seed peer, such as verifying a preheat:
+
+```rust
+use dragonfly_client_request::StatImageRequest;
+
+let response = proxy
+    .stat_image(&StatImageRequest {
+        image: "docker.io/library/nginx:latest".to_string(),
+        ..Default::default()
+    })
+    .await?;
+
+println!("image has {} layers", response.layers.len());
+for peer in response.peers.iter() {
+    let finished = peer
+        .cached_layers
+        .iter()
+        .filter(|layer| layer.is_finished)
+        .count();
+
+    println!(
+        "peer {} ({}) finished {} of {} cached layers",
+        peer.hostname,
+        peer.ip,
+        finished,
+        peer.cached_layers.len()
+    );
+}
 ```
 
 For more details, please refer to [dragonfly-client-request](https://crates.io/crates/dragonfly-client-request)
@@ -234,6 +266,28 @@ if err := proxy.Preheat(ctx, request.NewPreheatRequest("https://example.com/file
 
 if err := proxy.PreheatImage(ctx, request.NewPreheatImageRequest("docker.io/library/nginx:latest")); err != nil {
     panic(err)
+}
+```
+
+Query the distribution of an OCI image, listing the layers cached by each
+seed peer, such as verifying a preheat:
+
+```go
+resp, err := proxy.StatImage(ctx, request.NewStatImageRequest("docker.io/library/nginx:latest"))
+if err != nil {
+    panic(err)
+}
+
+fmt.Printf("image has %d layers\n", len(resp.Layers))
+for _, peer := range resp.Peers {
+    var finished int
+    for _, layer := range peer.CachedLayers {
+        if layer.IsFinished {
+            finished++
+        }
+    }
+
+    fmt.Printf("peer %s (%s) finished %d of %d cached layers\n", peer.Hostname, peer.IP, finished, len(peer.CachedLayers))
 }
 ```
 
