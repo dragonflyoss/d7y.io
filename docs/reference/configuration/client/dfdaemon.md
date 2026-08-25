@@ -212,6 +212,10 @@ storage:
   readBufferSize: 524288
   # writePieceTimeout is the timeout for writing a piece to storage(e.g., disk or cache).
   writePieceTimeout: 360s
+  # writebackMode is the mode of initiating writeback of written piece ranges to disk.
+  # sync awaits sync_file_range per piece write, async enqueues ranges to a dedicated
+  # background task and off leaves writeback to the kernel, default is async.
+  writebackMode: async
   server:
     # port is the port to the quic server.
     quicPort: 4006
