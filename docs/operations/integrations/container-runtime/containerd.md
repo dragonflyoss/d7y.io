@@ -337,6 +337,52 @@ Restart containerd:
 systemctl restart containerd
 ```
 
+### Specify the containerd CRI plugin {#specify-the-containerd-cri-plugin}
+
+Dfinit writes the registry configuration under the CRI plugin table of `config.toml`. By default,
+dfinit uses the plugin table present in the containerd configuration, preferring
+`io.containerd.grpc.v1.cri` for version 2 configurations and `io.containerd.cri.v1.images` for
+version 3 configurations. This also covers version 2 configurations shipped with the containerd 2.x
+`io.containerd.cri.v1.images` plugin, e.g. AKS.
+
+If your containerd configuration contains both plugin tables, set `criPluginId` to override the
+detection. Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
+Please refer to the [configuration](https://artifacthub.io/packages/helm/dragonfly/dragonfly#values) documentation for details.
+
+```yaml
+scheduler:
+  image:
+    repository: dragonflyoss/scheduler
+    tag: latest
+  metrics:
+    enable: true
+
+seedClient:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+
+client:
+  image:
+    repository: dragonflyoss/client
+    tag: latest
+  metrics:
+    enable: true
+  dfinit:
+    enable: true
+    image:
+      repository: dragonflyoss/dfinit
+      tag: latest
+    config:
+      containerRuntime:
+        containerd:
+          configPath: /etc/containerd/config.toml
+          criPluginId: io.containerd.cri.v1.images
+          proxyAllRegistries: true
+```
+
 ### Private project {#private-project}
 
 Deploy using Helm Charts and create the Helm Charts configuration file `values.yaml`.
