@@ -70,6 +70,7 @@ module.exports = {
             'operations/integrations/harbor',
             'operations/integrations/hugging-face',
             'operations/integrations/model-scope',
+            'operations/integrations/opencsg',
             'operations/integrations/git-lfs',
             'operations/integrations/torchserve',
             'operations/integrations/triton-server',
