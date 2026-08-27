@@ -159,12 +159,13 @@ let response = proxy_with_endpoints.get(&request).await?;
 ```
 
 The `preheat` feature enables preheating OCI images by resolving manifests from
-the registry and triggering seed peers to download each blob, and querying the
+the registry and triggering seed peers to download the matched platform
+manifests (referenced by their digests) and each blob, and querying the
 distribution of an OCI image with the layers cached by each seed peer:
 
 ```toml
 [dependencies]
-dragonfly-client-request = { version = "1.6.1", features = ["preheat"] }
+dragonfly-client-request = { version = "1.6.2", features = ["preheat"] }
 ```
 
 ```rust

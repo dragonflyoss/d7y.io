@@ -64,7 +64,9 @@ Preheat a file task to 3 replicas of the seed peers in request SDK mode.
 dfctl task preheat http://example.com/file.txt --scheduler-endpoint http://scheduler-service:8002 --request-sdk --replicas 3
 ```
 
-Preheat a image task in request SDK mode.
+Preheat a image task in request SDK mode. It preheats the matched platform
+manifests (referenced by their digests) and each blob (config and layers) to
+the seed peers.
 
 ```shell
 dfctl task preheat oci://docker.io/library/nginx:latest --scheduler-endpoint http://scheduler-service:8002 --request-sdk --username <USERNAME>  --password <PASSWORD>
