@@ -86,7 +86,9 @@ download:
   # collectedPieceTimeout is the timeout for collecting one piece from the parent in the stream.
   collectedPieceTimeout: 360s
   # concurrentPieceCount is the number of concurrent pieces to download.
-  concurrentPieceCount: 32
+  concurrentPieceCount: 8
+  # backToSourceConcurrentPieceCount is the number of concurrent pieces to download from source.
+  backToSourceConcurrentPieceCount: 8
 
 upload:
   server:

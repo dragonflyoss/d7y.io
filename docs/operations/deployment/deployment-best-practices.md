@@ -93,7 +93,7 @@ Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.
 
 ```yaml
 upload:
-  # -- bandwidthLimit is the default bandwidth limit of the upload speed in KB/MB/GB per second, default is 50GB/s.
+  # bandwidthLimit is the default bandwidth limit of the upload speed in KB/MB/GB per second, default is 50GB/s.
   bandwidthLimit: 50GB
 ```
 
@@ -107,7 +107,7 @@ Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.
 
 ```yaml
 download:
-  # -- bandwidthLimit is the default bandwidth limit of the download speed in KB/MB/GB per second, default is 50GB/s.
+  # bandwidthLimit is the default bandwidth limit of the download speed in KB/MB/GB per second, default is 50GB/s.
   bandwidthLimit: 50GB
 ```
 
@@ -122,8 +122,10 @@ Please refer to [dfdaemon config](../../reference/configuration/client/dfdaemon.
 
 ```yaml
 download:
-  # -- concurrentPieceCount is the number of concurrent pieces to download.
-  concurrentPieceCount: 10
+  # concurrentPieceCount is the number of concurrent pieces to download.
+  concurrentPieceCount: 8
+  # backToSourceConcurrentPieceCount is the number of concurrent pieces to download from source.
+  backToSourceConcurrentPieceCount: 8
 ```
 
 ### GC
