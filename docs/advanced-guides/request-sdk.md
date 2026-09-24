@@ -46,7 +46,8 @@ For example, when Nydus downloads layer chunks via HTTP Range requests through K
 
 The SDKs are maintained in the [dragonfly-sdk](https://github.com/dragonflyoss/dragonfly-sdk) repository,
 sending requests to remote servers via the Dragonfly P2P network, supporting streaming and buffered GET requests,
-preheating files or OCI images through seed peers, and querying the distribution of OCI images in the seed peers.
+preheating files or OCI images through seed peers, querying the distribution of OCI images in the seed peers,
+and deleting preheated files or OCI images from the seed peers.
 
 | Package                                                                                                        | Description                                                                                                            |
 | :------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
@@ -133,6 +134,31 @@ let response = proxy
     .await?;
 ```
 
+Preheat to all seed peers regardless of the replicas with the all seed peers
+scope, aligned with the `all_seed_peers` scope of the manager preheat job, so
+any seed peer a download picks holds the file. Delete with the same scope to
+remove the file from every seed peer:
+
+```rust
+use dragonfly_client_request::{DeleteRequest, PreheatRequest, Scope};
+
+proxy
+    .preheat(&PreheatRequest {
+        url: "https://example.com/file.txt".to_string(),
+        scope: Scope::AllSeedPeers,
+        ..Default::default()
+    })
+    .await?;
+
+proxy
+    .delete(&DeleteRequest {
+        url: "https://example.com/file.txt".to_string(),
+        scope: Scope::AllSeedPeers,
+        ..Default::default()
+    })
+    .await?;
+```
+
 Look up the endpoints of the seed peers serving a request, then create a proxy
 bound to those endpoints and download from them directly, scattering the
 request across them. The endpoints proxy keeps a client with a reusable
@@ -160,12 +186,13 @@ let response = proxy_with_endpoints.get(&request).await?;
 
 The `preheat` feature enables preheating OCI images by resolving manifests from
 the registry and triggering seed peers to download the matched platform
-manifests (referenced by their digests) and each blob, and querying the
-distribution of an OCI image with the layers cached by each seed peer:
+manifests (referenced by their digests) and each blob, querying the
+distribution of an OCI image with the layers cached by each seed peer, and
+deleting a preheated OCI image from the seed peers:
 
 ```toml
 [dependencies]
-dragonfly-client-request = { version = "1.6.2", features = ["preheat"] }
+dragonfly-client-request = { version = "1.9.0", features = ["preheat"] }
 ```
 
 ```rust
@@ -208,6 +235,30 @@ for peer in response.peers.iter() {
         peer.cached_layers.len()
     );
 }
+```
+
+Delete a preheated file or an OCI image from the seed peers, `delete_image`
+needing the `preheat` feature. The request should carry the parameters the
+preheat used, such as the replicas and the platform, so the delete addresses
+the same tasks and seed peers. A seed peer answering `NotFound` for a task
+counts as deleted:
+
+```rust
+use dragonfly_client_request::{DeleteImageRequest, DeleteRequest};
+
+proxy
+    .delete(&DeleteRequest {
+        url: "https://example.com/file.txt".to_string(),
+        ..Default::default()
+    })
+    .await?;
+
+proxy
+    .delete_image(&DeleteImageRequest {
+        image: "docker.io/library/nginx:latest".to_string(),
+        ..Default::default()
+    })
+    .await?;
 ```
 
 For more details, please refer to [dragonfly-client-request](https://crates.io/crates/dragonfly-client-request)
@@ -292,6 +343,21 @@ for _, peer := range resp.Peers {
 }
 ```
 
+Delete a preheated file or an OCI image from the seed peers. The request
+should carry the parameters the preheat used, such as the replicas and the
+platform, so the delete addresses the same tasks and seed peers. A seed peer
+answering `NotFound` for a task counts as deleted:
+
+```go
+if err := proxy.Delete(ctx, request.NewDeleteRequest("https://example.com/file.txt")); err != nil {
+    panic(err)
+}
+
+if err := proxy.DeleteImage(ctx, request.NewDeleteImageRequest("docker.io/library/nginx:latest")); err != nil {
+    panic(err)
+}
+```
+
 Preheat with multiple replicas and scatter downloads across them:
 
 ```go
@@ -304,6 +370,21 @@ if err != nil {
     panic(err)
 }
 defer resp.Body.Close()
+```
+
+Preheat to all seed peers regardless of the replicas with the all seed peers
+scope, aligned with the `all_seed_peers` scope of the manager preheat job, so
+any seed peer a download picks holds the file. Delete with the same scope to
+remove the file from every seed peer:
+
+```go
+if err := proxy.Preheat(ctx, request.NewPreheatRequest("https://example.com/file.txt", request.WithPreheatRequestScope(request.ScopeAllSeedPeers))); err != nil {
+    panic(err)
+}
+
+if err := proxy.Delete(ctx, request.NewDeleteRequest("https://example.com/file.txt", request.WithDeleteRequestScope(request.ScopeAllSeedPeers))); err != nil {
+    panic(err)
+}
 ```
 
 Look up the endpoints of the seed peers serving a request, then create a proxy
