@@ -20,6 +20,31 @@ const config = {
   organizationName: 'dragonflyoss', // Usually your GitHub org/user name.
   projectName: 'd7y.io', // Usually your repo name.
   clientModules: [require.resolve('./src/clientModules.js')],
+  scripts: [
+    {
+      // Ask AI assistant powered by kapa.ai (provided via CNCF).
+      src: 'https://widget.kapa.ai/kapa-widget.bundle.js',
+      async: true,
+      'data-website-id': '366734e9-39a3-48f2-82f5-79fe10f9033a',
+      'data-project-name': 'Dragonfly',
+      'data-project-color': '#239b56',
+      'data-project-logo': 'https://d7y.io/img/logo.svg',
+      'data-modal-title': 'Dragonfly Assistant',
+      'data-modal-ask-ai-button-text': 'Ask AI',
+      'data-modal-open-on-command-k': 'true',
+      'data-modal-example-questions':
+        'How do I install Dragonfly with Helm?,' +
+        'How do I configure containerd to use Dragonfly?,' +
+        'What are the roles of manager, scheduler and dfdaemon?,' +
+        'How do I preheat an image?',
+      'data-modal-disclaimer':
+        'This AI assistant answers questions about **Dragonfly** based on d7y.io docs and GitHub. ' +
+        'Please verify important information against the official documentation.',
+      'data-answer-cta-button-enabled': 'true',
+      'data-answer-cta-button-text': 'Need more help? Ask a human!',
+      'data-answer-cta-button-link': 'https://github.com/dragonflyoss/dragonfly/discussions/new?category=q-a',
+    },
+  ],
   presets: [
     [
       'classic',
