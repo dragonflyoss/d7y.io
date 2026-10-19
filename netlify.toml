@@ -7,6 +7,17 @@ NODE_VERSION = "20"
 NPM_FLAGS = "--version"
 
 [[redirects]]
+  from = "/hashring"
+  to = "/hashring/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/hashring/"
+  to = "/hashring/index.html"
+  status = 200
+
+[[redirects]]
   from = "/snapshotter"
   to = "/snapshotter/index.html"
   status = 200
