@@ -305,12 +305,12 @@ proxy:
   # regex matches the request url applies.
   # - regex: the regular expression matched against the request url.
   # - schedulingPolicy: how the download interacts with the scheduler, default is
-  #   "auto". "auto" downloads small files, whose content length is less than or
-  #   equal to the min piece length, from the source directly, skipping the
-  #   scheduler. "always" downloads through the scheduler even for small files,
-  #   so that the peer announces the task to the scheduler and other peers can
-  #   discover it as a parent. It is useful for sharing small artifacts, such as
-  #   OCI image manifests.
+  #   "auto". "auto" downloads small files and small range requests, whose
+  #   content length or range length is less than or equal to 16MiB, from the
+  #   source directly, skipping the scheduler. "always" downloads through the
+  #   scheduler even for small files, so that the peer announces the task to the
+  #   scheduler and other peers can discover it as a parent. It is useful for
+  #   sharing small artifacts, such as OCI image manifests.
   # - useTLS: whether to use tls when the proxy connects to the backend.
   # - redirect: the url to redirect the request to.
   # - filteredQueryParams: the query params ignored when generating the task id.
