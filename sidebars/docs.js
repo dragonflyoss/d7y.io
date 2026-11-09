@@ -143,6 +143,7 @@ module.exports = {
           items: [
             'reference/configuration/manager',
             'reference/configuration/scheduler',
+            'reference/configuration/injector',
             {
               type: 'category',
               label: 'Client',
