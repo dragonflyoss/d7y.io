@@ -62,7 +62,7 @@ Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-dragonfly-client-request = "1.6.1"
+dragonfly-client-request = "1.13.0"
 ```
 
 Send a GET request via the Dragonfly and process the response body as a stream:
@@ -185,14 +185,15 @@ let response = proxy_with_endpoints.get(&request).await?;
 ```
 
 The `preheat` feature enables preheating OCI images by resolving manifests from
-the registry and triggering seed peers to download the matched platform
-manifests (referenced by their digests) and each blob, querying the
-distribution of an OCI image with the layers cached by each seed peer, and
-deleting a preheated OCI image from the seed peers:
+the registry and triggering seed peers to download the manifests (referenced by
+their digests) and each blob, querying the distribution of an OCI image with
+the layers cached by each seed peer, and deleting a preheated OCI image from
+the seed peers. An image is preheated for all its platforms unless a platform
+is set:
 
 ```toml
 [dependencies]
-dragonfly-client-request = { version = "1.9.0", features = ["preheat"] }
+dragonfly-client-request = { version = "1.13.0", features = ["preheat"] }
 ```
 
 ```rust
@@ -238,10 +239,11 @@ for peer in response.peers.iter() {
 ```
 
 Delete a preheated file or an OCI image from the seed peers, `delete_image`
-needing the `preheat` feature. The request should carry the parameters the
-preheat used, such as the replicas, the scope and the platform, so the delete
-addresses the same tasks and seed peers. A seed peer answering `NotFound` for a
-task counts as deleted:
+needing the `preheat` feature. A file delete should carry the parameters the
+preheat used, such as the replicas and the scope, so it addresses the same task
+and seed peers, and a seed peer answering `NotFound` counts as deleted. An image
+is deleted from all healthy seed peers, for all its platforms unless a platform
+is set, and a task still referenced by another image or platform is retained:
 
 ```rust
 use dragonfly_client_request::{DeleteImageRequest, DeleteRequest};
@@ -253,12 +255,22 @@ proxy
     })
     .await?;
 
-proxy
+let response = proxy
     .delete_image(&DeleteImageRequest {
         image: "docker.io/library/nginx:latest".to_string(),
         ..Default::default()
     })
     .await?;
+
+for peer in response.peers {
+    println!(
+        "peer {} ({}) deleted {} tasks and retained {} tasks",
+        peer.hostname,
+        peer.ip,
+        peer.deleted_task_ids.len(),
+        peer.retained_task_ids.len()
+    );
+}
 ```
 
 For more details, please refer to [dragonfly-client-request](https://crates.io/crates/dragonfly-client-request)
@@ -309,7 +321,8 @@ req := request.NewGetRequest(
 )
 ```
 
-Preheat a file or an OCI image to the seed peers:
+Preheat a file or an OCI image to the seed peers. An image is preheated for all
+its platforms unless a platform is set:
 
 ```go
 if err := proxy.Preheat(ctx, request.NewPreheatRequest("https://example.com/file.txt")); err != nil {
@@ -343,18 +356,25 @@ for _, peer := range resp.Peers {
 }
 ```
 
-Delete a preheated file or an OCI image from the seed peers. The request
-should carry the parameters the preheat used, such as the replicas, the scope
-and the platform, so the delete addresses the same tasks and seed peers. A seed
-peer answering `NotFound` for a task counts as deleted:
+Delete a preheated file or an OCI image from the seed peers. A file delete
+should carry the parameters the preheat used, such as the replicas and the
+scope, so it addresses the same task and seed peers, and a seed peer answering
+`NotFound` counts as deleted. An image is deleted from all healthy seed peers,
+for all its platforms unless a platform is set, and a task still referenced by
+another image or platform is retained:
 
 ```go
 if err := proxy.Delete(ctx, request.NewDeleteRequest("https://example.com/file.txt")); err != nil {
     panic(err)
 }
 
-if err := proxy.DeleteImage(ctx, request.NewDeleteImageRequest("docker.io/library/nginx:latest")); err != nil {
+resp, err := proxy.DeleteImage(ctx, request.NewDeleteImageRequest("docker.io/library/nginx:latest"))
+if err != nil {
     panic(err)
+}
+
+for _, peer := range resp.Peers {
+    fmt.Printf("peer %s (%s) deleted %d tasks and retained %d tasks\n", peer.Hostname, peer.IP, len(peer.DeletedTaskIDs), len(peer.RetainedTaskIDs))
 }
 ```
 
