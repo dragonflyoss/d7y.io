@@ -62,7 +62,7 @@ Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-dragonfly-client-request = "1.13.0"
+dragonfly-client-request = "1.14.0"
 ```
 
 Send a GET request via the Dragonfly and process the response body as a stream:
@@ -193,7 +193,7 @@ is set:
 
 ```toml
 [dependencies]
-dragonfly-client-request = { version = "1.13.0", features = ["preheat"] }
+dragonfly-client-request = { version = "1.14.0", features = ["preheat"] }
 ```
 
 ```rust
