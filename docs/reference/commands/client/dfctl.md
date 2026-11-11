@@ -23,6 +23,15 @@ Delete a task in client's local storage.
 dfctl task rm <ID>
 ```
 
+Delete the tasks of a preheated image in client's local storage. The tasks referenced by other images are
+retained, and all the platforms of the image are deleted unless `--platform` is set.
+
+```shell
+dfctl task rm oci://docker.io/library/nginx:latest
+
+dfctl task rm oci://docker.io/library/nginx:latest --platform linux/amd64
+```
+
 Preheat a file task or an image task in advance, so that later downloads hit the cache of the peers.
 `dfctl task preheat` supports two modes:
 
@@ -46,10 +55,16 @@ dfctl task preheat http://example.com/file.txt --scheduler-endpoint http://sched
 
 <!-- markdownlint-disable -->
 
-Preheat a image task in scheduler gRPC mode.
+Preheat a image task in scheduler gRPC mode. It preheats all the platforms of the image unless `--platform` is set.
 
 ```shell
 dfctl task preheat oci://docker.io/library/nginx:latest --scheduler-endpoint http://scheduler-service:8002 --username <USERNAME>  --password <PASSWORD>
+```
+
+Preheat the linux/amd64 platform of a image task in scheduler gRPC mode.
+
+```shell
+dfctl task preheat oci://docker.io/library/nginx:latest --scheduler-endpoint http://scheduler-service:8002 --platform linux/amd64
 ```
 
 Preheat a file task to 50% of the available peers in scheduler gRPC mode.
@@ -64,9 +79,9 @@ Preheat a file task to 3 replicas of the seed peers in request SDK mode.
 dfctl task preheat http://example.com/file.txt --scheduler-endpoint http://scheduler-service:8002 --request-sdk --replicas 3
 ```
 
-Preheat a image task in request SDK mode. It preheats the matched platform
-manifests (referenced by their digests) and each blob (config and layers) to
-the seed peers.
+Preheat a image task in request SDK mode. It preheats the manifests (referenced
+by their digests) and each blob (config and layers) to the seed peers, for all
+the platforms of the image unless `--platform` is set.
 
 ```shell
 dfctl task preheat oci://docker.io/library/nginx:latest --scheduler-endpoint http://scheduler-service:8002 --request-sdk --username <USERNAME>  --password <PASSWORD>

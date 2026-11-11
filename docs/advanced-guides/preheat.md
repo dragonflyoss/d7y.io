@@ -25,7 +25,7 @@ Preheat a file task:
 dfctl task preheat https://example.com/file.txt --scheduler-endpoint http://scheduler-service:8002
 ```
 
-Preheat an image task:
+Preheat an image task, all the platforms of the image are preheated unless `--platform` is set:
 
 <!-- markdownlint-disable -->
 
